@@ -47,6 +47,14 @@ export const currentMonthName = new Date().toLocaleString("default", {
   month: "long",
 });
 
+export const previousMonthName = new Date(
+  currentYear,
+  currentMonth,
+  0
+).toLocaleString("default", {
+  month: "long",
+});
+
 export const previousMonthNumberOfDays = new Date(
   currentYear,
   currentMonth,
@@ -59,4 +67,12 @@ export const currentMonthNumberOfDays = new Date(
   0
 ).getDate();
 
-export const currentMonthDays = [...Array(currentMonthNumberOfDays).keys()];
+const monthDays = [...Array(currentMonthNumberOfDays).keys()];
+// export const currentMonthDays = Array.from(
+//   Array(currentMonthNumberOfDays),
+//   (currentMonthNumberOfDays) => currentMonthNumberOfDays + 1
+// );
+export const currentMonthDays = monthDays.map((day) => ({
+  month: currentMonthName,
+  day: day + 1,
+}));

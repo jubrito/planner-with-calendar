@@ -5,6 +5,7 @@ import {
   currentMonthName,
   currentMonthNumberOfDays,
   currentYear,
+  previousMonthName,
   previousMonthNumberOfDays,
   weekDays,
   weekDaysWithAbbreviation,
@@ -60,17 +61,14 @@ const Calendar = () => {
     const numberOfDaysOfPreviousMonth =
       numOfDaysFromPreviousMonthOnCurrentCalendar();
 
-    console.log("lastDayOfPreviousMonth", lastDayOfPreviousMonth);
-    console.log("numberOfDaysOfPreviousMonth", numberOfDaysOfPreviousMonth);
     for (let i = 0; i < numberOfDaysOfPreviousMonth; i++) {
-      // console.log("i", i);
-      console.log("lastDayOfPreviousMonth - i", lastDayOfPreviousMonth - i);
-      filledArray.unshift(lastDayOfPreviousMonth - i);
+      filledArray.unshift({
+        month: previousMonthName,
+        day: lastDayOfPreviousMonth - i,
+      });
     }
     return filledArray;
   };
-  console.log("filledCurrentMonthDays()", filledCurrentMonthDays());
-  console.log("currentMonthDays", currentMonthDays);
 
   return (
     <section className={styles.calendar}>
@@ -87,8 +85,11 @@ const Calendar = () => {
       <div className={styles.daysContainer}>
         {filledCurrentMonthDays().map((filledCurrentMonthDay) => {
           return (
-            <div key={filledCurrentMonthDay} className={styles.dayCell}>
-              {filledCurrentMonthDay + 1}
+            <div
+              key={filledCurrentMonthDay.month + filledCurrentMonthDay.day}
+              className={styles.dayCell}
+            >
+              {filledCurrentMonthDay.day}
             </div>
           );
         })}
