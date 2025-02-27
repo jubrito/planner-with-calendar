@@ -3,8 +3,9 @@
 
 .calendar {
   grid-area: calendar;
-  background: lightgray;
+  border: variables.$small-gap solid black;
   margin-left: variables.$margin;
+  position: relative;
 }
 
 .monthLabel {
@@ -13,4 +14,26 @@
   height: $height;
   line-height: $height;
   padding-left: variables.$inner-spacing;
+}
+
+.weekDaysContainer {
+  display: flex;
+  padding: variables.$inner-spacing;
+  position: relative;
+  width: 100%;
+
+  .weekDays {
+    $numberOfWeekDays: 7;
+    $gaps-between-lables: variables.$small-gap * $numberOfWeekDays * 2;
+    $lateralPadding: 8px;
+    background: black;
+    padding: 5px $lateralPadding;
+    margin: variables.$small-gap;
+    width: calc(
+      (
+          100% - $gaps-between-lables - (variables.$inner-spacing * 2) -
+            ($lateralPadding * $numberOfWeekDays * 2)
+        ) / $numberOfWeekDays
+    );
+  }
 }
