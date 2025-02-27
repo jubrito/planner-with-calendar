@@ -35,5 +35,7 @@
             ($lateralPadding * $numberOfWeekDays * 2)
         ) / $numberOfWeekDays
     );
+    font-weight: bold;
+    text-transform: uppercase;
   }
 }
