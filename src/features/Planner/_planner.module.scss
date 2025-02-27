@@ -1,0 +1,7 @@
+@use "../../../styles/_variables.scss" as variables;
+
+.planner {
+  grid-area: planner;
+  background: purple;
+  margin-right: variables.$margin;
+}

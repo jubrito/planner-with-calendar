@@ -1,0 +1,11 @@
+.home {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 70px 300px 70px;
+  grid-row-gap: 10%;
+  grid-column-gap: 30px;
+  grid-template-areas:
+    "nav nav nav nav"
+    "calendar calendar planner planner"
+    "footer footer footer footer";
+}
