@@ -39,13 +39,23 @@ export const weekDaysWithAbbreviation = [
   WeekDaysNamesAbbreviations.SUN,
 ];
 
+export const currentYear = new Date().getFullYear();
+
+export const currentMonth = new Date().getMonth();
+
 export const currentMonthName = new Date().toLocaleString("default", {
   month: "long",
 });
 
+export const previousMonthNumberOfDays = new Date(
+  currentYear,
+  currentMonth,
+  0
+).getDate();
+
 export const currentMonthNumberOfDays = new Date(
-  new Date().getFullYear(),
-  new Date().getMonth() + 1,
+  currentYear,
+  currentMonth + 1,
   0
 ).getDate();
 
