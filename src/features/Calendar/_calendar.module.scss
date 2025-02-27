@@ -8,7 +8,9 @@
 }
 
 .monthLabel {
+  $height: 40px;
   background-color: variables.$main-color;
-  display: flex;
-  width: 100%;
+  height: $height;
+  line-height: $height;
+  padding-left: variables.$inner-spacing;
 }
