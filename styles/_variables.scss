@@ -3,3 +3,14 @@ $main-color: black;
 $margin: 15%;
 $inner-spacing: 15px;
 $small-gap: 5px;
+
+// Calendar
+$numberOfWeekDays: 7;
+$gaps-between-calendar-week-lables: $small-gap * $numberOfWeekDays * 2;
+$calendar-cel-lateral-padding: 8px;
+$calendar-cell-width: calc(
+  (
+      100% - $gaps-between-calendar-week-lables - ($inner-spacing * 2) -
+        ($calendar-cel-lateral-padding * $numberOfWeekDays * 2)
+    ) / $numberOfWeekDays
+);

@@ -23,18 +23,10 @@
   width: 100%;
 
   .weekDays {
-    $numberOfWeekDays: 7;
-    $gaps-between-lables: variables.$small-gap * $numberOfWeekDays * 2;
-    $lateralPadding: 8px;
     background: black;
-    padding: 5px $lateralPadding;
+    padding: 5px variables.$calendar-cel-lateral-padding;
     margin: variables.$small-gap;
-    width: calc(
-      (
-          100% - $gaps-between-lables - (variables.$inner-spacing * 2) -
-            ($lateralPadding * $numberOfWeekDays * 2)
-        ) / $numberOfWeekDays
-    );
+    width: variables.$calendar-cell-width;
     font-weight: bold;
     text-transform: uppercase;
   }
