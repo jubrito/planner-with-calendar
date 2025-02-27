@@ -1,4 +1,7 @@
-import { currentMonthName, weekDays } from "../../utils/constants";
+import {
+  currentMonthName,
+  weekDaysWithAbbreviation,
+} from "../../utils/constants";
 import styles from "./_calendar.module.scss";
 
 const Calendar = () => {
@@ -6,7 +9,7 @@ const Calendar = () => {
     <section className={styles.calendar}>
       <div className={styles.monthLabel}>{currentMonthName}</div>
       <div className={styles.weekDaysContainer}>
-        {weekDays.map((weekDay) => {
+        {weekDaysWithAbbreviation.map((weekDay) => {
           return (
             <div key={weekDay} className={styles.weekDays}>
               {weekDay}

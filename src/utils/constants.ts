@@ -1,18 +1,42 @@
-import { Months } from "./enums";
+import {
+  MonthsNames,
+  WeekDaysNames,
+  WeekDaysNamesAbbreviations,
+} from "./enums";
 
 export const months = [
-  Months.JANUARY,
-  Months.FEBRUARY,
-  Months.MARCH,
-  Months.APRIL,
-  Months.MAY,
-  Months.JUNE,
-  Months.JULY,
-  Months.AUGUST,
-  Months.SEPTEMBER,
-  Months.OCTOBER,
-  Months.NOVEMBER,
-  Months.DECEMBER,
+  MonthsNames.JANUARY,
+  MonthsNames.FEBRUARY,
+  MonthsNames.MARCH,
+  MonthsNames.APRIL,
+  MonthsNames.MAY,
+  MonthsNames.JUNE,
+  MonthsNames.JULY,
+  MonthsNames.AUGUST,
+  MonthsNames.SEPTEMBER,
+  MonthsNames.OCTOBER,
+  MonthsNames.NOVEMBER,
+  MonthsNames.DECEMBER,
+];
+
+export const weekDays = [
+  WeekDaysNames.MONDAY,
+  WeekDaysNames.TUESDAY,
+  WeekDaysNames.WEDNESDAY,
+  WeekDaysNames.THURSDAY,
+  WeekDaysNames.FRIDAY,
+  WeekDaysNames.SATURDAY,
+  WeekDaysNames.SUNDAY,
+];
+
+export const weekDaysWithAbbreviation = [
+  WeekDaysNamesAbbreviations.MON,
+  WeekDaysNamesAbbreviations.TUE,
+  WeekDaysNamesAbbreviations.WED,
+  WeekDaysNamesAbbreviations.THU,
+  WeekDaysNamesAbbreviations.FRI,
+  WeekDaysNamesAbbreviations.SAT,
+  WeekDaysNamesAbbreviations.SUN,
 ];
 
 export const currentMonthName = new Date().toLocaleString("default", {
