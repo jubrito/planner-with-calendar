@@ -42,3 +42,11 @@ export const weekDaysWithAbbreviation = [
 export const currentMonthName = new Date().toLocaleString("default", {
   month: "long",
 });
+
+export const currentMonthNumberOfDays = new Date(
+  new Date().getFullYear(),
+  new Date().getMonth() + 1,
+  0
+).getDate();
+
+export const currentMonthDays = [...Array(currentMonthNumberOfDays).keys()];

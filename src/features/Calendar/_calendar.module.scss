@@ -16,6 +16,12 @@
   padding-left: variables.$inner-spacing;
 }
 
+.calendarCell {
+  padding: 5px variables.$calendar-cel-lateral-padding;
+  margin: variables.$small-gap;
+  width: variables.$calendar-cell-width;
+}
+
 .weekDaysContainer {
   display: flex;
   padding: variables.$inner-spacing;
@@ -23,11 +29,23 @@
   width: 100%;
 
   .weekDays {
+    @extend .calendarCell;
     background: black;
-    padding: 5px variables.$calendar-cel-lateral-padding;
-    margin: variables.$small-gap;
-    width: variables.$calendar-cell-width;
     font-weight: bold;
     text-transform: uppercase;
+  }
+}
+
+.daysContainer {
+  display: flex;
+  flex-wrap: wrap;
+  padding: variables.$inner-spacing;
+  position: relative;
+  width: 100%;
+
+  .dayCell {
+    color: variables.$main-color;
+    @extend .calendarCell;
+    min-width: variables.$calendar-cell-width;
   }
 }
