@@ -4,8 +4,12 @@ import {
   currentMonthName,
   currentMonthNumberOfDays,
   currentYear,
+  nextMonth,
   nextMonthName,
+  nextMonthYear,
+  previousMonth,
   previousMonthName,
+  previousMonthYear,
   weekDays,
   weekDaysWithAbbreviation,
 } from "../../../utils/constants";
@@ -55,8 +59,9 @@ const CalendarCells = () => {
 
     for (let i = 0; i < numberOfDaysOfPreviousMonth; i++) {
       filledArray.unshift({
-        month: previousMonthName,
+        month: previousMonth,
         day: lastDayOfPreviousMonth - i,
+        year: previousMonthYear,
       });
     }
 
@@ -76,8 +81,9 @@ const CalendarCells = () => {
 
     for (let i = 0; i < numberOfDaysOfNextMonth; i++) {
       filledArray.push({
-        month: nextMonthName,
+        month: nextMonth,
         day: firstDayOfNextMonth + i,
+        year: nextMonthYear,
       });
     }
     return filledArray;
@@ -93,12 +99,13 @@ const CalendarCells = () => {
               : styles.otherMonthDay
           }`;
           return (
-            <div
+            <time
               key={filledCurrentMonthDay.month + filledCurrentMonthDay.day}
               className={combinedClasses}
+              dateTime={`${filledCurrentMonthDay.year}-${filledCurrentMonthDay.month}-${filledCurrentMonthDay.day}`}
             >
               {filledCurrentMonthDay.day}
-            </div>
+            </time>
           );
         }
       )}

@@ -6,13 +6,13 @@ const CalendarWeeks = () => {
     <div className={styles.weekDaysContainer}>
       {weekDaysWithAbbreviation.map((weekDay, weekDayIndex) => {
         return (
-          <div
+          <abbr
             key={weekDay}
             className={styles.weekDays}
-            aria-label={weekDays[weekDayIndex]}
+            title={weekDays[weekDayIndex]}
           >
-            <span aria-hidden="true">{weekDay}</span>
-          </div>
+            {weekDay}
+          </abbr>
         );
       })}
     </div>
