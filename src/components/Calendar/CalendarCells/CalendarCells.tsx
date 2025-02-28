@@ -8,6 +8,7 @@ import {
   numberOfDaysOfTheWeek,
   previousMonth,
   previousMonthYear,
+  today,
   weekDaysNames,
 } from "../../../utils/constants";
 import { WeekDays, WeekDaysShortNames } from "../../../utils/enums";
@@ -26,7 +27,7 @@ const CalendarCells = () => {
   };
 
   const getWeekDayNameWhenMonthStarts = (): WeekDaysShortNames => {
-    const firstDayOfTheMonthDate = new Date(currentYear, currentMonth, 1);
+    const firstDayOfTheMonthDate = new Date(currentYear, currentMonth - 1, 1);
     const dayOfWeek = firstDayOfTheMonthDate.getDay();
     return getDayName(dayOfWeek);
   };
@@ -46,7 +47,7 @@ const CalendarCells = () => {
   ) => weekDaysNames().findIndex((name) => weekDayName === name.short);
 
   const currentMonthDaysWithPreviousMonth = () => {
-    var date = new Date();
+    var date = new Date(today.getTime());
     date.setDate(0);
     const lastDayOfPreviousMonth = date.getDate();
     const filledArray = [...currentMonthDays];
