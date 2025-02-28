@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import CalendarWeeks from "../../components/CalendarWeeks/CalendarWeeks";
 import {
   currentMonth,
   currentMonthDays,
@@ -7,7 +7,6 @@ import {
   currentYear,
   nextMonthName,
   previousMonthName,
-  previousMonthNumberOfDays,
   weekDays,
   weekDaysWithAbbreviation,
 } from "../../utils/constants";
@@ -88,15 +87,7 @@ const Calendar = () => {
   return (
     <section className={styles.calendar}>
       <div className={styles.monthLabel}>{currentMonthName}</div>
-      <div className={styles.weekDaysContainer}>
-        {weekDaysWithAbbreviation.map((weekDay) => {
-          return (
-            <div key={weekDay} className={styles.weekDays}>
-              {weekDay}
-            </div>
-          );
-        })}
-      </div>
+      <CalendarWeeks />
       <div className={styles.daysContainer}>
         {currentMonthDaysWithPreviousAndNextMonths().map(
           (filledCurrentMonthDay) => {

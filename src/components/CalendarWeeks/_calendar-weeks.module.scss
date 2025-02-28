@@ -1,0 +1,17 @@
+@use "../../features/Calendar/_calendar.module.scss";
+@use "../../../styles/_variables.scss" as variables;
+
+.weekDaysContainer {
+  display: flex;
+  padding: variables.$inner-spacing;
+  padding-bottom: variables.$small-gap;
+  position: relative;
+  width: 100%;
+
+  .weekDays {
+    @extend .calendarCell;
+    background: black;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}

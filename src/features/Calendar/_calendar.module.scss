@@ -23,21 +23,6 @@
   width: variables.$calendar-cell-width;
 }
 
-.weekDaysContainer {
-  display: flex;
-  padding: variables.$inner-spacing;
-  padding-bottom: variables.$small-gap;
-  position: relative;
-  width: 100%;
-
-  .weekDays {
-    @extend .calendarCell;
-    background: black;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-}
-
 .daysContainer {
   display: flex;
   flex-wrap: wrap;
