@@ -2,6 +2,8 @@ import { WeekDaysShortAndLongeNames } from "../../types/types";
 import { config } from "../features/Calendar/config";
 import { WeekDaysLongNames, WeekDaysShortNames } from "./enums";
 
+// Calendar --------
+
 // Global
 
 export const weekDaysNames = (): WeekDaysShortAndLongeNames[] => {
