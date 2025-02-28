@@ -6,6 +6,11 @@ const config = {
   module: {
     rules: [
       {
+        test: /\.jsx?$/,
+        exclude: ["node_modules"],
+        use: ["babel-loader"],
+      },
+      {
         test: /\.(ts|tsx)$/,
         use: {
           loader: "ts-loader",
@@ -16,7 +21,8 @@ const config = {
         exclude: /node_modules/,
       },
       {
-        test: /\.s[ac]ss$/i,
+        test: /\.scss$/,
+        exclude: /\.module\.(sa|sc|c)ss$/,
         use: [
           // Creates `style` nodes from JS strings
           "style-loader",
@@ -25,6 +31,22 @@ const config = {
           // Compiles Sass to CSS
           "sass-loader",
         ],
+      },
+      {
+        test: /\.module\.scss$/,
+        use: [
+          "style-loader",
+          { loader: "css-loader", options: { modules: true } },
+          "sass-loader",
+        ],
+      },
+      {
+        test: /\.gif$/,
+        type: "asset/inline",
+      },
+      {
+        test: /\.(ttf|eot|svg)$/,
+        type: "asset/resource",
       },
       {
         test: /\.css$/,
