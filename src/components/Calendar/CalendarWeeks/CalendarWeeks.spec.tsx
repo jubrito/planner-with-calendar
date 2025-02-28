@@ -8,7 +8,7 @@ describe("CalendarWeeks", () => {
     render(<CalendarWeeks />);
     weekDaysNames().forEach((weekDay) => {
       expect(
-        screen.getByRole("columnheader", { name: weekDay.short })
+        screen.getByRole("columnheader", { name: weekDay.long })
       ).toBeInTheDocument();
     });
   });
