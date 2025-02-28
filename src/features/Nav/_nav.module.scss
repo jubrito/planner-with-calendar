@@ -1,4 +1,9 @@
+@use "../../../styles/_variables.scss" as variables;
+
 .nav {
   grid-area: nav;
   background: blue;
+  display: flex;
+  align-items: center;
+  padding: variables.$outer-spacing;
 }

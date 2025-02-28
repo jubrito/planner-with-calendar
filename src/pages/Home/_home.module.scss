@@ -1,14 +1,32 @@
 @use "../../../styles/_variables.scss" as variables;
+@use "../../../styles/_mixins.scss" as mixins;
 
 .home {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 1fr 4fr 1fr;
-  grid-row-gap: variables.$margin;
+  grid-row-gap: variables.$outer-spacing;
   grid-column-gap: 30px;
   grid-template-areas:
     "nav nav nav nav"
     "calendar calendar planner planner"
     "footer footer footer footer";
   height: 100vh;
+
+  @include mixins.media-max-big-tablet {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 2fr 4fr 4fr 2fr;
+    grid-row-gap: variables.$outer-spacing;
+    grid-column-gap: 15px;
+    grid-template-areas:
+      "nav nav nav nav"
+      "calendar calendar calendar calendar"
+      "planner planner planner planner"
+      "footer footer footer footer";
+    height: 100vh;
+  }
+
+  @include mixins.media-all-but-desktop {
+    grid-template-columns: 1fr 1fr 1fr auto;
+  }
 }

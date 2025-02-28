@@ -1,8 +1,13 @@
 @use "../../../styles/_variables.scss" as variables;
+@use "../../../styles/_mixins.scss" as mixins;
 
 .planner {
   grid-area: planner;
   background: purple;
-  margin-right: variables.$margin;
+  margin-right: variables.$outer-spacing;
   padding: variables.$inner-spacing;
+
+  @include mixins.media-max-big-tablet {
+    margin: 0 variables.$outer-spacing;
+  }
 }

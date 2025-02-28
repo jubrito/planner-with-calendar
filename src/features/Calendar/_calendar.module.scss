@@ -4,8 +4,16 @@
 .calendar {
   grid-area: calendar;
   border: variables.$small-gap solid variables.$main-color;
-  margin-left: variables.$margin;
+  margin-left: variables.$outer-spacing;
   position: relative;
+
+  @include mixins.media-all-but-desktop {
+    min-width: 485px;
+  }
+
+  @include mixins.media-max-big-tablet {
+    margin: 0 variables.$outer-spacing;
+  }
 }
 
 .monthLabel {
