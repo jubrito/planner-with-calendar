@@ -11,8 +11,9 @@ const CalendarWeeks = () => {
             key={weekDay.long}
             className={styles.weekDays}
             title={weekDay.long}
+            role="columnheader"
           >
-            {weekDay.short}
+            <span aria-hidden="true">{weekDay.short}</span>
           </abbr>
         );
       })}
