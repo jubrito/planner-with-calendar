@@ -3,7 +3,7 @@
 
 .calendar {
   grid-area: calendar;
-  border: variables.$small-gap solid black;
+  border: variables.$small-gap solid variables.$main-color;
   margin-left: variables.$margin;
   position: relative;
 }
@@ -14,6 +14,7 @@
   height: $height;
   line-height: $height;
   padding-left: variables.$inner-spacing;
+  font-weight: bold;
 }
 
 .calendarCell {
@@ -25,6 +26,7 @@
 .weekDaysContainer {
   display: flex;
   padding: variables.$inner-spacing;
+  padding-bottom: variables.$small-gap;
   position: relative;
   width: 100%;
 
@@ -40,12 +42,22 @@
   display: flex;
   flex-wrap: wrap;
   padding: variables.$inner-spacing;
+  padding-top: 0;
   position: relative;
   width: 100%;
 
   .dayCell {
-    color: variables.$main-color;
     @extend .calendarCell;
-    min-width: variables.$calendar-cell-width;
+    color: variables.$main-color;
+    width: calc(variables.$calendar-cell-width - (variables.$smaller-gap * 2));
+    aspect-ratio: 1/1;
+  }
+  .currentMonthDay {
+    background: variables.$bg-color;
+    border: variables.$smaller-gap solid variables.$main-color;
+  }
+  .otherMonthDay {
+    background: lightgray;
+    border: variables.$smaller-gap solid lightgray;
   }
 }

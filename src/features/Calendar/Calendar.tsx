@@ -100,10 +100,15 @@ const Calendar = () => {
       <div className={styles.daysContainer}>
         {currentMonthDaysWithPreviousAndNextMonths().map(
           (filledCurrentMonthDay) => {
+            const combinedClasses = `${styles.dayCell} ${
+              filledCurrentMonthDay.month === currentMonthName
+                ? styles.currentMonthDay
+                : styles.otherMonthDay
+            }`;
             return (
               <div
                 key={filledCurrentMonthDay.month + filledCurrentMonthDay.day}
-                className={styles.dayCell}
+                className={combinedClasses}
               >
                 {filledCurrentMonthDay.day}
               </div>
