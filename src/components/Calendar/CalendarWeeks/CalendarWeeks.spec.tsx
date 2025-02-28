@@ -7,7 +7,9 @@ describe("CalendarWeeks", () => {
   it("should render calendar week labels abbreviated", () => {
     render(<CalendarWeeks />);
     weekDaysNames().forEach((weekDay) => {
-      expect(screen.getByText(weekDay.short)).toBeInTheDocument();
+      expect(
+        screen.getByRole("columnheader", { name: weekDay.short })
+      ).toBeInTheDocument();
     });
   });
 });
