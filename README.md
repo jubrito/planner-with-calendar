@@ -1,3 +1,37 @@
+# Next steps (v1):
+
+- Test CalendarCells
+- Verify accessibility
+- Add skip to main content
+
+# Future Steps:
+
+## v1:
+
+- Update layout
+- Add simple nav
+- Add simple footer
+- Handle basic responsiveness
+
+## v2
+
+- Click on calendar day and open planner + tests + update title to indicate what clicking it will do
+- Implement checklists + tests
+
+## v3
+
+- Get calendar data from Apple API + tests
+
+## v4
+
+- Add translations
+- Add light/dark/accessible themes
+
+## v5
+
+- Pipeline
+- Integration tests
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
@@ -18,11 +52,11 @@ export default tseslint.config({
   languageOptions: {
     // other options...
     parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
       tsconfigRootDir: import.meta.dirname,
     },
   },
-})
+});
 ```
 
 - Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
@@ -31,11 +65,11 @@ export default tseslint.config({
 
 ```js
 // eslint.config.js
-import react from 'eslint-plugin-react'
+import react from "eslint-plugin-react";
 
 export default tseslint.config({
   // Set the react version
-  settings: { react: { version: '18.3' } },
+  settings: { react: { version: "18.3" } },
   plugins: {
     // Add the react plugin
     react,
@@ -44,7 +78,7 @@ export default tseslint.config({
     // other rules...
     // Enable its recommended rules
     ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
+    ...react.configs["jsx-runtime"].rules,
   },
-})
+});
 ```
