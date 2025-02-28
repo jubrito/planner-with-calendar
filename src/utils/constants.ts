@@ -1,3 +1,4 @@
+import { config } from "../features/Calendar/config";
 import {
   MonthsNames,
   WeekDaysNames,
@@ -39,71 +40,51 @@ export const weekDaysWithAbbreviation = [
   WeekDaysNamesAbbreviations.SUN,
 ];
 
-export const currentYear = new Date().getFullYear();
+export const today = new Date();
 
-export const currentMonth = new Date().getMonth();
+export const currentMonth = today.getMonth() + 1;
 
-export const currentMonthName = new Date().toLocaleString("default", {
+export const currentYear = today.getFullYear();
+
+const date = config.date ? new Date(config.date) : today;
+
+export const currentMonthName = new Intl.DateTimeFormat(config.locale, {
   month: "long",
-});
+}).format(date);
 
-export const nextMonthName = new Date(
-  currentYear,
-  currentMonth + 1,
-  1
-).toLocaleString("default", {
+export const nextMonthName = new Intl.DateTimeFormat(config.locale, {
   month: "long",
-});
+}).format(new Date(currentYear, currentMonth, 1));
 
-export const previousMonthName = new Date(
-  currentYear,
-  currentMonth,
-  0
-).toLocaleString("default", {
+export const previousMonthName = new Intl.DateTimeFormat(config.locale, {
   month: "long",
-});
+}).format(new Date(currentYear, currentMonth - 1, 0));
 
-export const previousMonth = new Date(
-  currentYear,
-  currentMonth,
-  0
-).toLocaleString("default", {
+export const previousMonth = new Intl.DateTimeFormat(config.locale, {
   month: "numeric",
-});
+}).format(new Date(currentYear, currentMonth - 1, 0));
 
-export const nextMonth = new Date(
-  currentYear,
-  currentMonth + 1,
-  0
-).toLocaleString("default", {
+export const nextMonth = new Intl.DateTimeFormat(config.locale, {
   month: "numeric",
-});
+}).format(new Date(currentYear, currentMonth, 1));
 
-export const previousMonthYear = new Date(
-  currentYear,
-  currentMonth,
-  0
-).toLocaleString("default", {
+export const previousMonthYear = new Intl.DateTimeFormat(config.locale, {
   year: "numeric",
-});
+}).format(new Date(currentYear, currentMonth - 1, 0));
 
-export const nextMonthYear = new Date(
-  currentYear,
-  currentMonth + 1,
-  0
-).toLocaleString("default", {
+export const nextMonthYear = new Intl.DateTimeFormat(config.locale, {
   year: "numeric",
-});
+}).format(new Date(currentYear, currentMonth, 0));
 
 export const previousMonthNumberOfDays = new Date(
   currentYear,
-  currentMonth,
+  currentMonth - 1,
   0
 ).getDate();
 
 export const currentMonthNumberOfDays = new Date(
   currentYear,
-  currentMonth + 1,
+  currentMonth,
   0
 ).getDate();
 
