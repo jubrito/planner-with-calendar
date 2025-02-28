@@ -22,27 +22,3 @@
   margin: variables.$small-gap;
   width: variables.$calendar-cell-width;
 }
-
-.daysContainer {
-  display: flex;
-  flex-wrap: wrap;
-  padding: variables.$inner-spacing;
-  padding-top: 0;
-  position: relative;
-  width: 100%;
-
-  .dayCell {
-    @extend .calendarCell;
-    color: variables.$main-color;
-    width: calc(variables.$calendar-cell-width - (variables.$smaller-gap * 2));
-    aspect-ratio: 1/1;
-  }
-  .currentMonthDay {
-    background: variables.$bg-color;
-    border: variables.$smaller-gap solid variables.$main-color;
-  }
-  .otherMonthDay {
-    background: lightgray;
-    border: variables.$smaller-gap solid lightgray;
-  }
-}
