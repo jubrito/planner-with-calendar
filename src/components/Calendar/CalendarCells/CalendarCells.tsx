@@ -96,13 +96,18 @@ const CalendarCells = () => {
               ? styles.currentMonthDay
               : styles.otherMonthDay
           }`;
+          const fullDate = `${filledCurrentMonthDay.year}-${filledCurrentMonthDay.month}-${filledCurrentMonthDay.day}`;
           return (
             <time
               key={filledCurrentMonthDay.month + filledCurrentMonthDay.day}
               className={combinedClasses}
-              dateTime={`${filledCurrentMonthDay.year}-${filledCurrentMonthDay.month}-${filledCurrentMonthDay.day}`}
+              dateTime={fullDate}
+              role="gridcell"
+              title={fullDate}
             >
-              {filledCurrentMonthDay.day}
+              <span aria-hidden="true" tabIndex={-1}>
+                {filledCurrentMonthDay.day}
+              </span>
             </time>
           );
         }
