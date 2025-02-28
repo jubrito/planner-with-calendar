@@ -1,4 +1,4 @@
-import CalendarWeeks from "../../components/CalendarWeeks/CalendarWeeks";
+import CalendarWeeks from "../../components/Calendar/CalendarWeeks/CalendarWeeks";
 import {
   currentMonth,
   currentMonthDays,

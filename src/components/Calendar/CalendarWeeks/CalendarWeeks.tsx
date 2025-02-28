@@ -1,4 +1,4 @@
-import { weekDaysWithAbbreviation } from "../../utils/constants";
+import { weekDaysWithAbbreviation } from "../../../utils/constants";
 import styles from "./_calendar-weeks.module.scss";
 
 const CalendarWeeks = () => {
