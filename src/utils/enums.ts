@@ -13,7 +13,7 @@ export enum MonthsNames {
   DECEMBER = "December",
 }
 
-export enum WeekDaysNames {
+export enum WeekDaysLongNames {
   MONDAY = "Monday",
   TUESDAY = "Tuesday",
   WEDNESDAY = "Wednesday",
@@ -23,7 +23,7 @@ export enum WeekDaysNames {
   SUNDAY = "Sunday",
 }
 
-export enum WeekDaysNamesAbbreviations {
+export enum WeekDaysShortNames {
   MON = "Mon",
   TUE = "Tue",
   WED = "Wed",
@@ -31,4 +31,14 @@ export enum WeekDaysNamesAbbreviations {
   FRI = "Fri",
   SAT = "Sat",
   SUN = "Sun",
+}
+
+export enum WeekDays {
+  MONDAY = 0,
+  TUESDAY = 1,
+  WEDNESDAY = 2,
+  THURSDAY = 3,
+  FRIDAY = 4,
+  SATURDAY = 5,
+  SUNDAY = 6,
 }

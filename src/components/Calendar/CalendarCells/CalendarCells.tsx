@@ -1,39 +1,37 @@
 import {
   currentMonth,
   currentMonthDays,
-  currentMonthName,
   currentMonthNumberOfDays,
   currentYear,
   nextMonth,
-  nextMonthName,
   nextMonthYear,
+  numberOfDaysOfTheWeek,
   previousMonth,
-  previousMonthName,
   previousMonthYear,
-  weekDays,
-  weekDaysWithAbbreviation,
+  weekDaysNames,
 } from "../../../utils/constants";
-import { WeekDaysNamesAbbreviations } from "../../../utils/enums";
+import { WeekDays, WeekDaysShortNames } from "../../../utils/enums";
 import styles from "./_calendar-cells.module.scss";
 
 const CalendarCells = () => {
   const getDayName = (dayOfWeek: number) => {
-    let dayName: WeekDaysNamesAbbreviations;
+    let dayName: WeekDaysShortNames;
+    const weekDays = weekDaysNames();
     if (dayOfWeek === 0) {
-      dayName = weekDaysWithAbbreviation[6]; // Sunday (6)
+      dayName = weekDays[WeekDays.SUNDAY].short;
     } else {
-      dayName = weekDaysWithAbbreviation[dayOfWeek - 1]; // Monday (0) to Saturday (5)
+      dayName = weekDays[dayOfWeek - 1].short; // Monday (0) to Saturday (5)
     }
     return dayName;
   };
 
-  const getWeekDayNameWhenMonthStarts = (): WeekDaysNamesAbbreviations => {
+  const getWeekDayNameWhenMonthStarts = (): WeekDaysShortNames => {
     const firstDayOfTheMonthDate = new Date(currentYear, currentMonth, 1);
     const dayOfWeek = firstDayOfTheMonthDate.getDay();
     return getDayName(dayOfWeek);
   };
 
-  const getWeekDayNameWhenMonthEnds = (): WeekDaysNamesAbbreviations => {
+  const getWeekDayNameWhenMonthEnds = (): WeekDaysShortNames => {
     const lastDayOfTheMonthDate = new Date(
       currentYear,
       currentMonth,
@@ -44,15 +42,15 @@ const CalendarCells = () => {
   };
 
   const numOfDaysFromOtherMonthOnCurrentCalendar = (
-    weekDayName: WeekDaysNamesAbbreviations
-  ) => weekDaysWithAbbreviation.indexOf(weekDayName);
+    weekDayName: WeekDaysShortNames
+  ) => weekDaysNames().findIndex((name) => weekDayName === name.short);
 
   const currentMonthDaysWithPreviousMonth = () => {
     var date = new Date();
     date.setDate(0);
     const lastDayOfPreviousMonth = date.getDate();
     const filledArray = [...currentMonthDays];
-    const weekDayNameWhenMonthStarts: WeekDaysNamesAbbreviations =
+    const weekDayNameWhenMonthStarts: WeekDaysShortNames =
       getWeekDayNameWhenMonthStarts();
     const numberOfDaysOfPreviousMonth =
       numOfDaysFromOtherMonthOnCurrentCalendar(weekDayNameWhenMonthStarts);
@@ -71,11 +69,11 @@ const CalendarCells = () => {
   const currentMonthDaysWithPreviousAndNextMonths = () => {
     const firstDayOfNextMonth = 1;
     const filledArray = [...currentMonthDaysWithPreviousMonth()];
-    const weekDayNameWhenMonthEnds: WeekDaysNamesAbbreviations =
+    const weekDayNameWhenMonthEnds: WeekDaysShortNames =
       getWeekDayNameWhenMonthEnds();
 
     const numberOfDaysOfNextMonth =
-      weekDays.length -
+      numberOfDaysOfTheWeek -
       1 -
       numOfDaysFromOtherMonthOnCurrentCalendar(weekDayNameWhenMonthEnds);
 
@@ -94,7 +92,7 @@ const CalendarCells = () => {
       {currentMonthDaysWithPreviousAndNextMonths().map(
         (filledCurrentMonthDay) => {
           const combinedClasses = `${styles.dayCell} ${
-            filledCurrentMonthDay.month === currentMonthName
+            filledCurrentMonthDay.month === currentMonth.toString()
               ? styles.currentMonthDay
               : styles.otherMonthDay
           }`;

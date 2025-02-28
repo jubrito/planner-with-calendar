@@ -1,17 +1,18 @@
-import { weekDays, weekDaysWithAbbreviation } from "../../../utils/constants";
+import { weekDaysNames } from "../../../utils/constants";
 import styles from "./_calendar-weeks.module.scss";
 
 const CalendarWeeks = () => {
+  const weekDays = weekDaysNames();
   return (
     <div className={styles.weekDaysContainer}>
-      {weekDaysWithAbbreviation.map((weekDay, weekDayIndex) => {
+      {weekDays.map((weekDay) => {
         return (
           <abbr
-            key={weekDay}
+            key={weekDay.long}
             className={styles.weekDays}
-            title={weekDays[weekDayIndex]}
+            title={weekDay.long}
           >
-            {weekDay}
+            {weekDay.short}
           </abbr>
         );
       })}
