@@ -29,16 +29,12 @@ export const currentMonthName = new Intl.DateTimeFormat(config.locale, {
   month: "long",
 }).format(config.today.date);
 
-console.log("config.today", config.today);
-
 const monthDays = [...Array(config.today.monthNumberOfDays).keys()];
 export const currentMonthDays = monthDays.map((day) => ({
-  month: config.today.month.toString(),
+  month: config.today.month,
   day: day + 1,
-  year: config.today.year.toString(),
+  year: config.today.year,
 }));
-
-console.log("config.today.monthNumberOfDays", config.today.monthNumberOfDays);
 
 // Previous
 

@@ -39,6 +39,7 @@ const CalendarCells = () => {
       config.today.month,
       config.today.monthNumberOfDays
     );
+
     const dayOfWeek = lastDayOfTheMonthDate.getDay();
     return getDayName(dayOfWeek);
   };
@@ -51,7 +52,10 @@ const CalendarCells = () => {
     var date = new Date(config.today.date.getTime());
     date.setDate(0);
     const lastDayOfPreviousMonth = date.getDate();
-    const filledArray = [...currentMonthDays];
+    const filledArray = currentMonthDays.map((currentMonthDay) => ({
+      ...currentMonthDay,
+      month: currentMonthDay.month + 1,
+    }));
     const weekDayNameWhenMonthStarts: WeekDaysShortNames =
       getWeekDayNameWhenMonthStarts();
     const numberOfDaysOfPreviousMonth =
@@ -59,7 +63,7 @@ const CalendarCells = () => {
 
     for (let i = 0; i < numberOfDaysOfPreviousMonth; i++) {
       filledArray.unshift({
-        month: previousMonth,
+        month: previousMonth + 1,
         day: lastDayOfPreviousMonth - i,
         year: previousMonthYear,
       });
@@ -81,7 +85,7 @@ const CalendarCells = () => {
 
     for (let i = 0; i < numberOfDaysOfNextMonth; i++) {
       filledArray.push({
-        month: nextMonth,
+        month: nextMonth + 1,
         day: firstDayOfNextMonth + i,
         year: nextMonthYear,
       });
@@ -89,31 +93,21 @@ const CalendarCells = () => {
     return filledArray;
   };
 
-  // console.log("getDayName", getDayName());
-  console.log("getWeekDayNameWhenMonthStarts", getWeekDayNameWhenMonthStarts());
-  // console.log("getWeekDayNameWhenMonthEnds", getWeekDayNameWhenMonthEnds());
-  // console.log(
-  //   "numOfDaysFromOtherMonthOnCurrentCalendar",
-  //   numOfDaysFromOtherMonthOnCurrentCalendar()
-  // );
-  // console.log(
-  //   "currentMonthDaysWithPreviousAndNextMonths",
-  //   currentMonthDaysWithPreviousAndNextMonths()
-  // );
-
   return (
     <div className={styles.daysContainer}>
       {currentMonthDaysWithPreviousAndNextMonths().map(
         (filledCurrentMonthDay) => {
           const combinedClasses = `${styles.dayCell} ${
-            filledCurrentMonthDay.month === config.today.month.toString()
+            filledCurrentMonthDay.month === config.today.month + 1
               ? styles.currentMonthDay
               : styles.otherMonthDay
           }`;
           const fullDate = `${filledCurrentMonthDay.year}-${filledCurrentMonthDay.month}-${filledCurrentMonthDay.day}`;
           return (
             <time
-              key={filledCurrentMonthDay.month + filledCurrentMonthDay.day}
+              key={`${filledCurrentMonthDay.year} +
+                ${filledCurrentMonthDay.month} +
+                ${filledCurrentMonthDay.day}`}
               className={combinedClasses}
               dateTime={fullDate}
               role="gridcell"

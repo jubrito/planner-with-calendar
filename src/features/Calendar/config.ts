@@ -3,8 +3,8 @@ import { Months } from "../../utils/enums";
 const year = 2025;
 const month = Months.FEBRUARY;
 const day = 1;
-const date = new Date(year, month, day);
-// const date = new Date();
+// const date = new Date(year, month, day);
+const date = new Date();
 
 export const config = Object.assign({
   locale: document.documentElement.getAttribute("lang") || "en-US",
@@ -14,6 +14,10 @@ export const config = Object.assign({
     month: date.getMonth(),
     year: date.getFullYear(),
     time: date.getTime(),
-    monthNumberOfDays: new Date(year, month + 1, 0).getDate(),
+    monthNumberOfDays: new Date(
+      date.getFullYear(),
+      date.getMonth() + 1,
+      0
+    ).getDate(),
   },
 });
