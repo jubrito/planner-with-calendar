@@ -27,3 +27,5 @@ const useDate = (
     ).getDate(),
   };
 };
+
+export default useDate;
