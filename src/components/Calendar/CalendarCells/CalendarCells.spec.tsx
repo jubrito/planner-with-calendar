@@ -30,29 +30,39 @@ describe("CalendarCells", () => {
    * be displayed after January days
    */
 
-  it("should render days from previous month to fill calendar", () => {
-    render(<CalendarCells />);
-    const decemberDays = [30, 31];
-    const januaryDays = Array.from(Array(31).keys(), (day) => day + 1);
-    const februaryDays = [1, 2];
-    let dayCell: HTMLElement;
-
-    decemberDays.forEach((decemberDay) => {
-      dayCell = screen.getByTitle(`${2024}-${12}-${decemberDay}`);
-      expect(dayCell).toBeInTheDocument();
-      expect(dayCell.textContent).toBe(decemberDay.toString());
+  describe("First month of the year", () => {
+    beforeEach(() => {
+      render(<CalendarCells />);
     });
 
-    januaryDays.forEach((januaryDay) => {
-      dayCell = screen.getByTitle(`${2025}-${1}-${januaryDay}`);
-      expect(dayCell).toBeInTheDocument();
-      expect(dayCell.textContent).toBe(januaryDay.toString());
+    it("should render days from previous month to fill calendar", () => {
+      const decemberDays = [30, 31];
+
+      decemberDays.forEach((decemberDay) => {
+        const dayCell = screen.getByTitle(`${2024}-${12}-${decemberDay}`);
+        expect(dayCell).toBeInTheDocument();
+        expect(dayCell.textContent).toBe(decemberDay.toString());
+      });
     });
 
-    februaryDays.forEach((februaryDay) => {
-      dayCell = screen.getByTitle(`${2025}-${2}-${februaryDay}`);
-      expect(dayCell).toBeInTheDocument();
-      expect(dayCell.textContent).toBe(februaryDay.toString());
+    it("should render days from current month to fill calendar", () => {
+      const januaryDays = Array.from(Array(31).keys(), (day) => day + 1);
+
+      januaryDays.forEach((januaryDay) => {
+        const dayCell = screen.getByTitle(`${2025}-${1}-${januaryDay}`);
+        expect(dayCell).toBeInTheDocument();
+        expect(dayCell.textContent).toBe(januaryDay.toString());
+      });
+    });
+
+    it("should render days from next month to fill calendar", () => {
+      const februaryDays = [1, 2];
+
+      februaryDays.forEach((februaryDay) => {
+        const dayCell = screen.getByTitle(`${2025}-${2}-${februaryDay}`);
+        expect(dayCell).toBeInTheDocument();
+        expect(dayCell.textContent).toBe(februaryDay.toString());
+      });
     });
   });
 });
