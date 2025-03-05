@@ -1,5 +1,7 @@
 # Next steps (v1):
 
+- Undefined classes inside the cells
+- Fix other months from calendar
 - Test CalendarCells
 - Verify accessibility
 - Add skip to main content
