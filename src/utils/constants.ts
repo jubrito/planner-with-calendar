@@ -1,6 +1,6 @@
 import { WeekDaysShortAndLongeNames } from "../../types/types";
 import { config } from "../features/Calendar/config";
-import { WeekDaysLongNames, WeekDaysShortNames } from "./enums";
+import { Months, WeekDaysLongNames, WeekDaysShortNames } from "./enums";
 
 // Calendar --------
 
@@ -25,50 +25,40 @@ export const weekDaysNames = (): WeekDaysShortAndLongeNames[] => {
 export const numberOfDaysOfTheWeek = 7;
 
 // Current
-
-export const today = new Date();
-
-export const currentMonth = today.getMonth() + 1;
-
-export const currentYear = today.getFullYear();
-
-const date = config.date ? new Date(config.date) : today;
-
 export const currentMonthName = new Intl.DateTimeFormat(config.locale, {
   month: "long",
-}).format(date);
+}).format(config.today.date);
 
-export const currentMonthNumberOfDays = new Date(
-  currentYear,
-  currentMonth,
-  0
-).getDate();
+console.log("config.today", config.today);
 
-export const monthDays = [...Array(currentMonthNumberOfDays).keys()];
-
+const monthDays = [...Array(config.today.monthNumberOfDays).keys()];
 export const currentMonthDays = monthDays.map((day) => ({
-  month: currentMonth.toString(),
+  month: config.today.month.toString(),
   day: day + 1,
-  year: currentYear.toString(),
+  year: config.today.year.toString(),
 }));
+
+console.log("config.today.monthNumberOfDays", config.today.monthNumberOfDays);
 
 // Previous
 
 export const previousMonthName = new Intl.DateTimeFormat(config.locale, {
   month: "long",
-}).format(new Date(currentYear, currentMonth - 1, 0));
+}).format(new Date(config.today.year, config.today.month, 0));
 
-export const previousMonth = new Intl.DateTimeFormat(config.locale, {
-  month: "numeric",
-}).format(new Date(currentYear, currentMonth - 1, 0));
+export const previousMonth =
+  config.today.month === Months.JANUARY
+    ? Months.DECEMBER
+    : config.today.month - 1;
 
-export const previousMonthYear = new Intl.DateTimeFormat(config.locale, {
-  year: "numeric",
-}).format(new Date(currentYear, currentMonth - 1, 0));
+export const previousMonthYear =
+  config.today.month === Months.JANUARY
+    ? config.today.year - 1
+    : config.today.year;
 
 export const previousMonthNumberOfDays = new Date(
-  currentYear,
-  currentMonth - 1,
+  config.today.year,
+  config.today.month,
   0
 ).getDate();
 
@@ -76,12 +66,14 @@ export const previousMonthNumberOfDays = new Date(
 
 export const nextMonthName = new Intl.DateTimeFormat(config.locale, {
   month: "long",
-}).format(new Date(currentYear, currentMonth, 1));
+}).format(new Date(config.today.year, config.today.month + 1, 1));
 
-export const nextMonth = new Intl.DateTimeFormat(config.locale, {
-  month: "numeric",
-}).format(new Date(currentYear, currentMonth, 1));
+export const nextMonth =
+  config.today.month === Months.DECEMBER
+    ? Months.JANUARY
+    : config.today.month + 1;
 
-export const nextMonthYear = new Intl.DateTimeFormat(config.locale, {
-  year: "numeric",
-}).format(new Date(currentYear, currentMonth, 0));
+export const nextMonthYear =
+  config.today.month === Months.DECEMBER
+    ? config.today.year + 1
+    : config.today.year;

@@ -1,14 +1,11 @@
+import { config } from "../../../features/Calendar/config";
 import {
-  currentMonth,
   currentMonthDays,
-  currentMonthNumberOfDays,
-  currentYear,
   nextMonth,
   nextMonthYear,
   numberOfDaysOfTheWeek,
   previousMonth,
   previousMonthYear,
-  today,
   weekDaysNames,
 } from "../../../utils/constants";
 import { WeekDays, WeekDaysShortNames } from "../../../utils/enums";
@@ -27,16 +24,20 @@ const CalendarCells = () => {
   };
 
   const getWeekDayNameWhenMonthStarts = (): WeekDaysShortNames => {
-    const firstDayOfTheMonthDate = new Date(currentYear, currentMonth - 1, 1);
+    const firstDayOfTheMonthDate = new Date(
+      config.today.year,
+      config.today.month,
+      1
+    );
     const dayOfWeek = firstDayOfTheMonthDate.getDay();
     return getDayName(dayOfWeek);
   };
 
   const getWeekDayNameWhenMonthEnds = (): WeekDaysShortNames => {
     const lastDayOfTheMonthDate = new Date(
-      currentYear,
-      currentMonth,
-      currentMonthNumberOfDays
+      config.today.year,
+      config.today.month,
+      config.today.monthNumberOfDays
     );
     const dayOfWeek = lastDayOfTheMonthDate.getDay();
     return getDayName(dayOfWeek);
@@ -47,7 +48,7 @@ const CalendarCells = () => {
   ) => weekDaysNames().findIndex((name) => weekDayName === name.short);
 
   const currentMonthDaysWithPreviousMonth = () => {
-    var date = new Date(today.getTime());
+    var date = new Date(config.today.date.getTime());
     date.setDate(0);
     const lastDayOfPreviousMonth = date.getDate();
     const filledArray = [...currentMonthDays];
@@ -88,12 +89,24 @@ const CalendarCells = () => {
     return filledArray;
   };
 
+  // console.log("getDayName", getDayName());
+  console.log("getWeekDayNameWhenMonthStarts", getWeekDayNameWhenMonthStarts());
+  // console.log("getWeekDayNameWhenMonthEnds", getWeekDayNameWhenMonthEnds());
+  // console.log(
+  //   "numOfDaysFromOtherMonthOnCurrentCalendar",
+  //   numOfDaysFromOtherMonthOnCurrentCalendar()
+  // );
+  // console.log(
+  //   "currentMonthDaysWithPreviousAndNextMonths",
+  //   currentMonthDaysWithPreviousAndNextMonths()
+  // );
+
   return (
     <div className={styles.daysContainer}>
       {currentMonthDaysWithPreviousAndNextMonths().map(
         (filledCurrentMonthDay) => {
           const combinedClasses = `${styles.dayCell} ${
-            filledCurrentMonthDay.month === currentMonth.toString()
+            filledCurrentMonthDay.month === config.today.month.toString()
               ? styles.currentMonthDay
               : styles.otherMonthDay
           }`;
