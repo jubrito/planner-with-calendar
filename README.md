@@ -1,8 +1,6 @@
 # Next steps (v1):
 
-- Undefined classes inside the cells
-- Fix other months from calendar
-- Test CalendarCells
+- Create hook to get/update config
 - Verify accessibility
 - Add skip to main content
 
