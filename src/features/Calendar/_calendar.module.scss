@@ -7,6 +7,12 @@
   margin-left: variables.$outer-spacing;
   position: relative;
 
+  table {
+    table-layout: fixed;
+    width: 100%;
+    height: 400px;
+  }
+
   @include mixins.media-all-but-desktop {
     min-width: 485px;
   }
@@ -26,7 +32,10 @@
 }
 
 .calendarCell {
+  $size: 0.0014285714%;
   padding: 5px variables.$calendar-cel-lateral-padding;
   margin: variables.$small-gap;
-  width: variables.$calendar-cell-width;
+  width: $size;
+  height: $size;
+  width: calc (1 / variables.$numberOfWeekDays) / 100;
 }

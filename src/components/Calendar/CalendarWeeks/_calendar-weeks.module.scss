@@ -2,11 +2,23 @@
 @use "../../../../styles/_variables.scss" as variables;
 
 .weekDaysContainer {
-  display: flex;
   padding: variables.$inner-spacing;
   padding-bottom: variables.$small-gap;
   position: relative;
   width: 100%;
+
+  thead {
+    box-sizing: border-box;
+
+    tr,
+    th {
+      box-sizing: border-box;
+    }
+
+    tr {
+      width: 100%;
+    }
+  }
 
   .weekDays {
     @extend .calendarCell;

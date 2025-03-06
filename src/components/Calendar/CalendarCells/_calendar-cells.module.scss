@@ -2,26 +2,33 @@
 @use "../../../../styles/_variables.scss" as variables;
 @use "../../../../styles/_mixins.scss" as mixins;
 
-.daysContainer {
-  display: flex;
-  flex-wrap: wrap;
+tbody {
   padding: variables.$inner-spacing;
-  padding-top: 0;
-  position: relative;
-  width: 100%;
+  box-sizing: border-box;
+  tr,
+  td {
+    box-sizing: border-box;
+  }
 
-  .dayCell {
+  tr {
+    width: 100%;
+    white-space: nowrap;
+    height: 0.0014285714%;
+  }
+  td {
     @extend .calendarCell;
     color: variables.$main-color;
-    width: calc(variables.$calendar-cell-width - (variables.$smaller-gap * 2));
-    aspect-ratio: 1/1;
+    $size: 0.0014285714%;
+    height: auto;
+    vertical-align: top;
   }
+
   .currentMonthDay {
     background: variables.$bg-color;
     border: variables.$smaller-gap solid variables.$main-color;
   }
   .otherMonthDay {
     background: lightgray;
-    border: variables.$smaller-gap solid darkgray;
+    border: variables.$smaller-gap solid variables.$main-color;
   }
 }

@@ -6,20 +6,19 @@ const CalendarWeeks = () => {
   const { locale } = useLocale();
   const weekDays = getWeekDaysNames(locale);
   return (
-    <div className={styles.weekDaysContainer}>
-      {weekDays.map((weekDay) => {
-        return (
-          <abbr
-            key={weekDay.long}
-            className={styles.weekDays}
-            title={weekDay.long}
-            role="columnheader"
-          >
-            <span aria-hidden="true">{weekDay.short}</span>
-          </abbr>
-        );
-      })}
-    </div>
+    <thead className={styles.weekDaysContainer}>
+      <tr>
+        {weekDays.map((weekDay) => {
+          return (
+            <th scope="col" className={styles.weekDays}>
+              <abbr key={weekDay.long} title={weekDay.long} role="columnheader">
+                <span aria-hidden="true">{weekDay.short}</span>
+              </abbr>
+            </th>
+          );
+        })}
+      </tr>
+    </thead>
   );
 };
 

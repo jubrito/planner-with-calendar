@@ -13,8 +13,10 @@ const Calendar = () => {
   return (
     <section className={styles.calendar}>
       <div className={styles.monthLabel}>{currentMonthName}</div>
-      <CalendarWeeks />
-      <CalendarCells dateConfig={dateConfig} />
+      <table>
+        <CalendarWeeks />
+        <CalendarCells dateConfig={dateConfig} />
+      </table>
     </section>
   );
 };

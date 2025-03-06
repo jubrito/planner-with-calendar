@@ -100,34 +100,49 @@ const CalendarCells = ({ dateConfig }: CalendarCellsProps) => {
     return filledArray;
   };
 
+  const chunkArray = <T,>(array: T[]): T[][] => {
+    const chunks = [];
+    for (let i = 0; i < array.length; i += numberOfDaysOfTheWeek) {
+      chunks.push(array.slice(i, i + numberOfDaysOfTheWeek));
+    }
+    return chunks;
+  };
+
   return (
-    <div className={styles.daysContainer}>
-      {currentMonthDaysWithPreviousAndNextMonths().map(
-        (filledCurrentMonthDay) => {
-          const combinedClasses = `${styles.dayCell} ${
-            filledCurrentMonthDay.month === month + 1
-              ? styles.currentMonthDay
-              : styles.otherMonthDay
-          }`;
-          const fullDate = `${filledCurrentMonthDay.year}-${filledCurrentMonthDay.month}-${filledCurrentMonthDay.day}`;
-          return (
-            <time
-              key={`${filledCurrentMonthDay.year} +
+    <tbody className={styles.daysContainer}>
+      {chunkArray(currentMonthDaysWithPreviousAndNextMonths()).map(
+        (week, weekIndex) => (
+          <tr key={weekIndex}>
+            {week.map((filledCurrentMonthDay) => {
+              const fullDate = `${filledCurrentMonthDay.year}-${filledCurrentMonthDay.month}-${filledCurrentMonthDay.day}`;
+              return (
+                <td
+                  scope="col"
+                  key={`${filledCurrentMonthDay.year} +
                 ${filledCurrentMonthDay.month} +
                 ${filledCurrentMonthDay.day}`}
-              className={combinedClasses}
-              dateTime={fullDate}
-              role="gridcell"
-              title={fullDate}
-            >
-              <span aria-hidden="true" tabIndex={-1}>
-                {filledCurrentMonthDay.day}
-              </span>
-            </time>
-          );
-        }
+                  className={
+                    filledCurrentMonthDay.month === month + 1
+                      ? styles.currentMonthDay
+                      : styles.otherMonthDay
+                  }
+                >
+                  <time
+                    dateTime={fullDate}
+                    // role="gridcell"
+                    title={fullDate}
+                  >
+                    <span aria-hidden="true" tabIndex={-1}>
+                      {filledCurrentMonthDay.day}
+                    </span>
+                  </time>
+                </td>
+              );
+            })}
+          </tr>
+        )
       )}
-    </div>
+    </tbody>
   );
 };
 
