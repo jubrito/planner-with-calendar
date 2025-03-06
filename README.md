@@ -24,7 +24,7 @@
 
 ## v4
 
-- Add translations
+- Add translations (change locale)
 - Add light/dark/accessible themes
 
 ## v5
