@@ -1,4 +1,4 @@
-import { Months } from "../utils/enums";
+import { Months } from "../../utils/enums";
 
 export type DateConfig = {
   date: Date;

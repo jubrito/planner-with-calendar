@@ -1,4 +1,4 @@
-import { DateConfig } from "../../types/Date";
+import { DateConfig } from "../../types/calendar/Date";
 import { Months } from "../enums";
 
 export const getPreviousMonthName = (

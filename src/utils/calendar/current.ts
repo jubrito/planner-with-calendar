@@ -1,4 +1,4 @@
-import { DateConfig } from "../../types/Date";
+import { DateConfig } from "../../types/calendar/Date";
 
 export const getCurrentMonthName = (
   date: Date,

@@ -1,6 +1,7 @@
 # Next steps (v1):
 
 - Move Date type inside types (or find best one of the two)
+- Refactor CalendarCells
 - Fix calendar responsiveness (it breaks because of min-width: 485px;)
 - Verify accessibility
 - Add skip to main content

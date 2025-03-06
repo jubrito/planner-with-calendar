@@ -14,7 +14,7 @@ import {
   getNextMonthIndex,
   getNextMonthYear,
 } from "../../../utils/calendar/next";
-import { DateConfig } from "../../../types/Date";
+import { DateConfig } from "../../../types/calendar/Date";
 
 type CalendarCellsProps = {
   dateConfig: DateConfig;
@@ -127,11 +127,7 @@ const CalendarCells = ({ dateConfig }: CalendarCellsProps) => {
                       : styles.otherMonthDay
                   }
                 >
-                  <time
-                    dateTime={fullDate}
-                    // role="gridcell"
-                    title={fullDate}
-                  >
+                  <time dateTime={fullDate} title={fullDate}>
                     <span aria-hidden="true" tabIndex={-1}>
                       {filledCurrentMonthDay.day}
                     </span>
