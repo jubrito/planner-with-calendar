@@ -11,6 +11,9 @@ jest.mock("../../../hooks/useDate", () => ({
 }));
 
 describe("CalendarCells", () => {
+  let currentMonthNumberOfDays = 31;
+  let currentYear = 2025;
+
   /**  January, 2025
    * Note: Calendar starts on a Monday
    * Since January 1 is a Wednesday, December 30 and December 31
@@ -20,40 +23,92 @@ describe("CalendarCells", () => {
    * be displayed after January days
    */
 
-  describe("First month of the year", () => {
+  describe("January", () => {
     beforeEach(() => {
-      const mockUseDate = getUseDateMock(2025, Months.JANUARY, 1, 31);
-
+      const mockUseDate = getUseDateMock(
+        currentYear,
+        Months.JANUARY,
+        1,
+        currentMonthNumberOfDays
+      );
       render(<CalendarCells dateConfig={mockUseDate} />);
     });
 
-    it("should render days from previous month to fill calendar", () => {
+    it("should render days from December (previous month) to fill calendar", () => {
       const decemberDays = [30, 31];
 
       decemberDays.forEach((decemberDay) => {
-        const dayCell = screen.getByTitle(`${2024}-${12}-${decemberDay}`);
+        const dayCell = screen.getByTitle(
+          `${currentYear - 1}-${12}-${decemberDay}`
+        );
         expect(dayCell).toBeInTheDocument();
         expect(dayCell.textContent).toBe(decemberDay.toString());
       });
     });
 
-    it("should render days from current month to fill calendar", () => {
-      const januaryDays = Array.from(Array(31).keys(), (day) => day + 1);
+    it("should render days from January (current month) to fill calendar", () => {
+      const januaryDays = Array.from(
+        Array(currentMonthNumberOfDays).keys(),
+        (day) => day + 1
+      );
 
       januaryDays.forEach((januaryDay) => {
-        const dayCell = screen.getByTitle(`${2025}-${1}-${januaryDay}`);
+        const dayCell = screen.getByTitle(`${currentYear}-${1}-${januaryDay}`);
         expect(dayCell).toBeInTheDocument();
         expect(dayCell.textContent).toBe(januaryDay.toString());
       });
     });
 
-    it("should render days from next month to fill calendar", () => {
+    it("should render days from February (next month) to fill calendar", () => {
       const februaryDays = [1, 2];
 
       februaryDays.forEach((februaryDay) => {
-        const dayCell = screen.getByTitle(`${2025}-${2}-${februaryDay}`);
+        const dayCell = screen.getByTitle(`${currentYear}-${2}-${februaryDay}`);
         expect(dayCell).toBeInTheDocument();
         expect(dayCell.textContent).toBe(februaryDay.toString());
+      });
+    });
+  });
+  describe("December", () => {
+    beforeEach(() => {
+      const mockUseDate = getUseDateMock(
+        currentYear,
+        Months.DECEMBER,
+        1,
+        currentMonthNumberOfDays
+      );
+      render(<CalendarCells dateConfig={mockUseDate} />);
+    });
+
+    it("should not render days from November (previous month) since December starts on a Monday (first column)", () => {
+      const dayCell = screen.queryByTitle("2024-11-30");
+      expect(dayCell).not.toBeInTheDocument();
+    });
+
+    it("should render days from December (current month) to fill calendar", () => {
+      const decemberDays = Array.from(
+        Array(currentMonthNumberOfDays).keys(),
+        (day) => day + 1
+      );
+
+      decemberDays.forEach((decemberDay) => {
+        const dayCell = screen.getByTitle(
+          `${currentYear}-${12}-${decemberDay}`
+        );
+        expect(dayCell).toBeInTheDocument();
+        expect(dayCell.textContent).toBe(decemberDay.toString());
+      });
+    });
+
+    it("should render days from January (next month) to fill calendar", () => {
+      const januaryDays = [1, 2, 3, 4];
+
+      januaryDays.forEach((januaryDay) => {
+        const dayCell = screen.getByTitle(
+          `${currentYear + 1}-${1}-${januaryDay}`
+        );
+        expect(dayCell).toBeInTheDocument();
+        expect(dayCell.textContent).toBe(januaryDay.toString());
       });
     });
   });
