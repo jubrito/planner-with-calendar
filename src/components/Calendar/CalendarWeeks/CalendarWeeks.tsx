@@ -1,8 +1,10 @@
-import { weekDaysNames } from "../../../utils/constants";
+import useLocale from "../../../hooks/useLocale";
+import { getWeekDaysNames } from "../../../utils/week";
 import styles from "./_calendar-weeks.module.scss";
 
 const CalendarWeeks = () => {
-  const weekDays = weekDaysNames();
+  const { locale } = useLocale();
+  const weekDays = getWeekDaysNames(locale);
   return (
     <div className={styles.weekDaysContainer}>
       {weekDays.map((weekDay) => {

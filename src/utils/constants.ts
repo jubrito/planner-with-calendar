@@ -6,24 +6,6 @@ import { Months, WeekDaysLongNames, WeekDaysShortNames } from "./enums";
 
 // Global
 
-export const weekDaysNames = (): WeekDaysShortAndLongeNames[] => {
-  const date = new Date(0);
-  const arr = [...Array(numberOfDaysOfTheWeek).keys()].map((dayOfWeek) => {
-    date.setDate(dayOfWeek + 1);
-    return {
-      long: new Intl.DateTimeFormat([config.locale], {
-        weekday: "long",
-      }).format(date) as WeekDaysLongNames,
-      short: new Intl.DateTimeFormat([config.locale], {
-        weekday: "short",
-      }).format(date) as WeekDaysShortNames,
-    };
-  });
-  return arr;
-};
-
-export const numberOfDaysOfTheWeek = 7;
-
 // Current
 export const currentMonthName = new Intl.DateTimeFormat(config.locale, {
   month: "long",

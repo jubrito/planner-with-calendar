@@ -1,20 +1,22 @@
 import { config } from "../../../features/Calendar/config";
+import useLocale from "../../../hooks/useLocale";
 import {
   currentMonthDays,
   nextMonth,
   nextMonthYear,
-  numberOfDaysOfTheWeek,
   previousMonth,
   previousMonthYear,
-  weekDaysNames,
 } from "../../../utils/constants";
 import { WeekDays, WeekDaysShortNames } from "../../../utils/enums";
+import { getWeekDaysNames, numberOfDaysOfTheWeek } from "../../../utils/week";
 import styles from "./_calendar-cells.module.scss";
 
 const CalendarCells = () => {
+  const { locale } = useLocale();
+
   const getDayName = (dayOfWeek: number) => {
     let dayName: WeekDaysShortNames;
-    const weekDays = weekDaysNames();
+    const weekDays = getWeekDaysNames(locale);
     if (dayOfWeek === 0) {
       dayName = weekDays[WeekDays.SUNDAY].short;
     } else {
@@ -46,7 +48,7 @@ const CalendarCells = () => {
 
   const numOfDaysFromOtherMonthOnCurrentCalendar = (
     weekDayName: WeekDaysShortNames
-  ) => weekDaysNames().findIndex((name) => weekDayName === name.short);
+  ) => getWeekDaysNames(locale).findIndex((name) => weekDayName === name.short);
 
   const currentMonthDaysWithPreviousMonth = () => {
     var date = new Date(config.today.date.getTime());
