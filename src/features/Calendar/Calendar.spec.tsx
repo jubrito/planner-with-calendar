@@ -3,7 +3,7 @@ import { screen } from "@testing-library/dom";
 import Calendar from "./Calendar";
 import { useDate } from "../../hooks/useDate";
 import "@testing-library/jest-dom";
-import { MonthsNames } from "../../utils/enums";
+import { Months, MonthsNames } from "../../utils/enums";
 
 jest.mock("../../hooks/useDate", () => ({
   __esModule: true,
@@ -21,12 +21,12 @@ describe("CalendarCells", () => {
   describe("January", () => {
     beforeEach(() => {
       (useDate as jest.Mock).mockReturnValue({
-        date: new Date(2025, 0, 1), // January 1, 2025
+        date: new Date(2025, Months.JANUARY, 1), // January 1, 2025
         updateDate: jest.fn(),
         day: 1,
-        month: 0, // January (zero-indexed)
+        month: Months.JANUARY, // January (zero-indexed)
         year: 2025,
-        time: new Date(2025, 0, 1).getTime(),
+        time: new Date(2025, Months.JANUARY, 1).getTime(),
         monthNumberOfDays: 31, // January has 31 days
       });
       render(<Calendar />);
