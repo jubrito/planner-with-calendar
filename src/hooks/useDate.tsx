@@ -1,13 +1,25 @@
 import { useState } from "react";
 import { DateConfig } from "../types/Date";
 
-const useDate = (
-  initialYear: number,
-  initialMonth: number,
-  initialDay: number
+const getInitialDate = (
+  initialYear?: number,
+  initialMonth?: number,
+  initialDay?: number
+) => {
+  const year = initialYear ?? new Date().getFullYear();
+  const month = initialMonth ?? new Date().getMonth();
+  const day = initialDay ?? new Date().getDate();
+
+  return new Date(year, month, day);
+};
+
+export const useDate = (
+  initialYear?: number,
+  initialMonth?: number,
+  initialDay?: number
 ): DateConfig => {
   const [date, setDate] = useState(
-    new Date(initialYear, initialMonth, initialDay)
+    getInitialDate(initialYear, initialMonth, initialDay)
   );
 
   const updateDate = (year: number, month: number, day: number) => {
@@ -28,5 +40,3 @@ const useDate = (
     ).getDate(),
   };
 };
-
-export default useDate;

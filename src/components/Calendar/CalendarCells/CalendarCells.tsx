@@ -1,21 +1,29 @@
-import { config } from "../../../features/Calendar/config";
 import useLocale from "../../../hooks/useLocale";
-import {
-  currentMonthDays,
-  nextMonth,
-  nextMonthYear,
-  previousMonth,
-  previousMonthYear,
-} from "../../../utils/constants";
 import { WeekDays, WeekDaysShortNames } from "../../../utils/enums";
 import {
   getWeekDaysNames,
   numberOfDaysOfTheWeek,
 } from "../../../utils/calendar/weeks";
 import styles from "./_calendar-cells.module.scss";
+import { getCurrentMonthDaysInfo } from "../../../utils/calendar/current";
+import { useDate } from "../../../hooks/useDate";
+import { useEffect } from "react";
+import {
+  getPreviousMonthIndex,
+  getPreviousMonthYear,
+} from "../../../utils/calendar/previous";
+import {
+  getNextMonthIndex,
+  getNextMonthYear,
+} from "../../../utils/calendar/next";
 
 const CalendarCells = () => {
   const { locale } = useLocale();
+  const { year, month, monthNumberOfDays, time, updateDate } = useDate();
+
+  useEffect(() => {
+    updateDate(2025, 2, 1);
+  }, []);
 
   const getDayName = (dayOfWeek: number) => {
     let dayName: WeekDaysShortNames;
@@ -29,21 +37,13 @@ const CalendarCells = () => {
   };
 
   const getWeekDayNameWhenMonthStarts = (): WeekDaysShortNames => {
-    const firstDayOfTheMonthDate = new Date(
-      config.today.year,
-      config.today.month,
-      1
-    );
+    const firstDayOfTheMonthDate = new Date(year, month, 1);
     const dayOfWeek = firstDayOfTheMonthDate.getDay();
     return getDayName(dayOfWeek);
   };
 
   const getWeekDayNameWhenMonthEnds = (): WeekDaysShortNames => {
-    const lastDayOfTheMonthDate = new Date(
-      config.today.year,
-      config.today.month,
-      config.today.monthNumberOfDays
-    );
+    const lastDayOfTheMonthDate = new Date(year, month, monthNumberOfDays);
 
     const dayOfWeek = lastDayOfTheMonthDate.getDay();
     return getDayName(dayOfWeek);
@@ -54,10 +54,14 @@ const CalendarCells = () => {
   ) => getWeekDaysNames(locale).findIndex((name) => weekDayName === name.short);
 
   const currentMonthDaysWithPreviousMonth = () => {
-    var date = new Date(config.today.date.getTime());
+    var date = new Date(time);
     date.setDate(0);
     const lastDayOfPreviousMonth = date.getDate();
-    const filledArray = currentMonthDays.map((currentMonthDay) => ({
+    const filledArray = getCurrentMonthDaysInfo(
+      year,
+      month,
+      monthNumberOfDays
+    ).map((currentMonthDay) => ({
       ...currentMonthDay,
       month: currentMonthDay.month + 1,
     }));
@@ -68,9 +72,9 @@ const CalendarCells = () => {
 
     for (let i = 0; i < numberOfDaysOfPreviousMonth; i++) {
       filledArray.unshift({
-        month: previousMonth + 1,
+        month: getPreviousMonthIndex(month) + 1,
         day: lastDayOfPreviousMonth - i,
-        year: previousMonthYear,
+        year: getPreviousMonthYear(year, month),
       });
     }
 
@@ -90,9 +94,9 @@ const CalendarCells = () => {
 
     for (let i = 0; i < numberOfDaysOfNextMonth; i++) {
       filledArray.push({
-        month: nextMonth + 1,
+        month: getNextMonthIndex(month) + 1,
         day: firstDayOfNextMonth + i,
-        year: nextMonthYear,
+        year: getNextMonthYear(year, month),
       });
     }
     return filledArray;
@@ -103,7 +107,7 @@ const CalendarCells = () => {
       {currentMonthDaysWithPreviousAndNextMonths().map(
         (filledCurrentMonthDay) => {
           const combinedClasses = `${styles.dayCell} ${
-            filledCurrentMonthDay.month === config.today.month + 1
+            filledCurrentMonthDay.month === month + 1
               ? styles.currentMonthDay
               : styles.otherMonthDay
           }`;

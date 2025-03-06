@@ -1,24 +1,13 @@
-jest.mock("../../../features/Calendar/config", () => ({
-  __esModule: true,
-  config: {
-    locale: "en-US",
-    today: {
-      day: 1,
-      month: 0,
-      year: 2025,
-      time: 0,
-      date: new Date(2025, 0, 1),
-      monthNumberOfDays: 31,
-    },
-  },
-}));
-
-// it should be 0 to get december but it is getting november
-
 import { screen } from "@testing-library/dom";
 import CalendarCells from "./CalendarCells";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import { useDate } from "../../../hooks/useDate";
+
+jest.mock("../../../hooks/useDate", () => ({
+  __esModule: true,
+  useDate: jest.fn(),
+}));
 
 describe("CalendarCells", () => {
   /**  January, 2025
@@ -32,6 +21,15 @@ describe("CalendarCells", () => {
 
   describe("First month of the year", () => {
     beforeEach(() => {
+      (useDate as jest.Mock).mockReturnValue({
+        date: new Date(2025, 0, 1), // January 1, 2025
+        updateDate: jest.fn(),
+        day: 1,
+        month: 0, // January (zero-indexed)
+        year: 2025,
+        time: new Date(2025, 0, 1).getTime(),
+        monthNumberOfDays: 31, // January has 31 days
+      });
       render(<CalendarCells />);
     });
 
