@@ -1,5 +1,5 @@
-@use "../../../styles/_variables.scss" as variables;
-@use "../../../styles/_mixins.scss" as mixins;
+@use "../../styles/_variables.scss" as variables;
+@use "../../styles/_mixins.scss" as mixins;
 
 .calendar {
   grid-area: calendar;
@@ -37,5 +37,5 @@
   margin: variables.$small-gap;
   width: $size;
   height: $size;
-  width: calc (1 / variables.$numberOfWeekDays) / 100;
+  width: calc (1 / variables.$numberOfWeekDays / 100);
 }
