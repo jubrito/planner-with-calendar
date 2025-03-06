@@ -1,10 +1,11 @@
 import { useState } from "react";
+import { DateConfig } from "../types/Date";
 
 const useDate = (
   initialYear: number,
   initialMonth: number,
   initialDay: number
-) => {
+): DateConfig => {
   const [date, setDate] = useState(
     new Date(initialYear, initialMonth, initialDay)
   );
