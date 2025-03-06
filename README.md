@@ -1,6 +1,5 @@
 # Next steps (v1):
 
-- Test other months on calendar cells (december, middle month)
 - Move Date type inside types (or find best one of the two)
 - Fix calendar responsiveness (it breaks because of min-width: 485px;)
 - Verify accessibility
@@ -14,6 +13,7 @@
 - Add simple nav
 - Add simple footer
 - Handle basic responsiveness
+- Test leap year
 
 ## v2
 
