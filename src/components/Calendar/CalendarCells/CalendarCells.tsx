@@ -6,8 +6,6 @@ import {
 } from "../../../utils/calendar/weeks";
 import styles from "./_calendar-cells.module.scss";
 import { getCurrentMonthDaysInfo } from "../../../utils/calendar/current";
-import { useDate } from "../../../hooks/useDate";
-import { useEffect } from "react";
 import {
   getPreviousMonthIndex,
   getPreviousMonthYear,
@@ -16,14 +14,14 @@ import {
   getNextMonthIndex,
   getNextMonthYear,
 } from "../../../utils/calendar/next";
+import { DateConfig } from "../../../types/Date";
 
-const CalendarCells = () => {
+type CalendarCellsProps = {
+  dateConfig: DateConfig;
+};
+const CalendarCells = ({ dateConfig }: CalendarCellsProps) => {
   const { locale } = useLocale();
-  const { year, month, monthNumberOfDays, time, updateDate } = useDate();
-
-  useEffect(() => {
-    updateDate(2025, 2, 1);
-  }, []);
+  const { year, month, monthNumberOfDays, time } = dateConfig;
 
   const getDayName = (dayOfWeek: number) => {
     let dayName: WeekDaysShortNames;

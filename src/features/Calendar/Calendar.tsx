@@ -7,13 +7,14 @@ import styles from "./_calendar.module.scss";
 
 const Calendar = () => {
   const { locale } = useLocale();
-  const { date } = useDate();
-  const currentMonthName = getCurrentMonthName(date, locale);
+  const dateConfig = useDate();
+  const currentMonthName = getCurrentMonthName(dateConfig.date, locale);
+
   return (
     <section className={styles.calendar}>
       <div className={styles.monthLabel}>{currentMonthName}</div>
       <CalendarWeeks />
-      <CalendarCells />
+      <CalendarCells dateConfig={dateConfig} />
     </section>
   );
 };
