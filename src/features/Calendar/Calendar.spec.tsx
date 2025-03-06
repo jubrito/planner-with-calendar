@@ -3,7 +3,7 @@ import { screen } from "@testing-library/dom";
 import Calendar from "./Calendar";
 import { useDate } from "../../hooks/useDate";
 import "@testing-library/jest-dom";
-import { Months, MonthsNames } from "../../utils/enums";
+import { Months, MonthsNames } from "../../types/calendar/enums";
 
 jest.mock("../../hooks/useDate", () => ({
   __esModule: true,

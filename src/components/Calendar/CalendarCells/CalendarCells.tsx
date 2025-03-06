@@ -1,5 +1,5 @@
 import useLocale from "../../../hooks/useLocale";
-import { WeekDays, WeekDaysShortNames } from "../../../utils/enums";
+import { WeekDays, WeekDaysShortNames } from "../../../types/calendar/enums";
 import {
   getWeekDaysNames,
   numberOfDaysOfTheWeek,
@@ -14,7 +14,7 @@ import {
   getNextMonthIndex,
   getNextMonthYear,
 } from "../../../utils/calendar/next";
-import { DateConfig } from "../../../types/calendar/Date";
+import { DateConfig } from "../../../types/calendar/types";
 
 type CalendarCellsProps = {
   dateConfig: DateConfig;

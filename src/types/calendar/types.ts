@@ -1,4 +1,4 @@
-import { Months } from "../../utils/enums";
+import { Months, WeekDaysLongNames, WeekDaysShortNames } from "./enums";
 
 export type DateConfig = {
   date: Date;
@@ -8,4 +8,9 @@ export type DateConfig = {
   year: number;
   time: number;
   monthNumberOfDays: number;
+};
+
+export type WeekDaysShortAndLongeNames = {
+  short: WeekDaysShortNames;
+  long: WeekDaysLongNames;
 };

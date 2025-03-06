@@ -1,5 +1,5 @@
-import { DateConfig } from "../../types/calendar/Date";
-import { Months } from "../enums";
+import { DateConfig } from "../../types/calendar/types";
+import { Months } from "../../types/calendar/enums";
 
 export const getNextMonthName = (
   year: DateConfig["year"],

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { DateConfig } from "../types/calendar/Date";
+import { DateConfig } from "../types/calendar/types";
 
 const getInitialDate = (
   initialYear?: number,

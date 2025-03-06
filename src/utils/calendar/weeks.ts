@@ -1,5 +1,8 @@
 import { WeekDaysShortAndLongeNames } from "../../../types/types";
-import { WeekDaysLongNames, WeekDaysShortNames } from "../enums";
+import {
+  WeekDaysLongNames,
+  WeekDaysShortNames,
+} from "../../types/calendar/enums";
 
 export const getWeekDaysNames = (
   locale: string

@@ -1,4 +1,4 @@
-import { DateConfig } from "../../types/calendar/Date";
+import { DateConfig } from "../../types/calendar/types";
 
 export const getUseDateMock = (
   year: DateConfig["year"],
