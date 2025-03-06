@@ -1,8 +1,12 @@
 import { DateConfig } from "../../types/Date";
 
-export const getCurrentMonthName = (date: Date, locale: string): string =>
+export const getCurrentMonthName = (
+  date: Date,
+  locale: string,
+  format: "short" | "long" = "long"
+): string =>
   new Intl.DateTimeFormat(locale, {
-    month: "long",
+    month: format,
   }).format(date);
 
 export const getCurrentMonthDaysInfo = (

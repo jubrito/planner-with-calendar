@@ -4,10 +4,11 @@ import { Months } from "../enums";
 export const getNextMonthName = (
   year: DateConfig["year"],
   month: DateConfig["month"],
-  locale: string
+  locale: string,
+  format: "short" | "long" = "long"
 ) =>
   new Intl.DateTimeFormat(locale, {
-    month: "long",
+    month: format,
   }).format(new Date(year, month + 1, 1));
 
 export const getNextMonthIndex = (month: DateConfig["month"]) =>
