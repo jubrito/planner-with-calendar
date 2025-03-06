@@ -8,7 +8,10 @@ import {
   previousMonthYear,
 } from "../../../utils/constants";
 import { WeekDays, WeekDaysShortNames } from "../../../utils/enums";
-import { getWeekDaysNames, numberOfDaysOfTheWeek } from "../../../utils/week";
+import {
+  getWeekDaysNames,
+  numberOfDaysOfTheWeek,
+} from "../../../utils/calendar/weeks";
 import styles from "./_calendar-cells.module.scss";
 
 const CalendarCells = () => {

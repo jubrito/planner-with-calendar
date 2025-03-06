@@ -1,10 +1,5 @@
-import { WeekDaysShortAndLongeNames } from "../../types/types";
 import { config } from "../features/Calendar/config";
-import { Months, WeekDaysLongNames, WeekDaysShortNames } from "./enums";
-
-// Calendar --------
-
-// Global
+import { Months } from "./enums";
 
 // Current
 export const currentMonthName = new Intl.DateTimeFormat(config.locale, {

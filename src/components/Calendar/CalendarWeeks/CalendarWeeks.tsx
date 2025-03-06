@@ -1,5 +1,5 @@
 import useLocale from "../../../hooks/useLocale";
-import { getWeekDaysNames } from "../../../utils/week";
+import { getWeekDaysNames } from "../../../utils/calendar/weeks";
 import styles from "./_calendar-weeks.module.scss";
 
 const CalendarWeeks = () => {
