@@ -3,6 +3,7 @@ import { screen } from "@testing-library/dom";
 import Calendar from "./Calendar";
 import { useDate } from "../../hooks/useDate";
 import "@testing-library/jest-dom";
+import { MonthsNames } from "../../utils/enums";
 
 jest.mock("../../hooks/useDate", () => ({
   __esModule: true,
@@ -29,6 +30,10 @@ describe("CalendarCells", () => {
         monthNumberOfDays: 31, // January has 31 days
       });
       render(<Calendar />);
+    });
+
+    it("should render January title", () => {
+      expect(screen.getByText(MonthsNames.JANUARY));
     });
 
     it("should render January calendar with filled months from December and February", () => {
