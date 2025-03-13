@@ -24,6 +24,7 @@ describe("CalendarCells", () => {
    */
 
   describe("January", () => {
+    currentMonthNumberOfDays = 31;
     beforeEach(() => {
       const mockUseDate = getUseDateMock(
         currentYear,
@@ -71,6 +72,7 @@ describe("CalendarCells", () => {
     });
   });
   describe("February", () => {
+    currentMonthNumberOfDays = 28;
     beforeEach(() => {
       const mockUseDate = getUseDateMock(
         currentYear,
@@ -116,6 +118,7 @@ describe("CalendarCells", () => {
     });
   });
   describe("March", () => {
+    currentMonthNumberOfDays = 31;
     beforeEach(() => {
       const mockUseDate = getUseDateMock(
         currentYear,
@@ -161,6 +164,7 @@ describe("CalendarCells", () => {
     });
   });
   describe("December", () => {
+    currentMonthNumberOfDays = 31;
     beforeEach(() => {
       const mockUseDate = getUseDateMock(
         currentYear,
