@@ -11,7 +11,6 @@ jest.mock("../../../hooks/useDate", () => ({
 }));
 
 describe("CalendarCells", () => {
-  let currentMonthNumberOfDays = 31;
   let currentYear = 2025;
 
   /**  January, 2025
@@ -24,7 +23,7 @@ describe("CalendarCells", () => {
    */
 
   describe("January", () => {
-    currentMonthNumberOfDays = 31;
+    const currentMonthNumberOfDays = 31;
     beforeEach(() => {
       const mockUseDate = getUseDateMock(
         currentYear,
@@ -65,14 +64,13 @@ describe("CalendarCells", () => {
 
       februaryDays.forEach((februaryDay) => {
         const dayCell = screen.getByTitle(`${currentYear}-${2}-${februaryDay}`);
-        screen.debug();
         expect(dayCell).toBeInTheDocument();
         expect(dayCell.textContent).toBe(februaryDay.toString());
       });
     });
   });
   describe("February", () => {
-    currentMonthNumberOfDays = 28;
+    const currentMonthNumberOfDays = 28;
     beforeEach(() => {
       const mockUseDate = getUseDateMock(
         currentYear,
@@ -111,14 +109,13 @@ describe("CalendarCells", () => {
 
       marchDays.forEach((marchDay) => {
         const dayCell = screen.getByTitle(`${currentYear}-${3}-${marchDay}`);
-        screen.debug();
         expect(dayCell).toBeInTheDocument();
         expect(dayCell.textContent).toBe(marchDay.toString());
       });
     });
   });
   describe("March", () => {
-    currentMonthNumberOfDays = 31;
+    const currentMonthNumberOfDays = 31;
     beforeEach(() => {
       const mockUseDate = getUseDateMock(
         currentYear,
@@ -157,14 +154,13 @@ describe("CalendarCells", () => {
 
       aprilDays.forEach((aprilDay) => {
         const dayCell = screen.getByTitle(`${currentYear}-${4}-${aprilDay}`);
-        screen.debug();
         expect(dayCell).toBeInTheDocument();
         expect(dayCell.textContent).toBe(aprilDay.toString());
       });
     });
   });
   describe("April", () => {
-    currentMonthNumberOfDays = 30;
+    const currentMonthNumberOfDays = 30;
     beforeEach(() => {
       const mockUseDate = getUseDateMock(
         currentYear,
@@ -172,6 +168,7 @@ describe("CalendarCells", () => {
         1,
         currentMonthNumberOfDays
       );
+      console.log("mockUseDate", mockUseDate);
       render(<CalendarCells dateConfig={mockUseDate} />);
     });
 
@@ -203,14 +200,13 @@ describe("CalendarCells", () => {
 
       mayDays.forEach((mayDay) => {
         const dayCell = screen.getByTitle(`${currentYear}-${5}-${mayDay}`);
-        screen.debug();
         expect(dayCell).toBeInTheDocument();
         expect(dayCell.textContent).toBe(mayDay.toString());
       });
     });
   });
   describe("December", () => {
-    currentMonthNumberOfDays = 31;
+    const currentMonthNumberOfDays = 31;
     beforeEach(() => {
       const mockUseDate = getUseDateMock(
         currentYear,
