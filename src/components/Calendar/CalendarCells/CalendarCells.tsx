@@ -34,16 +34,9 @@ const CalendarCells = ({ dateConfig }: CalendarCellsProps) => {
     return dayName;
   };
 
-  const getWeekDayNameWhenMonthStarts = (): WeekDaysShortNames => {
-    const firstDayOfTheMonthDate = new Date(year, month, 1);
-    const dayOfWeek = firstDayOfTheMonthDate.getDay();
-    return getDayName(dayOfWeek);
-  };
-
-  const getWeekDayNameWhenMonthEnds = (): WeekDaysShortNames => {
-    const lastDayOfTheMonthDate = new Date(year, month, monthNumberOfDays);
-
-    const dayOfWeek = lastDayOfTheMonthDate.getDay();
+  const getWeekDayName = (dayToFind: number): WeekDaysShortNames => {
+    const dayOfTheMonthDate = new Date(year, month);
+    const dayOfWeek = dayOfTheMonthDate.getDay();
     return getDayName(dayOfWeek);
   };
 
@@ -63,8 +56,7 @@ const CalendarCells = ({ dateConfig }: CalendarCellsProps) => {
       ...currentMonthDay,
       month: currentMonthDay.month + 1,
     }));
-    const weekDayNameWhenMonthStarts: WeekDaysShortNames =
-      getWeekDayNameWhenMonthStarts();
+    const weekDayNameWhenMonthStarts: WeekDaysShortNames = getWeekDayName(1);
     const numberOfDaysOfPreviousMonth =
       numOfDaysFromOtherMonthOnCurrentCalendar(weekDayNameWhenMonthStarts);
 
@@ -83,7 +75,7 @@ const CalendarCells = ({ dateConfig }: CalendarCellsProps) => {
     const firstDayOfNextMonth = 1;
     const filledArray = [...currentMonthDaysWithPreviousMonth()];
     const weekDayNameWhenMonthEnds: WeekDaysShortNames =
-      getWeekDayNameWhenMonthEnds();
+      getWeekDayName(monthNumberOfDays);
 
     const numberOfDaysOfNextMonth =
       numberOfDaysOfTheWeek -
