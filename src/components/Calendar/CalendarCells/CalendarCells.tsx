@@ -6,7 +6,10 @@ import {
   numberOfDaysOfTheWeek,
 } from "../../../utils/calendar/weeks";
 import styles from "./_calendar-cells.module.scss";
-import { getCurrentMonthDays } from "../../../utils/calendar/current";
+import {
+  firstDayOfTheMonth,
+  getCurrentMonthDays,
+} from "../../../utils/calendar/current";
 import {
   getLastDayOfPreviousMonth,
   getPreviousMonthIndex,
@@ -29,15 +32,9 @@ const CalendarCells = ({ dateConfig }: CalendarCellsProps) => {
     weekDayName: WeekDaysShortNames
   ) => getWeekDaysNames(locale).findIndex((name) => weekDayName === name.short);
 
-  const currentMonthDaysWithPreviousMonth = () => {
+  const getPreviousMonthDaysOnCurrentMonth = () => {
+    const previousMonthDaysOnCurrentMonth: CalendarCellInfo[] = [];
     const lastDayOfPreviousMonth = getLastDayOfPreviousMonth(time);
-    const filledArray: CalendarCellInfo[] = getCurrentMonthDays(
-      year,
-      month,
-      monthNumberOfDays,
-      false
-    );
-    const firstDayOfTheMonth = 1;
     const weekDayNameWhenMonthStarts: WeekDaysShortNames = getWeekDayName(
       year,
       month,
@@ -46,41 +43,55 @@ const CalendarCells = ({ dateConfig }: CalendarCellsProps) => {
     );
     const numberOfDaysOfPreviousMonth =
       numOfDaysFromOtherMonthOnCurrentCalendar(weekDayNameWhenMonthStarts);
-
     for (let i = 0; i < numberOfDaysOfPreviousMonth; i++) {
-      filledArray.unshift({
+      previousMonthDaysOnCurrentMonth.push({
         month: getPreviousMonthIndex(month) + 1,
         day: lastDayOfPreviousMonth - i,
         year: getPreviousMonthYear(year, month),
       });
     }
-
-    return filledArray;
+    return previousMonthDaysOnCurrentMonth;
   };
 
-  const currentMonthDaysWithPreviousAndNextMonths = () => {
-    const firstDayOfNextMonth = 1;
-    const filledArray = [...currentMonthDaysWithPreviousMonth()];
+  const getNextMonthDaysOnCurrentMonth = () => {
+    const nextMonthDaysOnCurrentMonth: CalendarCellInfo[] = [];
     const weekDayNameWhenMonthEnds: WeekDaysShortNames = getWeekDayName(
       year,
       month,
       monthNumberOfDays,
       locale
     );
-
     const numberOfDaysOfNextMonth =
       numberOfDaysOfTheWeek -
       1 -
       numOfDaysFromOtherMonthOnCurrentCalendar(weekDayNameWhenMonthEnds);
 
     for (let i = 0; i < numberOfDaysOfNextMonth; i++) {
-      filledArray.push({
+      nextMonthDaysOnCurrentMonth.push({
         month: getNextMonthIndex(month) + 1,
-        day: firstDayOfNextMonth + i,
+        day: firstDayOfTheMonth + i,
         year: getNextMonthYear(year, month),
       });
     }
-    return filledArray;
+    return nextMonthDaysOnCurrentMonth;
+  };
+
+  const getPreviousCurrentAndNextMonthDays = () => {
+    const currentMonthDays: CalendarCellInfo[] = getCurrentMonthDays(
+      year,
+      month,
+      monthNumberOfDays,
+      false
+    );
+    const previousMonthDaysOnCurrentMonth =
+      getPreviousMonthDaysOnCurrentMonth();
+    const nextMonthDaysOnCurrentMonth = getNextMonthDaysOnCurrentMonth();
+
+    return [
+      ...previousMonthDaysOnCurrentMonth,
+      ...currentMonthDays,
+      ...nextMonthDaysOnCurrentMonth,
+    ];
   };
 
   const chunkArrayByWeek = (
@@ -95,7 +106,7 @@ const CalendarCells = ({ dateConfig }: CalendarCellsProps) => {
 
   return (
     <tbody className={styles.daysContainer}>
-      {chunkArrayByWeek(currentMonthDaysWithPreviousAndNextMonths()).map(
+      {chunkArrayByWeek(getPreviousCurrentAndNextMonthDays()).map(
         (week, weekIndex) => (
           <tr key={weekIndex}>
             {week.map((filledCurrentMonthDay) => {
