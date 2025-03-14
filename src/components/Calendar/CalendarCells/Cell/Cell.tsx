@@ -27,11 +27,13 @@ export const Cell = ({
           : styles.otherMonthDay
       }
     >
-      <time dateTime={fullDate} title={fullDate}>
-        <span aria-hidden="true" tabIndex={-1}>
-          {cellDay}
-        </span>
-      </time>
+      <div>
+        <time dateTime={fullDate} title={fullDate}>
+          <span aria-hidden="true" tabIndex={-1}>
+            {cellDay}
+          </span>
+        </time>
+      </div>
     </td>
   );
 };

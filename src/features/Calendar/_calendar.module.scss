@@ -13,7 +13,7 @@
     height: 400px;
   }
 
-  @include mixins.media-all-but-desktop {
+  @include mixins.media-min-tablet {
     min-width: 485px;
   }
 
@@ -36,6 +36,5 @@
   padding: 5px variables.$calendar-cel-lateral-padding;
   margin: variables.$small-gap;
   width: $size;
-  height: $size;
   width: calc (1 / variables.$numberOfWeekDays / 100);
 }

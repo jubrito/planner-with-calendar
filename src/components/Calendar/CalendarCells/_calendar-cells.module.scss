@@ -13,14 +13,17 @@ tbody {
   tr {
     width: 100%;
     white-space: nowrap;
-    height: 0.0014285714%;
   }
   td {
     @extend .calendarCell;
     color: variables.$main-color;
-    $size: 0.0014285714%;
-    height: auto;
     vertical-align: top;
+
+    div {
+      display: flex;
+      justify-content: right;
+      aspect-ratio: 1/1;
+    }
   }
 
   .currentMonthDay {
