@@ -13,9 +13,17 @@ const Calendar = () => {
 
   return (
     <section className={styles.calendar}>
-      <h2 className={styles.monthLabel} id="calendar-month-name">
-        {`${currentMonthName}, ${currentYear}`}
-      </h2>
+      <div className={styles.calendarHeader}>
+        <div>
+          <p>{"<"}</p>
+        </div>
+        <h2 className={styles.monthLabel} id="calendar-month-name">
+          {`${currentMonthName}, ${currentYear}`}
+        </h2>
+        <div>
+          <p>{">"}</p>
+        </div>
+      </div>
       <table aria-labelledby="calendar-month-name">
         <CalendarWeeks />
         <CalendarCells dateConfig={dateConfig} />
