@@ -16,7 +16,7 @@ import {
   getNextMonthIndex,
   getNextMonthYear,
 } from "../../../utils/calendar/next";
-import { DateConfig } from "../../../types/calendar/types";
+import { CalendarCellInfo, DateConfig } from "../../../types/calendar/types";
 
 type CalendarCellsProps = {
   dateConfig: DateConfig;
@@ -31,7 +31,7 @@ const CalendarCells = ({ dateConfig }: CalendarCellsProps) => {
 
   const currentMonthDaysWithPreviousMonth = () => {
     const lastDayOfPreviousMonth = getLastDayOfPreviousMonth(time);
-    const filledArray = getCurrentMonthDaysInfo(
+    const filledArray: CalendarCellInfo[] = getCurrentMonthDaysInfo(
       year,
       month,
       monthNumberOfDays
@@ -85,7 +85,9 @@ const CalendarCells = ({ dateConfig }: CalendarCellsProps) => {
     return filledArray;
   };
 
-  const chunkArrayByWeek = <T,>(array: T[]): T[][] => {
+  const chunkArrayByWeek = (
+    array: CalendarCellInfo[]
+  ): CalendarCellInfo[][] => {
     const chunks = [];
     for (let i = 0; i < array.length; i += numberOfDaysOfTheWeek) {
       chunks.push(array.slice(i, i + numberOfDaysOfTheWeek));

@@ -14,3 +14,9 @@ export type WeekDaysShortAndLongeNames = {
   short: WeekDaysShortNames;
   long: WeekDaysLongNames;
 };
+
+export type CalendarCellInfo = {
+  month: number;
+  day: number;
+  year: number;
+};
