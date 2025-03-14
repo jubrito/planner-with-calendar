@@ -41,4 +41,15 @@ describe("Cell", () => {
     expect(timeElement).toHaveProperty("title", fullDate);
     expect(timeElement).toHaveTextContent(cellDay.toString());
   });
+  it("should render cell with correct elements when cell month is NOT equal to current month", () => {
+    render(<TestTable cellMonth={Months.FEBRUARY} />);
+    const tdElement = screen.getByRole("cell");
+    const timeElement = within(tdElement).getByRole("time");
+    const fullDate = `${cellYear}-${Months.FEBRUARY}-${cellDay}`;
+    expect(tdElement).toBeInTheDocument();
+    expect(timeElement).toBeInTheDocument();
+    expect(timeElement).toHaveProperty("dateTime", fullDate);
+    expect(timeElement).toHaveProperty("title", fullDate);
+    expect(timeElement).toHaveTextContent(cellDay.toString());
+  });
 });
