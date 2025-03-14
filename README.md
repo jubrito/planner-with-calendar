@@ -27,6 +27,7 @@
 ## v4
 
 - Add translations (change locale)
+- Change date order based on locale
 - Add light/dark/accessible themes
 
 ## v5
