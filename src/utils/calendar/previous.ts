@@ -1,5 +1,8 @@
-import { DateConfig } from "../../types/calendar/types";
-import { Months } from "../../types/calendar/enums";
+import { CalendarCellInfo, DateConfig } from "../../types/calendar/types";
+import { Months, WeekDaysShortNames } from "../../types/calendar/enums";
+import { getWeekDayName } from "./weeks";
+import { numOfDaysFromOtherMonthOnCurrentCalendar } from "./utils";
+import { firstDayOfTheMonth } from "./current";
 
 export const getPreviousMonthName = (
   year: DateConfig["year"],
@@ -28,4 +31,32 @@ export const getLastDayOfPreviousMonth = (time: DateConfig["time"]): number => {
   const tempDate = new Date(time);
   tempDate.setDate(0);
   return tempDate.getDate();
+};
+
+export const getPreviousMonthDaysOnCurrentMonth = (
+  month: DateConfig["month"],
+  year: DateConfig["year"],
+  time: DateConfig["time"],
+  locale: string
+) => {
+  const previousMonthDaysOnCurrentMonth: CalendarCellInfo[] = [];
+  const lastDayOfPreviousMonth = getLastDayOfPreviousMonth(time);
+  const weekDayNameWhenMonthStarts: WeekDaysShortNames = getWeekDayName(
+    year,
+    month,
+    firstDayOfTheMonth,
+    locale
+  );
+  const numberOfDaysOfPreviousMonth = numOfDaysFromOtherMonthOnCurrentCalendar(
+    weekDayNameWhenMonthStarts,
+    locale
+  );
+  for (let i = 0; i < numberOfDaysOfPreviousMonth; i++) {
+    previousMonthDaysOnCurrentMonth.push({
+      month: getPreviousMonthIndex(month) + 1,
+      day: lastDayOfPreviousMonth - i,
+      year: getPreviousMonthYear(year, month),
+    });
+  }
+  return previousMonthDaysOnCurrentMonth;
 };

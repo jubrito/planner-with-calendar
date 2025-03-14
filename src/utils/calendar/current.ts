@@ -22,3 +22,5 @@ export const getCurrentMonthDays = (
     year: year,
   }));
 };
+
+export const firstDayOfTheMonth = 1;

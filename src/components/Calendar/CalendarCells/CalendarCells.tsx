@@ -2,7 +2,6 @@ import useLocale from "../../../hooks/useLocale";
 import { WeekDaysShortNames } from "../../../types/calendar/enums";
 import {
   getWeekDayName,
-  getWeekDaysNames,
   numberOfDaysOfTheWeek,
 } from "../../../utils/calendar/weeks";
 import styles from "./_calendar-cells.module.scss";
@@ -10,16 +9,13 @@ import {
   firstDayOfTheMonth,
   getCurrentMonthDays,
 } from "../../../utils/calendar/current";
-import {
-  getLastDayOfPreviousMonth,
-  getPreviousMonthIndex,
-  getPreviousMonthYear,
-} from "../../../utils/calendar/previous";
+import { getPreviousMonthDaysOnCurrentMonth } from "../../../utils/calendar/previous";
 import {
   getNextMonthIndex,
   getNextMonthYear,
 } from "../../../utils/calendar/next";
 import { CalendarCellInfo, DateConfig } from "../../../types/calendar/types";
+import { numOfDaysFromOtherMonthOnCurrentCalendar } from "../../../utils/calendar/utils";
 
 type CalendarCellsProps = {
   dateConfig: DateConfig;
@@ -27,31 +23,6 @@ type CalendarCellsProps = {
 const CalendarCells = ({ dateConfig }: CalendarCellsProps) => {
   const { locale } = useLocale();
   const { year, month, monthNumberOfDays, time } = dateConfig;
-
-  const numOfDaysFromOtherMonthOnCurrentCalendar = (
-    weekDayName: WeekDaysShortNames
-  ) => getWeekDaysNames(locale).findIndex((name) => weekDayName === name.short);
-
-  const getPreviousMonthDaysOnCurrentMonth = () => {
-    const previousMonthDaysOnCurrentMonth: CalendarCellInfo[] = [];
-    const lastDayOfPreviousMonth = getLastDayOfPreviousMonth(time);
-    const weekDayNameWhenMonthStarts: WeekDaysShortNames = getWeekDayName(
-      year,
-      month,
-      firstDayOfTheMonth,
-      locale
-    );
-    const numberOfDaysOfPreviousMonth =
-      numOfDaysFromOtherMonthOnCurrentCalendar(weekDayNameWhenMonthStarts);
-    for (let i = 0; i < numberOfDaysOfPreviousMonth; i++) {
-      previousMonthDaysOnCurrentMonth.push({
-        month: getPreviousMonthIndex(month) + 1,
-        day: lastDayOfPreviousMonth - i,
-        year: getPreviousMonthYear(year, month),
-      });
-    }
-    return previousMonthDaysOnCurrentMonth;
-  };
 
   const getNextMonthDaysOnCurrentMonth = () => {
     const nextMonthDaysOnCurrentMonth: CalendarCellInfo[] = [];
@@ -64,7 +35,10 @@ const CalendarCells = ({ dateConfig }: CalendarCellsProps) => {
     const numberOfDaysOfNextMonth =
       numberOfDaysOfTheWeek -
       1 -
-      numOfDaysFromOtherMonthOnCurrentCalendar(weekDayNameWhenMonthEnds);
+      numOfDaysFromOtherMonthOnCurrentCalendar(
+        weekDayNameWhenMonthEnds,
+        locale
+      );
 
     for (let i = 0; i < numberOfDaysOfNextMonth; i++) {
       nextMonthDaysOnCurrentMonth.push({
@@ -83,8 +57,12 @@ const CalendarCells = ({ dateConfig }: CalendarCellsProps) => {
       monthNumberOfDays,
       false
     );
-    const previousMonthDaysOnCurrentMonth =
-      getPreviousMonthDaysOnCurrentMonth();
+    const previousMonthDaysOnCurrentMonth = getPreviousMonthDaysOnCurrentMonth(
+      month,
+      year,
+      time,
+      locale
+    );
     const nextMonthDaysOnCurrentMonth = getNextMonthDaysOnCurrentMonth();
 
     return [
