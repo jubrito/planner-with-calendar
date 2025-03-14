@@ -92,7 +92,7 @@ const CalendarCells = ({ dateConfig }: CalendarCellsProps) => {
     return filledArray;
   };
 
-  const chunkArray = <T,>(array: T[]): T[][] => {
+  const chunkArrayByWeek = <T,>(array: T[]): T[][] => {
     const chunks = [];
     for (let i = 0; i < array.length; i += numberOfDaysOfTheWeek) {
       chunks.push(array.slice(i, i + numberOfDaysOfTheWeek));
@@ -102,7 +102,7 @@ const CalendarCells = ({ dateConfig }: CalendarCellsProps) => {
 
   return (
     <tbody className={styles.daysContainer}>
-      {chunkArray(currentMonthDaysWithPreviousAndNextMonths()).map(
+      {chunkArrayByWeek(currentMonthDaysWithPreviousAndNextMonths()).map(
         (week, weekIndex) => (
           <tr key={weekIndex}>
             {week.map((filledCurrentMonthDay) => {
