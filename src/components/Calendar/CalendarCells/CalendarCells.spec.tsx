@@ -587,4 +587,54 @@ describe("CalendarCells", () => {
       });
     });
   });
+  describe.only("Leap year", () => {
+    const leapYear = 2028;
+    describe("January", () => {
+      const currentMonthNumberOfDays = 31;
+      beforeEach(() => {
+        const mockUseDate = getUseDateMock(
+          leapYear,
+          Months.JANUARY,
+          1,
+          currentMonthNumberOfDays
+        );
+        render(<CalendarCells dateConfig={mockUseDate} />);
+      });
+
+      it("should render days from December (previous month) to fill calendar", () => {
+        const decemberDays = [27, 28, 29, 30, 31];
+
+        decemberDays.forEach((decemberDay) => {
+          const dayCell = screen.getByTitle(
+            `${leapYear - 1}-${12}-${decemberDay}`
+          );
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(decemberDay.toString());
+        });
+      });
+
+      it("should render days from January (current month) to fill calendar", () => {
+        const januaryDays = Array.from(
+          Array(currentMonthNumberOfDays).keys(),
+          (day) => day + 1
+        );
+
+        januaryDays.forEach((januaryDay) => {
+          const dayCell = screen.getByTitle(`${leapYear}-${1}-${januaryDay}`);
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(januaryDay.toString());
+        });
+      });
+
+      it("should render days from February (next month) to fill calendar", () => {
+        const februaryDays = [1, 2, 3, 4, 5, 6];
+
+        februaryDays.forEach((februaryDay) => {
+          const dayCell = screen.getByTitle(`${leapYear}-${2}-${februaryDay}`);
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(februaryDay.toString());
+        });
+      });
+    });
+  });
 });
