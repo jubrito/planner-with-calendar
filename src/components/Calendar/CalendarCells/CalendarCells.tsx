@@ -40,10 +40,11 @@ const CalendarCells = ({ dateConfig }: CalendarCellsProps) => {
       ...currentMonthDay,
       month: currentMonthDay.month + 1,
     }));
+    const firstDayOfTheMonth = 1;
     const weekDayNameWhenMonthStarts: WeekDaysShortNames = getWeekDayName(
       year,
       month,
-      1,
+      firstDayOfTheMonth,
       locale
     );
     const numberOfDaysOfPreviousMonth =
