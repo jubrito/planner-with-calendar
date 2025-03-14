@@ -51,7 +51,7 @@ describe("CalendarCells", () => {
               currentYear - 1,
               Months.DECEMBER,
               decemberDay,
-              "en-US"
+              localeMock
             )
           );
           expect(dayCell).toBeInTheDocument();
@@ -67,7 +67,12 @@ describe("CalendarCells", () => {
 
         januaryDays.forEach((januaryDay) => {
           const dayCell = screen.getByTitle(
-            getFullDateTitle(currentYear, Months.JANUARY, januaryDay, "en-US")
+            getFullDateTitle(
+              currentYear,
+              Months.JANUARY,
+              januaryDay,
+              localeMock
+            )
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(januaryDay.toString());
@@ -79,7 +84,12 @@ describe("CalendarCells", () => {
 
         februaryDays.forEach((februaryDay) => {
           const dayCell = screen.getByTitle(
-            getFullDateTitle(currentYear, Months.FEBRUARY, februaryDay, "en-US")
+            getFullDateTitle(
+              currentYear,
+              Months.FEBRUARY,
+              februaryDay,
+              localeMock
+            )
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(februaryDay.toString());
@@ -103,7 +113,12 @@ describe("CalendarCells", () => {
 
         januaryDays.forEach((januaryDay) => {
           const dayCell = screen.getByTitle(
-            getFullDateTitle(currentYear, Months.JANUARY, januaryDay, "en-US")
+            getFullDateTitle(
+              currentYear,
+              Months.JANUARY,
+              januaryDay,
+              localeMock
+            )
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(januaryDay.toString());
@@ -118,7 +133,12 @@ describe("CalendarCells", () => {
 
         februaryDays.forEach((februaryDay) => {
           const dayCell = screen.getByTitle(
-            getFullDateTitle(currentYear, Months.FEBRUARY, februaryDay, "en-US")
+            getFullDateTitle(
+              currentYear,
+              Months.FEBRUARY,
+              februaryDay,
+              localeMock
+            )
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(februaryDay.toString());
@@ -130,7 +150,7 @@ describe("CalendarCells", () => {
 
         marchDays.forEach((marchDay) => {
           const dayCell = screen.getByTitle(
-            getFullDateTitle(currentYear, Months.MARCH, marchDay, "en-US")
+            getFullDateTitle(currentYear, Months.MARCH, marchDay, localeMock)
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(marchDay.toString());
@@ -154,7 +174,12 @@ describe("CalendarCells", () => {
 
         februaryDays.forEach((februaryDay) => {
           const dayCell = screen.getByTitle(
-            getFullDateTitle(currentYear, Months.FEBRUARY, februaryDay, "en-US")
+            getFullDateTitle(
+              currentYear,
+              Months.FEBRUARY,
+              februaryDay,
+              localeMock
+            )
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(februaryDay.toString());
@@ -169,7 +194,7 @@ describe("CalendarCells", () => {
 
         marchDays.forEach((marchDay) => {
           const dayCell = screen.getByTitle(
-            getFullDateTitle(currentYear, Months.MARCH, marchDay, "en-US")
+            getFullDateTitle(currentYear, Months.MARCH, marchDay, localeMock)
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(marchDay.toString());
