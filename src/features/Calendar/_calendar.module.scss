@@ -9,6 +9,7 @@
 
   table {
     table-layout: fixed;
+    border-collapse: collapse;
     width: 100%;
     height: 400px;
   }
@@ -34,7 +35,4 @@
 .calendarCell {
   $size: 0.0014285714%;
   padding: 5px variables.$calendar-cel-lateral-padding;
-  margin: variables.$small-gap;
-  width: $size;
-  width: calc (1 / variables.$numberOfWeekDays / 100);
 }

@@ -2,11 +2,6 @@
 @use "../../../styles/_variables.scss" as variables;
 
 .weekDaysContainer {
-  padding: variables.$inner-spacing;
-  padding-bottom: variables.$small-gap;
-  position: relative;
-  width: 100%;
-
   thead {
     box-sizing: border-box;
 
@@ -26,5 +21,6 @@
     font-weight: bold;
     text-transform: uppercase;
     text-decoration: none;
+    border: variables.$smaller-gap solid variables.$main-color;
   }
 }
