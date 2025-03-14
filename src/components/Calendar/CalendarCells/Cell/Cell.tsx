@@ -1,5 +1,5 @@
 import { DateConfig } from "../../../../types/calendar/types";
-import styles from "./_calendar-cells.module.scss";
+import styles from "../_calendar-cells.module.scss";
 
 type CellProps = {
   cellYear: DateConfig["year"];
