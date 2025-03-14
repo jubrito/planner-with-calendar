@@ -3,7 +3,6 @@
 
 .calendar {
   grid-area: calendar;
-  border: variables.$small-gap solid variables.$main-color;
   margin-left: variables.$outer-spacing;
   position: relative;
 
@@ -25,7 +24,7 @@
 
 .monthLabel {
   $height: 40px;
-  background-color: variables.$main-color;
+  background-color: variables.$black-color;
   height: $height;
   line-height: $height;
   padding-left: variables.$inner-spacing;

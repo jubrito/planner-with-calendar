@@ -16,7 +16,7 @@ tbody {
   }
   td {
     @extend .calendarCell;
-    color: variables.$main-color;
+    color: variables.$black-color;
     vertical-align: top;
 
     div {
@@ -27,11 +27,11 @@ tbody {
   }
 
   .currentMonthDay {
-    background: variables.$bg-color;
-    border: variables.$smaller-gap solid variables.$main-color;
+    background: variables.$white-color;
+    border: variables.$smaller-gap solid variables.$black-color;
   }
   .otherMonthDay {
     background: lightgray;
-    border: variables.$smaller-gap solid variables.$main-color;
+    border: variables.$smaller-gap solid variables.$black-color;
   }
 }
