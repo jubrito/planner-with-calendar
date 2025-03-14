@@ -6,7 +6,7 @@ import {
   numberOfDaysOfTheWeek,
 } from "../../../utils/calendar/weeks";
 import styles from "./_calendar-cells.module.scss";
-import { getCurrentMonthDaysInfo } from "../../../utils/calendar/current";
+import { getCurrentMonthDays } from "../../../utils/calendar/current";
 import {
   getLastDayOfPreviousMonth,
   getPreviousMonthIndex,
@@ -31,7 +31,7 @@ const CalendarCells = ({ dateConfig }: CalendarCellsProps) => {
 
   const currentMonthDaysWithPreviousMonth = () => {
     const lastDayOfPreviousMonth = getLastDayOfPreviousMonth(time);
-    const filledArray: CalendarCellInfo[] = getCurrentMonthDaysInfo(
+    const filledArray: CalendarCellInfo[] = getCurrentMonthDays(
       year,
       month,
       monthNumberOfDays,

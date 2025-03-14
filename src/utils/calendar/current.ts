@@ -9,7 +9,7 @@ export const getCurrentMonthName = (
     month: format,
   }).format(date);
 
-export const getCurrentMonthDaysInfo = (
+export const getCurrentMonthDays = (
   year: DateConfig["year"],
   month: DateConfig["month"],
   monthNumberOfDays: DateConfig["monthNumberOfDays"],
