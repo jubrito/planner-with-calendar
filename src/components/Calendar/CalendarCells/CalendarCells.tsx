@@ -1,6 +1,7 @@
 import useLocale from "../../../hooks/useLocale";
-import { WeekDays, WeekDaysShortNames } from "../../../types/calendar/enums";
+import { WeekDaysShortNames } from "../../../types/calendar/enums";
 import {
+  getWeekDayName,
   getWeekDaysNames,
   numberOfDaysOfTheWeek,
 } from "../../../utils/calendar/weeks";
@@ -23,23 +24,6 @@ const CalendarCells = ({ dateConfig }: CalendarCellsProps) => {
   const { locale } = useLocale();
   const { year, month, monthNumberOfDays, time } = dateConfig;
 
-  const getDayName = (dayOfWeek: number) => {
-    let dayName: WeekDaysShortNames;
-    const weekDays = getWeekDaysNames(locale);
-    if (dayOfWeek === 0) {
-      dayName = weekDays[WeekDays.SUNDAY].short;
-    } else {
-      dayName = weekDays[dayOfWeek - 1].short; // Monday (0) to Saturday (5)
-    }
-    return dayName;
-  };
-
-  const getWeekDayName = (dayToFind: number): WeekDaysShortNames => {
-    const dayOfTheMonthDate = new Date(year, month, dayToFind);
-    const dayOfWeek = dayOfTheMonthDate.getDay();
-    return getDayName(dayOfWeek);
-  };
-
   const numOfDaysFromOtherMonthOnCurrentCalendar = (
     weekDayName: WeekDaysShortNames
   ) => getWeekDaysNames(locale).findIndex((name) => weekDayName === name.short);
@@ -56,7 +40,12 @@ const CalendarCells = ({ dateConfig }: CalendarCellsProps) => {
       ...currentMonthDay,
       month: currentMonthDay.month + 1,
     }));
-    const weekDayNameWhenMonthStarts: WeekDaysShortNames = getWeekDayName(1);
+    const weekDayNameWhenMonthStarts: WeekDaysShortNames = getWeekDayName(
+      year,
+      month,
+      1,
+      locale
+    );
     const numberOfDaysOfPreviousMonth =
       numOfDaysFromOtherMonthOnCurrentCalendar(weekDayNameWhenMonthStarts);
 
@@ -74,8 +63,12 @@ const CalendarCells = ({ dateConfig }: CalendarCellsProps) => {
   const currentMonthDaysWithPreviousAndNextMonths = () => {
     const firstDayOfNextMonth = 1;
     const filledArray = [...currentMonthDaysWithPreviousMonth()];
-    const weekDayNameWhenMonthEnds: WeekDaysShortNames =
-      getWeekDayName(monthNumberOfDays);
+    const weekDayNameWhenMonthEnds: WeekDaysShortNames = getWeekDayName(
+      year,
+      month,
+      monthNumberOfDays,
+      locale
+    );
 
     const numberOfDaysOfNextMonth =
       numberOfDaysOfTheWeek -
