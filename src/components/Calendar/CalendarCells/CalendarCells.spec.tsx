@@ -179,7 +179,6 @@ describe("CalendarCells", () => {
           1,
           currentMonthNumberOfDays
         );
-        console.log("mockUseDate", mockUseDate);
         render(<CalendarCells dateConfig={mockUseDate} />);
       });
 
@@ -349,7 +348,7 @@ describe("CalendarCells", () => {
       });
     });
     describe("August", () => {
-      const currentMonthNumberOfDays = 30;
+      const currentMonthNumberOfDays = 31;
       beforeEach(() => {
         const mockUseDate = getUseDateMock(
           currentYear,
@@ -383,15 +382,10 @@ describe("CalendarCells", () => {
       });
 
       it("should not render days from September (next month) to fill calendar", () => {
-        const septemberDays: number[] = [];
-
-        septemberDays.forEach((septemberDay) => {
-          const dayCell = screen.getByTitle(
-            `${currentYear}-${9}-${septemberDay}`
-          );
-          expect(dayCell).toBeInTheDocument();
-          expect(dayCell.textContent).toBe(septemberDay.toString());
-        });
+        const dayCell = screen.queryByTitle(
+          `${currentYear}-${Months.SEPTEMBER + 1}-1`
+        );
+        expect(dayCell).not.toBeInTheDocument();
       });
     });
     describe("September", () => {
@@ -407,13 +401,10 @@ describe("CalendarCells", () => {
       });
 
       it("should not render days from August (previous month) to fill calendar", () => {
-        const augustDays: number[] = [];
-
-        augustDays.forEach((augustDay) => {
-          const dayCell = screen.getByTitle(`${currentYear}-${8}-${augustDay}`);
-          expect(dayCell).toBeInTheDocument();
-          expect(dayCell.textContent).toBe(augustDay.toString());
-        });
+        const dayCell = screen.queryByTitle(
+          `${currentYear}-${Months.AUGUST + 1}-31`
+        );
+        expect(dayCell).not.toBeInTheDocument();
       });
 
       it("should render days from September (current month) to fill calendar", () => {
@@ -530,16 +521,11 @@ describe("CalendarCells", () => {
         });
       });
 
-      it("should not render days from december (next month) to fill calendar", () => {
-        const decemberDays: number[] = [];
-
-        decemberDays.forEach((decemberDay) => {
-          const dayCell = screen.getByTitle(
-            `${currentYear}-${12}-${decemberDay}`
-          );
-          expect(dayCell).toBeInTheDocument();
-          expect(dayCell.textContent).toBe(decemberDay.toString());
-        });
+      it("should not render days from December (next month) to fill calendar", () => {
+        const dayCell = screen.queryByTitle(
+          `${currentYear}-${Months.DECEMBER + 1}-1`
+        );
+        expect(dayCell).not.toBeInTheDocument();
       });
     });
     describe("December", () => {
@@ -555,7 +541,9 @@ describe("CalendarCells", () => {
       });
 
       it("should not render days from November (previous month) since December starts on a Monday (first column)", () => {
-        const dayCell = screen.queryByTitle("2024-11-30");
+        const dayCell = screen.queryByTitle(
+          `${currentYear}-${Months.NOVEMBER + 1}-30`
+        );
         expect(dayCell).not.toBeInTheDocument();
       });
 
@@ -587,7 +575,7 @@ describe("CalendarCells", () => {
       });
     });
   });
-  describe.only("Leap year", () => {
+  describe("Leap year", () => {
     const leapYear = 2028;
     describe("January", () => {
       const currentMonthNumberOfDays = 31;
@@ -735,7 +723,6 @@ describe("CalendarCells", () => {
           1,
           currentMonthNumberOfDays
         );
-        console.log("mockUseDate", mockUseDate);
         render(<CalendarCells dateConfig={mockUseDate} />);
       });
 
@@ -763,13 +750,10 @@ describe("CalendarCells", () => {
       });
 
       it("should not render days from May (next month) to fill calendar", () => {
-        const mayDays: number[] = [];
-
-        mayDays.forEach((mayDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${5}-${mayDay}`);
-          expect(dayCell).toBeInTheDocument();
-          expect(dayCell.textContent).toBe(mayDay.toString());
-        });
+        const dayCell = screen.queryByTitle(
+          `${leapYear}-${Months.SEPTEMBER + 1}-1`
+        );
+        expect(dayCell).not.toBeInTheDocument();
       });
     });
     describe("May", () => {
@@ -785,13 +769,10 @@ describe("CalendarCells", () => {
       });
 
       it("should not render days from April (previous month) to fill calendar", () => {
-        const aprilDays: number[] = [];
-
-        aprilDays.forEach((aprilDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${4}-${aprilDay}`);
-          expect(dayCell).toBeInTheDocument();
-          expect(dayCell.textContent).toBe(aprilDay.toString());
-        });
+        const dayCell = screen.queryByTitle(
+          `${leapYear}-${Months.SEPTEMBER + 1}-30`
+        );
+        expect(dayCell).not.toBeInTheDocument();
       });
 
       it("should render days from May (current month) to fill calendar", () => {
@@ -905,7 +886,7 @@ describe("CalendarCells", () => {
       });
     });
     describe("August", () => {
-      const currentMonthNumberOfDays = 30;
+      const currentMonthNumberOfDays = 31;
       beforeEach(() => {
         const mockUseDate = getUseDateMock(
           leapYear,
