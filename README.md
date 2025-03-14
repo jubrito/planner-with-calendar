@@ -22,12 +22,14 @@
 
 ## v3
 
-- Get calendar data from Apple API + tests
+- Add translations (change locale)
+- Support changing month names, getFullDateTitle and other stuff when changing translations
+- Change date order based on locale
+- Timezones?
 
 ## v4
 
-- Add translations (change locale)
-- Change date order based on locale
+- Get calendar data from Apple API + tests
 - Add light/dark/accessible themes
 
 ## v5
