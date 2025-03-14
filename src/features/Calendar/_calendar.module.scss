@@ -24,11 +24,11 @@
 
 .monthLabel {
   $height: 40px;
-  background-color: variables.$black-color;
-  height: $height;
+  color: variables.$black-color;
+  font-size: variables.$h1-size;
   line-height: $height;
-  padding-left: variables.$inner-spacing;
   font-weight: bold;
+  text-align: center;
 }
 
 .calendarCell {

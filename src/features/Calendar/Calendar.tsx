@@ -8,12 +8,13 @@ import styles from "./_calendar.module.scss";
 const Calendar = () => {
   const { locale } = useLocale();
   const dateConfig = useDate();
-  const currentMonthName = getCurrentMonthName(dateConfig.date, locale);
+  const { date, year: currentYear } = dateConfig;
+  const currentMonthName = getCurrentMonthName(date, locale);
 
   return (
     <section className={styles.calendar}>
       <h2 className={styles.monthLabel} id="calendar-month-name">
-        {currentMonthName}
+        {`${currentMonthName}, ${currentYear}`}
       </h2>
       <table aria-labelledby="calendar-month-name">
         <CalendarWeeks />
