@@ -35,7 +35,7 @@ const CalendarCells = ({ dateConfig }: CalendarCellsProps) => {
   };
 
   const getWeekDayName = (dayToFind: number): WeekDaysShortNames => {
-    const dayOfTheMonthDate = new Date(year, month);
+    const dayOfTheMonthDate = new Date(year, month, dayToFind);
     const dayOfWeek = dayOfTheMonthDate.getDay();
     return getDayName(dayOfWeek);
   };
