@@ -681,5 +681,50 @@ describe("CalendarCells", () => {
         });
       });
     });
+    describe("March", () => {
+      const currentMonthNumberOfDays = 31;
+      beforeEach(() => {
+        const mockUseDate = getUseDateMock(
+          leapYear,
+          Months.MARCH,
+          1,
+          currentMonthNumberOfDays
+        );
+        render(<CalendarCells dateConfig={mockUseDate} />);
+      });
+
+      it("should render days from February (previous month) to fill calendar", () => {
+        const februaryDays = [28, 29];
+
+        februaryDays.forEach((februaryDay) => {
+          const dayCell = screen.getByTitle(`${leapYear}-${2}-${februaryDay}`);
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(februaryDay.toString());
+        });
+      });
+
+      it("should render days from March (current month) to fill calendar", () => {
+        const marchDays = Array.from(
+          Array(currentMonthNumberOfDays).keys(),
+          (day) => day + 1
+        );
+
+        marchDays.forEach((marchDay) => {
+          const dayCell = screen.getByTitle(`${leapYear}-${3}-${marchDay}`);
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(marchDay.toString());
+        });
+      });
+
+      it("should render days from April (next month) to fill calendar", () => {
+        const aprilDays = [1, 2];
+
+        aprilDays.forEach((aprilDay) => {
+          const dayCell = screen.getByTitle(`${leapYear}-${4}-${aprilDay}`);
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(aprilDay.toString());
+        });
+      });
+    });
   });
 });
