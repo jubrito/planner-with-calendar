@@ -18,8 +18,6 @@ export const Cell = ({
 }: CellProps) => {
   const fullDate = `${cellYear}-${cellMonth}-${cellDay}`;
   const { locale } = useLocale();
-  console.log("cellYear", cellYear);
-  console.log("cellMonth", cellMonth);
   return (
     <td
       scope="col"
