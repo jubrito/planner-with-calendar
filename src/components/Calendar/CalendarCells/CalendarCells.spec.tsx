@@ -948,5 +948,49 @@ describe("CalendarCells", () => {
         });
       });
     });
+    describe("September", () => {
+      const currentMonthNumberOfDays = 30;
+      beforeEach(() => {
+        const mockUseDate = getUseDateMock(
+          leapYear,
+          Months.SEPTEMBER,
+          1,
+          currentMonthNumberOfDays
+        );
+        render(<CalendarCells dateConfig={mockUseDate} />);
+      });
+
+      it("should render days from August (previous month) to fill calendar", () => {
+        const augustDays = [28, 29, 30, 31];
+
+        augustDays.forEach((augustDay) => {
+          const dayCell = screen.getByTitle(`${leapYear}-${8}-${augustDay}`);
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(augustDay.toString());
+        });
+      });
+
+      it("should render days from September (current month) to fill calendar", () => {
+        const septemberDays = Array.from(
+          Array(currentMonthNumberOfDays).keys(),
+          (day) => day + 1
+        );
+        septemberDays.forEach((septemberDay) => {
+          const dayCell = screen.getByTitle(`${leapYear}-${9}-${septemberDay}`);
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(septemberDay.toString());
+        });
+      });
+
+      it("should render days from October (next month) to fill calendar", () => {
+        const octoberDays = [1];
+
+        octoberDays.forEach((octoberDay) => {
+          const dayCell = screen.getByTitle(`${leapYear}-${10}-${octoberDay}`);
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(octoberDay.toString());
+        });
+      });
+    });
   });
 });
