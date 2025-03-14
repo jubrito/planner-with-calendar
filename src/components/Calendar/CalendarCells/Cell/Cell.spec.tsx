@@ -1,11 +1,9 @@
 import "@testing-library/jest-dom";
-
 import { screen, within } from "@testing-library/dom";
 import { render } from "@testing-library/react";
 import { Cell } from "./Cell";
 import { Months } from "../../../../types/calendar/enums";
 import { firstDayOfTheMonth } from "../../../../utils/calendar/current";
-import { DateConfig } from "../../../../types/calendar/types";
 
 describe("Cell", () => {
   const cellYear = 2025;
