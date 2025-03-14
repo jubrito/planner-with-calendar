@@ -383,6 +383,52 @@ describe("CalendarCells", () => {
       });
     });
   });
+  describe("September", () => {
+    const currentMonthNumberOfDays = 30;
+    beforeEach(() => {
+      const mockUseDate = getUseDateMock(
+        currentYear,
+        Months.SEPTEMBER,
+        1,
+        currentMonthNumberOfDays
+      );
+      render(<CalendarCells dateConfig={mockUseDate} />);
+    });
+
+    it("should not render days from August (previous month) to fill calendar", () => {
+      const augustDays: number[] = [];
+
+      augustDays.forEach((augustDay) => {
+        const dayCell = screen.getByTitle(`${currentYear}-${8}-${augustDay}`);
+        expect(dayCell).toBeInTheDocument();
+        expect(dayCell.textContent).toBe(augustDay.toString());
+      });
+    });
+
+    it("should render days from September (current month) to fill calendar", () => {
+      const septemberDays = Array.from(
+        Array(currentMonthNumberOfDays).keys(),
+        (day) => day + 1
+      );
+      septemberDays.forEach((septemberDay) => {
+        const dayCell = screen.getByTitle(
+          `${currentYear}-${9}-${septemberDay}`
+        );
+        expect(dayCell).toBeInTheDocument();
+        expect(dayCell.textContent).toBe(septemberDay.toString());
+      });
+    });
+
+    it("should render days from October (next month) to fill calendar", () => {
+      const octoberDays = [1, 2, 3, 4, 5];
+
+      octoberDays.forEach((octoberDay) => {
+        const dayCell = screen.getByTitle(`${currentYear}-${10}-${octoberDay}`);
+        expect(dayCell).toBeInTheDocument();
+        expect(dayCell.textContent).toBe(octoberDay.toString());
+      });
+    });
+  });
   describe("December", () => {
     const currentMonthNumberOfDays = 31;
     beforeEach(() => {
