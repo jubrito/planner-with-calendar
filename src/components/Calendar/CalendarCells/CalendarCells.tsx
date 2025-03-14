@@ -29,7 +29,7 @@ const CalendarCells = ({ dateConfig }: CalendarCellsProps) => {
   ) => getWeekDaysNames(locale).findIndex((name) => weekDayName === name.short);
 
   const currentMonthDaysWithPreviousMonth = () => {
-    var date = new Date(time);
+    const date = new Date(time);
     date.setDate(0);
     const lastDayOfPreviousMonth = date.getDate();
     const filledArray = getCurrentMonthDaysInfo(
