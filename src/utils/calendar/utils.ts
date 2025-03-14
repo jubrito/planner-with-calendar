@@ -5,3 +5,4 @@ export const numOfDaysFromOtherMonthOnCurrentCalendar = (
   weekDayName: WeekDaysShortNames,
   locale: string
 ) => getWeekDaysNames(locale).findIndex((name) => weekDayName === name.short);
+export const firstDayOfTheMonth = 1;

@@ -2,7 +2,7 @@ import { CalendarCellInfo, DateConfig } from "../../types/calendar/types";
 import { Months, WeekDaysShortNames } from "../../types/calendar/enums";
 import { getWeekDayName } from "./weeks";
 import { numOfDaysFromOtherMonthOnCurrentCalendar } from "./utils";
-import { firstDayOfTheMonth } from "./current";
+import { firstDayOfTheMonth } from "./utils";
 
 export const getPreviousMonthName = (
   year: DateConfig["year"],
