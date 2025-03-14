@@ -4,12 +4,14 @@ import Calendar from "./Calendar";
 import { useDate } from "../../hooks/useDate";
 import "@testing-library/jest-dom";
 import { Months, MonthsNames } from "../../types/calendar/enums";
+import { getFullDateTitle } from "../../utils/calendar/utils";
 
 jest.mock("../../hooks/useDate", () => ({
   __esModule: true,
   useDate: jest.fn(),
 }));
 describe("CalendarCells", () => {
+  const localeMock = "en-US";
   /**  January, 2025
    * Note: Calendar starts on a Monday
    * Since January 1 is a Wednesday, December 30 and December 31
@@ -43,19 +45,25 @@ describe("CalendarCells", () => {
       const februaryDays = [1, 2];
 
       decemberDays.forEach((decemberDay) => {
-        const dayCell = screen.getByTitle(`${year - 1}-${12}-${decemberDay}`);
+        const dayCell = screen.getByTitle(
+          getFullDateTitle(year - 1, Months.DECEMBER, decemberDay, localeMock)
+        );
         expect(dayCell).toBeInTheDocument();
         expect(dayCell.textContent).toBe(decemberDay.toString());
       });
 
       januaryDays.forEach((januaryDay) => {
-        const dayCell = screen.getByTitle(`${year}-${1}-${januaryDay}`);
+        const dayCell = screen.getByTitle(
+          getFullDateTitle(year, Months.JANUARY, januaryDay, localeMock)
+        );
         expect(dayCell).toBeInTheDocument();
         expect(dayCell.textContent).toBe(januaryDay.toString());
       });
 
       februaryDays.forEach((februaryDay) => {
-        const dayCell = screen.getByTitle(`${year}-${2}-${februaryDay}`);
+        const dayCell = screen.getByTitle(
+          getFullDateTitle(year, Months.FEBRUARY, februaryDay, localeMock)
+        );
         expect(dayCell).toBeInTheDocument();
         expect(dayCell.textContent).toBe(februaryDay.toString());
       });
