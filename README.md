@@ -1,6 +1,5 @@
 # Next steps (v1):
 
-- Refactor CalendarCells
 - Fix calendar responsiveness (it breaks because of min-width: 485px;)
 - Verify accessibility
 - Add skip to main content
