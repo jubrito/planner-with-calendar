@@ -1,21 +1,10 @@
 import useLocale from "../../../hooks/useLocale";
-import { WeekDaysShortNames } from "../../../types/calendar/enums";
-import {
-  getWeekDayName,
-  numberOfDaysOfTheWeek,
-} from "../../../utils/calendar/weeks";
+import { numberOfDaysOfTheWeek } from "../../../utils/calendar/weeks";
 import styles from "./_calendar-cells.module.scss";
-import {
-  firstDayOfTheMonth,
-  getCurrentMonthDays,
-} from "../../../utils/calendar/current";
+import { getCurrentMonthDays } from "../../../utils/calendar/current";
 import { getPreviousMonthDaysOnCurrentMonth } from "../../../utils/calendar/previous";
-import {
-  getNextMonthIndex,
-  getNextMonthYear,
-} from "../../../utils/calendar/next";
+import { getNextMonthDaysOnCurrentMonth } from "../../../utils/calendar/next";
 import { CalendarCellInfo, DateConfig } from "../../../types/calendar/types";
-import { numOfDaysFromOtherMonthOnCurrentCalendar } from "../../../utils/calendar/utils";
 
 type CalendarCellsProps = {
   dateConfig: DateConfig;
@@ -23,32 +12,6 @@ type CalendarCellsProps = {
 const CalendarCells = ({ dateConfig }: CalendarCellsProps) => {
   const { locale } = useLocale();
   const { year, month, monthNumberOfDays, time } = dateConfig;
-
-  const getNextMonthDaysOnCurrentMonth = () => {
-    const nextMonthDaysOnCurrentMonth: CalendarCellInfo[] = [];
-    const weekDayNameWhenMonthEnds: WeekDaysShortNames = getWeekDayName(
-      year,
-      month,
-      monthNumberOfDays,
-      locale
-    );
-    const numberOfDaysOfNextMonth =
-      numberOfDaysOfTheWeek -
-      1 -
-      numOfDaysFromOtherMonthOnCurrentCalendar(
-        weekDayNameWhenMonthEnds,
-        locale
-      );
-
-    for (let i = 0; i < numberOfDaysOfNextMonth; i++) {
-      nextMonthDaysOnCurrentMonth.push({
-        month: getNextMonthIndex(month) + 1,
-        day: firstDayOfTheMonth + i,
-        year: getNextMonthYear(year, month),
-      });
-    }
-    return nextMonthDaysOnCurrentMonth;
-  };
 
   const getPreviousCurrentAndNextMonthDays = () => {
     const currentMonthDays: CalendarCellInfo[] = getCurrentMonthDays(
@@ -63,7 +26,12 @@ const CalendarCells = ({ dateConfig }: CalendarCellsProps) => {
       time,
       locale
     );
-    const nextMonthDaysOnCurrentMonth = getNextMonthDaysOnCurrentMonth();
+    const nextMonthDaysOnCurrentMonth = getNextMonthDaysOnCurrentMonth(
+      month,
+      year,
+      monthNumberOfDays,
+      locale
+    );
 
     return [
       ...previousMonthDaysOnCurrentMonth,
