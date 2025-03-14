@@ -8,6 +8,7 @@ import {
 import styles from "./_calendar-cells.module.scss";
 import { getCurrentMonthDaysInfo } from "../../../utils/calendar/current";
 import {
+  getLastDayOfPreviousMonth,
   getPreviousMonthIndex,
   getPreviousMonthYear,
 } from "../../../utils/calendar/previous";
@@ -29,9 +30,7 @@ const CalendarCells = ({ dateConfig }: CalendarCellsProps) => {
   ) => getWeekDaysNames(locale).findIndex((name) => weekDayName === name.short);
 
   const currentMonthDaysWithPreviousMonth = () => {
-    const date = new Date(time);
-    date.setDate(0);
-    const lastDayOfPreviousMonth = date.getDate();
+    const lastDayOfPreviousMonth = getLastDayOfPreviousMonth(time);
     const filledArray = getCurrentMonthDaysInfo(
       year,
       month,
