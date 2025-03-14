@@ -1,6 +1,7 @@
 # Next steps (v1):
 
 - Fix calendar responsiveness (it breaks because of min-width: 485px;)
+- Highlight current day of the week or day
 - Verify accessibility
 - Add skip to main content
 
