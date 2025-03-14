@@ -860,5 +860,49 @@ describe("CalendarCells", () => {
         });
       });
     });
+    describe("July", () => {
+      const currentMonthNumberOfDays = 31;
+      beforeEach(() => {
+        const mockUseDate = getUseDateMock(
+          leapYear,
+          Months.JULY,
+          1,
+          currentMonthNumberOfDays
+        );
+        render(<CalendarCells dateConfig={mockUseDate} />);
+      });
+
+      it("should render days from June (previous month) to fill calendar", () => {
+        const juneDays = [26, 27, 28, 29, 30];
+
+        juneDays.forEach((juneDay) => {
+          const dayCell = screen.getByTitle(`${leapYear}-${6}-${juneDay}`);
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(juneDay.toString());
+        });
+      });
+
+      it("should render days from July (current month) to fill calendar", () => {
+        const julyDays = Array.from(
+          Array(currentMonthNumberOfDays).keys(),
+          (day) => day + 1
+        );
+        julyDays.forEach((julyDay) => {
+          const dayCell = screen.getByTitle(`${leapYear}-${7}-${julyDay}`);
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(julyDay.toString());
+        });
+      });
+
+      it("should render days from August (next month) to fill calendar", () => {
+        const augustDays = [1, 2, 3, 5, 6];
+
+        augustDays.forEach((augustDay) => {
+          const dayCell = screen.getByTitle(`${leapYear}-${8}-${augustDay}`);
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(augustDay.toString());
+        });
+      });
+    });
   });
 });
