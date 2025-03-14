@@ -232,7 +232,6 @@ describe("CalendarCells", () => {
         Array(currentMonthNumberOfDays).keys(),
         (day) => day + 1
       );
-      screen.debug();
       mayDays.forEach((mayDay) => {
         const dayCell = screen.getByTitle(`${currentYear}-${5}-${mayDay}`);
         expect(dayCell).toBeInTheDocument();
@@ -277,7 +276,6 @@ describe("CalendarCells", () => {
         Array(currentMonthNumberOfDays).keys(),
         (day) => day + 1
       );
-      screen.debug();
       juneDays.forEach((juneDay) => {
         const dayCell = screen.getByTitle(`${currentYear}-${6}-${juneDay}`);
         expect(dayCell).toBeInTheDocument();
@@ -292,6 +290,50 @@ describe("CalendarCells", () => {
         const dayCell = screen.getByTitle(`${currentYear}-${7}-${julyDay}`);
         expect(dayCell).toBeInTheDocument();
         expect(dayCell.textContent).toBe(julyDay.toString());
+      });
+    });
+  });
+  describe("July", () => {
+    const currentMonthNumberOfDays = 31;
+    beforeEach(() => {
+      const mockUseDate = getUseDateMock(
+        currentYear,
+        Months.JULY,
+        1,
+        currentMonthNumberOfDays
+      );
+      render(<CalendarCells dateConfig={mockUseDate} />);
+    });
+
+    it("should render days from June (previous month) to fill calendar", () => {
+      const juneDays = [30];
+
+      juneDays.forEach((juneDay) => {
+        const dayCell = screen.getByTitle(`${currentYear}-${6}-${juneDay}`);
+        expect(dayCell).toBeInTheDocument();
+        expect(dayCell.textContent).toBe(juneDay.toString());
+      });
+    });
+
+    it("should render days from July (current month) to fill calendar", () => {
+      const julyDays = Array.from(
+        Array(currentMonthNumberOfDays).keys(),
+        (day) => day + 1
+      );
+      julyDays.forEach((julyDay) => {
+        const dayCell = screen.getByTitle(`${currentYear}-${7}-${julyDay}`);
+        expect(dayCell).toBeInTheDocument();
+        expect(dayCell.textContent).toBe(julyDay.toString());
+      });
+    });
+
+    it("should render days from August (next month) to fill calendar", () => {
+      const augustDays = [1, 2, 3];
+
+      augustDays.forEach((augustDay) => {
+        const dayCell = screen.getByTitle(`${currentYear}-${8}-${augustDay}`);
+        expect(dayCell).toBeInTheDocument();
+        expect(dayCell.textContent).toBe(augustDay.toString());
       });
     });
   });
