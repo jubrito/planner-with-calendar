@@ -1036,5 +1036,49 @@ describe("CalendarCells", () => {
         });
       });
     });
+    describe("November", () => {
+      const currentMonthNumberOfDays = 30;
+      beforeEach(() => {
+        const mockUseDate = getUseDateMock(
+          leapYear,
+          Months.NOVEMBER,
+          1,
+          currentMonthNumberOfDays
+        );
+        render(<CalendarCells dateConfig={mockUseDate} />);
+      });
+
+      it("should render days from October (previous month) to fill calendar", () => {
+        const octoberDays = [30, 31];
+
+        octoberDays.forEach((octoberDay) => {
+          const dayCell = screen.getByTitle(`${leapYear}-${10}-${octoberDay}`);
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(octoberDay.toString());
+        });
+      });
+
+      it("should render days from November (current month) to fill calendar", () => {
+        const novemberDays = Array.from(
+          Array(currentMonthNumberOfDays).keys(),
+          (day) => day + 1
+        );
+        novemberDays.forEach((novemberDay) => {
+          const dayCell = screen.getByTitle(`${leapYear}-${11}-${novemberDay}`);
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(novemberDay.toString());
+        });
+      });
+
+      it("should render days from december (next month) to fill calendar", () => {
+        const decemberDays = [1, 2, 3];
+
+        decemberDays.forEach((decemberDay) => {
+          const dayCell = screen.getByTitle(`${leapYear}-${12}-${decemberDay}`);
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(decemberDay.toString());
+        });
+      });
+    });
   });
 });
