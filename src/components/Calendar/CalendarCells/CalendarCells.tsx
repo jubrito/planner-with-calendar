@@ -5,10 +5,12 @@ import { getCurrentMonthDays } from "../../../utils/calendar/current";
 import { getPreviousMonthDaysOnCurrentMonth } from "../../../utils/calendar/previous";
 import { getNextMonthDaysOnCurrentMonth } from "../../../utils/calendar/next";
 import { CalendarCellInfo, DateConfig } from "../../../types/calendar/types";
+import { Cell } from "./Cell/Cell";
 
 type CalendarCellsProps = {
   dateConfig: DateConfig;
 };
+
 const CalendarCells = ({ dateConfig }: CalendarCellsProps) => {
   const { locale } = useLocale();
   const { year, month, monthNumberOfDays, time } = dateConfig;
@@ -56,25 +58,18 @@ const CalendarCells = ({ dateConfig }: CalendarCellsProps) => {
         (week, weekIndex) => (
           <tr key={weekIndex}>
             {week.map((filledCurrentMonthDay) => {
-              const fullDate = `${filledCurrentMonthDay.year}-${filledCurrentMonthDay.month}-${filledCurrentMonthDay.day}`;
+              const {
+                day: cellDay,
+                month: cellMonth,
+                year: cellYear,
+              } = filledCurrentMonthDay;
               return (
-                <td
-                  scope="col"
-                  key={`${filledCurrentMonthDay.year} +
-                ${filledCurrentMonthDay.month} +
-                ${filledCurrentMonthDay.day}`}
-                  className={
-                    filledCurrentMonthDay.month === month + 1
-                      ? styles.currentMonthDay
-                      : styles.otherMonthDay
-                  }
-                >
-                  <time dateTime={fullDate} title={fullDate}>
-                    <span aria-hidden="true" tabIndex={-1}>
-                      {filledCurrentMonthDay.day}
-                    </span>
-                  </time>
-                </td>
+                <Cell
+                  cellDay={cellDay}
+                  cellMonth={cellMonth}
+                  cellYear={cellYear}
+                  currentMonth={month}
+                />
               );
             })}
           </tr>
