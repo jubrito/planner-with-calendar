@@ -69,6 +69,7 @@ const CalendarCells = ({ dateConfig }: CalendarCellsProps) => {
                   cellMonth={cellMonth}
                   cellYear={cellYear}
                   currentMonth={month}
+                  key={`${cellYear}-${cellMonth}-${cellDay}`}
                 />
               );
             })}
