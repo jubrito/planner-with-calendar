@@ -5,6 +5,7 @@ import "@testing-library/jest-dom";
 import { Months } from "../../../types/calendar/enums";
 import { getUseDateMock } from "../../../utils/tests/mocks";
 import { ReactElement } from "react";
+import { getFullDateTitle } from "../../../utils/calendar/utils";
 
 jest.mock("../../../hooks/useDate", () => ({
   __esModule: true,
@@ -45,7 +46,12 @@ describe("CalendarCells", () => {
 
         decemberDays.forEach((decemberDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear - 1}-${Months.DECEMBER + 1}-${decemberDay}`
+            getFullDateTitle(
+              currentYear - 1,
+              Months.DECEMBER,
+              decemberDay,
+              "en-US"
+            )
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(decemberDay.toString());
@@ -60,7 +66,7 @@ describe("CalendarCells", () => {
 
         januaryDays.forEach((januaryDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear}-${Months.JANUARY + 1}-${januaryDay}`
+            getFullDateTitle(currentYear, Months.JANUARY, januaryDay, "en-US")
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(januaryDay.toString());

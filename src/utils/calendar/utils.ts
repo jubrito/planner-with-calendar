@@ -3,6 +3,7 @@ import {
   MonthsNames,
   WeekDaysShortNames,
 } from "../../types/calendar/enums";
+import { DateConfig } from "../../types/calendar/types";
 import { getWeekDaysNames } from "./weeks";
 
 export const numOfDaysFromOtherMonthOnCurrentCalendar = (
@@ -25,3 +26,13 @@ export const monthNameByIndex: Record<Months, MonthsNames> = {
   [Months.NOVEMBER]: MonthsNames.NOVEMBER,
   [Months.DECEMBER]: MonthsNames.DECEMBER,
 };
+
+export const getFullDateTitle = (
+  year: DateConfig["year"],
+  month: DateConfig["month"],
+  day: DateConfig["day"],
+  locale: string
+) =>
+  new Intl.DateTimeFormat(locale, {
+    dateStyle: "full",
+  }).format(new Date(year, month, day));
