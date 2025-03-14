@@ -1080,5 +1080,44 @@ describe("CalendarCells", () => {
         });
       });
     });
+    describe("December", () => {
+      const currentMonthNumberOfDays = 31;
+      beforeEach(() => {
+        const mockUseDate = getUseDateMock(
+          leapYear,
+          Months.DECEMBER,
+          1,
+          currentMonthNumberOfDays
+        );
+        render(<CalendarCells dateConfig={mockUseDate} />);
+      });
+
+      it("should render days from November (previous month) since December starts on a Monday (first column)", () => {
+        const novemberDays = [27, 28, 29, 30];
+        novemberDays.forEach((novemberDay) => {
+          const dayCell = screen.getByTitle(`${leapYear}-${11}-${novemberDay}`);
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(novemberDay.toString());
+        });
+      });
+
+      it("should render days from December (current month) to fill calendar", () => {
+        const decemberDays = Array.from(
+          Array(currentMonthNumberOfDays).keys(),
+          (day) => day + 1
+        );
+
+        decemberDays.forEach((decemberDay) => {
+          const dayCell = screen.getByTitle(`${leapYear}-${12}-${decemberDay}`);
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(decemberDay.toString());
+        });
+      });
+
+      it("should not render days from January (next month) to fill calendar", () => {
+        const dayCell = screen.queryByTitle(`${leapYear + 1}-1-1`);
+        expect(dayCell).not.toBeInTheDocument();
+      });
+    });
   });
 });
