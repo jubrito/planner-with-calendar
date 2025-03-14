@@ -19,21 +19,22 @@ describe("CalendarCells", () => {
    * be displayed after January days
    */
   describe("January", () => {
+    const year = 2025;
     beforeEach(() => {
       (useDate as jest.Mock).mockReturnValue({
-        date: new Date(2025, Months.JANUARY, 1), // January 1, 2025
+        date: new Date(year, Months.JANUARY, 1), // January 1, 2025
         updateDate: jest.fn(),
         day: 1,
         month: Months.JANUARY, // January (zero-indexed)
-        year: 2025,
-        time: new Date(2025, Months.JANUARY, 1).getTime(),
+        year: year,
+        time: new Date(year, Months.JANUARY, 1).getTime(),
         monthNumberOfDays: 31, // January has 31 days
       });
       render(<Calendar />);
     });
 
-    it("should render January title", () => {
-      expect(screen.getByText(MonthsNames.JANUARY));
+    it("should render January title with year 2025", () => {
+      expect(screen.getByText(`${MonthsNames.JANUARY}, ${year}`));
     });
 
     it("should render January calendar with filled months from December and February", () => {
@@ -42,19 +43,19 @@ describe("CalendarCells", () => {
       const februaryDays = [1, 2];
 
       decemberDays.forEach((decemberDay) => {
-        const dayCell = screen.getByTitle(`${2024}-${12}-${decemberDay}`);
+        const dayCell = screen.getByTitle(`${year - 1}-${12}-${decemberDay}`);
         expect(dayCell).toBeInTheDocument();
         expect(dayCell.textContent).toBe(decemberDay.toString());
       });
 
       januaryDays.forEach((januaryDay) => {
-        const dayCell = screen.getByTitle(`${2025}-${1}-${januaryDay}`);
+        const dayCell = screen.getByTitle(`${year}-${1}-${januaryDay}`);
         expect(dayCell).toBeInTheDocument();
         expect(dayCell.textContent).toBe(januaryDay.toString());
       });
 
       februaryDays.forEach((februaryDay) => {
-        const dayCell = screen.getByTitle(`${2025}-${2}-${februaryDay}`);
+        const dayCell = screen.getByTitle(`${year}-${2}-${februaryDay}`);
         expect(dayCell).toBeInTheDocument();
         expect(dayCell.textContent).toBe(februaryDay.toString());
       });
