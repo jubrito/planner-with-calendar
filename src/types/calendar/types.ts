@@ -16,7 +16,7 @@ export type WeekDaysShortAndLongeNames = {
 };
 
 export type CalendarCellInfo = {
-  month: number;
-  day: number;
-  year: number;
+  month: DateConfig["month"];
+  day: DateConfig["day"];
+  year: DateConfig["year"];
 };
