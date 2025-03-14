@@ -4,6 +4,8 @@ import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { Months } from "../../../types/calendar/enums";
 import { getUseDateMock } from "../../../utils/tests/mocks";
+import * as React from "react";
+import { ReactElement } from "react";
 
 jest.mock("../../../hooks/useDate", () => ({
   __esModule: true,
@@ -11,6 +13,10 @@ jest.mock("../../../hooks/useDate", () => ({
 }));
 
 describe("CalendarCells", () => {
+  const withTableWrapper = (children: ReactElement) => {
+    return <table>{children}</table>;
+  };
+
   describe("Non-leap year", () => {
     const currentYear = 2025;
 
@@ -32,7 +38,7 @@ describe("CalendarCells", () => {
           1,
           currentMonthNumberOfDays
         );
-        render(<CalendarCells dateConfig={mockUseDate} />);
+        render(withTableWrapper(<CalendarCells dateConfig={mockUseDate} />));
       });
 
       it("should render days from December (previous month) to fill calendar", () => {
@@ -83,7 +89,7 @@ describe("CalendarCells", () => {
           1,
           currentMonthNumberOfDays
         );
-        render(<CalendarCells dateConfig={mockUseDate} />);
+        render(withTableWrapper(<CalendarCells dateConfig={mockUseDate} />));
       });
 
       it("should render days from January (previous month) to fill calendar", () => {
@@ -134,7 +140,7 @@ describe("CalendarCells", () => {
           1,
           currentMonthNumberOfDays
         );
-        render(<CalendarCells dateConfig={mockUseDate} />);
+        render(withTableWrapper(<CalendarCells dateConfig={mockUseDate} />));
       });
 
       it("should render days from February (previous month) to fill calendar", () => {
@@ -185,7 +191,7 @@ describe("CalendarCells", () => {
           1,
           currentMonthNumberOfDays
         );
-        render(<CalendarCells dateConfig={mockUseDate} />);
+        render(withTableWrapper(<CalendarCells dateConfig={mockUseDate} />));
       });
 
       it("should render days from March (previous month) to fill calendar", () => {
@@ -236,7 +242,7 @@ describe("CalendarCells", () => {
           1,
           currentMonthNumberOfDays
         );
-        render(<CalendarCells dateConfig={mockUseDate} />);
+        render(withTableWrapper(<CalendarCells dateConfig={mockUseDate} />));
       });
 
       it("should render days from April (previous month) to fill calendar", () => {
@@ -286,7 +292,7 @@ describe("CalendarCells", () => {
           1,
           currentMonthNumberOfDays
         );
-        render(<CalendarCells dateConfig={mockUseDate} />);
+        render(withTableWrapper(<CalendarCells dateConfig={mockUseDate} />));
       });
 
       it("should render days from May (previous month) to fill calendar", () => {
@@ -336,7 +342,7 @@ describe("CalendarCells", () => {
           1,
           currentMonthNumberOfDays
         );
-        render(<CalendarCells dateConfig={mockUseDate} />);
+        render(withTableWrapper(<CalendarCells dateConfig={mockUseDate} />));
       });
 
       it("should render days from June (previous month) to fill calendar", () => {
@@ -386,7 +392,7 @@ describe("CalendarCells", () => {
           1,
           currentMonthNumberOfDays
         );
-        render(<CalendarCells dateConfig={mockUseDate} />);
+        render(withTableWrapper(<CalendarCells dateConfig={mockUseDate} />));
       });
 
       it("should render days from July (previous month) to fill calendar", () => {
@@ -431,7 +437,7 @@ describe("CalendarCells", () => {
           1,
           currentMonthNumberOfDays
         );
-        render(<CalendarCells dateConfig={mockUseDate} />);
+        render(withTableWrapper(<CalendarCells dateConfig={mockUseDate} />));
       });
 
       it("should not render days from August (previous month) to fill calendar", () => {
@@ -476,7 +482,7 @@ describe("CalendarCells", () => {
           1,
           currentMonthNumberOfDays
         );
-        render(<CalendarCells dateConfig={mockUseDate} />);
+        render(withTableWrapper(<CalendarCells dateConfig={mockUseDate} />));
       });
 
       it("should render days from September (previous month) to fill calendar", () => {
@@ -526,7 +532,7 @@ describe("CalendarCells", () => {
           1,
           currentMonthNumberOfDays
         );
-        render(<CalendarCells dateConfig={mockUseDate} />);
+        render(withTableWrapper(<CalendarCells dateConfig={mockUseDate} />));
       });
 
       it("should render days from October (previous month) to fill calendar", () => {
@@ -571,7 +577,7 @@ describe("CalendarCells", () => {
           1,
           currentMonthNumberOfDays
         );
-        render(<CalendarCells dateConfig={mockUseDate} />);
+        render(withTableWrapper(<CalendarCells dateConfig={mockUseDate} />));
       });
 
       it("should not render days from November (previous month) since December starts on a Monday (first column)", () => {
@@ -620,7 +626,7 @@ describe("CalendarCells", () => {
           1,
           currentMonthNumberOfDays
         );
-        render(<CalendarCells dateConfig={mockUseDate} />);
+        render(withTableWrapper(<CalendarCells dateConfig={mockUseDate} />));
       });
 
       it("should render days from December (previous month) to fill calendar", () => {
@@ -671,7 +677,7 @@ describe("CalendarCells", () => {
           1,
           currentMonthNumberOfDays
         );
-        render(<CalendarCells dateConfig={mockUseDate} />);
+        render(withTableWrapper(<CalendarCells dateConfig={mockUseDate} />));
       });
 
       it("should render days from January (previous month) to fill calendar", () => {
@@ -722,7 +728,7 @@ describe("CalendarCells", () => {
           1,
           currentMonthNumberOfDays
         );
-        render(<CalendarCells dateConfig={mockUseDate} />);
+        render(withTableWrapper(<CalendarCells dateConfig={mockUseDate} />));
       });
 
       it("should render days from February (previous month) to fill calendar", () => {
@@ -773,7 +779,7 @@ describe("CalendarCells", () => {
           1,
           currentMonthNumberOfDays
         );
-        render(<CalendarCells dateConfig={mockUseDate} />);
+        render(withTableWrapper(<CalendarCells dateConfig={mockUseDate} />));
       });
 
       it("should render days from March (previous month) to fill calendar", () => {
@@ -819,7 +825,7 @@ describe("CalendarCells", () => {
           1,
           currentMonthNumberOfDays
         );
-        render(<CalendarCells dateConfig={mockUseDate} />);
+        render(withTableWrapper(<CalendarCells dateConfig={mockUseDate} />));
       });
 
       it("should not render days from April (previous month) to fill calendar", () => {
@@ -864,7 +870,7 @@ describe("CalendarCells", () => {
           1,
           currentMonthNumberOfDays
         );
-        render(<CalendarCells dateConfig={mockUseDate} />);
+        render(withTableWrapper(<CalendarCells dateConfig={mockUseDate} />));
       });
 
       it("should render days from May (previous month) to fill calendar", () => {
@@ -914,7 +920,7 @@ describe("CalendarCells", () => {
           1,
           currentMonthNumberOfDays
         );
-        render(<CalendarCells dateConfig={mockUseDate} />);
+        render(withTableWrapper(<CalendarCells dateConfig={mockUseDate} />));
       });
 
       it("should render days from June (previous month) to fill calendar", () => {
@@ -964,7 +970,7 @@ describe("CalendarCells", () => {
           1,
           currentMonthNumberOfDays
         );
-        render(<CalendarCells dateConfig={mockUseDate} />);
+        render(withTableWrapper(<CalendarCells dateConfig={mockUseDate} />));
       });
 
       it("should render days from July (previous month) to fill calendar", () => {
@@ -1014,7 +1020,7 @@ describe("CalendarCells", () => {
           1,
           currentMonthNumberOfDays
         );
-        render(<CalendarCells dateConfig={mockUseDate} />);
+        render(withTableWrapper(<CalendarCells dateConfig={mockUseDate} />));
       });
 
       it("should render days from August (previous month) to fill calendar", () => {
@@ -1064,7 +1070,7 @@ describe("CalendarCells", () => {
           1,
           currentMonthNumberOfDays
         );
-        render(<CalendarCells dateConfig={mockUseDate} />);
+        render(withTableWrapper(<CalendarCells dateConfig={mockUseDate} />));
       });
 
       it("should render days from September (previous month) to fill calendar", () => {
@@ -1114,7 +1120,7 @@ describe("CalendarCells", () => {
           1,
           currentMonthNumberOfDays
         );
-        render(<CalendarCells dateConfig={mockUseDate} />);
+        render(withTableWrapper(<CalendarCells dateConfig={mockUseDate} />));
       });
 
       it("should render days from October (previous month) to fill calendar", () => {
@@ -1164,7 +1170,7 @@ describe("CalendarCells", () => {
           1,
           currentMonthNumberOfDays
         );
-        render(<CalendarCells dateConfig={mockUseDate} />);
+        render(withTableWrapper(<CalendarCells dateConfig={mockUseDate} />));
       });
 
       it("should render days from November (previous month) since December starts on a Monday (first column)", () => {
