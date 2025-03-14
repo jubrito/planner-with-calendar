@@ -5,34 +5,36 @@ import { render } from "@testing-library/react";
 import { Cell } from "./Cell";
 import { Months } from "../../../../types/calendar/enums";
 import { firstDayOfTheMonth } from "../../../../utils/calendar/current";
+import { DateConfig } from "../../../../types/calendar/types";
 
 describe("Cell", () => {
   const cellYear = 2025;
-  const cellMonth = Months.JANUARY;
   const cellDay = firstDayOfTheMonth;
+  const currentMonth = Months.JANUARY;
 
-  beforeEach(() => {
-    const TestTable = () => (
-      <table>
-        <tbody>
-          <tr>
-            <Cell
-              cellYear={cellYear}
-              cellMonth={cellMonth}
-              cellDay={cellDay}
-              currentMonth={Months.JANUARY}
-            />
-          </tr>
-        </tbody>
-      </table>
-    );
-    const { rerender } = render(<TestTable />);
-  });
+  interface TestTableProps {
+    cellMonth: Months;
+  }
+  const TestTable = ({ cellMonth }: TestTableProps) => (
+    <table>
+      <tbody>
+        <tr>
+          <Cell
+            cellYear={cellYear}
+            cellMonth={cellMonth}
+            cellDay={cellDay}
+            currentMonth={currentMonth}
+          />
+        </tr>
+      </tbody>
+    </table>
+  );
 
-  it("should render cell with correct elements", () => {
+  it("should render cell with correct elements when cell month equals current month", () => {
+    render(<TestTable cellMonth={currentMonth} />);
     const tdElement = screen.getByRole("cell");
     const timeElement = within(tdElement).getByRole("time");
-    const fullDate = `${cellYear}-${cellMonth}-${cellDay}`;
+    const fullDate = `${cellYear}-${currentMonth}-${cellDay}`;
     expect(tdElement).toBeInTheDocument();
     expect(timeElement).toBeInTheDocument();
     expect(timeElement).toHaveProperty("dateTime", fullDate);
