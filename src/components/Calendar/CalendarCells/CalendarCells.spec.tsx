@@ -4,7 +4,6 @@ import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { Months } from "../../../types/calendar/enums";
 import { getUseDateMock } from "../../../utils/tests/mocks";
-import * as React from "react";
 import { ReactElement } from "react";
 
 jest.mock("../../../hooks/useDate", () => ({
