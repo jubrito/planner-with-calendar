@@ -13,7 +13,7 @@
 - Add simple nav
 - Add simple footer
 - Handle basic responsiveness
-- Test leap year
+  [x] Test leap year
 
 ## v2
 
@@ -34,6 +34,7 @@
 
 - Pipeline
 - Integration tests
+- Cache for already visited months
 
 # React + TypeScript + Vite
 
