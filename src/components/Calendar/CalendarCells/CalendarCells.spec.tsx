@@ -16,6 +16,7 @@ describe("CalendarCells", () => {
   const withTableWrapper = (children: ReactElement) => {
     return <table>{children}</table>;
   };
+  const localeMock = "en-US";
 
   describe("Non-leap year", () => {
     const currentYear = 2025;
@@ -78,7 +79,7 @@ describe("CalendarCells", () => {
 
         februaryDays.forEach((februaryDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear}-${Months.FEBRUARY + 1}-${februaryDay}`
+            getFullDateTitle(currentYear, Months.FEBRUARY, februaryDay, "en-US")
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(februaryDay.toString());
@@ -102,7 +103,7 @@ describe("CalendarCells", () => {
 
         januaryDays.forEach((januaryDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear}-${Months.JANUARY + 1}-${januaryDay}`
+            getFullDateTitle(currentYear, Months.JANUARY, januaryDay, "en-US")
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(januaryDay.toString());
@@ -117,7 +118,7 @@ describe("CalendarCells", () => {
 
         februaryDays.forEach((februaryDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear}-${Months.FEBRUARY + 1}-${februaryDay}`
+            getFullDateTitle(currentYear, Months.FEBRUARY, februaryDay, "en-US")
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(februaryDay.toString());
@@ -129,7 +130,7 @@ describe("CalendarCells", () => {
 
         marchDays.forEach((marchDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear}-${Months.MARCH + 1}-${marchDay}`
+            getFullDateTitle(currentYear, Months.MARCH, marchDay, "en-US")
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(marchDay.toString());
@@ -153,7 +154,7 @@ describe("CalendarCells", () => {
 
         februaryDays.forEach((februaryDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear}-${Months.FEBRUARY + 1}-${februaryDay}`
+            getFullDateTitle(currentYear, Months.FEBRUARY, februaryDay, "en-US")
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(februaryDay.toString());
@@ -168,7 +169,7 @@ describe("CalendarCells", () => {
 
         marchDays.forEach((marchDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear}-${Months.MARCH + 1}-${marchDay}`
+            getFullDateTitle(currentYear, Months.MARCH, marchDay, "en-US")
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(marchDay.toString());
@@ -180,7 +181,7 @@ describe("CalendarCells", () => {
 
         aprilDays.forEach((aprilDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear}-${Months.APRIL + 1}-${aprilDay}`
+            getFullDateTitle(currentYear, Months.APRIL, aprilDay, localeMock)
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(aprilDay.toString());
@@ -204,7 +205,7 @@ describe("CalendarCells", () => {
 
         marchDays.forEach((marchDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear}-${Months.MARCH + 1}-${marchDay}`
+            getFullDateTitle(currentYear, Months.MARCH, marchDay, localeMock)
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(marchDay.toString());
@@ -219,7 +220,7 @@ describe("CalendarCells", () => {
 
         aprilDays.forEach((aprilDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear}-${Months.APRIL + 1}-${aprilDay}`
+            getFullDateTitle(currentYear, Months.APRIL, aprilDay, localeMock)
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(aprilDay.toString());
@@ -231,7 +232,7 @@ describe("CalendarCells", () => {
 
         mayDays.forEach((mayDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear}-${Months.MAY + 1}-${mayDay}`
+            getFullDateTitle(currentYear, Months.MAY, mayDay, localeMock)
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(mayDay.toString());
@@ -255,7 +256,7 @@ describe("CalendarCells", () => {
 
         aprilDays.forEach((aprilDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear}-${Months.APRIL + 1}-${aprilDay}`
+            getFullDateTitle(currentYear, Months.APRIL, aprilDay, localeMock)
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(aprilDay.toString());
@@ -269,7 +270,7 @@ describe("CalendarCells", () => {
         );
         mayDays.forEach((mayDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear}-${Months.MAY + 1}-${mayDay}`
+            getFullDateTitle(currentYear, Months.MAY, mayDay, localeMock)
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(mayDay.toString());
@@ -281,7 +282,7 @@ describe("CalendarCells", () => {
 
         juneDays.forEach((juneDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear}-${Months.JUNE + 1}-${juneDay}`
+            getFullDateTitle(currentYear, Months.JUNE, juneDay, localeMock)
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(juneDay.toString());
@@ -305,7 +306,7 @@ describe("CalendarCells", () => {
 
         mayDays.forEach((mayDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear}-${Months.MAY + 1}-${mayDay}`
+            getFullDateTitle(currentYear, Months.MAY, mayDay, localeMock)
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(mayDay.toString());
@@ -319,7 +320,7 @@ describe("CalendarCells", () => {
         );
         juneDays.forEach((juneDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear}-${Months.JUNE + 1}-${juneDay}`
+            getFullDateTitle(currentYear, Months.JUNE, juneDay, localeMock)
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(juneDay.toString());
@@ -331,7 +332,7 @@ describe("CalendarCells", () => {
 
         julyDays.forEach((julyDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear}-${Months.JULY + 1}-${julyDay}`
+            getFullDateTitle(currentYear, Months.JULY, julyDay, localeMock)
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(julyDay.toString());
