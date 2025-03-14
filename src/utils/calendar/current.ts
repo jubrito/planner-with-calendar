@@ -12,11 +12,12 @@ export const getCurrentMonthName = (
 export const getCurrentMonthDaysInfo = (
   year: DateConfig["year"],
   month: DateConfig["month"],
-  monthNumberOfDays: DateConfig["monthNumberOfDays"]
+  monthNumberOfDays: DateConfig["monthNumberOfDays"],
+  monthStartingInZero = false
 ) => {
   const monthDays = [...Array(monthNumberOfDays).keys()];
   return monthDays.map((day) => ({
-    month: month,
+    month: monthStartingInZero ? month : month + 1,
     day: day + 1,
     year: year,
   }));

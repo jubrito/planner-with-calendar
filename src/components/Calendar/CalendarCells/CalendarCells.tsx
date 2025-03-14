@@ -34,11 +34,9 @@ const CalendarCells = ({ dateConfig }: CalendarCellsProps) => {
     const filledArray: CalendarCellInfo[] = getCurrentMonthDaysInfo(
       year,
       month,
-      monthNumberOfDays
-    ).map((currentMonthDay) => ({
-      ...currentMonthDay,
-      month: currentMonthDay.month + 1,
-    }));
+      monthNumberOfDays,
+      false
+    );
     const firstDayOfTheMonth = 1;
     const weekDayNameWhenMonthStarts: WeekDaysShortNames = getWeekDayName(
       year,
