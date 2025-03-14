@@ -40,7 +40,7 @@ describe("CalendarCells", () => {
 
         decemberDays.forEach((decemberDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear - 1}-${12}-${decemberDay}`
+            `${currentYear - 1}-${Months.DECEMBER + 1}-${decemberDay}`
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(decemberDay.toString());
@@ -55,7 +55,7 @@ describe("CalendarCells", () => {
 
         januaryDays.forEach((januaryDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear}-${1}-${januaryDay}`
+            `${currentYear}-${Months.JANUARY + 1}-${januaryDay}`
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(januaryDay.toString());
@@ -67,7 +67,7 @@ describe("CalendarCells", () => {
 
         februaryDays.forEach((februaryDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear}-${2}-${februaryDay}`
+            `${currentYear}-${Months.FEBRUARY + 1}-${februaryDay}`
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(februaryDay.toString());
@@ -91,7 +91,7 @@ describe("CalendarCells", () => {
 
         januaryDays.forEach((januaryDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear}-${1}-${januaryDay}`
+            `${currentYear}-${Months.JANUARY + 1}-${januaryDay}`
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(januaryDay.toString());
@@ -106,7 +106,7 @@ describe("CalendarCells", () => {
 
         februaryDays.forEach((februaryDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear}-${2}-${februaryDay}`
+            `${currentYear}-${Months.FEBRUARY + 1}-${februaryDay}`
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(februaryDay.toString());
@@ -117,7 +117,9 @@ describe("CalendarCells", () => {
         const marchDays = [1, 2];
 
         marchDays.forEach((marchDay) => {
-          const dayCell = screen.getByTitle(`${currentYear}-${3}-${marchDay}`);
+          const dayCell = screen.getByTitle(
+            `${currentYear}-${Months.MARCH + 1}-${marchDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(marchDay.toString());
         });
@@ -140,7 +142,7 @@ describe("CalendarCells", () => {
 
         februaryDays.forEach((februaryDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear}-${2}-${februaryDay}`
+            `${currentYear}-${Months.FEBRUARY + 1}-${februaryDay}`
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(februaryDay.toString());
@@ -154,7 +156,9 @@ describe("CalendarCells", () => {
         );
 
         marchDays.forEach((marchDay) => {
-          const dayCell = screen.getByTitle(`${currentYear}-${3}-${marchDay}`);
+          const dayCell = screen.getByTitle(
+            `${currentYear}-${Months.MARCH + 1}-${marchDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(marchDay.toString());
         });
@@ -164,7 +168,9 @@ describe("CalendarCells", () => {
         const aprilDays = [1, 2, 3, 4, 5, 6];
 
         aprilDays.forEach((aprilDay) => {
-          const dayCell = screen.getByTitle(`${currentYear}-${4}-${aprilDay}`);
+          const dayCell = screen.getByTitle(
+            `${currentYear}-${Months.APRIL + 1}-${aprilDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(aprilDay.toString());
         });
@@ -186,7 +192,9 @@ describe("CalendarCells", () => {
         const marchDays = [31];
 
         marchDays.forEach((marchDay) => {
-          const dayCell = screen.getByTitle(`${currentYear}-${3}-${marchDay}`);
+          const dayCell = screen.getByTitle(
+            `${currentYear}-${Months.MARCH + 1}-${marchDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(marchDay.toString());
         });
@@ -199,7 +207,9 @@ describe("CalendarCells", () => {
         );
 
         aprilDays.forEach((aprilDay) => {
-          const dayCell = screen.getByTitle(`${currentYear}-${4}-${aprilDay}`);
+          const dayCell = screen.getByTitle(
+            `${currentYear}-${Months.APRIL + 1}-${aprilDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(aprilDay.toString());
         });
@@ -209,7 +219,9 @@ describe("CalendarCells", () => {
         const mayDays = [1, 2, 3, 4];
 
         mayDays.forEach((mayDay) => {
-          const dayCell = screen.getByTitle(`${currentYear}-${5}-${mayDay}`);
+          const dayCell = screen.getByTitle(
+            `${currentYear}-${Months.MAY + 1}-${mayDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(mayDay.toString());
         });
@@ -231,7 +243,9 @@ describe("CalendarCells", () => {
         const aprilDays = [28, 29, 30];
 
         aprilDays.forEach((aprilDay) => {
-          const dayCell = screen.getByTitle(`${currentYear}-${4}-${aprilDay}`);
+          const dayCell = screen.getByTitle(
+            `${currentYear}-${Months.APRIL + 1}-${aprilDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(aprilDay.toString());
         });
@@ -243,7 +257,9 @@ describe("CalendarCells", () => {
           (day) => day + 1
         );
         mayDays.forEach((mayDay) => {
-          const dayCell = screen.getByTitle(`${currentYear}-${5}-${mayDay}`);
+          const dayCell = screen.getByTitle(
+            `${currentYear}-${Months.MAY + 1}-${mayDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(mayDay.toString());
         });
@@ -253,7 +269,9 @@ describe("CalendarCells", () => {
         const juneDays = [1];
 
         juneDays.forEach((juneDay) => {
-          const dayCell = screen.getByTitle(`${currentYear}-${6}-${juneDay}`);
+          const dayCell = screen.getByTitle(
+            `${currentYear}-${Months.JUNE + 1}-${juneDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(juneDay.toString());
         });
@@ -275,7 +293,9 @@ describe("CalendarCells", () => {
         const mayDays = [26, 27, 28, 29, 30, 31];
 
         mayDays.forEach((mayDay) => {
-          const dayCell = screen.getByTitle(`${currentYear}-${5}-${mayDay}`);
+          const dayCell = screen.getByTitle(
+            `${currentYear}-${Months.MAY + 1}-${mayDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(mayDay.toString());
         });
@@ -287,7 +307,9 @@ describe("CalendarCells", () => {
           (day) => day + 1
         );
         juneDays.forEach((juneDay) => {
-          const dayCell = screen.getByTitle(`${currentYear}-${6}-${juneDay}`);
+          const dayCell = screen.getByTitle(
+            `${currentYear}-${Months.JUNE + 1}-${juneDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(juneDay.toString());
         });
@@ -297,7 +319,9 @@ describe("CalendarCells", () => {
         const julyDays = [1, 2, 3, 4, 5, 6];
 
         julyDays.forEach((julyDay) => {
-          const dayCell = screen.getByTitle(`${currentYear}-${7}-${julyDay}`);
+          const dayCell = screen.getByTitle(
+            `${currentYear}-${Months.JULY + 1}-${julyDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(julyDay.toString());
         });
@@ -319,7 +343,9 @@ describe("CalendarCells", () => {
         const juneDays = [30];
 
         juneDays.forEach((juneDay) => {
-          const dayCell = screen.getByTitle(`${currentYear}-${6}-${juneDay}`);
+          const dayCell = screen.getByTitle(
+            `${currentYear}-${Months.JUNE + 1}-${juneDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(juneDay.toString());
         });
@@ -331,7 +357,9 @@ describe("CalendarCells", () => {
           (day) => day + 1
         );
         julyDays.forEach((julyDay) => {
-          const dayCell = screen.getByTitle(`${currentYear}-${7}-${julyDay}`);
+          const dayCell = screen.getByTitle(
+            `${currentYear}-${Months.JULY + 1}-${julyDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(julyDay.toString());
         });
@@ -341,7 +369,9 @@ describe("CalendarCells", () => {
         const augustDays = [1, 2, 3];
 
         augustDays.forEach((augustDay) => {
-          const dayCell = screen.getByTitle(`${currentYear}-${8}-${augustDay}`);
+          const dayCell = screen.getByTitle(
+            `${currentYear}-${Months.AUGUST + 1}-${augustDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(augustDay.toString());
         });
@@ -363,7 +393,9 @@ describe("CalendarCells", () => {
         const julyDays = [28, 29, 30, 31];
 
         julyDays.forEach((julyDay) => {
-          const dayCell = screen.getByTitle(`${currentYear}-${7}-${julyDay}`);
+          const dayCell = screen.getByTitle(
+            `${currentYear}-${Months.JULY + 1}-${julyDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(julyDay.toString());
         });
@@ -375,7 +407,9 @@ describe("CalendarCells", () => {
           (day) => day + 1
         );
         augustDays.forEach((augustDay) => {
-          const dayCell = screen.getByTitle(`${currentYear}-${8}-${augustDay}`);
+          const dayCell = screen.getByTitle(
+            `${currentYear}-${Months.AUGUST + 1}-${augustDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(augustDay.toString());
         });
@@ -414,7 +448,7 @@ describe("CalendarCells", () => {
         );
         septemberDays.forEach((septemberDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear}-${9}-${septemberDay}`
+            `${currentYear}-${Months.SEPTEMBER + 1}-${septemberDay}`
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(septemberDay.toString());
@@ -426,7 +460,7 @@ describe("CalendarCells", () => {
 
         octoberDays.forEach((octoberDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear}-${10}-${octoberDay}`
+            `${currentYear}-${Months.OCTOBER + 1}-${octoberDay}`
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(octoberDay.toString());
@@ -450,7 +484,7 @@ describe("CalendarCells", () => {
 
         septemberDays.forEach((septemberDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear}-${9}-${septemberDay}`
+            `${currentYear}-${Months.SEPTEMBER + 1}-${septemberDay}`
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(septemberDay.toString());
@@ -464,7 +498,7 @@ describe("CalendarCells", () => {
         );
         octoberDays.forEach((octoberDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear}-${10}-${octoberDay}`
+            `${currentYear}-${Months.OCTOBER + 1}-${octoberDay}`
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(octoberDay.toString());
@@ -476,7 +510,7 @@ describe("CalendarCells", () => {
 
         novemberDays.forEach((novemberDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear}-${11}-${novemberDay}`
+            `${currentYear}-${Months.NOVEMBER + 1}-${novemberDay}`
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(novemberDay.toString());
@@ -500,7 +534,7 @@ describe("CalendarCells", () => {
 
         octoberDays.forEach((octoberDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear}-${10}-${octoberDay}`
+            `${currentYear}-${Months.OCTOBER + 1}-${octoberDay}`
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(octoberDay.toString());
@@ -514,7 +548,7 @@ describe("CalendarCells", () => {
         );
         novemberDays.forEach((novemberDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear}-${11}-${novemberDay}`
+            `${currentYear}-${Months.NOVEMBER + 1}-${novemberDay}`
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(novemberDay.toString());
@@ -555,7 +589,7 @@ describe("CalendarCells", () => {
 
         decemberDays.forEach((decemberDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear}-${12}-${decemberDay}`
+            `${currentYear}-${Months.DECEMBER + 1}-${decemberDay}`
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(decemberDay.toString());
@@ -567,7 +601,7 @@ describe("CalendarCells", () => {
 
         januaryDays.forEach((januaryDay) => {
           const dayCell = screen.getByTitle(
-            `${currentYear + 1}-${1}-${januaryDay}`
+            `${currentYear + 1}-${Months.JANUARY + 1}-${januaryDay}`
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(januaryDay.toString());
@@ -594,7 +628,7 @@ describe("CalendarCells", () => {
 
         decemberDays.forEach((decemberDay) => {
           const dayCell = screen.getByTitle(
-            `${leapYear - 1}-${12}-${decemberDay}`
+            `${leapYear - 1}-${Months.DECEMBER + 1}-${decemberDay}`
           );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(decemberDay.toString());
@@ -608,7 +642,9 @@ describe("CalendarCells", () => {
         );
 
         januaryDays.forEach((januaryDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${1}-${januaryDay}`);
+          const dayCell = screen.getByTitle(
+            `${leapYear}-${Months.JANUARY + 1}-${januaryDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(januaryDay.toString());
         });
@@ -618,7 +654,9 @@ describe("CalendarCells", () => {
         const februaryDays = [1, 2, 3, 4, 5, 6];
 
         februaryDays.forEach((februaryDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${2}-${februaryDay}`);
+          const dayCell = screen.getByTitle(
+            `${leapYear}-${Months.FEBRUARY + 1}-${februaryDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(februaryDay.toString());
         });
@@ -640,7 +678,9 @@ describe("CalendarCells", () => {
         const januaryDays = [31];
 
         januaryDays.forEach((januaryDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${1}-${januaryDay}`);
+          const dayCell = screen.getByTitle(
+            `${leapYear}-${Months.JANUARY + 1}-${januaryDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(januaryDay.toString());
         });
@@ -653,7 +693,9 @@ describe("CalendarCells", () => {
         );
 
         februaryDays.forEach((februaryDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${2}-${februaryDay}`);
+          const dayCell = screen.getByTitle(
+            `${leapYear}-${Months.FEBRUARY + 1}-${februaryDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(februaryDay.toString());
         });
@@ -663,7 +705,9 @@ describe("CalendarCells", () => {
         const marchDays = [1, 2, 3, 4, 5];
 
         marchDays.forEach((marchDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${3}-${marchDay}`);
+          const dayCell = screen.getByTitle(
+            `${leapYear}-${Months.MARCH + 1}-${marchDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(marchDay.toString());
         });
@@ -685,7 +729,9 @@ describe("CalendarCells", () => {
         const februaryDays = [28, 29];
 
         februaryDays.forEach((februaryDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${2}-${februaryDay}`);
+          const dayCell = screen.getByTitle(
+            `${leapYear}-${Months.FEBRUARY + 1}-${februaryDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(februaryDay.toString());
         });
@@ -698,7 +744,9 @@ describe("CalendarCells", () => {
         );
 
         marchDays.forEach((marchDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${3}-${marchDay}`);
+          const dayCell = screen.getByTitle(
+            `${leapYear}-${Months.MARCH + 1}-${marchDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(marchDay.toString());
         });
@@ -708,7 +756,9 @@ describe("CalendarCells", () => {
         const aprilDays = [1, 2];
 
         aprilDays.forEach((aprilDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${4}-${aprilDay}`);
+          const dayCell = screen.getByTitle(
+            `${leapYear}-${Months.APRIL + 1}-${aprilDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(aprilDay.toString());
         });
@@ -730,7 +780,9 @@ describe("CalendarCells", () => {
         const marchDays = [27, 28, 29, 30, 31];
 
         marchDays.forEach((marchDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${3}-${marchDay}`);
+          const dayCell = screen.getByTitle(
+            `${leapYear}-${Months.MARCH + 1}-${marchDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(marchDay.toString());
         });
@@ -743,7 +795,9 @@ describe("CalendarCells", () => {
         );
 
         aprilDays.forEach((aprilDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${4}-${aprilDay}`);
+          const dayCell = screen.getByTitle(
+            `${leapYear}-${Months.APRIL + 1}-${aprilDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(aprilDay.toString());
         });
@@ -781,7 +835,9 @@ describe("CalendarCells", () => {
           (day) => day + 1
         );
         mayDays.forEach((mayDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${5}-${mayDay}`);
+          const dayCell = screen.getByTitle(
+            `${leapYear}-${Months.MAY + 1}-${mayDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(mayDay.toString());
         });
@@ -791,7 +847,9 @@ describe("CalendarCells", () => {
         const juneDays = [1, 2, 3, 4];
 
         juneDays.forEach((juneDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${6}-${juneDay}`);
+          const dayCell = screen.getByTitle(
+            `${leapYear}-${Months.JUNE + 1}-${juneDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(juneDay.toString());
         });
@@ -813,7 +871,9 @@ describe("CalendarCells", () => {
         const mayDays = [29, 30, 31];
 
         mayDays.forEach((mayDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${5}-${mayDay}`);
+          const dayCell = screen.getByTitle(
+            `${leapYear}-${Months.MAY + 1}-${mayDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(mayDay.toString());
         });
@@ -825,7 +885,9 @@ describe("CalendarCells", () => {
           (day) => day + 1
         );
         juneDays.forEach((juneDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${6}-${juneDay}`);
+          const dayCell = screen.getByTitle(
+            `${leapYear}-${Months.JUNE + 1}-${juneDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(juneDay.toString());
         });
@@ -835,7 +897,9 @@ describe("CalendarCells", () => {
         const julyDays = [1, 2];
 
         julyDays.forEach((julyDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${7}-${julyDay}`);
+          const dayCell = screen.getByTitle(
+            `${leapYear}-${Months.JULY + 1}-${julyDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(julyDay.toString());
         });
@@ -857,7 +921,9 @@ describe("CalendarCells", () => {
         const juneDays = [26, 27, 28, 29, 30];
 
         juneDays.forEach((juneDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${6}-${juneDay}`);
+          const dayCell = screen.getByTitle(
+            `${leapYear}-${Months.JUNE + 1}-${juneDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(juneDay.toString());
         });
@@ -869,7 +935,9 @@ describe("CalendarCells", () => {
           (day) => day + 1
         );
         julyDays.forEach((julyDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${7}-${julyDay}`);
+          const dayCell = screen.getByTitle(
+            `${leapYear}-${Months.JULY + 1}-${julyDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(julyDay.toString());
         });
@@ -879,7 +947,9 @@ describe("CalendarCells", () => {
         const augustDays = [1, 2, 3, 5, 6];
 
         augustDays.forEach((augustDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${8}-${augustDay}`);
+          const dayCell = screen.getByTitle(
+            `${leapYear}-${Months.AUGUST + 1}-${augustDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(augustDay.toString());
         });
@@ -901,7 +971,9 @@ describe("CalendarCells", () => {
         const julyDays = [31];
 
         julyDays.forEach((julyDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${7}-${julyDay}`);
+          const dayCell = screen.getByTitle(
+            `${leapYear}-${Months.JULY + 1}-${julyDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(julyDay.toString());
         });
@@ -913,7 +985,9 @@ describe("CalendarCells", () => {
           (day) => day + 1
         );
         augustDays.forEach((augustDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${8}-${augustDay}`);
+          const dayCell = screen.getByTitle(
+            `${leapYear}-${Months.AUGUST + 1}-${augustDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(augustDay.toString());
         });
@@ -923,7 +997,9 @@ describe("CalendarCells", () => {
         const septemberDays = [1, 2, 3];
 
         septemberDays.forEach((septemberDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${9}-${septemberDay}`);
+          const dayCell = screen.getByTitle(
+            `${leapYear}-${Months.SEPTEMBER + 1}-${septemberDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(septemberDay.toString());
         });
@@ -945,7 +1021,9 @@ describe("CalendarCells", () => {
         const augustDays = [28, 29, 30, 31];
 
         augustDays.forEach((augustDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${8}-${augustDay}`);
+          const dayCell = screen.getByTitle(
+            `${leapYear}-${Months.AUGUST + 1}-${augustDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(augustDay.toString());
         });
@@ -957,7 +1035,9 @@ describe("CalendarCells", () => {
           (day) => day + 1
         );
         septemberDays.forEach((septemberDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${9}-${septemberDay}`);
+          const dayCell = screen.getByTitle(
+            `${leapYear}-${Months.SEPTEMBER + 1}-${septemberDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(septemberDay.toString());
         });
@@ -967,7 +1047,9 @@ describe("CalendarCells", () => {
         const octoberDays = [1];
 
         octoberDays.forEach((octoberDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${10}-${octoberDay}`);
+          const dayCell = screen.getByTitle(
+            `${leapYear}-${Months.OCTOBER + 1}-${octoberDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(octoberDay.toString());
         });
@@ -989,7 +1071,9 @@ describe("CalendarCells", () => {
         const septemberDays = [25, 26, 27, 28, 29, 30];
 
         septemberDays.forEach((septemberDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${9}-${septemberDay}`);
+          const dayCell = screen.getByTitle(
+            `${leapYear}-${Months.SEPTEMBER + 1}-${septemberDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(septemberDay.toString());
         });
@@ -1001,7 +1085,9 @@ describe("CalendarCells", () => {
           (day) => day + 1
         );
         octoberDays.forEach((octoberDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${10}-${octoberDay}`);
+          const dayCell = screen.getByTitle(
+            `${leapYear}-${Months.OCTOBER + 1}-${octoberDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(octoberDay.toString());
         });
@@ -1011,7 +1097,9 @@ describe("CalendarCells", () => {
         const novemberDays = [1, 2, 3, 4, 5];
 
         novemberDays.forEach((novemberDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${11}-${novemberDay}`);
+          const dayCell = screen.getByTitle(
+            `${leapYear}-${Months.NOVEMBER + 1}-${novemberDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(novemberDay.toString());
         });
@@ -1033,7 +1121,9 @@ describe("CalendarCells", () => {
         const octoberDays = [30, 31];
 
         octoberDays.forEach((octoberDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${10}-${octoberDay}`);
+          const dayCell = screen.getByTitle(
+            `${leapYear}-${Months.OCTOBER + 1}-${octoberDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(octoberDay.toString());
         });
@@ -1045,7 +1135,9 @@ describe("CalendarCells", () => {
           (day) => day + 1
         );
         novemberDays.forEach((novemberDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${11}-${novemberDay}`);
+          const dayCell = screen.getByTitle(
+            `${leapYear}-${Months.NOVEMBER + 1}-${novemberDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(novemberDay.toString());
         });
@@ -1055,7 +1147,9 @@ describe("CalendarCells", () => {
         const decemberDays = [1, 2, 3];
 
         decemberDays.forEach((decemberDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${12}-${decemberDay}`);
+          const dayCell = screen.getByTitle(
+            `${leapYear}-${Months.DECEMBER + 1}-${decemberDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(decemberDay.toString());
         });
@@ -1076,7 +1170,9 @@ describe("CalendarCells", () => {
       it("should render days from November (previous month) since December starts on a Monday (first column)", () => {
         const novemberDays = [27, 28, 29, 30];
         novemberDays.forEach((novemberDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${11}-${novemberDay}`);
+          const dayCell = screen.getByTitle(
+            `${leapYear}-${Months.NOVEMBER + 1}-${novemberDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(novemberDay.toString());
         });
@@ -1089,7 +1185,9 @@ describe("CalendarCells", () => {
         );
 
         decemberDays.forEach((decemberDay) => {
-          const dayCell = screen.getByTitle(`${leapYear}-${12}-${decemberDay}`);
+          const dayCell = screen.getByTitle(
+            `${leapYear}-${Months.DECEMBER + 1}-${decemberDay}`
+          );
           expect(dayCell).toBeInTheDocument();
           expect(dayCell.textContent).toBe(decemberDay.toString());
         });
