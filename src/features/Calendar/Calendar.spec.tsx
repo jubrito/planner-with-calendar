@@ -110,13 +110,13 @@ describe("Calendar", () => {
       expect(goToNextYearButton).toBeInTheDocument();
     });
 
-    it("should move to previous month (december) when in january after clicking on button", async () => {
+    it("should move to previous month (December) when in January after clicking on button", async () => {
       const goToPreviousMonthButton = screen.getByRole("button", {
         name: goToPreviousMonthLabel,
       });
       await userEvent.click(goToPreviousMonthButton);
       expect(updateDateMock).toHaveBeenCalledTimes(1);
-      expect(updateDateMock).toHaveBeenCalledWith(year, Months.DECEMBER, 1);
+      expect(updateDateMock).toHaveBeenCalledWith(year - 1, Months.DECEMBER, 1);
     });
   });
 });
