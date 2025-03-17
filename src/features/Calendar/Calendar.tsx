@@ -15,10 +15,6 @@ const Calendar = () => {
   const { date, year, month, day, updateDate } = dateConfig;
   const currentMonthName = getCurrentMonthName(date, locale);
 
-  useEffect(() => {
-    console.log("date", date);
-  });
-
   return (
     <section className={styles.calendar}>
       <div className={styles.calendarHeader}>
