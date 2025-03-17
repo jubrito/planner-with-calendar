@@ -1,6 +1,7 @@
 # Next steps (v1):
 
 - Fix calendar header responsiveness
+- Fix week names responsiveness changing it to single letters
 - Fix calendar height to avoid resizing when month has more cells
 - Highlight current day of the week or day
 - Create button to navigate to today
