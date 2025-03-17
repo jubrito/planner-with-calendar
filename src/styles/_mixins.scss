@@ -1,5 +1,11 @@
 // Media queries
 
+@mixin media-small-mobile {
+  @media only screen and (max-width: 320px) {
+    @content;
+  }
+}
+
 @mixin media-only-mobile {
   @media only screen and (max-width: 600px) {
     @content;
@@ -25,7 +31,7 @@
 }
 
 @mixin media-max-big-tablet {
-  @media only screen and (max-width: 779px) {
+  @media only screen and (max-width: 768px) {
     @content;
   }
 }
