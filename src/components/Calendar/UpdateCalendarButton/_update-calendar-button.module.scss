@@ -1,0 +1,13 @@
+@use "../../../styles/_variables.scss" as variables;
+
+.updateCalendar {
+  background-color: transparent;
+  color: variables.$black-color;
+  font-size: variables.$h2-size;
+  &:hover {
+    border-color: transparent;
+    border-width: 1px;
+    outline: none;
+    font-weight: bolder;
+  }
+}
