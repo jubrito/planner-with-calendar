@@ -10,7 +10,7 @@ jest.mock("../../hooks/useDate", () => ({
   __esModule: true,
   useDate: jest.fn(),
 }));
-describe("CalendarCells", () => {
+describe("Calendar", () => {
   const localeMock = "en-US";
   /**  January, 2025
    * Note: Calendar starts on a Monday
@@ -20,7 +20,7 @@ describe("CalendarCells", () => {
    * Since January ends on a Friday, February 1 and 2 of 2025 should
    * be displayed after January days
    */
-  describe("January", () => {
+  describe("January 2025", () => {
     const year = 2025;
     beforeEach(() => {
       (useDate as jest.Mock).mockReturnValue({
@@ -68,5 +68,51 @@ describe("CalendarCells", () => {
         expect(dayCell.textContent).toBe(februaryDay.toString());
       });
     });
+  });
+
+  describe("Changing calendar dates", () => {
+    const year = 2025;
+    const goToPreviousYearLabel = "Go to previous year";
+    const goToPreviousMonthLabel = "Go to previous month";
+    const goToNextMonthLabel = "Go to next month";
+    const goToNextYearLabel = "Go to next year";
+    beforeEach(() => {
+      (useDate as jest.Mock).mockReturnValue({
+        date: new Date(year, Months.JANUARY, 1),
+        updateDate: jest.fn(),
+        day: 1,
+        month: Months.JANUARY,
+        year: year,
+        time: new Date(year, Months.JANUARY, 1).getTime(),
+        monthNumberOfDays: 31,
+      });
+      render(<Calendar />);
+    });
+
+    it("should render buttons to enable changing calendar dates", () => {
+      screen.debug();
+      const goToPreviousYearButton = screen.getByRole("button", {
+        name: goToPreviousYearLabel,
+      });
+      const goToPreviousMonthButton = screen.getByRole("button", {
+        name: goToPreviousMonthLabel,
+      });
+      const goToNextMonthButton = screen.getByRole("button", {
+        name: goToNextMonthLabel,
+      });
+      const goToNextYearButton = screen.getByRole("button", {
+        name: goToNextYearLabel,
+      });
+      expect(goToPreviousYearButton).toBeInTheDocument();
+      expect(goToPreviousMonthButton).toBeInTheDocument();
+      expect(goToNextMonthButton).toBeInTheDocument();
+      expect(goToNextYearButton).toBeInTheDocument();
+    });
+
+    // it("should move to previous month (december) when in january after clicking on button", () => {
+    //   const goToPreviousMonthButton = screen.getByRole("button", {
+    //     name: goToPreviousMonthLabel,
+    //   });
+    // });
   });
 });
