@@ -36,7 +36,7 @@ const Calendar = () => {
           {`${currentMonthName}, ${year}`}
         </h2>
         <UpdateCalendarButton
-          label={"Go tonext month"}
+          label={"Go to next month"}
           symbol={">"}
           updateDate={() => updateDate(year, getNextMonthIndex(month), day)}
         />
