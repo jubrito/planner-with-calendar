@@ -1,3 +1,5 @@
+import styles from "./_update-calendar-button.module.scss";
+
 type UpdateCalendarButtonProps = {
   label: string;
   symbol: string;
@@ -10,8 +12,12 @@ export const UpdateCalendarButton = ({
   updateDate,
 }: UpdateCalendarButtonProps) => {
   return (
-    <div onClick={() => updateDate()} aria-label={label}>
+    <button
+      onClick={() => updateDate()}
+      aria-label={label}
+      className={styles.updateCalendar}
+    >
       <span aria-hidden="false">{symbol}</span>
-    </div>
+    </button>
   );
 };
