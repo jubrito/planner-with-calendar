@@ -1,7 +1,7 @@
 // Media queries
 
 @mixin media-small-mobile {
-  @media only screen and (max-width: 320px) {
+  @media only screen and (max-width: 370px) {
     @content;
   }
 }
@@ -12,20 +12,32 @@
   }
 }
 
+@mixin media-only-tablet {
+  @media only screen and (min-width: 600px) and (max-width: 1025px) {
+    @content;
+  }
+}
+
+@mixin media-for-centered-cells {
+  @media only screen and (min-width: 600px) and (max-width: 715px) {
+    @content;
+  }
+}
+
 // @mixin media-min-mobile {
 //   @media only screen and (min-width: 600px) {
 //     @content;
 //   }
 // }
 
-// @mixin media-only-tablet {
-//   @media only screen and (min-width: 600px) and (max-width: 1025px) {
+// @mixin media-min-small-tablet {
+//   @media only screen and (min-width: 600px) {
 //     @content;
 //   }
 // }
 
-// @mixin media-min-small-tablet {
-//   @media only screen and (min-width: 600px) {
+// @mixin media-min-tablet {
+//   @media only screen and (min-width: 768px) {
 //     @content;
 //   }
 // }
