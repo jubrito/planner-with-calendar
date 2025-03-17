@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import { screen, waitFor } from "@testing-library/dom";
+import { screen } from "@testing-library/dom";
 import userEvent from "@testing-library/user-event";
 import Calendar from "./Calendar";
 import { useDate } from "../../hooks/useDate";
@@ -91,6 +91,10 @@ describe("Calendar", () => {
       render(<Calendar />);
     });
 
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
     it("should render buttons to enable changing calendar dates", () => {
       const goToPreviousYearButton = screen.getByRole("button", {
         name: goToPreviousYearLabel,
@@ -117,6 +121,15 @@ describe("Calendar", () => {
       await userEvent.click(goToPreviousMonthButton);
       expect(updateDateMock).toHaveBeenCalledTimes(1);
       expect(updateDateMock).toHaveBeenCalledWith(year - 1, Months.DECEMBER, 1);
+    });
+
+    it("should move to next month (February) when in January after clicking on button", async () => {
+      const goToNextMonthButton = screen.getByRole("button", {
+        name: goToNextMonthLabel,
+      });
+      await userEvent.click(goToNextMonthButton);
+      expect(updateDateMock).toHaveBeenCalledTimes(1);
+      expect(updateDateMock).toHaveBeenCalledWith(year, Months.FEBRUARY, 1);
     });
   });
 });
