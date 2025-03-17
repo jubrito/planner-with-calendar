@@ -5,8 +5,11 @@ import { UpdateCalendarButton } from "../../components/Calendar/UpdateCalendarBu
 import { useDate } from "../../hooks/useDate";
 import useLocale from "../../hooks/useLocale";
 import { getCurrentMonthName } from "../../utils/calendar/current";
-import { getNextMonthIndex } from "../../utils/calendar/next";
-import { getPreviousMonthIndex } from "../../utils/calendar/previous";
+import { getNextMonthIndex, getNextMonthYear } from "../../utils/calendar/next";
+import {
+  getPreviousMonthIndex,
+  getPreviousMonthYear,
+} from "../../utils/calendar/previous";
 import styles from "./_calendar.module.scss";
 
 const Calendar = () => {
@@ -26,7 +29,13 @@ const Calendar = () => {
         <UpdateCalendarButton
           label={"Go to previous month"}
           symbol={"<"}
-          updateDate={() => updateDate(year, getPreviousMonthIndex(month), day)}
+          updateDate={() =>
+            updateDate(
+              getPreviousMonthYear(year, month),
+              getPreviousMonthIndex(month),
+              day
+            )
+          }
         />
         <h2 className={styles.monthLabel} id="calendar-month-name">
           {`${currentMonthName}, ${year}`}
@@ -34,7 +43,13 @@ const Calendar = () => {
         <UpdateCalendarButton
           label={"Go to next month"}
           symbol={">"}
-          updateDate={() => updateDate(year, getNextMonthIndex(month), day)}
+          updateDate={() =>
+            updateDate(
+              getNextMonthYear(year, month),
+              getNextMonthIndex(month),
+              day
+            )
+          }
         />
         <UpdateCalendarButton
           label={"Go to next year"}
