@@ -119,7 +119,7 @@ describe("Calendar", () => {
       expect(goToNextYearButton).toBeInTheDocument();
     });
 
-    it("should move to previous month (December) when in January after clicking on button", async () => {
+    it("should go to previous month (December) when in January after clicking on button", async () => {
       const goToPreviousMonthButton = screen.getByRole("button", {
         name: goToPreviousMonthLabel,
       });
@@ -128,7 +128,7 @@ describe("Calendar", () => {
       expect(updateDateMock).toHaveBeenCalledWith(year - 1, Months.DECEMBER, 1);
     });
 
-    it("should move to next month (February) when in January after clicking on button", async () => {
+    it("should go to next month (February) when in January after clicking on button", async () => {
       const goToNextMonthButton = screen.getByRole("button", {
         name: goToNextMonthLabel,
       });
@@ -137,7 +137,7 @@ describe("Calendar", () => {
       expect(updateDateMock).toHaveBeenCalledWith(year, Months.FEBRUARY, 1);
     });
 
-    it("should move to next month (January) when in December after clicking on button", async () => {
+    it("should go to next month (January) when in December after clicking on button", async () => {
       (useDate as jest.Mock).mockReturnValue({
         date: new Date(year, Months.DECEMBER, 1),
         updateDate: updateDateMock,
@@ -156,7 +156,7 @@ describe("Calendar", () => {
       expect(updateDateMock).toHaveBeenCalledWith(year + 1, Months.JANUARY, 1);
     });
 
-    it("should move to previous year (2024) when in 2025 after clicking on button", async () => {
+    it("should go to previous year (2024) when in 2025 after clicking on button", async () => {
       const goToPreviousYearButton = screen.getByRole("button", {
         name: goToPreviousYearLabel,
       });
