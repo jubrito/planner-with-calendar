@@ -155,5 +155,14 @@ describe("Calendar", () => {
       expect(updateDateMock).toHaveBeenCalledTimes(1);
       expect(updateDateMock).toHaveBeenCalledWith(year + 1, Months.JANUARY, 1);
     });
+
+    it("should move to previous year (2024) when in 2025 after clicking on button", async () => {
+      const goToPreviousYearButton = screen.getByRole("button", {
+        name: goToPreviousYearLabel,
+      });
+      await userEvent.click(goToPreviousYearButton);
+      expect(updateDateMock).toHaveBeenCalledTimes(1);
+      expect(updateDateMock).toHaveBeenCalledWith(year - 1, Months.JANUARY, 1);
+    });
   });
 });
