@@ -1,5 +1,6 @@
 import { render } from "@testing-library/react";
-import { screen } from "@testing-library/dom";
+import { screen, waitFor } from "@testing-library/dom";
+import userEvent from "@testing-library/user-event";
 import Calendar from "./Calendar";
 import { useDate } from "../../hooks/useDate";
 import "@testing-library/jest-dom";
@@ -76,10 +77,11 @@ describe("Calendar", () => {
     const goToPreviousMonthLabel = "Go to previous month";
     const goToNextMonthLabel = "Go to next month";
     const goToNextYearLabel = "Go to next year";
+    const updateDateMock = jest.fn();
     beforeEach(() => {
       (useDate as jest.Mock).mockReturnValue({
         date: new Date(year, Months.JANUARY, 1),
-        updateDate: jest.fn(),
+        updateDate: updateDateMock,
         day: 1,
         month: Months.JANUARY,
         year: year,
@@ -90,7 +92,6 @@ describe("Calendar", () => {
     });
 
     it("should render buttons to enable changing calendar dates", () => {
-      screen.debug();
       const goToPreviousYearButton = screen.getByRole("button", {
         name: goToPreviousYearLabel,
       });
@@ -109,10 +110,13 @@ describe("Calendar", () => {
       expect(goToNextYearButton).toBeInTheDocument();
     });
 
-    // it("should move to previous month (december) when in january after clicking on button", () => {
-    //   const goToPreviousMonthButton = screen.getByRole("button", {
-    //     name: goToPreviousMonthLabel,
-    //   });
-    // });
+    it("should move to previous month (december) when in january after clicking on button", async () => {
+      const goToPreviousMonthButton = screen.getByRole("button", {
+        name: goToPreviousMonthLabel,
+      });
+      await userEvent.click(goToPreviousMonthButton);
+      expect(updateDateMock).toHaveBeenCalledTimes(1);
+      expect(updateDateMock).toHaveBeenCalledWith(year, Months.DECEMBER, 1);
+    });
   });
 });
