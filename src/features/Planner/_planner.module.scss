@@ -7,7 +7,10 @@
   margin-right: variables.$outer-spacing;
   padding: variables.$inner-spacing;
 
-  @include mixins.media-max-big-tablet {
+  @include mixins.media-only-mobile {
     margin: 0 variables.$inner-spacing;
+  }
+  @include mixins.media-small-mobile {
+    margin: 0;
   }
 }

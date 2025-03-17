@@ -19,8 +19,11 @@
     width: 100%;
   }
 
-  @include mixins.media-max-big-tablet {
+  @include mixins.media-only-mobile {
     margin: 0 variables.$inner-spacing;
+  }
+  @include mixins.media-small-mobile {
+    margin: 0;
   }
 }
 
@@ -34,5 +37,5 @@
 
 .calendarCell {
   $size: 0.0014285714%;
-  padding: 5px variables.$calendar-cel-lateral-padding;
+  padding: variables.$calendar-cel-lateral-padding;
 }
