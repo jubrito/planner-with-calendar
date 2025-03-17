@@ -8,6 +8,6 @@
   padding: variables.$inner-spacing;
 
   @include mixins.media-max-big-tablet {
-    margin: 0 variables.$outer-spacing;
+    margin: 0 variables.$inner-spacing;
   }
 }
