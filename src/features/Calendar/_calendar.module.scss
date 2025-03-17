@@ -17,11 +17,6 @@
     table-layout: fixed;
     border-collapse: collapse;
     width: 100%;
-    height: 400px;
-  }
-
-  @include mixins.media-min-tablet {
-    min-width: 485px;
   }
 
   @include mixins.media-max-big-tablet {
