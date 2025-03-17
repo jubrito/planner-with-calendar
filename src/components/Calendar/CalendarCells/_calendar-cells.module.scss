@@ -21,9 +21,14 @@ tbody {
 
     div {
       display: flex;
-      justify-content: right;
       aspect-ratio: 1/1;
       line-height: initial;
+      justify-content: right;
+
+      @include mixins.media-for-centered-cells {
+        justify-content: center;
+        align-items: center;
+      }
     }
   }
 
