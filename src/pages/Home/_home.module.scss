@@ -13,7 +13,7 @@
     "footer footer";
   height: 100vh;
 
-  @include mixins.media-max-big-tablet {
+  @include mixins.media-only-mobile {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 2fr 4fr 4fr 2fr;
     grid-row-gap: variables.$outer-spacing;
