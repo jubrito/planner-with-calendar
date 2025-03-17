@@ -1,6 +1,6 @@
 # Next steps (v1):
 
-- Fix calendar responsiveness (it breaks because of min-width: 485px;)
+- Fix calendar header responsiveness
 - Highlight current day of the week or day
 - Create button to navigate to today
 - Verify accessibility
