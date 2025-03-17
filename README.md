@@ -2,6 +2,7 @@
 
 - Fix calendar responsiveness (it breaks because of min-width: 485px;)
 - Highlight current day of the week or day
+- Create button to navigate to today
 - Verify accessibility
 - Add skip to main content
 
@@ -17,6 +18,7 @@
 
 ## v2
 
+- Redux?
 - Day / Week / Month with tasks views
 - Click on calendar day and open planner + tests + update title to indicate what clicking it will do
 - Implement checklists + tests
