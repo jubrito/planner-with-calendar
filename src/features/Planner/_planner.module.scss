@@ -10,7 +10,7 @@
   @include mixins.media-only-mobile {
     margin: 0 variables.$inner-spacing;
   }
-  @include mixins.media-small-mobile {
+  @include mixins.media-only-small-mobile {
     margin: 0;
   }
 }

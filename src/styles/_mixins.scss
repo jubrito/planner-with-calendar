@@ -1,7 +1,13 @@
 // Media queries
 
-@mixin media-small-mobile {
+@mixin media-only-small-mobile {
   @media only screen and (max-width: 370px) {
+    @content;
+  }
+}
+
+@mixin media-only-mobile {
+  @media only screen and (max-width: 600px) {
     @content;
   }
 }
