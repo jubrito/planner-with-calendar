@@ -6,6 +6,7 @@ import { useDate } from "../../hooks/useDate";
 import "@testing-library/jest-dom";
 import { Months, MonthsNames } from "../../types/calendar/enums";
 import { getFullDateTitle } from "../../utils/calendar/utils";
+import { JSX } from "react/jsx-runtime";
 
 jest.mock("../../hooks/useDate", () => ({
   __esModule: true,
@@ -72,6 +73,9 @@ describe("Calendar", () => {
   });
 
   describe("Changing calendar dates", () => {
+    let rerenderCalendar:
+      | ((ui: React.ReactNode) => void)
+      | ((arg0: JSX.Element) => void);
     const year = 2025;
     const goToPreviousYearLabel = "Go to previous year";
     const goToPreviousMonthLabel = "Go to previous month";
@@ -88,7 +92,8 @@ describe("Calendar", () => {
         time: new Date(year, Months.JANUARY, 1).getTime(),
         monthNumberOfDays: 31,
       });
-      render(<Calendar />);
+      const { rerender } = render(<Calendar />);
+      rerenderCalendar = rerender;
     });
 
     afterEach(() => {
@@ -130,6 +135,25 @@ describe("Calendar", () => {
       await userEvent.click(goToNextMonthButton);
       expect(updateDateMock).toHaveBeenCalledTimes(1);
       expect(updateDateMock).toHaveBeenCalledWith(year, Months.FEBRUARY, 1);
+    });
+
+    it("should move to next month (January) when in December after clicking on button", async () => {
+      (useDate as jest.Mock).mockReturnValue({
+        date: new Date(year, Months.DECEMBER, 1),
+        updateDate: updateDateMock,
+        day: 1,
+        month: Months.DECEMBER,
+        year: year,
+        time: new Date(year, Months.DECEMBER, 1).getTime(),
+        monthNumberOfDays: 31,
+      });
+      rerenderCalendar(<Calendar />);
+      const goToNextMonthButton = screen.getByRole("button", {
+        name: goToNextMonthLabel,
+      });
+      await userEvent.click(goToNextMonthButton);
+      expect(updateDateMock).toHaveBeenCalledTimes(1);
+      expect(updateDateMock).toHaveBeenCalledWith(year + 1, Months.JANUARY, 1);
     });
   });
 });
