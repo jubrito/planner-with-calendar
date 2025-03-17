@@ -10,7 +10,7 @@ export const UpdateCalendarButton = ({
   updateDate,
 }: UpdateCalendarButtonProps) => {
   return (
-    <div onClick={() => updateDate()} aria-label={`Display ${label}`}>
+    <div onClick={() => updateDate()} aria-label={label}>
       <span aria-hidden="false">{symbol}</span>
     </div>
   );

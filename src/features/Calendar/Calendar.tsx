@@ -23,12 +23,12 @@ const Calendar = () => {
     <section className={styles.calendar}>
       <div className={styles.calendarHeader}>
         <UpdateCalendarButton
-          label={"previous year"}
+          label={"Go to previous year"}
           symbol={"<<"}
           updateDate={() => updateDate(year - 1, month, day)}
         />
         <UpdateCalendarButton
-          label={"previous month"}
+          label={"Go to previous month"}
           symbol={"<"}
           updateDate={() => updateDate(year, getPreviousMonthIndex(month), day)}
         />
@@ -36,12 +36,12 @@ const Calendar = () => {
           {`${currentMonthName}, ${year}`}
         </h2>
         <UpdateCalendarButton
-          label={"next month"}
+          label={"Go tonext month"}
           symbol={">"}
           updateDate={() => updateDate(year, getNextMonthIndex(month), day)}
         />
         <UpdateCalendarButton
-          label={"next year"}
+          label={"Go to next year"}
           symbol={">>"}
           updateDate={() => updateDate(year + 1, month, day)}
         />
