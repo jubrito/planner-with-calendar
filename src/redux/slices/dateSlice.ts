@@ -2,11 +2,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { DateConfig } from "../../types/calendar/types";
 import { deepCopy } from "../../utils/utils";
 
-type InitialDateState = {
+export type InitialDateState = {
   date: DateConfig["date"];
 };
 
-type InitialState = {
+export type InitialState = {
   initialState: InitialDateState;
   currentState: InitialDateState;
 };
