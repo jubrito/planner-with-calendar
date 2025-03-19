@@ -4,17 +4,22 @@ import styles from "./_calendar-cells.module.scss";
 import { getCurrentMonthDays } from "../../../utils/calendar/current";
 import { getPreviousMonthDaysOnCurrentMonth } from "../../../utils/calendar/previous";
 import { getNextMonthDaysOnCurrentMonth } from "../../../utils/calendar/next";
-import { CalendarCellInfo, DateConfig } from "../../../types/calendar/types";
+import { CalendarCellInfo } from "../../../types/calendar/types";
 import { Cell } from "./Cell/Cell";
+import {
+  getCurrentMonth,
+  getCurrentMonthNumberOfDays,
+  getCurrentTime,
+  getCurrentYear,
+} from "../../../redux/slices/dateSlice/selectors";
+import { useSelector } from "react-redux";
 
-type CalendarCellsProps = {
-  dateConfig: DateConfig;
-};
-
-const CalendarCells = ({ dateConfig }: CalendarCellsProps) => {
+const CalendarCells = () => {
   const { locale } = useLocale();
-  const { year, month, monthNumberOfDays, time } = dateConfig;
-
+  const time = useSelector(getCurrentTime());
+  const year = useSelector(getCurrentYear());
+  const month = useSelector(getCurrentMonth());
+  const monthNumberOfDays = useSelector(getCurrentMonthNumberOfDays());
   const getPreviousCurrentAndNextMonthDays = () => {
     const currentMonthDays: CalendarCellInfo[] = getCurrentMonthDays(
       year,
