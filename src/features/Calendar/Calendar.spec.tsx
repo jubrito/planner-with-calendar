@@ -7,6 +7,8 @@ import "@testing-library/jest-dom";
 import { Months, MonthsNames } from "../../types/calendar/enums";
 import { getFullDateTitle } from "../../utils/calendar/utils";
 import { JSX } from "react/jsx-runtime";
+import { renderWithProviders } from "../../utils/tests/renderWithProviders";
+import { initialValue } from "../../redux/slices/dateSlice";
 
 jest.mock("../../hooks/useDate", () => ({
   __esModule: true,
@@ -25,16 +27,19 @@ describe("Calendar", () => {
   describe("January 2025", () => {
     const year = 2025;
     beforeEach(() => {
-      (useDate as jest.Mock).mockReturnValue({
-        date: new Date(year, Months.JANUARY, 1), // January 1, 2025
-        updateDate: jest.fn(),
-        day: 1,
-        month: Months.JANUARY, // January (zero-indexed)
-        year: year,
-        time: new Date(year, Months.JANUARY, 1).getTime(),
-        monthNumberOfDays: 31, // January has 31 days
+      renderWithProviders(<Calendar />, {
+        preloadedState: {
+          dateSlice: {
+            currentState: {
+              ...initialValue.currentState,
+              date: new Date(year, Months.JANUARY, 1),
+            },
+            initialState: {
+              ...initialValue.initialState,
+            },
+          },
+        },
       });
-      render(<Calendar />);
     });
 
     it("should render January title with year 2025", () => {
