@@ -350,56 +350,62 @@ describe("CalendarCells", () => {
         });
       });
     });
-    // describe("June", () => {
-    //   const currentMonthNumberOfDays = 30;
-    //   beforeEach(() => {
-    //     const mockUseDate = getUseDateMock(
-    //       currentYear,
-    //       Months.JUNE,
-    //       1,
-    //       currentMonthNumberOfDays
-    //     );
-    //     render(withTableWrapper(<CalendarCells dateConfig={mockUseDate} />));
-    //   });
+    describe("June", () => {
+      const currentMonthNumberOfDays = 30;
+      beforeEach(() => {
+        renderWithProviders(withTableWrapper(<CalendarCells />), {
+          preloadedState: {
+            dateSlice: {
+              currentState: {
+                ...initialValue.currentState,
+                date: new Date(currentYear, Months.JUNE, 1),
+              },
+              initialState: {
+                ...initialValue.initialState,
+              },
+            },
+          },
+        });
+      });
 
-    //   it("should render days from May (previous month) to fill calendar", () => {
-    //     const mayDays = [26, 27, 28, 29, 30, 31];
+      it("should render days from May (previous month) to fill calendar", () => {
+        const mayDays = [26, 27, 28, 29, 30, 31];
 
-    //     mayDays.forEach((mayDay) => {
-    //       const dayCell = screen.getByTitle(
-    //         getFullDateTitle(currentYear, Months.MAY, mayDay, localeMock)
-    //       );
-    //       expect(dayCell).toBeInTheDocument();
-    //       expect(dayCell.textContent).toBe(mayDay.toString());
-    //     });
-    //   });
+        mayDays.forEach((mayDay) => {
+          const dayCell = screen.getByTitle(
+            getFullDateTitle(currentYear, Months.MAY, mayDay, localeMock)
+          );
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(mayDay.toString());
+        });
+      });
 
-    //   it("should render days from June (current month) to fill calendar", () => {
-    //     const juneDays = Array.from(
-    //       Array(currentMonthNumberOfDays).keys(),
-    //       (day) => day + 1
-    //     );
-    //     juneDays.forEach((juneDay) => {
-    //       const dayCell = screen.getByTitle(
-    //         getFullDateTitle(currentYear, Months.JUNE, juneDay, localeMock)
-    //       );
-    //       expect(dayCell).toBeInTheDocument();
-    //       expect(dayCell.textContent).toBe(juneDay.toString());
-    //     });
-    //   });
+      it("should render days from June (current month) to fill calendar", () => {
+        const juneDays = Array.from(
+          Array(currentMonthNumberOfDays).keys(),
+          (day) => day + 1
+        );
+        juneDays.forEach((juneDay) => {
+          const dayCell = screen.getByTitle(
+            getFullDateTitle(currentYear, Months.JUNE, juneDay, localeMock)
+          );
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(juneDay.toString());
+        });
+      });
 
-    //   it("should render days from July (next month) to fill calendar", () => {
-    //     const julyDays = [1, 2, 3, 4, 5, 6];
+      it("should render days from July (next month) to fill calendar", () => {
+        const julyDays = [1, 2, 3, 4, 5, 6];
 
-    //     julyDays.forEach((julyDay) => {
-    //       const dayCell = screen.getByTitle(
-    //         getFullDateTitle(currentYear, Months.JULY, julyDay, localeMock)
-    //       );
-    //       expect(dayCell).toBeInTheDocument();
-    //       expect(dayCell.textContent).toBe(julyDay.toString());
-    //     });
-    //   });
-    // });
+        julyDays.forEach((julyDay) => {
+          const dayCell = screen.getByTitle(
+            getFullDateTitle(currentYear, Months.JULY, julyDay, localeMock)
+          );
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(julyDay.toString());
+        });
+      });
+    });
     // describe("July", () => {
     //   const currentMonthNumberOfDays = 31;
     //   beforeEach(() => {
