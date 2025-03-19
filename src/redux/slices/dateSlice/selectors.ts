@@ -1,7 +1,7 @@
-import { RootState } from "../../store";
 import { createSelector } from "@reduxjs/toolkit";
+import type { RootState } from "../../store";
 
-const updateDateState = (store: RootState) => store.updateDate;
+const updateDateState = (store: RootState) => store.dateSlice;
 
 export const getCurrentDate = () =>
   createSelector(updateDateState, (state) => state.currentState.date);

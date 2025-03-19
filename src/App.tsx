@@ -5,7 +5,7 @@ import setupStore from "./redux/store";
 
 const App = () => {
   return (
-    <Provider store={setupStore}>
+    <Provider store={setupStore()}>
       <Home />
     </Provider>
   );
