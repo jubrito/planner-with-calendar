@@ -15,7 +15,7 @@ const initialDate: InitialDateState = {
   date: new Date(),
 };
 
-const initialValue: InitialState = {
+export const initialValue: InitialState = {
   initialState: deepCopy(initialDate),
   currentState: deepCopy(initialDate),
 };
