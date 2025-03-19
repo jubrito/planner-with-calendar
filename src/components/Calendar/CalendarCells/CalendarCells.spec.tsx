@@ -946,52 +946,58 @@ describe("CalendarCells", () => {
         });
       });
     });
-    //   describe("April", () => {
-    //     const currentMonthNumberOfDays = 30;
-    //     beforeEach(() => {
-    //       const mockUseDate = getUseDateMock(
-    //         leapYear,
-    //         Months.APRIL,
-    //         1,
-    //         currentMonthNumberOfDays
-    //       );
-    //       render(withTableWrapper(<CalendarCells dateConfig={mockUseDate} />));
-    //     });
+    describe("April", () => {
+      const currentMonthNumberOfDays = 30;
+      beforeEach(() => {
+        renderWithProviders(withTableWrapper(<CalendarCells />), {
+          preloadedState: {
+            dateSlice: {
+              currentState: {
+                ...initialValue.currentState,
+                date: new Date(leapYear, Months.APRIL, 1),
+              },
+              initialState: {
+                ...initialValue.initialState,
+              },
+            },
+          },
+        });
+      });
 
-    //     it("should render days from March (previous month) to fill calendar", () => {
-    //       const marchDays = [27, 28, 29, 30, 31];
+      it("should render days from March (previous month) to fill calendar", () => {
+        const marchDays = [27, 28, 29, 30, 31];
 
-    //       marchDays.forEach((marchDay) => {
-    //         const dayCell = screen.getByTitle(
-    //           getFullDateTitle(leapYear, Months.MARCH, marchDay, localeMock)
-    //         );
-    //         expect(dayCell).toBeInTheDocument();
-    //         expect(dayCell.textContent).toBe(marchDay.toString());
-    //       });
-    //     });
+        marchDays.forEach((marchDay) => {
+          const dayCell = screen.getByTitle(
+            getFullDateTitle(leapYear, Months.MARCH, marchDay, localeMock)
+          );
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(marchDay.toString());
+        });
+      });
 
-    //     it("should render days from April (current month) to fill calendar", () => {
-    //       const aprilDays = Array.from(
-    //         Array(currentMonthNumberOfDays).keys(),
-    //         (day) => day + 1
-    //       );
+      it("should render days from April (current month) to fill calendar", () => {
+        const aprilDays = Array.from(
+          Array(currentMonthNumberOfDays).keys(),
+          (day) => day + 1
+        );
 
-    //       aprilDays.forEach((aprilDay) => {
-    //         const dayCell = screen.getByTitle(
-    //           getFullDateTitle(leapYear, Months.APRIL, aprilDay, localeMock)
-    //         );
-    //         expect(dayCell).toBeInTheDocument();
-    //         expect(dayCell.textContent).toBe(aprilDay.toString());
-    //       });
-    //     });
+        aprilDays.forEach((aprilDay) => {
+          const dayCell = screen.getByTitle(
+            getFullDateTitle(leapYear, Months.APRIL, aprilDay, localeMock)
+          );
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(aprilDay.toString());
+        });
+      });
 
-    //     it("should not render days from May (next month) to fill calendar", () => {
-    //       const dayCell = screen.queryByTitle(
-    //         getFullDateTitle(leapYear, Months.SEPTEMBER, 1, localeMock)
-    //       );
-    //       expect(dayCell).not.toBeInTheDocument();
-    //     });
-    //   });
+      it("should not render days from May (next month) to fill calendar", () => {
+        const dayCell = screen.queryByTitle(
+          getFullDateTitle(leapYear, Months.SEPTEMBER, 1, localeMock)
+        );
+        expect(dayCell).not.toBeInTheDocument();
+      });
+    });
     //   describe("May", () => {
     //     const currentMonthNumberOfDays = 31;
     //     beforeEach(() => {
