@@ -88,16 +88,19 @@ describe("Calendar", () => {
     const goToNextYearLabel = "Go to next year";
     const updateDateMock = jest.fn();
     beforeEach(() => {
-      (useDate as jest.Mock).mockReturnValue({
-        date: new Date(year, Months.JANUARY, 1),
-        updateDate: updateDateMock,
-        day: 1,
-        month: Months.JANUARY,
-        year: year,
-        time: new Date(year, Months.JANUARY, 1).getTime(),
-        monthNumberOfDays: 31,
+      const { rerender } = renderWithProviders(<Calendar />, {
+        preloadedState: {
+          dateSlice: {
+            currentState: {
+              ...initialValue.currentState,
+              date: new Date(year, Months.JANUARY, 1),
+            },
+            initialState: {
+              ...initialValue.initialState,
+            },
+          },
+        },
       });
-      const { rerender } = render(<Calendar />);
       rerenderCalendar = rerender;
     });
 
