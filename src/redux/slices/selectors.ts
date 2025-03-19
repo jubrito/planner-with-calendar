@@ -1,7 +1,10 @@
 import { RootState } from "../store";
 import { createSelector } from "@reduxjs/toolkit";
 
-const updateDateSlice = (store: RootState) => store.updateDate;
+const updateDateState = (store: RootState) => store.updateDate;
 
 export const getDate = () =>
-  createSelector(updateDateSlice, (state) => state.currentState.date);
+  createSelector(updateDateState, (state) => state.currentState.date);
+
+export const getDay = () =>
+  createSelector(updateDateState, (state) => state.currentState.date.getDate());
