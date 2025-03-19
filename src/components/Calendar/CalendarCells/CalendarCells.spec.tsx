@@ -1,9 +1,7 @@
 import { screen } from "@testing-library/dom";
 import CalendarCells from "./CalendarCells";
-import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { Months } from "../../../types/calendar/enums";
-import { getUseDateMock } from "../../../utils/tests/mocks";
 import { ReactElement } from "react";
 import { getFullDateTitle } from "../../../utils/calendar/utils";
 import { initialValue } from "../../../redux/slices/dateSlice";
