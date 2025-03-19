@@ -13,7 +13,7 @@ export const UpdateCalendarButton = ({
 }: UpdateCalendarButtonProps) => {
   return (
     <button
-      onClick={() => updateDate()}
+      onClick={updateDate}
       aria-label={label}
       className={styles.updateCalendar}
     >
