@@ -832,57 +832,63 @@ describe("CalendarCells", () => {
         });
       });
     });
-    //   describe("February", () => {
-    //     const currentMonthNumberOfDays = 28;
-    //     beforeEach(() => {
-    //       const mockUseDate = getUseDateMock(
-    //         leapYear,
-    //         Months.FEBRUARY,
-    //         1,
-    //         currentMonthNumberOfDays
-    //       );
-    //       render(withTableWrapper(<CalendarCells dateConfig={mockUseDate} />));
-    //     });
+    describe("February", () => {
+      const currentMonthNumberOfDays = 28;
+      beforeEach(() => {
+        renderWithProviders(withTableWrapper(<CalendarCells />), {
+          preloadedState: {
+            dateSlice: {
+              currentState: {
+                ...initialValue.currentState,
+                date: new Date(leapYear, Months.FEBRUARY, 1),
+              },
+              initialState: {
+                ...initialValue.initialState,
+              },
+            },
+          },
+        });
+      });
 
-    //     it("should render days from January (previous month) to fill calendar", () => {
-    //       const januaryDays = [31];
+      it("should render days from January (previous month) to fill calendar", () => {
+        const januaryDays = [31];
 
-    //       januaryDays.forEach((januaryDay) => {
-    //         const dayCell = screen.getByTitle(
-    //           getFullDateTitle(leapYear, Months.JANUARY, januaryDay, localeMock)
-    //         );
-    //         expect(dayCell).toBeInTheDocument();
-    //         expect(dayCell.textContent).toBe(januaryDay.toString());
-    //       });
-    //     });
+        januaryDays.forEach((januaryDay) => {
+          const dayCell = screen.getByTitle(
+            getFullDateTitle(leapYear, Months.JANUARY, januaryDay, localeMock)
+          );
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(januaryDay.toString());
+        });
+      });
 
-    //     it("should render days from February (current month) to fill calendar", () => {
-    //       const februaryDays = Array.from(
-    //         Array(currentMonthNumberOfDays).keys(),
-    //         (day) => day + 1
-    //       );
+      it("should render days from February (current month) to fill calendar", () => {
+        const februaryDays = Array.from(
+          Array(currentMonthNumberOfDays).keys(),
+          (day) => day + 1
+        );
 
-    //       februaryDays.forEach((februaryDay) => {
-    //         const dayCell = screen.getByTitle(
-    //           getFullDateTitle(leapYear, Months.FEBRUARY, februaryDay, localeMock)
-    //         );
-    //         expect(dayCell).toBeInTheDocument();
-    //         expect(dayCell.textContent).toBe(februaryDay.toString());
-    //       });
-    //     });
+        februaryDays.forEach((februaryDay) => {
+          const dayCell = screen.getByTitle(
+            getFullDateTitle(leapYear, Months.FEBRUARY, februaryDay, localeMock)
+          );
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(februaryDay.toString());
+        });
+      });
 
-    //     it("should render days from March (next month) to fill calendar", () => {
-    //       const marchDays = [1, 2, 3, 4, 5];
+      it("should render days from March (next month) to fill calendar", () => {
+        const marchDays = [1, 2, 3, 4, 5];
 
-    //       marchDays.forEach((marchDay) => {
-    //         const dayCell = screen.getByTitle(
-    //           getFullDateTitle(leapYear, Months.MARCH, marchDay, localeMock)
-    //         );
-    //         expect(dayCell).toBeInTheDocument();
-    //         expect(dayCell.textContent).toBe(marchDay.toString());
-    //       });
-    //     });
-    //   });
+        marchDays.forEach((marchDay) => {
+          const dayCell = screen.getByTitle(
+            getFullDateTitle(leapYear, Months.MARCH, marchDay, localeMock)
+          );
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(marchDay.toString());
+        });
+      });
+    });
     //   describe("March", () => {
     //     const currentMonthNumberOfDays = 31;
     //     beforeEach(() => {
