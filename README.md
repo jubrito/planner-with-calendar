@@ -20,7 +20,7 @@
 
 ## v2
 
-- Redux?
+- Redux? (remove updateDate from DateConfig if no longer necessary)
 - Day / Week / Month with tasks views
 - Click on calendar day and open planner + tests + update title to indicate what clicking it will do
 - Implement checklists + tests
@@ -42,6 +42,7 @@
 - Pipeline
 - Integration tests
 - Cache for already visited months
+- Moons?
 
 # React + TypeScript + Vite
 
