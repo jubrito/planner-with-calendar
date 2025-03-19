@@ -705,62 +705,68 @@ describe("CalendarCells", () => {
         expect(dayCell).not.toBeInTheDocument();
       });
     });
-    // describe("December", () => {
-    //   const currentMonthNumberOfDays = 31;
-    //   beforeEach(() => {
-    //     const mockUseDate = getUseDateMock(
-    //       currentYear,
-    //       Months.DECEMBER,
-    //       1,
-    //       currentMonthNumberOfDays
-    //     );
-    //     render(withTableWrapper(<CalendarCells dateConfig={mockUseDate} />));
-    //   });
+    describe("December", () => {
+      const currentMonthNumberOfDays = 31;
+      beforeEach(() => {
+        renderWithProviders(withTableWrapper(<CalendarCells />), {
+          preloadedState: {
+            dateSlice: {
+              currentState: {
+                ...initialValue.currentState,
+                date: new Date(currentYear, Months.DECEMBER, 1),
+              },
+              initialState: {
+                ...initialValue.initialState,
+              },
+            },
+          },
+        });
+      });
 
-    //   it("should not render days from November (previous month) since December starts on a Monday (first column)", () => {
-    //     const dayCell = screen.queryByTitle(
-    //       getFullDateTitle(currentYear, Months.NOVEMBER, 30, localeMock)
-    //     );
-    //     expect(dayCell).not.toBeInTheDocument();
-    //   });
+      it("should not render days from November (previous month) since December starts on a Monday (first column)", () => {
+        const dayCell = screen.queryByTitle(
+          getFullDateTitle(currentYear, Months.NOVEMBER, 30, localeMock)
+        );
+        expect(dayCell).not.toBeInTheDocument();
+      });
 
-    //   it("should render days from December (current month) to fill calendar", () => {
-    //     const decemberDays = Array.from(
-    //       Array(currentMonthNumberOfDays).keys(),
-    //       (day) => day + 1
-    //     );
+      it("should render days from December (current month) to fill calendar", () => {
+        const decemberDays = Array.from(
+          Array(currentMonthNumberOfDays).keys(),
+          (day) => day + 1
+        );
 
-    //     decemberDays.forEach((decemberDay) => {
-    //       const dayCell = screen.getByTitle(
-    //         getFullDateTitle(
-    //           currentYear,
-    //           Months.DECEMBER,
-    //           decemberDay,
-    //           localeMock
-    //         )
-    //       );
-    //       expect(dayCell).toBeInTheDocument();
-    //       expect(dayCell.textContent).toBe(decemberDay.toString());
-    //     });
-    //   });
+        decemberDays.forEach((decemberDay) => {
+          const dayCell = screen.getByTitle(
+            getFullDateTitle(
+              currentYear,
+              Months.DECEMBER,
+              decemberDay,
+              localeMock
+            )
+          );
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(decemberDay.toString());
+        });
+      });
 
-    //   it("should render days from January (next month) to fill calendar", () => {
-    //     const januaryDays = [1, 2, 3, 4];
+      it("should render days from January (next month) to fill calendar", () => {
+        const januaryDays = [1, 2, 3, 4];
 
-    //     januaryDays.forEach((januaryDay) => {
-    //       const dayCell = screen.getByTitle(
-    //         getFullDateTitle(
-    //           currentYear + 1,
-    //           Months.JANUARY,
-    //           januaryDay,
-    //           localeMock
-    //         )
-    //       );
-    //       expect(dayCell).toBeInTheDocument();
-    //       expect(dayCell.textContent).toBe(januaryDay.toString());
-    //     });
-    //   });
-    // });
+        januaryDays.forEach((januaryDay) => {
+          const dayCell = screen.getByTitle(
+            getFullDateTitle(
+              currentYear + 1,
+              Months.JANUARY,
+              januaryDay,
+              localeMock
+            )
+          );
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(januaryDay.toString());
+        });
+      });
+    });
   });
   // describe("Leap year", () => {
   //   const leapYear = 2028;
