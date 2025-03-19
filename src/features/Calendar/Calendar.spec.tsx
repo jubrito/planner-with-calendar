@@ -6,14 +6,19 @@ import { Months, MonthsNames } from "../../types/calendar/enums";
 import { getFullDateTitle } from "../../utils/calendar/utils";
 import { JSX } from "react/jsx-runtime";
 import { renderWithProviders } from "../../utils/tests/renderWithProviders";
-import { initialValue } from "../../redux/slices/dateSlice";
+import { initialValue, updateDate } from "../../redux/slices/dateSlice";
 
 const updateDateMock = jest.fn();
 
-jest.mock("../../redux/updateDate", () => ({
-  __esModule: true,
-  updateDate: updateDateMock,
-}));
+jest.mock("../../redux/slices/dateSlice", () => {
+  const data = jest.requireActual("../../redux/slices/dateSlice");
+  return {
+    __esModule: true,
+    ...data,
+    updateDate: updateDateMock,
+  };
+});
+
 describe("Calendar", () => {
   const localeMock = "en-US";
   /**  January, 2025
@@ -173,6 +178,7 @@ describe("Calendar", () => {
     });
 
     it("should go to next year (2026) when in 2025 after clicking on button", async () => {
+      console.log("Mocked updateDate calls:", updateDate.mock.calls); // Debug log
       const goToNextYearButton = screen.getByRole("button", {
         name: goToNextYearLabel,
       });
