@@ -8,3 +8,8 @@ export const getDate = () =>
 
 export const getDay = () =>
   createSelector(updateDateState, (state) => state.currentState.date.getDate());
+
+export const getMonth = () =>
+  createSelector(updateDateState, (state) =>
+    state.currentState.date.getMonth()
+  );
