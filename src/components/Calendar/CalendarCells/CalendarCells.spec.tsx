@@ -1400,50 +1400,56 @@ describe("CalendarCells", () => {
         });
       });
     });
-    //   describe("December", () => {
-    //     const currentMonthNumberOfDays = 31;
-    //     beforeEach(() => {
-    //       const mockUseDate = getUseDateMock(
-    //         leapYear,
-    //         Months.DECEMBER,
-    //         1,
-    //         currentMonthNumberOfDays
-    //       );
-    //       render(withTableWrapper(<CalendarCells dateConfig={mockUseDate} />));
-    //     });
+    describe("December", () => {
+      const currentMonthNumberOfDays = 31;
+      beforeEach(() => {
+        renderWithProviders(withTableWrapper(<CalendarCells />), {
+          preloadedState: {
+            dateSlice: {
+              currentState: {
+                ...initialValue.currentState,
+                date: new Date(leapYear, Months.DECEMBER, 1),
+              },
+              initialState: {
+                ...initialValue.initialState,
+              },
+            },
+          },
+        });
+      });
 
-    //     it("should render days from November (previous month) since December starts on a Monday (first column)", () => {
-    //       const novemberDays = [27, 28, 29, 30];
-    //       novemberDays.forEach((novemberDay) => {
-    //         const dayCell = screen.getByTitle(
-    //           getFullDateTitle(leapYear, Months.NOVEMBER, novemberDay, localeMock)
-    //         );
-    //         expect(dayCell).toBeInTheDocument();
-    //         expect(dayCell.textContent).toBe(novemberDay.toString());
-    //       });
-    //     });
+      it("should render days from November (previous month) since December starts on a Monday (first column)", () => {
+        const novemberDays = [27, 28, 29, 30];
+        novemberDays.forEach((novemberDay) => {
+          const dayCell = screen.getByTitle(
+            getFullDateTitle(leapYear, Months.NOVEMBER, novemberDay, localeMock)
+          );
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(novemberDay.toString());
+        });
+      });
 
-    //     it("should render days from December (current month) to fill calendar", () => {
-    //       const decemberDays = Array.from(
-    //         Array(currentMonthNumberOfDays).keys(),
-    //         (day) => day + 1
-    //       );
+      it("should render days from December (current month) to fill calendar", () => {
+        const decemberDays = Array.from(
+          Array(currentMonthNumberOfDays).keys(),
+          (day) => day + 1
+        );
 
-    //       decemberDays.forEach((decemberDay) => {
-    //         const dayCell = screen.getByTitle(
-    //           getFullDateTitle(leapYear, Months.DECEMBER, decemberDay, localeMock)
-    //         );
-    //         expect(dayCell).toBeInTheDocument();
-    //         expect(dayCell.textContent).toBe(decemberDay.toString());
-    //       });
-    //     });
+        decemberDays.forEach((decemberDay) => {
+          const dayCell = screen.getByTitle(
+            getFullDateTitle(leapYear, Months.DECEMBER, decemberDay, localeMock)
+          );
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(decemberDay.toString());
+        });
+      });
 
-    //     it("should not render days from January (next month) to fill calendar", () => {
-    //       const dayCell = screen.queryByTitle(
-    //         getFullDateTitle(leapYear, Months.JANUARY, 1, localeMock)
-    //       );
-    //       expect(dayCell).not.toBeInTheDocument();
-    //     });
-    //   });
+      it("should not render days from January (next month) to fill calendar", () => {
+        const dayCell = screen.queryByTitle(
+          getFullDateTitle(leapYear, Months.JANUARY, 1, localeMock)
+        );
+        expect(dayCell).not.toBeInTheDocument();
+      });
+    });
   });
 });
