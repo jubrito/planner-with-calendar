@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import CalendarCells from "../../components/Calendar/CalendarCells/CalendarCells";
 import CalendarWeeks from "../../components/Calendar/CalendarWeeks/CalendarWeeks";
 import { UpdateCalendarButton } from "../../components/Calendar/UpdateCalendarButton/UpdateCalendarButton";
@@ -11,11 +10,25 @@ import {
   getPreviousMonthYear,
 } from "../../utils/calendar/previous";
 import styles from "./_calendar.module.scss";
+import { useSelector } from "react-redux";
+import {
+  getCurrentDate,
+  getCurrentDay,
+  getCurrentMonth,
+  getCurrentYear,
+} from "../../redux/slices/dateSlice/selectors";
+import { useDispatch } from "react-redux";
+import { updateDate } from "../../redux/slices/dateSlice";
 
 const Calendar = () => {
   const { locale } = useLocale();
   const dateConfig = useDate();
-  const { date, year, month, day, updateDate } = dateConfig;
+  const date = useSelector(getCurrentDate());
+  const day = useSelector(getCurrentDay());
+  const year = useSelector(getCurrentYear());
+  const month = useSelector(getCurrentMonth());
+  const dispatch = useDispatch();
+
   const currentMonthName = getCurrentMonthName(date, locale);
 
   return (
@@ -24,16 +37,20 @@ const Calendar = () => {
         <UpdateCalendarButton
           label={"Go to previous year"}
           symbol={"<<"}
-          updateDate={() => updateDate(year - 1, month, day)}
+          updateDate={() =>
+            dispatch(updateDate({ year: year - 1, month, day }))
+          }
         />
         <UpdateCalendarButton
           label={"Go to previous month"}
           symbol={"<"}
           updateDate={() =>
-            updateDate(
-              getPreviousMonthYear(year, month),
-              getPreviousMonthIndex(month),
-              day
+            dispatch(
+              updateDate({
+                year: getPreviousMonthYear(year, month),
+                month: getPreviousMonthIndex(month),
+                day,
+              })
             )
           }
         />
@@ -44,17 +61,21 @@ const Calendar = () => {
           label={"Go to next month"}
           symbol={">"}
           updateDate={() =>
-            updateDate(
-              getNextMonthYear(year, month),
-              getNextMonthIndex(month),
-              day
+            dispatch(
+              updateDate({
+                year: getNextMonthYear(year, month),
+                month: getNextMonthIndex(month),
+                day,
+              })
             )
           }
         />
         <UpdateCalendarButton
           label={"Go to next year"}
           symbol={">>"}
-          updateDate={() => updateDate(year + 1, month, day)}
+          updateDate={() =>
+            dispatch(updateDate({ year: year + 1, month, day }))
+          }
         />
       </div>
       <table aria-labelledby="calendar-month-name">
