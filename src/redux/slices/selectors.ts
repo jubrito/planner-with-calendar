@@ -19,6 +19,9 @@ export const getCurrentYear = () =>
     state.currentState.date.getFullYear()
   );
 
+export const getCurrentTime = () =>
+  createSelector(updateDateState, (state) => state.currentState.date.getTime());
+
 export const getCurrentMonthNumberOfDays = () =>
   createSelector(updateDateState, (state) => {
     const year = state.currentState.date.getFullYear();
