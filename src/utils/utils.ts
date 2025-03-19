@@ -14,3 +14,16 @@ export const isObject = (obj: unknown): obj is ObjectType => {
 
   return true;
 };
+
+export const deepCopy = <T extends ObjectType>(element: T): T => {
+  let copy = {} as T;
+  for (let prop in element) {
+    let value = element[prop];
+    if (isObject(value)) {
+      copy[prop] = deepCopy(value);
+    } else {
+      copy[prop] = value;
+    }
+  }
+  return copy;
+};
