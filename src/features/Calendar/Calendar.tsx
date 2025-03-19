@@ -1,7 +1,6 @@
 import CalendarCells from "../../components/Calendar/CalendarCells/CalendarCells";
 import CalendarWeeks from "../../components/Calendar/CalendarWeeks/CalendarWeeks";
 import { UpdateCalendarButton } from "../../components/Calendar/UpdateCalendarButton/UpdateCalendarButton";
-import { useDate } from "../../hooks/useDate";
 import useLocale from "../../hooks/useLocale";
 import { getCurrentMonthName } from "../../utils/calendar/current";
 import { getNextMonthIndex, getNextMonthYear } from "../../utils/calendar/next";
@@ -22,7 +21,6 @@ import { updateDate } from "../../redux/slices/dateSlice";
 
 const Calendar = () => {
   const { locale } = useLocale();
-  const dateConfig = useDate();
   const date = useSelector(getCurrentDate());
   const day = useSelector(getCurrentDay());
   const year = useSelector(getCurrentYear());
@@ -80,7 +78,7 @@ const Calendar = () => {
       </div>
       <table aria-labelledby="calendar-month-name">
         <CalendarWeeks />
-        <CalendarCells dateConfig={dateConfig} />
+        <CalendarCells />
       </table>
     </section>
   );
