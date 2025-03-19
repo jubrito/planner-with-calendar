@@ -644,61 +644,67 @@ describe("CalendarCells", () => {
         });
       });
     });
-    // describe("November", () => {
-    //   const currentMonthNumberOfDays = 30;
-    //   beforeEach(() => {
-    //     const mockUseDate = getUseDateMock(
-    //       currentYear,
-    //       Months.NOVEMBER,
-    //       1,
-    //       currentMonthNumberOfDays
-    //     );
-    //     render(withTableWrapper(<CalendarCells dateConfig={mockUseDate} />));
-    //   });
+    describe("November", () => {
+      const currentMonthNumberOfDays = 30;
+      beforeEach(() => {
+        renderWithProviders(withTableWrapper(<CalendarCells />), {
+          preloadedState: {
+            dateSlice: {
+              currentState: {
+                ...initialValue.currentState,
+                date: new Date(currentYear, Months.NOVEMBER, 1),
+              },
+              initialState: {
+                ...initialValue.initialState,
+              },
+            },
+          },
+        });
+      });
 
-    //   it("should render days from October (previous month) to fill calendar", () => {
-    //     const octoberDays = [27, 28, 29, 30, 31];
+      it("should render days from October (previous month) to fill calendar", () => {
+        const octoberDays = [27, 28, 29, 30, 31];
 
-    //     octoberDays.forEach((octoberDay) => {
-    //       const dayCell = screen.getByTitle(
-    //         getFullDateTitle(
-    //           currentYear,
-    //           Months.OCTOBER,
-    //           octoberDay,
-    //           localeMock
-    //         )
-    //       );
-    //       expect(dayCell).toBeInTheDocument();
-    //       expect(dayCell.textContent).toBe(octoberDay.toString());
-    //     });
-    //   });
+        octoberDays.forEach((octoberDay) => {
+          const dayCell = screen.getByTitle(
+            getFullDateTitle(
+              currentYear,
+              Months.OCTOBER,
+              octoberDay,
+              localeMock
+            )
+          );
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(octoberDay.toString());
+        });
+      });
 
-    //   it("should render days from November (current month) to fill calendar", () => {
-    //     const novemberDays = Array.from(
-    //       Array(currentMonthNumberOfDays).keys(),
-    //       (day) => day + 1
-    //     );
-    //     novemberDays.forEach((novemberDay) => {
-    //       const dayCell = screen.getByTitle(
-    //         getFullDateTitle(
-    //           currentYear,
-    //           Months.NOVEMBER,
-    //           novemberDay,
-    //           localeMock
-    //         )
-    //       );
-    //       expect(dayCell).toBeInTheDocument();
-    //       expect(dayCell.textContent).toBe(novemberDay.toString());
-    //     });
-    //   });
+      it("should render days from November (current month) to fill calendar", () => {
+        const novemberDays = Array.from(
+          Array(currentMonthNumberOfDays).keys(),
+          (day) => day + 1
+        );
+        novemberDays.forEach((novemberDay) => {
+          const dayCell = screen.getByTitle(
+            getFullDateTitle(
+              currentYear,
+              Months.NOVEMBER,
+              novemberDay,
+              localeMock
+            )
+          );
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(novemberDay.toString());
+        });
+      });
 
-    //   it("should not render days from December (next month) to fill calendar", () => {
-    //     const dayCell = screen.queryByTitle(
-    //       getFullDateTitle(currentYear, Months.DECEMBER, 1, localeMock)
-    //     );
-    //     expect(dayCell).not.toBeInTheDocument();
-    //   });
-    // });
+      it("should not render days from December (next month) to fill calendar", () => {
+        const dayCell = screen.queryByTitle(
+          getFullDateTitle(currentYear, Months.DECEMBER, 1, localeMock)
+        );
+        expect(dayCell).not.toBeInTheDocument();
+      });
+    });
     // describe("December", () => {
     //   const currentMonthNumberOfDays = 31;
     //   beforeEach(() => {
