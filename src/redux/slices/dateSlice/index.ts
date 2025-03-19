@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { DateConfig } from "../../types/calendar/types";
-import { deepCopy } from "../../utils/utils";
+import { DateConfig } from "../../../types/calendar/types";
+import { deepCopy } from "../../../utils/utils";
 
 export type InitialDateState = {
   date: DateConfig["date"];
