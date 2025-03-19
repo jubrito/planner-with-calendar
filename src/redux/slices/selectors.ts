@@ -18,3 +18,6 @@ export const getYear = () =>
   createSelector(updateDateState, (state) =>
     state.currentState.date.getFullYear()
   );
+
+export const getTime = () =>
+  createSelector(updateDateState, (state) => state.currentState.date.getTime());
