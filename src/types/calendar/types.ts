@@ -20,3 +20,5 @@ export type CalendarCellInfo = {
   day: DateConfig["day"];
   year: DateConfig["year"];
 };
+
+export type ObjectType = Record<string, unknown>;
