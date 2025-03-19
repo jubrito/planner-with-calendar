@@ -7,15 +7,6 @@ import { getFullDateTitle } from "../../../utils/calendar/utils";
 import { initialValue } from "../../../redux/slices/dateSlice";
 import { renderWithProviders } from "../../../utils/tests/renderWithProviders";
 
-// jest.mock("../../../hooks/useDate", () => ({
-//   __esModule: true,
-//   useDate: jest.fn(),
-// }));
-// jest.mock("../../../redux/slices/dateSlice", () => ({
-//   __esModule: true,
-//   updateDate: jest.fn(),
-// }));
-
 describe("CalendarCells", () => {
   const withTableWrapper = (children: ReactElement) => {
     return <table>{children}</table>;
