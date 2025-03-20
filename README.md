@@ -15,7 +15,6 @@
 - Add simple nav
 - Add simple footer
 - Handle basic responsiveness
-  [x] Test leap year
 
 ## v2
 
