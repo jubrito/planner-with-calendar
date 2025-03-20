@@ -1,4 +1,8 @@
+@use "../../../../styles/variables" as variables;
+
 .isToday {
-  background: rgb(0, 106, 255);
-  padding: 1px 3px 3px;
+  background: variables.$blue-lightgray-color;
+  padding: 0 3px 3px;
+  border-radius: variables.$small-gap;
+  font-weight: bold;
 }
