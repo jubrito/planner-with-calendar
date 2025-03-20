@@ -25,7 +25,7 @@ tbody {
       line-height: initial;
       justify-content: right;
 
-      @include mixins.media-for-centered-cells {
+      @include mixins.media-for-compact-calendar {
         justify-content: center;
         align-items: center;
       }
