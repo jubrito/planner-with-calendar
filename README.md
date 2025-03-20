@@ -12,8 +12,9 @@
 
 - Components
   - Nav
+    - Links (Gihub, project functionalities and details, about me?)
     - Header?
-  - Add simple footer
+  - Footer
 - Layout
   - Transitions
   - Text highlight bg and color
