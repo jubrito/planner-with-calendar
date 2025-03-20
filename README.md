@@ -11,7 +11,9 @@
 
 ## v1:
 
-- Update layout (+ add transictions)
+- Update layout
+  - Transictions
+  - Text highlight bg and color
 - Add nav
   - Header?
 - Add simple footer
