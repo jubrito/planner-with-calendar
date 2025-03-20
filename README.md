@@ -10,17 +10,20 @@
 
 ## v1:
 
-- Layout
-  - Transictions
-  - Text highlight bg and color
 - Components
   - Nav
     - Header?
   - Add simple footer
+- Layout
+  - Transictions
+  - Text highlight bg and color
+  - Check responsiveness
 
 ## v2
 
-- Day / Week / Month / Compact?
+- Features
+  - Calendar
+    - Day / Week / Month / Compact?
 - Add events/tasks?
 - Click on calendar day and open planner + tests + update title to indicate what clicking it will do
 - Implement checklists + tests
