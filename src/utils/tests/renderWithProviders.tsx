@@ -17,8 +17,9 @@ export function renderWithProviders(
   extendedRenderOptions: ExtendedRenderOptions = {}
 ) {
   const {
+    preloadedState = {},
     // Automatically create a store instance if no store was passed in
-    store = setupStore(extendedRenderOptions.preloadedState),
+    store = setupStore(preloadedState),
     ...renderOptions
   } = extendedRenderOptions;
 
