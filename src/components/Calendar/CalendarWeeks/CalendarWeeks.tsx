@@ -4,8 +4,8 @@ import styles from "./_calendar-weeks.module.scss";
 import { getLocaleLanguage } from "../../../redux/slices/localeSlice/selectors";
 
 const CalendarWeeks = () => {
-  const localeString = useSelector(getLocaleLanguage());
-  const weekDays = getWeekDaysNames(localeString);
+  const localeLang = useSelector(getLocaleLanguage());
+  const weekDays = getWeekDaysNames(localeLang);
 
   return (
     <thead className={styles.weekDaysContainer}>
