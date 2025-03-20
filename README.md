@@ -1,12 +1,12 @@
 # Next steps (v1):
 
 - Fix calendar header responsiveness
-- Fix can't see navigation indicators when using opt+ctrl+arrows
-- use compact mixin to change flex display of calendar menu
+- Use compact mixin to change flex display of calendar menu
 - Highlight current day of the week or day
 - Create button to navigate to today
 - Verify accessibility
-- Add skip to main content
+  - Fix can't see navigation indicators when using opt+ctrl+arrows
+  - Add skip to main content
 
 # Future Steps:
 
