@@ -1,10 +1,12 @@
-import useLocale from "../../../hooks/useLocale";
+import { useSelector } from "react-redux";
 import { getWeekDaysNames } from "../../../utils/calendar/weeks";
 import styles from "./_calendar-weeks.module.scss";
+import { getLocaleLanguage } from "../../../redux/slices/localeSlice/selectors";
 
 const CalendarWeeks = () => {
-  const { locale } = useLocale();
-  const weekDays = getWeekDaysNames(locale);
+  const localeString = useSelector(getLocaleLanguage());
+  const weekDays = getWeekDaysNames(localeString);
+
   return (
     <thead className={styles.weekDaysContainer}>
       <tr>
