@@ -22,3 +22,18 @@ export const getCurrentMonthDays = (
     year: year,
   }));
 };
+
+export const isToday = (
+  year: DateConfig["year"],
+  month: DateConfig["month"],
+  date: DateConfig["day"]
+) => {
+  const currentDate = new Date();
+  console.log("date", date);
+  console.log("currentDate.getDate()", currentDate.getDate());
+  return (
+    year === currentDate.getFullYear() &&
+    month === currentDate.getMonth() &&
+    date === currentDate.getDate()
+  );
+};
