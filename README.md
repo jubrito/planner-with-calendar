@@ -4,7 +4,7 @@
 - Highlight current day of the week or day
 - Verify accessibility
   - Fix can't see navigation indicators when using opt+ctrl+arrows
-  - Add skip to main content
+  - Add skip to main content (+ tests)
 
 # Future Steps:
 
@@ -33,12 +33,14 @@
 ## v3
 
 - Locale
-  - Button to change language
-  - Update month names, getFullDateTitle, date order
+  - Button to change language (+ tests)
+  - Update month names, getFullDateTitle, date order (+ tests)
 - Timezones?
 
 ## v4
 
+- Calendar Integration
+  - Integrate with personal calendar
 - Get calendar data from Apple API + tests
   - Add custom events connecting to calendar
 - Add light/dark/accessible themes
