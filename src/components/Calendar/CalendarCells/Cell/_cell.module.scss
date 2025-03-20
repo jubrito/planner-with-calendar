@@ -3,12 +3,21 @@
 
 .isToday {
   background: variables.$blue-lightgray-color;
-  padding: 0 3px 3px;
-  border-radius: variables.$small-gap;
   font-weight: bold;
+  $spacing: 3px;
+  padding: $spacing;
+  border-radius: $spacing;
+  font-weight: bold;
+  position: absolute;
+  content: "";
+  top: -$spacing;
+  right: -$spacing;
 
   @include mixins.media-for-compact-calendar {
     padding: variables.$small-gap;
     border-radius: 100%;
+    position: relative;
+    top: unset;
+    right: unset;
   }
 }

@@ -17,4 +17,5 @@
 
 .updateCalendarToToday {
   @extend .updateCalendar;
+  background-color: variables.$blue-lightgray-color;
 }

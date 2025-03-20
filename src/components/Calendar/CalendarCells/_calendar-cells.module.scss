@@ -25,6 +25,10 @@ tbody {
       line-height: initial;
       justify-content: right;
 
+      time {
+        position: relative;
+      }
+
       @include mixins.media-for-compact-calendar {
         justify-content: center;
         align-items: center;
