@@ -1,7 +1,6 @@
 # Next steps (v1):
 
 - Use compact mixin to change flex display of calendar menu
-- Highlight current day of the week or day
 - Verify accessibility
   - Fix can't see navigation indicators when using opt+ctrl+arrows
   - Add skip to main content (+ tests)
@@ -40,13 +39,13 @@
 ## v4
 
 - Calendar Integration
-  - Integrate with personal calendar
-- Get calendar data from Apple API + tests
-  - Add custom events connecting to calendar
-- Add light/dark/accessible themes
+  - Get calendar data from Apple API (+ tests)
+  - Add custom events connecting to calendar (+ tests)
+  - Integrate new changes with personal calendar (+ tests)
 
 ## v5
 
+- Add light/dark/accessible themes
 - Pipeline
 - Integration tests
 - Cache for already visited months
