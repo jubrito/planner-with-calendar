@@ -459,7 +459,7 @@ describe("CalendarCells", () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                date: new Date(currentYear, Months.AUGUST, 1),
+                date: new Date(currentYear, Months.AUGUST, 1).toDateString(),
               },
               initialState: {
                 ...initialValue.initialState,
@@ -510,7 +510,7 @@ describe("CalendarCells", () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                date: new Date(currentYear, Months.SEPTEMBER, 1),
+                date: new Date(currentYear, Months.SEPTEMBER, 1).toDateString(),
               },
               initialState: {
                 ...initialValue.initialState,
@@ -571,7 +571,7 @@ describe("CalendarCells", () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                date: new Date(currentYear, Months.OCTOBER, 1),
+                date: new Date(currentYear, Months.OCTOBER, 1).toDateString(),
               },
               initialState: {
                 ...initialValue.initialState,
@@ -641,7 +641,7 @@ describe("CalendarCells", () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                date: new Date(currentYear, Months.NOVEMBER, 1),
+                date: new Date(currentYear, Months.NOVEMBER, 1).toDateString(),
               },
               initialState: {
                 ...initialValue.initialState,
@@ -702,7 +702,7 @@ describe("CalendarCells", () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                date: new Date(currentYear, Months.DECEMBER, 1),
+                date: new Date(currentYear, Months.DECEMBER, 1).toDateString(),
               },
               initialState: {
                 ...initialValue.initialState,
@@ -767,7 +767,7 @@ describe("CalendarCells", () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                date: new Date(leapYear, Months.JANUARY, 1),
+                date: new Date(leapYear, Months.JANUARY, 1).toDateString(),
               },
               initialState: {
                 ...initialValue.initialState,
