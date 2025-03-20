@@ -1,8 +1,14 @@
 @use "../../../../styles/variables" as variables;
+@use "../../../../styles/mixins" as mixins;
 
 .isToday {
   background: variables.$blue-lightgray-color;
   padding: 0 3px 3px;
   border-radius: variables.$small-gap;
   font-weight: bold;
+
+  @include mixins.media-for-compact-calendar {
+    padding: variables.$small-gap;
+    border-radius: 100%;
+  }
 }
