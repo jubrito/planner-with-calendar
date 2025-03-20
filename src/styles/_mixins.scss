@@ -31,7 +31,8 @@
 }
 
 @mixin media-for-compact-calendar {
-  @media only screen and (min-width: 600px) and (max-width: 715px) {
+  @media only screen and ((min-width: 600px) and (max-width: 768px)),
+    ((max-width: 450px)) {
     @content;
   }
 }

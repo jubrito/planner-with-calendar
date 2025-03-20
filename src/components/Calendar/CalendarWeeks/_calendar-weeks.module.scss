@@ -1,5 +1,6 @@
 @use "../../../features/Calendar/_calendar.module.scss";
 @use "../../../styles/_variables.scss" as variables;
+@use "../../../styles/_mixins.scss" as mixins;
 
 .weekDaysContainer {
   thead {
@@ -23,5 +24,18 @@
     text-decoration: none;
     border: variables.$smaller-gap solid variables.$black-color;
     color: variables.$white-color;
+    display: table-cell;
+
+    .shortWeekName {
+      @include mixins.media-for-compact-calendar {
+        display: none;
+      }
+    }
+    .initialWeekName {
+      display: none;
+      @include mixins.media-for-compact-calendar {
+        display: table-cell;
+      }
+    }
   }
 }
