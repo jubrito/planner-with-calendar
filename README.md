@@ -18,13 +18,12 @@
   - Transictions
   - Text highlight bg and color
   - Check responsiveness
+- Features
+  - Day / Week / Month / Compact
 
 ## v2
 
-- Features
-  - Calendar
-    - Day / Week / Month / Compact?
-- Add events/tasks?
+- Planner
 - Click on calendar day and open planner + tests + update title to indicate what clicking it will do
 - Implement checklists + tests
 
@@ -38,6 +37,7 @@
 ## v4
 
 - Get calendar data from Apple API + tests
+  - Add custom events connecting to calendar
 - Add light/dark/accessible themes
 
 ## v5
