@@ -29,8 +29,6 @@ export const isToday = (
   date: DateConfig["day"]
 ) => {
   const currentDate = new Date();
-  console.log("date", date);
-  console.log("currentDate.getDate()", currentDate.getDate());
   return (
     year === currentDate.getFullYear() &&
     month === currentDate.getMonth() &&
