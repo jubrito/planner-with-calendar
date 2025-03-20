@@ -15,17 +15,19 @@
     - Header?
   - Add simple footer
 - Layout
-  - Transictions
+  - Transitions
   - Text highlight bg and color
   - Check responsiveness
 - Features
-  - Day / Week / Month / Compact
+  - Day / Week / Month / Compact (+ tests)
 
 ## v2
 
 - Planner
-- Click on calendar day and open planner + tests + update title to indicate what clicking it will do
-- Implement checklists + tests
+  - Create weekly planner integrated with calendar (+ tests)
+  - Calendar button to click on day and open planner
+  - Indicate in the cell that clicking will open planner
+- Checklists (+ tests)
 
 ## v3
 
