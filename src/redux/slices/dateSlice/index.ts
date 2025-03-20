@@ -3,7 +3,7 @@ import { DateConfig } from "../../../types/calendar/types";
 import { deepCopy } from "../../../utils/utils";
 
 export type InitialDateState = {
-  date: DateConfig["date"];
+  date: string;
 };
 
 export type InitialState = {
@@ -12,7 +12,7 @@ export type InitialState = {
 };
 
 const initialDate: InitialDateState = {
-  date: new Date(),
+  date: new Date().toLocaleDateString(),
 };
 
 export const initialValue: InitialState = {
@@ -33,7 +33,7 @@ export const dateSlice = createSlice({
       }>
     ) => {
       const { year, month, day } = action.payload;
-      state.currentState.date = new Date(year, month, day);
+      state.currentState.date = new Date(year, month, day).toDateString();
     },
   },
 });
