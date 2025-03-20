@@ -22,7 +22,8 @@
   - Day / Week / Month / Compact (+ tests)
 - Update project important information
   - Accessibility requirements
-- Update readme with project specifications
+  - Favicon, basic SEO?
+  - Update readme with project specifications
 
 ## v2
 
