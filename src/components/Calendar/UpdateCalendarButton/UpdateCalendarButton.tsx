@@ -1,3 +1,4 @@
+import { todayLabel } from "../../../utils/calendar/utils";
 import styles from "./_update-calendar-button.module.scss";
 
 type UpdateCalendarButtonProps = {
@@ -11,11 +12,16 @@ export const UpdateCalendarButton = ({
   symbol,
   updateDate,
 }: UpdateCalendarButtonProps) => {
+  const combinedClassNames =
+    symbol === todayLabel
+      ? styles.updateCalendarToToday
+      : styles.updateCalendar;
   return (
     <button
       onClick={updateDate}
       aria-label={label}
-      className={styles.updateCalendar}
+      className={combinedClassNames}
+      title={label}
     >
       <span aria-hidden="false">{symbol}</span>
     </button>

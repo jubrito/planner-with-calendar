@@ -36,3 +36,5 @@ export const getFullDateTitle = (
   new Intl.DateTimeFormat(locale, {
     dateStyle: "full",
   }).format(new Date(year, month, day));
+
+export const todayLabel = "Today";
