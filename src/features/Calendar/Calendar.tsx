@@ -1,7 +1,6 @@
 import CalendarCells from "../../components/Calendar/CalendarCells/CalendarCells";
 import CalendarWeeks from "../../components/Calendar/CalendarWeeks/CalendarWeeks";
 import { UpdateCalendarButton } from "../../components/Calendar/UpdateCalendarButton/UpdateCalendarButton";
-import useLocale from "../../hooks/useLocale";
 import { getCurrentMonthName } from "../../utils/calendar/current";
 import { getNextMonthIndex, getNextMonthYear } from "../../utils/calendar/next";
 import {
@@ -18,16 +17,17 @@ import {
 } from "../../redux/slices/dateSlice/selectors";
 import { useDispatch } from "react-redux";
 import { updateDate } from "../../redux/slices/dateSlice";
+import { getLocaleLanguage } from "../../redux/slices/localeSlice/selectors";
 
 const Calendar = () => {
-  const { locale } = useLocale();
+  const localeLang = useSelector(getLocaleLanguage());
   const date = useSelector(getCurrentDate());
   const day = useSelector(getCurrentDay());
   const year = useSelector(getCurrentYear());
   const month = useSelector(getCurrentMonth());
   const dispatch = useDispatch();
 
-  const currentMonthName = getCurrentMonthName(date, locale);
+  const currentMonthName = getCurrentMonthName(date, localeLang);
 
   return (
     <section className={styles.calendar}>
