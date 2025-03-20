@@ -32,9 +32,9 @@
 
 ## v3
 
-- Add translations (change locale)
-- Support changing month names, getFullDateTitle and other stuff when changing translations
-- Change date order based on locale
+- Locale
+  - Button to change language
+  - Update month names, getFullDateTitle, date order
 - Timezones?
 
 ## v4
