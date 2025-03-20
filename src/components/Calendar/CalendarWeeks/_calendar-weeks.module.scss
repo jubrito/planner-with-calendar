@@ -26,6 +26,10 @@
     color: variables.$white-color;
     display: table-cell;
 
+    abbr {
+      text-decoration: none;
+    }
+
     .shortWeekName {
       @include mixins.media-for-compact-calendar {
         display: none;
