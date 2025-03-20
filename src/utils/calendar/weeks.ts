@@ -1,5 +1,6 @@
 import {
   WeekDays,
+  WeekDaysInitials,
   WeekDaysLongNames,
   WeekDaysShortNames,
 } from "../../types/calendar/enums";
@@ -21,6 +22,11 @@ export const getWeekDaysNames = (
       short: new Intl.DateTimeFormat([locale], {
         weekday: "short",
       }).format(date) as WeekDaysShortNames,
+      initial: new Intl.DateTimeFormat([locale], {
+        weekday: "short",
+      })
+        .format(date)
+        .charAt(0) as WeekDaysInitials,
     };
   });
 };

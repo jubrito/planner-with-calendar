@@ -1,4 +1,9 @@
-import { Months, WeekDaysLongNames, WeekDaysShortNames } from "./enums";
+import {
+  Months,
+  WeekDaysInitials,
+  WeekDaysLongNames,
+  WeekDaysShortNames,
+} from "./enums";
 
 export type DateConfig = {
   date: Date;
@@ -13,6 +18,7 @@ export type DateConfig = {
 export type WeekDaysShortAndLongeNames = {
   short: WeekDaysShortNames;
   long: WeekDaysLongNames;
+  initial: WeekDaysInitials;
 };
 
 export type CalendarCellInfo = {

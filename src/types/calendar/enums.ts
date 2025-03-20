@@ -33,6 +33,16 @@ export enum WeekDaysShortNames {
   SUN = "Sun",
 }
 
+export enum WeekDaysInitials {
+  MONDAY = "M",
+  TUESDAY = "T",
+  WEDNESDAY = "W",
+  THURSDAY = "T",
+  FRIDAY = "F",
+  SATURDAY = "S",
+  SUNDAY = "S",
+}
+
 export enum WeekDays {
   MONDAY = 0,
   TUESDAY = 1,
