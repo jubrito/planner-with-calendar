@@ -12,15 +12,16 @@ export const UpdateCalendarButton = ({
   symbol,
   updateDate,
 }: UpdateCalendarButtonProps) => {
-  const combinedClassNames =
+  const className =
     symbol === todayLabel
       ? styles.updateCalendarToToday
       : styles.updateCalendar;
+
   return (
     <button
       onClick={updateDate}
       aria-label={label}
-      className={combinedClassNames}
+      className={className}
       title={label}
     >
       <span aria-hidden="false">{symbol}</span>

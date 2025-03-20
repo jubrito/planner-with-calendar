@@ -37,7 +37,7 @@ tbody {
     border: variables.$smaller-gap solid variables.$black-color;
   }
   .otherMonthDay {
-    background: lightgray;
+    background: variables.$lightgray-color;
     border: variables.$smaller-gap solid variables.$black-color;
   }
 }
