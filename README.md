@@ -12,7 +12,8 @@
 ## v1:
 
 - Update layout (+ add transictions)
-- Add simple nav
+- Add nav
+  - Header?
 - Add simple footer
 - Handle basic responsiveness
 
