@@ -1,8 +1,10 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import dateReducer from "./slices/dateSlice/index";
+import dateReducer from "./slices/dateSlice";
+import localeReducer from "./slices/localeSlice";
 
 const rootReducer = combineReducers({
   dateSlice: dateReducer,
+  localeSlice: localeReducer,
 });
 
 const setupStore = (preloadedState?: Partial<RootState>) =>
