@@ -1,6 +1,5 @@
 # Next steps (v1):
 
-- Fix calendar header responsiveness
 - Use compact mixin to change flex display of calendar menu
 - Highlight current day of the week or day
 - Verify accessibility
