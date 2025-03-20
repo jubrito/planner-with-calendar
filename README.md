@@ -20,6 +20,7 @@
   - Check responsiveness
 - Features
   - Day / Week / Month / Compact (+ tests)
+- Update readme with project specifications
 
 ## v2
 
