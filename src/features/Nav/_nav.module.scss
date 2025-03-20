@@ -2,7 +2,8 @@
 
 .nav {
   grid-area: nav;
-  background: blue;
+  background: variables.$black-color;
+  color: variables.$white-color;
   display: flex;
   align-items: center;
   padding: variables.$outer-spacing;

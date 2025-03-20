@@ -3,9 +3,10 @@
 
 .planner {
   grid-area: planner;
-  background: purple;
+  background: variables.$blue-lightergray-color;
   margin-right: variables.$outer-spacing;
   padding: variables.$inner-spacing;
+  color: variables.$black-color;
 
   @include mixins.media-only-mobile {
     margin: 0 variables.$inner-spacing;

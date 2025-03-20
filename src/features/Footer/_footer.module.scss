@@ -2,7 +2,8 @@
 
 .footer {
   grid-area: footer;
-  background: lightseagreen;
+  background: variables.$lightgray-color;
+  color: black;
   display: flex;
   align-items: center;
   padding: variables.$outer-spacing;
