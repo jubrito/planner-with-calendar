@@ -4,20 +4,9 @@ import Calendar from "./Calendar";
 import "@testing-library/jest-dom";
 import { Months, MonthsNames } from "../../types/calendar/enums";
 import { getFullDateTitle } from "../../utils/calendar/utils";
-import { JSX } from "react/jsx-runtime";
 import { renderWithProviders } from "../../utils/tests/renderWithProviders";
-import { initialValue, updateDate } from "../../redux/slices/dateSlice";
+import { initialValue } from "../../redux/slices/dateSlice";
 import { AppStore } from "../../redux/store";
-import { useDispatch } from "react-redux";
-
-// jest.mock("../../redux/slices/dateSlice", () => {
-//   const data = jest.requireActual("../../redux/slices/dateSlice");
-//   return {
-//     __esModule: true,
-//     ...data,
-//     updateDate: jest.fn(),
-//   };
-// });
 
 describe("Calendar", () => {
   const localeMock = "en-US";
@@ -83,125 +72,137 @@ describe("Calendar", () => {
   });
 
   describe("Changing calendar dates", () => {
-    let rerenderCalendar:
-      | ((ui: React.ReactNode) => void)
-      | ((arg0: JSX.Element) => void);
     let reduxStore: AppStore;
     const year = 2025;
     const goToPreviousYearLabel = "Go to previous year";
     const goToPreviousMonthLabel = "Go to previous month";
     const goToNextMonthLabel = "Go to next month";
     const goToNextYearLabel = "Go to next year";
-    beforeEach(() => {
-      const { rerender, store } = renderWithProviders(<Calendar />, {
-        preloadedState: {
-          dateSlice: {
-            currentState: {
-              ...initialValue.currentState,
-              date: new Date(year, Months.JANUARY, 1),
-            },
-            initialState: {
-              ...initialValue.initialState,
-              date: new Date(year, Months.JANUARY, 1),
+
+    describe("January", () => {
+      beforeEach(() => {
+        const { store } = renderWithProviders(<Calendar />, {
+          preloadedState: {
+            dateSlice: {
+              currentState: {
+                ...initialValue.currentState,
+                date: new Date(year, Months.JANUARY, 1),
+              },
+              initialState: {
+                ...initialValue.initialState,
+                date: new Date(year, Months.JANUARY, 1),
+              },
             },
           },
-        },
+        });
+        reduxStore = store;
       });
-      rerenderCalendar = rerender;
-      reduxStore = store;
+
+      afterEach(() => {
+        jest.clearAllMocks();
+      });
+
+      it("should render buttons to enable changing calendar dates", () => {
+        const goToPreviousYearButton = screen.getByRole("button", {
+          name: goToPreviousYearLabel,
+        });
+        const goToPreviousMonthButton = screen.getByRole("button", {
+          name: goToPreviousMonthLabel,
+        });
+        const goToNextMonthButton = screen.getByRole("button", {
+          name: goToNextMonthLabel,
+        });
+        const goToNextYearButton = screen.getByRole("button", {
+          name: goToNextYearLabel,
+        });
+        expect(goToPreviousYearButton).toBeInTheDocument();
+        expect(goToPreviousMonthButton).toBeInTheDocument();
+        expect(goToNextMonthButton).toBeInTheDocument();
+        expect(goToNextYearButton).toBeInTheDocument();
+      });
+
+      it("should go to previous month (December) when in January after clicking on button", async () => {
+        let reduxCurrentState = reduxStore.getState().dateSlice.currentState;
+        expect(reduxCurrentState.date.getMonth()).toBe(Months.JANUARY);
+        const goToPreviousMonthButton = screen.getByRole("button", {
+          name: goToPreviousMonthLabel,
+        });
+        await userEvent.click(goToPreviousMonthButton);
+        reduxCurrentState = reduxStore.getState().dateSlice.currentState;
+        await waitFor(() => {
+          expect(reduxCurrentState.date.getMonth()).toBe(Months.DECEMBER);
+        });
+      });
+
+      it("should go to next month (February) when in January after clicking on button", async () => {
+        let reduxCurrentState = reduxStore.getState().dateSlice.currentState;
+        expect(reduxCurrentState.date.getMonth()).toBe(Months.JANUARY);
+        const goToNextMonthButton = screen.getByRole("button", {
+          name: goToNextMonthLabel,
+        });
+        await userEvent.click(goToNextMonthButton);
+        reduxCurrentState = reduxStore.getState().dateSlice.currentState;
+        await waitFor(() => {
+          expect(reduxCurrentState.date.getMonth()).toBe(Months.FEBRUARY);
+        });
+      });
+
+      it("should go to previous year (2024) when in 2025 after clicking on button", async () => {
+        let reduxCurrentState = reduxStore.getState().dateSlice.currentState;
+        expect(reduxCurrentState.date.getFullYear()).toBe(year);
+        const goToPreviousYearButton = screen.getByRole("button", {
+          name: goToPreviousYearLabel,
+        });
+        await userEvent.click(goToPreviousYearButton);
+        reduxCurrentState = reduxStore.getState().dateSlice.currentState;
+        await waitFor(() => {
+          expect(reduxCurrentState.date.getFullYear()).toBe(year - 1);
+        });
+      });
+
+      it("should go to next year (2026) when in 2025 after clicking on button", async () => {
+        let reduxCurrentState = reduxStore.getState().dateSlice.currentState;
+        expect(reduxCurrentState.date.getFullYear()).toBe(year);
+        const goToNextYearButton = screen.getByRole("button", {
+          name: goToNextYearLabel,
+        });
+        await userEvent.click(goToNextYearButton);
+        reduxCurrentState = reduxStore.getState().dateSlice.currentState;
+        await waitFor(() => {
+          expect(reduxCurrentState.date.getFullYear()).toBe(year + 1);
+        });
+      });
     });
 
-    afterEach(() => {
-      jest.clearAllMocks();
-    });
-
-    it("should render buttons to enable changing calendar dates", () => {
-      const goToPreviousYearButton = screen.getByRole("button", {
-        name: goToPreviousYearLabel,
+    describe("December", () => {
+      beforeEach(() => {
+        const { store } = renderWithProviders(<Calendar />, {
+          preloadedState: {
+            dateSlice: {
+              currentState: {
+                ...initialValue.currentState,
+                date: new Date(year, Months.DECEMBER, 1),
+              },
+              initialState: {
+                ...initialValue.initialState,
+                date: new Date(year, Months.DECEMBER, 1),
+              },
+            },
+          },
+        });
+        reduxStore = store;
       });
-      const goToPreviousMonthButton = screen.getByRole("button", {
-        name: goToPreviousMonthLabel,
-      });
-      const goToNextMonthButton = screen.getByRole("button", {
-        name: goToNextMonthLabel,
-      });
-      const goToNextYearButton = screen.getByRole("button", {
-        name: goToNextYearLabel,
-      });
-      expect(goToPreviousYearButton).toBeInTheDocument();
-      expect(goToPreviousMonthButton).toBeInTheDocument();
-      expect(goToNextMonthButton).toBeInTheDocument();
-      expect(goToNextYearButton).toBeInTheDocument();
-    });
-
-    it("should go to previous month (December) when in January after clicking on button", async () => {
-      let reduxCurrentState = reduxStore.getState().dateSlice.currentState;
-      expect(reduxCurrentState.date.getMonth()).toBe(Months.JANUARY);
-      const goToPreviousMonthButton = screen.getByRole("button", {
-        name: goToPreviousMonthLabel,
-      });
-      await userEvent.click(goToPreviousMonthButton);
-      reduxCurrentState = reduxStore.getState().dateSlice.currentState;
-      await waitFor(() => {
+      it("should go to next month (January) when in December after clicking on button", async () => {
+        let reduxCurrentState = reduxStore.getState().dateSlice.currentState;
         expect(reduxCurrentState.date.getMonth()).toBe(Months.DECEMBER);
-      });
-    });
-
-    it("should go to next month (February) when in January after clicking on button", async () => {
-      let reduxCurrentState = reduxStore.getState().dateSlice.currentState;
-      expect(reduxCurrentState.date.getMonth()).toBe(Months.JANUARY);
-      const goToNextMonthButton = screen.getByRole("button", {
-        name: goToNextMonthLabel,
-      });
-      await userEvent.click(goToNextMonthButton);
-      reduxCurrentState = reduxStore.getState().dateSlice.currentState;
-      await waitFor(() => {
-        expect(reduxCurrentState.date.getMonth()).toBe(Months.FEBRUARY);
-      });
-    });
-
-    // it("should go to next month (January) when in December after clicking on button", async () => {
-    //   (useDate as jest.Mock).mockReturnValue({
-    //     date: new Date(year, Months.DECEMBER, 1),
-    //     updateDate: updateDateMock,
-    //     day: 1,
-    //     month: Months.DECEMBER,
-    //     year: year,
-    //     time: new Date(year, Months.DECEMBER, 1).getTime(),
-    //     monthNumberOfDays: 31,
-    //   });
-    //   rerenderCalendar(<Calendar />);
-    //   const goToNextMonthButton = screen.getByRole("button", {
-    //     name: goToNextMonthLabel,
-    //   });
-    //   await userEvent.click(goToNextMonthButton);
-    //   expect(updateDateMock).toHaveBeenCalledTimes(1);
-    //   expect(updateDateMock).toHaveBeenCalledWith(year + 1, Months.JANUARY, 1);
-    // });
-
-    it("should go to previous year (2024) when in 2025 after clicking on button", async () => {
-      let reduxCurrentState = reduxStore.getState().dateSlice.currentState;
-      expect(reduxCurrentState.date.getFullYear()).toBe(year);
-      const goToPreviousYearButton = screen.getByRole("button", {
-        name: goToPreviousYearLabel,
-      });
-      await userEvent.click(goToPreviousYearButton);
-      reduxCurrentState = reduxStore.getState().dateSlice.currentState;
-      await waitFor(() => {
-        expect(reduxCurrentState.date.getFullYear()).toBe(year - 1);
-      });
-    });
-
-    it("should go to next year (2026) when in 2025 after clicking on button", async () => {
-      let reduxCurrentState = reduxStore.getState().dateSlice.currentState;
-      expect(reduxCurrentState.date.getFullYear()).toBe(year);
-      const goToNextYearButton = screen.getByRole("button", {
-        name: goToNextYearLabel,
-      });
-      await userEvent.click(goToNextYearButton);
-      reduxCurrentState = reduxStore.getState().dateSlice.currentState;
-      await waitFor(() => {
-        expect(reduxCurrentState.date.getFullYear()).toBe(year + 1);
+        const goToNextMonthButton = screen.getByRole("button", {
+          name: goToNextMonthLabel,
+        });
+        await userEvent.click(goToNextMonthButton);
+        reduxCurrentState = reduxStore.getState().dateSlice.currentState;
+        await waitFor(() => {
+          expect(reduxCurrentState.date.getMonth()).toBe(Months.JANUARY);
+        });
       });
     });
   });
