@@ -18,7 +18,8 @@
 
 ## v2
 
-- Day / Week / Month with tasks views
+- Day / Week / Month / Compact?
+- Add events/tasks?
 - Click on calendar day and open planner + tests + update title to indicate what clicking it will do
 - Implement checklists + tests
 
