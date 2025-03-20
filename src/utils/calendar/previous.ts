@@ -58,5 +58,5 @@ export const getPreviousMonthDaysOnCurrentMonth = (
       year: getPreviousMonthYear(year, month),
     });
   }
-  return previousMonthDaysOnCurrentMonth;
+  return previousMonthDaysOnCurrentMonth.reverse();
 };
