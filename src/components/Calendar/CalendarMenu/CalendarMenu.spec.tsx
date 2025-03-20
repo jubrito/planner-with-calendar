@@ -226,7 +226,7 @@ describe("CalendarMenu", () => {
 
         await waitFor(() => {
           expect(new Date(reduxCurrentState.date).getMonth()).toBe(
-            Months.DECEMBER
+            new Date().getMonth()
           );
         });
       });
