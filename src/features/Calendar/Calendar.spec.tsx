@@ -179,14 +179,18 @@ describe("Calendar", () => {
     //   expect(updateDateMock).toHaveBeenCalledWith(year + 1, Months.JANUARY, 1);
     // });
 
-    // it("should go to previous year (2024) when in 2025 after clicking on button", async () => {
-    //   const goToPreviousYearButton = screen.getByRole("button", {
-    //     name: goToPreviousYearLabel,
-    //   });
-    //   await userEvent.click(goToPreviousYearButton);
-    //   expect(updateDateMock).toHaveBeenCalledTimes(1);
-    //   expect(updateDateMock).toHaveBeenCalledWith(year - 1, Months.JANUARY, 1);
-    // });
+    it("should go to previous year (2024) when in 2025 after clicking on button", async () => {
+      let reduxCurrentState = reduxStore.getState().dateSlice.currentState;
+      expect(reduxCurrentState.date.getFullYear()).toBe(year);
+      const goToPreviousYearButton = screen.getByRole("button", {
+        name: goToPreviousYearLabel,
+      });
+      await userEvent.click(goToPreviousYearButton);
+      reduxCurrentState = reduxStore.getState().dateSlice.currentState;
+      await waitFor(() => {
+        expect(reduxCurrentState.date.getFullYear()).toBe(year - 1);
+      });
+    });
 
     // it("should go to next year (2026) when in 2025 after clicking on button", async () => {
     //   console.log("Mocked updateDate calls:", updateDate.mock.calls); // Debug log
