@@ -30,6 +30,9 @@ export const CalendarMenu = () => {
 
   return (
     <div className={styles.calendarHeader}>
+      <h2 className={styles.monthLabel} id="calendar-month-name">
+        {`${currentMonthName}, ${year}`}
+      </h2>
       <UpdateCalendarButton
         label={"Go to previous year"}
         symbol={"<<"}
@@ -48,9 +51,20 @@ export const CalendarMenu = () => {
           )
         }
       />
-      <h2 className={styles.monthLabel} id="calendar-month-name">
-        {`${currentMonthName}, ${year}`}
-      </h2>
+      <UpdateCalendarButton
+        label={"Go to today"}
+        symbol={"Today"}
+        updateDate={() =>
+          dispatch(
+            updateDate({
+              year: new Date().getFullYear(),
+              month: new Date().getMonth(),
+              day: new Date().getDate(),
+            })
+          )
+        }
+      />
+
       <UpdateCalendarButton
         label={"Go to next month"}
         symbol={">"}
