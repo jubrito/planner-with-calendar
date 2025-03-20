@@ -1,6 +1,8 @@
 # Next steps (v1):
 
 - Fix calendar header responsiveness
+- Fx can't see navigation indicators when using opt+ctrl+arrows
+- use compact mixin to change flex display of calendar menu
 - Fix week names responsiveness changing it to single letters
 - Fix calendar height to avoid resizing when month has more cells
 - Highlight current day of the week or day
