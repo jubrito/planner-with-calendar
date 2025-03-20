@@ -3,7 +3,6 @@
 - Fix calendar header responsiveness
 - Use compact mixin to change flex display of calendar menu
 - Highlight current day of the week or day
-- Create button to navigate to today
 - Verify accessibility
   - Fix can't see navigation indicators when using opt+ctrl+arrows
   - Add skip to main content
