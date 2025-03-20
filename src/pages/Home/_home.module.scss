@@ -4,7 +4,7 @@
 .home {
   display: grid;
   grid-template-columns: minmax(320px, 45%) 1fr;
-  grid-template-rows: 1fr 84% auto;
+  grid-template-rows: 1fr max-content auto;
   grid-row-gap: variables.$outer-spacing;
   grid-column-gap: 30px;
   grid-template-areas:
