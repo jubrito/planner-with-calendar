@@ -10,13 +10,13 @@
 
 ## v1:
 
-- Update layout
+- Layout
   - Transictions
   - Text highlight bg and color
-- Add nav
-  - Header?
-- Add simple footer
-- Handle basic responsiveness
+- Components
+  - Nav
+    - Header?
+  - Add simple footer
 
 ## v2
 
