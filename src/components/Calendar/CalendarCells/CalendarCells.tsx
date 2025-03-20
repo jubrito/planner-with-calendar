@@ -1,4 +1,3 @@
-import useLocale from "../../../hooks/useLocale";
 import { numberOfDaysOfTheWeek } from "../../../utils/calendar/weeks";
 import styles from "./_calendar-cells.module.scss";
 import { getCurrentMonthDays } from "../../../utils/calendar/current";
@@ -13,9 +12,10 @@ import {
   getCurrentYear,
 } from "../../../redux/slices/dateSlice/selectors";
 import { useSelector } from "react-redux";
+import { getLocaleLanguage } from "../../../redux/slices/localeSlice/selectors";
 
 const CalendarCells = () => {
-  const { locale } = useLocale();
+  const localeLang = useSelector(getLocaleLanguage());
   const time = useSelector(getCurrentTime());
   const year = useSelector(getCurrentYear());
   const month = useSelector(getCurrentMonth());
@@ -31,13 +31,13 @@ const CalendarCells = () => {
       month,
       year,
       time,
-      locale
+      localeLang
     );
     const nextMonthDaysOnCurrentMonth = getNextMonthDaysOnCurrentMonth(
       month,
       year,
       monthNumberOfDays,
-      locale
+      localeLang
     );
 
     return [
