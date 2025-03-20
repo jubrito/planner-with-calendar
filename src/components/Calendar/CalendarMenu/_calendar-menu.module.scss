@@ -1,5 +1,12 @@
 @use "../../../styles/_variables.scss" as variables;
 
+.updateCalendarContainer {
+  border-radius: 10px;
+  background-color: variables.$lightergray-color;
+
+  padding: 0;
+}
+
 .calendarHeader {
   display: flex;
   align-items: center;

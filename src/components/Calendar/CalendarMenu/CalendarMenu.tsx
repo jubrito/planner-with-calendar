@@ -33,7 +33,7 @@ export const CalendarMenu = () => {
       <h2 className={styles.monthLabel} id="calendar-month-name">
         {`${currentMonthName}, ${year}`}
       </h2>
-      <div>
+      <div className={styles.updateCalendarContainer}>
         <UpdateCalendarButton
           label={"Go to previous year"}
           symbol={"<<"}
