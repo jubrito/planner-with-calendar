@@ -1,7 +1,8 @@
-import useLocale from "../../../../hooks/useLocale";
+import { useSelector } from "react-redux";
 import { DateConfig } from "../../../../types/calendar/types";
 import { getFullDateTitle } from "../../../../utils/calendar/utils";
 import styles from "../_calendar-cells.module.scss";
+import { getLocaleLanguage } from "../../../../redux/slices/localeSlice/selectors";
 
 type CellProps = {
   cellYear: DateConfig["year"];
@@ -17,7 +18,7 @@ export const Cell = ({
   currentMonth,
 }: CellProps) => {
   const fullDate = `${cellYear}-${cellMonth}-${cellDay}`;
-  const { locale } = useLocale();
+  const localeString = useSelector(getLocaleLanguage());
   return (
     <td
       scope="col"
@@ -33,7 +34,12 @@ export const Cell = ({
       <div>
         <time
           dateTime={fullDate}
-          title={getFullDateTitle(cellYear, cellMonth - 1, cellDay, locale)}
+          title={getFullDateTitle(
+            cellYear,
+            cellMonth - 1,
+            cellDay,
+            localeString
+          )}
         >
           <span aria-hidden="true" tabIndex={-1}>
             {cellDay}
