@@ -7,12 +7,6 @@
   position: relative;
   color: variables.$black-color;
 
-  .calendarHeader {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-  }
-
   table {
     table-layout: fixed;
     border-collapse: collapse;
@@ -27,15 +21,6 @@
   }
 }
 
-.monthLabel {
-  $height: 40px;
-  font-size: variables.$h1-size;
-  line-height: $height;
-  font-weight: bold;
-  text-align: center;
-}
-
 .calendarCell {
-  $size: 0.0014285714%;
   padding: variables.$calendar-cel-lateral-padding;
 }

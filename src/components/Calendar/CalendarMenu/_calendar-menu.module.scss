@@ -1,0 +1,15 @@
+@use "../../../styles/_variables.scss" as variables;
+
+.calendarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.monthLabel {
+  $height: 40px;
+  font-size: variables.$h1-size;
+  line-height: $height;
+  font-weight: bold;
+  text-align: center;
+}
