@@ -24,6 +24,7 @@
   - Accessibility requirements
   - Favicon, basic SEO?
   - Update readme with project specifications
+- Web Hosting
 
 ## v2
 
@@ -49,6 +50,7 @@
 
 ## v5
 
+- Security
 - Add light/dark/accessible themes
 - Pipeline
 - Integration tests
