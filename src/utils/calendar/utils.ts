@@ -4,6 +4,7 @@ import {
   WeekDaysShortNames,
 } from "../../types/calendar/enums";
 import { DateConfig } from "../../types/calendar/types";
+import { isToday } from "./current";
 import { getWeekDaysNames } from "./weeks";
 
 export const numOfDaysFromOtherMonthOnCurrentCalendar = (
@@ -33,8 +34,10 @@ export const getFullDateTitle = (
   day: DateConfig["day"],
   locale: string
 ) =>
-  new Intl.DateTimeFormat(locale, {
-    dateStyle: "full",
-  }).format(new Date(year, month, day));
+  isToday(year, month, day)
+    ? todayLabel
+    : new Intl.DateTimeFormat(locale, {
+        dateStyle: "full",
+      }).format(new Date(year, month, day));
 
 export const todayLabel = "Today";

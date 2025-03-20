@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { DateConfig } from "../../../../types/calendar/types";
-import { getFullDateTitle, todayLabel } from "../../../../utils/calendar/utils";
+import { getFullDateTitle } from "../../../../utils/calendar/utils";
 import calendarCellsStyles from "../_calendar-cells.module.scss";
 import cellsStyles from "./_cell.module.scss";
 import { getLocaleLanguage } from "../../../../redux/slices/localeSlice/selectors";
@@ -36,11 +36,12 @@ export const Cell = ({
       <div>
         <time
           dateTime={fullDate}
-          title={
-            isToday(cellYear, cellMonth - 1, cellDay)
-              ? todayLabel
-              : getFullDateTitle(cellYear, cellMonth - 1, cellDay, localeString)
-          }
+          title={getFullDateTitle(
+            cellYear,
+            cellMonth - 1,
+            cellDay,
+            localeString
+          )}
         >
           <span
             aria-hidden="true"
