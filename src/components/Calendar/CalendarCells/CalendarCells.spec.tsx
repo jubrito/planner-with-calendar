@@ -1046,7 +1046,7 @@ describe("CalendarCells", () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                date: new Date(leapYear, Months.JUNE, 1),
+                date: new Date(leapYear, Months.JUNE, 1).toDateString(),
               },
               initialState: {
                 ...initialValue.initialState,
@@ -1102,7 +1102,7 @@ describe("CalendarCells", () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                date: new Date(leapYear, Months.JULY, 1),
+                date: new Date(leapYear, Months.JULY, 1).toDateString(),
               },
               initialState: {
                 ...initialValue.initialState,
@@ -1158,7 +1158,7 @@ describe("CalendarCells", () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                date: new Date(leapYear, Months.AUGUST, 1),
+                date: new Date(leapYear, Months.AUGUST, 1).toDateString(),
               },
               initialState: {
                 ...initialValue.initialState,
@@ -1219,7 +1219,7 @@ describe("CalendarCells", () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                date: new Date(leapYear, Months.SEPTEMBER, 1),
+                date: .toDateString(),
               },
               initialState: {
                 ...initialValue.initialState,
