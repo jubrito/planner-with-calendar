@@ -12,7 +12,7 @@ import { UpdateCalendarButton } from "../UpdateCalendarButton/UpdateCalendarButt
 import { getLocaleLanguage } from "../../../redux/slices/localeSlice/selectors";
 import {
   getSelectedDate,
-  getCurrentDay,
+  getSelectedDay,
   getCurrentMonth,
   getCurrentYear,
 } from "../../../redux/slices/dateSlice/selectors";
@@ -23,7 +23,7 @@ export const CalendarMenu = () => {
   const dispatch = useDispatch();
   const localeLang = useSelector(getLocaleLanguage());
   const date = useSelector(getSelectedDate());
-  const day = useSelector(getCurrentDay());
+  const day = useSelector(getSelectedDay());
   const year = useSelector(getCurrentYear());
   const month = useSelector(getCurrentMonth());
   const currentMonthName = getCurrentMonthName(date, localeLang);

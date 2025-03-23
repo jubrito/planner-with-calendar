@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import styles from "./_planner.module.scss";
 import {
-  getCurrentDay,
+  getSelectedDay,
   getCurrentMonth,
   getCurrentYear,
 } from "../../redux/slices/dateSlice/selectors";
@@ -12,7 +12,7 @@ const Planner = () => {
   const localeLang = useSelector(getLocaleLanguage());
   const year = useSelector(getCurrentYear());
   const month = useSelector(getCurrentMonth());
-  const day = useSelector(getCurrentDay());
+  const day = useSelector(getSelectedDay());
   const { dayOfWeek } = useDate(localeLang, year, month, day);
 
   return (
