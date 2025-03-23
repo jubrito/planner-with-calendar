@@ -18,7 +18,8 @@
   }
 
   @include mixins.media-for-compact-calendar {
-    flex-direction: column;
+    flex-direction: column-reverse;
+    align-items: flex-start;
   }
 }
 
@@ -30,6 +31,6 @@
   text-align: center;
 
   @include mixins.media-for-compact-calendar {
-    flex-direction: column;
+    margin: variables.$small-gap;
   }
 }
