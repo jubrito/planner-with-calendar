@@ -1,5 +1,7 @@
 import { createSelector } from "@reduxjs/toolkit";
 import type { RootState } from "../../store";
+import { LocaleLanguage } from "../../../types/locale/types";
+import { DateConfig } from "../../../types/calendar/types";
 
 const updateDateState = (store: RootState) => store.dateSlice;
 
@@ -66,3 +68,15 @@ export const getSelectedMonthNumberOfDays = () =>
     const getLastDayOfMonth = 0;
     return new Date(year, month, getLastDayOfMonth).getDate();
   });
+
+export const getInitialDayOfWeek = (
+  locale: LocaleLanguage
+): ((state: RootState) => DateConfig["dayOfWeek"]) =>
+  createSelector(updateDateState, (state) => ({
+    long: new Intl.DateTimeFormat(locale, {
+      weekday: "long",
+    }).format(new Date(state.initialState.date)),
+    short: new Intl.DateTimeFormat(locale, {
+      weekday: "short",
+    }).format(new Date(state.initialState.date)),
+  }));
