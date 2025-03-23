@@ -8,7 +8,6 @@
   - Nav
     - Links (Gihub, project functionalities and details, about me?)
     - Header?
-  - Footer
 - Layout
   - Transitions for cool effects
   - Text highlight bg and color
