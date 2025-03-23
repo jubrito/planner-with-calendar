@@ -4,7 +4,6 @@
 .updateCalendarContainer {
   border-radius: 10px;
   background-color: variables.$blue-lightergray-color;
-
   padding: 0;
 }
 
@@ -12,7 +11,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: variables.$inner-spacing;
+  margin: variables.$inner-spacing 0;
 
   button {
     padding: 3px;

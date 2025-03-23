@@ -1,5 +1,5 @@
-@use "../../styles/_variables.scss" as variables;
-@use "../../styles/_mixins.scss" as mixins;
+@use "../../styles/variables" as variables;
+@use "../../styles/mixins" as mixins;
 
 .planner {
   grid-area: planner;
@@ -13,5 +13,20 @@
   }
   @include mixins.media-only-small-mobile {
     margin: 0;
+  }
+
+  .plannerHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .test {
+      $height: 40px;
+      margin: 0;
+      font-size: variables.$h1-size;
+      line-height: $height;
+      font-weight: bold;
+      text-align: center;
+    }
   }
 }
