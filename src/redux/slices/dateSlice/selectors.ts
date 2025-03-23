@@ -9,6 +9,11 @@ export const getCurrentDate = () =>
 export const getSelectedDate = () =>
   createSelector(updateDateState, (state) => new Date(state.currentState.date));
 
+export const getCurrentDay = () =>
+  createSelector(updateDateState, (state) =>
+    new Date(state.initialState.date).getDate()
+  );
+
 export const getSelectedDay = () =>
   createSelector(updateDateState, (state) =>
     new Date(state.currentState.date).getDate()
