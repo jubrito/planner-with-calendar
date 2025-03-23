@@ -24,6 +24,7 @@ export const Cell = ({
   return (
     <td
       scope="col"
+      role="cell"
       key={`${cellYear} +
       ${cellMonth} +
       ${cellDay}`}
