@@ -10,9 +10,10 @@
     - Header?
   - Footer
 - Layout
-  - Transitions
+  - Transitions for cool effects
   - Text highlight bg and color
-  - Check responsiveness
+  - Text hover
+  - Responsiveness
 - Features
   - Day / Week / Month / Compact (+ tests)
 - Update project important information
