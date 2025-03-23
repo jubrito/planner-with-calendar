@@ -14,7 +14,7 @@
   justify-content: space-between;
 
   button {
-    padding: variables.$small-gap;
+    padding: 3px;
   }
 
   @include mixins.media-for-compact-calendar {
