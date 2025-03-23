@@ -11,7 +11,7 @@ export const getInitialDate = () =>
 export const getSelectedDate = () =>
   createSelector(updateDateState, (state) => new Date(state.currentState.date));
 
-export const getCurrentDay = () =>
+export const getInitialDay = () =>
   createSelector(updateDateState, (state) =>
     new Date(state.initialState.date).getDate()
   );
@@ -21,7 +21,7 @@ export const getSelectedDay = () =>
     new Date(state.currentState.date).getDate()
   );
 
-export const getCurrentMonth = () =>
+export const getInitialMonth = () =>
   createSelector(updateDateState, (state) =>
     new Date(state.initialState.date).getMonth()
   );
@@ -31,7 +31,7 @@ export const getSelectedMonth = () =>
     new Date(state.currentState.date).getMonth()
   );
 
-export const getCurrentYear = () =>
+export const getInitialYear = () =>
   createSelector(updateDateState, (state) =>
     new Date(state.initialState.date).getFullYear()
   );
@@ -41,7 +41,7 @@ export const getSelectedYear = () =>
     new Date(state.currentState.date).getFullYear()
   );
 
-export const getCurrentTime = () =>
+export const getInitialTime = () =>
   createSelector(updateDateState, (state) =>
     new Date(state.initialState.date).getTime()
   );
@@ -51,7 +51,7 @@ export const getSelectedTime = () =>
     new Date(state.currentState.date).getTime()
   );
 
-export const getCurrentMonthNumberOfDays = () =>
+export const getInitialMonthNumberOfDays = () =>
   createSelector(updateDateState, (state) => {
     const currentDate = new Date(state.initialState.date);
     const year = currentDate.getFullYear();
