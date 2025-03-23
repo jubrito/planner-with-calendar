@@ -35,9 +35,14 @@ export const useDate = (
     month: date.getMonth(),
     year: date.getFullYear(),
     time: date.getTime(),
-    dayOfWeek: new Intl.DateTimeFormat(locale, {
-      weekday: "long",
-    }).format(date),
+    dayOfWeek: {
+      long: new Intl.DateTimeFormat(locale, {
+        weekday: "long",
+      }).format(date),
+      short: new Intl.DateTimeFormat(locale, {
+        weekday: "long",
+      }).format(date),
+    },
     monthNumberOfDays: new Date(
       date.getFullYear(),
       date.getMonth() + 1,
