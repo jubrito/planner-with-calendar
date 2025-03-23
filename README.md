@@ -1,5 +1,6 @@
 # Next steps (v1):
 
+- Use Intl to get dates from redux
 - Test useDate hook (test them in isolation using renderHook from @testing-library/react-hooks)
 - Planner
   - Create weekly planner integrated with calendar (+ tests)
