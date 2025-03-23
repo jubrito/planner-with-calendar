@@ -39,6 +39,11 @@ export const getSelectedYear = () =>
     new Date(state.currentState.date).getFullYear()
   );
 
+export const getCurrentTime = () =>
+  createSelector(updateDateState, (state) =>
+    new Date(state.initialState.date).getTime()
+  );
+
 export const getSelectedTime = () =>
   createSelector(updateDateState, (state) =>
     new Date(state.currentState.date).getTime()
