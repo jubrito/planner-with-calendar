@@ -1,9 +1,5 @@
 # Next steps (v1):
 
-- Verify accessibility
-  - Fix can't see navigation indicators when using opt+ctrl+arrows
-  - Add skip to main content (+ tests)
-
 # Future Steps:
 
 ## v1:
@@ -24,6 +20,8 @@
   - Favicon, basic SEO?
   - Update readme with project specifications
 - Web Hosting
+- Accessibility
+  - Add skip to main content (+ tests)
 
 ## v2
 
