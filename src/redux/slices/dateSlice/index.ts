@@ -4,6 +4,7 @@ import { deepCopy } from "../../../utils/utils";
 
 export type InitialDateState = {
   date: string;
+  dateToday: string;
 };
 
 export type InitialState = {
@@ -13,6 +14,7 @@ export type InitialState = {
 
 const initialDate: InitialDateState = {
   date: new Date().toLocaleDateString(),
+  dateToday: new Date().toLocaleDateString(),
 };
 
 export const initialValue: InitialState = {
