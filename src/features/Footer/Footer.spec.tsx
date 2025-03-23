@@ -15,4 +15,14 @@ describe("Footer", () => {
     );
     expect(designedAndDevelopedByElement).toBeInTheDocument();
   });
+
+  it("should render attribution link with security attributes", () => {
+    const attributionLinkLabel =
+      "Go to Juliana Witzke de Brito's LinkedIn page";
+    const attributionLinkElement = screen.getByRole("link", {
+      name: attributionLinkLabel,
+    });
+    expect(attributionLinkElement).toBeInTheDocument();
+    expect(attributionLinkElement).toHaveProperty("rel", "noopener noreferrer");
+  });
 });
