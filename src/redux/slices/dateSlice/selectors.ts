@@ -5,7 +5,7 @@ import { DateConfig } from "../../../types/calendar/types";
 
 const updateDateState = (store: RootState) => store.dateSlice;
 
-export const getCurrentDate = () =>
+export const getInitialDate = () =>
   createSelector(updateDateState, (state) => new Date(state.initialState.date));
 
 export const getSelectedDate = () =>
