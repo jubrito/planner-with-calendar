@@ -40,7 +40,7 @@ export const useDate = (
         weekday: "long",
       }).format(date),
       short: new Intl.DateTimeFormat(locale, {
-        weekday: "long",
+        weekday: "short",
       }).format(date),
     },
     monthNumberOfDays: new Date(
