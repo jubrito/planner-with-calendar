@@ -9,7 +9,7 @@ import {
   getSelectedMonth,
   getCurrentMonthNumberOfDays,
   getCurrentTime,
-  getCurrentYear,
+  getSelectedYear,
 } from "../../../redux/slices/dateSlice/selectors";
 import { useSelector } from "react-redux";
 import { getLocaleLanguage } from "../../../redux/slices/localeSlice/selectors";
@@ -17,7 +17,7 @@ import { getLocaleLanguage } from "../../../redux/slices/localeSlice/selectors";
 const CalendarCells = () => {
   const localeLang = useSelector(getLocaleLanguage());
   const time = useSelector(getCurrentTime());
-  const year = useSelector(getCurrentYear());
+  const year = useSelector(getSelectedYear());
   const month = useSelector(getSelectedMonth());
   const monthNumberOfDays = useSelector(getCurrentMonthNumberOfDays());
   const getPreviousCurrentAndNextMonthDays = () => {

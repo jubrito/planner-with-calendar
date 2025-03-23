@@ -14,7 +14,7 @@ import {
   getSelectedDate,
   getSelectedDay,
   getSelectedMonth,
-  getCurrentYear,
+  getSelectedYear,
 } from "../../../redux/slices/dateSlice/selectors";
 import { getCurrentMonthName } from "../../../utils/calendar/current";
 import styles from "./_calendar-menu.module.scss";
@@ -24,7 +24,7 @@ export const CalendarMenu = () => {
   const localeLang = useSelector(getLocaleLanguage());
   const date = useSelector(getSelectedDate());
   const day = useSelector(getSelectedDay());
-  const year = useSelector(getCurrentYear());
+  const year = useSelector(getSelectedYear());
   const month = useSelector(getSelectedMonth());
   const currentMonthName = getCurrentMonthName(date, localeLang);
 

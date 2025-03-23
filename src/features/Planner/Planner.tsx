@@ -3,14 +3,14 @@ import styles from "./_planner.module.scss";
 import {
   getSelectedDay,
   getSelectedMonth,
-  getCurrentYear,
+  getSelectedYear,
 } from "../../redux/slices/dateSlice/selectors";
 import { useDate } from "../../hooks/useDate";
 import { getLocaleLanguage } from "../../redux/slices/localeSlice/selectors";
 
 const Planner = () => {
   const localeLang = useSelector(getLocaleLanguage());
-  const year = useSelector(getCurrentYear());
+  const year = useSelector(getSelectedYear());
   const month = useSelector(getSelectedMonth());
   const day = useSelector(getSelectedDay());
   const { dayOfWeek } = useDate(localeLang, year, month, day);
