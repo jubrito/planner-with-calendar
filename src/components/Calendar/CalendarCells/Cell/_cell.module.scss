@@ -4,14 +4,14 @@
 .isToday {
   background: variables.$blue-lightgray-color;
   font-weight: bold;
-  $spacing: 3px;
-  padding: $spacing;
-  border-radius: $spacing;
+  $spacingSize: 4px;
+  $positioninSize: 6px;
+  padding: $spacingSize;
   font-weight: bold;
   position: absolute;
   content: "";
-  top: -$spacing;
-  right: -$spacing;
+  top: -$positioninSize;
+  right: -$positioninSize;
 
   @include mixins.media-for-compact-calendar {
     padding: variables.$small-gap;
