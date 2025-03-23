@@ -3,6 +3,9 @@ import type { RootState } from "../../store";
 
 const updateDateState = (store: RootState) => store.dateSlice;
 
+export const getCurrentDate = () =>
+  createSelector(updateDateState, (state) => new Date(state.initialState.date));
+
 export const getSelectedDate = () =>
   createSelector(updateDateState, (state) => new Date(state.currentState.date));
 
