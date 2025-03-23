@@ -8,6 +8,7 @@ const Footer = () => {
         href="https://www.linkedin.com/in/jubrito"
         rel="noopener noreferrer"
         target="_blank"
+        aria-label="Go to Juliana Witzke de Brito's linkedIn"
       >
         Juliana Witzke de Brito
       </a>
