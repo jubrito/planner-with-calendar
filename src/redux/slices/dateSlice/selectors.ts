@@ -80,3 +80,15 @@ export const getInitialDayOfWeek = (
       weekday: "short",
     }).format(new Date(state.initialState.date)),
   }));
+
+export const getSelectedDayOfWeek = (
+  locale: LocaleLanguage
+): ((state: RootState) => DateConfig["dayOfWeek"]) =>
+  createSelector(updateDateState, (state) => ({
+    long: new Intl.DateTimeFormat(locale, {
+      weekday: "long",
+    }).format(new Date(state.initialState.date)),
+    short: new Intl.DateTimeFormat(locale, {
+      weekday: "short",
+    }).format(new Date(state.initialState.date)),
+  }));
