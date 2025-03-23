@@ -1,4 +1,5 @@
-@use "../../../styles/_variables.scss" as variables;
+@use "../../../styles/variables" as variables;
+@use "../../../styles/mixins" as mixins;
 
 .updateCalendarContainer {
   border-radius: 10px;
@@ -14,6 +15,10 @@
 
   button {
     padding: variables.$small-gap;
+  }
+
+  @include mixins.media-for-compact-calendar {
+    flex-direction: column;
   }
 }
 

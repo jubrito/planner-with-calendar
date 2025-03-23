@@ -1,10 +1,11 @@
-@use "../../../styles/_variables.scss" as variables;
+@use "../../../styles/_variables" as variables;
 
 .updateCalendar {
   background-color: transparent;
   color: variables.$black-color;
-  font-size: variables.$h2-size;
+  font-size: variables.$h3-size;
   margin: variables.$smaller-gap;
+  padding: 3px;
 
   &:hover {
     border-color: transparent;
