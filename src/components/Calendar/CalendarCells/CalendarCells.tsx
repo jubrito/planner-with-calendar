@@ -6,7 +6,7 @@ import { getNextMonthDaysOnCurrentMonth } from "../../../utils/calendar/next";
 import { CalendarCellInfo } from "../../../types/calendar/types";
 import { Cell } from "./Cell/Cell";
 import {
-  getCurrentMonth,
+  getSelectedMonth,
   getCurrentMonthNumberOfDays,
   getCurrentTime,
   getCurrentYear,
@@ -18,7 +18,7 @@ const CalendarCells = () => {
   const localeLang = useSelector(getLocaleLanguage());
   const time = useSelector(getCurrentTime());
   const year = useSelector(getCurrentYear());
-  const month = useSelector(getCurrentMonth());
+  const month = useSelector(getSelectedMonth());
   const monthNumberOfDays = useSelector(getCurrentMonthNumberOfDays());
   const getPreviousCurrentAndNextMonthDays = () => {
     const currentMonthDays: CalendarCellInfo[] = getCurrentMonthDays(
