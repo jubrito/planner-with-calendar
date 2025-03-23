@@ -19,6 +19,11 @@ export const getSelectedDay = () =>
     new Date(state.currentState.date).getDate()
   );
 
+export const getCurrentMonth = () =>
+  createSelector(updateDateState, (state) =>
+    new Date(state.initialState.date).getMonth()
+  );
+
 export const getSelectedMonth = () =>
   createSelector(updateDateState, (state) =>
     new Date(state.currentState.date).getMonth()
