@@ -26,7 +26,7 @@ export const getSelectedTime = () =>
     new Date(state.currentState.date).getTime()
   );
 
-export const getCurrentMonthNumberOfDays = () =>
+export const getSelectedMonthNumberOfDays = () =>
   createSelector(updateDateState, (state) => {
     const currentDate = new Date(state.currentState.date);
     const year = currentDate.getFullYear();

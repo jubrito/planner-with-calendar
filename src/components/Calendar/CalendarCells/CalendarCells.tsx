@@ -7,7 +7,7 @@ import { CalendarCellInfo } from "../../../types/calendar/types";
 import { Cell } from "./Cell/Cell";
 import {
   getSelectedMonth,
-  getCurrentMonthNumberOfDays,
+  getSelectedMonthNumberOfDays,
   getSelectedTime,
   getSelectedYear,
 } from "../../../redux/slices/dateSlice/selectors";
@@ -19,7 +19,7 @@ const CalendarCells = () => {
   const time = useSelector(getSelectedTime());
   const year = useSelector(getSelectedYear());
   const month = useSelector(getSelectedMonth());
-  const monthNumberOfDays = useSelector(getCurrentMonthNumberOfDays());
+  const monthNumberOfDays = useSelector(getSelectedMonthNumberOfDays());
   const getPreviousCurrentAndNextMonthDays = () => {
     const currentMonthDays: CalendarCellInfo[] = getCurrentMonthDays(
       year,
