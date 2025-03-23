@@ -12,6 +12,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: variables.$inner-spacing;
 
   button {
     padding: 3px;
@@ -29,6 +30,7 @@
   line-height: $height;
   font-weight: bold;
   text-align: center;
+  margin: 0;
 
   @include mixins.media-for-compact-calendar {
     margin: variables.$small-gap;
