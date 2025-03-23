@@ -12,7 +12,12 @@ const CalendarWeeks = () => {
       <tr>
         {weekDays.map((weekDay) => {
           return (
-            <th scope="col" className={styles.weekDays} key={weekDay.long}>
+            <th
+              scope="col"
+              role="columnheader"
+              className={styles.weekDays}
+              key={weekDay.long}
+            >
               <abbr key={weekDay.long} title={weekDay.long} role="columnheader">
                 <span aria-hidden="true" className={styles.shortWeekName}>
                   {weekDay.short}
