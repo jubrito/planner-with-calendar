@@ -28,4 +28,8 @@
   line-height: $height;
   font-weight: bold;
   text-align: center;
+
+  @include mixins.media-for-compact-calendar {
+    flex-direction: column;
+  }
 }
