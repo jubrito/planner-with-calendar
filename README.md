@@ -1,14 +1,16 @@
 # Next steps (v1):
 
-# Future Steps:
-
 - Planner
   - Create weekly planner integrated with calendar (+ tests)
   - Calendar button to click on day and open planner
   - Indicate in the cell that clicking will open planner
 
+# Future Steps:
+
 ## v1:
 
+- Features
+  - Day / Week / Month / Compact (+ tests)
 - Layout
   - Transitions for cool effects
   - Text highlight bg and color
@@ -18,11 +20,9 @@
   - Accessibility requirements
   - Favicon, basic SEO?
   - Update readme with project specifications
-- Features
-  - Day / Week / Month / Compact (+ tests)
-- Web Hosting
 - Accessibility
   - Add skip to main content (+ tests)
+- Web Hosting
 
 ## v2
 
