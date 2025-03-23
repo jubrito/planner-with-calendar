@@ -25,9 +25,9 @@ const Planner = () => {
     <section className={styles.planner}>
       <div className={styles.plannerHeader}>
         <h2 className={styles.plannerHeaderLabel} id="calendar-month-name">
-          <span>{getCurrentMonthName(date, localeLang, "short")}</span>
-          <span> {day},</span>
-          <span> {dayOfWeek.short}</span>
+          {`${getCurrentMonthName(date, localeLang, "short")} ${day}, ${
+            dayOfWeek.short
+          }`}
         </h2>
       </div>
     </section>
