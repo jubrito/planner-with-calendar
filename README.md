@@ -4,10 +4,6 @@
 
 ## v1:
 
-- Components
-  - Nav
-    - Links (Gihub, project functionalities and details, about me?)
-    - Header?
 - Layout
   - Transitions for cool effects
   - Text highlight bg and color
@@ -30,6 +26,10 @@
   - Calendar button to click on day and open planner
   - Indicate in the cell that clicking will open planner
 - Checklists (+ tests)
+- Components
+  - Nav
+    - Links (Gihub, project functionalities and details, about me?)
+    - Header?
 
 ## v3
 
