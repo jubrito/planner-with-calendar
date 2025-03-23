@@ -2,6 +2,11 @@
 
 # Future Steps:
 
+- Planner
+  - Create weekly planner integrated with calendar (+ tests)
+  - Calendar button to click on day and open planner
+  - Indicate in the cell that clicking will open planner
+
 ## v1:
 
 - Layout
@@ -9,22 +14,18 @@
   - Text highlight bg and color
   - Text hover
   - Responsiveness
-- Features
-  - Day / Week / Month / Compact (+ tests)
 - Update project important information
   - Accessibility requirements
   - Favicon, basic SEO?
   - Update readme with project specifications
+- Features
+  - Day / Week / Month / Compact (+ tests)
 - Web Hosting
 - Accessibility
   - Add skip to main content (+ tests)
 
 ## v2
 
-- Planner
-  - Create weekly planner integrated with calendar (+ tests)
-  - Calendar button to click on day and open planner
-  - Indicate in the cell that clicking will open planner
 - Checklists (+ tests)
 - Components
   - Nav
