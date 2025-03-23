@@ -1,6 +1,5 @@
 # Next steps (v1):
 
-- Use compact mixin to change flex display of calendar menu
 - Verify accessibility
   - Fix can't see navigation indicators when using opt+ctrl+arrows
   - Add skip to main content (+ tests)
