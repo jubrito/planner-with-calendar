@@ -8,11 +8,6 @@ import {
 } from "./utils";
 import { firstDayOfTheMonth } from "./constants";
 
-export const getPreviousMonthNumberOfDays = (
-  year: DateConfig["year"],
-  month: DateConfig["month"]
-) => new Date(year, month, 0).getDate();
-
 export const getLastDayOfPreviousMonth = (time: DateConfig["time"]): number => {
   const tempDate = new Date(time);
   tempDate.setDate(0);
