@@ -7,9 +7,6 @@ import {
 } from "./utils";
 import { firstDayOfTheMonth } from "./constants";
 
-export const getPreviousMonthIndex = (month: DateConfig["month"]) =>
-  month === Months.JANUARY ? Months.DECEMBER : month - 1;
-
 export const getPreviousMonthYear = (
   year: DateConfig["year"],
   month: DateConfig["month"]
