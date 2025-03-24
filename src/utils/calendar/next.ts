@@ -1,5 +1,5 @@
 import { CalendarCellInfo, DateConfig } from "../../types/calendar/types";
-import { Months, WeekDaysShortNames } from "../../types/calendar/enums";
+import { WeekDaysShortNames } from "../../types/calendar/enums";
 import { getWeekDayName, numberOfDaysOfTheWeek } from "./weeks";
 import {
   getMonthIndex,
@@ -7,11 +7,6 @@ import {
   numOfDaysFromOtherMonthOnCurrentCalendar,
 } from "./utils";
 import { firstDayOfTheMonth } from "./constants";
-
-export const getNextMonthYear = (
-  year: DateConfig["year"],
-  month: DateConfig["month"]
-) => (month === Months.DECEMBER ? year + 1 : year);
 
 export const getNextMonthDaysOnCurrentMonth = (
   month: DateConfig["month"],
