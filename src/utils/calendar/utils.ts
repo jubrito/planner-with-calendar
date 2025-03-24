@@ -9,10 +9,9 @@ import {
   IntlDateTimeFormatNumeric,
   IntlDateTimeFormatShort,
 } from "../constants";
+import { todayLabel } from "./constants";
 import { isToday } from "./current";
 import { getWeekDaysNames } from "./weeks";
-
-export const todayLabel = "Today";
 
 export const monthNameByIndex: Record<Months, MonthsNames> = {
   [Months.JANUARY]: MonthsNames.JANUARY,
