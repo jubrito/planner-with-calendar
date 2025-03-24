@@ -42,9 +42,9 @@ export const getInitialYear = (locale: LocaleLanguage) =>
     getYear(locale, new Date(state.initialState.date))
   );
 
-export const getSelectedYear = () =>
+export const getSelectedYear = (locale: LocaleLanguage) =>
   createSelector(updateDateState, (state) =>
-    new Date(state.currentState.date).getFullYear()
+    getYear(locale, new Date(state.currentState.date))
   );
 
 export const getInitialTime = () =>
