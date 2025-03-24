@@ -1,5 +1,4 @@
 import {
-  WeekDays,
   WeekDaysInitials,
   WeekDaysLongNames,
   WeekDaysShortNames,
@@ -8,6 +7,7 @@ import {
   DateConfig,
   WeekDaysShortAndLongeNames,
 } from "../../types/calendar/types";
+import { getDayName } from "./utils";
 
 export const getWeekDaysNames = (
   locale: string
@@ -29,17 +29,6 @@ export const getWeekDaysNames = (
         .charAt(0) as WeekDaysInitials,
     };
   });
-};
-
-const getDayName = (dayOfWeek: number, locale: string) => {
-  let dayName: WeekDaysShortNames;
-  const weekDays = getWeekDaysNames(locale);
-  if (dayOfWeek === 0) {
-    dayName = weekDays[WeekDays.SUNDAY].short;
-  } else {
-    dayName = weekDays[dayOfWeek - 1].short; // Monday (0) to Saturday (5)
-  }
-  return dayName;
 };
 
 export const getWeekDayName = (

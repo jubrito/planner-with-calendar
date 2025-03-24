@@ -1,6 +1,7 @@
 import {
   Months,
   MonthsNames,
+  WeekDays,
   WeekDaysShortNames,
 } from "../../types/calendar/enums";
 import {
@@ -119,3 +120,14 @@ export const getDayOfWeek = (
   new Intl.DateTimeFormat(locale, {
     weekday: weekdayStyle || IntlDateTimeFormatLong,
   }).format(date);
+
+export const getDayName = (dayOfWeek: number, locale: string) => {
+  let dayName: WeekDaysShortNames;
+  const weekDays = getWeekDaysNames(locale);
+  if (dayOfWeek === 0) {
+    dayName = weekDays[WeekDays.SUNDAY].short;
+  } else {
+    dayName = weekDays[dayOfWeek - 1].short; // Monday (0) to Saturday (5)
+  }
+  return dayName;
+};
