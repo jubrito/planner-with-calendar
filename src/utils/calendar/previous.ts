@@ -1,16 +1,12 @@
 import { CalendarCellInfo, DateConfig } from "../../types/calendar/types";
-import { Months, WeekDaysShortNames } from "../../types/calendar/enums";
+import { WeekDaysShortNames } from "../../types/calendar/enums";
 import { getWeekDayName } from "./weeks";
 import {
   getMonthIndex,
+  getYear,
   numOfDaysFromOtherMonthOnCurrentCalendar,
 } from "./utils";
 import { firstDayOfTheMonth } from "./constants";
-
-export const getPreviousMonthYear = (
-  year: DateConfig["year"],
-  month: DateConfig["month"]
-) => (month === Months.JANUARY ? year - 1 : year);
 
 export const getPreviousMonthNumberOfDays = (
   year: DateConfig["year"],
@@ -45,7 +41,7 @@ export const getPreviousMonthDaysOnCurrentMonth = (
     previousMonthDaysOnCurrentMonth.push({
       month: getMonthIndex(locale, new Date(year, month - 1)) + 1,
       day: lastDayOfPreviousMonth - i,
-      year: getPreviousMonthYear(year, month),
+      year: getYear(locale, new Date(year, month - 1)),
     });
   }
   return previousMonthDaysOnCurrentMonth.reverse();
