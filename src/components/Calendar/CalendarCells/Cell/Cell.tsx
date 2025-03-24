@@ -21,6 +21,8 @@ export const Cell = ({
 }: CellProps) => {
   const fullDate = `${cellYear}-${cellMonth}-${cellDay}`;
   const localeString = useSelector(getLocaleLanguage());
+  const cellMonthZeroIndexed = cellMonth - 1;
+
   return (
     <td
       scope="col"
@@ -29,7 +31,7 @@ export const Cell = ({
       ${cellMonth} +
       ${cellDay}`}
       className={
-        cellMonth === currentMonth + 1
+        cellMonthZeroIndexed === currentMonth
           ? calendarCellsStyles.currentMonthDay
           : calendarCellsStyles.otherMonthDay
       }
@@ -39,7 +41,7 @@ export const Cell = ({
           dateTime={fullDate}
           title={getFullDateTitle(
             cellYear,
-            cellMonth - 1,
+            cellMonthZeroIndexed,
             cellDay,
             localeString
           )}
@@ -48,7 +50,10 @@ export const Cell = ({
             aria-hidden="true"
             tabIndex={-1}
             className={
-              isToday(localeString, new Date(cellYear, cellMonth - 1, cellDay))
+              isToday(
+                localeString,
+                new Date(cellYear, cellMonthZeroIndexed, cellDay)
+              )
                 ? cellsStyles.isToday
                 : undefined
             }
