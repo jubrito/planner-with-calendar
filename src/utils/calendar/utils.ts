@@ -70,12 +70,8 @@ export const getMonth = (locale: LocaleLanguage, date: DateConfig["date"]) => {
   return zeroBaseMonthNumber;
 };
 
-export const getYear = (locale: LocaleLanguage, date: DateConfig["date"]) =>
-  parseInt(
-    new Intl.DateTimeFormat(locale, {
-      year: "numeric",
-    }).format(date)
-  );
+export const getYear = (date: DateConfig["date"]) =>
+  new Date(date).getFullYear();
 
 export const getTimeInMilliseconds = (date: DateConfig["date"]) =>
   date.getTime();
@@ -91,3 +87,14 @@ export const getMonthName = (
     month: IntlDateTimeFormatShort,
   }).format(date),
 });
+
+// export const getMonthNumberOfDays =  (
+//   locale: LocaleLanguage,
+//   date: DateConfig["date"]
+// ) => {
+//   const currentDate = new Date(state.initialState.date);
+//   const year = getYear(loc);
+//   const month = currentDate.getMonth() + 1;
+//   const getLastDayOfMonth = 0;
+//   return new Date(year, month, getLastDayOfMonth).getDate();
+// }

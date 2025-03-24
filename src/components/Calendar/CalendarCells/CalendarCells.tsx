@@ -17,7 +17,7 @@ import { getLocaleLanguage } from "../../../redux/slices/localeSlice/selectors";
 const CalendarCells = () => {
   const locale = useSelector(getLocaleLanguage());
   const time = useSelector(getSelectedTime());
-  const year = useSelector(getSelectedYear(locale));
+  const year = useSelector(getSelectedYear());
   const month = useSelector(getSelectedMonth(locale));
   const monthNumberOfDays = useSelector(getSelectedMonthNumberOfDays());
   const getPreviousCurrentAndNextMonthDays = () => {

@@ -42,14 +42,14 @@ export const getSelectedMonth = (locale: LocaleLanguage) =>
     getMonth(locale, new Date(state.currentState.date))
   );
 
-export const getInitialYear = (locale: LocaleLanguage) =>
+export const getInitialYear = () =>
   createSelector(updateDateState, (state) =>
-    getYear(locale, new Date(state.initialState.date))
+    getYear(new Date(state.initialState.date))
   );
 
-export const getSelectedYear = (locale: LocaleLanguage) =>
+export const getSelectedYear = () =>
   createSelector(updateDateState, (state) =>
-    getYear(locale, new Date(state.currentState.date))
+    getYear(new Date(state.currentState.date))
   );
 
 export const getInitialTime = () =>
@@ -63,6 +63,15 @@ export const getSelectedTime = () =>
   );
 
 export const getInitialMonthNumberOfDays = () =>
+  createSelector(updateDateState, (state) => {
+    const currentDate = new Date(state.initialState.date);
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth() + 1;
+    const getLastDayOfMonth = 0;
+    return new Date(year, month, getLastDayOfMonth).getDate();
+  });
+
+export const getInitialMonthNumberOfDays2 = () =>
   createSelector(updateDateState, (state) => {
     const currentDate = new Date(state.initialState.date);
     const year = currentDate.getFullYear();
