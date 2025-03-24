@@ -1,6 +1,6 @@
 # Next steps (v1):
 
-- use new functions on existing code (remove unnecessary from current/previous)
+- use new functions on existing code (search date functions like .getFullYear, .getMonth, new Date() and other stuff)
 - search other places to use intl
 - use locale on getCurrentMonthName etc now?
 - replace get by current month name etc by general get month name reusable functions and replace others
