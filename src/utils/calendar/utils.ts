@@ -6,6 +6,7 @@ import {
 import { DateConfig } from "../../types/calendar/types";
 import { LocaleLanguage } from "../../types/locale/types";
 import {
+  IntlDateTimeFormatLong,
   IntlDateTimeFormatNumeric,
   IntlDateTimeFormatShort,
 } from "../constants";
@@ -55,6 +56,28 @@ export const getDate = (locale: LocaleLanguage, date: DateConfig["date"]) => {
 };
 
 export const getDay = (locale: LocaleLanguage, date: DateConfig["date"]) =>
-  new Intl.DateTimeFormat(locale, {
-    day: IntlDateTimeFormatNumeric,
+  parseInt(
+    new Intl.DateTimeFormat(locale, {
+      day: IntlDateTimeFormatNumeric,
+    }).format(date)
+  );
+
+export const getMonth = (locale: LocaleLanguage, date: DateConfig["date"]) => {
+  const formatedDate = new Intl.DateTimeFormat(locale, {
+    month: IntlDateTimeFormatNumeric,
   }).format(date);
+  const zeroBaseMonthNumber = parseInt(formatedDate) - 1;
+  return zeroBaseMonthNumber;
+};
+
+export const getMonthName = (
+  locale: LocaleLanguage,
+  date: DateConfig["date"]
+) => ({
+  long: new Intl.DateTimeFormat(locale, {
+    month: IntlDateTimeFormatLong,
+  }).format(date),
+  short: new Intl.DateTimeFormat(locale, {
+    month: IntlDateTimeFormatShort,
+  }).format(date),
+});

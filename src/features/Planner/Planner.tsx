@@ -12,7 +12,7 @@ import { getCurrentMonthName } from "../../utils/calendar/current";
 const Planner = () => {
   const locale = useSelector(getLocaleLanguage());
   const initialYear = useSelector(getInitialYear());
-  const initialMonth = useSelector(getInitialMonth());
+  const initialMonth = useSelector(getInitialMonth(locale));
   const initialDay = useSelector(getInitialDay(locale));
   const { date, day, dayOfWeek } = useDate(
     locale,
