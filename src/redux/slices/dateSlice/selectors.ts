@@ -4,7 +4,7 @@ import { LocaleLanguage } from "../../../types/locale/types";
 import { DateConfig } from "../../../types/calendar/types";
 import {
   getDate,
-  getMonth,
+  getMonthIndex,
   getTimeInMilliseconds,
   getYear,
 } from "../../../utils/calendar/utils";
@@ -34,12 +34,12 @@ export const getSelectedDay = (locale: LocaleLanguage) =>
 
 export const getInitialMonth = (locale: LocaleLanguage) =>
   createSelector(updateDateState, (state) =>
-    getMonth(locale, new Date(state.initialState.date))
+    getMonthIndex(locale, new Date(state.initialState.date))
   );
 
 export const getSelectedMonth = (locale: LocaleLanguage) =>
   createSelector(updateDateState, (state) =>
-    getMonth(locale, new Date(state.currentState.date))
+    getMonthIndex(locale, new Date(state.currentState.date))
   );
 
 export const getInitialYear = () =>

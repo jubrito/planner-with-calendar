@@ -6,7 +6,7 @@ import {
 import { DateConfig } from "../../types/calendar/types";
 import { LocaleLanguage } from "../../types/locale/types";
 import {
-  IntlDateTimeFormatLong,
+  IntlDateTimeFormat2Digit,
   IntlDateTimeFormatNumeric,
   IntlDateTimeFormatShort,
 } from "../constants";
@@ -62,9 +62,15 @@ export const getDay = (locale: LocaleLanguage, date: DateConfig["date"]) =>
     }).format(date)
   );
 
-export const getMonth = (locale: LocaleLanguage, date: DateConfig["date"]) => {
+export const getMonthIndex = (
+  locale: LocaleLanguage,
+  date: DateConfig["date"],
+  monthStyle?:
+    | typeof IntlDateTimeFormatNumeric
+    | typeof IntlDateTimeFormat2Digit
+) => {
   const formatedDate = new Intl.DateTimeFormat(locale, {
-    month: IntlDateTimeFormatNumeric,
+    month: monthStyle || IntlDateTimeFormatNumeric,
   }).format(date);
   const zeroBaseMonthNumber = parseInt(formatedDate) - 1;
   return zeroBaseMonthNumber;
@@ -76,25 +82,14 @@ export const getYear = (date: DateConfig["date"]) =>
 export const getTimeInMilliseconds = (date: DateConfig["date"]) =>
   date.getTime();
 
-export const getMonthName = (
-  locale: LocaleLanguage,
-  date: DateConfig["date"]
-) => ({
-  long: new Intl.DateTimeFormat(locale, {
-    month: IntlDateTimeFormatLong,
-  }).format(date),
-  short: new Intl.DateTimeFormat(locale, {
-    month: IntlDateTimeFormatShort,
-  }).format(date),
-});
-
-// export const getMonthNumberOfDays =  (
+// export const getMonthNumberOfDays = (
 //   locale: LocaleLanguage,
 //   date: DateConfig["date"]
 // ) => {
-//   const currentDate = new Date(state.initialState.date);
-//   const year = getYear(loc);
+//   // const currentDate = new Date(state.initialState.date);
+//   const year = getYear(date);
+//   const month = getMonth(date);
 //   const month = currentDate.getMonth() + 1;
 //   const getLastDayOfMonth = 0;
 //   return new Date(year, month, getLastDayOfMonth).getDate();
-// }
+// };
