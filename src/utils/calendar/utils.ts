@@ -5,6 +5,7 @@ import {
 } from "../../types/calendar/enums";
 import {
   DateConfig,
+  IntlDateTypeMonthStyle,
   IntlDateTypeWeekdayStyle,
 } from "../../types/calendar/types";
 import { LocaleLanguage } from "../../types/locale/types";
@@ -80,6 +81,15 @@ export const getMonthIndex = (
   const zeroBaseMonthNumber = parseInt(formatedDate) - 1;
   return zeroBaseMonthNumber;
 };
+
+export const getMonthName = (
+  locale: LocaleLanguage,
+  date: DateConfig["date"],
+  monthStyle?: IntlDateTypeMonthStyle
+) =>
+  new Intl.DateTimeFormat(locale, {
+    month: monthStyle || IntlDateTimeFormatLong,
+  }).format(date);
 
 export const getYear = (date: DateConfig["date"]) =>
   new Date(date).getFullYear();
