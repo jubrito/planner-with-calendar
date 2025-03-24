@@ -5,7 +5,10 @@ import {
 } from "../../types/calendar/enums";
 import { DateConfig } from "../../types/calendar/types";
 import { LocaleLanguage } from "../../types/locale/types";
-import { IntlDateTimeFormatNumeric } from "../constants";
+import {
+  IntlDateTimeFormatNumeric,
+  IntlDateTimeFormatShort,
+} from "../constants";
 import { isToday } from "./current";
 import { getWeekDaysNames } from "./weeks";
 
@@ -43,6 +46,15 @@ export const getFullDateTitle = (
     : new Intl.DateTimeFormat(locale, {
         dateStyle: "full",
       }).format(new Date(year, month, day));
+
+export const getDate = (locale: LocaleLanguage, date: DateConfig["date"]) => {
+  const formatedDate = new Intl.DateTimeFormat(locale, {
+    month: IntlDateTimeFormatShort,
+    day: IntlDateTimeFormatNumeric,
+    year: IntlDateTimeFormatNumeric,
+  }).format(date);
+  return new Date(formatedDate);
+};
 
 export const getDay = (locale: LocaleLanguage, date: DateConfig["date"]) =>
   new Intl.DateTimeFormat(locale, {

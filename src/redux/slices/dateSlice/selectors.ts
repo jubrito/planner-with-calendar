@@ -2,7 +2,7 @@ import { createSelector } from "@reduxjs/toolkit";
 import type { RootState } from "../../store";
 import { LocaleLanguage } from "../../../types/locale/types";
 import { DateConfig } from "../../../types/calendar/types";
-import { getDate } from "../../../utils/calendar/current";
+import { getDate } from "../../../utils/calendar/utils";
 import { getDay } from "../../../utils/calendar/utils";
 
 const updateDateState = (store: RootState) => store.dateSlice;
