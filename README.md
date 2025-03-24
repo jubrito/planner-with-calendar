@@ -1,13 +1,15 @@
 # Next steps (v1):
 
-- use new functions on existing code (search date functions like .getFullYear, .getMonth, new Date() and other stuff)
-- search other places to use intl
-- use locale on getCurrentMonthName etc now?
-- replace get by current month name etc by general get month name reusable functions and replace others
-- test utils? such as getting month properties, dates, times
+- Refactor:
 
-- Use Intl to get dates from redux
-- Test useDate hook (test them in isolation using renderHook from @testing-library/react-hooks)
+  - Use new functions on existing code (search date functions like .getFullYear, .getMonth, new Date() and other stuff)
+  - Intl instead of date
+    - Check: Other places to use Intl
+    - Check: Use Intl to get dates from redux
+
+- Tests:
+  - Test useDate hook (test them in isolation using renderHook from @testing-library/react-hooks)
+  - Test utils? such as getting month properties, dates, times
 - Planner
   - Create weekly planner integrated with calendar (+ tests)
   - Calendar button to click on day and open planner
