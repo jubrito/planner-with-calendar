@@ -17,7 +17,7 @@ import {
   IntlDateTimeFormatShort,
 } from "../constants";
 import { todayLabel } from "./constants";
-import { isToday } from "./current";
+import { isToday } from "../checkers";
 import { getWeekDaysNames } from "./weeks";
 
 export const monthNameByIndex: Record<Months, MonthsNames> = {

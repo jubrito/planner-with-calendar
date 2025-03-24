@@ -4,7 +4,7 @@ import { getFullDateTitle } from "../../../../utils/calendar/utils";
 import calendarCellsStyles from "../_calendar-cells.module.scss";
 import cellsStyles from "./_cell.module.scss";
 import { getLocaleLanguage } from "../../../../redux/slices/localeSlice/selectors";
-import { isToday } from "../../../../utils/calendar/current";
+import { isToday } from "../../../../utils/checkers";
 
 type CellProps = {
   cellYear: DateConfig["year"];
