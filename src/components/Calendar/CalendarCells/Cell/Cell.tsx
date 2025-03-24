@@ -48,7 +48,7 @@ export const Cell = ({
             aria-hidden="true"
             tabIndex={-1}
             className={
-              isToday(cellYear, cellMonth - 1, cellDay)
+              isToday(localeString, new Date(cellYear, cellMonth - 1, cellDay))
                 ? cellsStyles.isToday
                 : undefined
             }

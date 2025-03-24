@@ -46,7 +46,7 @@ export const getFullDateTitle = (
   day: DateConfig["day"],
   locale: string
 ) =>
-  isToday(year, month, day)
+  isToday(locale, new Date(year, month, day))
     ? todayLabel
     : new Intl.DateTimeFormat(locale, {
         dateStyle: IntlDateTimeFormatFull,

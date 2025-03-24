@@ -1,14 +1,12 @@
 import { DateConfig } from "../types/calendar/types";
+import { LocaleLanguage } from "../types/locale/types";
+import { getDate, getMonthIndex, getYear } from "./calendar/utils";
 
-export const isToday = (
-  year: DateConfig["year"],
-  month: DateConfig["month"],
-  date: DateConfig["day"]
-) => {
+export const isToday = (locale: LocaleLanguage, date: DateConfig["date"]) => {
   const currentDate = new Date();
   return (
-    year === currentDate.getFullYear() &&
-    month === currentDate.getMonth() &&
-    date === currentDate.getDate()
+    getYear(date) === getYear(currentDate) &&
+    getMonthIndex(locale, date) === getMonthIndex(locale, currentDate) &&
+    getDate(locale, date) === getDate(locale, currentDate)
   );
 };
