@@ -6,8 +6,8 @@ import {
 } from "../constants";
 
 export const getCurrentMonthName = (
-  date: Date,
   locale: string,
+  date: Date,
   format: "short" | "long" = "long"
 ): string =>
   new Intl.DateTimeFormat(locale, {

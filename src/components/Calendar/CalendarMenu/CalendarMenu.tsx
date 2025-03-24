@@ -26,7 +26,7 @@ export const CalendarMenu = () => {
   const day = useSelector(getSelectedDay());
   const year = useSelector(getSelectedYear());
   const month = useSelector(getSelectedMonth());
-  const currentMonthName = getCurrentMonthName(date, locale);
+  const currentMonthName = getCurrentMonthName(locale, date);
 
   return (
     <div className={styles.calendarHeader}>
