@@ -77,6 +77,9 @@ export const getYear = (locale: LocaleLanguage, date: DateConfig["date"]) =>
     }).format(date)
   );
 
+export const getTimeInMilliseconds = (date: DateConfig["date"]) =>
+  date.getTime();
+
 export const getMonthName = (
   locale: LocaleLanguage,
   date: DateConfig["date"]

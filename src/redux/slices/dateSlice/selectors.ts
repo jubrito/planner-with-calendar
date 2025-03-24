@@ -2,7 +2,12 @@ import { createSelector } from "@reduxjs/toolkit";
 import type { RootState } from "../../store";
 import { LocaleLanguage } from "../../../types/locale/types";
 import { DateConfig } from "../../../types/calendar/types";
-import { getDate, getMonth, getYear } from "../../../utils/calendar/utils";
+import {
+  getDate,
+  getMonth,
+  getTimeInMilliseconds,
+  getYear,
+} from "../../../utils/calendar/utils";
 import { getDay } from "../../../utils/calendar/utils";
 
 const updateDateState = (store: RootState) => store.dateSlice;
@@ -54,7 +59,7 @@ export const getInitialTime = () =>
 
 export const getSelectedTime = () =>
   createSelector(updateDateState, (state) =>
-    new Date(state.currentState.date).getTime()
+    getTimeInMilliseconds(new Date(state.currentState.date))
   );
 
 export const getInitialMonthNumberOfDays = () =>
