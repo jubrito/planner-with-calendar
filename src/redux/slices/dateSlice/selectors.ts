@@ -22,9 +22,9 @@ export const getInitialDay = (locale: LocaleLanguage) =>
     parseInt(getDay(locale, new Date(state.initialState.date)))
   );
 
-export const getSelectedDay = () =>
+export const getSelectedDay = (locale: LocaleLanguage) =>
   createSelector(updateDateState, (state) =>
-    new Date(state.currentState.date).getDate()
+    parseInt(getDay(locale, new Date(state.currentState.date)))
   );
 
 export const getInitialMonth = () =>
