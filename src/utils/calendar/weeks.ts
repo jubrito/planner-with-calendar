@@ -9,6 +9,8 @@ import {
 } from "../../types/calendar/types";
 import { getDayName } from "./utils";
 
+export const numberOfDaysOfTheWeek = 7;
+
 export const getWeekDaysNames = (
   locale: string
 ): WeekDaysShortAndLongeNames[] => {
@@ -41,5 +43,3 @@ export const getWeekDayName = (
   const dayOfWeek = dayOfTheMonthDate.getDay();
   return getDayName(dayOfWeek, locale);
 };
-
-export const numberOfDaysOfTheWeek = 7;
