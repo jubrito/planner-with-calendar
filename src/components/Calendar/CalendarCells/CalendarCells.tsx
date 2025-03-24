@@ -19,7 +19,7 @@ const CalendarCells = () => {
   const time = useSelector(getSelectedTime());
   const year = useSelector(getSelectedYear());
   const month = useSelector(getSelectedMonth(locale));
-  const monthNumberOfDays = useSelector(getSelectedMonthNumberOfDays());
+  const monthNumberOfDays = useSelector(getSelectedMonthNumberOfDays(locale));
   const getPreviousCurrentAndNextMonthDays = () => {
     const currentMonthDays: CalendarCellInfo[] = getCurrentMonthDays(
       year,

@@ -68,14 +68,10 @@ export const getInitialMonthNumberOfDays = (locale: LocaleLanguage) =>
     getMonthNumberOfDays(locale, new Date(state.initialState.date))
   );
 
-export const getSelectedMonthNumberOfDays = () =>
-  createSelector(updateDateState, (state) => {
-    const currentDate = new Date(state.currentState.date);
-    const year = currentDate.getFullYear();
-    const month = currentDate.getMonth() + 1;
-    const getLastDayOfMonth = 0;
-    return new Date(year, month, getLastDayOfMonth).getDate();
-  });
+export const getSelectedMonthNumberOfDays = (locale: LocaleLanguage) =>
+  createSelector(updateDateState, (state) =>
+    getMonthNumberOfDays(locale, new Date(state.currentState.date))
+  );
 
 export const getInitialDayOfWeek = (
   locale: LocaleLanguage
