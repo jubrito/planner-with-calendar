@@ -22,7 +22,7 @@ describe("Planner", () => {
           },
         },
       });
-      expect(screen.getByText("Mar 1, Sat")).toBeInTheDocument();
+      expect(screen.getByText("Mar 1, Saturday")).toBeInTheDocument();
     });
   });
 });

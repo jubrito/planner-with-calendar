@@ -11,22 +11,23 @@ import {
 import { UpdateCalendarButton } from "../UpdateCalendarButton/UpdateCalendarButton";
 import { getLocaleLanguage } from "../../../redux/slices/localeSlice/selectors";
 import {
-  getSelectedDate,
   getSelectedDay,
   getSelectedMonth,
+  getSelectedMonthName,
   getSelectedYear,
 } from "../../../redux/slices/dateSlice/selectors";
-import { getCurrentMonthName } from "../../../utils/calendar/current";
 import styles from "./_calendar-menu.module.scss";
+import { IntlDateTimeFormatLong } from "../../../utils/constants";
 
 export const CalendarMenu = () => {
   const dispatch = useDispatch();
   const locale = useSelector(getLocaleLanguage());
-  const date = useSelector(getSelectedDate(locale));
   const day = useSelector(getSelectedDay(locale));
   const year = useSelector(getSelectedYear());
   const month = useSelector(getSelectedMonth(locale));
-  const currentMonthName = getCurrentMonthName(locale, date);
+  const currentMonthName = useSelector(
+    getSelectedMonthName(locale, IntlDateTimeFormatLong)
+  );
 
   return (
     <div className={styles.calendarHeader}>

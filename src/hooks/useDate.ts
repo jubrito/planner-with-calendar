@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { DateConfig } from "../types/calendar/types";
 import { LocaleLanguage } from "../types/locale/types";
+import { getDayOfWeek } from "../utils/calendar/utils";
 
 const getInitialDate = (
   initialYear?: number,
@@ -35,14 +36,7 @@ export const useDate = (
     month: date.getMonth(),
     year: date.getFullYear(),
     time: date.getTime(),
-    dayOfWeek: {
-      long: new Intl.DateTimeFormat(locale, {
-        weekday: "long",
-      }).format(date),
-      short: new Intl.DateTimeFormat(locale, {
-        weekday: "short",
-      }).format(date),
-    },
+    dayOfWeek: getDayOfWeek(locale, date),
     monthNumberOfDays: new Date(
       date.getFullYear(),
       date.getMonth() + 1,

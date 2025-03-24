@@ -21,10 +21,7 @@ export type DateConfig = {
   month: Months;
   year: number;
   time: number;
-  dayOfWeek: {
-    short: string;
-    long: string;
-  };
+  dayOfWeek: string;
   monthNumberOfDays: number;
 };
 

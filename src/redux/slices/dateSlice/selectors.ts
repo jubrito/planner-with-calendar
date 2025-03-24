@@ -9,6 +9,7 @@ import {
   getDate,
   getDayOfWeek,
   getMonthIndex,
+  getMonthName,
   getMonthNumberOfDays,
   getTimeInMilliseconds,
   getYear,
@@ -59,7 +60,7 @@ export const getSelectedYear = () =>
 
 export const getInitialTime = () =>
   createSelector(updateDateState, (state) =>
-    getTimeInMilliseconds(new Date(state.currentState.date))
+    getTimeInMilliseconds(new Date(state.initialState.date))
   );
 
 export const getSelectedTime = () =>
@@ -80,9 +81,7 @@ export const getSelectedMonthNumberOfDays = (locale: LocaleLanguage) =>
 export const getInitialDayOfWeek = (
   locale: LocaleLanguage,
   weekdayStyle?: IntlDateTypeWeekdayStyle
-): ((
-  state: RootState
-) => DateConfig["dayOfWeek"]["long"] | DateConfig["dayOfWeek"]["short"]) =>
+): ((state: RootState) => DateConfig["dayOfWeek"]) =>
   createSelector(updateDateState, (state) =>
     getDayOfWeek(locale, new Date(state.initialState.date), weekdayStyle)
   );
@@ -90,9 +89,23 @@ export const getInitialDayOfWeek = (
 export const getSelectedDayOfWeek = (
   locale: LocaleLanguage,
   weekdayStyle?: IntlDateTypeWeekdayStyle
-): ((
-  state: RootState
-) => DateConfig["dayOfWeek"]["long"] | DateConfig["dayOfWeek"]["short"]) =>
+): ((state: RootState) => DateConfig["dayOfWeek"]) =>
   createSelector(updateDateState, (state) =>
     getDayOfWeek(locale, new Date(state.currentState.date), weekdayStyle)
+  );
+
+export const getInitialMonthName = (
+  locale: LocaleLanguage,
+  weekdayStyle?: IntlDateTypeWeekdayStyle
+): ((state: RootState) => DateConfig["dayOfWeek"]) =>
+  createSelector(updateDateState, (state) =>
+    getDayOfWeek(locale, new Date(state.initialState.date), weekdayStyle)
+  );
+
+export const getSelectedMonthName = (
+  locale: LocaleLanguage,
+  weekdayStyle?: IntlDateTypeWeekdayStyle
+): ((state: RootState) => DateConfig["dayOfWeek"]) =>
+  createSelector(updateDateState, (state) =>
+    getMonthName(locale, new Date(state.currentState.date), weekdayStyle)
   );
