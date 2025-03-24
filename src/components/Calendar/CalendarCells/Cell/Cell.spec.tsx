@@ -2,10 +2,8 @@ import "@testing-library/jest-dom";
 import { screen, within } from "@testing-library/dom";
 import { Cell } from "./Cell";
 import { Months } from "../../../../types/calendar/enums";
-import {
-  firstDayOfTheMonth,
-  getFullDateTitle,
-} from "../../../../utils/calendar/utils";
+import { getFullDateTitle } from "../../../../utils/calendar/utils";
+import { firstDayOfTheMonth } from "../../../../utils/calendar/constants";
 import { renderWithProviders } from "../../../../utils/tests/renderWithProviders";
 import { initialValue } from "../../../../redux/slices/dateSlice";
 
@@ -39,7 +37,7 @@ describe("Cell", () => {
         dateSlice: {
           currentState: {
             ...initialValue.currentState,
-            date: new Date(cellYear, currentMonth, cellDay),
+            date: new Date(cellYear, currentMonth, cellDay).toDateString(),
           },
           initialState: {
             ...initialValue.initialState,
@@ -70,7 +68,7 @@ describe("Cell", () => {
         dateSlice: {
           currentState: {
             ...initialValue.currentState,
-            date: new Date(cellYear, currentMonth, cellDay),
+            date: new Date(cellYear, currentMonth, cellDay).toDateString(),
           },
           initialState: {
             ...initialValue.initialState,
