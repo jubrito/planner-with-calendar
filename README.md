@@ -1,7 +1,8 @@
 # Next steps (v1):
 
-- Extract constants from calendar utils
-- move get date to calendar utils
+- use new functions on existing code
+- search other places to use intl
+
 - Use Intl to get dates from redux
 - Test useDate hook (test them in isolation using renderHook from @testing-library/react-hooks)
 - Planner
