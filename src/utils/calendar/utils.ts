@@ -70,6 +70,13 @@ export const getMonth = (locale: LocaleLanguage, date: DateConfig["date"]) => {
   return zeroBaseMonthNumber;
 };
 
+export const getYear = (locale: LocaleLanguage, date: DateConfig["date"]) =>
+  parseInt(
+    new Intl.DateTimeFormat(locale, {
+      year: "numeric",
+    }).format(date)
+  );
+
 export const getMonthName = (
   locale: LocaleLanguage,
   date: DateConfig["date"]

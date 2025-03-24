@@ -2,7 +2,7 @@ import { createSelector } from "@reduxjs/toolkit";
 import type { RootState } from "../../store";
 import { LocaleLanguage } from "../../../types/locale/types";
 import { DateConfig } from "../../../types/calendar/types";
-import { getDate, getMonth } from "../../../utils/calendar/utils";
+import { getDate, getMonth, getYear } from "../../../utils/calendar/utils";
 import { getDay } from "../../../utils/calendar/utils";
 
 const updateDateState = (store: RootState) => store.dateSlice;
@@ -37,9 +37,9 @@ export const getSelectedMonth = (locale: LocaleLanguage) =>
     getMonth(locale, new Date(state.currentState.date))
   );
 
-export const getInitialYear = () =>
+export const getInitialYear = (locale: LocaleLanguage) =>
   createSelector(updateDateState, (state) =>
-    new Date(state.initialState.date).getFullYear()
+    getYear(locale, new Date(state.initialState.date))
   );
 
 export const getSelectedYear = () =>
