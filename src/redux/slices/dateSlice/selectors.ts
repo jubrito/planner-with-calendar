@@ -1,9 +1,13 @@
 import { createSelector } from "@reduxjs/toolkit";
 import type { RootState } from "../../store";
 import { LocaleLanguage } from "../../../types/locale/types";
-import { DateConfig } from "../../../types/calendar/types";
+import {
+  DateConfig,
+  IntlDateTypeWeekdayStyle,
+} from "../../../types/calendar/types";
 import {
   getDate,
+  getDayOfWeek,
   getMonthIndex,
   getMonthNumberOfDays,
   getTimeInMilliseconds,
@@ -74,25 +78,21 @@ export const getSelectedMonthNumberOfDays = (locale: LocaleLanguage) =>
   );
 
 export const getInitialDayOfWeek = (
-  locale: LocaleLanguage
-): ((state: RootState) => DateConfig["dayOfWeek"]) =>
-  createSelector(updateDateState, (state) => ({
-    long: new Intl.DateTimeFormat(locale, {
-      weekday: "long",
-    }).format(new Date(state.initialState.date)),
-    short: new Intl.DateTimeFormat(locale, {
-      weekday: "short",
-    }).format(new Date(state.initialState.date)),
-  }));
+  locale: LocaleLanguage,
+  weekdayStyle?: IntlDateTypeWeekdayStyle
+): ((
+  state: RootState
+) => DateConfig["dayOfWeek"]["long"] | DateConfig["dayOfWeek"]["short"]) =>
+  createSelector(updateDateState, (state) =>
+    getDayOfWeek(locale, new Date(state.initialState.date), weekdayStyle)
+  );
 
 export const getSelectedDayOfWeek = (
-  locale: LocaleLanguage
-): ((state: RootState) => DateConfig["dayOfWeek"]) =>
-  createSelector(updateDateState, (state) => ({
-    long: new Intl.DateTimeFormat(locale, {
-      weekday: "long",
-    }).format(new Date(state.initialState.date)),
-    short: new Intl.DateTimeFormat(locale, {
-      weekday: "short",
-    }).format(new Date(state.initialState.date)),
-  }));
+  locale: LocaleLanguage,
+  weekdayStyle?: IntlDateTypeWeekdayStyle
+): ((
+  state: RootState
+) => DateConfig["dayOfWeek"]["long"] | DateConfig["dayOfWeek"]["short"]) =>
+  createSelector(updateDateState, (state) =>
+    getDayOfWeek(locale, new Date(state.currentState.date), weekdayStyle)
+  );

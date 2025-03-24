@@ -2,6 +2,7 @@ import {
   IntlDateTimeFormatFull,
   IntlDateTimeFormatLong,
   IntlDateTimeFormatMedium,
+  IntlDateTimeFormatNarrow,
   IntlDateTimeFormatShort,
 } from "../../utils/constants";
 import {
@@ -45,3 +46,8 @@ export type IntlDateTimeFormatOptions =
   | typeof IntlDateTimeFormatMedium
   | typeof IntlDateTimeFormatShort
   | undefined;
+
+export type IntlDateTypeWeekdayStyle =
+  | typeof IntlDateTimeFormatLong
+  | typeof IntlDateTimeFormatShort
+  | typeof IntlDateTimeFormatNarrow;

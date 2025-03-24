@@ -3,10 +3,15 @@ import {
   MonthsNames,
   WeekDaysShortNames,
 } from "../../types/calendar/enums";
-import { DateConfig } from "../../types/calendar/types";
+import {
+  DateConfig,
+  IntlDateTypeWeekdayStyle,
+} from "../../types/calendar/types";
 import { LocaleLanguage } from "../../types/locale/types";
 import {
   IntlDateTimeFormat2Digit,
+  IntlDateTimeFormatFull,
+  IntlDateTimeFormatLong,
   IntlDateTimeFormatNumeric,
   IntlDateTimeFormatShort,
 } from "../constants";
@@ -43,7 +48,7 @@ export const getFullDateTitle = (
   isToday(year, month, day)
     ? todayLabel
     : new Intl.DateTimeFormat(locale, {
-        dateStyle: "full",
+        dateStyle: IntlDateTimeFormatFull,
       }).format(new Date(year, month, day));
 
 export const getDate = (locale: LocaleLanguage, date: DateConfig["date"]) => {
@@ -91,3 +96,12 @@ export const getMonthNumberOfDays = (
   const getLastDayOfMonth = 0;
   return new Date(year, month, getLastDayOfMonth).getDate();
 };
+
+export const getDayOfWeek = (
+  locale: LocaleLanguage,
+  date: DateConfig["date"],
+  weekdayStyle?: IntlDateTypeWeekdayStyle
+) =>
+  new Intl.DateTimeFormat(locale, {
+    weekday: weekdayStyle || IntlDateTimeFormatLong,
+  }).format(date);
