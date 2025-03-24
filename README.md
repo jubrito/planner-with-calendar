@@ -2,6 +2,8 @@
 
 - use new functions on existing code
 - search other places to use intl
+- use locale on getCurrentMonthName etc now?
+- replace get by current month name etc by general get month name reusable functions and replace others
 
 - Use Intl to get dates from redux
 - Test useDate hook (test them in isolation using renderHook from @testing-library/react-hooks)
