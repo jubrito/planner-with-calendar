@@ -21,12 +21,12 @@ import styles from "./_calendar-menu.module.scss";
 
 export const CalendarMenu = () => {
   const dispatch = useDispatch();
-  const localeLang = useSelector(getLocaleLanguage());
-  const date = useSelector(getSelectedDate());
+  const locale = useSelector(getLocaleLanguage());
+  const date = useSelector(getSelectedDate(locale));
   const day = useSelector(getSelectedDay());
   const year = useSelector(getSelectedYear());
   const month = useSelector(getSelectedMonth());
-  const currentMonthName = getCurrentMonthName(date, localeLang);
+  const currentMonthName = getCurrentMonthName(date, locale);
 
   return (
     <div className={styles.calendarHeader}>

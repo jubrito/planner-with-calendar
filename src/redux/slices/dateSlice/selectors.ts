@@ -3,6 +3,7 @@ import type { RootState } from "../../store";
 import { LocaleLanguage } from "../../../types/locale/types";
 import { DateConfig } from "../../../types/calendar/types";
 import { getDate } from "../../../utils/calendar/current";
+import { getDay } from "../../../utils/calendar/utils";
 
 const updateDateState = (store: RootState) => store.dateSlice;
 
@@ -16,9 +17,9 @@ export const getSelectedDate = (locale: LocaleLanguage) =>
     getDate(locale, new Date(state.currentState.date))
   );
 
-export const getInitialDay = () =>
+export const getInitialDay = (locale: LocaleLanguage) =>
   createSelector(updateDateState, (state) =>
-    new Date(state.initialState.date).getDate()
+    parseInt(getDay(locale, new Date(state.initialState.date)))
   );
 
 export const getSelectedDay = () =>
