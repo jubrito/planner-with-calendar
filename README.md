@@ -45,6 +45,7 @@
 - Locale
   - Button to change language (+ tests)
   - Update month names, getFullDateTitle, date order (+ tests)
+- Webpack tree shaking and performance
 - Timezones?
 
 ## v4
