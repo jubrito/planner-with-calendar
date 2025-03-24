@@ -1,9 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { updateDate } from "../../../redux/slices/dateSlice";
-import {
-  getPreviousMonthIndex,
-  getPreviousMonthYear,
-} from "../../../utils/calendar/previous";
+import { getPreviousMonthYear } from "../../../utils/calendar/previous";
 import { UpdateCalendarButton } from "../UpdateCalendarButton/UpdateCalendarButton";
 import { getLocaleLanguage } from "../../../redux/slices/localeSlice/selectors";
 import {
@@ -46,7 +43,7 @@ export const CalendarMenu = () => {
             dispatch(
               updateDate({
                 year: getPreviousMonthYear(year, month),
-                month: getPreviousMonthIndex(month),
+                month: getMonthIndex(locale, new Date(year, month - 1, day)),
                 day,
               })
             )
