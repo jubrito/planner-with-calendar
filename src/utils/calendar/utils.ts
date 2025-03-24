@@ -4,14 +4,13 @@ import {
   WeekDaysShortNames,
 } from "../../types/calendar/enums";
 import { DateConfig } from "../../types/calendar/types";
+import { LocaleLanguage } from "../../types/locale/types";
+import { IntlDateTimeFormatNumeric } from "../constants";
 import { isToday } from "./current";
 import { getWeekDaysNames } from "./weeks";
 
-export const numOfDaysFromOtherMonthOnCurrentCalendar = (
-  weekDayName: WeekDaysShortNames,
-  locale: string
-) => getWeekDaysNames(locale).findIndex((name) => weekDayName === name.short);
 export const firstDayOfTheMonth = 1;
+export const todayLabel = "Today";
 
 export const monthNameByIndex: Record<Months, MonthsNames> = {
   [Months.JANUARY]: MonthsNames.JANUARY,
@@ -28,6 +27,11 @@ export const monthNameByIndex: Record<Months, MonthsNames> = {
   [Months.DECEMBER]: MonthsNames.DECEMBER,
 };
 
+export const numOfDaysFromOtherMonthOnCurrentCalendar = (
+  weekDayName: WeekDaysShortNames,
+  locale: string
+) => getWeekDaysNames(locale).findIndex((name) => weekDayName === name.short);
+
 export const getFullDateTitle = (
   year: DateConfig["year"],
   month: DateConfig["month"],
@@ -40,4 +44,7 @@ export const getFullDateTitle = (
         dateStyle: "full",
       }).format(new Date(year, month, day));
 
-export const todayLabel = "Today";
+export const getDay = (locale: LocaleLanguage, date: DateConfig["date"]) =>
+  new Intl.DateTimeFormat(locale, {
+    day: IntlDateTimeFormatNumeric,
+  }).format(date);
