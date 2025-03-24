@@ -20,6 +20,7 @@ const CalendarCells = () => {
   const year = useSelector(getSelectedYear(locale));
   const month = useSelector(getSelectedMonth(locale));
   const monthNumberOfDays = useSelector(getSelectedMonthNumberOfDays(locale));
+
   const getPreviousCurrentAndNextMonthDays = () => {
     const currentMonthDays: CalendarCellInfo[] = getCurrentMonthDays(
       year,
@@ -62,12 +63,12 @@ const CalendarCells = () => {
       {chunkCalendarCellsByWeek(getPreviousCurrentAndNextMonthDays()).map(
         (week, weekIndex) => (
           <tr key={weekIndex}>
-            {week.map((filledCurrentMonthDay) => {
+            {week.map((calendarCell) => {
               const {
                 day: cellDay,
                 month: cellMonth,
                 year: cellYear,
-              } = filledCurrentMonthDay;
+              } = calendarCell;
               return (
                 <Cell
                   cellDay={cellDay}
