@@ -14,7 +14,7 @@ import {
 } from "../../../redux/slices/dateSlice/selectors";
 import styles from "./_calendar-menu.module.scss";
 import { IntlDateTimeFormatLong } from "../../../utils/constants";
-import { getMonthIndex, getYear } from "../../../utils/calendar/utils";
+import { getDay, getMonthIndex, getYear } from "../../../utils/calendar/utils";
 
 export const CalendarMenu = () => {
   const dispatch = useDispatch();
@@ -55,15 +55,15 @@ export const CalendarMenu = () => {
         <UpdateCalendarButton
           label={"Go to today"}
           symbol={"Today"}
-          updateDate={() =>
-            dispatch(
+          updateDate={() => {
+            return dispatch(
               updateDate({
-                year: new Date().getFullYear(),
-                month: new Date().getMonth(),
-                day: new Date().getDate(),
+                year: getYear(locale, new Date()),
+                month: getMonthIndex(locale, new Date()),
+                day: getDay(locale, new Date()),
               })
-            )
-          }
+            );
+          }}
         />
         <UpdateCalendarButton
           label={"Go to next month"}
