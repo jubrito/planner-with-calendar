@@ -5,6 +5,7 @@ import { DateConfig } from "../../../types/calendar/types";
 import {
   getDate,
   getMonthIndex,
+  getMonthNumberOfDays,
   getTimeInMilliseconds,
   getYear,
 } from "../../../utils/calendar/utils";
@@ -62,23 +63,10 @@ export const getSelectedTime = () =>
     getTimeInMilliseconds(new Date(state.currentState.date))
   );
 
-export const getInitialMonthNumberOfDays = () =>
-  createSelector(updateDateState, (state) => {
-    const currentDate = new Date(state.initialState.date);
-    const year = currentDate.getFullYear();
-    const month = currentDate.getMonth() + 1;
-    const getLastDayOfMonth = 0;
-    return new Date(year, month, getLastDayOfMonth).getDate();
-  });
-
-export const getInitialMonthNumberOfDays2 = () =>
-  createSelector(updateDateState, (state) => {
-    const currentDate = new Date(state.initialState.date);
-    const year = currentDate.getFullYear();
-    const month = currentDate.getMonth() + 1;
-    const getLastDayOfMonth = 0;
-    return new Date(year, month, getLastDayOfMonth).getDate();
-  });
+export const getInitialMonthNumberOfDays = (locale: LocaleLanguage) =>
+  createSelector(updateDateState, (state) =>
+    getMonthNumberOfDays(locale, new Date(state.initialState.date))
+  );
 
 export const getSelectedMonthNumberOfDays = () =>
   createSelector(updateDateState, (state) => {

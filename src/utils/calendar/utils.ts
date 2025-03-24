@@ -82,14 +82,12 @@ export const getYear = (date: DateConfig["date"]) =>
 export const getTimeInMilliseconds = (date: DateConfig["date"]) =>
   date.getTime();
 
-// export const getMonthNumberOfDays = (
-//   locale: LocaleLanguage,
-//   date: DateConfig["date"]
-// ) => {
-//   // const currentDate = new Date(state.initialState.date);
-//   const year = getYear(date);
-//   const month = getMonth(date);
-//   const month = currentDate.getMonth() + 1;
-//   const getLastDayOfMonth = 0;
-//   return new Date(year, month, getLastDayOfMonth).getDate();
-// };
+export const getMonthNumberOfDays = (
+  locale: LocaleLanguage,
+  date: DateConfig["date"]
+) => {
+  const year = getYear(date);
+  const month = getMonthIndex(locale, date) + 1;
+  const getLastDayOfMonth = 0;
+  return new Date(year, month, getLastDayOfMonth).getDate();
+};
