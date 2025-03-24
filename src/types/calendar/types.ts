@@ -1,4 +1,10 @@
 import {
+  IntlDateTimeFormatFull,
+  IntlDateTimeFormatLong,
+  IntlDateTimeFormatMedium,
+  IntlDateTimeFormatShort,
+} from "../../utils/constants";
+import {
   Months,
   WeekDaysInitials,
   WeekDaysLongNames,
@@ -32,3 +38,10 @@ export type CalendarCellInfo = {
 };
 
 export type ObjectType = Record<string, unknown>;
+
+export type IntlDateTimeFormatOptions =
+  | typeof IntlDateTimeFormatFull
+  | typeof IntlDateTimeFormatLong
+  | typeof IntlDateTimeFormatMedium
+  | typeof IntlDateTimeFormatShort
+  | undefined;
