@@ -12,7 +12,6 @@ import {
 import { isToday } from "./current";
 import { getWeekDaysNames } from "./weeks";
 
-export const firstDayOfTheMonth = 1;
 export const todayLabel = "Today";
 
 export const monthNameByIndex: Record<Months, MonthsNames> = {
