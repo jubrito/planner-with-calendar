@@ -54,7 +54,7 @@ export const getSelectedYear = (locale: LocaleLanguage) =>
 
 export const getInitialTime = () =>
   createSelector(updateDateState, (state) =>
-    new Date(state.initialState.date).getTime()
+    getTimeInMilliseconds(new Date(state.currentState.date))
   );
 
 export const getSelectedTime = () =>
