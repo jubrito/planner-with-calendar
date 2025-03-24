@@ -1,7 +1,10 @@
 import {
+  IntlDateTimeFormat2Digit,
   IntlDateTimeFormatFull,
   IntlDateTimeFormatLong,
   IntlDateTimeFormatMedium,
+  IntlDateTimeFormatNarrow,
+  IntlDateTimeFormatNumeric,
   IntlDateTimeFormatShort,
 } from "../../utils/constants";
 import {
@@ -44,4 +47,12 @@ export type IntlDateTimeFormatOptions =
   | typeof IntlDateTimeFormatLong
   | typeof IntlDateTimeFormatMedium
   | typeof IntlDateTimeFormatShort
+  | undefined;
+
+export type IntlDateTimeMonthFormatOptions =
+  | typeof IntlDateTimeFormatLong
+  | typeof IntlDateTimeFormatShort
+  | typeof IntlDateTimeFormatNumeric
+  | typeof IntlDateTimeFormat2Digit
+  | typeof IntlDateTimeFormatNarrow
   | undefined;
