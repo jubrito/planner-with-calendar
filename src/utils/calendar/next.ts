@@ -3,6 +3,7 @@ import { Months, WeekDaysShortNames } from "../../types/calendar/enums";
 import { getWeekDayName, numberOfDaysOfTheWeek } from "./weeks";
 import {
   getMonthIndex,
+  getYear,
   numOfDaysFromOtherMonthOnCurrentCalendar,
 } from "./utils";
 import { firstDayOfTheMonth } from "./constants";
@@ -34,7 +35,7 @@ export const getNextMonthDaysOnCurrentMonth = (
     nextMonthDaysOnCurrentMonth.push({
       month: getMonthIndex(locale, new Date(year, month + 1)) + 1,
       day: firstDayOfTheMonth + i,
-      year: getNextMonthYear(year, month),
+      year: getYear(locale, new Date(year, month + 1)),
     });
   }
   return nextMonthDaysOnCurrentMonth;
