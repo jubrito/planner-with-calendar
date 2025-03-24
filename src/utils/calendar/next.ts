@@ -1,21 +1,11 @@
 import { CalendarCellInfo, DateConfig } from "../../types/calendar/types";
 import { Months, WeekDaysShortNames } from "../../types/calendar/enums";
 import { getWeekDayName, numberOfDaysOfTheWeek } from "./weeks";
-import { numOfDaysFromOtherMonthOnCurrentCalendar } from "./utils";
+import {
+  getMonthIndex,
+  numOfDaysFromOtherMonthOnCurrentCalendar,
+} from "./utils";
 import { firstDayOfTheMonth } from "./constants";
-
-export const getNextMonthName = (
-  year: DateConfig["year"],
-  month: DateConfig["month"],
-  locale: string,
-  format: "short" | "long" = "long"
-) =>
-  new Intl.DateTimeFormat(locale, {
-    month: format,
-  }).format(new Date(year, month + 1, 1));
-
-export const getNextMonthIndex = (month: DateConfig["month"]) =>
-  month === Months.DECEMBER ? Months.JANUARY : month + 1;
 
 export const getNextMonthYear = (
   year: DateConfig["year"],
@@ -42,7 +32,7 @@ export const getNextMonthDaysOnCurrentMonth = (
 
   for (let i = 0; i < numberOfDaysOfNextMonth; i++) {
     nextMonthDaysOnCurrentMonth.push({
-      month: getNextMonthIndex(month) + 1,
+      month: getMonthIndex(locale, new Date(year, month + 1)) + 1,
       day: firstDayOfTheMonth + i,
       year: getNextMonthYear(year, month),
     });
