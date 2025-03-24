@@ -15,10 +15,10 @@ import { useSelector } from "react-redux";
 import { getLocaleLanguage } from "../../../redux/slices/localeSlice/selectors";
 
 const CalendarCells = () => {
-  const localeLang = useSelector(getLocaleLanguage());
+  const locale = useSelector(getLocaleLanguage());
   const time = useSelector(getSelectedTime());
-  const year = useSelector(getSelectedYear());
-  const month = useSelector(getSelectedMonth());
+  const year = useSelector(getSelectedYear(locale));
+  const month = useSelector(getSelectedMonth(locale));
   const monthNumberOfDays = useSelector(getSelectedMonthNumberOfDays());
   const getPreviousCurrentAndNextMonthDays = () => {
     const currentMonthDays: CalendarCellInfo[] = getCurrentMonthDays(
@@ -31,13 +31,13 @@ const CalendarCells = () => {
       month,
       year,
       time,
-      localeLang
+      locale
     );
     const nextMonthDaysOnCurrentMonth = getNextMonthDaysOnCurrentMonth(
       month,
       year,
       monthNumberOfDays,
-      localeLang
+      locale
     );
 
     return [
