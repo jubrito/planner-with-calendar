@@ -5,6 +5,7 @@ import {
   getDay,
   getDayOfWeek,
   getMonthIndex,
+  getMonthNumberOfDays,
   getYear,
 } from "../utils/calendar/utils";
 
@@ -42,10 +43,6 @@ export const useDate = (
     year: getYear(locale, date),
     time: date.getTime(),
     dayOfWeek: getDayOfWeek(locale, date),
-    monthNumberOfDays: new Date(
-      date.getFullYear(),
-      date.getMonth() + 1,
-      0
-    ).getDate(),
+    monthNumberOfDays: getMonthNumberOfDays(locale, date),
   };
 };
