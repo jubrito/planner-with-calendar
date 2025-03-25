@@ -1,20 +1,10 @@
-import {
-  WeekDaysInitials,
-  WeekDaysLongNames,
-  WeekDaysShortNames,
-} from "../../types/calendar/enums";
-import {
-  DateConfig,
-  WeekDaysShortAndLongeNames,
-} from "../../types/calendar/types";
+import { DateConfig } from "../../types/calendar/types";
 import { getFormatedDate } from "./current";
 import { getDayName } from "./utils";
 
 export const numberOfDaysOfTheWeek = 7;
 
-export const getWeekDaysNames = (
-  locale: string
-): WeekDaysShortAndLongeNames[] => {
+export const getWeekDaysNames = (locale: string) => {
   const date = new Date(0);
   return [...Array(numberOfDaysOfTheWeek).keys()].map((dayOfWeek) => {
     const dayOneIndexed = dayOfWeek + 1;
@@ -23,15 +13,15 @@ export const getWeekDaysNames = (
     return {
       long: new Intl.DateTimeFormat([locale], {
         weekday: "long",
-      }).format(date) as WeekDaysLongNames,
+      }).format(date),
       short: new Intl.DateTimeFormat([locale], {
         weekday: "short",
-      }).format(date) as WeekDaysShortNames,
+      }).format(date),
       initial: new Intl.DateTimeFormat([locale], {
         weekday: "short",
       })
         .format(date)
-        .charAt(0) as WeekDaysInitials,
+        .charAt(0),
     };
   });
 };
@@ -41,7 +31,7 @@ export const getWeekDayName = (
   month: DateConfig["month"],
   dayToFind: number,
   locale: string
-): WeekDaysShortNames => {
+) => {
   const dayOfTheMonthDate = getFormatedDate(
     locale,
     new Date(year, month, dayToFind)

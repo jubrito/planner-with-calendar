@@ -129,7 +129,7 @@ export const getDayOfWeek = (
   }).format(date);
 
 export const getDayName = (dayOfWeek: number, locale: string) => {
-  let dayName: WeekDaysShortNames;
+  let dayName: string;
   const weekDays = getWeekDaysNames(locale);
   if (dayOfWeek === 0) {
     dayName = weekDays[WeekDays.SUNDAY].short;

@@ -25,12 +25,6 @@ export type DateConfig = {
   monthNumberOfDays: number;
 };
 
-export type WeekDaysShortAndLongeNames = {
-  short: WeekDaysShortNames;
-  long: WeekDaysLongNames;
-  initial: WeekDaysInitials;
-};
-
 export type CalendarCellInfo = {
   month: DateConfig["month"];
   day: DateConfig["day"];
