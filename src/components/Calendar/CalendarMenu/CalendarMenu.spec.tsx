@@ -1,8 +1,7 @@
 import { screen, waitFor } from "@testing-library/dom";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
-import { Months, MonthsNames } from "../../../types/calendar/enums";
-import { getFullDateTitle } from "../../../utils/calendar/utils";
+import { Months } from "../../../types/calendar/enums";
 import { renderWithProviders } from "../../../utils/tests/renderWithProviders";
 import { initialValue } from "../../../redux/slices/dateSlice";
 import { AppStore } from "../../../redux/store";

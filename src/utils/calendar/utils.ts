@@ -1,6 +1,5 @@
 import {
   Months,
-  MonthsNames,
   WeekDays,
   WeekDaysShortNames,
 } from "../../types/calendar/enums";
@@ -21,19 +20,27 @@ import { todayLabel } from "./constants";
 import { isToday } from "../checkers";
 import { getWeekDaysNames } from "./weeks";
 
-export const monthNameByIndex: Record<Months, MonthsNames> = {
-  [Months.JANUARY]: MonthsNames.JANUARY,
-  [Months.FEBRUARY]: MonthsNames.FEBRUARY,
-  [Months.MARCH]: MonthsNames.MARCH,
-  [Months.APRIL]: MonthsNames.APRIL,
-  [Months.MAY]: MonthsNames.MAY,
-  [Months.JUNE]: MonthsNames.JUNE,
-  [Months.JULY]: MonthsNames.JULY,
-  [Months.AUGUST]: MonthsNames.AUGUST,
-  [Months.SEPTEMBER]: MonthsNames.SEPTEMBER,
-  [Months.OCTOBER]: MonthsNames.OCTOBER,
-  [Months.NOVEMBER]: MonthsNames.NOVEMBER,
-  [Months.DECEMBER]: MonthsNames.DECEMBER,
+export const monthNameByIndex = (
+  locale: LocaleLanguage
+): Record<Months, string> => {
+  const anyYear = 2025;
+  return {
+    [Months.JANUARY]: getMonthName(locale, new Date(anyYear, Months.JANUARY)),
+    [Months.FEBRUARY]: getMonthName(locale, new Date(anyYear, Months.FEBRUARY)),
+    [Months.MARCH]: getMonthName(locale, new Date(anyYear, Months.MARCH)),
+    [Months.APRIL]: getMonthName(locale, new Date(anyYear, Months.APRIL)),
+    [Months.MAY]: getMonthName(locale, new Date(anyYear, Months.MAY)),
+    [Months.JUNE]: getMonthName(locale, new Date(anyYear, Months.JUNE)),
+    [Months.JULY]: getMonthName(locale, new Date(anyYear, Months.JULY)),
+    [Months.AUGUST]: getMonthName(locale, new Date(anyYear, Months.AUGUST)),
+    [Months.SEPTEMBER]: getMonthName(
+      locale,
+      new Date(anyYear, Months.SEPTEMBER)
+    ),
+    [Months.OCTOBER]: getMonthName(locale, new Date(anyYear, Months.OCTOBER)),
+    [Months.NOVEMBER]: getMonthName(locale, new Date(anyYear, Months.NOVEMBER)),
+    [Months.DECEMBER]: getMonthName(locale, new Date(anyYear, Months.DECEMBER)),
+  };
 };
 
 export const numOfDaysFromOtherMonthOnCurrentCalendar = (
