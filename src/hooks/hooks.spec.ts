@@ -58,5 +58,45 @@ describe("React hooks", () => {
         });
       });
     });
+    describe("Passing locale and initial date to constructor", () => {
+      it("should return initial date with only locale param", () => {
+        const currentDate = new Date(initialYear, initialMonth, initialDay);
+        console.log("currentDate juju", currentDate);
+        const { result } = renderHook(() => useDate(locale, currentDate));
+        const { date, day, dayOfWeek, month, monthNumberOfDays, time, year } =
+          result.current;
+        expect(date).toStrictEqual(getDate(locale, currentDate));
+        expect(year).toStrictEqual(getYear(locale, currentDate));
+        expect(month).toStrictEqual(getMonthIndex(locale, currentDate));
+        expect(day).toStrictEqual(getDay(locale, currentDate));
+        expect(dayOfWeek).toStrictEqual(getDayOfWeek(locale, currentDate));
+        expect(monthNumberOfDays).toStrictEqual(
+          getMonthNumberOfDays(locale, currentDate)
+        );
+        expect(time.toString().length).toStrictEqual(
+          getTimeInMilliseconds(currentDate).toString().length
+        );
+        expect(time.toString().slice(0, 4)).toStrictEqual(
+          getTimeInMilliseconds(currentDate).toString().slice(0, 4) // precision of 5 digits
+        );
+      });
+      // it("should update and return the date", async () => {
+      //   let date = new Date(initialYear);
+      //   const { result } = renderHook(() => useDate(locale, initialYear));
+      //   const { date: initialDate, updateDate: initialUpdateDate } =
+      //     result.current;
+      //   expect(initialDate).toStrictEqual(getDate(locale, date));
+
+      //   act(() => {
+      //     initialUpdateDate(initialYear - 1, initialMonth - 1, initialDay);
+      //   });
+
+      //   const { date: updatedDate } = result.current;
+      //   date = new Date(initialYear - 1, initialMonth - 1, initialDay);
+      //   await waitFor(() => {
+      //     expect(updatedDate).toStrictEqual(getDate(locale, date));
+      //   });
+      // });
+    });
   });
 });
