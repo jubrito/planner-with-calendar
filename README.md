@@ -1,8 +1,5 @@
 # Next steps (v1):
 
-- Tests:
-  - Test useDate hook (test them in isolation using renderHook from @testing-library/react-hooks)
-  - Test utils? such as getting month properties, dates, times
 - Planner
   - Create weekly planner integrated with calendar (+ tests)
   - Calendar button to click on day and open planner
