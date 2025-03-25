@@ -11,13 +11,14 @@ import {
 } from "../utils/calendar/utils";
 
 const getInitialDate = (
+  locale: LocaleLanguage,
   initialYear?: number,
   initialMonth?: number,
   initialDay?: number
 ) => {
-  const year = initialYear ?? new Date().getFullYear();
-  const month = initialMonth ?? new Date().getMonth();
-  const day = initialDay ?? new Date().getDate();
+  const year = initialYear ?? getYear(locale, new Date());
+  const month = initialMonth ?? getMonthIndex(locale, new Date());
+  const day = initialDay ?? getDay(locale, new Date());
 
   return new Date(year, month, day);
 };
@@ -29,7 +30,7 @@ export const useDate = (
   initialDay?: DateConfig["day"]
 ): DateConfig => {
   const [date, setDate] = useState(
-    getInitialDate(initialYear, initialMonth, initialDay)
+    getInitialDate(locale, initialYear, initialMonth, initialDay)
   );
 
   const updateDate = (year: number, month: number, day: number) => {
