@@ -1,11 +1,5 @@
 # Next steps (v1):
 
-- Refactor:
-
-  - Intl instead of date
-    - Check: Other places to use Intl
-    - Check: Use Intl to get dates from redux
-
 - Tests:
   - Test useDate hook (test them in isolation using renderHook from @testing-library/react-hooks)
   - Test utils? such as getting month properties, dates, times
