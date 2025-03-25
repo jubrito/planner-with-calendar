@@ -1,4 +1,5 @@
 import { DateConfig } from "../../types/calendar/types";
+import { LocaleLanguage } from "../../types/locale/types";
 
 export const getCurrentMonthDays = (
   year: DateConfig["year"],
@@ -12,4 +13,20 @@ export const getCurrentMonthDays = (
     day: day + 1,
     year: year,
   }));
+};
+
+export const getFormatedDateString = (
+  locale: LocaleLanguage,
+  date: DateConfig["date"],
+  options: Intl.DateTimeFormatOptions = {}
+) => {
+  return new Intl.DateTimeFormat(locale, options).format(date);
+};
+
+export const getFormatedDate = (
+  locale: LocaleLanguage,
+  date: DateConfig["date"],
+  options: Intl.DateTimeFormatOptions = {}
+) => {
+  return new Date(getFormatedDateString(locale, date, options));
 };
