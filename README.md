@@ -2,7 +2,6 @@
 
 - Refactor:
 
-  - Use new functions on existing code (search date functions like .getFullYear, .getMonth, new Date() and other stuff)
   - Intl instead of date
     - Check: Other places to use Intl
     - Check: Use Intl to get dates from redux
