@@ -1,18 +1,3 @@
-export enum MonthsNames {
-  JANUARY = "January",
-  FEBRUARY = "February",
-  MARCH = "March",
-  APRIL = "April",
-  MAY = "May",
-  JUNE = "June",
-  JULY = "July",
-  AUGUST = "August",
-  SEPTEMBER = "September",
-  OCTOBER = "October",
-  NOVEMBER = "November",
-  DECEMBER = "December",
-}
-
 export enum WeekDaysLongNames {
   MONDAY = "Monday",
   TUESDAY = "Tuesday",
