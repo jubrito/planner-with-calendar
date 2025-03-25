@@ -13,28 +13,18 @@ import { getFormatedDate } from "../utils/calendar/current";
 
 const getInitialDate = (
   locale: LocaleLanguage,
-  initialYear?: number,
-  initialMonth?: number,
-  initialDay?: number
-) => {
-  const year = initialYear ?? getYear(locale, new Date());
-  const month = initialMonth ?? getMonthIndex(locale, new Date());
-  const day = initialDay ?? getDay(locale, new Date());
-
-  return new Date(year, month, day);
-};
+  initialDate?: DateConfig["date"]
+) =>
+  initialDate
+    ? getFormatedDate(locale, initialDate)
+    : getFormatedDate(locale, new Date());
 
 export const useDate = (
   locale: LocaleLanguage,
-  initialYear?: DateConfig["year"],
-  initialMonth?: DateConfig["month"],
-  initialDay?: DateConfig["day"]
+  initialDate?: DateConfig["date"]
 ): DateConfig => {
   const [formatedDate, setFormatedDate] = useState(
-    getFormatedDate(
-      locale,
-      getInitialDate(locale, initialYear, initialMonth, initialDay)
-    )
+    getInitialDate(locale, initialDate)
   );
 
   const updateDate = (year: number, month: number, day: number) => {
