@@ -1,4 +1,4 @@
-import { renderHook } from "@testing-library/react";
+import { act, renderHook, waitFor } from "@testing-library/react";
 import { useDate } from "./useDate";
 import { defaultLocale } from "../utils/locale/constants";
 import { Months } from "../types/calendar/enums";
@@ -16,7 +16,8 @@ describe("React hooks", () => {
   const locale = defaultLocale;
   describe("useDate()", () => {
     const initialYear = 2025;
-    const initialMonth = Months.MARCH;
+    const initialMonth = Months.DECEMBER;
+    const initialDay = 1;
 
     describe("Only passing locale to constructor", () => {
       it("should return initial date with only locale param", () => {
@@ -38,6 +39,23 @@ describe("React hooks", () => {
         expect(time.toString().slice(0, 4)).toStrictEqual(
           getTimeInMilliseconds(currentDate).toString().slice(0, 4) // precision of 5 digits
         );
+      });
+      it("should update and return the date", async () => {
+        let date = new Date();
+        const { result } = renderHook(() => useDate(locale));
+        const { date: initialDate, updateDate: initialUpdateDate } =
+          result.current;
+        expect(initialDate).toStrictEqual(getDate(locale, date));
+
+        act(() => {
+          initialUpdateDate(initialYear - 1, initialMonth - 1, initialDay);
+        });
+
+        const { date: updatedDate } = result.current;
+        date = new Date(initialYear - 1, initialMonth - 1, initialDay);
+        await waitFor(() => {
+          expect(updatedDate).toStrictEqual(getDate(locale, date));
+        });
       });
     });
   });
