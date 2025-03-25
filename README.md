@@ -9,20 +9,36 @@
 
 ## v1:
 
-- Features
-  - Day / Week / Month / Compact (+ tests)
-- Layout
-  - Transitions for cool effects
-  - Text highlight bg and color
-  - Text hover
-  - Responsiveness
-- Update project important information
-  - Accessibility requirements
-  - Favicon, basic SEO?
-  - Update readme with project specifications
 - Accessibility
-  - Add skip to main content (+ tests)
+
+  > Lighthouse report
+  > SEO
+
+- Performance
+
+  > Cache: Check if blocking files (js, css) headers have max-age=0 and must-revalidade
+  > Webpack tree shaking
+  > CDN: Serve static resources via a CDN:
+  > Content Delivery Network is to reduce latency and deliver content to the end user as quickly as possible. They implement multiple strategies for this. The two most important ones for this article are "distributed servers" and "caching."
+
 - Web Hosting
+
+  > Netlify/HottestNewProvider
+
+- Features
+
+  > Day / Week / Month / Compact (+ tests)
+
+- Layout
+
+  > Transitions for cool effects
+  > Text highlight bg and color
+  > Text hover
+  > Text searched highlight
+  > Responsiveness
+  > Favicon
+
+- Update README.md
 
 ## v2
 
@@ -31,13 +47,14 @@
   - Nav
     - Links (Gihub, project functionalities and details, about me?)
     - Header?
+- Accessibility
+  - Add skip to main content (+ tests)
 
 ## v3
 
 - Locale
   - Button to change language (+ tests)
   - Update month names, getFullDateTitle, date order (+ tests)
-- Webpack tree shaking and performance
 - Timezones?
 
 ## v4
@@ -50,10 +67,11 @@
 ## v5
 
 - Security
-- Add light/dark/accessible themes
+  - CORs
+- Themes
+  - Light/dark/accessible themes
 - Pipeline
 - Integration tests
-- Cache for already visited months
 - Moons?
 
 # React + TypeScript + Vite
