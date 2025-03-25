@@ -19,6 +19,8 @@ describe("React hooks", () => {
     const initialMonth = Months.DECEMBER;
     const initialDay = 1;
 
+    const getFirstFiveDigits = (value: number) => value.toString().slice(0, 4);
+
     describe("Only passing locale to constructor", () => {
       it("should return initial date with only locale param", () => {
         const currentDate = new Date();
@@ -36,8 +38,8 @@ describe("React hooks", () => {
         expect(time.toString().length).toStrictEqual(
           getTimeInMilliseconds(currentDate).toString().length
         );
-        expect(time.toString().slice(0, 4)).toStrictEqual(
-          getTimeInMilliseconds(currentDate).toString().slice(0, 4) // precision of 5 digits
+        expect(getFirstFiveDigits(time)).toStrictEqual(
+          getFirstFiveDigits(getTimeInMilliseconds(currentDate)) // precision of 5 digits
         );
       });
       it("should update and return the date", async () => {
@@ -61,7 +63,6 @@ describe("React hooks", () => {
     describe("Passing locale and initial date to constructor", () => {
       it("should return initial date with only locale param", () => {
         const currentDate = new Date(initialYear, initialMonth, initialDay);
-        console.log("currentDate juju", currentDate);
         const { result } = renderHook(() => useDate(locale, currentDate));
         const { date, day, dayOfWeek, month, monthNumberOfDays, time, year } =
           result.current;
@@ -76,27 +77,27 @@ describe("React hooks", () => {
         expect(time.toString().length).toStrictEqual(
           getTimeInMilliseconds(currentDate).toString().length
         );
-        expect(time.toString().slice(0, 4)).toStrictEqual(
-          getTimeInMilliseconds(currentDate).toString().slice(0, 4) // precision of 5 digits
+        expect(getFirstFiveDigits(time)).toStrictEqual(
+          getFirstFiveDigits(getTimeInMilliseconds(currentDate)) // precision of 5 digits
         );
       });
-      // it("should update and return the date", async () => {
-      //   let date = new Date(initialYear);
-      //   const { result } = renderHook(() => useDate(locale, initialYear));
-      //   const { date: initialDate, updateDate: initialUpdateDate } =
-      //     result.current;
-      //   expect(initialDate).toStrictEqual(getDate(locale, date));
+      it("should update and return the date", async () => {
+        let date = new Date(initialYear, initialMonth, initialDay);
+        const { result } = renderHook(() => useDate(locale, date));
+        const { date: initialDate, updateDate: initialUpdateDate } =
+          result.current;
+        expect(initialDate).toStrictEqual(getDate(locale, date));
 
-      //   act(() => {
-      //     initialUpdateDate(initialYear - 1, initialMonth - 1, initialDay);
-      //   });
+        act(() => {
+          initialUpdateDate(initialYear - 1, initialMonth - 1, initialDay);
+        });
 
-      //   const { date: updatedDate } = result.current;
-      //   date = new Date(initialYear - 1, initialMonth - 1, initialDay);
-      //   await waitFor(() => {
-      //     expect(updatedDate).toStrictEqual(getDate(locale, date));
-      //   });
-      // });
+        const { date: updatedDate } = result.current;
+        date = new Date(initialYear - 1, initialMonth - 1, initialDay);
+        await waitFor(() => {
+          expect(updatedDate).toStrictEqual(getDate(locale, date));
+        });
+      });
     });
   });
 });
