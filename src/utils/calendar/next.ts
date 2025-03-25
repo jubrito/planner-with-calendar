@@ -1,5 +1,4 @@
 import { CalendarCellInfo, DateConfig } from "../../types/calendar/types";
-import { WeekDaysShortNames } from "../../types/calendar/enums";
 import { getWeekDayName, numberOfDaysOfTheWeek } from "./weeks";
 import {
   getMonthIndex,
@@ -15,7 +14,7 @@ export const getNextMonthDaysOnCurrentMonth = (
   locale: string
 ) => {
   const nextMonthDaysOnCurrentMonth: CalendarCellInfo[] = [];
-  const weekDayNameWhenMonthEnds: WeekDaysShortNames = getWeekDayName(
+  const weekDayNameWhenMonthEnds = getWeekDayName(
     year,
     month,
     monthNumberOfDays,

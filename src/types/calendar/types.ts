@@ -7,12 +7,7 @@ import {
   IntlDateTimeFormatNumeric,
   IntlDateTimeFormatShort,
 } from "../../utils/constants";
-import {
-  Months,
-  WeekDaysInitials,
-  WeekDaysLongNames,
-  WeekDaysShortNames,
-} from "./enums";
+import { Months } from "./enums";
 
 export type DateConfig = {
   date: Date;

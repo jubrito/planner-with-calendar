@@ -1,23 +1,3 @@
-export enum WeekDaysLongNames {
-  MONDAY = "Monday",
-  TUESDAY = "Tuesday",
-  WEDNESDAY = "Wednesday",
-  THURSDAY = "Thursday",
-  FRIDAY = "Friday",
-  SATURDAY = "Saturday",
-  SUNDAY = "Sunday",
-}
-
-export enum WeekDaysShortNames {
-  MON = "Mon",
-  TUE = "Tue",
-  WED = "Wed",
-  THU = "Thu",
-  FRI = "Fri",
-  SAT = "Sat",
-  SUN = "Sun",
-}
-
 export enum WeekDaysInitials {
   MONDAY = "M",
   TUESDAY = "T",

@@ -1,8 +1,4 @@
-import {
-  Months,
-  WeekDays,
-  WeekDaysShortNames,
-} from "../../types/calendar/enums";
+import { Months, WeekDays } from "../../types/calendar/enums";
 import {
   DateConfig,
   IntlDateTypeMonthStyle,
@@ -44,7 +40,7 @@ export const monthNameByIndex = (
 };
 
 export const numOfDaysFromOtherMonthOnCurrentCalendar = (
-  weekDayName: WeekDaysShortNames,
+  weekDayName: string,
   locale: string
 ) => getWeekDaysNames(locale).findIndex((name) => weekDayName === name.short);
 
