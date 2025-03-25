@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { DateConfig } from "../../../types/calendar/types";
 import { deepCopy } from "../../../utils/utils";
+import { getFormatedDateString } from "../../../utils/calendar/current";
+import { defaultLocale } from "../../../utils/locale/constants";
 
 export type InitialDateState = {
   date: string;
@@ -12,7 +14,7 @@ export type InitialState = {
 };
 
 const initialDate: InitialDateState = {
-  date: new Date().toLocaleDateString(),
+  date: getFormatedDateString(defaultLocale, new Date()),
 };
 
 export const initialValue: InitialState = {
@@ -33,7 +35,10 @@ export const dateSlice = createSlice({
       }>
     ) => {
       const { year, month, day } = action.payload;
-      state.currentState.date = new Date(year, month, day).toDateString();
+      state.currentState.date = getFormatedDateString(
+        defaultLocale,
+        new Date(year, month, day)
+      );
     },
   },
 });
