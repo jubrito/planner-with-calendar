@@ -7,6 +7,9 @@
   margin-right: variables.$outer-spacing;
   padding: variables.$inner-spacing;
   color: variables.$black-color;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 
   @include mixins.media-only-mobile {
     margin: 0 variables.$inner-spacing;
@@ -14,12 +17,6 @@
   @include mixins.media-only-small-mobile {
     margin: 0;
   }
-
-  // height: calc(90% - $spacing);
-
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
 
   .plannerHeader {
     display: flex;
@@ -38,16 +35,20 @@
 
   .hoursWrapper {
     width: 100%;
-    height: 100%; /* Ensure the scrollable content doesn't exceed the row height */
+    height: 100%;
     overflow-y: auto;
+    margin-top: variables.$outer-spacing;
+
     .hoursOfTheDay {
       display: flex;
       flex-direction: column;
-      width: 50%;
+      width: max-content;
+      text-align: right;
       min-height: min-content;
 
       span {
         width: 100%;
+        padding: 0 0 40px;
       }
     }
   }
