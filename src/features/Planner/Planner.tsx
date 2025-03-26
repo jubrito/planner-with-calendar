@@ -4,12 +4,13 @@ import { getInitialDate } from '../../redux/slices/dateSlice/selectors';
 import { useDate } from '../../hooks/useDate';
 import { getLocaleLanguage } from '../../redux/slices/localeSlice/selectors';
 import { getHoursOfTheDay, getMonthName } from '../../utils/calendar/utils';
+import { IntlDateTimeFormatShort } from '../../utils/constants';
 
 const Planner = () => {
   const locale = useSelector(getLocaleLanguage());
   const initialDate = useSelector(getInitialDate(locale));
   const { date, year, month, day, dayOfWeek } = useDate(locale, initialDate);
-  const monthName = getMonthName(locale, date, 'short');
+  const monthName = getMonthName(locale, date, IntlDateTimeFormatShort);
 
   const hoursOfTheDay = getHoursOfTheDay(locale, year, month, day);
 
