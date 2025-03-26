@@ -21,10 +21,17 @@ const Planner = () => {
         </h2>
       </div>
       <div className={styles.hoursWrapper}>
-        <div className={styles.hoursOfTheDay}>
-          {hoursOfTheDay.map((hourOfTheDay) => {
-            return <span>{hourOfTheDay}</span>;
-          })}
+        <div className={styles.hoursOfTheDayWrapper}>
+          <div className={styles.hoursOfTheDay}>
+            {hoursOfTheDay.map((hourOfTheDay) => {
+              return (
+                <div className={styles.hoursOfTheDayRow}>
+                  <span className={styles.hoursOfTheDay}>{hourOfTheDay}</span>
+                  <span className={styles.hoursOfTheDayLine}></span>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

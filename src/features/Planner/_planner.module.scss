@@ -37,18 +37,31 @@
     width: 100%;
     height: 100%;
     overflow-y: auto;
-    margin-top: variables.$outer-spacing;
+    margin-top: variables.$inner-spacing - variables.$small-gap;
 
-    .hoursOfTheDay {
-      display: flex;
-      flex-direction: column;
-      width: max-content;
-      text-align: right;
-      min-height: min-content;
+    .hoursOfTheDayWrapper {
+      width: 100%;
 
-      span {
-        width: 100%;
-        padding: 0 0 40px;
+      .hoursOfTheDay {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        min-height: min-content;
+
+        .hoursOfTheDayRow {
+          display: flex;
+          align-items: center;
+          padding: 0 0 variables.$hoursOfDaySliceSpacing;
+          span.hoursOfTheDay {
+            min-width: max-content;
+          }
+          span.hoursOfTheDayLine {
+            width: 100%;
+            height: 1px;
+            background: variables.$black-color;
+            margin-left: variables.$small-gap;
+          }
+        }
       }
     }
   }
