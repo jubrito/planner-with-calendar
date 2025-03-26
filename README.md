@@ -65,9 +65,14 @@
 ## v4
 
 - Calendar Integration
+
   - Get calendar data from Apple API (+ tests)
   - Add custom events connecting to calendar (+ tests)
   - Integrate new changes with personal calendar (+ tests)
+
+- Custom events and reminders
+  - Allow repeating on specific months (e.g: every november) or periods (e.g.: from monthA to monthB every year)
+    - Enable for example fertilization reminders
 
 ## v5
 
