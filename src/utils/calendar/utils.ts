@@ -143,10 +143,29 @@ export const getHoursOfTheDay = (
 ) => {
   const numberOfHours = 24;
   const formatedHours = [];
+
+  const addZeroDigitBeforeSingleDigits = (formatedHour: string) => {
+    const [digits, period] = formatedHour.split(' ');
+    let formatedHourWithZero = formatedHour;
+    if (digits.length === 1) {
+      formatedHourWithZero = '0' + digits + ' ' + period;
+    }
+    return formatedHourWithZero;
+  };
+
+  const addZeroDigitsAfterDigits = (formatedHour: string) => {
+    return formatedHour + ':00';
+  };
+
   for (let i = 0; i < numberOfHours + 1; i++) {
-    const formatedHour = new Intl.DateTimeFormat(locale, {
-      hour: 'numeric',
+    let formatedHour = new Intl.DateTimeFormat(locale, {
+      hour: IntlDateTimeFormatNumeric,
     }).format(new Date(year, month, day, i));
+    if (formatedHour.includes('AM') || formatedHour.includes('PM')) {
+      formatedHour = addZeroDigitBeforeSingleDigits(formatedHour);
+    } else {
+      formatedHour = addZeroDigitsAfterDigits(formatedHour);
+    }
     formatedHours.push(formatedHour);
   }
   return formatedHours;
