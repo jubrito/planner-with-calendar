@@ -55,8 +55,9 @@
           span.hoursOfTheDay {
             min-width: max-content;
           }
+
           span.hoursOfTheDayLine {
-            width: 100%;
+            width: calc(100% - 59px);
             height: 1px;
             background: variables.$black-color;
             margin-left: variables.$small-gap;
