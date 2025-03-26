@@ -1,16 +1,16 @@
-@use "../../styles/_variables.scss" as variables;
-@use "../../styles/_mixins.scss" as mixins;
+@use '../../styles/_variables.scss' as variables;
+@use '../../styles/_mixins.scss' as mixins;
 
 .home {
   display: grid;
   grid-template-columns: minmax(320px, 45%) 1fr;
-  grid-template-rows: auto max-content 20px;
+  grid-template-rows: 100px 1fr 20px;
   grid-row-gap: variables.$outer-spacing;
   grid-column-gap: 30px;
   grid-template-areas:
-    "nav nav"
-    "calendar planner"
-    "footer footer";
+    'nav nav'
+    'calendar planner'
+    'footer footer';
   height: 100vh;
 
   @include mixins.media-only-mobile {
@@ -19,10 +19,10 @@
     grid-row-gap: variables.$outer-spacing;
     grid-column-gap: 15px;
     grid-template-areas:
-      "nav nav"
-      "calendar calendar"
-      "planner planner"
-      "footer footer";
+      'nav nav'
+      'calendar calendar'
+      'planner planner'
+      'footer footer';
     height: 100vh;
   }
 }
