@@ -5,4 +5,8 @@ export default tseslint.config(
   eslint.configs.strict,
   tseslint.configs.recommended,
   tseslint.configs.stylistic,
+  {
+    files: ['**/*.js'],
+    extends: [tseslint.configs.disableTypeChecked],
+  },
 );
