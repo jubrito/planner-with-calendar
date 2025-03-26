@@ -1,23 +1,23 @@
-import { Months, WeekDays } from "../../types/calendar/enums";
+import { Months, WeekDays } from '../../types/calendar/enums';
 import {
   DateConfig,
   IntlDateTypeMonthStyle,
   IntlDateTypeWeekdayStyle,
-} from "../../types/calendar/types";
-import { LocaleLanguage } from "../../types/locale/types";
+} from '../../types/calendar/types';
+import { LocaleLanguage } from '../../types/locale/types';
 import {
   IntlDateTimeFormat2Digit,
   IntlDateTimeFormatFull,
   IntlDateTimeFormatLong,
   IntlDateTimeFormatNumeric,
   IntlDateTimeFormatShort,
-} from "../constants";
-import { todayLabel } from "./constants";
-import { isToday } from "../checkers";
-import { getWeekDaysNames } from "./weeks";
+} from '../constants';
+import { todayLabel } from './constants';
+import { isToday } from '../checkers';
+import { getWeekDaysNames } from './weeks';
 
 export const monthNameByIndex = (
-  locale: LocaleLanguage
+  locale: LocaleLanguage,
 ): Record<Months, string> => {
   const anyYear = 2025;
   return {
@@ -31,7 +31,7 @@ export const monthNameByIndex = (
     [Months.AUGUST]: getMonthName(locale, new Date(anyYear, Months.AUGUST)),
     [Months.SEPTEMBER]: getMonthName(
       locale,
-      new Date(anyYear, Months.SEPTEMBER)
+      new Date(anyYear, Months.SEPTEMBER),
     ),
     [Months.OCTOBER]: getMonthName(locale, new Date(anyYear, Months.OCTOBER)),
     [Months.NOVEMBER]: getMonthName(locale, new Date(anyYear, Months.NOVEMBER)),
@@ -41,14 +41,14 @@ export const monthNameByIndex = (
 
 export const numOfDaysFromOtherMonthOnCurrentCalendar = (
   weekDayName: string,
-  locale: string
+  locale: string,
 ) => getWeekDaysNames(locale).findIndex((name) => weekDayName === name.short);
 
 export const getFullDateTitle = (
-  year: DateConfig["year"],
-  month: DateConfig["month"],
-  day: DateConfig["day"],
-  locale: string
+  year: DateConfig['year'],
+  month: DateConfig['month'],
+  day: DateConfig['day'],
+  locale: string,
 ) =>
   isToday(locale, new Date(year, month, day))
     ? todayLabel
@@ -56,7 +56,7 @@ export const getFullDateTitle = (
         dateStyle: IntlDateTimeFormatFull,
       }).format(new Date(year, month, day));
 
-export const getDate = (locale: LocaleLanguage, date: DateConfig["date"]) => {
+export const getDate = (locale: LocaleLanguage, date: DateConfig['date']) => {
   const formatedDate = new Intl.DateTimeFormat(locale, {
     month: IntlDateTimeFormatShort,
     day: IntlDateTimeFormatNumeric,
@@ -65,19 +65,19 @@ export const getDate = (locale: LocaleLanguage, date: DateConfig["date"]) => {
   return new Date(formatedDate);
 };
 
-export const getDay = (locale: LocaleLanguage, date: DateConfig["date"]) =>
+export const getDay = (locale: LocaleLanguage, date: DateConfig['date']) =>
   parseInt(
     new Intl.DateTimeFormat(locale, {
       day: IntlDateTimeFormatNumeric,
-    }).format(date)
+    }).format(date),
   );
 
 export const getMonthIndex = (
   locale: LocaleLanguage,
-  date: DateConfig["date"],
+  date: DateConfig['date'],
   monthStyle?:
     | typeof IntlDateTimeFormatNumeric
-    | typeof IntlDateTimeFormat2Digit
+    | typeof IntlDateTimeFormat2Digit,
 ) => {
   const formatedDate = new Intl.DateTimeFormat(locale, {
     month: monthStyle || IntlDateTimeFormatNumeric,
@@ -88,26 +88,26 @@ export const getMonthIndex = (
 
 export const getMonthName = (
   locale: LocaleLanguage,
-  date: DateConfig["date"],
-  monthStyle?: IntlDateTypeMonthStyle
+  date: DateConfig['date'],
+  monthStyle?: IntlDateTypeMonthStyle,
 ) =>
   new Intl.DateTimeFormat(locale, {
     month: monthStyle || IntlDateTimeFormatLong,
   }).format(date);
 
-export const getYear = (locale: LocaleLanguage, date: DateConfig["date"]) =>
+export const getYear = (locale: LocaleLanguage, date: DateConfig['date']) =>
   parseInt(
     new Intl.DateTimeFormat(locale, {
-      year: "numeric",
-    }).format(date)
+      year: 'numeric',
+    }).format(date),
   );
 
-export const getTimeInMilliseconds = (date: DateConfig["date"]) =>
+export const getTimeInMilliseconds = (date: DateConfig['date']) =>
   date.getTime();
 
 export const getMonthNumberOfDays = (
   locale: LocaleLanguage,
-  date: DateConfig["date"]
+  date: DateConfig['date'],
 ) => {
   const year = getYear(locale, date);
   const month = getMonthIndex(locale, date) + 1;
@@ -117,8 +117,8 @@ export const getMonthNumberOfDays = (
 
 export const getDayOfWeek = (
   locale: LocaleLanguage,
-  date: DateConfig["date"],
-  weekdayStyle?: IntlDateTypeWeekdayStyle
+  date: DateConfig['date'],
+  weekdayStyle?: IntlDateTypeWeekdayStyle,
 ) =>
   new Intl.DateTimeFormat(locale, {
     weekday: weekdayStyle || IntlDateTimeFormatLong,
@@ -133,4 +133,21 @@ export const getDayName = (dayOfWeek: number, locale: string) => {
     dayName = weekDays[dayOfWeek - 1].short; // Monday (0) to Saturday (5)
   }
   return dayName;
+};
+
+export const getHoursOfTheDay = (
+  locale: LocaleLanguage,
+  year: DateConfig['year'],
+  month: DateConfig['month'],
+  day: DateConfig['day'],
+) => {
+  const numberOfHours = 24;
+  const formatedHours = [];
+  for (let i = 0; i < numberOfHours + 1; i++) {
+    const formatedHour = new Intl.DateTimeFormat(locale, {
+      hour: 'numeric',
+    }).format(new Date(year, month, day, i));
+    formatedHours.push(formatedHour);
+  }
+  return formatedHours;
 };
