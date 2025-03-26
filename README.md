@@ -1,9 +1,15 @@
 # Next steps (v1):
 
+- Use date instead of string to allow locale?
+
+- Fix Planner test "should display hours of the day using 24-hour notation when locale is portuguese"
+
 - Planner
+  - Add hover with title explaining hour with full date
   - Create weekly planner integrated with calendar (+ tests)
   - Calendar button to click on day and open planner
-  - Indicate in the cell that clicking will open planner
+    - Test
+  - Indicate in the cell that clicking will open planner (accessibility)
 
 # Future Steps:
 
@@ -38,6 +44,8 @@
   > Responsiveness
   > Favicon
   > Scrollbar
+
+- Evitar usar toDateString da data inteira e usar outro armazenamento serializavel? (ex: timestamp?)
 
 - Update README.md
 
