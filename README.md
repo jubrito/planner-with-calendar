@@ -37,6 +37,7 @@
   > Text searched highlight
   > Responsiveness
   > Favicon
+  > Scrollbar
 
 - Update README.md
 
