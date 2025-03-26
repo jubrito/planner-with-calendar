@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { defaultLocale } from "../../../utils/locale/constants";
-import { deepCopy } from "../../../utils/utils";
-import { LocaleLanguage } from "../../../types/locale/types";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { defaultLocale } from '../../../utils/locale/constants';
+import { deepCopy } from '../../../utils/utils';
+import { LocaleLanguage } from '../../../types/locale/types';
 
 type InitialLocaleState = {
   locale: { lang: LocaleLanguage };
@@ -18,13 +18,13 @@ const initialLocale: InitialLocaleState = {
   },
 };
 
-const initialValue: InitialState = {
+export const initialValue: InitialState = {
   initialState: deepCopy(initialLocale),
   currentState: deepCopy(initialLocale),
 };
 
 export const localeSlice = createSlice({
-  name: "localeSlice",
+  name: 'localeSlice',
   initialState: initialValue,
   reducers: {
     updateLocale(state, action: PayloadAction<LocaleLanguage>) {
