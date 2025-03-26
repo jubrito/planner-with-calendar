@@ -1,8 +1,5 @@
 # Next steps (v1):
 
-- Fix lint errors
-- Configure webpack
-
 - Planner
   - Create weekly planner integrated with calendar (+ tests)
   - Calendar button to click on day and open planner
