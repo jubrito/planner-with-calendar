@@ -1,6 +1,5 @@
 # Next steps (v1):
 
-- Remove unused params from formated date functions and rename to ISOString
 - Rename redux to isoDate?
 - Rename getSelectedDate to getSelectedDateISOString and create new getSelectedDate
 
