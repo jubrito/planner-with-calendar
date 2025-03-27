@@ -1,7 +1,5 @@
 # Next steps (v1):
 
-- Fix Planner test "should display hours of the day using 24-hour notation when locale is portuguese"
-
 - Planner
   - Add hover with title explaining hour with full date
   - Create weekly planner integrated with calendar (+ tests)
