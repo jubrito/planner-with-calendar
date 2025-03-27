@@ -1,17 +1,16 @@
-import { useSelector } from "react-redux";
-import { DateConfig } from "../../../../types/calendar/types";
-import { getFullDateTitle } from "../../../../utils/calendar/utils";
-import calendarCellsStyles from "../_calendar-cells.module.scss";
-import cellsStyles from "./_cell.module.scss";
-import { getLocaleLanguage } from "../../../../redux/slices/localeSlice/selectors";
-import { isToday } from "../../../../utils/checkers";
-import { getFormatedDate } from "../../../../utils/calendar/current";
+import { useSelector } from 'react-redux';
+import { DateConfig } from '../../../../types/calendar/types';
+import { getFullDateTitle } from '../../../../utils/calendar/utils';
+import calendarCellsStyles from '../_calendar-cells.module.scss';
+import cellsStyles from './_cell.module.scss';
+import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
+import { isToday } from '../../../../utils/checkers';
 
 type CellProps = {
-  cellYear: DateConfig["year"];
-  cellMonth: DateConfig["month"];
-  cellDay: DateConfig["day"];
-  currentMonth: DateConfig["month"];
+  cellYear: DateConfig['year'];
+  cellMonth: DateConfig['month'];
+  cellDay: DateConfig['day'];
+  currentMonth: DateConfig['month'];
 };
 
 export const Cell = ({
@@ -23,10 +22,7 @@ export const Cell = ({
   const fullDate = `${cellYear}-${cellMonth}-${cellDay}`;
   const localeString = useSelector(getLocaleLanguage());
   const cellMonthZeroIndexed = cellMonth - 1;
-  const formatedDate = getFormatedDate(
-    localeString,
-    new Date(cellYear, cellMonthZeroIndexed, cellDay)
-  );
+  const formatedDate = new Date(cellYear, cellMonthZeroIndexed, cellDay);
 
   return (
     <td
@@ -48,7 +44,7 @@ export const Cell = ({
             cellYear,
             cellMonthZeroIndexed,
             cellDay,
-            localeString
+            localeString,
           )}
         >
           <span

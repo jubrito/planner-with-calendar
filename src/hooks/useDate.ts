@@ -9,15 +9,6 @@ import {
   getTimeInMilliseconds,
   getYear,
 } from '../utils/calendar/utils';
-import { getFormatedDate } from '../utils/calendar/current';
-
-const getInitialDate = (
-  locale: LocaleLanguage,
-  initialDate?: DateConfig['date'],
-) =>
-  initialDate
-    ? getFormatedDate(locale, initialDate)
-    : getFormatedDate(locale, new Date());
 
 export const useDate = (
   locale: LocaleLanguage,
@@ -26,12 +17,10 @@ export const useDate = (
   // console.log('useDate:');
   // console.log('initialDate', initialDate);
   // console.log('getInitialDate\n', getInitialDate(locale, initialDate));
-  const [formatedDate, setFormatedDate] = useState(
-    getInitialDate(locale, initialDate),
-  );
+  const [formatedDate, setFormatedDate] = useState(initialDate || new Date());
 
   const updateDate = (year: number, month: number, day: number) => {
-    setFormatedDate(getFormatedDate(locale, new Date(year, month, day)));
+    setFormatedDate(new Date(year, month, day));
   };
 
   return {
