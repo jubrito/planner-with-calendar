@@ -13,38 +13,38 @@
 }
 
 @mixin media-only-mobile {
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 620px) {
     @content;
   }
 }
 
 @mixin media-only-mobile {
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 620px) {
     @content;
   }
 }
 
 @mixin media-only-tablet {
-  @media only screen and (min-width: 600px) and (max-width: 1025px) {
+  @media only screen and (min-width: 620px) and (max-width: 1025px) {
     @content;
   }
 }
 
 @mixin media-for-compact-calendar {
-  @media only screen and ((min-width: 600px) and (max-width: 768px)),
+  @media only screen and ((min-width: 620px) and (max-width: 858px)),
     ((max-width: 450px)) {
     @content;
   }
 }
 
 // @mixin media-min-mobile {
-//   @media only screen and (min-width: 600px) {
+//   @media only screen and (min-width: 620px) {
 //     @content;
 //   }
 // }
 
 // @mixin media-min-small-tablet {
-//   @media only screen and (min-width: 600px) {
+//   @media only screen and (min-width: 620px) {
 //     @content;
 //   }
 // }
