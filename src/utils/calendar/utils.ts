@@ -10,7 +10,6 @@ import {
   IntlDateTimeFormatFull,
   IntlDateTimeFormatLong,
   IntlDateTimeFormatNumeric,
-  IntlDateTimeFormatShort,
 } from '../constants';
 import { todayLabel } from './constants';
 import { isToday } from '../checkers';
@@ -56,13 +55,8 @@ export const getFullDateTitle = (
         dateStyle: IntlDateTimeFormatFull,
       }).format(new Date(year, month, day));
 
-export const getDate = (locale: LocaleLanguage, date: DateConfig['date']) => {
-  const formatedDate = new Intl.DateTimeFormat(locale, {
-    month: IntlDateTimeFormatShort,
-    day: IntlDateTimeFormatNumeric,
-    year: IntlDateTimeFormatNumeric,
-  }).format(date);
-  return new Date(formatedDate);
+export const getDate = (_locale: LocaleLanguage, date: DateConfig['date']) => {
+  return date.toISOString();
 };
 
 export const getDay = (locale: LocaleLanguage, date: DateConfig['date']) =>

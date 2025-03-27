@@ -69,13 +69,13 @@ describe('Planner', () => {
       });
       expect(screen.getAllByText('12 AM').length).toBe(2);
     });
-    it.only('should display hours of the day using 24-hour notation when locale is portuguese', () => {
+    it('should display hours of the day using 24-hour notation when locale is portuguese', () => {
       renderWithProviders(<Planner />, {
         preloadedState: {
           dateSlice: {
             initialState: {
               ...initialDateValue.initialState,
-              date: new Date(currentYear, Months.MARCH, 1).toDateString(),
+              date: new Date(currentYear, Months.MARCH, 1).toISOString(),
             },
             currentState: {
               ...initialDateValue.currentState,
@@ -118,11 +118,11 @@ describe('Planner', () => {
         '21:00',
         '22:00',
         '23:00',
-        '24:00',
       ];
       hours.forEach((hour) => {
         expect(screen.getByText(hour)).toBeInTheDocument();
       });
+      expect(screen.getAllByText('00:00').length).toBe(2);
     });
   });
 });
