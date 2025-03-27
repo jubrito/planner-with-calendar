@@ -6,7 +6,7 @@ import {
   IntlDateTypeWeekdayStyle,
 } from '../../../types/calendar/types';
 import {
-  getDate,
+  getDateISOString,
   getDayOfWeek,
   getMonthIndex,
   getMonthName,
@@ -22,9 +22,10 @@ const updateDateState = (store: RootState) => store.dateSlice;
 export const getInitialDate = (locale: LocaleLanguage) =>
   createSelector(updateDateState, (state) => new Date(state.initialState.date));
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getSelectedDate = (locale: LocaleLanguage) =>
   createSelector(updateDateState, (state) =>
-    getDate(locale, new Date(state.currentState.date)),
+    getDateISOString(new Date(state.currentState.date)),
   );
 
 export const getInitialDay = (locale: LocaleLanguage) =>

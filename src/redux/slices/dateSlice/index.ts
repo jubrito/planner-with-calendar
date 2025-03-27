@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { DateConfig } from '../../../types/calendar/types';
 import { deepCopy } from '../../../utils/utils';
-import { getDateISOString } from '../../../utils/calendar/current';
+import { getDateISOString } from '../../../utils/calendar/utils';
 
 export type InitialDateState = {
   date: string;

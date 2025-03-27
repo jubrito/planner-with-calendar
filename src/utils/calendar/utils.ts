@@ -55,7 +55,7 @@ export const getFullDateTitle = (
         dateStyle: IntlDateTimeFormatFull,
       }).format(new Date(year, month, day));
 
-export const getDate = (_locale: LocaleLanguage, date: DateConfig['date']) => {
+export const getDateISOString = (date: DateConfig['date']) => {
   return date.toISOString();
 };
 

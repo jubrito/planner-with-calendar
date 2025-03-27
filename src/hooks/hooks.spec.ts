@@ -3,6 +3,7 @@ import { useDate } from './useDate';
 import { defaultLocale } from '../utils/locale/constants';
 import { Months } from '../types/calendar/enums';
 import {
+  getDateISOString,
   getDay,
   getDayOfWeek,
   getMonthIndex,
@@ -10,7 +11,6 @@ import {
   getTimeInMilliseconds,
   getYear,
 } from '../utils/calendar/utils';
-import { getDateISOString } from '../utils/calendar/current';
 import { DateConfig } from '../types/calendar/types';
 
 describe('React hooks', () => {
