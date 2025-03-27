@@ -16,7 +16,7 @@ export const CalendarMenu = () => {
   const dispatch = useDispatch();
   const locale = useSelector(getLocaleLanguage());
   const day = useSelector(getSelectedDay());
-  const year = useSelector(getSelectedYear(locale));
+  const year = useSelector(getSelectedYear());
   const month = useSelector(getSelectedMonth(locale));
   const currentMonthName = useSelector(
     getSelectedMonthName(locale, IntlDateTimeFormatLong),
