@@ -15,7 +15,7 @@ describe('Planner', () => {
           dateSlice: {
             initialState: {
               ...initialDateValue.initialState,
-              date: new Date(currentYear, Months.MARCH, 1).toDateString(),
+              dateISO: new Date(currentYear, Months.MARCH, 1).toDateString(),
             },
             currentState: {
               ...initialDateValue.currentState,
@@ -31,7 +31,7 @@ describe('Planner', () => {
           dateSlice: {
             initialState: {
               ...initialDateValue.initialState,
-              date: new Date(currentYear, Months.MARCH, 1).toDateString(),
+              dateISO: new Date(currentYear, Months.MARCH, 1).toDateString(),
             },
             currentState: {
               ...initialDateValue.currentState,
@@ -75,7 +75,7 @@ describe('Planner', () => {
           dateSlice: {
             initialState: {
               ...initialDateValue.initialState,
-              date: new Date(currentYear, Months.MARCH, 1).toISOString(),
+              dateISO: new Date(currentYear, Months.MARCH, 1).toISOString(),
             },
             currentState: {
               ...initialDateValue.currentState,

@@ -24,11 +24,11 @@ describe('CalendarMenu', () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                date: new Date(year, Months.JANUARY, 1).toDateString(),
+                dateISO: new Date(year, Months.JANUARY, 1).toDateString(),
               },
               initialState: {
                 ...initialValue.initialState,
-                date: new Date(year, Months.JANUARY, 1).toDateString(),
+                dateISO: new Date(year, Months.JANUARY, 1).toDateString(),
               },
             },
           },
@@ -66,7 +66,7 @@ describe('CalendarMenu', () => {
         });
         let reduxCurrentState = reduxStore.getState().dateSlice.currentState;
 
-        expect(new Date(reduxCurrentState.date).getMonth()).toBe(
+        expect(new Date(reduxCurrentState.dateISO).getMonth()).toBe(
           Months.JANUARY,
         );
 
@@ -74,7 +74,7 @@ describe('CalendarMenu', () => {
         reduxCurrentState = reduxStore.getState().dateSlice.currentState;
 
         await waitFor(() => {
-          expect(new Date(reduxCurrentState.date).getMonth()).toBe(
+          expect(new Date(reduxCurrentState.dateISO).getMonth()).toBe(
             Months.DECEMBER,
           );
         });
@@ -86,7 +86,7 @@ describe('CalendarMenu', () => {
         });
         let reduxCurrentState = reduxStore.getState().dateSlice.currentState;
 
-        expect(new Date(reduxCurrentState.date).getMonth()).toBe(
+        expect(new Date(reduxCurrentState.dateISO).getMonth()).toBe(
           Months.JANUARY,
         );
 
@@ -94,7 +94,7 @@ describe('CalendarMenu', () => {
         reduxCurrentState = reduxStore.getState().dateSlice.currentState;
 
         await waitFor(() => {
-          expect(new Date(reduxCurrentState.date).getMonth()).toBe(
+          expect(new Date(reduxCurrentState.dateISO).getMonth()).toBe(
             Months.FEBRUARY,
           );
         });
@@ -106,13 +106,15 @@ describe('CalendarMenu', () => {
         });
         let reduxCurrentState = reduxStore.getState().dateSlice.currentState;
 
-        expect(new Date(reduxCurrentState.date).getFullYear()).toBe(year);
+        expect(new Date(reduxCurrentState.dateISO).getFullYear()).toBe(year);
 
         await userEvent.click(goToPreviousYearButton);
         reduxCurrentState = reduxStore.getState().dateSlice.currentState;
 
         await waitFor(() => {
-          expect(new Date(reduxCurrentState.date).getFullYear()).toBe(year - 1);
+          expect(new Date(reduxCurrentState.dateISO).getFullYear()).toBe(
+            year - 1,
+          );
         });
       });
 
@@ -122,13 +124,15 @@ describe('CalendarMenu', () => {
         });
         let reduxCurrentState = reduxStore.getState().dateSlice.currentState;
 
-        expect(new Date(reduxCurrentState.date).getFullYear()).toBe(year);
+        expect(new Date(reduxCurrentState.dateISO).getFullYear()).toBe(year);
 
         await userEvent.click(goToNextYearButton);
         reduxCurrentState = reduxStore.getState().dateSlice.currentState;
 
         await waitFor(() => {
-          expect(new Date(reduxCurrentState.date).getFullYear()).toBe(year + 1);
+          expect(new Date(reduxCurrentState.dateISO).getFullYear()).toBe(
+            year + 1,
+          );
         });
       });
 
@@ -141,20 +145,22 @@ describe('CalendarMenu', () => {
         });
         let reduxCurrentState = reduxStore.getState().dateSlice.currentState;
 
-        expect(new Date(reduxCurrentState.date).getFullYear()).toBe(year);
+        expect(new Date(reduxCurrentState.dateISO).getFullYear()).toBe(year);
 
         await userEvent.click(goToNextYearButton);
         reduxCurrentState = reduxStore.getState().dateSlice.currentState;
 
         await waitFor(() => {
-          expect(new Date(reduxCurrentState.date).getFullYear()).toBe(year + 1);
+          expect(new Date(reduxCurrentState.dateISO).getFullYear()).toBe(
+            year + 1,
+          );
         });
 
         await userEvent.click(goToTodayButton);
         reduxCurrentState = reduxStore.getState().dateSlice.currentState;
 
         await waitFor(() => {
-          expect(new Date(reduxCurrentState.date).getFullYear()).toBe(year);
+          expect(new Date(reduxCurrentState.dateISO).getFullYear()).toBe(year);
         });
       });
     });
@@ -166,11 +172,11 @@ describe('CalendarMenu', () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                date: new Date(year, Months.DECEMBER, 1).toDateString(),
+                dateISO: new Date(year, Months.DECEMBER, 1).toDateString(),
               },
               initialState: {
                 ...initialValue.initialState,
-                date: new Date(year, Months.DECEMBER, 1).toDateString(),
+                dateISO: new Date(year, Months.DECEMBER, 1).toDateString(),
               },
             },
           },
@@ -184,7 +190,7 @@ describe('CalendarMenu', () => {
 
       it('should go to next month (January) when in December after clicking on button', async () => {
         let reduxCurrentState = reduxStore.getState().dateSlice.currentState;
-        expect(new Date(reduxCurrentState.date).getMonth()).toBe(
+        expect(new Date(reduxCurrentState.dateISO).getMonth()).toBe(
           Months.DECEMBER,
         );
         const goToNextMonthButton = screen.getByRole('button', {
@@ -193,7 +199,7 @@ describe('CalendarMenu', () => {
         await userEvent.click(goToNextMonthButton);
         reduxCurrentState = reduxStore.getState().dateSlice.currentState;
         await waitFor(() => {
-          expect(new Date(reduxCurrentState.date).getMonth()).toBe(
+          expect(new Date(reduxCurrentState.dateISO).getMonth()).toBe(
             Months.JANUARY,
           );
         });
@@ -207,7 +213,7 @@ describe('CalendarMenu', () => {
         });
         let reduxCurrentState = reduxStore.getState().dateSlice.currentState;
 
-        expect(new Date(reduxCurrentState.date).getMonth()).toBe(
+        expect(new Date(reduxCurrentState.dateISO).getMonth()).toBe(
           Months.DECEMBER,
         );
 
@@ -215,7 +221,7 @@ describe('CalendarMenu', () => {
         reduxCurrentState = reduxStore.getState().dateSlice.currentState;
 
         await waitFor(() => {
-          expect(new Date(reduxCurrentState.date).getMonth()).toBe(
+          expect(new Date(reduxCurrentState.dateISO).getMonth()).toBe(
             Months.JANUARY,
           );
         });
@@ -224,7 +230,7 @@ describe('CalendarMenu', () => {
         reduxCurrentState = reduxStore.getState().dateSlice.currentState;
 
         await waitFor(() => {
-          expect(new Date(reduxCurrentState.date).getMonth()).toBe(
+          expect(new Date(reduxCurrentState.dateISO).getMonth()).toBe(
             new Date().getMonth(),
           );
         });
