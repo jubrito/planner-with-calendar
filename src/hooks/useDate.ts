@@ -25,7 +25,7 @@ export const useDate = (
     updateDate,
     day: getDay(formatedDate),
     month: getMonthIndex(locale, formatedDate),
-    year: getYear(locale, formatedDate),
+    year: getYear(formatedDate),
     timeInMilliseconds: getTimeInMilliseconds(formatedDate),
     dayOfWeek: getDayOfWeek(locale, formatedDate),
     monthNumberOfDays: getMonthNumberOfDays(locale, formatedDate),

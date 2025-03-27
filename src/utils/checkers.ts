@@ -5,7 +5,7 @@ import { getDay, getMonthIndex, getYear } from './calendar/utils';
 export const isToday = (locale: LocaleLanguage, date: DateConfig['date']) => {
   const currentDate = new Date();
   return (
-    getYear(locale, date) === getYear(locale, currentDate) &&
+    getYear(date) === getYear(currentDate) &&
     getMonthIndex(locale, date) === getMonthIndex(locale, currentDate) &&
     getDay(date) === getDay(currentDate)
   );

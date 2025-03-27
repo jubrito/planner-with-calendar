@@ -55,9 +55,8 @@ export const getFullDateTitle = (
         dateStyle: IntlDateTimeFormatFull,
       }).format(new Date(year, month, day));
 
-export const getDateISOString = (date: DateConfig['date']) => {
-  return date.toISOString();
-};
+export const getDateISOString = (date: DateConfig['date']) =>
+  date.toISOString();
 
 export const getDay = (date: DateConfig['date']) => date.getDate();
 
@@ -84,12 +83,7 @@ export const getMonthName = (
     month: monthStyle || IntlDateTimeFormatLong,
   }).format(date);
 
-export const getYear = (locale: LocaleLanguage, date: DateConfig['date']) =>
-  parseInt(
-    new Intl.DateTimeFormat(locale, {
-      year: 'numeric',
-    }).format(date),
-  );
+export const getYear = (date: DateConfig['date']) => date.getFullYear();
 
 export const getTimeInMilliseconds = (date: DateConfig['date']) =>
   date.getTime();
@@ -98,7 +92,7 @@ export const getMonthNumberOfDays = (
   locale: LocaleLanguage,
   date: DateConfig['date'],
 ) => {
-  const year = getYear(locale, date);
+  const year = getYear(date);
   const month = getMonthIndex(locale, date) + 1;
   const getLastDayOfMonth = 0;
   return new Date(year, month, getLastDayOfMonth).getDate();

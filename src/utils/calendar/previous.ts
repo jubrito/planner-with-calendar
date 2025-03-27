@@ -37,7 +37,7 @@ export const getPreviousMonthDaysOnCurrentMonth = (
     previousMonthDaysOnCurrentMonth.push({
       month: getMonthIndex(locale, new Date(year, month - 1)) + 1,
       day: lastDayOfPreviousMonth - i,
-      year: getYear(locale, new Date(year, month - 1)),
+      year: getYear(new Date(year, month - 1)),
     });
   }
   return previousMonthDaysOnCurrentMonth.reverse();

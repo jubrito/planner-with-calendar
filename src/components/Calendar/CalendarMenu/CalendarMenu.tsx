@@ -41,7 +41,7 @@ export const CalendarMenu = () => {
           updateDate={() =>
             dispatch(
               updateDate({
-                year: getYear(locale, new Date(year, month - 1)),
+                year: getYear(new Date(year, month - 1)),
                 month: getMonthIndex(locale, new Date(year, month - 1, day)),
                 day,
               }),
@@ -54,7 +54,7 @@ export const CalendarMenu = () => {
           updateDate={() => {
             return dispatch(
               updateDate({
-                year: getYear(locale, new Date()),
+                year: getYear(new Date()),
                 month: getMonthIndex(locale, new Date()),
                 day: getDay(new Date()),
               }),
@@ -67,7 +67,7 @@ export const CalendarMenu = () => {
           updateDate={() =>
             dispatch(
               updateDate({
-                year: getYear(locale, new Date(year, month + 1)),
+                year: getYear(new Date(year, month + 1)),
                 month: getMonthIndex(locale, new Date(year, month + 1, day)),
                 day,
               }),
