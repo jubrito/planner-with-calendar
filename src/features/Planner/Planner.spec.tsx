@@ -9,6 +9,9 @@ import { getFullDateTitle } from '../../utils/calendar/utils';
 
 describe('Planner', () => {
   const currentYear = 2025;
+  const currentMonth = Months.MARCH;
+  const currentDay = 1;
+
   describe('Header', () => {
     it('should render header initial date text', () => {
       renderWithProviders(<Planner />, {
@@ -27,9 +30,6 @@ describe('Planner', () => {
       expect(screen.getByText('Mar 1, Saturday')).toBeInTheDocument();
     });
     it('should display AM/PM hours of the day when locale is english', () => {
-      const currentMonth = Months.MARCH;
-      const currentDay = 1;
-
       renderWithProviders(<Planner />, {
         preloadedState: {
           dateSlice: {
@@ -94,7 +94,11 @@ describe('Planner', () => {
           dateSlice: {
             initialState: {
               ...initialDateValue.initialState,
-              dateISO: new Date(currentYear, Months.MARCH, 1).toISOString(),
+              dateISO: new Date(
+                currentYear,
+                currentMonth,
+                currentDay,
+              ).toISOString(),
             },
             currentState: {
               ...initialDateValue.currentState,
@@ -138,10 +142,21 @@ describe('Planner', () => {
         '22:00',
         '23:00',
       ];
+      const midnight = '00:00';
       hours.forEach((hour) => {
         expect(screen.getByText(hour)).toBeInTheDocument();
+        expect(
+          screen.getByLabelText(
+            `${getFullDateTitle(currentYear, currentMonth, currentDay, 'pt-BR')} ${hour}`,
+          ),
+        ).toBeInTheDocument();
       });
-      expect(screen.getAllByText('00:00').length).toBe(2);
+      expect(screen.getAllByText(midnight).length).toBe(2);
+      expect(
+        screen.getAllByLabelText(
+          `${getFullDateTitle(currentYear, currentMonth, currentDay, 'pt-BR')} ${midnight}`,
+        ).length,
+      ).toBe(2);
     });
   });
 });
