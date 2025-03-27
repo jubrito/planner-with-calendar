@@ -1,22 +1,22 @@
-import { numberOfDaysOfTheWeek } from "../../../utils/calendar/weeks";
-import styles from "./_calendar-cells.module.scss";
-import { getCurrentMonthDays } from "../../../utils/calendar/current";
-import { getPreviousMonthDaysOnCurrentMonth } from "../../../utils/calendar/previous";
-import { getNextMonthDaysOnCurrentMonth } from "../../../utils/calendar/next";
-import { CalendarCellInfo } from "../../../types/calendar/types";
-import { Cell } from "./Cell/Cell";
+import { numberOfDaysOfTheWeek } from '../../../utils/calendar/weeks';
+import styles from './_calendar-cells.module.scss';
+import { getCurrentMonthDays } from '../../../utils/calendar/current';
+import { getPreviousMonthDaysOnCurrentMonth } from '../../../utils/calendar/previous';
+import { getNextMonthDaysOnCurrentMonth } from '../../../utils/calendar/next';
+import { CalendarCellInfo } from '../../../types/calendar/types';
+import { Cell } from './Cell/Cell';
 import {
   getSelectedMonth,
   getSelectedMonthNumberOfDays,
-  getSelectedTime,
+  getSelectedTimeInMilliseconds,
   getSelectedYear,
-} from "../../../redux/slices/dateSlice/selectors";
-import { useSelector } from "react-redux";
-import { getLocaleLanguage } from "../../../redux/slices/localeSlice/selectors";
+} from '../../../redux/slices/dateSlice/selectors';
+import { useSelector } from 'react-redux';
+import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
 
 const CalendarCells = () => {
   const locale = useSelector(getLocaleLanguage());
-  const time = useSelector(getSelectedTime());
+  const time = useSelector(getSelectedTimeInMilliseconds());
   const year = useSelector(getSelectedYear(locale));
   const month = useSelector(getSelectedMonth(locale));
   const monthNumberOfDays = useSelector(getSelectedMonthNumberOfDays(locale));
@@ -26,19 +26,19 @@ const CalendarCells = () => {
       year,
       month,
       monthNumberOfDays,
-      false
+      false,
     );
     const previousMonthDaysOnCurrentMonth = getPreviousMonthDaysOnCurrentMonth(
       month,
       year,
       time,
-      locale
+      locale,
     );
     const nextMonthDaysOnCurrentMonth = getNextMonthDaysOnCurrentMonth(
       month,
       year,
       monthNumberOfDays,
-      locale
+      locale,
     );
 
     return [
@@ -49,7 +49,7 @@ const CalendarCells = () => {
   };
 
   const chunkCalendarCellsByWeek = (
-    array: CalendarCellInfo[]
+    array: CalendarCellInfo[],
   ): CalendarCellInfo[][] => {
     const chunks = [];
     for (let i = 0; i < array.length; i += numberOfDaysOfTheWeek) {
@@ -80,7 +80,7 @@ const CalendarCells = () => {
               );
             })}
           </tr>
-        )
+        ),
       )}
     </tbody>
   );

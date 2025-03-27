@@ -58,12 +58,12 @@ export const getSelectedYear = (locale: LocaleLanguage) =>
     getYear(locale, new Date(state.currentState.date)),
   );
 
-export const getInitialTime = () =>
+export const getInitialTimeInMilliseconds = () =>
   createSelector(updateDateState, (state) =>
     getTimeInMilliseconds(new Date(state.initialState.date)),
   );
 
-export const getSelectedTime = () =>
+export const getSelectedTimeInMilliseconds = () =>
   createSelector(updateDateState, (state) =>
     getTimeInMilliseconds(new Date(state.currentState.date)),
   );
