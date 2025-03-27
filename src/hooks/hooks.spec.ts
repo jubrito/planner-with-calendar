@@ -39,8 +39,15 @@ describe('React hooks', () => {
       it('should return initial date with only locale param', () => {
         const currentDate = new Date();
         const { result } = renderHook(() => useDate(locale));
-        const { date, day, dayOfWeek, month, monthNumberOfDays, time, year } =
-          result.current;
+        const {
+          date,
+          day,
+          dayOfWeek,
+          month,
+          monthNumberOfDays,
+          timeInMilliseconds: time,
+          year,
+        } = result.current;
         const [receivedDateWithoutMilliseconds, receivedDateTimezone] =
           dateWithoutMilliseconds(date);
         const [currentDateWithoutMilliseconds, currentDateTimezone] =
@@ -107,7 +114,7 @@ describe('React hooks', () => {
           dayOfWeek,
           month,
           monthNumberOfDays,
-          time,
+          timeInMilliseconds: time,
           year,
         } = result.current;
         // expect(date).toStrictEqual(getDate(locale, currentDate));

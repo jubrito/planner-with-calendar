@@ -29,7 +29,7 @@ export const useDate = (
     day: getDay(locale, formatedDate),
     month: getMonthIndex(locale, formatedDate),
     year: getYear(locale, formatedDate),
-    time: getTimeInMilliseconds(formatedDate),
+    timeInMilliseconds: getTimeInMilliseconds(formatedDate),
     dayOfWeek: getDayOfWeek(locale, formatedDate),
     monthNumberOfDays: getMonthNumberOfDays(locale, formatedDate),
   };

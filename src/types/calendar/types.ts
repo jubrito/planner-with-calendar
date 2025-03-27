@@ -6,8 +6,8 @@ import {
   IntlDateTimeFormatNarrow,
   IntlDateTimeFormatNumeric,
   IntlDateTimeFormatShort,
-} from "../../utils/constants";
-import { Months } from "./enums";
+} from '../../utils/constants';
+import { Months } from './enums';
 
 export type DateConfig = {
   date: Date;
@@ -15,15 +15,15 @@ export type DateConfig = {
   day: number;
   month: Months;
   year: number;
-  time: number;
+  timeInMilliseconds: number;
   dayOfWeek: string;
   monthNumberOfDays: number;
 };
 
 export type CalendarCellInfo = {
-  month: DateConfig["month"];
-  day: DateConfig["day"];
-  year: DateConfig["year"];
+  month: DateConfig['month'];
+  day: DateConfig['day'];
+  year: DateConfig['year'];
 };
 
 export type ObjectType = Record<string, unknown>;
