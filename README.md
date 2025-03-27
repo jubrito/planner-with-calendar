@@ -1,5 +1,6 @@
 # Next steps (v1):
 
+- Adjust resize compact calendar to avoid titles breaking
 - Planner
   - Create weekly planner integrated with calendar (+ tests)
   - Calendar button to click on day and open planner
