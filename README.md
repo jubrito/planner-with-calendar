@@ -1,6 +1,5 @@
 # Next steps (v1):
 
-- Refactor: rename 'time' redux variable date property to timeInMilliseconds
 - Remove unused params from formated date functions and rename to ISOString
 - Rename redux to isoDate?
 - Rename getSelectedDate to getSelectedDateISOString and create new getSelectedDate
