@@ -1,7 +1,5 @@
 # Next steps (v1):
 
-- Use date instead of string to allow locale?
-
 - Refactor: rename 'time' redux variable date property to timeInMilliseconds
 - Remove unused params from formated date functions and rename to ISOString
 - Rename redux to isoDate?
