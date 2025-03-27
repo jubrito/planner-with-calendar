@@ -153,3 +153,8 @@ export const getHoursOfTheDay = (
   }
   return formatedHours;
 };
+export const getFormatedDateString = (
+  locale: LocaleLanguage,
+  date: DateConfig['date'],
+  options: Intl.DateTimeFormatOptions = {},
+) => new Intl.DateTimeFormat(locale, options).format(date);
