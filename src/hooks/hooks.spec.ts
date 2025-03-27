@@ -45,7 +45,7 @@ describe('React hooks', () => {
           dayOfWeek,
           month,
           monthNumberOfDays,
-          timeInMilliseconds: time,
+          timeInMilliseconds,
           year,
         } = result.current;
         const [receivedDateWithoutMilliseconds, receivedDateTimezone] =
@@ -63,10 +63,10 @@ describe('React hooks', () => {
         expect(monthNumberOfDays).toStrictEqual(
           getMonthNumberOfDays(locale, currentDate),
         );
-        expect(time.toString().length).toStrictEqual(
+        expect(timeInMilliseconds.toString().length).toStrictEqual(
           getTimeInMilliseconds(currentDate).toString().length,
         );
-        expect(getFirstThreeDigits(time)).toStrictEqual(
+        expect(getFirstThreeDigits(timeInMilliseconds)).toStrictEqual(
           getFirstThreeDigits(getTimeInMilliseconds(currentDate)), // precision of 5 digits
         );
       });
@@ -75,7 +75,6 @@ describe('React hooks', () => {
         const { result } = renderHook(() => useDate(locale));
         const { date: initialDate, updateDate: initialUpdateDate } =
           result.current;
-        // expect(initialDate).toStrictEqual(getDate(locale, currentDate));
         const [initialDateWithoutMilliseconds, initialDateTimezone] =
           dateWithoutMilliseconds(initialDate);
         const [currentDateWithoutMilliseconds, currentDateTimezone] =
@@ -92,7 +91,6 @@ describe('React hooks', () => {
         const { date: updatedDate } = result.current;
         currentDate = new Date(initialYear - 1, initialMonth - 1, initialDay);
         await waitFor(() => {
-          // expect(updatedDate).toStrictEqual(getDate(locale, currentDate));
           const [updatedDateWithoutMilliseconds, updatedDateTimezone] =
             dateWithoutMilliseconds(updatedDate);
           const [currentDateWithoutMilliseconds, currentDateTimezone] =
@@ -114,10 +112,9 @@ describe('React hooks', () => {
           dayOfWeek,
           month,
           monthNumberOfDays,
-          timeInMilliseconds: time,
+          timeInMilliseconds,
           year,
         } = result.current;
-        // expect(date).toStrictEqual(getDate(locale, currentDate));
         const [initialDateWithoutMilliseconds, initialDateTimezone] =
           dateWithoutMilliseconds(initialDate);
         const [currentDateWithoutMilliseconds, currentDateTimezone] =
@@ -133,10 +130,10 @@ describe('React hooks', () => {
         expect(monthNumberOfDays).toStrictEqual(
           getMonthNumberOfDays(locale, currentDate),
         );
-        expect(time.toString().length).toStrictEqual(
+        expect(timeInMilliseconds.toString().length).toStrictEqual(
           getTimeInMilliseconds(currentDate).toString().length,
         );
-        expect(getFirstThreeDigits(time)).toStrictEqual(
+        expect(getFirstThreeDigits(timeInMilliseconds)).toStrictEqual(
           getFirstThreeDigits(getTimeInMilliseconds(currentDate)), // precision of 5 digits
         );
       });
@@ -145,7 +142,6 @@ describe('React hooks', () => {
         const { result } = renderHook(() => useDate(locale, currentDate));
         const { date: initialDate, updateDate: initialUpdateDate } =
           result.current;
-        // expect(initialDate).toStrictEqual(getDate(locale, date));
         const [initialDateWithoutMilliseconds, initialDateTimezone] =
           dateWithoutMilliseconds(initialDate);
         const [currentDateWithoutMilliseconds, currentDateTimezone] =
@@ -162,7 +158,6 @@ describe('React hooks', () => {
         const { date: updatedDate } = result.current;
         currentDate = new Date(initialYear - 1, initialMonth - 1, initialDay);
         await waitFor(() => {
-          // expect(updatedDate).toStrictEqual(getDate(locale, currentDate));
           const [updatedDateWithoutMilliseconds, updatedDateTimezone] =
             dateWithoutMilliseconds(updatedDate);
           const [currentDateWithoutMilliseconds, currentDateTimezone] =
