@@ -158,3 +158,8 @@ export const getFormatedDateString = (
   date: DateConfig['date'],
   options: Intl.DateTimeFormatOptions = {},
 ) => new Intl.DateTimeFormat(locale, options).format(date);
+export const getFormatedDate = (
+  locale: LocaleLanguage,
+  date: DateConfig['date'],
+  options: Intl.DateTimeFormatOptions = {},
+) => new Date(getFormatedDateString(locale, date, options));

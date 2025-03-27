@@ -1,6 +1,6 @@
 import { DateConfig } from '../../types/calendar/types';
 import { IntlDateTimeFormatLong, IntlDateTimeFormatShort } from '../constants';
-import { getFormatedDate } from './current';
+import { getFormatedDate } from './utils';
 import { getDayName } from './utils';
 
 export const numberOfDaysOfTheWeek = 7;
