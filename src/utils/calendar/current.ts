@@ -16,29 +16,24 @@ export const getCurrentMonthDays = (
 };
 
 export const getFormatedDateString = (
+  locale: LocaleLanguage,
+  date: DateConfig['date'],
+  options: Intl.DateTimeFormatOptions = {},
+) => {
+  return new Intl.DateTimeFormat(locale, options).format(date);
+};
+
+export const getDateISOString = (date: DateConfig['date']) => {
+  return date.toISOString();
+};
+
+export const getFormatedDate = (
   _locale: LocaleLanguage,
   date: DateConfig['date'],
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _options: Intl.DateTimeFormatOptions = {},
 ) => {
-  // console.log('getFormatedDateString date', date);
-  return date.toISOString();
-  // return new Intl.DateTimeFormat(locale, options).format(date);
-};
-
-export const getFormatedDate = (
-  locale: LocaleLanguage,
-  date: DateConfig['date'],
-  options: Intl.DateTimeFormatOptions = {},
-) => {
-  // console.log('getFormatedDate date', date);
-  // console.log(
-  //   'getFormatedDateString(locale, date, options)',
-  //   getFormatedDateString(locale, date, options),
-  // );
-  // console.log(
-  //   'new Date(getFormatedDateString(locale, date, options))',
-  //   new Date(getFormatedDateString(locale, date, options)),
-  // );
-  return new Date(getFormatedDateString(locale, date, options));
+  // new
+  // return new Date(getFormatedDateString(locale, date, options));
+  return new Date(getDateISOString(date));
 };

@@ -1,8 +1,7 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { DateConfig } from "../../../types/calendar/types";
-import { deepCopy } from "../../../utils/utils";
-import { getFormatedDateString } from "../../../utils/calendar/current";
-import { defaultLocale } from "../../../utils/locale/constants";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { DateConfig } from '../../../types/calendar/types';
+import { deepCopy } from '../../../utils/utils';
+import { getDateISOString } from '../../../utils/calendar/current';
 
 export type InitialDateState = {
   date: string;
@@ -14,7 +13,7 @@ export type InitialState = {
 };
 
 const initialDate: InitialDateState = {
-  date: getFormatedDateString(defaultLocale, new Date()),
+  date: getDateISOString(new Date()),
 };
 
 export const initialValue: InitialState = {
@@ -23,22 +22,19 @@ export const initialValue: InitialState = {
 };
 
 export const dateSlice = createSlice({
-  name: "dateSlice",
+  name: 'dateSlice',
   initialState: initialValue,
   reducers: {
     updateDate: (
       state,
       action: PayloadAction<{
-        year: DateConfig["year"];
-        month: DateConfig["month"];
-        day: DateConfig["day"];
-      }>
+        year: DateConfig['year'];
+        month: DateConfig['month'];
+        day: DateConfig['day'];
+      }>,
     ) => {
       const { year, month, day } = action.payload;
-      state.currentState.date = getFormatedDateString(
-        defaultLocale,
-        new Date(year, month, day)
-      );
+      state.currentState.date = getDateISOString(new Date(year, month, day));
     },
   },
 });

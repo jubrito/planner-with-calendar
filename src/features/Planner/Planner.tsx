@@ -5,10 +5,6 @@ import { useDate } from '../../hooks/useDate';
 import { getLocaleLanguage } from '../../redux/slices/localeSlice/selectors';
 import { getHoursOfTheDay, getMonthName } from '../../utils/calendar/utils';
 import { IntlDateTimeFormatShort } from '../../utils/constants';
-// import {
-//   getFormatedDate,
-//   getFormatedDateString,
-// } from '../../utils/calendar/current';
 
 const Planner = () => {
   const locale = useSelector(getLocaleLanguage());
@@ -17,24 +13,6 @@ const Planner = () => {
   const monthName = getMonthName(locale, date, IntlDateTimeFormatShort);
 
   const hoursOfTheDay = getHoursOfTheDay(locale, year, month, day);
-
-  // const formatedDateStringBr = getFormatedDateString('pt-BR', date);
-  // const formatedDateBr = getFormatedDate('pt-BR', date);
-  // console.log('formatedDateStringBr', formatedDateStringBr);
-  // console.log('formatedBr', formatedDateBr);
-  // console.log('new Date()', new Date().toString());
-  // console.log('parse(formatedDateBr)');
-  // const formatedEnUs = getFormatedDateString('en-US', date);
-  // const parsedPtBr = parse(formatedEnUs, 'EEE dd MMM yyyy', new Date(), {
-  //   locale:
-  // });
-  // const parsedEnUs = parse(formatedBr, 'EEE MMM dd yyyy', new Date(), {
-  //   locale: 'en-US',
-  // });
-  // const parsedPtBr = parse(formatedEnUs, 'EEE dd MMM yyyy', new Date(), {
-  // const parsedEnUs = parse(formatedBr,)
-
-  // console.log('parsedPtBr', parsedPtBr);
 
   return (
     <section className={styles.planner}>

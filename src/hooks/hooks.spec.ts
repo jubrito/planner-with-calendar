@@ -10,7 +10,7 @@ import {
   getTimeInMilliseconds,
   getYear,
 } from '../utils/calendar/utils';
-import { getFormatedDateString } from '../utils/calendar/current';
+import { getDateISOString } from '../utils/calendar/current';
 import { DateConfig } from '../types/calendar/types';
 
 describe('React hooks', () => {
@@ -23,7 +23,7 @@ describe('React hooks', () => {
     const getFirstThreeDigits = (value: number) => value.toString().slice(0, 3);
 
     const dateWithoutMilliseconds = (date: DateConfig['date']) => {
-      const dateIsoString = getFormatedDateString(locale, date);
+      const dateIsoString = getDateISOString(date);
       const withoutMilliseconds = dateIsoString.slice(
         0,
         dateIsoString.length - 5,
