@@ -6,7 +6,7 @@
 - Remove unused params from formated date functions and rename to ISOString
 - Rename redux to isoDate?
 - Keep getDate and getFormatedDate? Maybe just get date? and formated date for locale?
-- use getFormatedDateString for formated and toIso for iso
+- Rename getSelectedDate to getSelectedDateISOString and create new getSelectedDate
 
 - Fix Planner test "should display hours of the day using 24-hour notation when locale is portuguese"
 
