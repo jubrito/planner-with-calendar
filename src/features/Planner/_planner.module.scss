@@ -12,6 +12,8 @@
   flex-direction: column;
 
   @include mixins.media-only-mobile {
+    overflow: scroll;
+    height: 500px;
     margin: 0 variables.$inner-spacing;
   }
   @include mixins.media-only-small-mobile {
