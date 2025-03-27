@@ -14,9 +14,6 @@ export const useDate = (
   locale: LocaleLanguage,
   initialDate?: DateConfig['date'],
 ): DateConfig => {
-  // console.log('useDate:');
-  // console.log('initialDate', initialDate);
-  // console.log('getInitialDate\n', getInitialDate(locale, initialDate));
   const [formatedDate, setFormatedDate] = useState(initialDate || new Date());
 
   const updateDate = (year: number, month: number, day: number) => {

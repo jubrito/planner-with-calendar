@@ -8,7 +8,7 @@ import { IntlDateTimeFormatShort } from '../../utils/constants';
 
 const Planner = () => {
   const locale = useSelector(getLocaleLanguage());
-  const initialDate = useSelector(getInitialDate(locale));
+  const initialDate = useSelector(getInitialDate());
   const { date, year, month, day, dayOfWeek } = useDate(locale, initialDate);
   const monthName = getMonthName(locale, date, IntlDateTimeFormatShort);
 
