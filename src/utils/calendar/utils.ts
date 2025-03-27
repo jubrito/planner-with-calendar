@@ -59,12 +59,8 @@ export const getDateISOString = (date: DateConfig['date']) => {
   return date.toISOString();
 };
 
-export const getDay = (date: DateConfig['date']) => {
-  console.log('getDay juju');
-  console.log('date', date);
-  console.log('date.getDate()', date.getDate());
-  return date.getDate();
-};
+export const getDay = (date: DateConfig['date']) => date.getDate();
+
 export const getMonthIndex = (
   locale: LocaleLanguage,
   date: DateConfig['date'],
