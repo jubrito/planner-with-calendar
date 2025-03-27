@@ -23,14 +23,14 @@ export const getInitialDate = () =>
 export const getSelectedDate = () =>
   createSelector(updateDateState, (state) => new Date(state.currentState.date));
 
-export const getInitialDay = (locale: LocaleLanguage) =>
+export const getInitialDay = () =>
   createSelector(updateDateState, (state) =>
-    getDay(locale, new Date(state.initialState.date)),
+    getDay(new Date(state.initialState.date)),
   );
 
-export const getSelectedDay = (locale: LocaleLanguage) =>
+export const getSelectedDay = () =>
   createSelector(updateDateState, (state) =>
-    getDay(locale, new Date(state.currentState.date)),
+    getDay(new Date(state.currentState.date)),
   );
 
 export const getInitialMonth = (locale: LocaleLanguage) =>

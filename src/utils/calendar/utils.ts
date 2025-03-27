@@ -59,12 +59,7 @@ export const getDateISOString = (date: DateConfig['date']) => {
   return date.toISOString();
 };
 
-export const getDay = (locale: LocaleLanguage, date: DateConfig['date']) =>
-  parseInt(
-    new Intl.DateTimeFormat(locale, {
-      day: IntlDateTimeFormatNumeric,
-    }).format(date),
-  );
+export const getDay = (date: DateConfig['date']) => date.getDate();
 
 export const getMonthIndex = (
   locale: LocaleLanguage,

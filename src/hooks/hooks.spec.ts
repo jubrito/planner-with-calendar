@@ -58,7 +58,7 @@ describe('React hooks', () => {
         expect(receivedDateTimezone).toStrictEqual(currentDateTimezone);
         expect(year).toStrictEqual(getYear(locale, currentDate));
         expect(month).toStrictEqual(getMonthIndex(locale, currentDate));
-        expect(day).toStrictEqual(getDay(locale, currentDate));
+        expect(day).toStrictEqual(getDay(currentDate));
         expect(dayOfWeek).toStrictEqual(getDayOfWeek(locale, currentDate));
         expect(monthNumberOfDays).toStrictEqual(
           getMonthNumberOfDays(locale, currentDate),
@@ -125,7 +125,7 @@ describe('React hooks', () => {
         expect(initialDateTimezone).toStrictEqual(currentDateTimezone);
         expect(year).toStrictEqual(getYear(locale, currentDate));
         expect(month).toStrictEqual(getMonthIndex(locale, currentDate));
-        expect(day).toStrictEqual(getDay(locale, currentDate));
+        expect(day).toStrictEqual(getDay(currentDate));
         expect(dayOfWeek).toStrictEqual(getDayOfWeek(locale, currentDate));
         expect(monthNumberOfDays).toStrictEqual(
           getMonthNumberOfDays(locale, currentDate),

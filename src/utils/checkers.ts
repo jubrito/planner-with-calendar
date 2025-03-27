@@ -7,6 +7,6 @@ export const isToday = (locale: LocaleLanguage, date: DateConfig['date']) => {
   return (
     getYear(locale, date) === getYear(locale, currentDate) &&
     getMonthIndex(locale, date) === getMonthIndex(locale, currentDate) &&
-    getDay(locale, date) === getDay(locale, currentDate)
+    getDay(date) === getDay(currentDate)
   );
 };

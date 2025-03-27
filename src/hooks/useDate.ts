@@ -23,7 +23,7 @@ export const useDate = (
   return {
     date: formatedDate,
     updateDate,
-    day: getDay(locale, formatedDate),
+    day: getDay(formatedDate),
     month: getMonthIndex(locale, formatedDate),
     year: getYear(locale, formatedDate),
     timeInMilliseconds: getTimeInMilliseconds(formatedDate),
