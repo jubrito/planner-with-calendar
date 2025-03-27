@@ -1,6 +1,7 @@
-import { DateConfig } from "../../types/calendar/types";
-import { getFormatedDate } from "./current";
-import { getDayName } from "./utils";
+import { DateConfig } from '../../types/calendar/types';
+import { IntlDateTimeFormatLong, IntlDateTimeFormatShort } from '../constants';
+import { getFormatedDate } from './current';
+import { getDayName } from './utils';
 
 export const numberOfDaysOfTheWeek = 7;
 
@@ -12,13 +13,13 @@ export const getWeekDaysNames = (locale: string) => {
 
     return {
       long: new Intl.DateTimeFormat([locale], {
-        weekday: "long",
+        weekday: IntlDateTimeFormatLong,
       }).format(date),
       short: new Intl.DateTimeFormat([locale], {
-        weekday: "short",
+        weekday: IntlDateTimeFormatShort,
       }).format(date),
       initial: new Intl.DateTimeFormat([locale], {
-        weekday: "short",
+        weekday: IntlDateTimeFormatShort,
       })
         .format(date)
         .charAt(0),
@@ -27,14 +28,14 @@ export const getWeekDaysNames = (locale: string) => {
 };
 
 export const getWeekDayName = (
-  year: DateConfig["year"],
-  month: DateConfig["month"],
+  year: DateConfig['year'],
+  month: DateConfig['month'],
   dayToFind: number,
-  locale: string
+  locale: string,
 ) => {
   const dayOfTheMonthDate = getFormatedDate(
     locale,
-    new Date(year, month, dayToFind)
+    new Date(year, month, dayToFind),
   );
   const dayOfWeek = dayOfTheMonthDate.getDay();
   return getDayName(dayOfWeek, locale);
