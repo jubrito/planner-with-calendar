@@ -5,7 +5,6 @@
 - Refactor: rename 'time' redux variable date property to timeInMilliseconds
 - Remove unused params from formated date functions and rename to ISOString
 - Rename redux to isoDate?
-- Keep getDate and getFormatedDate? Maybe just get date? and formated date for locale?
 - Rename getSelectedDate to getSelectedDateISOString and create new getSelectedDate
 
 - Fix Planner test "should display hours of the day using 24-hour notation when locale is portuguese"
