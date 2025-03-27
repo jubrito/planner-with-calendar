@@ -1,6 +1,5 @@
 # Next steps (v1):
 
-- Rename redux to isoDate?
 - Rename getSelectedDate to getSelectedDateISOString and create new getSelectedDate
 
 - Fix Planner test "should display hours of the day using 24-hour notation when locale is portuguese"

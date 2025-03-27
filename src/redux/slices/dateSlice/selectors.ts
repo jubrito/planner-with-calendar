@@ -29,6 +29,9 @@ export const getSelectedDate = () =>
     (state) => new Date(state.currentState.dateISO),
   );
 
+export const getSelectedISODate = () =>
+  createSelector(updateDateState, (state) => state.currentState.dateISO);
+
 export const getInitialDay = () =>
   createSelector(updateDateState, (state) =>
     getDay(new Date(state.initialState.dateISO)),
