@@ -1,7 +1,6 @@
 # Next steps (v1):
 
 - Planner
-  - Add hover with title explaining hour with full date
   - Create weekly planner integrated with calendar (+ tests)
   - Calendar button to click on day and open planner
     - Test
