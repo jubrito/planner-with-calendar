@@ -5,6 +5,7 @@ import { initialValue as initialLocaleValue } from '../../redux/slices/localeSli
 import { Months } from '../../types/calendar/enums';
 import { renderWithProviders } from '../../utils/tests/renderWithProviders';
 import Planner from './Planner';
+import { getFullDateTitle } from '../../utils/calendar/utils';
 
 describe('Planner', () => {
   const currentYear = 2025;
@@ -26,12 +27,19 @@ describe('Planner', () => {
       expect(screen.getByText('Mar 1, Saturday')).toBeInTheDocument();
     });
     it('should display AM/PM hours of the day when locale is english', () => {
+      const currentMonth = Months.MARCH;
+      const currentDay = 1;
+
       renderWithProviders(<Planner />, {
         preloadedState: {
           dateSlice: {
             initialState: {
               ...initialDateValue.initialState,
-              dateISO: new Date(currentYear, Months.MARCH, 1).toDateString(),
+              dateISO: new Date(
+                currentYear,
+                currentMonth,
+                currentDay,
+              ).toDateString(),
             },
             currentState: {
               ...initialDateValue.currentState,
@@ -64,10 +72,21 @@ describe('Planner', () => {
         '10 PM',
         '11 PM',
       ];
+      const midnight = '12 AM';
       hours.forEach((hour) => {
         expect(screen.getByText(hour)).toBeInTheDocument();
+        expect(
+          screen.getByLabelText(
+            `${getFullDateTitle(currentYear, currentMonth, currentDay, 'en-ES')} ${hour}`,
+          ),
+        ).toBeInTheDocument();
       });
-      expect(screen.getAllByText('12 AM').length).toBe(2);
+      expect(screen.getAllByText(midnight).length).toBe(2);
+      expect(
+        screen.getAllByLabelText(
+          `${getFullDateTitle(currentYear, currentMonth, currentDay, 'en-ES')} ${midnight}`,
+        ).length,
+      ).toBe(2);
     });
     it('should display hours of the day using 24-hour notation when locale is portuguese', () => {
       renderWithProviders(<Planner />, {
