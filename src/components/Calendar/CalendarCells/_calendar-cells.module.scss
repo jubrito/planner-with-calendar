@@ -10,12 +10,14 @@ tbody {
     padding: 0;
   }
 
+  td {
+    border: 1px solid variables.$black-color;
+  }
+
   .currentMonthDay {
     background: variables.$white-color;
-    border: variables.$smaller-gap solid variables.$black-color;
   }
   .otherMonthDay {
     background: variables.$lightgray-color;
-    border: variables.$smaller-gap solid variables.$black-color;
   }
 }
