@@ -165,6 +165,18 @@ export const getInitialGlobalDayOfWeek = (
     ),
   );
 
+export const getInitialDayViewDayOfWeek = (
+  locale: LocaleLanguage,
+  weekdayStyle?: IntlDateTypeWeekdayStyle,
+): ((state: RootState) => DateConfig['dayOfWeek']) =>
+  createSelector(updateDateState, (state) =>
+    getDayOfWeek(
+      locale,
+      new Date(state.initialState.dayViewISODate),
+      weekdayStyle,
+    ),
+  );
+
 export const getSelectedGlobalDayOfWeek = (
   locale: LocaleLanguage,
   weekdayStyle?: IntlDateTypeWeekdayStyle,
@@ -173,6 +185,18 @@ export const getSelectedGlobalDayOfWeek = (
     getDayOfWeek(
       locale,
       new Date(state.currentState.globalSODate),
+      weekdayStyle,
+    ),
+  );
+
+export const getSelectedDayViewDayOfWeek = (
+  locale: LocaleLanguage,
+  weekdayStyle?: IntlDateTypeWeekdayStyle,
+): ((state: RootState) => DateConfig['dayOfWeek']) =>
+  createSelector(updateDateState, (state) =>
+    getDayOfWeek(
+      locale,
+      new Date(state.currentState.dayViewISODate),
       weekdayStyle,
     ),
   );
