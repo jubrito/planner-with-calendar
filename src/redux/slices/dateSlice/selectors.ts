@@ -78,9 +78,19 @@ export const getInitialGlobalMonth = (locale: LocaleLanguage) =>
     getMonthIndex(locale, new Date(state.initialState.globalSODate)),
   );
 
+export const getInitialDayViewMonth = (locale: LocaleLanguage) =>
+  createSelector(updateDateState, (state) =>
+    getMonthIndex(locale, new Date(state.initialState.dayViewISODate)),
+  );
+
 export const getSelectedGlobalMonth = (locale: LocaleLanguage) =>
   createSelector(updateDateState, (state) =>
     getMonthIndex(locale, new Date(state.currentState.globalSODate)),
+  );
+
+export const getSelectedDayViewMonth = (locale: LocaleLanguage) =>
+  createSelector(updateDateState, (state) =>
+    getMonthIndex(locale, new Date(state.currentState.dayViewISODate)),
   );
 
 export const getInitialGlobalYear = () =>
