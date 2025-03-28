@@ -1019,7 +1019,9 @@ describe('CalendarCells', () => {
       });
 
       it('should render days from April (next month) to fill calendar', () => {
-        const aprilDays = [1, 2];
+        const days = [1, 2];
+        const daysToFillExtraRow = [3, 4, 5, 6, 7, 8];
+        const aprilDays = [...days, ...daysToFillExtraRow];
 
         aprilDays.forEach((aprilDay) => {
           const dayCell = screen.getByTitle(
