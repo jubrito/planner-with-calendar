@@ -1,22 +1,35 @@
 import { useSelector } from 'react-redux';
 import styles from './_planner.module.scss';
-import { getInitialGlobalDate } from '../../redux/slices/dateSlice/selectors';
-import { useDate } from '../../hooks/useDate';
-import { getLocaleLanguage } from '../../redux/slices/localeSlice/selectors';
 import {
-  getFullDateTitle,
-  getHoursOfTheDay,
-  getMonthName,
-} from '../../utils/calendar/utils';
+  getSelectedDayViewDate,
+  getSelectedDayViewDay,
+  getSelectedDayViewDayOfWeek,
+  getSelectedDayViewMonth,
+  getSelectedDayViewMonthName,
+  getSelectedDayViewYear,
+} from '../../redux/slices/dateSlice/selectors';
+import { getLocaleLanguage } from '../../redux/slices/localeSlice/selectors';
+import { getFullDateTitle, getHoursOfTheDay } from '../../utils/calendar/utils';
 import { IntlDateTimeFormatShort } from '../../utils/constants';
+import { useEffect } from 'react';
 
 const Planner = () => {
   const locale = useSelector(getLocaleLanguage());
-  const initialDate = useSelector(getInitialGlobalDate());
-  const { date, year, month, day, dayOfWeek } = useDate(locale, initialDate);
-  const monthName = getMonthName(locale, date, IntlDateTimeFormatShort);
-  const hoursOfTheDay = getHoursOfTheDay(locale, year, month, day);
+  const monthName = useSelector(
+    getSelectedDayViewMonthName(locale, IntlDateTimeFormatShort),
+  );
+  const monthIndex = useSelector(getSelectedDayViewMonth(locale));
+  const day = useSelector(getSelectedDayViewDay());
+  const dayOfWeek = useSelector(getSelectedDayViewDayOfWeek(locale));
+  const year = useSelector(getSelectedDayViewYear());
+  const hoursOfTheDay = getHoursOfTheDay(locale, year, monthIndex, day);
+  const selectedDayViewDate = useSelector(getSelectedDayViewDate());
+
   const plannerDateLabel = `${monthName} ${day}, ${dayOfWeek}`;
+
+  useEffect(() => {
+    console.log('selectedDayViewDate', selectedDayViewDate);
+  }, [selectedDayViewDate]);
 
   return (
     <section className={styles.planner}>
@@ -33,8 +46,8 @@ const Planner = () => {
                 <div
                   className={styles.hoursOfTheDayRow}
                   key={hourOfTheDay + index}
-                  aria-label={`${getFullDateTitle(year, month, day, locale)} ${hourOfTheDay}`}
-                  title={`${getFullDateTitle(year, month, day, locale)} ${hourOfTheDay}`}
+                  aria-label={`${getFullDateTitle(year, monthIndex, day, locale)} ${hourOfTheDay}`}
+                  title={`${getFullDateTitle(year, monthIndex, day, locale)} ${hourOfTheDay}`}
                 >
                   <span className={styles.hoursOfTheDay}>{hourOfTheDay}</span>
                   <span className={styles.hoursOfTheDayLine}></span>
