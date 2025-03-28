@@ -19,14 +19,14 @@ describe('Planner', () => {
           dateSlice: {
             initialState: {
               ...initialDateValue.initialState,
-              globalSODate: new Date(
+            },
+            currentState: {
+              ...initialDateValue.currentState,
+              dayViewISODate: new Date(
                 currentYear,
                 Months.MARCH,
                 1,
               ).toDateString(),
-            },
-            currentState: {
-              ...initialDateValue.currentState,
             },
           },
         },
@@ -39,14 +39,14 @@ describe('Planner', () => {
           dateSlice: {
             initialState: {
               ...initialDateValue.initialState,
-              globalSODate: new Date(
+            },
+            currentState: {
+              ...initialDateValue.currentState,
+              dayViewISODate: new Date(
                 currentYear,
                 currentMonth,
                 currentDay,
               ).toDateString(),
-            },
-            currentState: {
-              ...initialDateValue.currentState,
             },
           },
         },
@@ -98,14 +98,14 @@ describe('Planner', () => {
           dateSlice: {
             initialState: {
               ...initialDateValue.initialState,
-              globalSODate: new Date(
+            },
+            currentState: {
+              ...initialDateValue.currentState,
+              dayViewISODate: new Date(
                 currentYear,
                 currentMonth,
                 currentDay,
               ).toISOString(),
-            },
-            currentState: {
-              ...initialDateValue.currentState,
             },
           },
           localeSlice: {
