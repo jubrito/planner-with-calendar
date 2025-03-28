@@ -118,9 +118,19 @@ export const getInitialGlobalTimeInMilliseconds = () =>
     getTimeInMilliseconds(new Date(state.initialState.globalSODate)),
   );
 
+export const getInitialDayViewTimeInMilliseconds = () =>
+  createSelector(updateDateState, (state) =>
+    getTimeInMilliseconds(new Date(state.initialState.dayViewISODate)),
+  );
+
 export const getSelectedGlobalTimeInMilliseconds = () =>
   createSelector(updateDateState, (state) =>
     getTimeInMilliseconds(new Date(state.currentState.globalSODate)),
+  );
+
+export const getSelectedDayViewTimeInMilliseconds = () =>
+  createSelector(updateDateState, (state) =>
+    getTimeInMilliseconds(new Date(state.currentState.dayViewISODate)),
   );
 
 export const getInitialGlobalMonthNumberOfDays = (locale: LocaleLanguage) =>
