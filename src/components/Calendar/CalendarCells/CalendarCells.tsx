@@ -57,12 +57,11 @@ const CalendarCells = () => {
     array: CalendarCellInfo[],
   ): CalendarCellInfo[][] => {
     const chunks = [];
-    const onlyFiveRows = chunks.length - 1 === 4;
-
     for (let i = 0; i < array.length; i += numberOfDaysOfTheWeek) {
       chunks.push(array.slice(i, i + numberOfDaysOfTheWeek));
     }
 
+    const onlyFiveRows = chunks.length - 1 === 4;
     const setFixedCalendarHeight = (chunks: CalendarCellInfo[][]) => {
       if (onlyFiveRows) {
         const lastRow = chunks[chunks.length - 1];
@@ -73,7 +72,6 @@ const CalendarCells = () => {
       }
     };
     setFixedCalendarHeight(chunks);
-
     return chunks;
   };
 
