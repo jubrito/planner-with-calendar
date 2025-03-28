@@ -2,7 +2,10 @@ import { numberOfDaysOfTheWeek } from '../../../utils/calendar/weeks';
 import styles from './_calendar-cells.module.scss';
 import { getCurrentMonthDays } from '../../../utils/calendar/current';
 import { getPreviousMonthDaysOnCurrentMonth } from '../../../utils/calendar/previous';
-import { getNextMonthDaysOnCurrentMonth } from '../../../utils/calendar/next';
+import {
+  getEntireNextMonthDaysLastRowOnCurrentMonth,
+  getNextMonthDaysOnCurrentMonth,
+} from '../../../utils/calendar/next';
 import { CalendarCellInfo } from '../../../types/calendar/types';
 import { Cell } from './Cell/Cell';
 import {
@@ -57,6 +60,20 @@ const CalendarCells = () => {
     for (let i = 0; i < array.length; i += numberOfDaysOfTheWeek) {
       chunks.push(array.slice(i, i + numberOfDaysOfTheWeek));
     }
+    const onlyFiveRows = chunks.length - 1 === 4;
+    console.log('chunks.length', chunks.length);
+    if (onlyFiveRows) {
+      const lastRow = chunks[chunks.length - 1];
+      const lastCellInfo = lastRow[lastRow.length - 1];
+      const nextEntireNextMonthDaysOnCurrentMonth =
+        getEntireNextMonthDaysLastRowOnCurrentMonth(lastCellInfo);
+      // console.log(
+      //   'nextEntireNextMonthDaysOnCurrentMonth',
+      //   nextEntireNextMonthDaysOnCurrentMonth,
+      // );
+      chunks.push(nextEntireNextMonthDaysOnCurrentMonth);
+    }
+    console.log('chunks', chunks);
     return chunks;
   };
 

@@ -34,3 +34,33 @@ export const getNextMonthDaysOnCurrentMonth = (
   }
   return nextMonthDaysOnCurrentMonth;
 };
+
+export const getEntireNextMonthDaysLastRowOnCurrentMonth = (
+  lastCellInfo: CalendarCellInfo,
+) => {
+  const nextMonthDaysLastRowCells: CalendarCellInfo[] = [];
+
+  for (let i = 1; i < numberOfDaysOfTheWeek + 1; i++) {
+    console.log('numberOfDaysOfTheWeek', numberOfDaysOfTheWeek);
+    nextMonthDaysLastRowCells.push({
+      month: lastCellInfo.month,
+      day: lastCellInfo.day + i,
+      year: lastCellInfo.year,
+    });
+    // console.log('BEF nextMonthDaysLastRowCells', nextMonthDaysLastRowCells);
+    // console.log('AFT nextMonthDaysLastRowCells', nextMonthDaysLastRowCells);
+  }
+  // for (const dayOfWeek of Array.from(
+  //   Array(numberOfDaysOfTheWeek).keys(),
+  //   (day) => day + 1,
+  // )) {
+  //   console.log('dayOfWeek', dayOfWeek);
+  // }
+
+  // nextMonthDaysOnCurrentMonth.map((nextMonthDayFromPreviuosWeek) => ({
+  //   month: nextMonthDayFromPreviuosWeek.month,
+  //   day: nextMonthDayFromPreviuosWeek.day + 1,
+  //   year: nextMonthDayFromPreviuosWeek.year,
+  // }));
+  return nextMonthDaysLastRowCells;
+};
