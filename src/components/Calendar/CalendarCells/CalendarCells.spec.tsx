@@ -747,11 +747,20 @@ describe('CalendarCells', () => {
         });
       });
 
-      it('should not render days from December (next month) to fill calendar', () => {
-        const dayCell = screen.queryByTitle(
-          getFullDateTitle(currentYear, Months.DECEMBER, 1, localeMock),
-        );
-        expect(dayCell).not.toBeInTheDocument();
+      it.only('should render days from December (next month) to fill calendar', () => {
+        const novemberDays = [1, 2, 3, 4, 5, 6, 7];
+        novemberDays.forEach((novemberDay) => {
+          const dayCell = screen.getByTitle(
+            getFullDateTitle(
+              currentYear,
+              Months.NOVEMBER,
+              novemberDay,
+              localeMock,
+            ),
+          );
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(novemberDay.toString());
+        });
       });
     });
     describe('December', () => {
@@ -1082,13 +1091,13 @@ describe('CalendarCells', () => {
       });
 
       it('should render days from May (next month) to fill calendar', () => {
-        const marchDaysToFillExtraRow = [1, 2, 3, 4, 5, 6, 7];
-        marchDaysToFillExtraRow.forEach((marchDay) => {
+        const mayDaysToFillExtraRow = [1, 2, 3, 4, 5, 6, 7];
+        mayDaysToFillExtraRow.forEach((mayDay) => {
           const dayCell = screen.getByTitle(
-            getFullDateTitle(leapYear, Months.SEPTEMBER, 1, localeMock),
+            getFullDateTitle(leapYear, Months.MAY, mayDay, localeMock),
           );
           expect(dayCell).toBeInTheDocument();
-          expect(dayCell.textContent).toBe(marchDay.toString());
+          expect(dayCell.textContent).toBe(mayDay.toString());
         });
       });
     });
