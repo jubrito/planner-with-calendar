@@ -1,11 +1,5 @@
 # Next steps (v1):
 
-- Planner
-  - Create weekly planner integrated with calendar (+ tests)
-  - Calendar button to click on day and open planner
-    - Test
-  - Indicate in the cell that clicking will open planner (accessibility)
-
 # Future Steps:
 
 ## v1:
