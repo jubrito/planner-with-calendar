@@ -40,9 +40,22 @@ export const dateSlice = createSlice({
         new Date(year, month, day),
       );
     },
+    updateDayViewISODate: (
+      state,
+      action: PayloadAction<{
+        year: DateConfig['year'];
+        month: DateConfig['month'];
+        day: DateConfig['day'];
+      }>,
+    ) => {
+      const { year, month, day } = action.payload;
+      state.currentState.dayViewISODate = getDateISOString(
+        new Date(year, month, day),
+      );
+    },
   },
 });
 
-export const { updateGlobalISODate } = dateSlice.actions;
+export const { updateGlobalISODate, updateDayViewISODate } = dateSlice.actions;
 
 export default dateSlice.reducer;
