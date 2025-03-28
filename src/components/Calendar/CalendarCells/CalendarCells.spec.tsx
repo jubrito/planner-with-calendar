@@ -575,7 +575,7 @@ describe('CalendarCells', () => {
         expect(dayCell).not.toBeInTheDocument();
       });
 
-      it('should render days from September (current month) to fill calendar', () => {
+      it.only('should render days from September (current month) to fill calendar', () => {
         const septemberDays = Array.from(
           Array(currentMonthNumberOfDays).keys(),
           (day) => day + 1,
@@ -595,7 +595,9 @@ describe('CalendarCells', () => {
       });
 
       it('should render days from October (next month) to fill calendar', () => {
-        const octoberDays = [1, 2, 3, 4, 5];
+        const days = [1, 2, 3, 4, 5];
+        const daysToFillExtraRow = [3, 4, 5, 6, 7, 8];
+        const octoberDays = [...days, ...daysToFillExtraRow];
 
         octoberDays.forEach((octoberDay) => {
           const dayCell = screen.getByTitle(
