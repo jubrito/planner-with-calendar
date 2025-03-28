@@ -1,6 +1,5 @@
 # Next steps (v1):
 
-- Adjust resize compact calendar to avoid titles breaking
 - Planner
   - Create weekly planner integrated with calendar (+ tests)
   - Calendar button to click on day and open planner
@@ -10,6 +9,8 @@
 # Future Steps:
 
 ## v1:
+
+- Create events
 
 - Accessibility
 
@@ -41,7 +42,7 @@
   > Favicon
   > Scrollbar
 
-- Evitar usar toDateString da data inteira e usar outro armazenamento serializavel? (ex: timestamp?)
+- Adjust resize compact calendar to avoid titles breaking
 
 - Update README.md
 
@@ -56,6 +57,7 @@
     - Header?
 - Accessibility
   - Add skip to main content (+ tests)
+- Store bd now?
 
 ## v3
 
