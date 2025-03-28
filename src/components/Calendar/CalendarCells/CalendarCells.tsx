@@ -81,7 +81,6 @@ const CalendarCells = () => {
       }
     };
     setFixedCalendarHeight(chunks);
-    console.log('chunks', chunks);
     return chunks;
   };
 
