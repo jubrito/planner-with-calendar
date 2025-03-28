@@ -98,9 +98,19 @@ export const getInitialGlobalYear = () =>
     getYear(new Date(state.initialState.globalSODate)),
   );
 
+export const getInitialDayViewYear = () =>
+  createSelector(updateDateState, (state) =>
+    getYear(new Date(state.initialState.dayViewISODate)),
+  );
+
 export const getSelectedGlobalYear = () =>
   createSelector(updateDateState, (state) =>
     getYear(new Date(state.currentState.globalSODate)),
+  );
+
+export const getSelectedDayViewYear = () =>
+  createSelector(updateDateState, (state) =>
+    getYear(new Date(state.currentState.dayViewISODate)),
   );
 
 export const getInitialGlobalTimeInMilliseconds = () =>
