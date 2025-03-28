@@ -88,7 +88,7 @@ describe('CalendarCells', () => {
 
       it('should render days from February (next month) to fill calendar', () => {
         const days = [1, 2];
-        const daysToFillExtraRow = [3, 4, 5, 6, 7, 8];
+        const daysToFillExtraRow = [3, 4, 5, 6, 7, 8, 9];
         const februaryDays = [...days, ...daysToFillExtraRow];
 
         februaryDays.forEach((februaryDay) => {
@@ -166,7 +166,7 @@ describe('CalendarCells', () => {
 
       it('should render days from March (next month) to fill calendar', () => {
         const days = [1, 2];
-        const daysToFillExtraRow = [3, 4, 5, 6, 7, 8];
+        const daysToFillExtraRow = [3, 4, 5, 6, 7, 8, 9];
         const marchDays = [...days, ...daysToFillExtraRow];
 
         marchDays.forEach((marchDay) => {
@@ -295,7 +295,7 @@ describe('CalendarCells', () => {
 
       it('should render days from May (next month) to fill calendar', () => {
         const days = [1, 2, 3, 4];
-        const daysToFillExtraRow = [3, 4, 5, 6, 7, 8];
+        const daysToFillExtraRow = [5, 6, 7, 8, 9, 10, 11];
         const mayDays = [...days, ...daysToFillExtraRow];
 
         mayDays.forEach((mayDay) => {
@@ -357,7 +357,7 @@ describe('CalendarCells', () => {
 
       it('should render days from June (next month) to fill calendar', () => {
         const days = [1];
-        const daysToFillExtraRow = [3, 4, 5, 6, 7, 8];
+        const daysToFillExtraRow = [2, 3, 4, 5, 6, 7, 8];
         const juneDays = [...days, ...daysToFillExtraRow];
 
         juneDays.forEach((juneDay) => {
@@ -479,7 +479,7 @@ describe('CalendarCells', () => {
 
       it('should render days from August (next month) to fill calendar', () => {
         const days = [1, 2, 3];
-        const daysToFillExtraRow = [3, 4, 5, 6, 7, 8];
+        const daysToFillExtraRow = [4, 5, 6, 7, 8, 9, 10];
         const augustDays = [...days, ...daysToFillExtraRow];
 
         augustDays.forEach((augustDay) => {
@@ -596,7 +596,7 @@ describe('CalendarCells', () => {
 
       it('should render days from October (next month) to fill calendar', () => {
         const days = [1, 2, 3, 4, 5];
-        const daysToFillExtraRow = [3, 4, 5, 6, 7, 8];
+        const daysToFillExtraRow = [6, 7, 8, 9, 10, 11, 12];
         const octoberDays = [...days, ...daysToFillExtraRow];
 
         octoberDays.forEach((octoberDay) => {
@@ -672,7 +672,7 @@ describe('CalendarCells', () => {
 
       it('should render days from November (next month) to fill calendar', () => {
         const days = [1, 2];
-        const daysToFillExtraRow = [3, 4, 5, 6, 7, 8];
+        const daysToFillExtraRow = [3, 4, 5, 6, 7, 8, 9];
         const novemberDays = [...days, ...daysToFillExtraRow];
 
         novemberDays.forEach((novemberDay) => {
@@ -805,7 +805,7 @@ describe('CalendarCells', () => {
 
       it('should render days from January (next month) to fill calendar', () => {
         const days = [1, 2, 3, 4];
-        const daysToFillExtraRow = [3, 4, 5, 6, 7, 8];
+        const daysToFillExtraRow = [5, 6, 7, 8, 9, 10, 11];
         const januaryDays = [...days, ...daysToFillExtraRow];
 
         januaryDays.forEach((januaryDay) => {
@@ -952,7 +952,7 @@ describe('CalendarCells', () => {
 
       it('should render days from March (next month) to fill calendar', () => {
         const days = [1, 2, 3, 4, 5];
-        const daysToFillExtraRow = [3, 4, 5, 6, 7, 8];
+        const daysToFillExtraRow = [6, 7, 8, 9, 10, 11, 12];
         const marchDays = [...days, ...daysToFillExtraRow];
 
         marchDays.forEach((marchDay) => {
@@ -1020,7 +1020,7 @@ describe('CalendarCells', () => {
 
       it('should render days from April (next month) to fill calendar', () => {
         const days = [1, 2];
-        const daysToFillExtraRow = [3, 4, 5, 6, 7, 8];
+        const daysToFillExtraRow = [3, 4, 5, 6, 7, 8, 9];
         const aprilDays = [...days, ...daysToFillExtraRow];
 
         aprilDays.forEach((aprilDay) => {
@@ -1127,7 +1127,7 @@ describe('CalendarCells', () => {
         });
       });
 
-      it.only('should render days from June (next month) to fill calendar', () => {
+      it('should render days from June (next month) to fill calendar', () => {
         const days = [1, 2, 3, 4];
         const daysToFillExtraRow = [3, 4, 5, 6, 7, 8];
         const juneDays = [...days, ...daysToFillExtraRow];
