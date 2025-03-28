@@ -1,7 +1,6 @@
 import { useSelector } from 'react-redux';
 import styles from './_planner.module.scss';
 import {
-  getSelectedDayViewDate,
   getSelectedDayViewDay,
   getSelectedDayViewDayOfWeek,
   getSelectedDayViewMonth,
@@ -11,7 +10,6 @@ import {
 import { getLocaleLanguage } from '../../redux/slices/localeSlice/selectors';
 import { getFullDateTitle, getHoursOfTheDay } from '../../utils/calendar/utils';
 import { IntlDateTimeFormatShort } from '../../utils/constants';
-import { useEffect } from 'react';
 
 const Planner = () => {
   const locale = useSelector(getLocaleLanguage());
@@ -23,13 +21,7 @@ const Planner = () => {
   const dayOfWeek = useSelector(getSelectedDayViewDayOfWeek(locale));
   const year = useSelector(getSelectedDayViewYear());
   const hoursOfTheDay = getHoursOfTheDay(locale, year, monthIndex, day);
-  const selectedDayViewDate = useSelector(getSelectedDayViewDate());
-
   const plannerDateLabel = `${monthName} ${day}, ${dayOfWeek}`;
-
-  useEffect(() => {
-    console.log('selectedDayViewDate', selectedDayViewDate);
-  }, [selectedDayViewDate]);
 
   return (
     <section className={styles.planner}>
