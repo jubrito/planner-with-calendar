@@ -1381,7 +1381,9 @@ describe('CalendarCells', () => {
       });
 
       it('should render days from October (next month) to fill calendar', () => {
-        const octoberDays = [1];
+        const days = [1];
+        const daysToFillExtraRow = [3, 4, 5, 6, 7, 8];
+        const octoberDays = [...days, ...daysToFillExtraRow];
 
         octoberDays.forEach((octoberDay) => {
           const dayCell = screen.getByTitle(
@@ -1516,7 +1518,7 @@ describe('CalendarCells', () => {
       });
 
       it('should render days from december (next month) to fill calendar', () => {
-        const decemberDays = [1, 2, 3];
+        const decemberDays = [1, 2, 3, 4, 5, 6, 7, 9, 10];
 
         decemberDays.forEach((decemberDay) => {
           const dayCell = screen.getByTitle(
