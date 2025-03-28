@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { updateDate } from '../../../redux/slices/dateSlice';
+import { updateGlobalISODate } from '../../../redux/slices/dateSlice';
 import { UpdateCalendarButton } from '../UpdateCalendarButton/UpdateCalendarButton';
 import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
 import {
@@ -32,7 +32,7 @@ export const CalendarMenu = () => {
           label={'Go to previous year'}
           symbol={'<<'}
           updateDate={() =>
-            dispatch(updateDate({ year: year - 1, month, day }))
+            dispatch(updateGlobalISODate({ year: year - 1, month, day }))
           }
         />
         <UpdateCalendarButton
@@ -40,7 +40,7 @@ export const CalendarMenu = () => {
           symbol={'<'}
           updateDate={() =>
             dispatch(
-              updateDate({
+              updateGlobalISODate({
                 year: getYear(new Date(year, month - 1)),
                 month: getMonthIndex(locale, new Date(year, month - 1, day)),
                 day,
@@ -53,7 +53,7 @@ export const CalendarMenu = () => {
           symbol={'Today'}
           updateDate={() => {
             return dispatch(
-              updateDate({
+              updateGlobalISODate({
                 year: getYear(new Date()),
                 month: getMonthIndex(locale, new Date()),
                 day: getDay(new Date()),
@@ -66,7 +66,7 @@ export const CalendarMenu = () => {
           symbol={'>'}
           updateDate={() =>
             dispatch(
-              updateDate({
+              updateGlobalISODate({
                 year: getYear(new Date(year, month + 1)),
                 month: getMonthIndex(locale, new Date(year, month + 1, day)),
                 day,
@@ -78,7 +78,7 @@ export const CalendarMenu = () => {
           label={'Go to next year'}
           symbol={'>>'}
           updateDate={() =>
-            dispatch(updateDate({ year: year + 1, month, day }))
+            dispatch(updateGlobalISODate({ year: year + 1, month, day }))
           }
         />
       </div>

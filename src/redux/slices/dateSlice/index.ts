@@ -27,7 +27,7 @@ export const dateSlice = createSlice({
   name: 'dateSlice',
   initialState: initialValue,
   reducers: {
-    updateDate: (
+    updateGlobalISODate: (
       state,
       action: PayloadAction<{
         year: DateConfig['year'];
@@ -43,6 +43,6 @@ export const dateSlice = createSlice({
   },
 });
 
-export const { updateDate } = dateSlice.actions;
+export const { updateGlobalISODate } = dateSlice.actions;
 
 export default dateSlice.reducer;
