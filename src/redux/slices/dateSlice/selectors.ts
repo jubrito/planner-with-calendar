@@ -213,6 +213,18 @@ export const getInitialGlobalMonthName = (
     ),
   );
 
+export const getInitialDayViewMonthName = (
+  locale: LocaleLanguage,
+  weekdayStyle?: IntlDateTypeWeekdayStyle,
+): ((state: RootState) => DateConfig['dayOfWeek']) =>
+  createSelector(updateDateState, (state) =>
+    getDayOfWeek(
+      locale,
+      new Date(state.initialState.dayViewISODate),
+      weekdayStyle,
+    ),
+  );
+
 export const getSelectedGlobalMonthName = (
   locale: LocaleLanguage,
   weekdayStyle?: IntlDateTypeWeekdayStyle,
@@ -221,6 +233,18 @@ export const getSelectedGlobalMonthName = (
     getMonthName(
       locale,
       new Date(state.currentState.globalSODate),
+      weekdayStyle,
+    ),
+  );
+
+export const getSelectedDayViewMonthName = (
+  locale: LocaleLanguage,
+  weekdayStyle?: IntlDateTypeWeekdayStyle,
+): ((state: RootState) => DateConfig['dayOfWeek']) =>
+  createSelector(updateDateState, (state) =>
+    getMonthName(
+      locale,
+      new Date(state.currentState.dayViewISODate),
       weekdayStyle,
     ),
   );
