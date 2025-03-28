@@ -16,6 +16,7 @@ import {
 } from '../../../redux/slices/dateSlice/selectors';
 import { useSelector } from 'react-redux';
 import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
+import { firstDayOfTheMonth } from '../../../utils/calendar/constants';
 
 const CalendarCells = () => {
   const locale = useSelector(getLocaleLanguage());
@@ -66,12 +67,21 @@ const CalendarCells = () => {
       if (onlyFiveRows) {
         const lastRow = chunks[chunks.length - 1];
         const lastCellInfo = lastRow[lastRow.length - 1];
+        const updatedLastCellInfo: CalendarCellInfo =
+          lastCellInfo.month === month + 1
+            ? {
+                year,
+                month: lastCellInfo.month + 1,
+                day: firstDayOfTheMonth - 1,
+              }
+            : lastCellInfo;
         const nextEntireNextMonthDaysOnCurrentMonth =
-          getEntireNextMonthDaysLastRowOnCurrentMonth(lastCellInfo);
+          getEntireNextMonthDaysLastRowOnCurrentMonth(updatedLastCellInfo);
         chunks.push(nextEntireNextMonthDaysOnCurrentMonth);
       }
     };
     setFixedCalendarHeight(chunks);
+    console.log('chunks', chunks);
     return chunks;
   };
 
