@@ -58,9 +58,19 @@ export const getInitialGlobalDay = () =>
     getDay(new Date(state.initialState.globalSODate)),
   );
 
+export const getInitialDayViewDay = () =>
+  createSelector(updateDateState, (state) =>
+    getDay(new Date(state.initialState.dayViewISODate)),
+  );
+
 export const getSelectedGlobalDay = () =>
   createSelector(updateDateState, (state) =>
     getDay(new Date(state.currentState.globalSODate)),
+  );
+
+export const getSelectedDayViewDay = () =>
+  createSelector(updateDateState, (state) =>
+    getDay(new Date(state.currentState.dayViewISODate)),
   );
 
 export const getInitialGlobalMonth = (locale: LocaleLanguage) =>
