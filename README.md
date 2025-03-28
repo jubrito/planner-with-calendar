@@ -1,5 +1,9 @@
 # Next steps (v1):
 
+- Last element of planner is next day
+- Ignore clicking outside button of specific hour (change bg to be sure)
+- Add overflow scroll to planner
+
 # Future Steps:
 
 ## v1:
