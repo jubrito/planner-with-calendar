@@ -58,8 +58,9 @@ describe('Cell', () => {
     const cellMonthZeroIndexed = -1;
     const date = new Date(cellYear, cellMonthZeroIndexed, cellDay);
     const openDayViewLabel = `Open ${getMonthName(localeMock, date, IntlDateTimeFormatShort)} ${cellDay} of ${cellYear} day view`;
-    const openDayViewButton =
-      within(tdElement).getByLabelText(openDayViewLabel);
+    const openDayViewButton = within(tdElement).getByRole('button', {
+      name: openDayViewLabel,
+    });
     const fullDate = `${cellYear}-${currentMonth}-${cellDay}`;
     const fullDateTitle = getFullDateTitle(
       cellYear,
