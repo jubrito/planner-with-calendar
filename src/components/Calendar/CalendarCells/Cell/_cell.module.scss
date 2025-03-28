@@ -1,23 +1,47 @@
-@use "../../../../styles/variables" as variables;
-@use "../../../../styles/mixins" as mixins;
+@use '../../../../features/Calendar/_calendar.module.scss';
+@use '../../../../styles/variables' as variables;
+@use '../../../../styles/mixins' as mixins;
 
 .isToday {
   background: variables.$blue-lightgray-color;
-  font-weight: bold;
-  $spacingSize: 4px;
-  $positioninSize: 6px;
-  padding: $spacingSize;
-  font-weight: bold;
-  position: absolute;
-  content: "";
-  top: -$positioninSize;
-  right: -$positioninSize;
+  padding: 4px;
 
   @include mixins.media-for-compact-calendar {
-    padding: variables.$small-gap;
     border-radius: 100%;
-    position: relative;
-    top: unset;
-    right: unset;
+  }
+}
+
+.buttonOpenPlanner {
+  aspect-ratio: 1/1;
+
+  button {
+    @extend .calendarCell;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: right;
+    align-items: flex-start;
+    color: variables.$black-color;
+    padding: 0;
+    background: initial;
+    border: 0px;
+
+    time {
+      line-height: normal;
+      min-width: max-content;
+      width: 40%;
+      text-align: right;
+      aspect-ratio: 1/1;
+      padding: 3px variables.$small-gap 3px 3px;
+
+      @include mixins.media-for-compact-calendar {
+        padding: variables.$small-gap;
+      }
+    }
+
+    @include mixins.media-for-compact-calendar {
+      justify-content: center;
+      align-items: center;
+    }
   }
 }

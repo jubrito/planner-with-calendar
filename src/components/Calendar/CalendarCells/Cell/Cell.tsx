@@ -37,19 +37,16 @@ export const Cell = ({
           : calendarCellsStyles.otherMonthDay
       }
     >
-      <div>
-        <time
-          dateTime={fullDate}
-          title={getFullDateTitle(
-            cellYear,
-            cellMonthZeroIndexed,
-            cellDay,
-            localeString,
-          )}
-        >
-          <span
-            aria-hidden="true"
-            tabIndex={-1}
+      <div className={cellsStyles.buttonOpenPlanner}>
+        <button>
+          <time
+            dateTime={fullDate}
+            title={getFullDateTitle(
+              cellYear,
+              cellMonthZeroIndexed,
+              cellDay,
+              localeString,
+            )}
             className={
               isToday(localeString, formatedDate)
                 ? cellsStyles.isToday
@@ -57,8 +54,8 @@ export const Cell = ({
             }
           >
             {cellDay}
-          </span>
-        </time>
+          </time>
+        </button>
       </div>
     </td>
   );

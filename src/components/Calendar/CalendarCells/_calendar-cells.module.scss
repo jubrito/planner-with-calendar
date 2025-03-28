@@ -1,39 +1,13 @@
-@use "../../../features/Calendar/_calendar.module.scss";
-@use "../../../styles/_variables.scss" as variables;
-@use "../../../styles/_mixins.scss" as mixins;
+@use '../../../features/Calendar/_calendar.module.scss';
+@use '../../../styles/_variables.scss' as variables;
+@use '../../../styles/_mixins.scss' as mixins;
 
 tbody {
   padding: variables.$inner-spacing;
-  box-sizing: border-box;
   tr,
   td {
     box-sizing: border-box;
-  }
-
-  tr {
-    width: 100%;
-    white-space: nowrap;
-  }
-  td {
-    @extend .calendarCell;
-    color: variables.$black-color;
-    vertical-align: top;
-
-    div {
-      display: flex;
-      aspect-ratio: 1/1;
-      line-height: initial;
-      justify-content: right;
-
-      time {
-        position: relative;
-      }
-
-      @include mixins.media-for-compact-calendar {
-        justify-content: center;
-        align-items: center;
-      }
-    }
+    padding: 0;
   }
 
   .currentMonthDay {
