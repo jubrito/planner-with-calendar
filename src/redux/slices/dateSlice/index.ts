@@ -5,6 +5,7 @@ import { getDateISOString } from '../../../utils/calendar/utils';
 
 export type InitialDateState = {
   globalSODate: string;
+  dayViewISODate: string;
 };
 
 export type InitialState = {
@@ -14,6 +15,7 @@ export type InitialState = {
 
 const initialDate: InitialDateState = {
   globalSODate: getDateISOString(new Date()),
+  dayViewISODate: getDateISOString(new Date()),
 };
 
 export const initialValue: InitialState = {
