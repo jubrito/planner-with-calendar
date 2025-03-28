@@ -138,9 +138,19 @@ export const getInitialGlobalMonthNumberOfDays = (locale: LocaleLanguage) =>
     getMonthNumberOfDays(locale, new Date(state.initialState.globalSODate)),
   );
 
+export const getInitialDayViewMonthNumberOfDays = (locale: LocaleLanguage) =>
+  createSelector(updateDateState, (state) =>
+    getMonthNumberOfDays(locale, new Date(state.initialState.dayViewISODate)),
+  );
+
 export const getSelectedGlobalMonthNumberOfDays = (locale: LocaleLanguage) =>
   createSelector(updateDateState, (state) =>
     getMonthNumberOfDays(locale, new Date(state.currentState.globalSODate)),
+  );
+
+export const getSelectedDayViewMonthNumberOfDays = (locale: LocaleLanguage) =>
+  createSelector(updateDateState, (state) =>
+    getMonthNumberOfDays(locale, new Date(state.currentState.dayViewISODate)),
   );
 
 export const getInitialGlobalDayOfWeek = (
