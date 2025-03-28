@@ -803,8 +803,10 @@ describe('CalendarCells', () => {
         });
       });
 
-      it('should render days from January (next month) to fill calendar', () => {
-        const januaryDays = [1, 2, 3, 4];
+      it.only('should render days from January (next month) to fill calendar', () => {
+        const days = [1, 2, 3, 4];
+        const daysToFillExtraRow = [3, 4, 5, 6, 7, 8];
+        const januaryDays = [...days, ...daysToFillExtraRow];
 
         januaryDays.forEach((januaryDay) => {
           const dayCell = screen.getByTitle(
