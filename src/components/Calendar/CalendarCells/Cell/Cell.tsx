@@ -1,10 +1,14 @@
 import { useSelector } from 'react-redux';
 import { DateConfig } from '../../../../types/calendar/types';
-import { getFullDateTitle } from '../../../../utils/calendar/utils';
+import {
+  getFullDateTitle,
+  getMonthName,
+} from '../../../../utils/calendar/utils';
 import calendarCellsStyles from '../_calendar-cells.module.scss';
 import cellsStyles from './_cell.module.scss';
 import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
 import { isToday } from '../../../../utils/checkers';
+import { IntlDateTimeFormatShort } from '../../../../utils/constants';
 
 type CellProps = {
   cellYear: DateConfig['year'];
@@ -22,7 +26,7 @@ export const Cell = ({
   const fullDate = `${cellYear}-${cellMonth}-${cellDay}`;
   const localeString = useSelector(getLocaleLanguage());
   const cellMonthZeroIndexed = cellMonth - 1;
-  const formatedDate = new Date(cellYear, cellMonthZeroIndexed, cellDay);
+  const date = new Date(cellYear, cellMonthZeroIndexed, cellDay);
 
   return (
     <td
@@ -38,7 +42,10 @@ export const Cell = ({
       }
     >
       <div className={cellsStyles.buttonOpenPlanner}>
-        <button>
+        <button
+          aria-label={`Open ${getMonthName(localeString, date, IntlDateTimeFormatShort)} ${cellDay} of ${cellYear} day view`}
+          title={`Open ${getMonthName(localeString, date, IntlDateTimeFormatShort)} ${cellDay} of ${cellYear} day view`}
+        >
           <time
             dateTime={fullDate}
             title={getFullDateTitle(
@@ -48,9 +55,7 @@ export const Cell = ({
               localeString,
             )}
             className={
-              isToday(localeString, formatedDate)
-                ? cellsStyles.isToday
-                : undefined
+              isToday(localeString, date) ? cellsStyles.isToday : undefined
             }
           >
             {cellDay}
