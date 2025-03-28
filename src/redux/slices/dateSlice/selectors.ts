@@ -23,14 +23,26 @@ export const getInitialGlobalDate = () =>
     (state) => new Date(state.initialState.globalSODate),
   );
 
-export const getInitialIGlobalSODate = () =>
-  createSelector(updateDateState, (state) => state.initialState.globalSODate);
+export const getInitialDayViewDate = () =>
+  createSelector(
+    updateDateState,
+    (state) => new Date(state.initialState.dayViewISODate),
+  );
 
 export const getSelectedGlobalDate = () =>
   createSelector(
     updateDateState,
     (state) => new Date(state.currentState.globalSODate),
   );
+
+export const getSelectedDayViewDate = () =>
+  createSelector(
+    updateDateState,
+    (state) => new Date(state.currentState.dayViewISODate),
+  );
+
+export const getInitialIGlobalISODate = () =>
+  createSelector(updateDateState, (state) => state.initialState.globalSODate);
 
 export const getSelectedGlobalISODate = () =>
   createSelector(updateDateState, (state) => state.currentState.globalSODate);
