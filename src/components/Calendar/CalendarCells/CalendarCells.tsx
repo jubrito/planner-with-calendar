@@ -57,23 +57,23 @@ const CalendarCells = () => {
     array: CalendarCellInfo[],
   ): CalendarCellInfo[][] => {
     const chunks = [];
+    const onlyFiveRows = chunks.length - 1 === 4;
+
     for (let i = 0; i < array.length; i += numberOfDaysOfTheWeek) {
       chunks.push(array.slice(i, i + numberOfDaysOfTheWeek));
     }
-    const onlyFiveRows = chunks.length - 1 === 4;
-    console.log('chunks.length', chunks.length);
-    if (onlyFiveRows) {
-      const lastRow = chunks[chunks.length - 1];
-      const lastCellInfo = lastRow[lastRow.length - 1];
-      const nextEntireNextMonthDaysOnCurrentMonth =
-        getEntireNextMonthDaysLastRowOnCurrentMonth(lastCellInfo);
-      // console.log(
-      //   'nextEntireNextMonthDaysOnCurrentMonth',
-      //   nextEntireNextMonthDaysOnCurrentMonth,
-      // );
-      chunks.push(nextEntireNextMonthDaysOnCurrentMonth);
-    }
-    console.log('chunks', chunks);
+
+    const setFixedCalendarHeight = (chunks: CalendarCellInfo[][]) => {
+      if (onlyFiveRows) {
+        const lastRow = chunks[chunks.length - 1];
+        const lastCellInfo = lastRow[lastRow.length - 1];
+        const nextEntireNextMonthDaysOnCurrentMonth =
+          getEntireNextMonthDaysLastRowOnCurrentMonth(lastCellInfo);
+        chunks.push(nextEntireNextMonthDaysOnCurrentMonth);
+      }
+    };
+    setFixedCalendarHeight(chunks);
+
     return chunks;
   };
 
