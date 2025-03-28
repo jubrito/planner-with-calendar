@@ -539,11 +539,23 @@ describe('CalendarCells', () => {
         });
       });
 
-      it('should not render days from September (next month) to fill calendar', () => {
-        const dayCell = screen.queryByTitle(
-          getFullDateTitle(currentYear, Months.SEPTEMBER, 1, localeMock),
-        );
-        expect(dayCell).not.toBeInTheDocument();
+      it('should render days from September (next month) to fill calendar', () => {
+        const days = [1, 2];
+        const daysToFillExtraRow = [3, 4, 5, 6, 7];
+        const septemberDays = [...days, ...daysToFillExtraRow];
+
+        septemberDays.forEach((septemberDay) => {
+          const dayCell = screen.getByTitle(
+            getFullDateTitle(
+              currentYear,
+              Months.SEPTEMBER,
+              septemberDay,
+              localeMock,
+            ),
+          );
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(septemberDay.toString());
+        });
       });
     });
     describe('September', () => {
@@ -747,7 +759,7 @@ describe('CalendarCells', () => {
         });
       });
 
-      it.only('should render days from December (next month) to fill calendar', () => {
+      it('should render days from December (next month) to fill calendar', () => {
         const novemberDays = [1, 2, 3, 4, 5, 6, 7];
         novemberDays.forEach((novemberDay) => {
           const dayCell = screen.getByTitle(
