@@ -20,69 +20,69 @@ const updateDateState = (store: RootState) => store.dateSlice;
 export const getInitialDate = () =>
   createSelector(
     updateDateState,
-    (state) => new Date(state.initialState.dateISO),
+    (state) => new Date(state.initialState.globalSODate),
   );
 
 export const getInitialISODate = () =>
-  createSelector(updateDateState, (state) => state.initialState.dateISO);
+  createSelector(updateDateState, (state) => state.initialState.globalSODate);
 
 export const getSelectedDate = () =>
   createSelector(
     updateDateState,
-    (state) => new Date(state.currentState.dateISO),
+    (state) => new Date(state.currentState.globalSODate),
   );
 
 export const getSelectedISODate = () =>
-  createSelector(updateDateState, (state) => state.currentState.dateISO);
+  createSelector(updateDateState, (state) => state.currentState.globalSODate);
 
 export const getInitialDay = () =>
   createSelector(updateDateState, (state) =>
-    getDay(new Date(state.initialState.dateISO)),
+    getDay(new Date(state.initialState.globalSODate)),
   );
 
 export const getSelectedDay = () =>
   createSelector(updateDateState, (state) =>
-    getDay(new Date(state.currentState.dateISO)),
+    getDay(new Date(state.currentState.globalSODate)),
   );
 
 export const getInitialMonth = (locale: LocaleLanguage) =>
   createSelector(updateDateState, (state) =>
-    getMonthIndex(locale, new Date(state.initialState.dateISO)),
+    getMonthIndex(locale, new Date(state.initialState.globalSODate)),
   );
 
 export const getSelectedMonth = (locale: LocaleLanguage) =>
   createSelector(updateDateState, (state) =>
-    getMonthIndex(locale, new Date(state.currentState.dateISO)),
+    getMonthIndex(locale, new Date(state.currentState.globalSODate)),
   );
 
 export const getInitialYear = () =>
   createSelector(updateDateState, (state) =>
-    getYear(new Date(state.initialState.dateISO)),
+    getYear(new Date(state.initialState.globalSODate)),
   );
 
 export const getSelectedYear = () =>
   createSelector(updateDateState, (state) =>
-    getYear(new Date(state.currentState.dateISO)),
+    getYear(new Date(state.currentState.globalSODate)),
   );
 
 export const getInitialTimeInMilliseconds = () =>
   createSelector(updateDateState, (state) =>
-    getTimeInMilliseconds(new Date(state.initialState.dateISO)),
+    getTimeInMilliseconds(new Date(state.initialState.globalSODate)),
   );
 
 export const getSelectedTimeInMilliseconds = () =>
   createSelector(updateDateState, (state) =>
-    getTimeInMilliseconds(new Date(state.currentState.dateISO)),
+    getTimeInMilliseconds(new Date(state.currentState.globalSODate)),
   );
 
 export const getInitialMonthNumberOfDays = (locale: LocaleLanguage) =>
   createSelector(updateDateState, (state) =>
-    getMonthNumberOfDays(locale, new Date(state.initialState.dateISO)),
+    getMonthNumberOfDays(locale, new Date(state.initialState.globalSODate)),
   );
 
 export const getSelectedMonthNumberOfDays = (locale: LocaleLanguage) =>
   createSelector(updateDateState, (state) =>
-    getMonthNumberOfDays(locale, new Date(state.currentState.dateISO)),
+    getMonthNumberOfDays(locale, new Date(state.currentState.globalSODate)),
   );
 
 export const getInitialDayOfWeek = (
@@ -90,7 +90,11 @@ export const getInitialDayOfWeek = (
   weekdayStyle?: IntlDateTypeWeekdayStyle,
 ): ((state: RootState) => DateConfig['dayOfWeek']) =>
   createSelector(updateDateState, (state) =>
-    getDayOfWeek(locale, new Date(state.initialState.dateISO), weekdayStyle),
+    getDayOfWeek(
+      locale,
+      new Date(state.initialState.globalSODate),
+      weekdayStyle,
+    ),
   );
 
 export const getSelectedDayOfWeek = (
@@ -98,7 +102,11 @@ export const getSelectedDayOfWeek = (
   weekdayStyle?: IntlDateTypeWeekdayStyle,
 ): ((state: RootState) => DateConfig['dayOfWeek']) =>
   createSelector(updateDateState, (state) =>
-    getDayOfWeek(locale, new Date(state.currentState.dateISO), weekdayStyle),
+    getDayOfWeek(
+      locale,
+      new Date(state.currentState.globalSODate),
+      weekdayStyle,
+    ),
   );
 
 export const getInitialMonthName = (
@@ -106,7 +114,11 @@ export const getInitialMonthName = (
   weekdayStyle?: IntlDateTypeWeekdayStyle,
 ): ((state: RootState) => DateConfig['dayOfWeek']) =>
   createSelector(updateDateState, (state) =>
-    getDayOfWeek(locale, new Date(state.initialState.dateISO), weekdayStyle),
+    getDayOfWeek(
+      locale,
+      new Date(state.initialState.globalSODate),
+      weekdayStyle,
+    ),
   );
 
 export const getSelectedMonthName = (
@@ -114,5 +126,9 @@ export const getSelectedMonthName = (
   weekdayStyle?: IntlDateTypeWeekdayStyle,
 ): ((state: RootState) => DateConfig['dayOfWeek']) =>
   createSelector(updateDateState, (state) =>
-    getMonthName(locale, new Date(state.currentState.dateISO), weekdayStyle),
+    getMonthName(
+      locale,
+      new Date(state.currentState.globalSODate),
+      weekdayStyle,
+    ),
   );

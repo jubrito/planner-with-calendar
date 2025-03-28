@@ -33,7 +33,7 @@ describe('CalendarCells', () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                dateISO: new Date(
+                globalSODate: new Date(
                   currentYear,
                   Months.JANUARY,
                   1,
@@ -109,7 +109,7 @@ describe('CalendarCells', () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                dateISO: new Date(
+                globalSODate: new Date(
                   currentYear,
                   Months.FEBRUARY,
                   1,
@@ -180,7 +180,11 @@ describe('CalendarCells', () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                dateISO: new Date(currentYear, Months.MARCH, 1).toDateString(),
+                globalSODate: new Date(
+                  currentYear,
+                  Months.MARCH,
+                  1,
+                ).toDateString(),
               },
               initialState: {
                 ...initialValue.initialState,
@@ -242,7 +246,11 @@ describe('CalendarCells', () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                dateISO: new Date(currentYear, Months.APRIL, 1).toDateString(),
+                globalSODate: new Date(
+                  currentYear,
+                  Months.APRIL,
+                  1,
+                ).toDateString(),
               },
               initialState: {
                 ...initialValue.initialState,
@@ -299,7 +307,11 @@ describe('CalendarCells', () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                dateISO: new Date(currentYear, Months.MAY, 1).toDateString(),
+                globalSODate: new Date(
+                  currentYear,
+                  Months.MAY,
+                  1,
+                ).toDateString(),
               },
               initialState: {
                 ...initialValue.initialState,
@@ -355,7 +367,11 @@ describe('CalendarCells', () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                dateISO: new Date(currentYear, Months.JUNE, 1).toDateString(),
+                globalSODate: new Date(
+                  currentYear,
+                  Months.JUNE,
+                  1,
+                ).toDateString(),
               },
               initialState: {
                 ...initialValue.initialState,
@@ -411,7 +427,11 @@ describe('CalendarCells', () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                dateISO: new Date(currentYear, Months.JULY, 1).toDateString(),
+                globalSODate: new Date(
+                  currentYear,
+                  Months.JULY,
+                  1,
+                ).toDateString(),
               },
               initialState: {
                 ...initialValue.initialState,
@@ -467,7 +487,11 @@ describe('CalendarCells', () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                dateISO: new Date(currentYear, Months.AUGUST, 1).toDateString(),
+                globalSODate: new Date(
+                  currentYear,
+                  Months.AUGUST,
+                  1,
+                ).toDateString(),
               },
               initialState: {
                 ...initialValue.initialState,
@@ -518,7 +542,7 @@ describe('CalendarCells', () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                dateISO: new Date(
+                globalSODate: new Date(
                   currentYear,
                   Months.SEPTEMBER,
                   1,
@@ -583,7 +607,7 @@ describe('CalendarCells', () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                dateISO: new Date(
+                globalSODate: new Date(
                   currentYear,
                   Months.OCTOBER,
                   1,
@@ -657,7 +681,7 @@ describe('CalendarCells', () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                dateISO: new Date(
+                globalSODate: new Date(
                   currentYear,
                   Months.NOVEMBER,
                   1,
@@ -722,7 +746,7 @@ describe('CalendarCells', () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                dateISO: new Date(
+                globalSODate: new Date(
                   currentYear,
                   Months.DECEMBER,
                   1,
@@ -791,7 +815,11 @@ describe('CalendarCells', () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                dateISO: new Date(leapYear, Months.JANUARY, 1).toDateString(),
+                globalSODate: new Date(
+                  leapYear,
+                  Months.JANUARY,
+                  1,
+                ).toDateString(),
               },
               initialState: {
                 ...initialValue.initialState,
@@ -858,7 +886,11 @@ describe('CalendarCells', () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                dateISO: new Date(leapYear, Months.FEBRUARY, 1).toDateString(),
+                globalSODate: new Date(
+                  leapYear,
+                  Months.FEBRUARY,
+                  1,
+                ).toDateString(),
               },
               initialState: {
                 ...initialValue.initialState,
@@ -920,7 +952,11 @@ describe('CalendarCells', () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                dateISO: new Date(leapYear, Months.MARCH, 1).toDateString(),
+                globalSODate: new Date(
+                  leapYear,
+                  Months.MARCH,
+                  1,
+                ).toDateString(),
               },
               initialState: {
                 ...initialValue.initialState,
@@ -982,7 +1018,11 @@ describe('CalendarCells', () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                dateISO: new Date(leapYear, Months.APRIL, 1).toDateString(),
+                globalSODate: new Date(
+                  leapYear,
+                  Months.APRIL,
+                  1,
+                ).toDateString(),
               },
               initialState: {
                 ...initialValue.initialState,
@@ -1034,7 +1074,7 @@ describe('CalendarCells', () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                dateISO: new Date(leapYear, Months.MAY, 1).toDateString(),
+                globalSODate: new Date(leapYear, Months.MAY, 1).toDateString(),
               },
               initialState: {
                 ...initialValue.initialState,
@@ -1085,7 +1125,7 @@ describe('CalendarCells', () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                dateISO: new Date(leapYear, Months.JUNE, 1).toDateString(),
+                globalSODate: new Date(leapYear, Months.JUNE, 1).toDateString(),
               },
               initialState: {
                 ...initialValue.initialState,
@@ -1141,7 +1181,7 @@ describe('CalendarCells', () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                dateISO: new Date(leapYear, Months.JULY, 1).toDateString(),
+                globalSODate: new Date(leapYear, Months.JULY, 1).toDateString(),
               },
               initialState: {
                 ...initialValue.initialState,
@@ -1197,7 +1237,11 @@ describe('CalendarCells', () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                dateISO: new Date(leapYear, Months.AUGUST, 1).toDateString(),
+                globalSODate: new Date(
+                  leapYear,
+                  Months.AUGUST,
+                  1,
+                ).toDateString(),
               },
               initialState: {
                 ...initialValue.initialState,
@@ -1258,7 +1302,11 @@ describe('CalendarCells', () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                dateISO: new Date(leapYear, Months.SEPTEMBER, 1).toDateString(),
+                globalSODate: new Date(
+                  leapYear,
+                  Months.SEPTEMBER,
+                  1,
+                ).toDateString(),
               },
               initialState: {
                 ...initialValue.initialState,
@@ -1319,7 +1367,11 @@ describe('CalendarCells', () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                dateISO: new Date(leapYear, Months.OCTOBER, 1).toDateString(),
+                globalSODate: new Date(
+                  leapYear,
+                  Months.OCTOBER,
+                  1,
+                ).toDateString(),
               },
               initialState: {
                 ...initialValue.initialState,
@@ -1385,7 +1437,11 @@ describe('CalendarCells', () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                dateISO: new Date(leapYear, Months.NOVEMBER, 1).toDateString(),
+                globalSODate: new Date(
+                  leapYear,
+                  Months.NOVEMBER,
+                  1,
+                ).toDateString(),
               },
               initialState: {
                 ...initialValue.initialState,
@@ -1451,7 +1507,11 @@ describe('CalendarCells', () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                dateISO: new Date(leapYear, Months.DECEMBER, 1).toDateString(),
+                globalSODate: new Date(
+                  leapYear,
+                  Months.DECEMBER,
+                  1,
+                ).toDateString(),
               },
               initialState: {
                 ...initialValue.initialState,
