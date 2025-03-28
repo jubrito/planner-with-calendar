@@ -1081,11 +1081,15 @@ describe('CalendarCells', () => {
         });
       });
 
-      it('should not render days from May (next month) to fill calendar', () => {
-        const dayCell = screen.queryByTitle(
-          getFullDateTitle(leapYear, Months.SEPTEMBER, 1, localeMock),
-        );
-        expect(dayCell).not.toBeInTheDocument();
+      it('should render days from May (next month) to fill calendar', () => {
+        const marchDaysToFillExtraRow = [1, 2, 3, 4, 5, 6, 7];
+        marchDaysToFillExtraRow.forEach((marchDay) => {
+          const dayCell = screen.getByTitle(
+            getFullDateTitle(leapYear, Months.SEPTEMBER, 1, localeMock),
+          );
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(marchDay.toString());
+        });
       });
     });
     describe('May', () => {
@@ -1129,7 +1133,7 @@ describe('CalendarCells', () => {
 
       it('should render days from June (next month) to fill calendar', () => {
         const days = [1, 2, 3, 4];
-        const daysToFillExtraRow = [3, 4, 5, 6, 7, 8];
+        const daysToFillExtraRow = [5, 6, 7, 8, 9, 10, 11, 12];
         const juneDays = [...days, ...daysToFillExtraRow];
 
         juneDays.forEach((juneDay) => {
