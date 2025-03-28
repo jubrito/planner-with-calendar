@@ -6,20 +6,22 @@ import { getNextMonthDaysOnCurrentMonth } from '../../../utils/calendar/next';
 import { CalendarCellInfo } from '../../../types/calendar/types';
 import { Cell } from './Cell/Cell';
 import {
-  getSelectedMonth,
-  getSelectedMonthNumberOfDays,
-  getSelectedTimeInMilliseconds,
-  getSelectedYear,
+  getSelectedGlobalMonth,
+  getSelectedGlobalMonthNumberOfDays,
+  getSelectedGlobalTimeInMilliseconds,
+  getSelectedGlobalYear,
 } from '../../../redux/slices/dateSlice/selectors';
 import { useSelector } from 'react-redux';
 import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
 
 const CalendarCells = () => {
   const locale = useSelector(getLocaleLanguage());
-  const time = useSelector(getSelectedTimeInMilliseconds());
-  const year = useSelector(getSelectedYear());
-  const month = useSelector(getSelectedMonth(locale));
-  const monthNumberOfDays = useSelector(getSelectedMonthNumberOfDays(locale));
+  const time = useSelector(getSelectedGlobalTimeInMilliseconds());
+  const year = useSelector(getSelectedGlobalYear());
+  const month = useSelector(getSelectedGlobalMonth(locale));
+  const monthNumberOfDays = useSelector(
+    getSelectedGlobalMonthNumberOfDays(locale),
+  );
 
   const getPreviousCurrentAndNextMonthDays = () => {
     const currentMonthDays: CalendarCellInfo[] = getCurrentMonthDays(

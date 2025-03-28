@@ -3,10 +3,10 @@ import { updateGlobalISODate } from '../../../redux/slices/dateSlice';
 import { UpdateCalendarButton } from '../UpdateCalendarButton/UpdateCalendarButton';
 import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
 import {
-  getSelectedDay,
-  getSelectedMonth,
-  getSelectedMonthName,
-  getSelectedYear,
+  getSelectedGlobalDay,
+  getSelectedGlobalMonth,
+  getSelectedGlobalMonthName,
+  getSelectedGlobalYear,
 } from '../../../redux/slices/dateSlice/selectors';
 import styles from './_calendar-menu.module.scss';
 import { IntlDateTimeFormatLong } from '../../../utils/constants';
@@ -15,11 +15,11 @@ import { getDay, getMonthIndex, getYear } from '../../../utils/calendar/utils';
 export const CalendarMenu = () => {
   const dispatch = useDispatch();
   const locale = useSelector(getLocaleLanguage());
-  const day = useSelector(getSelectedDay());
-  const year = useSelector(getSelectedYear());
-  const month = useSelector(getSelectedMonth(locale));
+  const day = useSelector(getSelectedGlobalDay());
+  const year = useSelector(getSelectedGlobalYear());
+  const month = useSelector(getSelectedGlobalMonth(locale));
   const currentMonthName = useSelector(
-    getSelectedMonthName(locale, IntlDateTimeFormatLong),
+    getSelectedGlobalMonthName(locale, IntlDateTimeFormatLong),
   );
 
   return (

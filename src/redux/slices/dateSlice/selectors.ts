@@ -17,75 +17,75 @@ import { getDay } from '../../../utils/calendar/utils';
 
 const updateDateState = (store: RootState) => store.dateSlice;
 
-export const getInitialDate = () =>
+export const getInitialGlobalDate = () =>
   createSelector(
     updateDateState,
     (state) => new Date(state.initialState.globalSODate),
   );
 
-export const getInitialISODate = () =>
+export const getInitialIGlobalSODate = () =>
   createSelector(updateDateState, (state) => state.initialState.globalSODate);
 
-export const getSelectedDate = () =>
+export const getSelectedGlobalDate = () =>
   createSelector(
     updateDateState,
     (state) => new Date(state.currentState.globalSODate),
   );
 
-export const getSelectedISODate = () =>
+export const getSelectedGlobalISODate = () =>
   createSelector(updateDateState, (state) => state.currentState.globalSODate);
 
-export const getInitialDay = () =>
+export const getInitialGlobalDay = () =>
   createSelector(updateDateState, (state) =>
     getDay(new Date(state.initialState.globalSODate)),
   );
 
-export const getSelectedDay = () =>
+export const getSelectedGlobalDay = () =>
   createSelector(updateDateState, (state) =>
     getDay(new Date(state.currentState.globalSODate)),
   );
 
-export const getInitialMonth = (locale: LocaleLanguage) =>
+export const getInitialGlobalMonth = (locale: LocaleLanguage) =>
   createSelector(updateDateState, (state) =>
     getMonthIndex(locale, new Date(state.initialState.globalSODate)),
   );
 
-export const getSelectedMonth = (locale: LocaleLanguage) =>
+export const getSelectedGlobalMonth = (locale: LocaleLanguage) =>
   createSelector(updateDateState, (state) =>
     getMonthIndex(locale, new Date(state.currentState.globalSODate)),
   );
 
-export const getInitialYear = () =>
+export const getInitialGlobalYear = () =>
   createSelector(updateDateState, (state) =>
     getYear(new Date(state.initialState.globalSODate)),
   );
 
-export const getSelectedYear = () =>
+export const getSelectedGlobalYear = () =>
   createSelector(updateDateState, (state) =>
     getYear(new Date(state.currentState.globalSODate)),
   );
 
-export const getInitialTimeInMilliseconds = () =>
+export const getInitialGlobalTimeInMilliseconds = () =>
   createSelector(updateDateState, (state) =>
     getTimeInMilliseconds(new Date(state.initialState.globalSODate)),
   );
 
-export const getSelectedTimeInMilliseconds = () =>
+export const getSelectedGlobalTimeInMilliseconds = () =>
   createSelector(updateDateState, (state) =>
     getTimeInMilliseconds(new Date(state.currentState.globalSODate)),
   );
 
-export const getInitialMonthNumberOfDays = (locale: LocaleLanguage) =>
+export const getInitialGlobalMonthNumberOfDays = (locale: LocaleLanguage) =>
   createSelector(updateDateState, (state) =>
     getMonthNumberOfDays(locale, new Date(state.initialState.globalSODate)),
   );
 
-export const getSelectedMonthNumberOfDays = (locale: LocaleLanguage) =>
+export const getSelectedGlobalMonthNumberOfDays = (locale: LocaleLanguage) =>
   createSelector(updateDateState, (state) =>
     getMonthNumberOfDays(locale, new Date(state.currentState.globalSODate)),
   );
 
-export const getInitialDayOfWeek = (
+export const getInitialGlobalDayOfWeek = (
   locale: LocaleLanguage,
   weekdayStyle?: IntlDateTypeWeekdayStyle,
 ): ((state: RootState) => DateConfig['dayOfWeek']) =>
@@ -97,7 +97,7 @@ export const getInitialDayOfWeek = (
     ),
   );
 
-export const getSelectedDayOfWeek = (
+export const getSelectedGlobalDayOfWeek = (
   locale: LocaleLanguage,
   weekdayStyle?: IntlDateTypeWeekdayStyle,
 ): ((state: RootState) => DateConfig['dayOfWeek']) =>
@@ -109,7 +109,7 @@ export const getSelectedDayOfWeek = (
     ),
   );
 
-export const getInitialMonthName = (
+export const getInitialGlobalMonthName = (
   locale: LocaleLanguage,
   weekdayStyle?: IntlDateTypeWeekdayStyle,
 ): ((state: RootState) => DateConfig['dayOfWeek']) =>
@@ -121,7 +121,7 @@ export const getInitialMonthName = (
     ),
   );
 
-export const getSelectedMonthName = (
+export const getSelectedGlobalMonthName = (
   locale: LocaleLanguage,
   weekdayStyle?: IntlDateTypeWeekdayStyle,
 ): ((state: RootState) => DateConfig['dayOfWeek']) =>
