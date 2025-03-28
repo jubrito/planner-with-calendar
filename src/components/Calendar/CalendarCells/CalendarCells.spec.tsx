@@ -1,11 +1,13 @@
-import { screen } from '@testing-library/dom';
+import { screen, waitFor } from '@testing-library/dom';
 import CalendarCells from './CalendarCells';
 import '@testing-library/jest-dom';
 import { Months } from '../../../types/calendar/enums';
 import { ReactElement } from 'react';
-import { getFullDateTitle } from '../../../utils/calendar/utils';
+import { getFullDateTitle, getMonthName } from '../../../utils/calendar/utils';
 import { initialValue } from '../../../redux/slices/dateSlice';
 import { renderWithProviders } from '../../../utils/tests/renderWithProviders';
+import { IntlDateTimeFormatShort } from '../../../utils/constants';
+import userEvent from '@testing-library/user-event';
 
 describe('CalendarCells', () => {
   const withTableWrapper = (children: ReactElement) => {
@@ -1562,6 +1564,76 @@ describe('CalendarCells', () => {
           getFullDateTitle(leapYear, Months.JANUARY, 1, localeMock),
         );
         expect(dayCell).not.toBeInTheDocument();
+      });
+    });
+  });
+  describe('Actions', () => {
+    it('should update dayView date when clicking on a specific calendar cell', async () => {
+      const initialYear = 1998;
+      const initialMonth = Months.FEBRUARY;
+      const initialDay = 27;
+      const newDay = 17;
+      const { store } = renderWithProviders(
+        <table>
+          <CalendarCells />
+        </table>,
+        {
+          preloadedState: {
+            dateSlice: {
+              initialState: {
+                ...initialValue.initialState,
+              },
+              currentState: {
+                ...initialValue.currentState,
+                dayViewISODate: new Date(
+                  initialYear,
+                  initialMonth,
+                  initialDay,
+                ).toDateString(),
+                globalSODate: new Date(
+                  initialYear,
+                  initialMonth,
+                  initialDay,
+                ).toDateString(),
+              },
+            },
+          },
+        },
+      );
+      const newDate = new Date(initialYear, initialMonth, newDay);
+      const openDayViewLabel = `Open ${getMonthName(localeMock, newDate, IntlDateTimeFormatShort)} ${newDay} of ${initialYear} day view`;
+      const openDayViewButton = screen.getByRole('button', {
+        name: openDayViewLabel,
+      });
+
+      const currentDayViewISODate =
+        store.getState().dateSlice.currentState.dayViewISODate;
+
+      await waitFor(() => {
+        expect(new Date(currentDayViewISODate).getDate()).toStrictEqual(
+          initialDay,
+        );
+        expect(new Date(currentDayViewISODate).getMonth()).toStrictEqual(
+          initialMonth,
+        );
+        expect(new Date(currentDayViewISODate).getFullYear()).toStrictEqual(
+          initialYear,
+        );
+      });
+
+      await userEvent.click(openDayViewButton);
+
+      const updatedDayViewISODate =
+        store.getState().dateSlice.currentState.dayViewISODate;
+
+      await waitFor(() => {
+        expect(new Date(updatedDayViewISODate).getDate()).toStrictEqual(newDay);
+        expect(new Date(updatedDayViewISODate).getMonth()).toStrictEqual(
+          initialMonth,
+        );
+        expect(new Date(updatedDayViewISODate).getFullYear()).toStrictEqual(
+          initialYear,
+        );
       });
     });
   });
