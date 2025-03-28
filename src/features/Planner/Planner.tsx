@@ -8,20 +8,47 @@ import {
   getSelectedDayViewYear,
 } from '../../redux/slices/dateSlice/selectors';
 import { getLocaleLanguage } from '../../redux/slices/localeSlice/selectors';
-import { getFullDateTitle, getHoursOfTheDay } from '../../utils/calendar/utils';
 import { IntlDateTimeFormatShort } from '../../utils/constants';
+import { HoursOfTheDay } from './HoursOfTheDay/HoursOfTheDay';
+import { ClickableHoursOfTheDay } from './ClickableHoursOfTheDay/ClickableHoursOfTheDay';
+import { getHoursOfTheDay } from '../../utils/calendar/utils';
 
 const Planner = () => {
   const locale = useSelector(getLocaleLanguage());
   const monthName = useSelector(
     getSelectedDayViewMonthName(locale, IntlDateTimeFormatShort),
   );
-  const monthIndex = useSelector(getSelectedDayViewMonth(locale));
-  const day = useSelector(getSelectedDayViewDay());
-  const dayOfWeek = useSelector(getSelectedDayViewDayOfWeek(locale));
   const year = useSelector(getSelectedDayViewYear());
+  const day = useSelector(getSelectedDayViewDay());
+  const monthIndex = useSelector(getSelectedDayViewMonth(locale));
   const hoursOfTheDay = getHoursOfTheDay(locale, year, monthIndex, day);
+  const dayOfWeek = useSelector(getSelectedDayViewDayOfWeek(locale));
   const plannerDateLabel = `${monthName} ${day}, ${dayOfWeek}`;
+
+  // const getElementIdentifier = (index: number, hourOfTheDay: string) =>
+  //   `hourblock_${index}_${hourOfTheDay}`.replace(' ', '');
+
+  // const handleClickhourOfTheDayRow = (
+  //   event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+  // ) => {
+  //   const rect = event.currentTarget.getBoundingClientRect();
+  //   const relativeX = event.clientX - rect.left;
+  //   const relativeY = event.clientY - rect.top;
+  //   console.log({ relativeX, relativeY });
+  // };
+
+  // useEffect(() => {
+  //   const clickListener = (event) => {
+  //     if (event && event.currentTarget) {
+  //       console.log('clicked event', event.currentTarget.);
+  //     }
+  //     // "clientX: " + event.clientX +
+  //     // " - clientY: " + event.clientY;
+  //   };
+  //   addEventListener('click', clickListener);
+
+  //   return () => removeEventListener('click', clickListener);
+  // }, []);
 
   return (
     <section className={styles.planner}>
@@ -30,24 +57,9 @@ const Planner = () => {
           {plannerDateLabel}
         </h2>
       </div>
-      <div className={styles.hoursWrapper}>
-        <div className={styles.hoursOfTheDayWrapper}>
-          <div className={styles.hoursOfTheDay}>
-            {hoursOfTheDay.map((hourOfTheDay, index) => {
-              return (
-                <div
-                  className={styles.hoursOfTheDayRow}
-                  key={hourOfTheDay + index}
-                  aria-label={`${getFullDateTitle(year, monthIndex, day, locale)} ${hourOfTheDay}`}
-                  title={`${getFullDateTitle(year, monthIndex, day, locale)} ${hourOfTheDay}`}
-                >
-                  <span className={styles.hoursOfTheDay}>{hourOfTheDay}</span>
-                  <span className={styles.hoursOfTheDayLine}></span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+      <div className={styles.plannerHours}>
+        <HoursOfTheDay hoursOfTheDay={hoursOfTheDay} />
+        <ClickableHoursOfTheDay hoursOfTheDay={hoursOfTheDay} />
       </div>
     </section>
   );

@@ -1,0 +1,11 @@
+@use '../../../styles/variables' as variables;
+
+.hourOfTheDay {
+  display: flex;
+  flex-direction: column;
+  margin-top: -13px;
+  span {
+    width: max-content;
+    padding-bottom: variables.$hoursOfDaySliceSpacing;
+  }
+}

@@ -1,0 +1,15 @@
+@use '../../../styles/variables' as variables;
+
+.clickableHourOfTheDay {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  button {
+    height: variables.$hoursOfDaySliceSpacing;
+    background-color: transparent;
+    border-top: 1px solid variables.$black-color;
+    border-radius: 0;
+    padding: 0;
+    color: variables.$black-color;
+  }
+}
