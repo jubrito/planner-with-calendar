@@ -75,3 +75,8 @@ export type RelativePosition = {
 export type RelativePositionOptions =
   | typeof initialRelativePosition
   | typeof endRelativePosition;
+
+export type HourBlockClicked = {
+  currentBlock: number;
+  mouseEventType: RelativePosition;
+};
