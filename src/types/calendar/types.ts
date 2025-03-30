@@ -65,10 +65,12 @@ export type RelativePosition = {
   initial: {
     relativeX?: number;
     relativeY?: number;
+    currentBlock?: number;
   };
   end: {
     relativeX?: number;
     relativeY?: number;
+    currentBlock?: number;
   };
 };
 
@@ -77,8 +79,10 @@ export type RelativePositionOptions =
   | typeof endRelativePosition;
 
 export type HourBlockClicked = {
-  currentBlock: {
-    [initialRelativePosition]?: number;
-    [endRelativePosition]?: number;
+  [initialRelativePosition]?: {
+    currentBlock: number;
+  };
+  [endRelativePosition]?: {
+    currentBlock: number;
   };
 };

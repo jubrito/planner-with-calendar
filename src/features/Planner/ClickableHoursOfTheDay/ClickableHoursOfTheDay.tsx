@@ -39,7 +39,8 @@ export const ClickableHoursOfTheDay = ({
   // };
   // let pendingClick = false;
   const pendingClickByButtonId: Record<string, boolean> = {};
-  const relativePosition: Record<string, RelativePosition> = {};
+  const createdEventBlockPositionByButtonId: Record<string, RelativePosition> =
+    {};
   const blockClickedByButtonId: Record<string, HourBlockClicked> = {};
 
   // const [positionSelected, setPositionSelected] = useState<RelativePosition>({
@@ -91,8 +92,8 @@ export const ClickableHoursOfTheDay = ({
       //   relativeX: undefined,
       //   relativeY: undefined,
       // };
-      relativePosition[buttonId] = {
-        ...relativePosition[buttonId],
+      createdEventBlockPositionByButtonId[buttonId] = {
+        ...createdEventBlockPositionByButtonId[buttonId],
         end: {
           relativeX: undefined,
           relativeY: undefined,
@@ -114,18 +115,18 @@ export const ClickableHoursOfTheDay = ({
       //   relativeX,
       //   relativeY,
       // };
-      relativePosition[buttonId] = {
-        ...relativePosition[buttonId],
+      createdEventBlockPositionByButtonId[buttonId] = {
+        ...createdEventBlockPositionByButtonId[buttonId],
         end: {
           relativeX,
           relativeY,
         },
       };
 
-      setPositionSelected((prevValue) => ({
-        ...prevValue,
-        ...relativePosition,
-      }));
+      // setPositionSelected((prevValue) => ({
+      //   ...prevValue,
+      //   ...createdEventBlockPositionByButtonId,
+      // }));
       pendingClickByButtonId[buttonId] = false;
 
       ///
@@ -133,8 +134,10 @@ export const ClickableHoursOfTheDay = ({
 
       // const initialY = relativePosition.initial.relativeY;
       // const relativeInitialPosition = relativePosition[buttonId].initial.relativeY;
-      const relativeInitialPosition = relativePosition[buttonId].initial;
-      const relativeEndPosition = relativePosition[buttonId].end;
+      const relativeInitialPosition =
+        createdEventBlockPositionByButtonId[buttonId].initial;
+      const relativeEndPosition =
+        createdEventBlockPositionByButtonId[buttonId].end;
       const getInitialBlockNumberClickedInfo = getBlockClicked(
         buttonHeight,
         relativeInitialPosition,
@@ -146,11 +149,17 @@ export const ClickableHoursOfTheDay = ({
         endRelativePosition,
       );
       blockClickedByButtonId[buttonId] = {
-        currentBlock: {
-          ...getInitialBlockNumberClickedInfo.currentBlock,
-          ...getEndBlockNumberClickedInfo.currentBlock,
-        },
+        ...getInitialBlockNumberClickedInfo,
+        ...getEndBlockNumberClickedInfo,
       };
+      console.log(
+        'blockClickedByButtonId[buttonId]',
+        blockClickedByButtonId[buttonId],
+      );
+      setPositionSelected((prevValue) => ({
+        ...prevValue,
+        ...createdEventBlockPositionByButtonId,
+      }));
 
       // console.log(
       //   'getInitialBlockNumberClickedInfo',
@@ -162,7 +171,7 @@ export const ClickableHoursOfTheDay = ({
       //   blockClickedByButtonId[buttonId],
       // );
       console.log(
-        `initial: ${blockClickedByButtonId[buttonId].currentBlock.initial}, end: ${blockClickedByButtonId[buttonId].currentBlock.end}`,
+        `initial: ${blockClickedByButtonId[buttonId]?.initial?.currentBlock}, end: ${blockClickedByButtonId[buttonId]?.end?.currentBlock}`,
       );
 
       // console.log('blocks', blocks);
@@ -190,8 +199,8 @@ export const ClickableHoursOfTheDay = ({
       //   relativeX,
       //   relativeY,
       // };
-      relativePosition[buttonId] = {
-        ...relativePosition[buttonId],
+      createdEventBlockPositionByButtonId[buttonId] = {
+        ...createdEventBlockPositionByButtonId[buttonId],
         initial: {
           relativeX,
           relativeY,

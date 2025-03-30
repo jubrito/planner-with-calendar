@@ -173,8 +173,8 @@ export const getBlockClicked = (
   mouseEventType: RelativePositionOptions,
 ): HourBlockClicked => {
   const emptyCurrentBlock = {
-    currentBlock: {
-      [mouseEventType]: undefined,
+    [mouseEventType]: {
+      currentBlock: undefined,
     },
   };
   if (!relativePosition || !relativePosition.relativeY) {
@@ -191,14 +191,14 @@ export const getBlockClicked = (
     const currentBlock = valueOfEachBlockOnClickableHour * i;
     if (horizontalValue <= currentBlock) {
       return {
-        currentBlock: {
-          [mouseEventType]: i,
+        [mouseEventType]: {
+          currentBlock: i,
         },
       };
       // return { currentBlock: i, mouseEventType };
     }
     const lastItem = i === blocks.length;
-    if (lastItem) return { currentBlock: { [mouseEventType]: blocks.length } };
+    if (lastItem) return { [mouseEventType]: { currentBlock: blocks.length } };
     //  return { currentBlock: blocks.length, mouseEventType };
   }
   return emptyCurrentBlock;
