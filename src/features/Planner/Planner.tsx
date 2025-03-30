@@ -12,6 +12,7 @@ import { IntlDateTimeFormatShort } from '../../utils/constants';
 import { HoursOfTheDay } from './HoursOfTheDay/HoursOfTheDay';
 import { ClickableHoursOfTheDay } from './ClickableHoursOfTheDay/ClickableHoursOfTheDay';
 import { getHoursOfTheDay } from '../../utils/calendar/utils';
+import { EventHandlerType } from '../../types/calendar/types';
 
 const Planner = () => {
   const locale = useSelector(getLocaleLanguage());
@@ -28,14 +29,17 @@ const Planner = () => {
   // const getElementIdentifier = (index: number, hourOfTheDay: string) =>
   //   `hourblock_${index}_${hourOfTheDay}`.replace(' ', '');
 
-  // const handleClickhourOfTheDayRow = (
-  //   event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-  // ) => {
-  //   const rect = event.currentTarget.getBoundingClientRect();
-  //   const relativeX = event.clientX - rect.left;
-  //   const relativeY = event.clientY - rect.top;
-  //   console.log({ relativeX, relativeY });
-  // };
+  // let test = '';
+  const handleClickHourOfTheDayBlock = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    eventType: EventHandlerType,
+  ) => {
+    console.log('handleClickHourOfTheDayBlock eventType', eventType);
+    const rect = event.currentTarget.getBoundingClientRect();
+    const relativeX = event.clientX - rect.left;
+    const relativeY = event.clientY - rect.top;
+    console.log({ relativeX, relativeY });
+  };
 
   // useEffect(() => {
   //   const clickListener = (event) => {
@@ -59,7 +63,10 @@ const Planner = () => {
       </div>
       <div className={styles.plannerHours}>
         <HoursOfTheDay hoursOfTheDay={hoursOfTheDay} />
-        <ClickableHoursOfTheDay hoursOfTheDay={hoursOfTheDay} />
+        <ClickableHoursOfTheDay
+          handleMouseInteraction={handleClickHourOfTheDayBlock}
+          hoursOfTheDay={hoursOfTheDay}
+        />
       </div>
     </section>
   );
