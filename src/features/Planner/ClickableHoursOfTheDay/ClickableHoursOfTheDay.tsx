@@ -27,8 +27,7 @@ export const ClickableHoursOfTheDay = ({
   handleMouseInteraction,
 }: ClickableHoursOfTheDayProps) => {
   const pendingClickByButtonId: Record<string, boolean> = {};
-  const createdEventBlockPositionByButtonId: Record<string, RelativePosition> =
-    {};
+  const newEventBlockByButtonId: Record<string, RelativePosition> = {};
   const [positionSelected, setPositionSelected] = useState<
     Record<string, RelativePosition>
   >({});
@@ -47,16 +46,12 @@ export const ClickableHoursOfTheDay = ({
       mouseType === mouseLeaveEventHandlerType &&
       pendingClickByButtonId[buttonId] === true
     ) {
-      createdEventBlockPositionByButtonId[buttonId] = {
-        ...createdEventBlockPositionByButtonId[buttonId],
+      newEventBlockByButtonId[buttonId] = {
+        ...newEventBlockByButtonId[buttonId],
         end: {
-          ...(createdEventBlockPositionByButtonId[buttonId] &&
-            createdEventBlockPositionByButtonId[buttonId][
-              endRelativePosition
-            ] && {
-              ...createdEventBlockPositionByButtonId[buttonId][
-                endRelativePosition
-              ],
+          ...(newEventBlockByButtonId[buttonId] &&
+            newEventBlockByButtonId[buttonId][endRelativePosition] && {
+              ...newEventBlockByButtonId[buttonId][endRelativePosition],
             }),
           relativeX: undefined,
           relativeY: undefined,
@@ -68,31 +63,26 @@ export const ClickableHoursOfTheDay = ({
     const relativeX = event.clientX - rect.left;
     const relativeY = event.clientY - rect.top;
     if (mouseType === mouseUpEventHandlerType) {
-      createdEventBlockPositionByButtonId[buttonId] = {
-        ...createdEventBlockPositionByButtonId[buttonId],
+      newEventBlockByButtonId[buttonId] = {
+        ...newEventBlockByButtonId[buttonId],
         end: {
-          ...(createdEventBlockPositionByButtonId[buttonId] &&
-            createdEventBlockPositionByButtonId[buttonId][
-              endRelativePosition
-            ] && {
-              ...createdEventBlockPositionByButtonId[buttonId][
-                endRelativePosition
-              ],
+          ...(newEventBlockByButtonId[buttonId] &&
+            newEventBlockByButtonId[buttonId][endRelativePosition] && {
+              ...newEventBlockByButtonId[buttonId][endRelativePosition],
             }),
           relativeX,
           relativeY,
         },
       };
       pendingClickByButtonId[buttonId] = false;
-      const relativeEndPosition =
-        createdEventBlockPositionByButtonId[buttonId].end;
+      const relativeEndPosition = newEventBlockByButtonId[buttonId].end;
       const endBlock = getBlockClicked(buttonHeight, relativeEndPosition);
       setPositionSelected((prevValue) => ({
         ...prevValue,
-        ...createdEventBlockPositionByButtonId,
+        ...newEventBlockByButtonId,
         [buttonId]: {
           end: {
-            ...createdEventBlockPositionByButtonId[buttonId].end,
+            ...newEventBlockByButtonId[buttonId].end,
             currentBlock: endBlock,
           },
         },
@@ -107,16 +97,12 @@ export const ClickableHoursOfTheDay = ({
         buttonHeight,
         relativeInitialPosition,
       );
-      createdEventBlockPositionByButtonId[buttonId] = {
-        ...createdEventBlockPositionByButtonId[buttonId],
+      newEventBlockByButtonId[buttonId] = {
+        ...newEventBlockByButtonId[buttonId],
         initial: {
-          ...(createdEventBlockPositionByButtonId[buttonId] &&
-            createdEventBlockPositionByButtonId[buttonId][
-              initialRelativePosition
-            ] && {
-              ...createdEventBlockPositionByButtonId[buttonId][
-                initialRelativePosition
-              ],
+          ...(newEventBlockByButtonId[buttonId] &&
+            newEventBlockByButtonId[buttonId][initialRelativePosition] && {
+              ...newEventBlockByButtonId[buttonId][initialRelativePosition],
             }),
           relativeX,
           relativeY,
