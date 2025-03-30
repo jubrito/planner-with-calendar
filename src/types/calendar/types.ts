@@ -62,12 +62,12 @@ export type EventHandlerType =
   | typeof mouseLeaveEventHandlerType;
 
 export type RelativePosition = {
-  initial: {
+  initial?: {
     relativeX?: number;
     relativeY?: number;
     currentBlock?: number;
   };
-  end: {
+  end?: {
     relativeX?: number;
     relativeY?: number;
     currentBlock?: number;
@@ -77,12 +77,3 @@ export type RelativePosition = {
 export type RelativePositionOptions =
   | typeof initialRelativePosition
   | typeof endRelativePosition;
-
-export type HourBlockClicked = {
-  [initialRelativePosition]?: {
-    currentBlock: number;
-  };
-  [endRelativePosition]?: {
-    currentBlock: number;
-  };
-};
