@@ -1,8 +1,11 @@
 import { Months, WeekDays } from '../../types/calendar/enums';
 import {
   DateConfig,
+  HourBlockClicked,
   IntlDateTypeMonthStyle,
   IntlDateTypeWeekdayStyle,
+  RelativePosition,
+  RelativePositionOptions,
 } from '../../types/calendar/types';
 import { LocaleLanguage } from '../../types/locale/types';
 import {
@@ -163,3 +166,40 @@ export const getFormatedDate = (
   date: DateConfig['date'],
   options: Intl.DateTimeFormatOptions = {},
 ) => new Date(getFormatedDateString(locale, date, options));
+
+export const getBlockClicked = (
+  elementHeight: number,
+  relativePosition: RelativePosition['end'] | RelativePosition['initial'],
+  mouseEventType: RelativePositionOptions,
+): HourBlockClicked => {
+  const emptyCurrentBlock = {
+    currentBlock: {
+      [mouseEventType]: undefined,
+    },
+  };
+  if (!relativePosition || !relativePosition.relativeY) {
+    return emptyCurrentBlock;
+  }
+  const horizontalValue = relativePosition.relativeY;
+  const numberOfBlocksOnClickableHour = 4;
+  const valueOfEachBlockOnClickableHour = elementHeight / 4;
+  const blocks = Array.from(
+    Array(numberOfBlocksOnClickableHour).keys(),
+    (item) => item + 1,
+  );
+  for (const i of blocks) {
+    const currentBlock = valueOfEachBlockOnClickableHour * i;
+    if (horizontalValue <= currentBlock) {
+      return {
+        currentBlock: {
+          [mouseEventType]: i,
+        },
+      };
+      // return { currentBlock: i, mouseEventType };
+    }
+    const lastItem = i === blocks.length;
+    if (lastItem) return { currentBlock: { [mouseEventType]: blocks.length } };
+    //  return { currentBlock: blocks.length, mouseEventType };
+  }
+  return emptyCurrentBlock;
+};

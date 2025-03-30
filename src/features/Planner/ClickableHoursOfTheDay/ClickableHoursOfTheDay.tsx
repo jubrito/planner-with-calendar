@@ -2,14 +2,18 @@
 import { useEffect, useRef, useState } from 'react';
 import {
   EventHandlerType,
+  HourBlockClicked,
   RelativePosition,
 } from '../../../types/calendar/types';
 import {
+  endRelativePosition,
+  initialRelativePosition,
   mouseDownEventHandlerType,
   mouseLeaveEventHandlerType,
   mouseUpEventHandlerType,
 } from '../../../utils/calendar/constants';
 import styles from './clickable-hours-of-the-day.module.scss';
+import { getBlockClicked } from '../../../utils/calendar/utils';
 
 type ClickableHoursOfTheDayProps = {
   hoursOfTheDay: string[];
@@ -36,6 +40,8 @@ export const ClickableHoursOfTheDay = ({
   // let pendingClick = false;
   const pendingClickByButtonId: Record<string, boolean> = {};
   const relativePosition: Record<string, RelativePosition> = {};
+  const blockClickedByButtonId: Record<string, HourBlockClicked> = {};
+
   // const [positionSelected, setPositionSelected] = useState<RelativePosition>({
   //   initial: {
   //     relativeX: undefined,
@@ -100,8 +106,8 @@ export const ClickableHoursOfTheDay = ({
 
     // if (mouseType === mouseUpEventHandlerType && pendingClick === true) {
     if (
-      mouseType === mouseUpEventHandlerType &&
-      pendingClickByButtonId[buttonId] === true
+      mouseType === mouseUpEventHandlerType
+      // && pendingClickByButtonId[buttonId] === true
     ) {
       // console.log('up and pending click');
       // relativePosition.end = {
@@ -123,16 +129,42 @@ export const ClickableHoursOfTheDay = ({
       pendingClickByButtonId[buttonId] = false;
 
       ///
-      const numberOfBlocksOnClickableHour = 4;
       const buttonHeight = event.currentTarget.clientHeight;
-      const valueOfEachBlockOnClickableHour = buttonHeight / 4;
 
       // const initialY = relativePosition.initial.relativeY;
-      const initialY = relativePosition[buttonId].initial.relativeY;
-      const blocks = Array.from(
-        Array(numberOfBlocksOnClickableHour - 1).keys(),
-        (item) => item + 1,
+      // const relativeInitialPosition = relativePosition[buttonId].initial.relativeY;
+      const relativeInitialPosition = relativePosition[buttonId].initial;
+      const relativeEndPosition = relativePosition[buttonId].end;
+      const getInitialBlockNumberClickedInfo = getBlockClicked(
+        buttonHeight,
+        relativeInitialPosition,
+        initialRelativePosition,
       );
+      const getEndBlockNumberClickedInfo = getBlockClicked(
+        buttonHeight,
+        relativeEndPosition,
+        endRelativePosition,
+      );
+      blockClickedByButtonId[buttonId] = {
+        currentBlock: {
+          ...getInitialBlockNumberClickedInfo.currentBlock,
+          ...getEndBlockNumberClickedInfo.currentBlock,
+        },
+      };
+
+      // console.log(
+      //   'getInitialBlockNumberClickedInfo',
+      //   getInitialBlockNumberClickedInfo,
+      // );
+      // console.log('getEndBlockNumberClickedInfo', getEndBlockNumberClickedInfo);
+      // console.log(
+      //   'blockClickedByButtonId[buttonId]',
+      //   blockClickedByButtonId[buttonId],
+      // );
+      console.log(
+        `initial: ${blockClickedByButtonId[buttonId].currentBlock.initial}, end: ${blockClickedByButtonId[buttonId].currentBlock.end}`,
+      );
+
       // console.log('blocks', blocks);
       // console.log(
       //   'valueOfEachBlockOnClickableHour',
@@ -141,17 +173,7 @@ export const ClickableHoursOfTheDay = ({
       // console.log('buttonHeight', buttonHeight);
       // console.log('initialY', initialY);
       // checking if it is greater than value * 4 is pointless
-      const getBlockNumberClicked = () => {
-        for (const i of blocks) {
-          const currentBlock = valueOfEachBlockOnClickableHour * i;
-          console.log('currentBlock', currentBlock);
-          if (initialY && initialY <= currentBlock) {
-            return i;
-          }
-          const lastItem = i === blocks.length;
-          if (lastItem) return 4;
-        }
-      };
+
       // const blockNumberClicked = getBlockNumberClicked();
       // console.log('blockNumberClicked', blockNumberClicked);
       ///
@@ -160,8 +182,8 @@ export const ClickableHoursOfTheDay = ({
     }
     // if (mouseType === mouseDownEventHandlerType && pendingClick === false) {
     if (
-      mouseType === mouseDownEventHandlerType &&
-      pendingClickByButtonId[buttonId] === false
+      mouseType === mouseDownEventHandlerType
+      // && pendingClickByButtonId[buttonId] === false
     ) {
       // console.log('down');
       // relativePosition.initial = {
