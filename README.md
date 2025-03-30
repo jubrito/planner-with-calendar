@@ -2,6 +2,8 @@
 
 - create string type for button id
 - rename relativeposition to relativePositionByButton id or something
+- make code more understandable
+  -tests
 - check for memory leaks, should reset all vars (state, 3 records)
 - Should memoize buttons to prevent rerenders? Is it worth it?
 - Last element of planner is next day
