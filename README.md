@@ -1,5 +1,8 @@
 # Next steps (v1):
 
+- create string type for button id
+- rename relativeposition to relativePositionByButton id or something
+- check for memory leaks, should reset all vars (state, 3 records)
 - Should memoize buttons to prevent rerenders? Is it worth it?
 - Last element of planner is next day
 - Ignore clicking outside button of specific hour (change bg to be sure)
