@@ -195,11 +195,9 @@ export const getBlockClicked = (
           currentBlock: i,
         },
       };
-      // return { currentBlock: i, mouseEventType };
     }
     const lastItem = i === blocks.length;
     if (lastItem) return { [mouseEventType]: { currentBlock: blocks.length } };
-    //  return { currentBlock: blocks.length, mouseEventType };
   }
   return emptyCurrentBlock;
 };
