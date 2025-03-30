@@ -1,4 +1,6 @@
 import {
+  endRelativePosition,
+  initialRelativePosition,
   mouseDownEventHandlerType,
   mouseLeaveEventHandlerType,
   mouseUpEventHandlerType,
@@ -70,6 +72,6 @@ export type RelativePosition = {
   };
 };
 
-// export type ActiveHandlers = {
-
-// }
+export type RelativePositionOptions =
+  | typeof initialRelativePosition
+  | typeof endRelativePosition;
