@@ -28,13 +28,12 @@ export const ClickableHoursOfTheDay = ({
 }: ClickableHoursOfTheDayProps) => {
   const pendingClickByButtonId: Record<string, boolean> = {};
   const newEventBlockByButtonId: Record<string, RelativePosition> = {};
-  const [positionSelected, setPositionSelected] = useState<
-    Record<string, RelativePosition>
-  >({});
+  const [newEventBlocksResultByButtonId, setNewEventBlocksResultByButtonId] =
+    useState<Record<string, RelativePosition>>({});
 
   useEffect(() => {
-    console.log('positionSelected', positionSelected);
-  }, [positionSelected]);
+    console.log('positionSelected', newEventBlocksResultByButtonId);
+  }, [newEventBlocksResultByButtonId]);
 
   const handleMouse = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -77,7 +76,7 @@ export const ClickableHoursOfTheDay = ({
       pendingClickByButtonId[buttonId] = false;
       const relativeEndPosition = newEventBlockByButtonId[buttonId].end;
       const endBlock = getBlockClicked(buttonHeight, relativeEndPosition);
-      setPositionSelected((prevValue) => ({
+      setNewEventBlocksResultByButtonId((prevValue) => ({
         ...prevValue,
         ...newEventBlockByButtonId,
         [buttonId]: {
