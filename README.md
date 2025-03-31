@@ -1,9 +1,10 @@
 # Next steps (v1):
 
 - Check unused vars on types / consts / scss
-- Reset when leaving button to fix error
-- check for memory leaks, should reset all vars (state, 3 records)
-- tests
+- check for memory leaks, should reset all vars (state, 3 records, listeners)
+- add only on every 15 min
+- new tests
+- fix tests
 - add explanations on complex functions
 - if two events happen at the same time, show side by side
 - Should memoize buttons to prevent rerenders? Is it worth it?
@@ -16,7 +17,7 @@
 
 ## v1:
 
-- Create events
+- Create event from calendar to plot on planner
 
 - Accessibility
 
