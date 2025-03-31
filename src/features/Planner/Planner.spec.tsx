@@ -18,7 +18,7 @@ describe('Planner', () => {
   const currentDay = 1;
 
   describe('Header', () => {
-    it('should render header initial date text', () => {
+    it('should render header initial date text in English', () => {
       renderWithProviders(<Planner />, {
         preloadedState: {
           dateSlice: {
@@ -37,6 +37,34 @@ describe('Planner', () => {
         },
       });
       expect(screen.getByText('Mar 1, Saturday')).toBeInTheDocument();
+    });
+    it('should render header initial date text in Portuguese', () => {
+      renderWithProviders(<Planner />, {
+        preloadedState: {
+          dateSlice: {
+            initialState: {
+              ...initialDateValue.initialState,
+            },
+            currentState: {
+              ...initialDateValue.currentState,
+              dayViewISODate: new Date(
+                currentYear,
+                Months.MARCH,
+                1,
+              ).toDateString(),
+            },
+          },
+          localeSlice: {
+            ...initialLocaleValue,
+            currentState: {
+              locale: {
+                lang: 'pt-BR',
+              },
+            },
+          },
+        },
+      });
+      expect(screen.getByText('Mar. 1, Sábado')).toBeInTheDocument();
     });
     it('should display AM/PM hours of the day when locale is english', () => {
       renderWithProviders(<Planner />, {
