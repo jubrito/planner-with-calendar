@@ -166,12 +166,11 @@ export const getFormatedDate = (
 ) => new Date(getFormatedDateString(locale, date, options));
 
 export const getPlannerHourBlockStartValues = (elementHeight: number) => {
-  // Divide 1h block by 4 returns 4 blocks of 15 min each
-  const clickableHourBlockSize = elementHeight / numberOfBlocksOnPlannerHour;
-  const blocks = Array.from(
-    Array(numberOfBlocksOnPlannerHour).keys(),
-    (item) => item + 1,
-  );
+  const numberOfHours = 24;
+  // Divide element height (which contans 24h) by 24 * 4 to result in 4 blocks of 15min on every hour
+  const numberOfBlocks = numberOfBlocksOnPlannerHour * numberOfHours;
+  const clickableHourBlockSize = elementHeight / numberOfBlocks;
+  const blocks = Array.from(Array(numberOfBlocks).keys(), (item) => item + 1);
   const blocksStartValue = [0];
   for (const block of blocks) {
     const currentBlock = clickableHourBlockSize * block;
