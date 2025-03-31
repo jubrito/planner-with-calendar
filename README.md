@@ -1,5 +1,6 @@
 # Next steps (v1):
 
+- Add lines back to planner
 - Check unused vars on types / consts / scss
 - check for memory leaks, should reset all vars (state, 3 records, listeners)
 - add only on every 15 min
