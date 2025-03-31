@@ -7,7 +7,7 @@
 - add explanations on complex functions
 - if two events happen at the same time, show side by side
 - Should memoize buttons to prevent rerenders? Is it worth it?
-- Last element of planner is next day
+- Last element of planner is next day and should not be clickable
 - Ignore clicking outside button of specific hour (change bg to be sure)
 - Add overflow scroll to planner
 - Rename from cammelcase to kabeb case on scss (variables etc)
