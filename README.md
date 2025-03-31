@@ -7,6 +7,7 @@
 - check for memory leaks, should reset all vars (state, 3 records)
 - Should memoize buttons to prevent rerenders? Is it worth it?
 - Last element of planner is next day
+- Create event on start / end if it is close to start/end line of the button
 - Ignore clicking outside button of specific hour (change bg to be sure)
 - Add overflow scroll to planner
 
