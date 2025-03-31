@@ -3,7 +3,6 @@ import {
   DateConfig,
   IntlDateTypeMonthStyle,
   IntlDateTypeWeekdayStyle,
-  RelativePosition,
 } from '../../types/calendar/types';
 import { LocaleLanguage } from '../../types/locale/types';
 import {
@@ -12,7 +11,7 @@ import {
   IntlDateTimeFormatLong,
   IntlDateTimeFormatNumeric,
 } from '../constants';
-import { todayLabel } from './constants';
+import { numberOfBlocksOnPlannerHour, todayLabel } from './constants';
 import { isToday } from '../checkers';
 import { getWeekDaysNames } from './weeks';
 
@@ -159,33 +158,44 @@ export const getFormatedDateString = (
   date: DateConfig['date'],
   options: Intl.DateTimeFormatOptions = {},
 ) => new Intl.DateTimeFormat(locale, options).format(date);
+
 export const getFormatedDate = (
   locale: LocaleLanguage,
   date: DateConfig['date'],
   options: Intl.DateTimeFormatOptions = {},
 ) => new Date(getFormatedDateString(locale, date, options));
 
-export const getBlockClicked = (
-  elementHeight: number,
-  relativePosition: RelativePosition['end'] | RelativePosition['initial'],
-) => {
-  if (!relativePosition || !relativePosition.relativeY) {
-    return undefined;
-  }
-  const horizontalValue = relativePosition.relativeY;
-  const numberOfBlocksOnClickableHour = 4;
-  const valueOfEachBlockOnClickableHour = elementHeight / 4;
+export const getPlannerHourBlockStartValues = (elementHeight: number) => {
+  // Divide 1h block by 4 returns 4 blocks of 15 min each
+  const clickableHourBlockSize = elementHeight / numberOfBlocksOnPlannerHour;
   const blocks = Array.from(
-    Array(numberOfBlocksOnClickableHour).keys(),
+    Array(numberOfBlocksOnPlannerHour).keys(),
     (item) => item + 1,
   );
+  const blocksStartValue = [0];
   for (const block of blocks) {
-    const currentBlock = valueOfEachBlockOnClickableHour * block;
-    if (horizontalValue <= currentBlock) {
+    const currentBlock = clickableHourBlockSize * block;
+    blocksStartValue.push(currentBlock);
+  }
+  return blocksStartValue;
+};
+
+export const getBlockByVerticalPosition = (
+  elementHeight: number,
+  relativePositionY: number,
+) => {
+  if (!relativePositionY) {
+    return undefined;
+  }
+  const horizontalValue = relativePositionY;
+  const plannerHourBlockStartValues =
+    getPlannerHourBlockStartValues(elementHeight);
+
+  for (const blockStarValue of plannerHourBlockStartValues) {
+    const block = plannerHourBlockStartValues.indexOf(blockStarValue);
+    if (horizontalValue <= blockStarValue) {
       return block;
     }
-    const lastItem = block === blocks.length;
-    if (lastItem) return blocks.length;
   }
-  return undefined;
+  return numberOfBlocksOnPlannerHour;
 };
