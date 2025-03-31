@@ -6,24 +6,20 @@ import { getBlockByVerticalPosition } from '../../../utils/calendar/utils';
 export const ClickableHoursOfTheDay = () => {
   const [draftEvent, setDraftEvent] = useState<EventBlock | undefined>();
   useEffect(() => {
-    console.log('draftEvent', draftEvent);
-    console.log('draftEvent.eventId', draftEvent?.eventId);
+    const container = document.getElementById('clickableHourOfTheDay');
+    if (!container) return;
     if (draftEvent && draftEvent.eventId) {
-      // const draftEvent = document.createElement('div')
       const eventId = draftEvent.eventId;
       let draftEventElement = document.getElementById(eventId);
-      const top = draftEvent.start.positionY;
-      const height = draftEvent.end.positionY - draftEvent.start.positionY;
+      const top = draftEvent.start.positionY - container.scrollTop;
+      const height = draftEvent.end.positionY - top;
       if (!draftEventElement) {
         draftEventElement = document.createElement('div');
         draftEventElement.id = eventId;
         draftEventElement.classList.add(styles.plannerEvent);
-        const container = document.getElementById('clickableHourOfTheDay');
-        if (container) {
-          draftEventElement.style.top = `${top}px`;
-          draftEventElement.style.height = `${height}px`;
-          container.appendChild(draftEventElement);
-        }
+        draftEventElement.style.top = `${top}px`;
+        draftEventElement.style.height = `${height}px`;
+        container.appendChild(draftEventElement);
       }
       draftEventElement.style.top = `${top}px`;
       draftEventElement.style.height = `${height}px`;

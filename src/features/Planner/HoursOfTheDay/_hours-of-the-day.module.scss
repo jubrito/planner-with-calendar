@@ -4,6 +4,8 @@
   display: flex;
   flex-direction: column;
   margin-top: -13px;
+  height: max-content;
+  background: pink;
   span {
     width: max-content;
     padding-bottom: variables.$hoursOfDaySliceSpacing;

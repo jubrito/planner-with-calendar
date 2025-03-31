@@ -4,9 +4,10 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  position: relative;
   z-index: 800;
-  cursor: pointer;
+  position: relative;
+  background: lightblue;
+
   .plannerEvent {
     position: absolute;
     content: '';
