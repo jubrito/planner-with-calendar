@@ -76,6 +76,14 @@ export const ClickableHoursOfTheDay = () => {
     setDraftEvent(undefined);
   }, [draftEvent]); // add create event ?
 
+  useEffect(() => {
+    const container = document.getElementById('clickableHourOfTheDay');
+    const parent = container?.parentElement;
+    if (container && parent) {
+      container.style.height = `${parent.scrollHeight}px`;
+    }
+  }, []);
+
   return (
     <div
       className={styles.clickableHourOfTheDay}
