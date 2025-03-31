@@ -5,3 +5,4 @@ export const mouseDownEventHandlerType = 'mouseDown';
 export const mouseLeaveEventHandlerType = 'mouseLeave';
 export const initialRelativePosition = 'initial';
 export const endRelativePosition = 'end';
+export const numberOfBlocksOnPlannerHour = 4;
