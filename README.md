@@ -1,5 +1,7 @@
 # Next steps (v1):
 
+- Connect events created to specific day
+  - How to change days but preserve events? State? Only with bd?
 - Add lines back to planner
 - Check unused vars on types / consts / scss
 - check for memory leaks, should reset all vars (state, 3 records, listeners)
