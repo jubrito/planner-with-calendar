@@ -105,10 +105,13 @@ export const getDayOfWeek = (
   locale: LocaleLanguage,
   date: DateConfig['date'],
   weekdayStyle?: IntlDateTypeWeekdayStyle,
-) =>
-  new Intl.DateTimeFormat(locale, {
+) => {
+  const dayOfWeek = new Intl.DateTimeFormat(locale, {
     weekday: weekdayStyle || IntlDateTimeFormatLong,
   }).format(date);
+  const dayOfWeekFirstLetterUpperCased = dayOfWeek.charAt(0).toUpperCase();
+  return dayOfWeekFirstLetterUpperCased + dayOfWeek.slice(1);
+};
 
 export const getDayName = (dayOfWeek: number, locale: string) => {
   let dayName: string;
