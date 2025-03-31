@@ -5,11 +5,7 @@ import { initialValue as initialLocaleValue } from '../../redux/slices/localeSli
 import { Months } from '../../types/calendar/enums';
 import { renderWithProviders } from '../../utils/tests/renderWithProviders';
 import Planner from './Planner';
-import {
-  getDayOfWeek,
-  getFullDateTitle,
-  getMonthName,
-} from '../../utils/calendar/utils';
+import { getDayOfWeek, getMonthName } from '../../utils/calendar/utils';
 import { IntlDateTimeFormatShort } from '../../utils/constants';
 
 describe('Planner', () => {
@@ -123,6 +119,7 @@ describe('Planner', () => {
       expect(screen.getAllByText(midnight).length).toBe(2);
     });
     it('should display hours of the day using 24-hour notation when locale is portuguese', () => {
+      const brLocale = 'pt-BR';
       renderWithProviders(<Planner />, {
         preloadedState: {
           dateSlice: {
@@ -142,7 +139,7 @@ describe('Planner', () => {
             currentState: {
               ...initialLocaleValue.currentState,
               locale: {
-                lang: 'pt-BR',
+                lang: brLocale,
               },
             },
             initialState: {
@@ -177,13 +174,14 @@ describe('Planner', () => {
         '23:00',
       ];
       const midnight = '00:00';
+      const date = new Date(currentYear, currentMonth, currentDay);
+      const dayOfWeek = getDayOfWeek(brLocale, date);
+      const monthName = getMonthName(brLocale, date, IntlDateTimeFormatShort);
+      const plannerDateLabel = `${monthName} ${currentDay}, ${dayOfWeek}`;
+      const plannerDateLabelElement = screen.getByText(plannerDateLabel);
       hours.forEach((hour) => {
         expect(screen.getByText(hour)).toBeInTheDocument();
-        expect(
-          screen.getByLabelText(
-            `${getFullDateTitle(currentYear, currentMonth, currentDay, 'pt-BR')} ${hour}`,
-          ),
-        ).toBeInTheDocument();
+        expect(plannerDateLabelElement).toBeInTheDocument();
       });
       expect(screen.getAllByText(midnight).length).toBe(2);
     });
