@@ -5,8 +5,8 @@
   flex-direction: column;
   width: 100%;
   z-index: 800;
+  min-height: 100%;
   position: relative;
-  background: lightblue;
 
   .plannerEvent {
     position: absolute;
