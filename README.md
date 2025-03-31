@@ -1,15 +1,16 @@
 # Next steps (v1):
 
-- create string type for button id
-- make code more understandable
-  -tests
-- add explanations on complex functions
+- Check unused vars on types / consts / scss
+- Reset when leaving button to fix error
 - check for memory leaks, should reset all vars (state, 3 records)
+- tests
+- add explanations on complex functions
+- if two events happen at the same time, show side by side
 - Should memoize buttons to prevent rerenders? Is it worth it?
 - Last element of planner is next day
-- Create event on start / end if it is close to start/end line of the button
 - Ignore clicking outside button of specific hour (change bg to be sure)
 - Add overflow scroll to planner
+- Rename from cammelcase to kabeb case on scss (variables etc)
 
 # Future Steps:
 
