@@ -5,7 +5,12 @@ import { initialValue as initialLocaleValue } from '../../redux/slices/localeSli
 import { Months } from '../../types/calendar/enums';
 import { renderWithProviders } from '../../utils/tests/renderWithProviders';
 import Planner from './Planner';
-import { getFullDateTitle } from '../../utils/calendar/utils';
+import {
+  getDayOfWeek,
+  getFullDateTitle,
+  getMonthName,
+} from '../../utils/calendar/utils';
+import { IntlDateTimeFormatShort } from '../../utils/constants';
 
 describe('Planner', () => {
   const currentYear = 2025;
@@ -51,6 +56,7 @@ describe('Planner', () => {
           },
         },
       });
+      const enEsLocale = 'en-ES';
       const hours = [
         '01 AM',
         '02 AM',
@@ -77,20 +83,16 @@ describe('Planner', () => {
         '11 PM',
       ];
       const midnight = '12 AM';
+      const date = new Date(currentYear, currentMonth, currentDay);
+      const dayOfWeek = getDayOfWeek(enEsLocale, date);
+      const monthName = getMonthName(enEsLocale, date, IntlDateTimeFormatShort);
+      const plannerDateLabel = `${monthName} ${currentDay}, ${dayOfWeek}`;
+      const plannerDateLabelElement = screen.getByText(plannerDateLabel);
       hours.forEach((hour) => {
         expect(screen.getByText(hour)).toBeInTheDocument();
-        expect(
-          screen.getByLabelText(
-            `${getFullDateTitle(currentYear, currentMonth, currentDay, 'en-ES')} ${hour}`,
-          ),
-        ).toBeInTheDocument();
       });
+      expect(plannerDateLabelElement).toBeInTheDocument();
       expect(screen.getAllByText(midnight).length).toBe(2);
-      expect(
-        screen.getAllByLabelText(
-          `${getFullDateTitle(currentYear, currentMonth, currentDay, 'en-ES')} ${midnight}`,
-        ).length,
-      ).toBe(2);
     });
     it('should display hours of the day using 24-hour notation when locale is portuguese', () => {
       renderWithProviders(<Planner />, {
@@ -156,11 +158,6 @@ describe('Planner', () => {
         ).toBeInTheDocument();
       });
       expect(screen.getAllByText(midnight).length).toBe(2);
-      expect(
-        screen.getAllByLabelText(
-          `${getFullDateTitle(currentYear, currentMonth, currentDay, 'pt-BR')} ${midnight}`,
-        ).length,
-      ).toBe(2);
     });
   });
 });
