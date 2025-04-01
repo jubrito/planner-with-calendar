@@ -18,7 +18,7 @@ import { useSelector } from 'react-redux';
 import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
 import { firstDayOfTheMonth } from '../../../utils/calendar/constants';
 import { useCallback, useEffect, useState } from 'react';
-import { chunkArrayWithNElements } from '../../../utils/utils';
+import { getChunkArrayByChunkSize } from '../../../utils/utils';
 
 const CalendarCells = () => {
   const locale = useSelector(getLocaleLanguage());
@@ -86,10 +86,9 @@ const CalendarCells = () => {
   );
 
   useEffect(() => {
-    // const calendarCellsByWeekChunks = (): CalendarCellInfo[][] = chunkCalendarCellsByWeek
     const allCalendarCells = getPreviousCurrentAndNextMonthDays();
     const calendarCellsByWeekChunks: CalendarCellInfo[][] =
-      chunkArrayWithNElements(allCalendarCells, numberOfDaysOfTheWeek);
+      getChunkArrayByChunkSize(allCalendarCells, numberOfDaysOfTheWeek);
     const calendarCellsWith6Rows = addExtraNextMonthRowIfOnlyFiveRows(
       calendarCellsByWeekChunks,
     );
@@ -99,29 +98,26 @@ const CalendarCells = () => {
   return (
     <tbody className={styles.daysContainer}>
       {calendarCellsMatrix &&
-        calendarCellsMatrix.map(
-          // {chunkCalendarCellsByWeek(getPreviousCurrentAndNextMonthDays()).map(
-          (week, weekIndex) => (
-            <tr key={weekIndex}>
-              {week.map((calendarCell) => {
-                const {
-                  day: cellDay,
-                  month: cellMonth,
-                  year: cellYear,
-                } = calendarCell;
-                return (
-                  <Cell
-                    cellDay={cellDay}
-                    cellMonth={cellMonth}
-                    cellYear={cellYear}
-                    currentMonth={month}
-                    key={`${cellYear}-${cellMonth}-${cellDay}`}
-                  />
-                );
-              })}
-            </tr>
-          ),
-        )}
+        calendarCellsMatrix.map((week, weekIndex) => (
+          <tr key={weekIndex}>
+            {week.map((calendarCell) => {
+              const {
+                day: cellDay,
+                month: cellMonth,
+                year: cellYear,
+              } = calendarCell;
+              return (
+                <Cell
+                  cellDay={cellDay}
+                  cellMonth={cellMonth}
+                  cellYear={cellYear}
+                  currentMonth={month}
+                  key={`${cellYear}-${cellMonth}-${cellDay}`}
+                />
+              );
+            })}
+          </tr>
+        ))}
     </tbody>
   );
 };

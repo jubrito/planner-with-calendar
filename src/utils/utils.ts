@@ -27,33 +27,27 @@ export const deepCopy = <T extends ObjectType>(element: T): T => {
   return copy;
 };
 
-export const chunkArrayWithNElements = <T>(
+/**
+ * Function to chunk array with chunks with n (chunkSize) elements
+ * @param array
+ * @param chunkSize the number of elements a chunk will have
+ * @returns chunks matrix with array elements in chunks with chunkSize length
+ */
+export const getChunkArrayByChunkSize = <T>(
   array: T[],
-  numberOfElements: number,
-) => {
-  const chunks = [];
-  for (let i = 0; i < array.length; i += numberOfElements) {
-    chunks.push(array.slice(i, i + numberOfElements));
-  }
+  chunkSize: number,
+): T[][] =>
+  array.reduce((chunks: T[][], item, index) => {
+    /**
+     * Rounds up to get chunk index
+     * index(0 to 4) / chunkSize(5) rounds down to 0, item should be added to first chunk since it's 0 indexed
+     * index(5 to 9) / chunkSize(5) rounds down to 1, item should be added to second chunk
+     */
+    const chunkIndex = Math.floor(index / chunkSize);
 
-  // const onlyFiveRows = chunks.length - 1 === 4;
-  // const setFixedCalendarHeight = (chunks: CalendarCellInfo[][]) => {
-  //   if (onlyFiveRows) {
-  //     const lastRow = chunks[chunks.length - 1];
-  //     const lastCellInfo = lastRow[lastRow.length - 1];
-  //     const updatedLastCellInfo: CalendarCellInfo =
-  //       lastCellInfo.month === month + 1
-  //         ? {
-  //             year,
-  //             month: lastCellInfo.month + 1,
-  //             day: firstDayOfTheMonth - 1,
-  //           }
-  //         : lastCellInfo;
-  //     const nextEntireNextMonthDaysOnCurrentMonth =
-  //       getEntireNextMonthDaysLastRowOnCurrentMonth(updatedLastCellInfo);
-  //     chunks.push(nextEntireNextMonthDaysOnCurrentMonth);
-  //   }
-  // };
-  // setFixedCalendarHeight(chunks);
-  return chunks;
-};
+    if (!chunks[chunkIndex]) {
+      chunks[chunkIndex] = [];
+    }
+    chunks[chunkIndex].push(item);
+    return chunks;
+  }, []);
