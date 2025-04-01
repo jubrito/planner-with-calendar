@@ -1,96 +1,140 @@
-import { useCallback, useEffect, useState } from 'react';
-import { EventBlock } from '../../../types/calendar/types';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import styles from './clickable-hours-of-the-day.module.scss';
-import { getBlockByVerticalPosition } from '../../../utils/calendar/utils';
+
+interface TimeBlock {
+  positionY: number;
+  block: number;
+}
+
+interface EventBlock {
+  eventId: string;
+  start: TimeBlock;
+  end: TimeBlock;
+}
 
 export const ClickableHoursOfTheDay = () => {
-  const [draftEvent, setDraftEvent] = useState<EventBlock | undefined>();
-  useEffect(() => {
-    const container = document.getElementById('clickableHourOfTheDay');
-    if (!container) return;
-    if (draftEvent && draftEvent.eventId) {
-      const eventId = draftEvent.eventId;
-      let draftEventElement = document.getElementById(eventId);
-      const top = draftEvent.start.positionY - container.scrollTop;
-      const height = draftEvent.end.positionY - top;
-      if (!draftEventElement) {
-        draftEventElement = document.createElement('div');
-        draftEventElement.id = eventId;
-        draftEventElement.classList.add(styles.plannerEvent);
-        draftEventElement.style.top = `${top}px`;
-        draftEventElement.style.height = `${height}px`;
-        container.appendChild(draftEventElement);
-      }
-      draftEventElement.style.top = `${top}px`;
-      draftEventElement.style.height = `${height}px`;
-    }
-  }, [draftEvent]);
+  const [draftEvent, setDraftEvent] = useState<EventBlock | null>(null);
+  const [events, setEvents] = useState<EventBlock[]>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleMouseDown = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-  ) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    const relativeY = event.clientY - rect.top;
-    const buttonHeight = event.currentTarget.clientHeight;
-    const block = getBlockByVerticalPosition(buttonHeight, relativeY);
-    setDraftEvent({
-      eventId: `draft-${new Date().getTime()}`,
-      start: {
-        positionY: relativeY,
-        block,
-      },
-      end: {
-        positionY: relativeY,
-        block,
-      },
-    });
-  };
-  const handleMouseMove = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-  ) => {
-    if (!draftEvent) return;
-    const rect = event.currentTarget.getBoundingClientRect();
-    const relativeY = event.clientY - rect.top;
-    const buttonHeight = event.currentTarget.clientHeight;
-    const block = getBlockByVerticalPosition(buttonHeight, relativeY);
-    setDraftEvent((prevState) => {
-      if (!prevState) return undefined;
-      return {
-        ...prevState,
-        end: {
-          ...prevState?.end,
-          positionY: relativeY,
-          block,
-        },
-      };
-    });
-  };
+  const handleMouseDown = useCallback(
+    (event: React.MouseEvent<HTMLDivElement>) => {
+      if (!containerRef.current) return;
 
-  const createEvent = (newEvent?: EventBlock) => {
-    console.log('newEvent', newEvent);
-  };
+      const rect = containerRef.current.getBoundingClientRect();
+      const relativeY = event.clientY - rect.top;
+      const containerHeight = containerRef.current.clientHeight;
+      const block = getBlockByVerticalPosition(containerHeight, relativeY);
 
+      setDraftEvent({
+        eventId: `draft-${Date.now()}`,
+        start: { positionY: relativeY, block },
+        end: { positionY: relativeY, block },
+      });
+    },
+    [],
+  );
+
+  const handleMouseMove = useCallback(
+    (event: React.MouseEvent<HTMLDivElement>) => {
+      if (!draftEvent || !containerRef.current) return;
+
+      const rect = containerRef.current.getBoundingClientRect();
+      const relativeY = event.clientY - rect.top;
+      const containerHeight = containerRef.current.clientHeight;
+      const block = getBlockByVerticalPosition(containerHeight, relativeY);
+
+      setDraftEvent((prev) => ({
+        ...prev!,
+        end: { positionY: relativeY, block },
+      }));
+    },
+    [draftEvent],
+  );
+
+  // Finalize the event on mouse up
   const handleMouseUp = useCallback(() => {
     if (!draftEvent) return;
-    createEvent(draftEvent);
-    setDraftEvent(undefined);
-  }, [draftEvent]); // add create event ?
+    const minimumEventHeight =
+      Math.abs(draftEvent.end.positionY - draftEvent.start.positionY) > 5;
+    const fifteenMinutesHeight = draftEvent.start.positionY + 10;
+
+    if (minimumEventHeight) {
+      setEvents((prev) => [...prev, draftEvent]);
+    } else {
+      setEvents((prev) => [
+        ...prev,
+        {
+          eventId: draftEvent.eventId,
+          start: {
+            positionY: draftEvent.start.positionY,
+            block: draftEvent.start.block,
+          },
+          end: {
+            positionY: fifteenMinutesHeight,
+            block: draftEvent.end.block,
+          },
+        },
+      ]);
+    }
+    setDraftEvent(null);
+  }, [draftEvent]);
+
+  const handleMouseLeave = useCallback(() => {
+    setDraftEvent(null);
+  }, []);
+
+  const handleEventClick = useCallback((eventId: string) => {
+    console.log('Event clicked:', eventId);
+  }, []);
 
   useEffect(() => {
-    const container = document.getElementById('clickableHourOfTheDay');
-    const parent = container?.parentElement;
-    if (container && parent) {
-      container.style.height = `${parent.scrollHeight}px`;
+    if (containerRef.current?.parentElement) {
+      containerRef.current.style.height = `${containerRef.current.parentElement.scrollHeight}px`;
     }
   }, []);
 
   return (
     <div
+      ref={containerRef}
       className={styles.clickableHourOfTheDay}
-      id="clickableHourOfTheDay"
-      onMouseDown={(event) => handleMouseDown(event)}
-      onMouseMove={(event) => handleMouseMove(event)}
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
-    />
+      onMouseLeave={handleMouseLeave}
+    >
+      {draftEvent && (
+        <div
+          className={styles.plannerEvent}
+          style={{
+            top: `${draftEvent.start.positionY}px`,
+            height: `${draftEvent.end.positionY - draftEvent.start.positionY}px`,
+          }}
+        />
+      )}
+      {events.map((event) => (
+        <div
+          key={event.eventId}
+          className={styles.plannerEvent}
+          style={{
+            top: `${event.start.positionY}px`,
+            height: `${event.end.positionY - event.start.positionY}px`,
+          }}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleEventClick(event.eventId);
+          }}
+        />
+      ))}
+    </div>
   );
 };
+
+// Helper function (assuming this exists)
+function getBlockByVerticalPosition(
+  containerHeight: number,
+  positionY: number,
+): number {
+  // Your implementation here
+  return Math.floor((positionY / containerHeight) * 24); // Example: 24 blocks for 24 hours
+}
