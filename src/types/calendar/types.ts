@@ -48,17 +48,3 @@ export type IntlDateTypeMonthStyle =
   | typeof IntlDateTimeFormatNumeric
   | typeof IntlDateTimeFormat2Digit
   | undefined;
-
-export type EventBlock = {
-  eventId: string;
-  start: {
-    // buttonId: string;
-    positionY: number;
-    block?: number;
-  };
-  end: {
-    // buttonId: string;
-    positionY: number;
-    block?: number;
-  };
-};
