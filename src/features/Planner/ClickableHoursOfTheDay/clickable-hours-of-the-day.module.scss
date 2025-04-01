@@ -6,6 +6,7 @@
   width: 100%;
   z-index: 800;
   min-height: 100%;
+  margin-right: variables.$inner-spacing;
   position: relative;
 
   .plannerEvent {

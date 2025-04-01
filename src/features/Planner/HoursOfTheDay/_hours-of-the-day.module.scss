@@ -3,7 +3,7 @@
 .hourOfTheDay {
   display: flex;
   flex-direction: column;
-  margin-top: -13px;
+  margin-right: variables.$inner-spacing;
   height: max-content;
   span {
     width: max-content;
