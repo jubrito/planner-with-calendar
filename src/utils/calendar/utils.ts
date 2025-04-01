@@ -11,11 +11,7 @@ import {
   IntlDateTimeFormatLong,
   IntlDateTimeFormatNumeric,
 } from '../constants';
-import {
-  numberOfBlocksOnPlannerHour,
-  numberOfHoursInADay,
-  todayLabel,
-} from './constants';
+import { numberOfHoursInADay, todayLabel } from './constants';
 import { isToday } from '../checkers';
 import { getWeekDaysNames } from './weeks';
 
@@ -173,36 +169,3 @@ export const getFormatedDate = (
   date: DateConfig['date'],
   options: Intl.DateTimeFormatOptions = {},
 ) => new Date(getFormatedDateString(locale, date, options));
-
-export const getPlannerHourBlockStartValues = (elementHeight: number) => {
-  // Divide element height (which contans 24h) by 24 * 4 to result in 4 blocks of 15min on every hour
-  const numberOfBlocks = numberOfBlocksOnPlannerHour * numberOfHoursInADay;
-  const clickableHourBlockSize = elementHeight / numberOfBlocks;
-  const blocks = Array.from(Array(numberOfBlocks).keys(), (item) => item + 1);
-  const blocksStartValue = [0];
-  for (const block of blocks) {
-    const currentBlock = clickableHourBlockSize * block;
-    blocksStartValue.push(currentBlock);
-  }
-  return blocksStartValue;
-};
-
-export const getBlockByVerticalPosition = (
-  elementHeight: number,
-  relativePositionY: number,
-) => {
-  if (!relativePositionY) {
-    return undefined;
-  }
-  const horizontalValue = relativePositionY;
-  const plannerHourBlockStartValues =
-    getPlannerHourBlockStartValues(elementHeight);
-
-  for (const blockStarValue of plannerHourBlockStartValues) {
-    const block = plannerHourBlockStartValues.indexOf(blockStarValue);
-    if (horizontalValue <= blockStarValue) {
-      return block;
-    }
-  }
-  return numberOfBlocksOnPlannerHour;
-};
