@@ -26,3 +26,34 @@ export const deepCopy = <T extends ObjectType>(element: T): T => {
   }
   return copy;
 };
+
+export const chunkArrayWithNElements = <T>(
+  array: T[],
+  numberOfElements: number,
+) => {
+  const chunks = [];
+  for (let i = 0; i < array.length; i += numberOfElements) {
+    chunks.push(array.slice(i, i + numberOfElements));
+  }
+
+  // const onlyFiveRows = chunks.length - 1 === 4;
+  // const setFixedCalendarHeight = (chunks: CalendarCellInfo[][]) => {
+  //   if (onlyFiveRows) {
+  //     const lastRow = chunks[chunks.length - 1];
+  //     const lastCellInfo = lastRow[lastRow.length - 1];
+  //     const updatedLastCellInfo: CalendarCellInfo =
+  //       lastCellInfo.month === month + 1
+  //         ? {
+  //             year,
+  //             month: lastCellInfo.month + 1,
+  //             day: firstDayOfTheMonth - 1,
+  //           }
+  //         : lastCellInfo;
+  //     const nextEntireNextMonthDaysOnCurrentMonth =
+  //       getEntireNextMonthDaysLastRowOnCurrentMonth(updatedLastCellInfo);
+  //     chunks.push(nextEntireNextMonthDaysOnCurrentMonth);
+  //   }
+  // };
+  // setFixedCalendarHeight(chunks);
+  return chunks;
+};

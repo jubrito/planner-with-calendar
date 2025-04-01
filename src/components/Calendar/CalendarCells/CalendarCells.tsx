@@ -17,6 +17,8 @@ import {
 import { useSelector } from 'react-redux';
 import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
 import { firstDayOfTheMonth } from '../../../utils/calendar/constants';
+import { useCallback, useEffect, useState } from 'react';
+import { chunkArrayWithNElements } from '../../../utils/utils';
 
 const CalendarCells = () => {
   const locale = useSelector(getLocaleLanguage());
@@ -26,8 +28,10 @@ const CalendarCells = () => {
   const monthNumberOfDays = useSelector(
     getSelectedGlobalMonthNumberOfDays(locale),
   );
+  const [calendarCellsMatrix, setCalendarCellsMatrix] =
+    useState<CalendarCellInfo[][]>();
 
-  const getPreviousCurrentAndNextMonthDays = () => {
+  const getPreviousCurrentAndNextMonthDays = useCallback(() => {
     const currentMonthDays: CalendarCellInfo[] = getCurrentMonthDays(
       year,
       month,
@@ -52,21 +56,18 @@ const CalendarCells = () => {
       ...currentMonthDays,
       ...nextMonthDaysOnCurrentMonth,
     ];
-  };
+  }, [locale, year, month, time, monthNumberOfDays]);
 
-  const chunkCalendarCellsByWeek = (
-    array: CalendarCellInfo[],
-  ): CalendarCellInfo[][] => {
-    const chunks = [];
-    for (let i = 0; i < array.length; i += numberOfDaysOfTheWeek) {
-      chunks.push(array.slice(i, i + numberOfDaysOfTheWeek));
-    }
+  const addExtraNextMonthRowIfOnlyFiveRows = useCallback(
+    (calendarCellsByWeekChunks: CalendarCellInfo[][]) => {
+      const chunks = calendarCellsByWeekChunks;
+      const minimalNumberOfRows = 6;
+      const onlyFiveRows = chunks.length < minimalNumberOfRows;
 
-    const onlyFiveRows = chunks.length - 1 === 4;
-    const setFixedCalendarHeight = (chunks: CalendarCellInfo[][]) => {
       if (onlyFiveRows) {
         const lastRow = chunks[chunks.length - 1];
         const lastCellInfo = lastRow[lastRow.length - 1];
+        // TODO refactor to make it more understandable
         const updatedLastCellInfo: CalendarCellInfo =
           lastCellInfo.month === month + 1
             ? {
@@ -79,35 +80,48 @@ const CalendarCells = () => {
           getEntireNextMonthDaysLastRowOnCurrentMonth(updatedLastCellInfo);
         chunks.push(nextEntireNextMonthDaysOnCurrentMonth);
       }
-    };
-    setFixedCalendarHeight(chunks);
-    return chunks;
-  };
+      return chunks;
+    },
+    [year, month],
+  );
+
+  useEffect(() => {
+    // const calendarCellsByWeekChunks = (): CalendarCellInfo[][] = chunkCalendarCellsByWeek
+    const allCalendarCells = getPreviousCurrentAndNextMonthDays();
+    const calendarCellsByWeekChunks: CalendarCellInfo[][] =
+      chunkArrayWithNElements(allCalendarCells, numberOfDaysOfTheWeek);
+    const calendarCellsWith6Rows = addExtraNextMonthRowIfOnlyFiveRows(
+      calendarCellsByWeekChunks,
+    );
+    setCalendarCellsMatrix(calendarCellsWith6Rows);
+  }, [addExtraNextMonthRowIfOnlyFiveRows, getPreviousCurrentAndNextMonthDays]);
 
   return (
     <tbody className={styles.daysContainer}>
-      {chunkCalendarCellsByWeek(getPreviousCurrentAndNextMonthDays()).map(
-        (week, weekIndex) => (
-          <tr key={weekIndex}>
-            {week.map((calendarCell) => {
-              const {
-                day: cellDay,
-                month: cellMonth,
-                year: cellYear,
-              } = calendarCell;
-              return (
-                <Cell
-                  cellDay={cellDay}
-                  cellMonth={cellMonth}
-                  cellYear={cellYear}
-                  currentMonth={month}
-                  key={`${cellYear}-${cellMonth}-${cellDay}`}
-                />
-              );
-            })}
-          </tr>
-        ),
-      )}
+      {calendarCellsMatrix &&
+        calendarCellsMatrix.map(
+          // {chunkCalendarCellsByWeek(getPreviousCurrentAndNextMonthDays()).map(
+          (week, weekIndex) => (
+            <tr key={weekIndex}>
+              {week.map((calendarCell) => {
+                const {
+                  day: cellDay,
+                  month: cellMonth,
+                  year: cellYear,
+                } = calendarCell;
+                return (
+                  <Cell
+                    cellDay={cellDay}
+                    cellMonth={cellMonth}
+                    cellYear={cellYear}
+                    currentMonth={month}
+                    key={`${cellYear}-${cellMonth}-${cellDay}`}
+                  />
+                );
+              })}
+            </tr>
+          ),
+        )}
     </tbody>
   );
 };
