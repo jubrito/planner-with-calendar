@@ -11,7 +11,11 @@ import {
   IntlDateTimeFormatLong,
   IntlDateTimeFormatNumeric,
 } from '../constants';
-import { numberOfBlocksOnPlannerHour, todayLabel } from './constants';
+import {
+  numberOfBlocksOnPlannerHour,
+  numberOfHoursInADay,
+  todayLabel,
+} from './constants';
 import { isToday } from '../checkers';
 import { getWeekDaysNames } from './weeks';
 
@@ -130,7 +134,6 @@ export const getHoursOfTheDay = (
   month: DateConfig['month'],
   day: DateConfig['day'],
 ) => {
-  const numberOfHours = 24;
   const formatedHours = [];
 
   const addZeroDigitBeforeSingleDigits = (formatedHour: string) => {
@@ -146,7 +149,7 @@ export const getHoursOfTheDay = (
     return formatedHour + ':00';
   };
 
-  for (let i = 0; i < numberOfHours + 1; i++) {
+  for (let i = 0; i < numberOfHoursInADay + 1; i++) {
     let formatedHour = new Intl.DateTimeFormat(locale, {
       hour: IntlDateTimeFormatNumeric,
     }).format(new Date(year, month, day, i));
@@ -172,9 +175,8 @@ export const getFormatedDate = (
 ) => new Date(getFormatedDateString(locale, date, options));
 
 export const getPlannerHourBlockStartValues = (elementHeight: number) => {
-  const numberOfHours = 24;
   // Divide element height (which contans 24h) by 24 * 4 to result in 4 blocks of 15min on every hour
-  const numberOfBlocks = numberOfBlocksOnPlannerHour * numberOfHours;
+  const numberOfBlocks = numberOfBlocksOnPlannerHour * numberOfHoursInADay;
   const clickableHourBlockSize = elementHeight / numberOfBlocks;
   const blocks = Array.from(Array(numberOfBlocks).keys(), (item) => item + 1);
   const blocksStartValue = [0];
