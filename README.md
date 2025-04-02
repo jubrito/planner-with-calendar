@@ -1,13 +1,14 @@
 # Next steps (v1):
 
+- Scroll stoped working
 - Connect events created to specific day
   - How to change days but preserve events? State? Only with bd?
 - Add lines back to planner
 - Check unused vars on types / consts / scss
 - check for memory leaks, should reset all vars (state, 3 records, listeners)
+- use kebab case on scss search for camel case
 - add only on every 15 min
 - new tests
-- fix tests
 - add explanations on complex functions
 - if two events happen at the same time, show side by side
 - Should memoize buttons to prevent rerenders? Is it worth it?
@@ -15,6 +16,7 @@
 - Ignore clicking outside button of specific hour (change bg to be sure)
 - Add overflow scroll to planner
 - Rename from cammelcase to kabeb case on scss (variables etc)
+- CHange planner hour height and recalculate it and the hours of the day height so when we click on the planner we get the right block which is based on the plannerHour height
 
 # Future Steps:
 
