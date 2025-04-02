@@ -3,7 +3,7 @@ import styles from './_calendar-cells.module.scss';
 import { getCurrentMonthDays } from '../../../utils/calendar/current';
 import { getPreviousMonthDaysOnCurrentMonth } from '../../../utils/calendar/previous';
 import {
-  getEntireNextMonthDaysLastRowOnCurrentMonth,
+  fillLastCalendarRow,
   getNextMonthDaysOnCurrentMonth,
 } from '../../../utils/calendar/next';
 import { CalendarCellInfo } from '../../../types/calendar/types';
@@ -16,9 +16,10 @@ import {
 } from '../../../redux/slices/dateSlice/selectors';
 import { useSelector } from 'react-redux';
 import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
-import { firstDayOfTheMonth } from '../../../utils/calendar/constants';
+// import { firstDayOfTheMonth } from '../../../utils/calendar/constants';
 import { useCallback, useEffect, useState } from 'react';
 import { getChunkArrayByChunkSize } from '../../../utils/utils';
+import { firstDayOfTheMonth } from '../../../utils/calendar/constants';
 
 const CalendarCells = () => {
   const locale = useSelector(getLocaleLanguage());
@@ -67,17 +68,21 @@ const CalendarCells = () => {
       if (onlyFiveRows) {
         const lastRow = chunks[chunks.length - 1];
         const lastCellInfo = lastRow[lastRow.length - 1];
-        // TODO refactor to make it more understandable
-        const updatedLastCellInfo: CalendarCellInfo =
-          lastCellInfo.month === month + 1
-            ? {
-                year,
-                month: lastCellInfo.month + 1,
-                day: firstDayOfTheMonth - 1,
-              }
-            : lastCellInfo;
-        const nextEntireNextMonthDaysOnCurrentMonth =
-          getEntireNextMonthDaysLastRowOnCurrentMonth(updatedLastCellInfo);
+        const cellIsAlreadyNextMonth = lastCellInfo.month !== month + 1; // 0 indexed
+        const firstDayOfTheMonthZeroIndexed = firstDayOfTheMonth - 1;
+        const nextMonth = lastCellInfo.month + 1;
+        const nextMonthCellInfo = {
+          year,
+          month: nextMonth,
+          day: firstDayOfTheMonthZeroIndexed,
+        };
+        // if last cell is current month, next cell should be from next month as there is no other day from this month
+        const cellFromNextMonthInfo: CalendarCellInfo = cellIsAlreadyNextMonth
+          ? lastCellInfo
+          : nextMonthCellInfo;
+        const nextEntireNextMonthDaysOnCurrentMonth = fillLastCalendarRow(
+          cellFromNextMonthInfo,
+        );
         chunks.push(nextEntireNextMonthDaysOnCurrentMonth);
       }
       return chunks;
