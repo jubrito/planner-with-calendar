@@ -1,5 +1,6 @@
 # Next steps (v1):
 
+- Improve precision (calendar lines should include exactly that hour and that block. The hour works but the block precision is only right if you create an event a little bit smaller than the line)
 - Extract functions and improve readability
 - Connect events created to specific day
   - How to change days but preserve events? State? Only with bd?
