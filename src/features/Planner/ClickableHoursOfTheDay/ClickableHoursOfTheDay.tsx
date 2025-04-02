@@ -8,7 +8,7 @@ import { getChunkArrayByChunkSize } from '../../../utils/utils';
 
 interface TimeBlock {
   positionY: number;
-  block: number;
+  block?: number;
 }
 
 interface EventBlock {
@@ -97,15 +97,19 @@ export const ClickableHoursOfTheDay = () => {
 
       const rect = containerRef.current.getBoundingClientRect();
       const relativeY = event.clientY - rect.top;
-      const block = 101;
+      const hourAnd15minBlock = getHourAndFifteenMinuteBlocks(relativeY);
+      console.log('hourAnd15minBlock', hourAnd15minBlock);
 
       setDraftEvent({
         eventId: `draft-${Date.now()}`,
-        start: { positionY: relativeY, block },
-        end: { positionY: relativeY, block },
+        start: {
+          positionY: relativeY,
+          block: hourAnd15minBlock.fifteenMinBlock,
+        },
+        end: { positionY: relativeY, block: hourAnd15minBlock.fifteenMinBlock },
       });
     },
-    [],
+    [getHourAndFifteenMinuteBlocks],
   );
 
   const handleMouseMove = useCallback(
@@ -114,8 +118,7 @@ export const ClickableHoursOfTheDay = () => {
 
       const rect = containerRef.current.getBoundingClientRect();
       const relativeY = event.clientY - rect.top;
-      const block = 101;
-
+      const block = 101; // TODO
       setDraftEvent((prev) => ({
         ...prev!,
         end: { positionY: relativeY, block },
@@ -124,7 +127,6 @@ export const ClickableHoursOfTheDay = () => {
     [draftEvent],
   );
 
-  // Finalize the event on mouse up
   const handleMouseUp = useCallback(() => {
     if (!draftEvent) return;
     const minimumEventHeight =
@@ -158,12 +160,6 @@ export const ClickableHoursOfTheDay = () => {
 
   const handleEventClick = useCallback((eventId: string) => {
     console.log('Event clicked:', eventId);
-  }, []);
-
-  useEffect(() => {
-    if (containerRef.current?.parentElement) {
-      containerRef.current.style.height = `${containerRef.current.parentElement.scrollHeight}px`;
-    }
   }, []);
 
   return (
