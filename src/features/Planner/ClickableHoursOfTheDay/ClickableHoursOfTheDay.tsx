@@ -1,9 +1,10 @@
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useCallback, useEffect, useRef, useMemo } from 'react';
 import styles from './clickable-hours-of-the-day.module.scss';
 import {
   numberOfBlocksOnPlannerHour,
   numberOfHoursInADay,
 } from '../../../utils/calendar/constants';
+import { getChunkArrayByChunkSize } from '../../../utils/utils';
 
 interface TimeBlock {
   positionY: number;
@@ -29,14 +30,21 @@ export const ClickableHoursOfTheDay = () => {
     }
   }, [initialHeight]);
 
+  const hoursBlockDividedByFifteenMinutes = useMemo(() => {
+    if (initialHeight == null) return [];
+    return getChunkArrayByChunkSize(
+      getPlannerHourBlockStartValues(initialHeight),
+      fifteenMinutesItemsInAnHour,
+    );
+  }, [initialHeight]);
+
   const handleMouseDown = useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
       if (!containerRef.current) return;
 
       const rect = containerRef.current.getBoundingClientRect();
       const relativeY = event.clientY - rect.top;
-      const containerHeight = containerRef.current.clientHeight;
-      const block = getBlockByVerticalPosition(containerHeight, relativeY);
+      const block = 101;
 
       setDraftEvent({
         eventId: `draft-${Date.now()}`,
@@ -53,8 +61,7 @@ export const ClickableHoursOfTheDay = () => {
 
       const rect = containerRef.current.getBoundingClientRect();
       const relativeY = event.clientY - rect.top;
-      const containerHeight = containerRef.current.clientHeight;
-      const block = getBlockByVerticalPosition(containerHeight, relativeY);
+      const block = 101;
 
       setDraftEvent((prev) => ({
         ...prev!,
