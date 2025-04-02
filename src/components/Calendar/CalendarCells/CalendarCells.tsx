@@ -26,7 +26,7 @@ const CalendarCells = () => {
     getSelectedGlobalMonthNumberOfDays(locale),
   );
 
-  const getPreviousCurrentAndNextMonthDays = useCallback(() => {
+  const getAllCalendarCells = useCallback(() => {
     const currentMonthDays: CalendarCellInfo[] = getCurrentMonthDays(
       year,
       month,
@@ -69,15 +69,14 @@ const CalendarCells = () => {
       const cellIsAlreadyNextMonth = lastCellInfo.month !== month + 1; // 0 indexed
       const firstDayOfTheMonthZeroIndexed = firstDayOfTheMonth - 1;
       const nextMonth = lastCellInfo.month + 1;
-      const nextMonthCellInfo = {
+      const firstDayOfNextMonthCellInfo = {
         year,
         month: nextMonth,
         day: firstDayOfTheMonthZeroIndexed,
       };
-      // first cell of extra last row to fill calendar will always be from next month
       const cellFromNextMonthInfo: CalendarCellInfo = cellIsAlreadyNextMonth
         ? lastCellInfo
-        : nextMonthCellInfo;
+        : firstDayOfNextMonthCellInfo; // first cell of extra last row to fill calendar will always be from next month
       return fillLastRowWithNextMonthCells(cellFromNextMonthInfo);
     },
     [year, month],
@@ -95,11 +94,11 @@ const CalendarCells = () => {
   );
 
   const dayCellsChunked = useMemo(() => {
-    const allCalendarCells = getPreviousCurrentAndNextMonthDays();
+    const allCalendarCells = getAllCalendarCells();
     const calendarCellsByWeekChunks: CalendarCellInfo[][] =
       getChunkArrayByChunkSize(allCalendarCells, numberOfDaysOfTheWeek);
     return getCalendarWithSixRows(calendarCellsByWeekChunks);
-  }, [getCalendarWithSixRows, getPreviousCurrentAndNextMonthDays]);
+  }, [getCalendarWithSixRows, getAllCalendarCells]);
 
   return (
     <tbody className={styles.daysContainer}>
