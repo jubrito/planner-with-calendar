@@ -5,6 +5,7 @@ import {
   numberOfHoursInADay,
 } from '../../../utils/calendar/constants';
 import { getChunkArrayByChunkSize } from '../../../utils/utils';
+import { spacingTopClickablePlannerArea } from '../../../utils/constants';
 
 interface TimeBlock {
   positionY: number;
@@ -19,13 +20,13 @@ interface EventBlock {
   start: TimeBlock;
   end: TimeBlock;
 }
+const fifteenMinutesItemsInAnHour = 4;
 
 export const ClickableHoursOfTheDay = () => {
   const [draftEvent, setDraftEvent] = useState<EventBlock | null>(null);
   const [events, setEvents] = useState<EventBlock[]>([]);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const fifteenMinutesItemsInAnHour = 4;
   const [initialHeight, setInitialHeight] = useState<number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (containerRef.current && initialHeight === null) {
@@ -44,17 +45,19 @@ export const ClickableHoursOfTheDay = () => {
   const getHourAndFifteenMinuteBlocks = useCallback(
     (relativeY: number) => {
       const getSizeOfEach15MinBlock = () => {
-        if (
+        const fifteeMinutesExist =
+          hoursBlockDividedByFifteenMinutes[0].length >= 2;
+        const dataIsNotAvailable =
           !hoursBlockDividedByFifteenMinutes ||
           hoursBlockDividedByFifteenMinutes.length === 0 ||
-          hoursBlockDividedByFifteenMinutes[0].length < 2
-        )
-          return undefined;
-        return Math.abs(
-          hoursBlockDividedByFifteenMinutes[0][1] -
-            hoursBlockDividedByFifteenMinutes[0][0],
-        );
+          !fifteeMinutesExist;
+
+        if (dataIsNotAvailable) return undefined;
+
+        const first15MinOfFirstHour = hoursBlockDividedByFifteenMinutes[0][1];
+        return first15MinOfFirstHour;
       };
+
       const hourBlockWithFifteenMinutesBlocks =
         hoursBlockDividedByFifteenMinutes.find((allHours) => {
           const sizeOfEach15minBlock = getSizeOfEach15MinBlock();
@@ -63,29 +66,22 @@ export const ClickableHoursOfTheDay = () => {
             allHours[allHours.length - 1] + sizeOfEach15minBlock;
           return relativeY <= lastHourFifteenMinuteBlockEnd;
         });
-
       if (!hourBlockWithFifteenMinutesBlocks)
         return { hourBlock: undefined, fifteenMinBlock: undefined };
 
       const hourBlockClickedIndex = hoursBlockDividedByFifteenMinutes.indexOf(
         hourBlockWithFifteenMinutesBlocks,
       );
-      // console.log('hourBlockClickedIndex', hourBlockClickedIndex);
       const fifteenMinuteBlock = hourBlockWithFifteenMinutesBlocks.find(
         (allFifteenMinuteBlocks) =>
           relativeY <=
           allFifteenMinuteBlocks + (getSizeOfEach15MinBlock() || 0),
       );
-      // console.log('fifteenMinuteBlock', fifteenMinuteBlock);
       if (fifteenMinuteBlock == null)
         return { hourBlock: hourBlockClickedIndex, fifteenMinBlock: undefined };
 
       const fifteenMinuteBlockClickedIndex =
         hourBlockWithFifteenMinutesBlocks.indexOf(fifteenMinuteBlock);
-      // console.log(
-      //   'fifteenMinuteBlockClickedIndex',
-      //   fifteenMinuteBlockClickedIndex,
-      // );
       return {
         hourBlock: hourBlockClickedIndex,
         fifteenMinBlock: fifteenMinuteBlockClickedIndex,
@@ -166,6 +162,12 @@ export const ClickableHoursOfTheDay = () => {
     console.log('Event clicked:', event);
   }, []);
 
+  useEffect(() => {
+    if (containerRef.current?.parentElement) {
+      containerRef.current.style.height = `${containerRef.current.parentElement.scrollHeight + spacingTopClickablePlannerArea}px`;
+    }
+  }, []);
+
   return (
     <div
       ref={containerRef}
@@ -174,6 +176,7 @@ export const ClickableHoursOfTheDay = () => {
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseLeave}
+      style={{ marginTop: `${spacingTopClickablePlannerArea}px` }}
     >
       {draftEvent && (
         <div
