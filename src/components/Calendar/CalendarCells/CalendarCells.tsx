@@ -53,7 +53,16 @@ const CalendarCells = () => {
     ];
   }, [locale, year, month, time, monthNumberOfDays]);
 
-  const getFilledRowWithNextMonthCells = useCallback(
+  /**
+   * To prevent the calendar from changing height when
+   * a month requires a 6th row (i.e., when month started in a
+   * Sat or Sun, if a month has only 5 rows, we should cal this funcion to
+   * add a new 6th row, filling it with the following days from the next month.
+   *
+   * @param chunks calendar chunked with 5 rows
+   * @returns last extra row with following days of next month
+   */
+  const getRowWithNextMonthCells = useCallback(
     (chunks: CalendarCellInfo[][]) => {
       const lastRow = chunks[chunks.length - 1];
       const lastCellInfo = lastRow[lastRow.length - 1];
@@ -74,26 +83,23 @@ const CalendarCells = () => {
     [year, month],
   );
 
-  const addExtraNextMonthRowIfOnlyFiveRows = useCallback(
+  const getCalendarWithSixRows = useCallback(
     (calendarCellsByWeekChunks: CalendarCellInfo[][]) => {
       const chunks = calendarCellsByWeekChunks;
       const minimalNumberOfRows = 6;
       const onlyFiveRows = chunks.length < minimalNumberOfRows;
-      if (onlyFiveRows) chunks.push(getFilledRowWithNextMonthCells(chunks));
+      if (onlyFiveRows) chunks.push(getRowWithNextMonthCells(chunks));
       return chunks;
     },
-    [getFilledRowWithNextMonthCells],
+    [getRowWithNextMonthCells],
   );
 
   const dayCellsChunked = useMemo(() => {
     const allCalendarCells = getPreviousCurrentAndNextMonthDays();
     const calendarCellsByWeekChunks: CalendarCellInfo[][] =
       getChunkArrayByChunkSize(allCalendarCells, numberOfDaysOfTheWeek);
-    const calendarCellsWith6Rows = addExtraNextMonthRowIfOnlyFiveRows(
-      calendarCellsByWeekChunks,
-    );
-    return calendarCellsWith6Rows;
-  }, [addExtraNextMonthRowIfOnlyFiveRows, getPreviousCurrentAndNextMonthDays]);
+    return getCalendarWithSixRows(calendarCellsByWeekChunks);
+  }, [getCalendarWithSixRows, getPreviousCurrentAndNextMonthDays]);
 
   return (
     <tbody className={styles.daysContainer}>
