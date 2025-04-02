@@ -16,8 +16,7 @@ import {
 } from '../../../redux/slices/dateSlice/selectors';
 import { useSelector } from 'react-redux';
 import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
-// import { firstDayOfTheMonth } from '../../../utils/calendar/constants';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import { getChunkArrayByChunkSize } from '../../../utils/utils';
 import { firstDayOfTheMonth } from '../../../utils/calendar/constants';
 
@@ -29,8 +28,6 @@ const CalendarCells = () => {
   const monthNumberOfDays = useSelector(
     getSelectedGlobalMonthNumberOfDays(locale),
   );
-  const [calendarCellsMatrix, setCalendarCellsMatrix] =
-    useState<CalendarCellInfo[][]>();
 
   const getPreviousCurrentAndNextMonthDays = useCallback(() => {
     const currentMonthDays: CalendarCellInfo[] = getCurrentMonthDays(
@@ -90,20 +87,20 @@ const CalendarCells = () => {
     [year, month],
   );
 
-  useEffect(() => {
+  const cellsMatrix = useMemo(() => {
     const allCalendarCells = getPreviousCurrentAndNextMonthDays();
     const calendarCellsByWeekChunks: CalendarCellInfo[][] =
       getChunkArrayByChunkSize(allCalendarCells, numberOfDaysOfTheWeek);
     const calendarCellsWith6Rows = addExtraNextMonthRowIfOnlyFiveRows(
       calendarCellsByWeekChunks,
     );
-    setCalendarCellsMatrix(calendarCellsWith6Rows);
+    return calendarCellsWith6Rows;
   }, [addExtraNextMonthRowIfOnlyFiveRows, getPreviousCurrentAndNextMonthDays]);
 
   return (
     <tbody className={styles.daysContainer}>
-      {calendarCellsMatrix &&
-        calendarCellsMatrix.map((week, weekIndex) => (
+      {cellsMatrix &&
+        cellsMatrix.map((week, weekIndex) => (
           <tr key={weekIndex}>
             {week.map((calendarCell) => {
               const {
