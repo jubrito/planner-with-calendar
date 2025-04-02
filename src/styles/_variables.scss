@@ -23,6 +23,9 @@ $smaller-gap: 2px;
 $numberOfWeekDays: 7;
 $calendar-cel-lateral-padding: 6px;
 $number-of-blocks-on-planner-hour: 4; //
+$number-of-hours-in-a-day: 24;
 
 // Planner
-$hoursOfDaySliceSpacing: 60%;
+$hoursOfDaySliceSpacing: 30px;
+$planner-hours-height: 1380px;
+$spacing-top-clickable-planner-area: 11px;
