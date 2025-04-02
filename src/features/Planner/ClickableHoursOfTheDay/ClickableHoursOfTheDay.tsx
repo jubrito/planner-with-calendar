@@ -38,6 +38,59 @@ export const ClickableHoursOfTheDay = () => {
     );
   }, [initialHeight]);
 
+  const getHourAndFifteenMinuteBlocks = useCallback(
+    (relativeY: number) => {
+      const getSizeOfEach15MinBlock = () => {
+        if (
+          !hoursBlockDividedByFifteenMinutes ||
+          hoursBlockDividedByFifteenMinutes.length === 0 ||
+          hoursBlockDividedByFifteenMinutes[0].length < 2
+        )
+          return undefined;
+        return Math.abs(
+          hoursBlockDividedByFifteenMinutes[0][1] -
+            hoursBlockDividedByFifteenMinutes[0][0],
+        );
+      };
+      const hourBlockWithFifteenMinutesBlocks =
+        hoursBlockDividedByFifteenMinutes.find((allHours) => {
+          const sizeOfEach15minBlock = getSizeOfEach15MinBlock();
+          if (!sizeOfEach15minBlock) return undefined;
+          const lastHourFifteenMinuteBlockEnd =
+            allHours[allHours.length - 1] + sizeOfEach15minBlock;
+          return relativeY <= lastHourFifteenMinuteBlockEnd;
+        });
+
+      if (!hourBlockWithFifteenMinutesBlocks)
+        return { hourBlock: undefined, fifteenMinBlock: undefined };
+
+      const hourBlockClickedIndex = hoursBlockDividedByFifteenMinutes.indexOf(
+        hourBlockWithFifteenMinutesBlocks,
+      );
+      // console.log('hourBlockClickedIndex', hourBlockClickedIndex);
+      const fifteenMinuteBlock = hourBlockWithFifteenMinutesBlocks.find(
+        (allFifteenMinuteBlocks) =>
+          relativeY <=
+          allFifteenMinuteBlocks + (getSizeOfEach15MinBlock() || 0),
+      );
+      // console.log('fifteenMinuteBlock', fifteenMinuteBlock);
+      if (fifteenMinuteBlock == null)
+        return { hourBlock: hourBlockClickedIndex, fifteenMinBlock: undefined };
+
+      const fifteenMinuteBlockClickedIndex =
+        hourBlockWithFifteenMinutesBlocks.indexOf(fifteenMinuteBlock);
+      // console.log(
+      //   'fifteenMinuteBlockClickedIndex',
+      //   fifteenMinuteBlockClickedIndex,
+      // );
+      return {
+        hourBlock: hourBlockClickedIndex,
+        fifteenMinBlock: fifteenMinuteBlockClickedIndex,
+      };
+    },
+    [hoursBlockDividedByFifteenMinutes],
+  );
+
   const handleMouseDown = useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
       if (!containerRef.current) return;
