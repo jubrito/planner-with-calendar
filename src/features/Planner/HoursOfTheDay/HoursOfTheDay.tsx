@@ -22,9 +22,12 @@ export const HoursOfTheDay = ({ hoursOfTheDay }: HoursOfTheDayProps) => {
     <div className={styles.hourOfTheDay} ref={hourOfTheDaySpanRef}>
       {hoursOfTheDay.map((hourOfTheDay) => {
         return (
-          <span className={'hourOfTheDay'} style={{ height: spanHeight }}>
-            {hourOfTheDay}
-          </span>
+          <div className={styles.container}>
+            <span className="hourOfTheDay" style={{ height: spanHeight }}>
+              {hourOfTheDay}
+            </span>
+            <hr className={styles.line} />
+          </div>
         );
       })}
     </div>

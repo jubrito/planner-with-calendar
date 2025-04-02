@@ -45,7 +45,9 @@
     width: 100%;
     height: variables.$planner-hours-height;
     cursor: pointer;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
 
     @include mixins.media-for-compact-calendar {
       margin-bottom: variables.$inner-spacing;
