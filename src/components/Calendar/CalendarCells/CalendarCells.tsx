@@ -53,7 +53,7 @@ const CalendarCells = () => {
     ];
   }, [locale, year, month, time, monthNumberOfDays]);
 
-  const getLastRow = useCallback(
+  const getFilledRowWithNextMonthCells = useCallback(
     (chunks: CalendarCellInfo[][]) => {
       const lastRow = chunks[chunks.length - 1];
       const lastCellInfo = lastRow[lastRow.length - 1];
@@ -65,14 +65,11 @@ const CalendarCells = () => {
         month: nextMonth,
         day: firstDayOfTheMonthZeroIndexed,
       };
-      // if last cell is current month, next cell should be from next month as there is no other day from this month
+      // first cell of extra last row to fill calendar will always be from next month
       const cellFromNextMonthInfo: CalendarCellInfo = cellIsAlreadyNextMonth
         ? lastCellInfo
         : nextMonthCellInfo;
-      const nextEntireNextMonthDaysOnCurrentMonth = fillLastCalendarRow(
-        cellFromNextMonthInfo,
-      );
-      return nextEntireNextMonthDaysOnCurrentMonth;
+      return fillLastRowWithNextMonthCells(cellFromNextMonthInfo);
     },
     [year, month],
   );
@@ -82,10 +79,10 @@ const CalendarCells = () => {
       const chunks = calendarCellsByWeekChunks;
       const minimalNumberOfRows = 6;
       const onlyFiveRows = chunks.length < minimalNumberOfRows;
-      if (onlyFiveRows) chunks.push(getLastRow(chunks));
+      if (onlyFiveRows) chunks.push(getFilledRowWithNextMonthCells(chunks));
       return chunks;
     },
-    [getLastRow],
+    [getFilledRowWithNextMonthCells],
   );
 
   const dayCellsChunked = useMemo(() => {
@@ -125,7 +122,7 @@ const CalendarCells = () => {
   );
 };
 
-const fillLastCalendarRow = (lastCellInfo: CalendarCellInfo) => {
+const fillLastRowWithNextMonthCells = (lastCellInfo: CalendarCellInfo) => {
   const nextMonthDaysLastRowCells: CalendarCellInfo[] = [];
   for (let i = 1; i < numberOfDaysOfTheWeek + 1; i++) {
     nextMonthDaysLastRowCells.push({
