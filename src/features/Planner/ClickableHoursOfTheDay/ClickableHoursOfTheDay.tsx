@@ -16,6 +16,14 @@ export const ClickableHoursOfTheDay = () => {
   const [draftEvent, setDraftEvent] = useState<EventBlock | null>(null);
   const [events, setEvents] = useState<EventBlock[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
+  const fifteenMinutesItemsInAnHour = 4;
+  const [initialHeight, setInitialHeight] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (containerRef.current && initialHeight === null) {
+      setInitialHeight(containerRef.current.clientHeight);
+    }
+  }, [initialHeight]);
 
   const handleMouseDown = useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
