@@ -8,7 +8,10 @@ import { getChunkArrayByChunkSize } from '../../../utils/utils';
 
 interface TimeBlock {
   positionY: number;
-  block?: number;
+  block: {
+    hourBlock?: number;
+    fifteenMinBlock?: number;
+  };
 }
 
 interface EventBlock {
@@ -97,16 +100,15 @@ export const ClickableHoursOfTheDay = () => {
 
       const rect = containerRef.current.getBoundingClientRect();
       const relativeY = event.clientY - rect.top;
-      const hourAnd15minBlock = getHourAndFifteenMinuteBlocks(relativeY);
-      console.log('hourAnd15minBlock', hourAnd15minBlock);
+      const block = getHourAndFifteenMinuteBlocks(relativeY);
 
       setDraftEvent({
         eventId: `draft-${Date.now()}`,
         start: {
           positionY: relativeY,
-          block: hourAnd15minBlock.fifteenMinBlock,
+          block,
         },
-        end: { positionY: relativeY, block: hourAnd15minBlock.fifteenMinBlock },
+        end: { positionY: relativeY, block },
       });
     },
     [getHourAndFifteenMinuteBlocks],
@@ -118,13 +120,14 @@ export const ClickableHoursOfTheDay = () => {
 
       const rect = containerRef.current.getBoundingClientRect();
       const relativeY = event.clientY - rect.top;
-      const block = 101; // TODO
+      const block = getHourAndFifteenMinuteBlocks(relativeY);
+
       setDraftEvent((prev) => ({
         ...prev!,
         end: { positionY: relativeY, block },
       }));
     },
-    [draftEvent],
+    [draftEvent, getHourAndFifteenMinuteBlocks],
   );
 
   const handleMouseUp = useCallback(() => {
@@ -135,7 +138,8 @@ export const ClickableHoursOfTheDay = () => {
 
     if (minimumEventHeight) {
       setEvents((prev) => [...prev, draftEvent]);
-    } else {
+    }
+    if (!minimumEventHeight) {
       setEvents((prev) => [
         ...prev,
         {
@@ -158,8 +162,8 @@ export const ClickableHoursOfTheDay = () => {
     setDraftEvent(null);
   }, []);
 
-  const handleEventClick = useCallback((eventId: string) => {
-    console.log('Event clicked:', eventId);
+  const handleEventClick = useCallback((event: EventBlock) => {
+    console.log('Event clicked:', event);
   }, []);
 
   return (
@@ -190,7 +194,7 @@ export const ClickableHoursOfTheDay = () => {
           }}
           onClick={(e) => {
             e.stopPropagation();
-            handleEventClick(event.eventId);
+            handleEventClick(event);
           }}
         />
       ))}
