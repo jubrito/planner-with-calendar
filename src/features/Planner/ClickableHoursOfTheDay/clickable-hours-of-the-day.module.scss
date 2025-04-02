@@ -6,10 +6,10 @@
   width: 100%;
   z-index: 800;
   height: variables.$planner-hours-height;
-  // min-height: 100%;
   // background-color: black;
   // margin: variables.$spacing-top-clickable-planner-area variables.$inner-spacing
   //   0 0;
+  margin-right: variables.$inner-spacing;
   position: relative;
 
   .plannerEvent {
