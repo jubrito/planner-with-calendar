@@ -1,5 +1,9 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import styles from './clickable-hours-of-the-day.module.scss';
+import {
+  numberOfBlocksOnPlannerHour,
+  numberOfHoursInADay,
+} from '../../../utils/calendar/constants';
 
 interface TimeBlock {
   positionY: number;
@@ -138,11 +142,16 @@ export const ClickableHoursOfTheDay = () => {
   );
 };
 
-// Helper function (assuming this exists)
-function getBlockByVerticalPosition(
-  containerHeight: number,
-  positionY: number,
-): number {
-  // Your implementation here
-  return Math.floor((positionY / containerHeight) * 24); // Example: 24 blocks for 24 hours
-}
+const getPlannerHourBlockStartValues = (elementHeight: number) => {
+  if (!elementHeight) return [];
+  // Divide element height (which contans 24h) by 24 * 4 to result in 4 blocks of 15min on every hour
+  const numberOfBlocks = numberOfBlocksOnPlannerHour * numberOfHoursInADay;
+  const clickableHourBlockSize = elementHeight / numberOfBlocks;
+  const blocks = Array.from(Array(numberOfBlocks).keys(), (item) => item + 1);
+  const blocksStartValue = [0];
+  for (const block of blocks) {
+    const currentBlock = clickableHourBlockSize * block;
+    blocksStartValue.push(currentBlock);
+  }
+  return blocksStartValue;
+};
