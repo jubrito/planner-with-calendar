@@ -1,6 +1,6 @@
 # Next steps (v1):
 
-- Scroll stoped working
+- Extract functions and improve readability
 - Connect events created to specific day
   - How to change days but preserve events? State? Only with bd?
 - Add lines back to planner
