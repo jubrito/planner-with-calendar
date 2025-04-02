@@ -26,6 +26,12 @@ const CalendarCells = () => {
     getSelectedGlobalMonthNumberOfDays(locale),
   );
 
+  /**
+   * Function to add the days from the current month and fill the
+   * calendar with the days from the previous and next month
+   *
+   * @returns allCalendarCells: previous, current and next month days on current calendar
+   */
   const getAllCalendarCells = useCallback(() => {
     const currentMonthDays: CalendarCellInfo[] = getCurrentMonthDays(
       year,
