@@ -4,9 +4,13 @@
   display: flex;
   flex-direction: column;
   margin-right: variables.$inner-spacing;
-  height: max-content;
   span {
     width: max-content;
-    padding-bottom: variables.$hoursOfDaySliceSpacing;
+    height: calc(
+      variables.$planner-hours-height / variables.$number-of-hours-in-a-day
+    );
+    min-height: calc(
+      variables.$planner-hours-height / variables.$number-of-hours-in-a-day
+    );
   }
 }
