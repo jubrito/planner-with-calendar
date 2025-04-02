@@ -34,15 +34,3 @@ export const getNextMonthDaysOnCurrentMonth = (
   }
   return nextMonthDaysOnCurrentMonth;
 };
-
-export const fillLastCalendarRow = (lastCellInfo: CalendarCellInfo) => {
-  const nextMonthDaysLastRowCells: CalendarCellInfo[] = [];
-  for (let i = 1; i < numberOfDaysOfTheWeek + 1; i++) {
-    nextMonthDaysLastRowCells.push({
-      month: lastCellInfo.month,
-      day: lastCellInfo.day + i,
-      year: lastCellInfo.year,
-    });
-  }
-  return nextMonthDaysLastRowCells;
-};

@@ -2,10 +2,7 @@ import { numberOfDaysOfTheWeek } from '../../../utils/calendar/weeks';
 import styles from './_calendar-cells.module.scss';
 import { getCurrentMonthDays } from '../../../utils/calendar/current';
 import { getPreviousMonthDaysOnCurrentMonth } from '../../../utils/calendar/previous';
-import {
-  fillLastCalendarRow,
-  getNextMonthDaysOnCurrentMonth,
-} from '../../../utils/calendar/next';
+import { getNextMonthDaysOnCurrentMonth } from '../../../utils/calendar/next';
 import { CalendarCellInfo } from '../../../types/calendar/types';
 import { Cell } from './Cell/Cell';
 import {
@@ -56,38 +53,42 @@ const CalendarCells = () => {
     ];
   }, [locale, year, month, time, monthNumberOfDays]);
 
+  const getLastRow = useCallback(
+    (chunks: CalendarCellInfo[][]) => {
+      const lastRow = chunks[chunks.length - 1];
+      const lastCellInfo = lastRow[lastRow.length - 1];
+      const cellIsAlreadyNextMonth = lastCellInfo.month !== month + 1; // 0 indexed
+      const firstDayOfTheMonthZeroIndexed = firstDayOfTheMonth - 1;
+      const nextMonth = lastCellInfo.month + 1;
+      const nextMonthCellInfo = {
+        year,
+        month: nextMonth,
+        day: firstDayOfTheMonthZeroIndexed,
+      };
+      // if last cell is current month, next cell should be from next month as there is no other day from this month
+      const cellFromNextMonthInfo: CalendarCellInfo = cellIsAlreadyNextMonth
+        ? lastCellInfo
+        : nextMonthCellInfo;
+      const nextEntireNextMonthDaysOnCurrentMonth = fillLastCalendarRow(
+        cellFromNextMonthInfo,
+      );
+      return nextEntireNextMonthDaysOnCurrentMonth;
+    },
+    [year, month],
+  );
+
   const addExtraNextMonthRowIfOnlyFiveRows = useCallback(
     (calendarCellsByWeekChunks: CalendarCellInfo[][]) => {
       const chunks = calendarCellsByWeekChunks;
       const minimalNumberOfRows = 6;
       const onlyFiveRows = chunks.length < minimalNumberOfRows;
-
-      if (onlyFiveRows) {
-        const lastRow = chunks[chunks.length - 1];
-        const lastCellInfo = lastRow[lastRow.length - 1];
-        const cellIsAlreadyNextMonth = lastCellInfo.month !== month + 1; // 0 indexed
-        const firstDayOfTheMonthZeroIndexed = firstDayOfTheMonth - 1;
-        const nextMonth = lastCellInfo.month + 1;
-        const nextMonthCellInfo = {
-          year,
-          month: nextMonth,
-          day: firstDayOfTheMonthZeroIndexed,
-        };
-        // if last cell is current month, next cell should be from next month as there is no other day from this month
-        const cellFromNextMonthInfo: CalendarCellInfo = cellIsAlreadyNextMonth
-          ? lastCellInfo
-          : nextMonthCellInfo;
-        const nextEntireNextMonthDaysOnCurrentMonth = fillLastCalendarRow(
-          cellFromNextMonthInfo,
-        );
-        chunks.push(nextEntireNextMonthDaysOnCurrentMonth);
-      }
+      if (onlyFiveRows) chunks.push(getLastRow(chunks));
       return chunks;
     },
-    [year, month],
+    [getLastRow],
   );
 
-  const cellsMatrix = useMemo(() => {
+  const dayCellsChunked = useMemo(() => {
     const allCalendarCells = getPreviousCurrentAndNextMonthDays();
     const calendarCellsByWeekChunks: CalendarCellInfo[][] =
       getChunkArrayByChunkSize(allCalendarCells, numberOfDaysOfTheWeek);
@@ -99,8 +100,8 @@ const CalendarCells = () => {
 
   return (
     <tbody className={styles.daysContainer}>
-      {cellsMatrix &&
-        cellsMatrix.map((week, weekIndex) => (
+      {dayCellsChunked &&
+        dayCellsChunked.map((week, weekIndex) => (
           <tr key={weekIndex}>
             {week.map((calendarCell) => {
               const {
@@ -122,6 +123,18 @@ const CalendarCells = () => {
         ))}
     </tbody>
   );
+};
+
+const fillLastCalendarRow = (lastCellInfo: CalendarCellInfo) => {
+  const nextMonthDaysLastRowCells: CalendarCellInfo[] = [];
+  for (let i = 1; i < numberOfDaysOfTheWeek + 1; i++) {
+    nextMonthDaysLastRowCells.push({
+      month: lastCellInfo.month,
+      day: lastCellInfo.day + i,
+      year: lastCellInfo.year,
+    });
+  }
+  return nextMonthDaysLastRowCells;
 };
 
 export default CalendarCells;
