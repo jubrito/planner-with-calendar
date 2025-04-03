@@ -54,8 +54,8 @@ export const ClickableHoursOfTheDay = ({
   //   console.log('positionSelected', newEventBlocksResultByButtonId);
   // }, [newEventBlocksResultByButtonId]);
   useEffect(() => {
-    console.log('draftEvent', draftEvent);
-  }, [draftEvent]);
+    console.log('events', events);
+  }, [events]);
 
   const handleMouseDown = useCallback(
     (event: React.MouseEvent<HTMLButtonElement>, buttonId: string) => {
@@ -95,7 +95,7 @@ export const ClickableHoursOfTheDay = ({
 
   const handleMouseMove = useCallback(
     (event: React.MouseEvent<HTMLButtonElement>, buttonId: string) => {
-      if (!draftEvent) return;
+      if (draftEvent == null) return;
 
       const buttonTargeted = event.currentTarget;
       const rect = buttonTargeted.getBoundingClientRect();
@@ -110,12 +110,11 @@ export const ClickableHoursOfTheDay = ({
         buttonHeight,
         relativeInitialPosition,
       );
-
       setDraftEvent((prev) => ({
         ...prev!,
         end: {
-          buttonId,
           positionY: relativeY,
+          buttonId,
           block: {
             hourBlock: parseInt(hourBlock),
             fifteenMinBlock,
@@ -126,7 +125,14 @@ export const ClickableHoursOfTheDay = ({
     [draftEvent],
   );
 
-  const handleMouseLeave = useCallback(() => {
+  const handleMouseUp = useCallback(() => {
+    if (!draftEvent) return;
+    console.log('draftEvent', draftEvent);
+    setEvents((prev) => [...prev, draftEvent]);
+    setDraftEvent(null);
+  }, [draftEvent]);
+
+  const handleMouseLeaveContainer = useCallback(() => {
     setDraftEvent(null);
   }, []);
 
@@ -210,7 +216,10 @@ export const ClickableHoursOfTheDay = ({
   const getElementIdentifier = (index: number, hourOfTheDay: string) =>
     `hourblock_${index}`.replace(' ', '');
   return (
-    <div className={styles.clickableHourOfTheDay}>
+    <div
+      className={styles.clickableHourOfTheDay}
+      onMouseLeave={handleMouseLeaveContainer}
+    >
       {hoursOfTheDay.map((hourOfTheDay, index) => {
         const hourOfTheDayElementId = getElementIdentifier(index, hourOfTheDay);
         pendingClickByButtonId[hourOfTheDayElementId] = false;
@@ -229,7 +238,7 @@ export const ClickableHoursOfTheDay = ({
             onMouseMove={(event) =>
               handleMouseMove(event, hourOfTheDayElementId)
             }
-            onMouseLeave={handleMouseLeave}
+            onMouseUp={handleMouseUp}
             // onMouseUp={
             //   (event) =>
             //     handleMouse(
