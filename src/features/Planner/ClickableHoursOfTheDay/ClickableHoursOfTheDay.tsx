@@ -126,6 +126,10 @@ export const ClickableHoursOfTheDay = ({
     [draftEvent],
   );
 
+  const handleMouseLeave = useCallback(() => {
+    setDraftEvent(null);
+  }, []);
+
   const handleMouse = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     mouseType: EventHandlerType,
@@ -225,6 +229,7 @@ export const ClickableHoursOfTheDay = ({
             onMouseMove={(event) =>
               handleMouseMove(event, hourOfTheDayElementId)
             }
+            onMouseLeave={handleMouseLeave}
             // onMouseUp={
             //   (event) =>
             //     handleMouse(
