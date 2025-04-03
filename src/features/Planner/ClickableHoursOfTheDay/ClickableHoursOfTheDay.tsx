@@ -56,11 +56,6 @@ export const ClickableHoursOfTheDay = ({
     console.log('events', events);
   }, [events]);
 
-  const getHourBlock = (buttonTargetedId: string) => {
-    const [_buttonLabel, hourBlock] = buttonTargetedId.split('_');
-    return parseInt(hourBlock);
-  };
-
   const handleMouseDown = useCallback(
     (event: React.MouseEvent<HTMLButtonElement>, buttonId: string) => {
       const buttonTargeted = event.currentTarget;
@@ -257,6 +252,10 @@ export const ClickableHoursOfTheDay = ({
       })}
     </div>
   );
+};
+const getHourBlock = (buttonTargetedId: string) => {
+  const [_buttonLabel, hourBlock] = buttonTargetedId.split('_');
+  return parseInt(hourBlock);
 };
 
 const get15MinBlock = (
