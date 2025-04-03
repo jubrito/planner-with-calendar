@@ -44,14 +44,6 @@ export const ClickableHoursOfTheDay = ({
   const [draftEvent, setDraftEvent] = useState<EventBlock | null>(null); // new
   const [events, setEvents] = useState<EventBlock[]>([]); // new
 
-  const pendingClickByButtonId: Record<string, boolean> = {};
-  const newEventBlockByButtonId: Record<string, RelativePosition> = {};
-  const [newEventBlocksResultByButtonId, setNewEventBlocksResultByButtonId] =
-    useState<Record<string, RelativePosition>>({});
-
-  // useEffect(() => {
-  //   console.log('positionSelected', newEventBlocksResultByButtonId);
-  // }, [newEventBlocksResultByButtonId]);
   useEffect(() => {
     console.log('events', events);
   }, [events]);
@@ -131,80 +123,6 @@ export const ClickableHoursOfTheDay = ({
     setDraftEvent(null);
   }, []);
 
-  const handleMouse = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    mouseType: EventHandlerType,
-    buttonId: string,
-  ) => {
-    const buttonHeight = event.currentTarget.clientHeight;
-    if (
-      mouseType === mouseLeaveEventHandlerType &&
-      pendingClickByButtonId[buttonId] === true
-    ) {
-      newEventBlockByButtonId[buttonId] = {
-        ...newEventBlockByButtonId[buttonId],
-        end: {
-          ...(newEventBlockByButtonId[buttonId] &&
-            newEventBlockByButtonId[buttonId][endRelativePosition] && {
-              ...newEventBlockByButtonId[buttonId][endRelativePosition],
-            }),
-          relativeX: undefined,
-          relativeY: undefined,
-        },
-      };
-      pendingClickByButtonId[buttonId] = false;
-    }
-    const rect = event.currentTarget.getBoundingClientRect();
-    const relativeX = event.clientX - rect.left;
-    const relativeY = event.clientY - rect.top;
-    if (mouseType === mouseUpEventHandlerType) {
-      newEventBlockByButtonId[buttonId] = {
-        ...newEventBlockByButtonId[buttonId],
-        end: {
-          ...(newEventBlockByButtonId[buttonId] &&
-            newEventBlockByButtonId[buttonId][endRelativePosition] && {
-              ...newEventBlockByButtonId[buttonId][endRelativePosition],
-            }),
-          relativeX,
-          relativeY,
-        },
-      };
-      pendingClickByButtonId[buttonId] = false;
-      const relativeEndPosition = newEventBlockByButtonId[buttonId].end;
-      const endBlock = get15MinBlock(buttonHeight, relativeEndPosition);
-      setNewEventBlocksResultByButtonId((prevValue) => ({
-        ...prevValue,
-        ...newEventBlockByButtonId,
-        [buttonId]: {
-          end: {
-            ...newEventBlockByButtonId[buttonId].end,
-            currentBlock: endBlock,
-          },
-        },
-      }));
-    }
-    if (mouseType === mouseDownEventHandlerType) {
-      const relativeInitialPosition: RelativePosition['end'] = {
-        relativeX,
-        relativeY,
-      };
-      const initialBlock = get15MinBlock(buttonHeight, relativeInitialPosition);
-      newEventBlockByButtonId[buttonId] = {
-        ...newEventBlockByButtonId[buttonId],
-        initial: {
-          ...(newEventBlockByButtonId[buttonId] &&
-            newEventBlockByButtonId[buttonId][initialRelativePosition] && {
-              ...newEventBlockByButtonId[buttonId][initialRelativePosition],
-            }),
-          relativeX,
-          relativeY,
-          currentBlock: initialBlock,
-        },
-      };
-      pendingClickByButtonId[buttonId] = true;
-    }
-  };
-
   return (
     <div
       className={styles.clickableHourOfTheDay}
@@ -212,7 +130,6 @@ export const ClickableHoursOfTheDay = ({
     >
       {hoursOfTheDay.map((hourOfTheDay, index) => {
         const buttonId = getElementIdentifier(index);
-        pendingClickByButtonId[buttonId] = false;
         return (
           <button
             onMouseDown={(event) => handleMouseDown(event, buttonId)}
