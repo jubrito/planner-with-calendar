@@ -57,21 +57,22 @@ export const ClickableHoursOfTheDay = ({
     console.log('events', events);
   }, [events]);
 
+  const getHourBlock = (buttonTargetedId: string) => {
+    const [_buttonLabel, hourBlock] = buttonTargetedId.split('_');
+    return parseInt(hourBlock);
+  };
+
   const handleMouseDown = useCallback(
     (event: React.MouseEvent<HTMLButtonElement>, buttonId: string) => {
       const buttonTargeted = event.currentTarget;
       const rect = buttonTargeted.getBoundingClientRect();
       const relativeY = event.clientY - rect.top;
       const buttonHeight = buttonTargeted.clientHeight;
-
       const relativeInitialPosition: RelativePosition['end'] = {
-        // new
         relativeY,
       };
-
-      const [_buttonLabel, hourBlock] = buttonTargeted.id.split('_'); // id format is button_<index>
+      const hourBlock = getHourBlock(buttonTargeted.id);
       const fifteenMinBlock = getBlockClicked(
-        // new
         buttonHeight,
         relativeInitialPosition,
       );
@@ -81,12 +82,12 @@ export const ClickableHoursOfTheDay = ({
         start: {
           buttonId,
           positionY: relativeY,
-          block: { hourBlock: parseInt(hourBlock), fifteenMinBlock },
+          block: { hourBlock, fifteenMinBlock },
         },
         end: {
           buttonId,
           positionY: relativeY,
-          block: { hourBlock: parseInt(hourBlock), fifteenMinBlock },
+          block: { hourBlock, fifteenMinBlock },
         },
       });
     },
@@ -105,7 +106,7 @@ export const ClickableHoursOfTheDay = ({
         relativeY,
       };
 
-      const [_buttonLabel, hourBlock] = buttonTargeted.id.split('_'); // id format is button_<index>
+      const hourBlock = getHourBlock(buttonTargeted.id);
       const fifteenMinBlock = getBlockClicked(
         buttonHeight,
         relativeInitialPosition,
@@ -116,7 +117,7 @@ export const ClickableHoursOfTheDay = ({
           positionY: relativeY,
           buttonId,
           block: {
-            hourBlock: parseInt(hourBlock),
+            hourBlock,
             fifteenMinBlock,
           },
         },
