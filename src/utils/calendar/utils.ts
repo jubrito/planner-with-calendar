@@ -3,7 +3,6 @@ import {
   DateConfig,
   IntlDateTypeMonthStyle,
   IntlDateTypeWeekdayStyle,
-  RelativePosition,
 } from '../../types/calendar/types';
 import { LocaleLanguage } from '../../types/locale/types';
 import {
@@ -164,28 +163,3 @@ export const getFormatedDate = (
   date: DateConfig['date'],
   options: Intl.DateTimeFormatOptions = {},
 ) => new Date(getFormatedDateString(locale, date, options));
-
-export const getBlockClicked = (
-  elementHeight: number,
-  relativePosition: RelativePosition['end'] | RelativePosition['initial'],
-) => {
-  if (!relativePosition || !relativePosition.relativeY) {
-    return undefined;
-  }
-  const horizontalValue = relativePosition.relativeY;
-  const numberOfBlocksOnClickableHour = 4;
-  const valueOfEachBlockOnClickableHour = elementHeight / 4;
-  const blocks = Array.from(
-    Array(numberOfBlocksOnClickableHour).keys(),
-    (item) => item + 1,
-  );
-  for (const block of blocks) {
-    const currentBlock = valueOfEachBlockOnClickableHour * block;
-    if (horizontalValue <= currentBlock) {
-      return block;
-    }
-    const lastItem = block === blocks.length;
-    if (lastItem) return blocks.length;
-  }
-  return undefined;
-};

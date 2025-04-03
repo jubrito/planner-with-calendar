@@ -12,7 +12,6 @@ import {
   mouseUpEventHandlerType,
 } from '../../../utils/calendar/constants';
 import styles from './clickable-hours-of-the-day.module.scss';
-import { getBlockClicked } from '../../../utils/calendar/utils';
 
 type ClickableHoursOfTheDayProps = {
   hoursOfTheDay: string[];
@@ -72,7 +71,7 @@ export const ClickableHoursOfTheDay = ({
         relativeY,
       };
       const hourBlock = getHourBlock(buttonTargeted.id);
-      const fifteenMinBlock = getBlockClicked(
+      const fifteenMinBlock = get15MinBlock(
         buttonHeight,
         relativeInitialPosition,
       );
@@ -107,7 +106,7 @@ export const ClickableHoursOfTheDay = ({
       };
 
       const hourBlock = getHourBlock(buttonTargeted.id);
-      const fifteenMinBlock = getBlockClicked(
+      const fifteenMinBlock = get15MinBlock(
         buttonHeight,
         relativeInitialPosition,
       );
@@ -177,7 +176,7 @@ export const ClickableHoursOfTheDay = ({
       };
       pendingClickByButtonId[buttonId] = false;
       const relativeEndPosition = newEventBlockByButtonId[buttonId].end;
-      const endBlock = getBlockClicked(buttonHeight, relativeEndPosition);
+      const endBlock = get15MinBlock(buttonHeight, relativeEndPosition);
       setNewEventBlocksResultByButtonId((prevValue) => ({
         ...prevValue,
         ...newEventBlockByButtonId,
@@ -194,10 +193,7 @@ export const ClickableHoursOfTheDay = ({
         relativeX,
         relativeY,
       };
-      const initialBlock = getBlockClicked(
-        buttonHeight,
-        relativeInitialPosition,
-      );
+      const initialBlock = get15MinBlock(buttonHeight, relativeInitialPosition);
       newEventBlockByButtonId[buttonId] = {
         ...newEventBlockByButtonId[buttonId],
         initial: {
@@ -261,4 +257,29 @@ export const ClickableHoursOfTheDay = ({
       })}
     </div>
   );
+};
+
+const get15MinBlock = (
+  elementHeight: number,
+  relativePosition: RelativePosition['end'] | RelativePosition['initial'],
+) => {
+  if (!relativePosition || !relativePosition.relativeY) {
+    return undefined;
+  }
+  const horizontalValue = relativePosition.relativeY;
+  const numberOfBlocksOnClickableHour = 4;
+  const valueOfEachBlockOnClickableHour = elementHeight / 4;
+  const blocks = Array.from(
+    Array(numberOfBlocksOnClickableHour).keys(),
+    (item) => item + 1,
+  );
+  for (const block of blocks) {
+    const currentBlock = valueOfEachBlockOnClickableHour * block;
+    if (horizontalValue <= currentBlock) {
+      return block;
+    }
+    const lastItem = block === blocks.length;
+    if (lastItem) return blocks.length;
+  }
+  return undefined;
 };
