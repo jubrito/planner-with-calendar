@@ -181,7 +181,7 @@ export const ClickableHoursOfTheDay = ({
               key={buttonId}
               style={{ height: buttonHeight }}
             >
-              {hourOfTheDay}
+              {index}
             </button>
           </>
         );
