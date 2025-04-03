@@ -3,9 +3,13 @@
 .hourOfTheDay {
   display: flex;
   flex-direction: column;
-  margin-top: -13px;
+  margin-top: -10px;
+  width: max-content;
   span {
-    width: max-content;
-    padding-bottom: variables.$hoursOfDaySliceSpacing;
+    width: 100%;
+    min-width: max-content;
+    padding-bottom: variables.$planner-hours-height /
+      variables.$number-of-hours-in-a-day;
+    line-height: initial;
   }
 }

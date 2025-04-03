@@ -40,9 +40,14 @@
   }
 
   .plannerHours {
+    padding-top: 9px;
     display: flex;
     flex-direction: row;
     width: 100%;
+    height: variables.$planner-hours-height;
+    cursor: pointer;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 
   // .hoursOfTheDay {

@@ -4,12 +4,27 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  position: relative;
   button {
-    height: variables.$hoursOfDaySliceSpacing;
     background-color: transparent;
     border-top: 1px solid variables.$black-color;
     border-radius: 0;
-    padding: 0;
+    padding: calc
+      (
+        (
+            variables.$planner-hours-height /
+              variables.$number-of-hours-in-a-day
+          ) /
+          2
+      );
     color: variables.$black-color;
+  }
+  .plannerEvent {
+    position: absolute;
+    content: '';
+    width: 100%;
+    left: 0;
+    background: variables.$blue-yonder-color;
+    z-index: 801;
   }
 }
