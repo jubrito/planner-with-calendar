@@ -86,10 +86,12 @@ export const ClickableHoursOfTheDay = ({
       console.log('draftEvent', draftEvent);
       const sizeOfEach15MinBlock =
         buttonTargetedHeight / fifteenMinutesItemsInAnHour;
-      const startButton = document.getElementById(draftEvent.start.buttonId);
+      const startButtonId = draftEvent.start.buttonId;
+      const endButtonId = draftEvent.end.buttonId;
+      const startButton = document.getElementById(startButtonId);
       const startTopPosition = startButton?.offsetTop;
       // const startPositionY = draftEvent.start.positionY;
-      const endButton = document.getElementById(draftEvent.end.buttonId);
+      const endButton = document.getElementById(endButtonId);
       const endTopPosition = endButton?.offsetTop;
       // // const endBottomPosition =
       // //   (startTopPosition ?? 0) + (endButton?.clientHeight ?? 0);
@@ -114,14 +116,14 @@ export const ClickableHoursOfTheDay = ({
           endTopPosition !== undefined
         ) {
           const fifteenMinBlockZeroIndexed =
-            draftEvent.end.block.fifteenMinBlock - 1;
+            draftEvent.end.block.fifteenMinBlock;
           let eventBottomPosition =
             sizeOfEach15MinBlock * fifteenMinBlockZeroIndexed + endTopPosition;
           console.log('------- eventBottomPosition', eventBottomPosition);
           const eventIs15MinHeight =
             Math.abs(eventBottomPosition - eventTopPosition) ===
             sizeOfEach15MinBlock;
-          if (!eventIs15MinHeight) {
+          if (!eventIs15MinHeight && startButtonId === endButtonId) {
             eventBottomPosition = eventTopPosition + sizeOfEach15MinBlock;
           }
           return [eventTopPosition, eventBottomPosition];
