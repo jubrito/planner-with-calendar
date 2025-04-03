@@ -5,5 +5,5 @@ export const mouseDownEventHandlerType = 'mouseDown';
 export const mouseLeaveEventHandlerType = 'mouseLeave';
 export const initialRelativePosition = 'initial';
 export const endRelativePosition = 'end';
-export const numberOfBlocksOnPlannerHour = 4; // To later divide 1h block by 4 getting 4 blocks of 15 min each
+export const fifteenMinutesItemsInAnHour = 4; // To later divide 1h block by 4 getting 4 blocks of 15 min each
 export const numberOfHoursInADay = 24;

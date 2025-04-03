@@ -20,14 +20,6 @@ export const HoursOfTheDay = ({ hoursOfTheDay }: HoursOfTheDayProps) => {
 
   useEffect(() => {
     if (hourOfTheDaySpanRef.current?.parentElement) {
-      console.log(
-        'hourOfTheDaySpanRef.current.parentElement',
-        hourOfTheDaySpanRef.current.parentElement,
-      );
-      console.log(
-        'hourOfTheDaySpanRef.current.parentElement.scrollHeight',
-        hourOfTheDaySpanRef.current.parentElement.scrollHeight,
-      );
       hourOfTheDaySpanRef.current.style.height = `${hourOfTheDaySpanRef.current.parentElement.scrollHeight}px`;
     }
   }, []);

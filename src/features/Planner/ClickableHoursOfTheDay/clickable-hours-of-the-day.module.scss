@@ -9,14 +9,6 @@
     background-color: transparent;
     border-top: 1px solid variables.$black-color;
     border-radius: 0;
-    padding: calc
-      (
-        (
-            variables.$planner-hours-height /
-              variables.$number-of-hours-in-a-day
-          ) /
-          2
-      );
     color: variables.$black-color;
   }
   .plannerEvent {

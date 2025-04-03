@@ -1,11 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   EventHandlerType,
   RelativePosition,
 } from '../../../types/calendar/types';
 import styles from './clickable-hours-of-the-day.module.scss';
-import { numberOfHoursInADay } from '../../../utils/calendar/constants';
+import {
+  fifteenMinutesItemsInAnHour,
+  numberOfHoursInADay,
+} from '../../../utils/calendar/constants';
+import { getChunkArrayByChunkSize } from '../../../utils/utils';
 
 type ClickableHoursOfTheDayProps = {
   hoursOfTheDay: string[];
@@ -30,11 +34,19 @@ interface EventBlock {
   end: TimeBlock;
 }
 
+// Rename other to draft
+interface RealEventBlock {
+  eventId: string;
+  start: number;
+  end: number;
+}
+
 export const ClickableHoursOfTheDay = ({
   hoursOfTheDay,
 }: ClickableHoursOfTheDayProps) => {
-  const [draftEvent, setDraftEvent] = useState<EventBlock | null>(null); // new
-  const [events, setEvents] = useState<EventBlock[]>([]); // new
+  const [draftEvent, setDraftEvent] = useState<EventBlock | null>(null);
+  // const [events, setEvents] = useState<EventBlock[]>([]);
+  const [events, setEvents] = useState<RealEventBlock[]>([]);
   const [initialHeight, setInitialHeight] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [buttonHeight, setButtonHeight] = useState<number>();
@@ -60,6 +72,83 @@ export const ClickableHoursOfTheDay = ({
       setButtonHeight(plannerHoursDivHeight / numberOfHoursInADay);
     }
   }, []);
+
+  // const hoursBlockDividedByFifteenMinutes = useMemo(() => {
+  //   if (initialHeight == null) return [];
+  //   return getChunkArrayByChunkSize(
+  //     getPlannerHourBlockStartValues(initialHeight),
+  //     fifteenMinutesItemsInAnHour,
+  //   );
+  // }, [initialHeight]);
+
+  const get15MinStartValues = useCallback(
+    (buttonTargetedHeight: number, draftEvent: EventBlock) => {
+      console.log('draftEvent', draftEvent);
+      const sizeOfEach15MinBlock =
+        buttonTargetedHeight / fifteenMinutesItemsInAnHour;
+      const startButton = document.getElementById(draftEvent.start.buttonId);
+      const startTopPosition = startButton?.offsetTop;
+      // const startPositionY = draftEvent.start.positionY;
+      const endButton = document.getElementById(draftEvent.end.buttonId);
+      const endTopPosition = endButton?.offsetTop;
+      // // const endBottomPosition =
+      // //   (startTopPosition ?? 0) + (endButton?.clientHeight ?? 0);
+      // const endPositionY = draftEvent.end.positionY;
+      // console.log('startTopPosition', startTopPosition); // IS CORRECT
+      // // console.log('startPositionY', startPositionY);
+      // // console.log('endBottomPosition', endBottomPosition);
+      // console.log('endPositionY', endPositionY);
+      // console.log('endTopPosition', endTopPosition);
+      if (
+        draftEvent.start.block.fifteenMinBlock !== undefined &&
+        startTopPosition !== undefined
+      ) {
+        const fifteenMinBlockZeroIndexed =
+          draftEvent.start.block.fifteenMinBlock - 1;
+        const eventTopPosition =
+          sizeOfEach15MinBlock * fifteenMinBlockZeroIndexed + startTopPosition;
+        console.log('------- eventTopPosition', eventTopPosition);
+
+        if (
+          draftEvent.end.block.fifteenMinBlock !== undefined &&
+          endTopPosition !== undefined
+        ) {
+          const fifteenMinBlockZeroIndexed =
+            draftEvent.end.block.fifteenMinBlock - 1;
+          let eventBottomPosition =
+            sizeOfEach15MinBlock * fifteenMinBlockZeroIndexed + endTopPosition;
+          console.log('------- eventBottomPosition', eventBottomPosition);
+          const eventIs15MinHeight =
+            Math.abs(eventBottomPosition - eventTopPosition) ===
+            sizeOfEach15MinBlock;
+          if (!eventIs15MinHeight) {
+            eventBottomPosition = eventTopPosition + sizeOfEach15MinBlock;
+          }
+          return [eventTopPosition, eventBottomPosition];
+        }
+        // if (
+        //   draftEvent.end.block.fifteenMinBlock !== undefined &&
+        //   endTopPosition !== undefined
+        // ) {
+        //   const fifteenMinBlockZeroIndexed =
+        //     draftEvent.end.block.fifteenMinBlock - 1;
+        //   let eventBottomPosition =
+        //     sizeOfEach15MinBlock * fifteenMinBlockZeroIndexed + endTopPosition;
+        //   const eventIs15MinHeight =
+        //     Math.abs(eventBottomPosition - eventTopPosition) ===
+        //     sizeOfEach15MinBlock;
+        //   if (!eventIs15MinHeight) {
+        //     eventBottomPosition = eventTopPosition + sizeOfEach15MinBlock;
+        //   }
+        //   console.log('------- eventBottomPosition', eventBottomPosition);
+        //   const eventHeight = eventBottomPosition - eventTopPosition;
+        //   console.log('------- eventHeight', eventHeight);
+        // }
+      }
+      return [];
+    },
+    [],
+  );
 
   const handleMouseDown = useCallback(
     (event: React.MouseEvent<HTMLButtonElement>, buttonId: string) => {
@@ -125,18 +214,43 @@ export const ClickableHoursOfTheDay = ({
     [draftEvent],
   );
 
-  const handleMouseUp = useCallback(() => {
-    if (!draftEvent) return;
-    console.log('draftEvent', draftEvent);
-    setEvents((prev) => [...prev, draftEvent]);
-    setDraftEvent(null);
-  }, [draftEvent]);
+  const handleMouseUp = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      if (!draftEvent) return;
+      console.log('draftEvent', draftEvent);
+      // Relative to the button
+      // setEvents((prev) => [...prev, draftEvent]);
+      const buttonTargeted = event.currentTarget;
+      const buttonTargetedHeight = buttonTargeted.clientHeight;
+      console.log('buttonTargetedHeight', buttonTargetedHeight);
+
+      setEvents((prev) => {
+        const fifteenMinStartValues = get15MinStartValues(
+          buttonTargetedHeight,
+          draftEvent,
+        );
+        const [start, end] = fifteenMinStartValues;
+        console.log('fifteenMinStartValues', fifteenMinStartValues);
+        return [
+          ...prev,
+          {
+            eventId: draftEvent.eventId,
+            start,
+            end,
+          },
+        ];
+      });
+
+      setDraftEvent(null);
+    },
+    [draftEvent, get15MinStartValues],
+  );
 
   const handleMouseLeaveContainer = useCallback(() => {
     setDraftEvent(null);
   }, []);
 
-  const handleEventClick = useCallback((event: EventBlock) => {
+  const handleEventClick = useCallback((event: RealEventBlock) => {
     console.log('Event clicked:', event);
   }, []);
 
@@ -146,7 +260,7 @@ export const ClickableHoursOfTheDay = ({
       onMouseLeave={handleMouseLeaveContainer}
       ref={containerRef}
     >
-      {hoursOfTheDay.map((hourOfTheDay, index) => {
+      {hoursOfTheDay.map((_hourOfTheDay, index) => {
         const buttonId = getElementIdentifier(index);
         return (
           <>
@@ -164,8 +278,10 @@ export const ClickableHoursOfTheDay = ({
                 key={event.eventId}
                 className={styles.plannerEvent}
                 style={{
-                  top: `${event.start.positionY}px`,
-                  height: `${event.end.positionY - event.start.positionY}px`,
+                  // top: `${event.start.positionY}px`,
+                  // height: `${event.end.positionY - event.start.positionY}px`,
+                  top: `${event.start}px`,
+                  height: `${event.end - event.start}px`,
                 }}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -212,6 +328,11 @@ const get15MinBlock = (
     Array(numberOfBlocksOnClickableHour).keys(),
     (item) => item + 1,
   );
+  // console.log(
+  //   'juju valueOfEachBlockOnClickableHour',
+  //   valueOfEachBlockOnClickableHour,
+  // );
+  // console.log('juju elementHeight', elementHeight);
   for (const block of blocks) {
     const currentBlock = valueOfEachBlockOnClickableHour * block;
     if (horizontalValue <= currentBlock) {
@@ -221,4 +342,18 @@ const get15MinBlock = (
     if (lastItem) return blocks.length;
   }
   return undefined;
+};
+
+const getPlannerHourBlockStartValues = (elementHeight: number) => {
+  if (!elementHeight) return [];
+  // Divide element height (which contans 24h) by 24 * 4 to result in 4 blocks of 15min on every hour
+  const numberOfBlocks = fifteenMinutesItemsInAnHour * numberOfHoursInADay;
+  const clickableHourBlockSize = elementHeight / numberOfBlocks;
+  const blocks = Array.from(Array(numberOfBlocks).keys(), (item) => item + 1);
+  const blocksStartValue = [0];
+  for (const block of blocks) {
+    const currentBlock = clickableHourBlockSize * block;
+    blocksStartValue.push(currentBlock);
+  }
+  return blocksStartValue;
 };
