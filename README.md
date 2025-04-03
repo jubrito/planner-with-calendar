@@ -17,6 +17,8 @@
 - Rename from cammelcase to kabeb case on scss (variables etc)
 - CHange planner hour height and recalculate it and the hours of the day height so when we click on the planner we get the right block which is based on the plannerHour height
 
+// https://www.npmjs.com/package/@fullcalendar/react
+
 # Future Steps:
 
 ## v1:
