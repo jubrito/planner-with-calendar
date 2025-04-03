@@ -2,6 +2,7 @@
 
 - render draft events the same way as events
 - Extract functions to smaller components
+- make calendar fit exactly between lines
 - Connect events created to specific day
   - How to change days but preserve events? State? Only with bd?
 - Check unused vars on types / consts / scss
