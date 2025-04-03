@@ -11,7 +11,7 @@ import {
   IntlDateTimeFormatLong,
   IntlDateTimeFormatNumeric,
 } from '../constants';
-import { todayLabel } from './constants';
+import { numberOfHoursInADay, todayLabel } from './constants';
 import { isToday } from '../checkers';
 import { getWeekDaysNames } from './weeks';
 
@@ -78,10 +78,13 @@ export const getMonthName = (
   locale: LocaleLanguage,
   date: DateConfig['date'],
   monthStyle?: IntlDateTypeMonthStyle,
-) =>
-  new Intl.DateTimeFormat(locale, {
+) => {
+  const monthName = new Intl.DateTimeFormat(locale, {
     month: monthStyle || IntlDateTimeFormatLong,
   }).format(date);
+  const monthNameFirstLetterUpperCase = monthName.charAt(0).toUpperCase();
+  return monthNameFirstLetterUpperCase + monthName.slice(1);
+};
 
 export const getYear = (date: DateConfig['date']) => date.getFullYear();
 
@@ -102,10 +105,13 @@ export const getDayOfWeek = (
   locale: LocaleLanguage,
   date: DateConfig['date'],
   weekdayStyle?: IntlDateTypeWeekdayStyle,
-) =>
-  new Intl.DateTimeFormat(locale, {
+) => {
+  const dayOfWeek = new Intl.DateTimeFormat(locale, {
     weekday: weekdayStyle || IntlDateTimeFormatLong,
   }).format(date);
+  const dayOfWeekFirstLetterUpperCased = dayOfWeek.charAt(0).toUpperCase();
+  return dayOfWeekFirstLetterUpperCased + dayOfWeek.slice(1);
+};
 
 export const getDayName = (dayOfWeek: number, locale: string) => {
   let dayName: string;
@@ -124,7 +130,6 @@ export const getHoursOfTheDay = (
   month: DateConfig['month'],
   day: DateConfig['day'],
 ) => {
-  const numberOfHours = 24;
   const formatedHours = [];
 
   const addZeroDigitBeforeSingleDigits = (formatedHour: string) => {
@@ -140,7 +145,7 @@ export const getHoursOfTheDay = (
     return formatedHour + ':00';
   };
 
-  for (let i = 0; i < numberOfHours + 1; i++) {
+  for (let i = 0; i < numberOfHoursInADay + 1; i++) {
     let formatedHour = new Intl.DateTimeFormat(locale, {
       hour: IntlDateTimeFormatNumeric,
     }).format(new Date(year, month, day, i));
@@ -158,6 +163,7 @@ export const getFormatedDateString = (
   date: DateConfig['date'],
   options: Intl.DateTimeFormatOptions = {},
 ) => new Intl.DateTimeFormat(locale, options).format(date);
+
 export const getFormatedDate = (
   locale: LocaleLanguage,
   date: DateConfig['date'],
