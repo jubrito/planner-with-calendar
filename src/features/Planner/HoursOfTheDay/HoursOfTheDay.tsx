@@ -18,17 +18,16 @@ export const HoursOfTheDay = ({ hoursOfTheDay }: HoursOfTheDayProps) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (hourOfTheDaySpanRef.current?.parentElement) {
+      hourOfTheDaySpanRef.current.style.height = `${hourOfTheDaySpanRef.current.parentElement.scrollHeight}px`;
+    }
+  }, []);
+
   return (
     <div className={styles.hourOfTheDay} ref={hourOfTheDaySpanRef}>
       {hoursOfTheDay.map((hourOfTheDay) => {
-        return (
-          <div className={styles.container}>
-            <span className="hourOfTheDay" style={{ height: spanHeight }}>
-              {hourOfTheDay}
-            </span>
-            <hr className={styles.line} />
-          </div>
-        );
+        return <span style={{ height: spanHeight }}>{hourOfTheDay}</span>;
       })}
     </div>
   );

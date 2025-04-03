@@ -1,13 +1,26 @@
-import { useState, useCallback, useEffect, useRef, useMemo } from 'react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  EventHandlerType,
+  RelativePosition,
+} from '../../../types/calendar/types';
 import styles from './clickable-hours-of-the-day.module.scss';
 import {
-  numberOfBlocksOnPlannerHour,
+  fifteenMinutesItemsInAnHour,
   numberOfHoursInADay,
 } from '../../../utils/calendar/constants';
 import { getChunkArrayByChunkSize } from '../../../utils/utils';
-import { spacingTopClickablePlannerArea } from '../../../utils/constants';
+
+type ClickableHoursOfTheDayProps = {
+  hoursOfTheDay: string[];
+  handleMouseInteraction: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    eventType: EventHandlerType,
+  ) => void;
+};
 
 interface TimeBlock {
+  buttonId: string;
   positionY: number;
   block: {
     hourBlock?: number;
@@ -20,13 +33,26 @@ interface EventBlock {
   start: TimeBlock;
   end: TimeBlock;
 }
-const fifteenMinutesItemsInAnHour = 4;
 
-export const ClickableHoursOfTheDay = () => {
+// Rename other to draft
+interface RealEventBlock {
+  eventId: string;
+  start: number;
+  end: number;
+}
+
+export const ClickableHoursOfTheDay = ({
+  hoursOfTheDay,
+}: ClickableHoursOfTheDayProps) => {
   const [draftEvent, setDraftEvent] = useState<EventBlock | null>(null);
-  const [events, setEvents] = useState<EventBlock[]>([]);
+  // const [events, setEvents] = useState<EventBlock[]>([]);
+  const [events, setEvents] = useState<RealEventBlock[]>([]);
   const [initialHeight, setInitialHeight] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [buttonHeight, setButtonHeight] = useState<number>();
+  useEffect(() => {
+    console.log('events', events);
+  }, [events]);
 
   useEffect(() => {
     if (containerRef.current && initialHeight === null) {
@@ -34,181 +60,296 @@ export const ClickableHoursOfTheDay = () => {
     }
   }, [initialHeight]);
 
-  const hoursBlockDividedByFifteenMinutes = useMemo(() => {
-    if (initialHeight == null) return [];
-    return getChunkArrayByChunkSize(
-      getPlannerHourBlockStartValues(initialHeight),
-      fifteenMinutesItemsInAnHour,
-    );
-  }, [initialHeight]);
+  useEffect(() => {
+    if (containerRef.current?.parentElement) {
+      containerRef.current.style.height = `${containerRef.current.parentElement.scrollHeight}px`;
+    }
+  }, []);
 
-  const getHourAndFifteenMinuteBlocks = useCallback(
-    (relativeY: number) => {
-      const getSizeOfEach15MinBlock = () => {
-        const fifteeMinutesExist =
-          hoursBlockDividedByFifteenMinutes[0].length >= 2;
-        const dataIsNotAvailable =
-          !hoursBlockDividedByFifteenMinutes ||
-          hoursBlockDividedByFifteenMinutes.length === 0 ||
-          !fifteeMinutesExist;
+  useEffect(() => {
+    const plannerHoursDivHeight = containerRef.current?.scrollHeight;
+    if (plannerHoursDivHeight) {
+      setButtonHeight(plannerHoursDivHeight / numberOfHoursInADay);
+    }
+  }, []);
 
-        if (dataIsNotAvailable) return undefined;
+  // const hoursBlockDividedByFifteenMinutes = useMemo(() => {
+  //   if (initialHeight == null) return [];
+  //   return getChunkArrayByChunkSize(
+  //     getPlannerHourBlockStartValues(initialHeight),
+  //     fifteenMinutesItemsInAnHour,
+  //   );
+  // }, [initialHeight]);
 
-        const first15MinOfFirstHour = hoursBlockDividedByFifteenMinutes[0][1];
-        return first15MinOfFirstHour;
-      };
+  const get15MinStartValues = useCallback(
+    (buttonTargetedHeight: number, draftEvent: EventBlock) => {
+      console.log('draftEvent', draftEvent);
+      const sizeOfEach15MinBlock =
+        buttonTargetedHeight / fifteenMinutesItemsInAnHour;
+      const startButtonId = draftEvent.start.buttonId;
+      const endButtonId = draftEvent.end.buttonId;
+      const startButton = document.getElementById(startButtonId);
+      const startTopPosition = startButton?.offsetTop;
+      // const startPositionY = draftEvent.start.positionY;
+      const endButton = document.getElementById(endButtonId);
+      const endTopPosition = endButton?.offsetTop;
+      // // const endBottomPosition =
+      // //   (startTopPosition ?? 0) + (endButton?.clientHeight ?? 0);
+      // const endPositionY = draftEvent.end.positionY;
+      // console.log('startTopPosition', startTopPosition); // IS CORRECT
+      // // console.log('startPositionY', startPositionY);
+      // // console.log('endBottomPosition', endBottomPosition);
+      // console.log('endPositionY', endPositionY);
+      // console.log('endTopPosition', endTopPosition);
+      if (
+        draftEvent.start.block.fifteenMinBlock !== undefined &&
+        startTopPosition !== undefined
+      ) {
+        const fifteenMinBlockZeroIndexed =
+          draftEvent.start.block.fifteenMinBlock - 1;
+        const eventTopPosition =
+          sizeOfEach15MinBlock * fifteenMinBlockZeroIndexed + startTopPosition;
+        console.log('------- eventTopPosition', eventTopPosition);
 
-      const hourBlockWithFifteenMinutesBlocks =
-        hoursBlockDividedByFifteenMinutes.find((allHours) => {
-          const sizeOfEach15minBlock = getSizeOfEach15MinBlock();
-          if (!sizeOfEach15minBlock) return undefined;
-          const lastHourFifteenMinuteBlockEnd =
-            allHours[allHours.length - 1] + sizeOfEach15minBlock;
-          return relativeY <= lastHourFifteenMinuteBlockEnd;
-        });
-      if (!hourBlockWithFifteenMinutesBlocks)
-        return { hourBlock: undefined, fifteenMinBlock: undefined };
-
-      const hourBlockClickedIndex = hoursBlockDividedByFifteenMinutes.indexOf(
-        hourBlockWithFifteenMinutesBlocks,
-      );
-      const fifteenMinuteBlock = hourBlockWithFifteenMinutesBlocks.find(
-        (allFifteenMinuteBlocks) =>
-          relativeY <=
-          allFifteenMinuteBlocks + (getSizeOfEach15MinBlock() || 0),
-      );
-      if (fifteenMinuteBlock == null)
-        return { hourBlock: hourBlockClickedIndex, fifteenMinBlock: undefined };
-
-      const fifteenMinuteBlockClickedIndex =
-        hourBlockWithFifteenMinutesBlocks.indexOf(fifteenMinuteBlock);
-      return {
-        hourBlock: hourBlockClickedIndex,
-        fifteenMinBlock: fifteenMinuteBlockClickedIndex,
-      };
+        if (
+          draftEvent.end.block.fifteenMinBlock !== undefined &&
+          endTopPosition !== undefined
+        ) {
+          const fifteenMinBlockZeroIndexed =
+            draftEvent.end.block.fifteenMinBlock;
+          let eventBottomPosition =
+            sizeOfEach15MinBlock * fifteenMinBlockZeroIndexed + endTopPosition;
+          console.log('------- eventBottomPosition', eventBottomPosition);
+          const eventIs15MinHeight =
+            Math.abs(eventBottomPosition - eventTopPosition) >
+            sizeOfEach15MinBlock;
+          if (!eventIs15MinHeight && startButtonId === endButtonId) {
+            eventBottomPosition = eventTopPosition + sizeOfEach15MinBlock;
+          }
+          return [eventTopPosition, eventBottomPosition];
+        }
+        // if (
+        //   draftEvent.end.block.fifteenMinBlock !== undefined &&
+        //   endTopPosition !== undefined
+        // ) {
+        //   const fifteenMinBlockZeroIndexed =
+        //     draftEvent.end.block.fifteenMinBlock - 1;
+        //   let eventBottomPosition =
+        //     sizeOfEach15MinBlock * fifteenMinBlockZeroIndexed + endTopPosition;
+        //   const eventIs15MinHeight =
+        //     Math.abs(eventBottomPosition - eventTopPosition) ===
+        //     sizeOfEach15MinBlock;
+        //   if (!eventIs15MinHeight) {
+        //     eventBottomPosition = eventTopPosition + sizeOfEach15MinBlock;
+        //   }
+        //   console.log('------- eventBottomPosition', eventBottomPosition);
+        //   const eventHeight = eventBottomPosition - eventTopPosition;
+        //   console.log('------- eventHeight', eventHeight);
+        // }
+      }
+      return [];
     },
-    [hoursBlockDividedByFifteenMinutes],
+    [],
   );
 
   const handleMouseDown = useCallback(
-    (event: React.MouseEvent<HTMLDivElement>) => {
-      if (!containerRef.current) return;
-
-      const rect = containerRef.current.getBoundingClientRect();
+    (event: React.MouseEvent<HTMLButtonElement>, buttonId: string) => {
+      const buttonTargeted = event.currentTarget;
+      const rect = buttonTargeted.getBoundingClientRect();
       const relativeY = event.clientY - rect.top;
-      const block = getHourAndFifteenMinuteBlocks(relativeY);
+      const buttonTargetedHeight = buttonTargeted.clientHeight;
+      const relativeInitialPosition: RelativePosition['end'] = {
+        relativeY,
+      };
+      const hourBlock = getHourBlock(buttonTargeted.id);
+      const fifteenMinBlock = get15MinBlock(
+        buttonTargetedHeight,
+        relativeInitialPosition,
+      );
 
       setDraftEvent({
         eventId: `draft-${Date.now()}`,
         start: {
+          buttonId,
           positionY: relativeY,
-          block,
+          block: { hourBlock, fifteenMinBlock },
         },
-        end: { positionY: relativeY, block },
+        end: {
+          buttonId,
+          positionY: relativeY,
+          block: { hourBlock, fifteenMinBlock },
+        },
       });
     },
-    [getHourAndFifteenMinuteBlocks],
+    [],
   );
 
   const handleMouseMove = useCallback(
-    (event: React.MouseEvent<HTMLDivElement>) => {
-      if (!draftEvent || !containerRef.current) return;
+    (event: React.MouseEvent<HTMLButtonElement>, buttonId: string) => {
+      if (draftEvent == null) return;
 
-      const rect = containerRef.current.getBoundingClientRect();
+      const buttonTargeted = event.currentTarget;
+      const rect = buttonTargeted.getBoundingClientRect();
+      const buttonTargetedHeight = buttonTargeted.clientHeight;
       const relativeY = event.clientY - rect.top;
-      const block = getHourAndFifteenMinuteBlocks(relativeY);
+      const relativeInitialPosition: RelativePosition['end'] = {
+        relativeY,
+      };
 
+      const hourBlock = getHourBlock(buttonTargeted.id);
+      const fifteenMinBlock = get15MinBlock(
+        buttonTargetedHeight,
+        relativeInitialPosition,
+      );
       setDraftEvent((prev) => ({
         ...prev!,
-        end: { positionY: relativeY, block },
-      }));
-    },
-    [draftEvent, getHourAndFifteenMinuteBlocks],
-  );
-
-  const handleMouseUp = useCallback(() => {
-    if (!draftEvent) return;
-    const minimumEventHeight =
-      Math.abs(draftEvent.end.positionY - draftEvent.start.positionY) > 5;
-    const fifteenMinutesHeight = draftEvent.start.positionY + 10;
-
-    if (minimumEventHeight) {
-      setEvents((prev) => [...prev, draftEvent]);
-    }
-    if (!minimumEventHeight) {
-      setEvents((prev) => [
-        ...prev,
-        {
-          eventId: draftEvent.eventId,
-          start: {
-            positionY: draftEvent.start.positionY,
-            block: draftEvent.start.block,
-          },
-          end: {
-            positionY: fifteenMinutesHeight,
-            block: draftEvent.end.block,
+        end: {
+          positionY: relativeY,
+          buttonId,
+          block: {
+            hourBlock,
+            fifteenMinBlock,
           },
         },
-      ]);
-    }
-    setDraftEvent(null);
-  }, [draftEvent]);
+      }));
+    },
+    [draftEvent],
+  );
 
-  const handleMouseLeave = useCallback(() => {
+  const handleMouseUp = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      if (!draftEvent) return;
+      console.log('draftEvent', draftEvent);
+      // Relative to the button
+      // setEvents((prev) => [...prev, draftEvent]);
+      const buttonTargeted = event.currentTarget;
+      const buttonTargetedHeight = buttonTargeted.clientHeight;
+      console.log('buttonTargetedHeight', buttonTargetedHeight);
+
+      setEvents((prev) => {
+        const fifteenMinStartValues = get15MinStartValues(
+          buttonTargetedHeight,
+          draftEvent,
+        );
+        const [start, end] = fifteenMinStartValues;
+        console.log('fifteenMinStartValues', fifteenMinStartValues);
+        return [
+          ...prev,
+          {
+            eventId: draftEvent.eventId,
+            start,
+            end,
+          },
+        ];
+      });
+
+      setDraftEvent(null);
+    },
+    [draftEvent, get15MinStartValues],
+  );
+
+  const handleMouseLeaveContainer = useCallback(() => {
     setDraftEvent(null);
   }, []);
 
-  const handleEventClick = useCallback((event: EventBlock) => {
+  const handleEventClick = useCallback((event: RealEventBlock) => {
     console.log('Event clicked:', event);
-  }, []);
-
-  useEffect(() => {
-    if (containerRef.current?.parentElement) {
-      containerRef.current.style.height = `${containerRef.current.parentElement.scrollHeight + spacingTopClickablePlannerArea}px`;
-    }
   }, []);
 
   return (
     <div
-      ref={containerRef}
       className={styles.clickableHourOfTheDay}
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseLeave}
-      style={{ marginTop: `${spacingTopClickablePlannerArea}px` }}
+      onMouseLeave={handleMouseLeaveContainer}
+      ref={containerRef}
     >
-      {draftEvent && (
-        <div
-          className={styles.plannerEvent}
-          style={{
-            top: `${draftEvent.start.positionY}px`,
-            height: `${draftEvent.end.positionY - draftEvent.start.positionY}px`,
-          }}
-        />
-      )}
-      {events.map((event) => (
-        <div
-          key={event.eventId}
-          className={styles.plannerEvent}
-          style={{
-            top: `${event.start.positionY}px`,
-            height: `${event.end.positionY - event.start.positionY}px`,
-          }}
-          onClick={(e) => {
-            e.stopPropagation();
-            handleEventClick(event);
-          }}
-        />
-      ))}
+      {hoursOfTheDay.map((_hourOfTheDay, index) => {
+        const buttonId = getElementIdentifier(index);
+        return (
+          <>
+            {draftEvent && (
+              <div
+                className={styles.plannerEvent}
+                style={{
+                  top: `${draftEvent.start.positionY}px`,
+                  height: `${draftEvent.end.positionY - draftEvent.start.positionY}px`,
+                }}
+              />
+            )}
+            {events.map((event) => (
+              <div
+                key={event.eventId}
+                className={styles.plannerEvent}
+                style={{
+                  // top: `${event.start.positionY}px`,
+                  // height: `${event.end.positionY - event.start.positionY}px`,
+                  top: `${event.start}px`,
+                  height: `${event.end - event.start}px`,
+                }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleEventClick(event);
+                }}
+              />
+            ))}
+            <button
+              onMouseDown={(event) => handleMouseDown(event, buttonId)}
+              onMouseMove={(event) => handleMouseMove(event, buttonId)}
+              onMouseUp={handleMouseUp}
+              id={buttonId}
+              key={buttonId}
+              style={{ height: buttonHeight }}
+            >
+              {index}
+            </button>
+          </>
+        );
+      })}
     </div>
   );
+};
+
+const getElementIdentifier = (index: number) =>
+  `hourblock_${index}`.replace(' ', '');
+
+const getHourBlock = (buttonTargetedId: string) => {
+  const [_buttonLabel, hourBlock] = buttonTargetedId.split('_');
+  return parseInt(hourBlock);
+};
+
+const get15MinBlock = (
+  elementHeight: number,
+  relativePosition: RelativePosition['end'] | RelativePosition['initial'],
+) => {
+  if (!relativePosition || !relativePosition.relativeY) {
+    return undefined;
+  }
+  const horizontalValue = relativePosition.relativeY;
+  const numberOfBlocksOnClickableHour = 4;
+  const valueOfEachBlockOnClickableHour = elementHeight / 4;
+  const blocks = Array.from(
+    Array(numberOfBlocksOnClickableHour).keys(),
+    (item) => item + 1,
+  );
+  // console.log(
+  //   'juju valueOfEachBlockOnClickableHour',
+  //   valueOfEachBlockOnClickableHour,
+  // );
+  // console.log('juju elementHeight', elementHeight);
+  for (const block of blocks) {
+    const currentBlock = valueOfEachBlockOnClickableHour * block;
+    if (horizontalValue <= currentBlock) {
+      return block;
+    }
+    const lastItem = block === blocks.length;
+    if (lastItem) return blocks.length;
+  }
+  return undefined;
 };
 
 const getPlannerHourBlockStartValues = (elementHeight: number) => {
   if (!elementHeight) return [];
   // Divide element height (which contans 24h) by 24 * 4 to result in 4 blocks of 15min on every hour
-  const numberOfBlocks = numberOfBlocksOnPlannerHour * numberOfHoursInADay;
+  const numberOfBlocks = fifteenMinutesItemsInAnHour * numberOfHoursInADay;
   const clickableHourBlockSize = elementHeight / numberOfBlocks;
   const blocks = Array.from(Array(numberOfBlocks).keys(), (item) => item + 1);
   const blocksStartValue = [0];

@@ -1,27 +1,15 @@
 @use '../../../styles/variables' as variables;
 
 .hourOfTheDay {
-  margin-right: variables.$inner-spacing;
-  min-height: max-content;
   display: flex;
   flex-direction: column;
-
-  .container {
-    display: flex;
-    flex-direction: row;
-    overflow: hidden;
-  }
+  margin-top: -10px;
+  width: max-content;
   span {
-    width: max-content;
-    position: relative;
-  }
-  hr {
-    width: 100vh;
-    width: -webkit-fill-available;
-    position: absolute;
-    z-index: 20;
-    // margin-top: 13px;
-    margin: 13px 15px 0 64px;
-    background-color: black;
+    width: 100%;
+    min-width: max-content;
+    padding-bottom: variables.$planner-hours-height /
+      variables.$number-of-hours-in-a-day;
+    line-height: initial;
   }
 }

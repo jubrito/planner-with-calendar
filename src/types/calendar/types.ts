@@ -1,4 +1,11 @@
 import {
+  endRelativePosition,
+  initialRelativePosition,
+  mouseDownEventHandlerType,
+  mouseLeaveEventHandlerType,
+  mouseUpEventHandlerType,
+} from '../../utils/calendar/constants';
+import {
   IntlDateTimeFormat2Digit,
   IntlDateTimeFormatFull,
   IntlDateTimeFormatLong,
@@ -48,3 +55,25 @@ export type IntlDateTypeMonthStyle =
   | typeof IntlDateTimeFormatNumeric
   | typeof IntlDateTimeFormat2Digit
   | undefined;
+
+export type EventHandlerType =
+  | typeof mouseUpEventHandlerType
+  | typeof mouseDownEventHandlerType
+  | typeof mouseLeaveEventHandlerType;
+
+export type RelativePosition = {
+  initial?: {
+    relativeX?: number;
+    relativeY?: number;
+    currentBlock?: number;
+  };
+  end?: {
+    relativeX?: number;
+    relativeY?: number;
+    currentBlock?: number;
+  };
+};
+
+export type RelativePositionOptions =
+  | typeof initialRelativePosition
+  | typeof endRelativePosition;
