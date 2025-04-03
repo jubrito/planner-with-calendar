@@ -205,46 +205,21 @@ export const ClickableHoursOfTheDay = ({
     }
   };
 
-  const getElementIdentifier = (index: number, hourOfTheDay: string) =>
-    `hourblock_${index}`.replace(' ', '');
   return (
     <div
       className={styles.clickableHourOfTheDay}
       onMouseLeave={handleMouseLeaveContainer}
     >
       {hoursOfTheDay.map((hourOfTheDay, index) => {
-        const hourOfTheDayElementId = getElementIdentifier(index, hourOfTheDay);
-        pendingClickByButtonId[hourOfTheDayElementId] = false;
+        const buttonId = getElementIdentifier(index);
+        pendingClickByButtonId[buttonId] = false;
         return (
           <button
-            onMouseDown={
-              (event) =>
-                // handleMouse(
-                //   event,
-                //   mouseDownEventHandlerType,
-                //   hourOfTheDayElementId,
-                // )
-                handleMouseDown(event, hourOfTheDayElementId)
-              // handleMouseInteraction(event, mouseDownEventHandlerType)
-            }
-            onMouseMove={(event) =>
-              handleMouseMove(event, hourOfTheDayElementId)
-            }
+            onMouseDown={(event) => handleMouseDown(event, buttonId)}
+            onMouseMove={(event) => handleMouseMove(event, buttonId)}
             onMouseUp={handleMouseUp}
-            // onMouseUp={
-            //   (event) =>
-            //     handleMouse(
-            //       event,
-            //       mouseUpEventHandlerType,
-            //       hourOfTheDayElementId,
-            //     )
-            //   // handleMouseInteraction(event, mouseUpEventHandlerType)
-            // }
-            // onMouseLeave={(event) =>
-            //   handleMouse(event, mouseLeaveEventHandlerType)
-            // }
-            id={hourOfTheDayElementId}
-            key={hourOfTheDayElementId}
+            id={buttonId}
+            key={buttonId}
           >
             {hourOfTheDay}
           </button>
@@ -253,6 +228,10 @@ export const ClickableHoursOfTheDay = ({
     </div>
   );
 };
+
+const getElementIdentifier = (index: number) =>
+  `hourblock_${index}`.replace(' ', '');
+
 const getHourBlock = (buttonTargetedId: string) => {
   const [_buttonLabel, hourBlock] = buttonTargetedId.split('_');
   return parseInt(hourBlock);
