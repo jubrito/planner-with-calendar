@@ -121,7 +121,7 @@ export const ClickableHoursOfTheDay = ({
             sizeOfEach15MinBlock * fifteenMinBlockZeroIndexed + endTopPosition;
           console.log('------- eventBottomPosition', eventBottomPosition);
           const eventIs15MinHeight =
-            Math.abs(eventBottomPosition - eventTopPosition) ===
+            Math.abs(eventBottomPosition - eventTopPosition) >
             sizeOfEach15MinBlock;
           if (!eventIs15MinHeight && startButtonId === endButtonId) {
             eventBottomPosition = eventTopPosition + sizeOfEach15MinBlock;
