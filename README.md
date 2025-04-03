@@ -1,14 +1,12 @@
 # Next steps (v1):
 
-- Improve precision (calendar lines should include exactly that hour and that block. The hour works but the block precision is only right if you create an event a little bit smaller than the line)
-- Extract functions and improve readability
+- add events only on every 15 min
+- Extract functions to smaller components
 - Connect events created to specific day
   - How to change days but preserve events? State? Only with bd?
-- Add lines back to planner
 - Check unused vars on types / consts / scss
 - check for memory leaks, should reset all vars (state, 3 records, listeners)
 - use kebab case on scss search for camel case
-- add only on every 15 min
 - new tests
 - add explanations on complex functions
 - if two events happen at the same time, show side by side
