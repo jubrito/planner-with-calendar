@@ -1,6 +1,6 @@
 # Next steps (v1):
 
-- add events only on every 15 min
+- render draft events the same way as events
 - Extract functions to smaller components
 - Connect events created to specific day
   - How to change days but preserve events? State? Only with bd?
@@ -13,11 +13,9 @@
 - Should memoize buttons to prevent rerenders? Is it worth it?
 - Last element of planner is next day and should not be clickable
 - Ignore clicking outside button of specific hour (change bg to be sure)
-- Add overflow scroll to planner
 - Rename from cammelcase to kabeb case on scss (variables etc)
-- CHange planner hour height and recalculate it and the hours of the day height so when we click on the planner we get the right block which is based on the plannerHour height
-
-// https://www.npmjs.com/package/@fullcalendar/react
+- display dynamicallythe hours of the event being created during creation
+  // https://www.npmjs.com/package/@fullcalendar/react
 
 # Future Steps:
 
