@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   EventHandlerType,
   RelativePosition,
@@ -22,18 +22,78 @@ type ClickableHoursOfTheDayProps = {
   ) => void;
 };
 
+interface TimeBlock {
+  // new
+  positionY: number;
+  block: {
+    hourBlock?: number;
+    fifteenMinBlock?: number;
+  };
+}
+
+interface EventBlock {
+  // new
+  buttonId: string;
+  eventId: string;
+  start: TimeBlock;
+  end: TimeBlock;
+}
+
 export const ClickableHoursOfTheDay = ({
   hoursOfTheDay,
-  handleMouseInteraction,
 }: ClickableHoursOfTheDayProps) => {
+  const [draftEvent, setDraftEvent] = useState<EventBlock | null>(null); // new
+  const [events, setEvents] = useState<EventBlock[]>([]); // new
+
   const pendingClickByButtonId: Record<string, boolean> = {};
   const newEventBlockByButtonId: Record<string, RelativePosition> = {};
   const [newEventBlocksResultByButtonId, setNewEventBlocksResultByButtonId] =
     useState<Record<string, RelativePosition>>({});
 
+  // useEffect(() => {
+  //   console.log('positionSelected', newEventBlocksResultByButtonId);
+  // }, [newEventBlocksResultByButtonId]);
   useEffect(() => {
-    console.log('positionSelected', newEventBlocksResultByButtonId);
-  }, [newEventBlocksResultByButtonId]);
+    console.log('draftEvent', draftEvent);
+  }, [draftEvent]);
+
+  const handleMouseDown = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>, buttonId: string) => {
+      const buttonTargeted = event.currentTarget;
+      const rect = buttonTargeted.getBoundingClientRect();
+      const relativeY = event.clientY - rect.top;
+      const buttonHeight = buttonTargeted.clientHeight;
+
+      const relativeInitialPosition: RelativePosition['end'] = {
+        // new
+        relativeY,
+      };
+
+      const [_buttonLabel, hourBlock] = buttonTargeted.id.split('_'); // id format is button_<index>
+      const fifteenMinBlock = getBlockClicked(
+        // new
+        buttonHeight,
+        relativeInitialPosition,
+      );
+
+      setDraftEvent({
+        eventId: `draft-${Date.now()}`,
+        buttonId,
+        start: {
+          positionY: relativeY,
+          block: {
+            hourBlock: parseInt(hourBlock),
+            fifteenMinBlock,
+          },
+        },
+        end: {
+          positionY: relativeY,
+          block: { hourBlock: parseInt(hourBlock), fifteenMinBlock },
+        },
+      });
+    },
+    [],
+  );
 
   const handleMouse = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -113,7 +173,7 @@ export const ClickableHoursOfTheDay = ({
   };
 
   const getElementIdentifier = (index: number, hourOfTheDay: string) =>
-    `hourblock_${index}_${hourOfTheDay}`.replace(' ', '');
+    `hourblock_${index}`.replace(' ', '');
   return (
     <div className={styles.clickableHourOfTheDay}>
       {hoursOfTheDay.map((hourOfTheDay, index) => {
@@ -123,22 +183,23 @@ export const ClickableHoursOfTheDay = ({
           <button
             onMouseDown={
               (event) =>
-                handleMouse(
-                  event,
-                  mouseDownEventHandlerType,
-                  hourOfTheDayElementId,
-                )
+                // handleMouse(
+                //   event,
+                //   mouseDownEventHandlerType,
+                //   hourOfTheDayElementId,
+                // )
+                handleMouseDown(event, hourOfTheDayElementId)
               // handleMouseInteraction(event, mouseDownEventHandlerType)
             }
-            onMouseUp={
-              (event) =>
-                handleMouse(
-                  event,
-                  mouseUpEventHandlerType,
-                  hourOfTheDayElementId,
-                )
-              // handleMouseInteraction(event, mouseUpEventHandlerType)
-            }
+            // onMouseUp={
+            //   (event) =>
+            //     handleMouse(
+            //       event,
+            //       mouseUpEventHandlerType,
+            //       hourOfTheDayElementId,
+            //     )
+            //   // handleMouseInteraction(event, mouseUpEventHandlerType)
+            // }
             // onMouseLeave={(event) =>
             //   handleMouse(event, mouseLeaveEventHandlerType)
             // }
