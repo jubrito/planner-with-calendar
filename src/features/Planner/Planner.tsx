@@ -12,6 +12,7 @@ import { IntlDateTimeFormatShort } from '../../utils/constants';
 import { HoursOfTheDay } from './HoursOfTheDay/HoursOfTheDay';
 import { ClickableHoursOfTheDay } from './ClickableHoursOfTheDay/ClickableHoursOfTheDay';
 import { getHoursOfTheDay } from '../../utils/calendar/utils';
+import { EventHandlerType } from '../../types/calendar/types';
 
 const Planner = () => {
   const locale = useSelector(getLocaleLanguage());
@@ -25,6 +26,34 @@ const Planner = () => {
   const dayOfWeek = useSelector(getSelectedDayViewDayOfWeek(locale));
   const plannerDateLabel = `${monthName} ${day}, ${dayOfWeek}`;
 
+  // const getElementIdentifier = (index: number, hourOfTheDay: string) =>
+  //   `hourblock_${index}_${hourOfTheDay}`.replace(' ', '');
+
+  // let test = '';
+  const handleClickHourOfTheDayBlock = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    eventType: EventHandlerType,
+  ) => {
+    console.log('handleClickHourOfTheDayBlock eventType', eventType);
+    const rect = event.currentTarget.getBoundingClientRect();
+    const relativeX = event.clientX - rect.left;
+    const relativeY = event.clientY - rect.top;
+    console.log({ relativeX, relativeY });
+  };
+
+  // useEffect(() => {
+  //   const clickListener = (event) => {
+  //     if (event && event.currentTarget) {
+  //       console.log('clicked event', event.currentTarget.);
+  //     }
+  //     // "clientX: " + event.clientX +
+  //     // " - clientY: " + event.clientY;
+  //   };
+  //   addEventListener('click', clickListener);
+
+  //   return () => removeEventListener('click', clickListener);
+  // }, []);
+
   return (
     <section className={styles.planner}>
       <div className={styles.plannerHeader}>
@@ -34,7 +63,10 @@ const Planner = () => {
       </div>
       <div className={styles.plannerHours}>
         <HoursOfTheDay hoursOfTheDay={hoursOfTheDay} />
-        <ClickableHoursOfTheDay />
+        <ClickableHoursOfTheDay
+          handleMouseInteraction={handleClickHourOfTheDayBlock}
+          hoursOfTheDay={hoursOfTheDay}
+        />
       </div>
     </section>
   );

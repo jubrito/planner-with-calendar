@@ -1,27 +1,11 @@
 @use '../../../styles/variables' as variables;
 
 .hourOfTheDay {
-  margin-right: variables.$inner-spacing;
-  min-height: max-content;
   display: flex;
   flex-direction: column;
-
-  .container {
-    display: flex;
-    flex-direction: row;
-    overflow: hidden;
-  }
+  margin-top: -13px;
   span {
     width: max-content;
-    position: relative;
-  }
-  hr {
-    width: 100vh;
-    width: -webkit-fill-available;
-    position: absolute;
-    z-index: 20;
-    // margin-top: 13px;
-    margin: 13px 15px 0 64px;
-    background-color: black;
+    padding-bottom: variables.$hoursOfDaySliceSpacing;
   }
 }

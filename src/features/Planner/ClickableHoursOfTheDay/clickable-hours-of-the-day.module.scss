@@ -4,17 +4,12 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  z-index: 800;
-  height: variables.$planner-hours-height;
-  margin-right: variables.$inner-spacing;
-  position: relative;
-
-  .plannerEvent {
-    position: absolute;
-    content: '';
-    width: 100%;
-    left: 0;
-    background: variables.$blue-yonder-color;
-    z-index: 801;
+  button {
+    height: variables.$hoursOfDaySliceSpacing;
+    background-color: transparent;
+    border-top: 1px solid variables.$black-color;
+    border-radius: 0;
+    padding: 0;
+    color: variables.$black-color;
   }
 }
