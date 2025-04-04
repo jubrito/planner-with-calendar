@@ -1,5 +1,6 @@
 # Next steps (v1):
 
+- if it is equal create one hour event, if is not min height and not equal, keep creating the 15min min event
 - render draft events the same way as events
 - Extract functions to smaller components
 - make calendar fit exactly between lines
