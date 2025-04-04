@@ -241,8 +241,8 @@ export const ClickableHoursOfTheDay = ({
           ...prev,
           {
             eventId: draftEvent.eventId,
-            start: start + 1,
-            end: end + 1,
+            start: start + 0.05,
+            end: end,
           },
         ];
       });
@@ -266,35 +266,35 @@ export const ClickableHoursOfTheDay = ({
       onMouseLeave={handleMouseLeaveContainer}
       ref={containerRef}
     >
+      {draftEvent && (
+        <div
+          className={styles.plannerEvent}
+          style={{
+            top: `${draftEvent.start.positionY}px`,
+            height: `${draftEvent.end.positionY - draftEvent.start.positionY}px`,
+          }}
+        />
+      )}
+      {events.map((event, index) => (
+        <div
+          key={event.eventId}
+          className={styles.plannerEvent}
+          style={{
+            // top: `${event.start.positionY}px`,
+            // height: `${event.end.positionY - event.start.positionY}px`,
+            top: `${event.start}px`,
+            height: `${event.end - event.start}px`,
+          }}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleEventClick(event);
+          }}
+        />
+      ))}
       {hoursOfTheDay.map((_hourOfTheDay, index) => {
         const buttonId = getElementIdentifier(index);
         return (
           <>
-            {draftEvent && (
-              <div
-                className={styles.plannerEvent}
-                style={{
-                  top: `${draftEvent.start.positionY}px`,
-                  height: `${draftEvent.end.positionY - draftEvent.start.positionY}px`,
-                }}
-              />
-            )}
-            {events.map((event) => (
-              <div
-                key={event.eventId}
-                className={styles.plannerEvent}
-                style={{
-                  // top: `${event.start.positionY}px`,
-                  // height: `${event.end.positionY - event.start.positionY}px`,
-                  top: `${event.start}px`,
-                  height: `${event.end - event.start}px`,
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleEventClick(event);
-                }}
-              />
-            ))}
             <button
               onMouseDown={(event) => handleMouseDown(event, buttonId)}
               onMouseMove={(event) => handleMouseMove(event, buttonId)}
