@@ -69,9 +69,13 @@ export const ClickableHoursOfTheDay = ({
   useEffect(() => {
     const plannerHoursDivHeight = containerRef.current?.scrollHeight;
     if (plannerHoursDivHeight) {
-      setButtonHeight(plannerHoursDivHeight / numberOfHoursInADay);
+      setButtonHeight(Math.floor(plannerHoursDivHeight / numberOfHoursInADay));
     }
   }, []);
+
+  useEffect(() => {
+    console.log('buttonHeight', buttonHeight);
+  }, [buttonHeight]);
 
   // const hoursBlockDividedByFifteenMinutes = useMemo(() => {
   //   if (initialHeight == null) return [];
@@ -237,8 +241,8 @@ export const ClickableHoursOfTheDay = ({
           ...prev,
           {
             eventId: draftEvent.eventId,
-            start,
-            end,
+            start: start + 1,
+            end: end + 1,
           },
         ];
       });
@@ -297,7 +301,7 @@ export const ClickableHoursOfTheDay = ({
               onMouseUp={handleMouseUp}
               id={buttonId}
               key={buttonId}
-              style={{ height: buttonHeight }}
+              // style={{ height: buttonHeight }}
             >
               {index}
             </button>
@@ -321,7 +325,7 @@ const get15MinBlock = (
   relativePosition: RelativePosition['end'] | RelativePosition['initial'],
 ) => {
   if (!relativePosition || !relativePosition.relativeY) {
-    return undefined;
+    return 0;
   }
   const horizontalValue = relativePosition.relativeY;
   const numberOfBlocksOnClickableHour = 4;

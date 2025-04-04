@@ -7,9 +7,18 @@
   position: relative;
   button {
     background-color: transparent;
-    border-top: 1px solid variables.$black-color;
+    border-top: 0.5px solid variables.$black-color;
+    border-bottom: 0.5px solid variables.$black-color;
     border-radius: 0;
     color: variables.$black-color;
+    min-height: calc(100% / 24);
+    height: calc(100% / 24);
+    &:first-of-type {
+      border-top: 1px solid variables.$black-color;
+    }
+    &:last-of-type {
+      border-bottom: 0;
+    }
   }
   .plannerEvent {
     position: absolute;
