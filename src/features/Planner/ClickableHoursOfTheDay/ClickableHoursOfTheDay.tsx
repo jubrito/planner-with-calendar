@@ -245,11 +245,12 @@ export const ClickableHoursOfTheDay = ({
             top: `${draftEvent.start.positionY}px`,
             height: `${draftEvent.end.positionY - draftEvent.start.positionY}px`,
           }}
+          key={draftEvent.eventId}
         />
       )}
       {events.map((event) => (
         <div
-          key={event.eventId}
+          key={crypto.randomUUID()}
           className={styles.plannerEvent}
           style={getEventStyle(event)}
           onClick={(e) => {
@@ -261,18 +262,16 @@ export const ClickableHoursOfTheDay = ({
       {hoursOfTheDay.map((_, index) => {
         const buttonId = getElementIdentifier(index);
         return (
-          <>
-            <button
-              onMouseDown={(event) => handleMouseDown(event, buttonId)}
-              onMouseMove={(event) => handleMouseMove(event, buttonId)}
-              onMouseUp={handleMouseUp}
-              id={buttonId}
-              key={buttonId}
-              style={{ height: `${buttonHeight}px` }}
-            >
-              {index}
-            </button>
-          </>
+          <button
+            onMouseDown={(event) => handleMouseDown(event, buttonId)}
+            onMouseMove={(event) => handleMouseMove(event, buttonId)}
+            onMouseUp={handleMouseUp}
+            id={buttonId}
+            key={crypto.randomUUID()}
+            style={{ height: `${buttonHeight}px` }}
+          >
+            {index}
+          </button>
         );
       })}
     </div>
@@ -286,7 +285,7 @@ const getEventStyle = (event: RealEventBlock) => ({
 });
 
 const getElementIdentifier = (index: number) =>
-  `hourblock_${index}`.replace(' ', '');
+  `${crypto.randomUUID()}_${index}`.replace(' ', '');
 
 const getHourBlock = (buttonTargetedId: string) => {
   const [_buttonLabel, hourBlock] = buttonTargetedId.split('_');

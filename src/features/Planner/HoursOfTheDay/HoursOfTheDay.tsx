@@ -27,7 +27,14 @@ export const HoursOfTheDay = ({ hoursOfTheDay }: HoursOfTheDayProps) => {
   return (
     <div className={styles.hourOfTheDay} ref={hourOfTheDaySpanRef}>
       {hoursOfTheDay.map((hourOfTheDay) => {
-        return <span style={{ height: spanHeight }}>{hourOfTheDay}</span>;
+        return (
+          <span
+            style={{ height: spanHeight }}
+            key={hourOfTheDay + crypto.randomUUID()}
+          >
+            {hourOfTheDay}
+          </span>
+        );
       })}
     </div>
   );
