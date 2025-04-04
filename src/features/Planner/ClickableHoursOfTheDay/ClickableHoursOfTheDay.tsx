@@ -9,7 +9,6 @@ import {
   fifteenMinutesItemsInAnHour,
   numberOfHoursInADay,
 } from '../../../utils/calendar/constants';
-import { getChunkArrayByChunkSize } from '../../../utils/utils';
 
 type ClickableHoursOfTheDayProps = {
   hoursOfTheDay: string[];
@@ -49,7 +48,7 @@ export const ClickableHoursOfTheDay = ({
   const [events, setEvents] = useState<RealEventBlock[]>([]);
   const [initialHeight, setInitialHeight] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [buttonHeight, setButtonHeight] = useState<number>();
+  const buttonHeight = 50; // same as clickableHourOfTheDay scss button height
   useEffect(() => {
     console.log('events', events);
   }, [events]);
@@ -65,17 +64,6 @@ export const ClickableHoursOfTheDay = ({
       containerRef.current.style.height = `${containerRef.current.parentElement.scrollHeight}px`;
     }
   }, []);
-
-  useEffect(() => {
-    const plannerHoursDivHeight = containerRef.current?.scrollHeight;
-    if (plannerHoursDivHeight) {
-      setButtonHeight(Math.floor(plannerHoursDivHeight / numberOfHoursInADay));
-    }
-  }, []);
-
-  useEffect(() => {
-    console.log('buttonHeight', buttonHeight);
-  }, [buttonHeight]);
 
   // const hoursBlockDividedByFifteenMinutes = useMemo(() => {
   //   if (initialHeight == null) return [];
@@ -94,17 +82,8 @@ export const ClickableHoursOfTheDay = ({
       const endButtonId = draftEvent.end.buttonId;
       const startButton = document.getElementById(startButtonId);
       const startTopPosition = startButton?.offsetTop;
-      // const startPositionY = draftEvent.start.positionY;
       const endButton = document.getElementById(endButtonId);
       const endTopPosition = endButton?.offsetTop;
-      // // const endBottomPosition =
-      // //   (startTopPosition ?? 0) + (endButton?.clientHeight ?? 0);
-      // const endPositionY = draftEvent.end.positionY;
-      // console.log('startTopPosition', startTopPosition); // IS CORRECT
-      // // console.log('startPositionY', startPositionY);
-      // // console.log('endBottomPosition', endBottomPosition);
-      // console.log('endPositionY', endPositionY);
-      // console.log('endTopPosition', endTopPosition);
       if (
         draftEvent.start.block.fifteenMinBlock !== undefined &&
         startTopPosition !== undefined
@@ -132,24 +111,6 @@ export const ClickableHoursOfTheDay = ({
           }
           return [eventTopPosition, eventBottomPosition];
         }
-        // if (
-        //   draftEvent.end.block.fifteenMinBlock !== undefined &&
-        //   endTopPosition !== undefined
-        // ) {
-        //   const fifteenMinBlockZeroIndexed =
-        //     draftEvent.end.block.fifteenMinBlock - 1;
-        //   let eventBottomPosition =
-        //     sizeOfEach15MinBlock * fifteenMinBlockZeroIndexed + endTopPosition;
-        //   const eventIs15MinHeight =
-        //     Math.abs(eventBottomPosition - eventTopPosition) ===
-        //     sizeOfEach15MinBlock;
-        //   if (!eventIs15MinHeight) {
-        //     eventBottomPosition = eventTopPosition + sizeOfEach15MinBlock;
-        //   }
-        //   console.log('------- eventBottomPosition', eventBottomPosition);
-        //   const eventHeight = eventBottomPosition - eventTopPosition;
-        //   console.log('------- eventHeight', eventHeight);
-        // }
       }
       return [];
     },
@@ -184,6 +145,7 @@ export const ClickableHoursOfTheDay = ({
           block: { hourBlock, fifteenMinBlock },
         },
       });
+      console.log('DOWN ------------');
     },
     [],
   );
@@ -217,13 +179,14 @@ export const ClickableHoursOfTheDay = ({
         },
       }));
     },
+
     [draftEvent],
   );
 
   const handleMouseUp = useCallback(
     (event: React.MouseEvent<HTMLButtonElement>) => {
-      if (!draftEvent) return;
       console.log('draftEvent', draftEvent);
+      if (!draftEvent) return;
       // Relative to the button
       // setEvents((prev) => [...prev, draftEvent]);
       const buttonTargeted = event.currentTarget;
@@ -248,6 +211,7 @@ export const ClickableHoursOfTheDay = ({
       });
 
       setDraftEvent(null);
+      console.log('UP ------------');
     },
     [draftEvent, get15MinStartValues],
   );
@@ -282,6 +246,7 @@ export const ClickableHoursOfTheDay = ({
           style={{
             top: `${event.start}px`,
             height: `${event.end - event.start}px`,
+            border: '1px solid black',
           }}
           onClick={(e) => {
             e.stopPropagation();
@@ -299,7 +264,7 @@ export const ClickableHoursOfTheDay = ({
               onMouseUp={handleMouseUp}
               id={buttonId}
               key={buttonId}
-              // style={{ height: buttonHeight }}
+              style={{ height: `${buttonHeight}px` }}
             >
               {index}
             </button>
