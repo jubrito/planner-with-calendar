@@ -161,7 +161,6 @@ export const ClickableHoursOfTheDay = ({
       const relativeInitialPosition: RelativePosition['end'] = {
         relativeY,
       };
-
       const hourBlock = getHourBlock(buttonTargeted.id);
       const fifteenMinBlock = get15MinBlock(
         buttonTargetedHeight,
@@ -243,11 +242,7 @@ export const ClickableHoursOfTheDay = ({
         <div
           key={event.eventId}
           className={styles.plannerEvent}
-          style={{
-            top: `${event.start}px`,
-            height: `${event.end - event.start}px`,
-            border: '1px solid black',
-          }}
+          style={getEventStyle(event)}
           onClick={(e) => {
             e.stopPropagation();
             handleEventClick(event);
@@ -274,6 +269,12 @@ export const ClickableHoursOfTheDay = ({
     </div>
   );
 };
+
+const getEventStyle = (event: RealEventBlock) => ({
+  top: `${event.start}px`,
+  height: `${event.end - event.start}px`,
+  border: '1px solid black',
+});
 
 const getElementIdentifier = (index: number) =>
   `hourblock_${index}`.replace(' ', '');
