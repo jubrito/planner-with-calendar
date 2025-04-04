@@ -11,8 +11,9 @@
     border-bottom: 0.5px solid variables.$black-color;
     border-radius: 0;
     color: variables.$black-color;
-    min-height: calc(100% / 24);
-    height: calc(100% / 24);
+    min-height: 50px;
+    transform: translateZ(0);
+    // height: 50px;
     &:first-of-type {
       border-top: 1px solid variables.$black-color;
     }

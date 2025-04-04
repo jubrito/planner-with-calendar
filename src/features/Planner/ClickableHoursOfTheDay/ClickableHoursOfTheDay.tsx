@@ -241,7 +241,7 @@ export const ClickableHoursOfTheDay = ({
           ...prev,
           {
             eventId: draftEvent.eventId,
-            start: start + 0.05,
+            start: start,
             end: end,
           },
         ];
@@ -275,13 +275,11 @@ export const ClickableHoursOfTheDay = ({
           }}
         />
       )}
-      {events.map((event, index) => (
+      {events.map((event) => (
         <div
           key={event.eventId}
           className={styles.plannerEvent}
           style={{
-            // top: `${event.start.positionY}px`,
-            // height: `${event.end.positionY - event.start.positionY}px`,
             top: `${event.start}px`,
             height: `${event.end - event.start}px`,
           }}
@@ -291,7 +289,7 @@ export const ClickableHoursOfTheDay = ({
           }}
         />
       ))}
-      {hoursOfTheDay.map((_hourOfTheDay, index) => {
+      {hoursOfTheDay.map((_, index) => {
         const buttonId = getElementIdentifier(index);
         return (
           <>
@@ -328,10 +326,10 @@ const get15MinBlock = (
     return 0;
   }
   const horizontalValue = relativePosition.relativeY;
-  const numberOfBlocksOnClickableHour = 4;
-  const valueOfEachBlockOnClickableHour = elementHeight / 4;
+  const valueOfEachBlockOnClickableHour =
+    elementHeight / fifteenMinutesItemsInAnHour;
   const blocks = Array.from(
-    Array(numberOfBlocksOnClickableHour).keys(),
+    Array(fifteenMinutesItemsInAnHour).keys(),
     (item) => item + 1,
   );
   // console.log(
