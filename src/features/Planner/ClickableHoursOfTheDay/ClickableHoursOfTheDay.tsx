@@ -50,8 +50,17 @@ export const ClickableHoursOfTheDay = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const buttonHeight = 50; // same as clickableHourOfTheDay scss button height
   useEffect(() => {
-    console.log('events', events);
+    events.forEach((event) => {
+      console.log('event ----');
+      console.log('event.start', event.start);
+      console.log('event.end', event.end);
+    });
+    // console.log('events', events);
   }, [events]);
+  useEffect(() => {
+    console.log('draftEvent?.start', draftEvent?.start);
+    console.log('draftEvent?.end', draftEvent?.end);
+  }, [draftEvent]);
 
   useEffect(() => {
     if (containerRef.current && initialHeight === null) {
