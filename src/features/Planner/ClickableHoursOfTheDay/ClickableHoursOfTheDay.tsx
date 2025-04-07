@@ -90,8 +90,10 @@ export const ClickableHoursOfTheDay = ({
       ) {
         const fifteenMinBlockZeroIndexed =
           draftEvent.start.block.fifteenMinBlock - 1;
-        const eventTopPosition =
-          sizeOfEach15MinBlock * fifteenMinBlockZeroIndexed + startTopPosition;
+        const eventTopPosition = Math.max(
+          0,
+          sizeOfEach15MinBlock * fifteenMinBlockZeroIndexed + startTopPosition,
+        );
         console.log('------- eventTopPosition', eventTopPosition);
 
         if (
