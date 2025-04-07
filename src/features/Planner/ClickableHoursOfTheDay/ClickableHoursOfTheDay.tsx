@@ -50,17 +50,8 @@ export const ClickableHoursOfTheDay = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const buttonHeight = 50; // same as clickableHourOfTheDay scss button height
   useEffect(() => {
-    events.forEach((event) => {
-      console.log('event ----');
-      console.log('event.start', event.start);
-      console.log('event.end', event.end);
-    });
-    // console.log('events', events);
+    console.log('events', events);
   }, [events]);
-  useEffect(() => {
-    console.log('draftEvent?.start', draftEvent?.start);
-    console.log('draftEvent?.end', draftEvent?.end);
-  }, [draftEvent]);
 
   useEffect(() => {
     if (containerRef.current && initialHeight === null) {
@@ -245,12 +236,11 @@ export const ClickableHoursOfTheDay = ({
             top: `${draftEvent.start.positionY}px`,
             height: `${draftEvent.end.positionY - draftEvent.start.positionY}px`,
           }}
-          key={draftEvent.eventId}
         />
       )}
       {events.map((event) => (
         <div
-          key={crypto.randomUUID()}
+          key={event.eventId}
           className={styles.plannerEvent}
           style={getEventStyle(event)}
           onClick={(e) => {
@@ -262,16 +252,18 @@ export const ClickableHoursOfTheDay = ({
       {hoursOfTheDay.map((_, index) => {
         const buttonId = getElementIdentifier(index);
         return (
-          <button
-            onMouseDown={(event) => handleMouseDown(event, buttonId)}
-            onMouseMove={(event) => handleMouseMove(event, buttonId)}
-            onMouseUp={handleMouseUp}
-            id={buttonId}
-            key={crypto.randomUUID()}
-            style={{ height: `${buttonHeight}px` }}
-          >
-            {index}
-          </button>
+          <>
+            <button
+              onMouseDown={(event) => handleMouseDown(event, buttonId)}
+              onMouseMove={(event) => handleMouseMove(event, buttonId)}
+              onMouseUp={handleMouseUp}
+              id={buttonId}
+              key={buttonId}
+              style={{ height: `${buttonHeight}px` }}
+            >
+              {index}
+            </button>
+          </>
         );
       })}
     </div>
@@ -285,7 +277,7 @@ const getEventStyle = (event: RealEventBlock) => ({
 });
 
 const getElementIdentifier = (index: number) =>
-  `${crypto.randomUUID()}_${index}`.replace(' ', '');
+  `hourblock_${index}`.replace(' ', '');
 
 const getHourBlock = (buttonTargetedId: string) => {
   const [_buttonLabel, hourBlock] = buttonTargetedId.split('_');
