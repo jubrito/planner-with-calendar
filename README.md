@@ -4,6 +4,7 @@
 - make calendar fit exactly between lines
 - Check commits to see if other changes discarded are important
 - Add unique keys to maps
+- Check dead code to remove
 - Improve precision (calendar lines should include exactly that hour and that block. The hour works but the block precision is only right if you create an event a little bit smaller than the line)
 - Connect events created to specific day
   - How to change days but preserve events? State? Only with bd?
