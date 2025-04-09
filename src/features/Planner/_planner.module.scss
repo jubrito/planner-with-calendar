@@ -40,7 +40,6 @@
   }
 
   .plannerHours {
-    padding-top: 9px;
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -48,38 +47,10 @@
     cursor: pointer;
     overflow-y: auto;
     overflow-x: hidden;
+    position: relative;
+
+    @include mixins.media-for-compact-calendar {
+      margin-bottom: variables.$inner-spacing;
+    }
   }
-
-  // .hoursOfTheDay {
-  //   position: relative;
-  //   .clickableHoursOfTheDay {
-  //     display: flex;
-  //     flex-direction: column;
-  //     min-height: min-content;
-  //     width: 100%;
-  //     height: variables.$hoursOfDaySliceSpacing;
-  //     background: transparent;
-  //     border-radius: 0;
-  //     padding: 0;
-  //     background-color: blue;
-  //   }
-  //   .hoursOfTheDayRow {
-  //     $color: variables.$black-color;
-  //     width: 100%;
-  //     display: flex;
-  //     align-items: center;
-  //     color: $color;
-
-  //     span.hoursOfTheDay {
-  //       min-width: max-content;
-  //     }
-
-  //     span.hoursOfTheDayLine {
-  //       width: calc(100% - 59px);
-  //       height: 1px;
-  //       background: $color;
-  //       margin-left: variables.$small-gap;
-  //     }
-  //   }
-  // }
 }
