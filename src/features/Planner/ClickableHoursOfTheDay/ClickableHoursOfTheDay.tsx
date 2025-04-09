@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import styles from './clickable-hours-of-the-day.module.scss';
 import {
   fifteenMinBlocksInAHour,
@@ -7,6 +7,7 @@ import {
 
 interface TimeBlock {
   positionY: number;
+  fixedPositionY: number;
   block: {
     hourBlock?: number;
     fifteenMinBlock?: number;
@@ -23,6 +24,47 @@ export const ClickableHoursOfTheDay = () => {
   const [draftEvent, setDraftEvent] = useState<EventBlock | null>(null);
   const [events, setEvents] = useState<EventBlock[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    console.log('events', events);
+  }, [events]);
+
+  /**
+   * Function to get a fixed position of the event
+   *
+   * Instead of creating events with the exact position that was selected,
+   * if endOrStartOf15MinBlock is start, it gets the beggining of the hourBlock
+   * based on the fifteenMinBlock
+   *
+   * Example: If hour is 0 and block is 1, and we want to get the relative fixed
+   * position, we multiply the fifteenMinBlock (1) with the size of each 15 min block (12.5)
+   * to get 12.5 (which is the start of the first block). So regardless of the relativeY,
+   * we calculate the relative Y fixed position based on the block (which took relativeY
+   * into consideration). If we want to calculate for the hour 1, we need to add the previous
+   * hours heights (in this case hour 0), thus we add 'hourBlock (1) * sizeOfAnHour (12.5 * 4)' on top
+   * When we want to get the end of the fifteenMinBlock, we need to add another fifteenMinBlock
+   *
+   * @param block
+   * @param endOrStartOf15MinBlock
+   * @returns fixedRelativeY – the fixed position to fit in the closest fifteen minute block position
+   */
+  const getFixedRelativeY = (
+    block: {
+      hourBlock: number;
+      fifteenMinBlock: number;
+    },
+    endOrStartOf15MinBlock: 'start' | 'end',
+  ) => {
+    const { fifteenMinBlock, hourBlock } = block;
+    const sizeOfAnHour = fifteenMinBlocksInAHour * sizeOfEach15MinBlock;
+    const startOfBlock =
+      hourBlock * sizeOfAnHour + fifteenMinBlock * sizeOfEach15MinBlock;
+    const fixedRelativeY =
+      endOrStartOf15MinBlock === 'start'
+        ? startOfBlock
+        : startOfBlock + sizeOfEach15MinBlock;
+    return fixedRelativeY;
+  };
 
   /**
    * Function to determine which fifteen minute block the user clicked
@@ -89,19 +131,23 @@ export const ClickableHoursOfTheDay = () => {
       const rect = containerRef.current.getBoundingClientRect();
       const relativeY = event.clientY - rect.top;
       const block = getHourAnd15MinBlock(relativeY);
-      const containerHeight = containerRef.current.clientHeight;
-      console.log('relativeY', relativeY);
-      console.log('containerHeight', containerHeight);
-      console.log('block.hourBlock', block.hourBlock);
-      console.log('block.fifteenMinBlock', block.fifteenMinBlock);
+      const fixedHourAnd15MinBlock = getFixedRelativeY(block, 'start');
+      console.log('relativeY start', relativeY);
+      console.log('block.fifteenMinBlock start', block.fifteenMinBlock);
+      console.log('fixedHourAnd15MinBlock start', fixedHourAnd15MinBlock);
 
       setDraftEvent({
         eventId: `draft-${Date.now()}`,
         start: {
           positionY: relativeY,
+          fixedPositionY: fixedHourAnd15MinBlock,
           block,
         },
-        end: { positionY: relativeY, block },
+        end: {
+          positionY: relativeY,
+          fixedPositionY: fixedHourAnd15MinBlock,
+          block,
+        },
       });
     },
     [getHourAnd15MinBlock],
@@ -114,9 +160,17 @@ export const ClickableHoursOfTheDay = () => {
       const rect = containerRef.current.getBoundingClientRect();
       const relativeY = event.clientY - rect.top;
       const block = getHourAnd15MinBlock(relativeY);
+      const fixedHourAnd15MinBlock = getFixedRelativeY(block, 'end');
+      console.log('relativeY end', relativeY);
+      console.log('block.fifteenMinBlock end', block.fifteenMinBlock);
+      console.log('fixedHourAnd15MinBlock end', fixedHourAnd15MinBlock);
       setDraftEvent((prev) => ({
         ...prev!,
-        end: { positionY: relativeY, block },
+        end: {
+          positionY: relativeY,
+          fixedPositionY: fixedHourAnd15MinBlock,
+          block,
+        },
       }));
     },
     [draftEvent, getHourAnd15MinBlock],
@@ -124,28 +178,23 @@ export const ClickableHoursOfTheDay = () => {
 
   const handleMouseUp = useCallback(() => {
     if (!draftEvent) return;
-    const minimumEventHeight =
-      Math.abs(draftEvent.end.positionY - draftEvent.start.positionY) > 5;
-    const fifteenMinutesHeight = draftEvent.start.positionY + 10;
-    if (minimumEventHeight) {
-      setEvents((prev) => [...prev, draftEvent]);
-    }
-    if (!minimumEventHeight) {
-      setEvents((prev) => [
-        ...prev,
-        {
-          eventId: draftEvent.eventId,
-          start: {
-            positionY: draftEvent.start.positionY,
-            block: draftEvent.start.block,
-          },
-          end: {
-            positionY: fifteenMinutesHeight,
-            block: draftEvent.end.block,
-          },
+
+    setEvents((prev) => [
+      ...prev,
+      {
+        eventId: draftEvent.eventId,
+        start: {
+          positionY: draftEvent.start.fixedPositionY,
+          fixedPositionY: draftEvent.start.fixedPositionY,
+          block: draftEvent.start.block,
         },
-      ]);
-    }
+        end: {
+          positionY: draftEvent.end.fixedPositionY,
+          fixedPositionY: draftEvent.end.fixedPositionY,
+          block: draftEvent.end.block,
+        },
+      },
+    ]);
     setDraftEvent(null);
   }, [draftEvent]);
 
