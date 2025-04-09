@@ -1,23 +1,29 @@
 # Next steps (v1):
 
-- if it is equal create one hour event, if is not min height and not equal, keep creating the 15min min event
 - Check commits to see if other changes discarded are important
+
+Improvements:
+
 - Add unique keys to maps
 - Check dead code to remove
 - should get the exact block or add a margin that considers the closest to the next block? (ex: if clicks almost on the next block, should the start be at the beggining of current block? because it looks like an error even though it is not)
+- check for memory leaks
+
+Style:
+
+- Check unused vars on types / consts / scss
+- use kebab case on scss search for camel case
+
+Quality
+
+- planner tests
+
+Features
+
 - Connect events created to specific day
   - How to change days but preserve events? State? Only with bd?
-- Check unused vars on types / consts / scss
-- check for memory leaks, should reset all vars (state, 3 records, listeners)
-- use kebab case on scss search for camel case
-- new tests
-- add explanations on complex functions
 - if two events happen at the same time, show side by side
-- Should memoize buttons to prevent rerenders? Is it worth it?
-- Last element of planner is next day and should not be clickable
-- Ignore clicking outside button of specific hour (change bg to be sure)
-- Rename from cammelcase to kabeb case on scss (variables etc)
-- display dynamicallythe hours of the event being created during creation
+- display dynamically the hours of the event being created during creation
   // https://www.npmjs.com/package/@fullcalendar/react
 
 # Future Steps:
