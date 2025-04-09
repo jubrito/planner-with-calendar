@@ -172,14 +172,10 @@ export const ClickableHoursOfTheDay = () => {
 
   const handleMouseUp = useCallback(() => {
     if (!draftEvent) return;
-    let endFixedPosition = draftEvent.end.fixedPositionY;
-    const eventHasMinimumWeight =
-      Math.abs(
-        draftEvent.end.fixedPositionY - draftEvent.start.fixedPositionY,
-      ) >= sizeOfEach15MinBlock;
-    if (!eventHasMinimumWeight) {
-      endFixedPosition = draftEvent.start.fixedPositionY + sizeOfEach15MinBlock;
-    }
+    const endMinimumFixedPosition = getMinimumEventFixedPositionY(
+      draftEvent.start.fixedPositionY,
+      draftEvent.end.fixedPositionY,
+    );
     setEvents((prev) => [
       ...prev,
       {
@@ -191,8 +187,7 @@ export const ClickableHoursOfTheDay = () => {
         },
         end: {
           positionY: draftEvent.end.positionY,
-          fixedPositionY: endFixedPosition,
-          // fixedPositionY: draftEvent.end.fixedPositionY,
+          fixedPositionY: endMinimumFixedPosition,
           block: draftEvent.end.block,
         },
       },
@@ -242,4 +237,17 @@ export const ClickableHoursOfTheDay = () => {
       ))}
     </div>
   );
+};
+
+const getMinimumEventFixedPositionY = (
+  startFixedPositionY: number,
+  endFixedPositionY: number,
+) => {
+  let endMinimumFixedPosition = endFixedPositionY;
+  const eventHasMinimumWeight =
+    Math.abs(endFixedPositionY - startFixedPositionY) >= sizeOfEach15MinBlock;
+  if (!eventHasMinimumWeight) {
+    endMinimumFixedPosition = startFixedPositionY + sizeOfEach15MinBlock;
+  }
+  return endMinimumFixedPosition;
 };
