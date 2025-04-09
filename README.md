@@ -1,7 +1,6 @@
 # Next steps (v1):
 
 - if it is equal create one hour event, if is not min height and not equal, keep creating the 15min min event
-- make calendar fit exactly between lines
 - Check commits to see if other changes discarded are important
 - Add unique keys to maps
 - Check dead code to remove
