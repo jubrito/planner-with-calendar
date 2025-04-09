@@ -132,9 +132,6 @@ export const ClickableHoursOfTheDay = () => {
       const relativeY = event.clientY - rect.top;
       const block = getHourAnd15MinBlock(relativeY);
       const fixedHourAnd15MinBlock = getFixedRelativeY(block, 'start');
-      console.log('relativeY start', relativeY);
-      console.log('block.fifteenMinBlock start', block.fifteenMinBlock);
-      console.log('fixedHourAnd15MinBlock start', fixedHourAnd15MinBlock);
 
       setDraftEvent({
         eventId: `draft-${Date.now()}`,
@@ -161,9 +158,6 @@ export const ClickableHoursOfTheDay = () => {
       const relativeY = event.clientY - rect.top;
       const block = getHourAnd15MinBlock(relativeY);
       const fixedHourAnd15MinBlock = getFixedRelativeY(block, 'end');
-      console.log('relativeY end', relativeY);
-      console.log('block.fifteenMinBlock end', block.fifteenMinBlock);
-      console.log('fixedHourAnd15MinBlock end', fixedHourAnd15MinBlock);
       setDraftEvent((prev) => ({
         ...prev!,
         end: {
@@ -178,19 +172,27 @@ export const ClickableHoursOfTheDay = () => {
 
   const handleMouseUp = useCallback(() => {
     if (!draftEvent) return;
-
+    let endFixedPosition = draftEvent.end.fixedPositionY;
+    const eventHasMinimumWeight =
+      Math.abs(
+        draftEvent.end.fixedPositionY - draftEvent.start.fixedPositionY,
+      ) >= sizeOfEach15MinBlock;
+    if (!eventHasMinimumWeight) {
+      endFixedPosition = draftEvent.start.fixedPositionY + sizeOfEach15MinBlock;
+    }
     setEvents((prev) => [
       ...prev,
       {
         eventId: draftEvent.eventId,
         start: {
-          positionY: draftEvent.start.fixedPositionY,
+          positionY: draftEvent.start.positionY,
           fixedPositionY: draftEvent.start.fixedPositionY,
           block: draftEvent.start.block,
         },
         end: {
-          positionY: draftEvent.end.fixedPositionY,
-          fixedPositionY: draftEvent.end.fixedPositionY,
+          positionY: draftEvent.end.positionY,
+          fixedPositionY: endFixedPosition,
+          // fixedPositionY: draftEvent.end.fixedPositionY,
           block: draftEvent.end.block,
         },
       },
@@ -229,8 +231,8 @@ export const ClickableHoursOfTheDay = () => {
           key={event.eventId}
           className={styles.plannerEvent}
           style={{
-            top: `${event.start.positionY}px`,
-            height: `${event.end.positionY - event.start.positionY}px`,
+            top: `${event.start.fixedPositionY}px`,
+            height: `${event.end.fixedPositionY - event.start.fixedPositionY}px`,
           }}
           onClick={(e) => {
             e.stopPropagation();
