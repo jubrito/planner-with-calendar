@@ -123,8 +123,8 @@ export const ClickableHoursOfTheDay = () => {
         <div
           className={styles.plannerEvent}
           style={{
-            top: `${draftEvent.start.positionY}px`,
-            height: `${draftEvent.end.positionY - draftEvent.start.positionY}px`,
+            top: `${draftEvent.start.fixedPositionY}px`,
+            height: `${draftEvent.end.fixedPositionY - draftEvent.start.fixedPositionY}px`,
           }}
         />
       )}
