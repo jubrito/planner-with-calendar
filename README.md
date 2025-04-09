@@ -4,7 +4,7 @@
 - Check commits to see if other changes discarded are important
 - Add unique keys to maps
 - Check dead code to remove
-- Improve precision (calendar lines should include exactly that hour and that block. The hour works but the block precision is only right if you create an event a little bit smaller than the line)
+- should get the exact block or add a margin that considers the closest to the next block? (ex: if clicks almost on the next block, should the start be at the beggining of current block? because it looks like an error even though it is not)
 - Connect events created to specific day
   - How to change days but preserve events? State? Only with bd?
 - Check unused vars on types / consts / scss
