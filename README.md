@@ -1,9 +1,5 @@
 # Next steps (v1):
 
-Improvements:
-
-- check for memory leaks
-
 Quality
 
 - planner tests
