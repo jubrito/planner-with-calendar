@@ -7,9 +7,7 @@ import {
 } from '../../utils/calendar/constants';
 import {
   IntlDateTimeFormat2Digit,
-  IntlDateTimeFormatFull,
   IntlDateTimeFormatLong,
-  IntlDateTimeFormatMedium,
   IntlDateTimeFormatNarrow,
   IntlDateTimeFormatNumeric,
   IntlDateTimeFormatShort,
