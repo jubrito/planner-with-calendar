@@ -33,13 +33,6 @@ export type CalendarCellInfo = {
   year: DateConfig['year'];
 };
 
-export type IntlDateTimeFormatOptions =
-  | typeof IntlDateTimeFormatFull
-  | typeof IntlDateTimeFormatLong
-  | typeof IntlDateTimeFormatMedium
-  | typeof IntlDateTimeFormatShort
-  | undefined;
-
 export type IntlDateTypeWeekdayStyle =
   | typeof IntlDateTimeFormatLong
   | typeof IntlDateTimeFormatShort
