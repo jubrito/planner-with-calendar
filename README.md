@@ -7,7 +7,6 @@ Improvements:
 
 Style:
 
-- Check unused vars on types / consts / scss
 - use kebab case on scss search for camel case
 
 Quality
