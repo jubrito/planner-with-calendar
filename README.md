@@ -6,21 +6,21 @@ Quality
 
 Features
 
+- Show current hour of the day on a line on the planner
+  Event
+- Create event from calendar to plot on planner
+- Show the event details (title with no title and )
+- Edit events on click
 - Connect events created to specific day
   - How to change days but preserve events? State? Only with bd?
-- if two events happen at the same time, show side by side
-- show current hour of the day on a line on the planner
-- show the event details (title with no title and )
-- nice to have: show hours on the left of the event being created
-- display dynamically the hours of the event being created during creation
-  // https://www.npmjs.com/package/@fullcalendar/react
+- Display dynamically the hours of the event being created during creation
+- If two events happen at the same time, show side by side
+
+// https://www.npmjs.com/package/@fullcalendar/react
 
 # Future Steps:
 
 ## v1:
-
-- Create event from calendar to plot on planner
-- Edit events on click
 
 - Accessibility
 
@@ -49,10 +49,10 @@ Features
   > Text hover
   > Text searched highlight
   > Responsiveness
-  > Favicon
-  > Scrollbar
 
-- Adjust resize compact calendar to avoid titles breaking
+  - Adjust resize compact calendar to avoid titles breaking
+    > Favicon
+    > Scrollbar
 
 - Update README.md
 
