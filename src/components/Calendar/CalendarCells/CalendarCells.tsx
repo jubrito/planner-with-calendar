@@ -1,4 +1,4 @@
-import { numberOfDaysOfTheWeek } from '../../../utils/calendar/weeks';
+import { numberOfDaysOfTheWeek } from '../../../utils/calendar/constants';
 import styles from './_calendar-cells.module.scss';
 import { getCurrentMonthDays } from '../../../utils/calendar/utils';
 import { getPreviousMonthDaysOnCurrentMonth } from '../../../utils/calendar/utils';

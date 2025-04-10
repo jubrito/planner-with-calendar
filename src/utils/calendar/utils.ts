@@ -18,11 +18,8 @@ import {
   todayLabel,
 } from './constants';
 import { isToday } from '../checkers';
-import {
-  getWeekDayName,
-  getWeekDaysNames,
-  numberOfDaysOfTheWeek,
-} from './weeks';
+import { getWeekDayName, getWeekDaysNames } from './weeks';
+import { numberOfDaysOfTheWeek } from './constants';
 
 export const monthNameByIndex = (
   locale: LocaleLanguage,
