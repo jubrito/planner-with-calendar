@@ -11,16 +11,9 @@ export const isToday = (locale: LocaleLanguage, date: DateConfig['date']) => {
     getDay(date) === getDay(currentDate)
   );
 };
-export const isObject = (obj: unknown): obj is ObjectType => {
-  if (typeof obj != 'object' || obj === null || obj == null) return false;
-
-  // Ensure it is plain object, not subclass such ass Array and Date
-  const prototype = Object.getPrototypeOf(obj);
-  if (prototype !== Object.prototype) return false;
-
-  for (const key in obj) {
-    if (typeof key !== 'string') return false;
-  }
-
-  return true;
-};
+export const isObject = (obj: unknown): obj is ObjectType =>
+  typeof obj === 'object' &&
+  obj != null &&
+  !Array.isArray(obj) &&
+  (Object.getPrototypeOf(obj) === Object.prototype || // not an instance of a subclass such as array or date
+    Object.getPrototypeOf(obj) === null); // created with Object.create(null)
