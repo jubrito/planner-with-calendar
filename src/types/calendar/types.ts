@@ -33,8 +33,6 @@ export type CalendarCellInfo = {
   year: DateConfig['year'];
 };
 
-export type ObjectType = Record<string, unknown>;
-
 export type IntlDateTimeFormatOptions =
   | typeof IntlDateTimeFormatFull
   | typeof IntlDateTimeFormatLong

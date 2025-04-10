@@ -1,4 +1,5 @@
-import { DateConfig, ObjectType } from '../types/calendar/types';
+import { DateConfig } from '../types/calendar/types';
+import { ObjectType } from './constants';
 import { LocaleLanguage } from '../types/locale/types';
 import { getDay, getMonthIndex, getYear } from './calendar/utils';
 

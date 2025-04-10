@@ -1,4 +1,4 @@
-import { ObjectType } from '../types/calendar/types';
+import { ObjectType } from './constants';
 import { isObject } from './checkers';
 
 export const deepCopy = <T extends ObjectType>(element: T): T => {
