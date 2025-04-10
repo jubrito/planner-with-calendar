@@ -1,19 +1,12 @@
 import { CalendarCellInfo, DateConfig } from '../../types/calendar/types';
 import { getWeekDayName } from './weeks';
 import {
+  getLastDayOfPreviousMonth,
   getMonthIndex,
   getYear,
   numOfDaysFromOtherMonthOnCurrentCalendar,
 } from './utils';
 import { firstDayOfTheMonth } from './constants';
-
-export const getLastDayOfPreviousMonth = (
-  time: DateConfig['timeInMilliseconds'],
-): number => {
-  const tempDate = new Date(time);
-  tempDate.setDate(0);
-  return tempDate.getDate();
-};
 
 export const getPreviousMonthDaysOnCurrentMonth = (
   month: DateConfig['month'],

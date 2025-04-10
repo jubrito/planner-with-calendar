@@ -218,3 +218,10 @@ export const getNextMonthDaysOnCurrentMonth = (
   }
   return nextMonthDaysOnCurrentMonth;
 };
+export const getLastDayOfPreviousMonth = (
+  time: DateConfig['timeInMilliseconds'],
+): number => {
+  const tempDate = new Date(time);
+  tempDate.setDate(0);
+  return tempDate.getDate();
+};
