@@ -2,8 +2,6 @@
 
 Improvements:
 
-- Add unique keys to maps
-  - create unique ids to components with hoc
 - Check dead code to remove
 - should get the exact block or add a margin that considers the closest to the next block? (ex: if clicks almost on the next block, should the start be at the beggining of current block? because it looks like an error even though it is not)
 - check for memory leaks
