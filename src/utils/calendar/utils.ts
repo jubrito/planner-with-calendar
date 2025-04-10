@@ -1,5 +1,6 @@
 import { Months, WeekDays } from '../../types/calendar/enums';
 import {
+  CalendarCellInfo,
   DateConfig,
   IntlDateTypeMonthStyle,
   IntlDateTypeWeekdayStyle,
@@ -11,9 +12,17 @@ import {
   IntlDateTimeFormatLong,
   IntlDateTimeFormatNumeric,
 } from '../constants';
-import { numberOfHoursInADay, todayLabel } from './constants';
+import {
+  firstDayOfTheMonth,
+  numberOfHoursInADay,
+  todayLabel,
+} from './constants';
 import { isToday } from '../checkers';
-import { getWeekDaysNames } from './weeks';
+import {
+  getWeekDayName,
+  getWeekDaysNames,
+  numberOfDaysOfTheWeek,
+} from './weeks';
 
 export const monthNameByIndex = (
   locale: LocaleLanguage,
@@ -181,4 +190,31 @@ export const getCurrentMonthDays = (
     day: day + 1,
     year: year,
   }));
+};
+export const getNextMonthDaysOnCurrentMonth = (
+  month: DateConfig['month'],
+  year: DateConfig['year'],
+  monthNumberOfDays: DateConfig['monthNumberOfDays'],
+  locale: string,
+) => {
+  const nextMonthDaysOnCurrentMonth: CalendarCellInfo[] = [];
+  const weekDayNameWhenMonthEnds = getWeekDayName(
+    year,
+    month,
+    monthNumberOfDays,
+    locale,
+  );
+  const numberOfDaysOfNextMonth =
+    numberOfDaysOfTheWeek -
+    1 -
+    numOfDaysFromOtherMonthOnCurrentCalendar(weekDayNameWhenMonthEnds, locale);
+
+  for (let i = 0; i < numberOfDaysOfNextMonth; i++) {
+    nextMonthDaysOnCurrentMonth.push({
+      month: getMonthIndex(locale, new Date(year, month + 1)) + 1,
+      day: firstDayOfTheMonth + i,
+      year: getYear(new Date(year, month + 1)),
+    });
+  }
+  return nextMonthDaysOnCurrentMonth;
 };
