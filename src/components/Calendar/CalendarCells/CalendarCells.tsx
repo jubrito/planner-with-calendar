@@ -1,6 +1,6 @@
 import { numberOfDaysOfTheWeek } from '../../../utils/calendar/weeks';
 import styles from './_calendar-cells.module.scss';
-import { getCurrentMonthDays } from '../../../utils/calendar/current';
+import { getCurrentMonthDays } from '../../../utils/calendar/utils';
 import { getPreviousMonthDaysOnCurrentMonth } from '../../../utils/calendar/previous';
 import { getNextMonthDaysOnCurrentMonth } from '../../../utils/calendar/next';
 import { CalendarCellInfo } from '../../../types/calendar/types';
