@@ -1,8 +1,4 @@
 import {
-  endRelativePosition,
-  initialRelativePosition,
-} from '../../utils/calendar/constants';
-import {
   IntlDateTimeFormat2Digit,
   IntlDateTimeFormatLong,
   IntlDateTimeFormatNarrow,
@@ -41,20 +37,3 @@ export type IntlDateTypeMonthStyle =
   | typeof IntlDateTimeFormatNumeric
   | typeof IntlDateTimeFormat2Digit
   | undefined;
-
-export type RelativePosition = {
-  initial?: {
-    relativeX?: number;
-    relativeY?: number;
-    currentBlock?: number;
-  };
-  end?: {
-    relativeX?: number;
-    relativeY?: number;
-    currentBlock?: number;
-  };
-};
-
-export type RelativePositionOptions =
-  | typeof initialRelativePosition
-  | typeof endRelativePosition;
