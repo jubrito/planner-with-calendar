@@ -1,7 +1,5 @@
 # Next steps (v1):
 
-- Check commits to see if other changes discarded are important
-
 Improvements:
 
 - Add unique keys to maps
