@@ -10,9 +10,9 @@ export const HoursOfTheDay = ({ hoursOfTheDay }: HoursOfTheDayProps) => {
 
   return (
     <div className={styles.hourOfTheDay} ref={hourOfTheDaySpanRef}>
-      {hoursOfTheDay.map((hourOfTheDay) => {
+      {hoursOfTheDay.map((hourOfTheDay, index) => {
         return (
-          <div className={styles.container}>
+          <div className={styles.container} key={hourOfTheDay + index}>
             <span>{hourOfTheDay}</span>
             <hr className={styles.line} />
           </div>
