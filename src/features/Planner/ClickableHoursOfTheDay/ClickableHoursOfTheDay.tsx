@@ -4,6 +4,7 @@ import {
   fifteenMinBlocksInAHour,
   sizeOfEach15MinBlock,
 } from '../../../utils/calendar/constants';
+import { throttle } from 'throttle-debounce';
 
 type Block = {
   hourBlock: number;
@@ -77,6 +78,21 @@ export const ClickableHoursOfTheDay = () => {
     [draftEvent],
   );
 
+  const throttledMouseMoveRef = useRef(throttle(80, handleMouseMove));
+
+  useEffect(() => {
+    throttledMouseMoveRef.current = throttle(80, handleMouseMove);
+    return () => {
+      throttledMouseMoveRef.current.cancel();
+    };
+  }, [handleMouseMove]);
+
+  const handleThrottledMouseMove = (
+    event: React.MouseEvent<HTMLDivElement>,
+  ) => {
+    throttledMouseMoveRef.current(event);
+  };
+
   const handleMouseUp = useCallback(() => {
     if (!draftEvent) return;
     const endMinimumFixedPosition = getMinimumEventFixedPositionY(
@@ -115,7 +131,7 @@ export const ClickableHoursOfTheDay = () => {
       ref={containerRef}
       className={styles.clickableHourOfTheDay}
       onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
+      onMouseMove={handleThrottledMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseLeave}
     >
