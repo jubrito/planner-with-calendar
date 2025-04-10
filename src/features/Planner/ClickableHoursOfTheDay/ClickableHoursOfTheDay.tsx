@@ -152,10 +152,7 @@ export const ClickableHoursOfTheDay = () => {
             top: `${event.start.fixedPositionY}px`,
             height: `${event.end.fixedPositionY - event.start.fixedPositionY}px`,
           }}
-          onClick={(e) => {
-            e.stopPropagation();
-            handleEventClick(event);
-          }}
+          onClick={() => handleEventClick(event)}
         />
       ))}
     </div>
