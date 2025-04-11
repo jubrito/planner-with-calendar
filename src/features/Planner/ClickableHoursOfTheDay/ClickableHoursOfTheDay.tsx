@@ -17,7 +17,7 @@ import { Event } from './Event/Event';
 
 export type Block = {
   hour: number;
-  minute: number;
+  minutes: number;
   fifteenMinBlock: number;
 };
 
@@ -65,13 +65,13 @@ export const ClickableHoursOfTheDay = () => {
           positionY: relativeY,
           fixedPositionY: fixedHourAnd15MinBlock,
           block: startBlock,
-          date: new Date(year, month, day, startBlock.hour, startBlock.minute),
+          date: new Date(year, month, day, startBlock.hour, startBlock.minutes),
         },
         end: {
           positionY: relativeY,
           fixedPositionY: fixedHourAnd15MinBlock,
           block: endBlock,
-          date: new Date(year, month, day, endBlock.hour, endBlock.minute),
+          date: new Date(year, month, day, endBlock.hour, endBlock.minutes),
         },
       });
     },
@@ -94,7 +94,7 @@ export const ClickableHoursOfTheDay = () => {
           positionY: relativeY,
           fixedPositionY: fixedHourAnd15MinBlock,
           block: endBlock,
-          date: new Date(year, month, day, endBlock.hour, endBlock.minute),
+          date: new Date(year, month, day, endBlock.hour, endBlock.minutes),
         },
       }));
     },
@@ -138,7 +138,7 @@ export const ClickableHoursOfTheDay = () => {
             month,
             day,
             draftEvent.start.block.hour,
-            draftEvent.start.block.minute,
+            draftEvent.start.block.minutes,
           ),
         },
         end: {
@@ -150,7 +150,7 @@ export const ClickableHoursOfTheDay = () => {
             month,
             day,
             draftEvent.end.block.hour,
-            draftEvent.end.block.minute,
+            draftEvent.end.block.minutes,
           ),
         },
       },
@@ -287,7 +287,7 @@ const getStartBlock = (relativeY: number): Block => {
   const hour = Math.floor(floatHour);
   const rest = floatHour - hour;
   const fifteenMinBlock = getFifteenMinuteBlock(rest);
-  return { hour, fifteenMinBlock, minute: fifteenMinBlock * fifteenMinutes };
+  return { hour, fifteenMinBlock, minutes: fifteenMinBlock * fifteenMinutes };
 };
 
 /**
@@ -306,15 +306,15 @@ const getStartBlock = (relativeY: number): Block => {
  * @returns block for the end position
  */
 const getEndBlock = (block: Block) => {
-  const { fifteenMinBlock, hour, minute } = block;
+  const { fifteenMinBlock, hour, minutes: minute } = block;
   const fifteenMinBlockEnd = fifteenMinBlock + 1;
   const endMinute = minute + fifteenMinutes;
   const isFullHour = endMinute === 60;
   if (isFullHour)
-    return { hour: hour + 1, minute: 0, fifteenMinBlock: fifteenMinBlockEnd };
+    return { hour: hour + 1, minutes: 0, fifteenMinBlock: fifteenMinBlockEnd };
   return {
     hour,
-    minute: endMinute,
+    minutes: endMinute,
     fifteenMinBlock: fifteenMinBlockEnd,
   };
 };
