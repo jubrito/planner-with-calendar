@@ -13,7 +13,7 @@ import {
   getSelectedGlobalYear,
 } from '../../../redux/slices/dateSlice/selectors';
 import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
-import { DraftEvent } from './DraftEvent/DraftEvent';
+import { Event } from './Event/Event';
 
 export type Block = {
   hour: number;
@@ -172,7 +172,7 @@ export const ClickableHoursOfTheDay = () => {
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseLeave}
     >
-      {draftEvent && <DraftEvent draftEvent={draftEvent} />}
+      {draftEvent && <Event event={draftEvent} />}
       {events.map((event) => {
         const eventHeight =
           event.end.fixedPositionY - event.start.fixedPositionY;
