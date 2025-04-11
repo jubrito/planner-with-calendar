@@ -73,7 +73,7 @@ Features
 
 - Locale
   - Button to change language (+ tests) + html lang
-  - Update month names, getFullDateTitle, date order (+ tests)
+  - Update month names, getFullDateTitle, getHoursOfTheDay, date order (+ tests)
 - Timezones?
 
 ## v4
