@@ -13,16 +13,26 @@ type EventProps = {
 
 export const Event = ({ event, onClick }: EventProps) => {
   const eventHeight = event.end.fixedPositionY - event.start.fixedPositionY;
+  const isAtLeast30MinEvent = eventHeight >= sizeOfEach15MinBlock * 2;
   const isAtLeast45MinEvent = eventHeight >= sizeOfEach15MinBlock * 3;
+  const isAtLeast60MinEvent = eventHeight >= sizeOfEach15MinBlock * 4;
   const hasMinimumHeight = eventHeight >= sizeOfEach15MinBlock;
   const localeString = useSelector(getLocaleLanguage());
 
   const titleStyle = {
-    fontSize: isAtLeast45MinEvent ? '1em' : '0.5em',
+    fontSize: isAtLeast60MinEvent
+      ? '1em'
+      : isAtLeast30MinEvent
+        ? '0.7em'
+        : '0.5em',
     marginRight: isAtLeast45MinEvent ? 0 : '5px',
   };
   const timeStyle = {
-    fontSize: isAtLeast45MinEvent ? '0.7em' : '0.5em',
+    fontSize: isAtLeast60MinEvent
+      ? '0.8em'
+      : isAtLeast30MinEvent
+        ? '0.7em'
+        : '0.5em',
     marginTop: isAtLeast45MinEvent ? '5px' : 0,
   };
 
@@ -73,6 +83,7 @@ export const Event = ({ event, onClick }: EventProps) => {
           className={styles.plannerEventDetails}
           style={{
             flexDirection: isAtLeast45MinEvent ? 'column' : 'row',
+            marginTop: isAtLeast30MinEvent ? '5px' : '1px',
           }}
         >
           <span style={titleStyle}>{event.title}</span>
