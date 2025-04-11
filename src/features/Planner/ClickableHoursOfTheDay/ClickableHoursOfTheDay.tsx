@@ -25,7 +25,7 @@ export type TimeBlock = {
   positionY: number;
   fixedPositionY: number;
   block: Block;
-  date?: Date;
+  date: Date;
 };
 
 export type EventBlock = {
@@ -65,15 +65,17 @@ export const ClickableHoursOfTheDay = () => {
           positionY: relativeY,
           fixedPositionY: fixedHourAnd15MinBlock,
           block: startBlock,
+          date: new Date(year, month, day, startBlock.hour, startBlock.minute),
         },
         end: {
           positionY: relativeY,
           fixedPositionY: fixedHourAnd15MinBlock,
           block: endBlock,
+          date: new Date(year, month, day, endBlock.hour, endBlock.minute),
         },
       });
     },
-    [],
+    [day, month, year],
   );
 
   const handleMouseMove = useCallback(
@@ -92,10 +94,11 @@ export const ClickableHoursOfTheDay = () => {
           positionY: relativeY,
           fixedPositionY: fixedHourAnd15MinBlock,
           block: endBlock,
+          date: new Date(year, month, day, endBlock.hour, endBlock.minute),
         },
       }));
     },
-    [draftEvent],
+    [draftEvent, day, month, year],
   );
 
   const throttledMouseMoveRef = useRef(throttle(80, handleMouseMove));
