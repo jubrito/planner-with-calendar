@@ -55,6 +55,7 @@ export const ClickableHoursOfTheDay = () => {
       const startBlock = getStartBlock(relativeY);
       const endBlock = getEndBlock(startBlock);
       const fixedHourAnd15MinBlock = getFixedRelativeY(startBlock, 'start');
+
       setDraftEvent({
         eventId: `draft-${Date.now()}`,
         start: {
@@ -81,6 +82,7 @@ export const ClickableHoursOfTheDay = () => {
       const startBlock = getStartBlock(relativeY);
       const fixedHourAnd15MinBlock = getFixedRelativeY(startBlock, 'end');
       const endBlock = getEndBlock(startBlock);
+
       setDraftEvent((prev) => ({
         ...prev!,
         end: {
@@ -110,24 +112,11 @@ export const ClickableHoursOfTheDay = () => {
 
   const handleMouseUp = useCallback(() => {
     if (!draftEvent) return;
+
     const endMinimumFixedPosition = getMinimumEventFixedPositionY(
       draftEvent.start.fixedPositionY,
       draftEvent.end.fixedPositionY,
     );
-
-    const hour = {
-      start: draftEvent.start.block.hour,
-      end: draftEvent.end.block.hour,
-    };
-    const minute = {
-      start: draftEvent.start.block.minute,
-      end: draftEvent.end.block.minute,
-    };
-
-    const date = {
-      start: new Date(year, month, day, hour.start, minute.start),
-      end: new Date(year, month, day, hour.end, minute.end),
-    };
 
     setEvents((prev) => [
       ...prev,
@@ -137,13 +126,25 @@ export const ClickableHoursOfTheDay = () => {
           positionY: draftEvent.start.positionY,
           fixedPositionY: draftEvent.start.fixedPositionY,
           block: draftEvent.start.block,
-          date: date.start,
+          date: new Date(
+            year,
+            month,
+            day,
+            draftEvent.start.block.hour,
+            draftEvent.start.block.minute,
+          ),
         },
         end: {
           positionY: draftEvent.end.positionY,
           fixedPositionY: endMinimumFixedPosition,
           block: draftEvent.end.block,
-          date: date.end,
+          date: new Date(
+            year,
+            month,
+            day,
+            draftEvent.end.block.hour,
+            draftEvent.end.block.minute,
+          ),
         },
       },
     ]);
