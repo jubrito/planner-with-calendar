@@ -76,6 +76,7 @@ export const Event = ({ event, onClick }: EventProps) => {
 
   return (
     <div
+      id={event.eventId}
       key={event.eventId}
       className={styles.plannerEvent}
       style={eventStyle}

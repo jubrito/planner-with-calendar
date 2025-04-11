@@ -177,7 +177,11 @@ export const ClickableHoursOfTheDay = () => {
     >
       {draftEvent && <Event event={draftEvent} />}
       {events.map((event) => (
-        <Event event={event} onClick={() => handleEventClick(event)} />
+        <Event
+          key={event.eventId}
+          event={event}
+          onClick={() => handleEventClick(event)}
+        />
       ))}
     </div>
   );
