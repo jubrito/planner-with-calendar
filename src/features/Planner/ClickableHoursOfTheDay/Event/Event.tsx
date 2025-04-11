@@ -39,6 +39,9 @@ export const Event = ({ event, onClick }: EventProps) => {
     top: `${event.start.fixedPositionY}px`,
     height: `${eventHeight}px`,
   };
+  const eventDetailsStyle = {
+    marginTop: isAtLeast30MinEvent ? '5px' : '1px',
+  };
 
   const getEventTime = () => {
     let startPeriod = '';
@@ -83,8 +86,8 @@ export const Event = ({ event, onClick }: EventProps) => {
         <div
           className={styles.plannerEventDetails}
           style={{
+            ...eventDetailsStyle,
             flexDirection: isAtLeast45MinEvent ? 'column' : 'row',
-            marginTop: isAtLeast30MinEvent ? '5px' : '1px',
           }}
         >
           <span style={titleStyle}>{event.title}</span>
