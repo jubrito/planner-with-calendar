@@ -3,7 +3,7 @@
 .clickableHourOfTheDay {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: calc(100% - 82px);
   z-index: 800;
   height: variables.$planner-hours-height;
   position: relative;
