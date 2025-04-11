@@ -1,0 +1,35 @@
+@use '../../../../styles/variables' as variables;
+
+.plannerEvent {
+  position: absolute;
+  content: '';
+  width: 100%;
+  left: 0;
+  background: variables.$blue-yonder-color;
+  z-index: 801;
+  font-size: 2vw;
+
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
+
+  .plannerEventDetails {
+    display: flex;
+    margin-left: 5px;
+
+    span {
+      line-height: 1;
+      vertical-align: top;
+      color: white;
+      font-size: 0.5em;
+
+      &:first-of-type {
+        font-weight: bold;
+      }
+    }
+  }
+}

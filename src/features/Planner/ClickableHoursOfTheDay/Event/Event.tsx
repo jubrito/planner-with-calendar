@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { sizeOfEach15MinBlock } from '../../../../utils/calendar/constants';
 import { getFormatedDateString } from '../../../../utils/calendar/utils';
-import styles from '../clickable-hours-of-the-day.module.scss';
+import styles from './event.module.scss';
 import { EventBlock } from '../ClickableHoursOfTheDay';
 import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
 import { IntlDateTimeFormat2Digit } from '../../../../utils/constants';
