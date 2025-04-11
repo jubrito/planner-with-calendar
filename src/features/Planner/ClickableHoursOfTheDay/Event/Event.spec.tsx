@@ -1,3 +1,4 @@
+import userEvent from '@testing-library/user-event';
 import { Months } from '../../../../types/calendar/enums';
 import { renderWithProviders } from '../../../../utils/tests/renderWithProviders';
 import { EventBlock } from '../ClickableHoursOfTheDay';
@@ -33,8 +34,21 @@ describe('Event', () => {
       },
     },
   };
+
   it('should render event title', () => {
     renderWithProviders(<Event event={event} />);
     expect(screen.getByText(event.title)).toBeInTheDocument();
+  });
+
+  it('should call event on click if provided', async () => {
+    const onClickMock = jest.fn();
+    const { container } = renderWithProviders(
+      <Event event={event} onClick={onClickMock} />,
+    );
+    const eventElement = container.firstElementChild;
+    if (eventElement) {
+      await userEvent.click(eventElement);
+    }
+    expect(onClickMock).toHaveBeenCalled();
   });
 });
