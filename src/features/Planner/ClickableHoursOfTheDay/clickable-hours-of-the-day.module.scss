@@ -16,5 +16,13 @@
     left: 0;
     background: variables.$blue-yonder-color;
     z-index: 801;
+    font-size: 2vw;
+
+    span {
+      line-height: 1;
+      vertical-align: top;
+      color: white;
+      font-size: 0.5em;
+    }
   }
 }

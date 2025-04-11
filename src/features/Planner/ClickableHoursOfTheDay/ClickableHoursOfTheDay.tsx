@@ -13,24 +13,26 @@ import {
   getSelectedGlobalYear,
 } from '../../../redux/slices/dateSlice/selectors';
 import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
+import { DraftEvent } from './DraftEvent/DraftEvent';
 
-type Block = {
+export type Block = {
   hour: number;
   minute: number;
   fifteenMinBlock: number;
 };
 
-type TimeBlock = {
+export type TimeBlock = {
   positionY: number;
   fixedPositionY: number;
   block: Block;
   date?: Date;
 };
 
-type EventBlock = {
+export type EventBlock = {
   eventId: string;
   start: TimeBlock;
   end: TimeBlock;
+  title: string;
 };
 
 export const ClickableHoursOfTheDay = () => {
@@ -57,6 +59,7 @@ export const ClickableHoursOfTheDay = () => {
       const fixedHourAnd15MinBlock = getFixedRelativeY(startBlock, 'start');
 
       setDraftEvent({
+        title: '(No title)',
         eventId: `draft-${Date.now()}`,
         start: {
           positionY: relativeY,
@@ -121,6 +124,7 @@ export const ClickableHoursOfTheDay = () => {
     setEvents((prev) => [
       ...prev,
       {
+        title: draftEvent.title,
         eventId: draftEvent.eventId,
         start: {
           positionY: draftEvent.start.positionY,
@@ -168,27 +172,32 @@ export const ClickableHoursOfTheDay = () => {
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseLeave}
     >
-      {draftEvent && (
-        <div
-          className={styles.plannerEvent}
-          style={{
-            top: `${draftEvent.start.fixedPositionY}px`,
-            height: `${draftEvent.end.fixedPositionY - draftEvent.start.fixedPositionY}px`,
-          }}
-        />
-      )}
-      {events.map((event) => (
-        <div
-          key={event.eventId}
-          className={styles.plannerEvent}
-          style={{
-            top: `${event.start.fixedPositionY}px`,
-            height: `${event.end.fixedPositionY - event.start.fixedPositionY}px`,
-          }}
-          onClick={() => handleEventClick(event)}
-          onMouseDown={(e) => e.stopPropagation()}
-        />
-      ))}
+      {draftEvent && <DraftEvent draftEvent={draftEvent} />}
+      {events.map((event) => {
+        const eventHeight =
+          event.end.fixedPositionY - event.start.fixedPositionY;
+        return (
+          <div
+            key={event.eventId}
+            className={styles.plannerEvent}
+            style={{
+              top: `${event.start.fixedPositionY}px`,
+              height: `${eventHeight}px`,
+            }}
+            onClick={() => handleEventClick(event)}
+            onMouseDown={(e) => e.stopPropagation()}
+          >
+            <span
+              style={{
+                fontSize:
+                  eventHeight === sizeOfEach15MinBlock ? '0.5em' : '1em',
+              }}
+            >
+              {event.title}
+            </span>
+          </div>
+        );
+      })}
     </div>
   );
 };
