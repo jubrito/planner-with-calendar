@@ -16,34 +16,6 @@ export const Event = ({ event, onClick }: EventProps) => {
   const isAtLeast45MinEvent = eventHeight >= sizeOfEach15MinBlock * 3;
   const hasMinimumHeight = eventHeight >= sizeOfEach15MinBlock;
   const localeString = useSelector(getLocaleLanguage());
-  let startHour = getFormatedDateString(localeString, event.start.date, {
-    hour: IntlDateTimeFormat2Digit,
-  });
-  let startPeriod = '';
-  let endPeriod = '';
-  if (startHour.includes('AM') || startHour.includes('PM')) {
-    const [hour, period] = startHour.split(' ');
-    startHour = hour;
-    startPeriod = ' ' + period;
-  }
-  let endHour = getFormatedDateString(localeString, event.end.date, {
-    hour: IntlDateTimeFormat2Digit,
-  });
-  if (endHour.includes('AM') || endHour.includes('PM')) {
-    const [hour, period] = endHour.split(' ');
-    endHour = hour;
-    endPeriod = ' ' + period;
-  }
-  if (startPeriod === endPeriod) {
-    startPeriod = '';
-  }
-  const startMinutes = getFormatedDateString(localeString, event.start.date, {
-    minute: IntlDateTimeFormat2Digit,
-  });
-  const endMinutes = getFormatedDateString(localeString, event.end.date, {
-    minute: IntlDateTimeFormat2Digit,
-  });
-  const eventTime = `${startHour}:${startMinutes}${startPeriod} – ${endHour}:${endMinutes}${endPeriod}`;
 
   const titleStyle = {
     fontSize: isAtLeast45MinEvent ? '1em' : '0.5em',
@@ -53,10 +25,37 @@ export const Event = ({ event, onClick }: EventProps) => {
     fontSize: isAtLeast45MinEvent ? '0.7em' : '0.5em',
     marginTop: isAtLeast45MinEvent ? '5px' : 0,
   };
-  console.log('startHour', startHour);
-  console.log('startMinutes', startMinutes);
-  console.log('endHour', endHour);
-  console.log('endMinutes', endMinutes);
+
+  const getEventTime = () => {
+    let startPeriod = '';
+    let endPeriod = '';
+    let startHour = getFormatedDateString(localeString, event.start.date, {
+      hour: IntlDateTimeFormat2Digit,
+    });
+    let endHour = getFormatedDateString(localeString, event.end.date, {
+      hour: IntlDateTimeFormat2Digit,
+    });
+    if (startHour.includes('AM') || startHour.includes('PM')) {
+      const [hour, period] = startHour.split(' ');
+      startHour = hour;
+      startPeriod = ' ' + period;
+    }
+    if (endHour.includes('AM') || endHour.includes('PM')) {
+      const [hour, period] = endHour.split(' ');
+      endHour = hour;
+      endPeriod = ' ' + period;
+    }
+    if (startPeriod === endPeriod) {
+      startPeriod = '';
+    }
+    const startMinutes = getFormatedDateString(localeString, event.start.date, {
+      minute: IntlDateTimeFormat2Digit,
+    });
+    const endMinutes = getFormatedDateString(localeString, event.end.date, {
+      minute: IntlDateTimeFormat2Digit,
+    });
+    return `${startHour}:${startMinutes}${startPeriod} – ${endHour}:${endMinutes}${endPeriod}`;
+  };
 
   return (
     <div
@@ -77,7 +76,7 @@ export const Event = ({ event, onClick }: EventProps) => {
           }}
         >
           <span style={titleStyle}>{event.title}</span>
-          <span style={timeStyle}>{eventTime}</span>
+          <span style={timeStyle}>{getEventTime()}</span>
         </div>
       )}
     </div>
