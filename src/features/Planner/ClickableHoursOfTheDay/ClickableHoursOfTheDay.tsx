@@ -128,7 +128,7 @@ export const ClickableHoursOfTheDay = () => {
       ...prev,
       {
         title: draftEvent.title,
-        eventId: draftEvent.eventId,
+        eventId: draftEvent.eventId.replace('draft', 'event'),
         start: {
           positionY: draftEvent.start.positionY,
           fixedPositionY: draftEvent.start.fixedPositionY,
