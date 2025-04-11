@@ -54,7 +54,7 @@ describe('Hours of the day', () => {
     });
     expect(screen.getAllByText(midnight).length).toBe(2);
   });
-  it('should render hours of the day in pt-br', () => {
+  it('should render hours using 24-hour notation when locale is pt-br', () => {
     renderWithProviders(<HoursOfTheDay />, {
       preloadedState: getPreloadedState('pt-br'),
     });
