@@ -23,16 +23,16 @@ export const Event = ({ event, onClick }: EventProps) => {
     fontSize: isAtLeast60MinEvent
       ? '1em'
       : isAtLeast30MinEvent
-        ? '0.7em'
-        : '0.5em',
+        ? '15px'
+        : '10px',
     marginRight: isAtLeast45MinEvent ? 0 : '5px',
   };
   const timeStyle = {
     fontSize: isAtLeast60MinEvent
       ? '0.8em'
       : isAtLeast30MinEvent
-        ? '0.7em'
-        : '0.5em',
+        ? '15px'
+        : '10px',
     marginTop: isAtLeast45MinEvent ? '5px' : 0,
   };
   const eventStyle = {
