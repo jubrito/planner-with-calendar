@@ -1,7 +1,5 @@
 # Next steps (v1):
 
-- increase size spans when 30min event
-
 Quality
 
 - planner tests
