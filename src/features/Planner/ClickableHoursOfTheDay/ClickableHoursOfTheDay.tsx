@@ -52,24 +52,20 @@ export const ClickableHoursOfTheDay = () => {
 
       const rect = containerRef.current.getBoundingClientRect();
       const relativeY = event.clientY - rect.top;
-      const block = getHourAnd15MinBlock(relativeY);
-      const fixedHourAnd15MinBlock = getFixedRelativeY(block, 'start');
-
+      const startBlock = getHourAnd15MinBlockStart(relativeY);
+      const endBlock = getHourAnd15MinBlockEnd(startBlock);
+      const fixedHourAnd15MinBlock = getFixedRelativeY(startBlock, 'start');
       setDraftEvent({
         eventId: `draft-${Date.now()}`,
         start: {
           positionY: relativeY,
           fixedPositionY: fixedHourAnd15MinBlock,
-          block,
+          block: startBlock,
         },
         end: {
           positionY: relativeY,
           fixedPositionY: fixedHourAnd15MinBlock,
-          block: {
-            ...block,
-            fifteenMinBlock: block.fifteenMinBlock + 1,
-            minute: block.minute + fifteenMinutes,
-          },
+          block: endBlock,
         },
       });
     },
@@ -82,18 +78,15 @@ export const ClickableHoursOfTheDay = () => {
 
       const rect = containerRef.current.getBoundingClientRect();
       const relativeY = event.clientY - rect.top;
-      const block = getHourAnd15MinBlock(relativeY);
-      const fixedHourAnd15MinBlock = getFixedRelativeY(block, 'end');
+      const startBlock = getHourAnd15MinBlockStart(relativeY);
+      const fixedHourAnd15MinBlock = getFixedRelativeY(startBlock, 'end');
+      const endBlock = getHourAnd15MinBlockEnd(startBlock);
       setDraftEvent((prev) => ({
         ...prev!,
         end: {
           positionY: relativeY,
           fixedPositionY: fixedHourAnd15MinBlock,
-          block: {
-            ...block,
-            fifteenMinBlock: block.fifteenMinBlock + 1,
-            minute: block.minute + fifteenMinutes,
-          },
+          block: endBlock,
         },
       }));
     },
@@ -127,8 +120,8 @@ export const ClickableHoursOfTheDay = () => {
       end: draftEvent.end.block.hour,
     };
     const minute = {
-      start: draftEvent.start.block.fifteenMinBlock * fifteenMinutes,
-      end: draftEvent.end.block.fifteenMinBlock * fifteenMinutes,
+      start: draftEvent.start.block.minute,
+      end: draftEvent.end.block.minute,
     };
 
     const date = {
@@ -298,10 +291,24 @@ const getFifteenMinuteBlock = (rest: number) => {
  * be 0.98, which means the actual hour is the integer 0. The rest is
  * used to calculate the fifteen minute block on getFifteenMinuteBlock()
  */
-const getHourAnd15MinBlock = (relativeY: number): Block => {
+const getHourAnd15MinBlockStart = (relativeY: number): Block => {
   const floatHour = relativeY / sizeOfEach15MinBlock / fifteenMinBlocksInAHour;
   const hour = Math.floor(floatHour);
   const rest = floatHour - hour;
   const fifteenMinBlock = getFifteenMinuteBlock(rest);
   return { hour, fifteenMinBlock, minute: fifteenMinBlock * fifteenMinutes };
+};
+
+const getHourAnd15MinBlockEnd = (block: Block) => {
+  const { fifteenMinBlock, hour, minute } = block;
+  const fifteenMinBlockEnd = fifteenMinBlock + 1;
+  const endMinute = minute + fifteenMinutes;
+  const isFullHour = endMinute === 60;
+  if (isFullHour)
+    return { hour: hour + 1, minute: 0, fifteenMinBlock: fifteenMinBlockEnd }; // get next hour a
+  return {
+    hour,
+    minute: endMinute,
+    fifteenMinBlock: fifteenMinBlockEnd,
+  }; // get the minutes end
 };
