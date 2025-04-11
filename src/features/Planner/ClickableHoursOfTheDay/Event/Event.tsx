@@ -29,6 +29,15 @@ export const Event = ({ event, onClick }: EventProps) => {
     minute: IntlDateTimeFormat2Digit,
   });
   const eventTime = `${startHour}:${startMinutes} – ${endHour}:${endMinutes}`;
+
+  const titleStyle = {
+    fontSize: isAtLeast45MinEvent ? '1em' : '0.5em',
+    marginRight: isAtLeast45MinEvent ? 0 : '5px',
+  };
+  const timeStyle = {
+    fontSize: isAtLeast45MinEvent ? '0.7em' : '0.5em',
+    marginTop: isAtLeast45MinEvent ? '5px' : 0,
+  };
   console.log('startHour', startHour);
   console.log('startMinutes', startMinutes);
   console.log('endHour', endHour);
@@ -52,22 +61,8 @@ export const Event = ({ event, onClick }: EventProps) => {
             flexDirection: isAtLeast45MinEvent ? 'column' : 'row',
           }}
         >
-          <span
-            style={{
-              fontSize: isAtLeast45MinEvent ? '1em' : '0.5em',
-              marginRight: isAtLeast45MinEvent ? 0 : '5px',
-            }}
-          >
-            {event.title}
-          </span>
-          <span
-            style={{
-              fontSize: isAtLeast45MinEvent ? '0.7em' : '0.5em',
-              marginTop: isAtLeast45MinEvent ? '5px' : 0,
-            }}
-          >
-            {eventTime}
-          </span>
+          <span style={titleStyle}>{event.title}</span>
+          <span style={timeStyle}>{eventTime}</span>
         </div>
       )}
     </div>
