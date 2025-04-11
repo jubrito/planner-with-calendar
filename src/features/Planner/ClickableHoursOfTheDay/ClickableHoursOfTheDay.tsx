@@ -15,6 +15,7 @@ type TimeBlock = {
   positionY: number;
   fixedPositionY: number;
   block: Block;
+  hour?: number;
 };
 
 type EventBlock = {
@@ -99,6 +100,7 @@ export const ClickableHoursOfTheDay = () => {
       draftEvent.start.fixedPositionY,
       draftEvent.end.fixedPositionY,
     );
+
     setEvents((prev) => [
       ...prev,
       {
@@ -153,6 +155,7 @@ export const ClickableHoursOfTheDay = () => {
             height: `${event.end.fixedPositionY - event.start.fixedPositionY}px`,
           }}
           onClick={() => handleEventClick(event)}
+          onMouseDown={(e) => e.stopPropagation()}
         />
       ))}
     </div>
