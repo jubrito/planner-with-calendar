@@ -3,6 +3,9 @@
 Quality
 
 - planner tests
+- hours of the day tests
+- clickable hours of the day tests
+- event tests
 
 Features
 
