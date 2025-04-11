@@ -173,31 +173,9 @@ export const ClickableHoursOfTheDay = () => {
       onMouseLeave={handleMouseLeave}
     >
       {draftEvent && <Event event={draftEvent} />}
-      {events.map((event) => {
-        const eventHeight =
-          event.end.fixedPositionY - event.start.fixedPositionY;
-        return (
-          <div
-            key={event.eventId}
-            className={styles.plannerEvent}
-            style={{
-              top: `${event.start.fixedPositionY}px`,
-              height: `${eventHeight}px`,
-            }}
-            onClick={() => handleEventClick(event)}
-            onMouseDown={(e) => e.stopPropagation()}
-          >
-            <span
-              style={{
-                fontSize:
-                  eventHeight === sizeOfEach15MinBlock ? '0.5em' : '1em',
-              }}
-            >
-              {event.title}
-            </span>
-          </div>
-        );
-      })}
+      {events.map((event) => (
+        <Event event={event} onClick={() => handleEventClick(event)} />
+      ))}
     </div>
   );
 };

@@ -4,17 +4,21 @@ import { EventBlock } from '../ClickableHoursOfTheDay';
 
 type EventProps = {
   event: EventBlock;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
 };
 
-export const Event = ({ event }: EventProps) => {
+export const Event = ({ event, onClick }: EventProps) => {
   const eventHeight = event.end.fixedPositionY - event.start.fixedPositionY;
   return (
     <div
+      key={event.eventId}
       className={styles.plannerEvent}
       style={{
         top: `${event.start.fixedPositionY}px`,
         height: `${eventHeight}px`,
       }}
+      onClick={onClick}
+      onMouseDown={(e) => e.stopPropagation()}
     >
       <span
         style={{
