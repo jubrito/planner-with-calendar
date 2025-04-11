@@ -1,11 +1,21 @@
 import { useRef } from 'react';
 import styles from './_hours-of-the-day.module.scss';
+import { getHoursOfTheDay } from '../../../utils/calendar/utils';
+import { useSelector } from 'react-redux';
+import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
+import {
+  getSelectedDayViewDay,
+  getSelectedDayViewMonth,
+  getSelectedDayViewYear,
+} from '../../../redux/slices/dateSlice/selectors';
 
-type HoursOfTheDayProps = {
-  hoursOfTheDay: string[];
-};
+export const HoursOfTheDay = () => {
+  const locale = useSelector(getLocaleLanguage());
+  const year = useSelector(getSelectedDayViewYear());
+  const day = useSelector(getSelectedDayViewDay());
+  const monthIndex = useSelector(getSelectedDayViewMonth(locale));
+  const hoursOfTheDay = getHoursOfTheDay(locale, year, monthIndex, day);
 
-export const HoursOfTheDay = ({ hoursOfTheDay }: HoursOfTheDayProps) => {
   const hourOfTheDaySpanRef = useRef<HTMLDivElement>(null);
 
   return (
