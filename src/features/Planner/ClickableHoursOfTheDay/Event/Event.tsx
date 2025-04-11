@@ -35,6 +35,10 @@ export const Event = ({ event, onClick }: EventProps) => {
         : '0.5em',
     marginTop: isAtLeast45MinEvent ? '5px' : 0,
   };
+  const eventStyle = {
+    top: `${event.start.fixedPositionY}px`,
+    height: `${eventHeight}px`,
+  };
 
   const getEventTime = () => {
     let startPeriod = '';
@@ -71,10 +75,7 @@ export const Event = ({ event, onClick }: EventProps) => {
     <div
       key={event.eventId}
       className={styles.plannerEvent}
-      style={{
-        top: `${event.start.fixedPositionY}px`,
-        height: `${eventHeight}px`,
-      }}
+      style={eventStyle}
       onClick={onClick}
       onMouseDown={(e) => e.stopPropagation()}
     >
