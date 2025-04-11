@@ -2,9 +2,17 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 import styles from './clickable-hours-of-the-day.module.scss';
 import {
   fifteenMinBlocksInAHour,
+  fifteenMinutes,
   sizeOfEach15MinBlock,
 } from '../../../utils/calendar/constants';
 import { throttle } from 'throttle-debounce';
+import { useSelector } from 'react-redux';
+import {
+  getSelectedGlobalDay,
+  getSelectedGlobalMonth,
+  getSelectedGlobalYear,
+} from '../../../redux/slices/dateSlice/selectors';
+import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
 
 type Block = {
   hourBlock: number;
@@ -15,7 +23,7 @@ type TimeBlock = {
   positionY: number;
   fixedPositionY: number;
   block: Block;
-  hour?: number;
+  date?: Date;
 };
 
 type EventBlock = {
@@ -28,6 +36,10 @@ export const ClickableHoursOfTheDay = () => {
   const [draftEvent, setDraftEvent] = useState<EventBlock | null>(null);
   const [events, setEvents] = useState<EventBlock[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
+  const localeString = useSelector(getLocaleLanguage());
+  const year = useSelector(getSelectedGlobalYear());
+  const month = useSelector(getSelectedGlobalMonth(localeString));
+  const day = useSelector(getSelectedGlobalDay());
 
   useEffect(() => {
     console.log('events', events);
@@ -52,7 +64,10 @@ export const ClickableHoursOfTheDay = () => {
         end: {
           positionY: relativeY,
           fixedPositionY: fixedHourAnd15MinBlock,
-          block,
+          block: {
+            ...block,
+            fifteenMinBlock: block.fifteenMinBlock + 1, // start of next fifteen min block
+          },
         },
       });
     },
@@ -72,7 +87,10 @@ export const ClickableHoursOfTheDay = () => {
         end: {
           positionY: relativeY,
           fixedPositionY: fixedHourAnd15MinBlock,
-          block,
+          block: {
+            ...block,
+            fifteenMinBlock: block.fifteenMinBlock + 1, // start of next fifteen min block
+          },
         },
       }));
     },
@@ -101,6 +119,19 @@ export const ClickableHoursOfTheDay = () => {
       draftEvent.end.fixedPositionY,
     );
 
+    const hour = {
+      start: draftEvent.start.block.hourBlock,
+      end: draftEvent.end.block.hourBlock,
+    };
+    const minute = {
+      start: draftEvent.start.block.fifteenMinBlock * fifteenMinutes,
+      end: draftEvent.end.block.fifteenMinBlock * fifteenMinutes,
+    };
+    const date = {
+      start: new Date(year, month, day, hour.start, minute.start),
+      end: new Date(year, month, day, hour.end, minute.end),
+    };
+
     setEvents((prev) => [
       ...prev,
       {
@@ -109,16 +140,18 @@ export const ClickableHoursOfTheDay = () => {
           positionY: draftEvent.start.positionY,
           fixedPositionY: draftEvent.start.fixedPositionY,
           block: draftEvent.start.block,
+          date: date.start,
         },
         end: {
           positionY: draftEvent.end.positionY,
           fixedPositionY: endMinimumFixedPosition,
           block: draftEvent.end.block,
+          date: date.end,
         },
       },
     ]);
     setDraftEvent(null);
-  }, [draftEvent]);
+  }, [draftEvent, year, month, day]);
 
   const handleMouseLeave = useCallback(() => {
     setDraftEvent(null);
