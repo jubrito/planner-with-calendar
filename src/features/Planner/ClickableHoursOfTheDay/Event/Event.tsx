@@ -9,6 +9,7 @@ type EventProps = {
 
 export const Event = ({ event, onClick }: EventProps) => {
   const eventHeight = event.end.fixedPositionY - event.start.fixedPositionY;
+  const hasMinimumHeight = eventHeight >= sizeOfEach15MinBlock;
   return (
     <div
       key={event.eventId}
@@ -25,7 +26,7 @@ export const Event = ({ event, onClick }: EventProps) => {
           fontSize: eventHeight === sizeOfEach15MinBlock ? '0.5em' : '1em',
         }}
       >
-        {event.title}
+        {hasMinimumHeight && event.title}
       </span>
     </div>
   );
