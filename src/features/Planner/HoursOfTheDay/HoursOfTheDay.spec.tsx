@@ -19,7 +19,7 @@ describe('Hours of the day', () => {
     },
   });
 
-  it('should render hours of the day in english', () => {
+  it('should render AM/PM hours of the day when locale is english', () => {
     renderWithProviders(<HoursOfTheDay />, {
       preloadedState: getPreloadedState('en-US'),
     });
