@@ -52,8 +52,8 @@ export const ClickableHoursOfTheDay = () => {
 
       const rect = containerRef.current.getBoundingClientRect();
       const relativeY = event.clientY - rect.top;
-      const startBlock = getHourAnd15MinBlockStart(relativeY);
-      const endBlock = getHourAnd15MinBlockEnd(startBlock);
+      const startBlock = getStartBlock(relativeY);
+      const endBlock = getEndBlock(startBlock);
       const fixedHourAnd15MinBlock = getFixedRelativeY(startBlock, 'start');
       setDraftEvent({
         eventId: `draft-${Date.now()}`,
@@ -78,9 +78,9 @@ export const ClickableHoursOfTheDay = () => {
 
       const rect = containerRef.current.getBoundingClientRect();
       const relativeY = event.clientY - rect.top;
-      const startBlock = getHourAnd15MinBlockStart(relativeY);
+      const startBlock = getStartBlock(relativeY);
       const fixedHourAnd15MinBlock = getFixedRelativeY(startBlock, 'end');
-      const endBlock = getHourAnd15MinBlockEnd(startBlock);
+      const endBlock = getEndBlock(startBlock);
       setDraftEvent((prev) => ({
         ...prev!,
         end: {
@@ -291,7 +291,7 @@ const getFifteenMinuteBlock = (rest: number) => {
  * be 0.98, which means the actual hour is the integer 0. The rest is
  * used to calculate the fifteen minute block on getFifteenMinuteBlock()
  */
-const getHourAnd15MinBlockStart = (relativeY: number): Block => {
+const getStartBlock = (relativeY: number): Block => {
   const floatHour = relativeY / sizeOfEach15MinBlock / fifteenMinBlocksInAHour;
   const hour = Math.floor(floatHour);
   const rest = floatHour - hour;
@@ -299,16 +299,31 @@ const getHourAnd15MinBlockStart = (relativeY: number): Block => {
   return { hour, fifteenMinBlock, minute: fifteenMinBlock * fifteenMinutes };
 };
 
-const getHourAnd15MinBlockEnd = (block: Block) => {
+/**
+ * Function to get the block values for the end of the event
+ *
+ * The fifteenMinuteBlock of the end should be the end of the current
+ * fifteen minute block (so fifteenMinuteBlock + 1)
+ *
+ * The minute of the end should be the current minute + 15 minutes
+ * (as we only store values of 15 minutes)
+ *
+ * If minute is 60 it means it is a whole hour, so minute should be 0
+ * and we need the next hour
+ *
+ * @param block
+ * @returns block for the end position
+ */
+const getEndBlock = (block: Block) => {
   const { fifteenMinBlock, hour, minute } = block;
   const fifteenMinBlockEnd = fifteenMinBlock + 1;
   const endMinute = minute + fifteenMinutes;
   const isFullHour = endMinute === 60;
   if (isFullHour)
-    return { hour: hour + 1, minute: 0, fifteenMinBlock: fifteenMinBlockEnd }; // get next hour a
+    return { hour: hour + 1, minute: 0, fifteenMinBlock: fifteenMinBlockEnd };
   return {
     hour,
     minute: endMinute,
     fifteenMinBlock: fifteenMinBlockEnd,
-  }; // get the minutes end
+  };
 };
