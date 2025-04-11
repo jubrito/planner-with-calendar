@@ -11,9 +11,10 @@ export const HoursOfTheDay = ({ hoursOfTheDay }: HoursOfTheDayProps) => {
   return (
     <div className={styles.hourOfTheDay} ref={hourOfTheDaySpanRef}>
       {hoursOfTheDay.map((hourOfTheDay, index) => {
+        const id = (hourOfTheDay + index).toString().replace(' ', '');
         return (
-          <div className={styles.container} key={hourOfTheDay + index}>
-            <span>{hourOfTheDay}</span>
+          <div className={styles.container} key={id}>
+            <span id={id}>{hourOfTheDay}</span>
             <hr className={styles.line} />
           </div>
         );
