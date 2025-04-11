@@ -15,7 +15,8 @@ import {
 import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
 
 type Block = {
-  hourBlock: number;
+  hour: number;
+  minute: number;
   fifteenMinBlock: number;
 };
 
@@ -66,7 +67,8 @@ export const ClickableHoursOfTheDay = () => {
           fixedPositionY: fixedHourAnd15MinBlock,
           block: {
             ...block,
-            fifteenMinBlock: block.fifteenMinBlock + 1, // start of next fifteen min block
+            fifteenMinBlock: block.fifteenMinBlock + 1,
+            minute: block.minute + fifteenMinutes,
           },
         },
       });
@@ -89,7 +91,8 @@ export const ClickableHoursOfTheDay = () => {
           fixedPositionY: fixedHourAnd15MinBlock,
           block: {
             ...block,
-            fifteenMinBlock: block.fifteenMinBlock + 1, // start of next fifteen min block
+            fifteenMinBlock: block.fifteenMinBlock + 1,
+            minute: block.minute + fifteenMinutes,
           },
         },
       }));
@@ -120,13 +123,14 @@ export const ClickableHoursOfTheDay = () => {
     );
 
     const hour = {
-      start: draftEvent.start.block.hourBlock,
-      end: draftEvent.end.block.hourBlock,
+      start: draftEvent.start.block.hour,
+      end: draftEvent.end.block.hour,
     };
     const minute = {
       start: draftEvent.start.block.fifteenMinBlock * fifteenMinutes,
       end: draftEvent.end.block.fifteenMinBlock * fifteenMinutes,
     };
+
     const date = {
       start: new Date(year, month, day, hour.start, minute.start),
       end: new Date(year, month, day, hour.end, minute.end),
@@ -212,7 +216,7 @@ const getMinimumEventFixedPositionY = (
  * Function to get a fixed position of the event
  *
  * Instead of creating events with the exact position that was selected,
- * if endOrStartOf15MinBlock is start, it gets the beggining of the hourBlock
+ * if endOrStartOf15MinBlock is start, it gets the beggining of the hour
  * based on the fifteenMinBlock
  *
  * Example: If hour is 0 and block is 1, and we want to get the relative fixed
@@ -220,7 +224,7 @@ const getMinimumEventFixedPositionY = (
  * to get 12.5 (which is the start of the first block). So regardless of the relativeY,
  * we calculate the relative Y fixed position based on the block (which took relativeY
  * into consideration). If we want to calculate for the hour 1, we need to add the previous
- * hours heights (in this case hour 0), thus we add 'hourBlock (1) * sizeOfAnHour (12.5 * 4)' on top
+ * hours heights (in this case hour 0), thus we add 'hour (1) * sizeOfAnHour (12.5 * 4)' on top
  * When we want to get the end of the fifteenMinBlock, we need to add another fifteenMinBlock
  *
  * @param block
@@ -229,15 +233,15 @@ const getMinimumEventFixedPositionY = (
  */
 const getFixedRelativeY = (
   block: {
-    hourBlock: number;
+    hour: number;
     fifteenMinBlock: number;
   },
   endOrStartOf15MinBlock: 'start' | 'end',
 ) => {
-  const { fifteenMinBlock, hourBlock } = block;
+  const { fifteenMinBlock, hour } = block;
   const sizeOfAnHour = fifteenMinBlocksInAHour * sizeOfEach15MinBlock;
   const startOfBlock =
-    hourBlock * sizeOfAnHour + fifteenMinBlock * sizeOfEach15MinBlock;
+    hour * sizeOfAnHour + fifteenMinBlock * sizeOfEach15MinBlock;
   const fixedRelativeY =
     endOrStartOf15MinBlock === 'start'
       ? startOfBlock
@@ -284,7 +288,7 @@ const getFifteenMinuteBlock = (rest: number) => {
  * the user clicked (each hour has 15 minutes)
  *
  * @param relativeY the relative Y position of the click on the container
- * @returns {Object} { hourBlock, fifteenMinBlock } – the hour and the fifteen minute of
+ * @returns {Object} { hour, fifteenMinBlock } – the hour and the fifteen minute of
  * that hour based on the click of the user on the clickable container
  *
  * Example: The container has 1200px so each hour block has 50px and
@@ -296,8 +300,8 @@ const getFifteenMinuteBlock = (rest: number) => {
  */
 const getHourAnd15MinBlock = (relativeY: number): Block => {
   const floatHour = relativeY / sizeOfEach15MinBlock / fifteenMinBlocksInAHour;
-  const hourBlock = Math.floor(floatHour);
-  const rest = floatHour - hourBlock;
+  const hour = Math.floor(floatHour);
+  const rest = floatHour - hour;
   const fifteenMinBlock = getFifteenMinuteBlock(rest);
-  return { hourBlock, fifteenMinBlock };
+  return { hour, fifteenMinBlock, minute: fifteenMinBlock * fifteenMinutes };
 };
