@@ -12,7 +12,6 @@ Features
 - Show current hour of the day on a line on the planner
   Event
 - Create event from calendar to plot on planner
-- Show the event details (title with no title and )
 - Edit events on click
 - Connect events created to specific day
   - How to change days but preserve events? State? Only with bd?
