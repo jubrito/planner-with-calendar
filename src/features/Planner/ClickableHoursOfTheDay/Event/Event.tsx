@@ -42,6 +42,12 @@ export const Event = ({ event, onClick }: EventProps) => {
     marginTop: isAtLeast30MinEvent ? '5px' : '1px',
   };
 
+  /**
+   * Function to get event time based on time, period, hour and minutes of the event
+   * If it is 12-hour clock system and the start and end of the events are from different
+   * periods, the first period will be omited (e.g., 10 – 11 AM, 11 AM – 12 PM)
+   * @returns eventTime following the format $time$period – $time$period
+   */
   const getEventTime = () => {
     const startFullTime = getFormattedDateString(
       localeString,
@@ -58,7 +64,6 @@ export const Event = ({ event, onClick }: EventProps) => {
     const [startTime, startPeriod] = getTimeInformation(startFullTime);
     const [endTime, endPeriod] = getTimeInformation(endFullTime);
     const updatedStartPeriod = startPeriod !== endPeriod ? startPeriod : '';
-
     return `${startTime}${updatedStartPeriod} – ${endTime}${endPeriod}`;
   };
 
