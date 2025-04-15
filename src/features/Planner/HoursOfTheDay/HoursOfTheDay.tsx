@@ -15,7 +15,6 @@ export const HoursOfTheDay = () => {
   const day = useSelector(getSelectedDayViewDay());
   const monthIndex = useSelector(getSelectedDayViewMonth(locale));
   const hoursOfTheDay = getHoursOfTheDay(locale, year, monthIndex, day);
-
   const hourOfTheDaySpanRef = useRef<HTMLDivElement>(null);
 
   return (
