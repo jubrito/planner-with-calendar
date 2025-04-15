@@ -14,20 +14,20 @@ export const useDate = (
   locale: LocaleLanguage,
   initialDate?: DateConfig['date'],
 ): DateConfig => {
-  const [formatedDate, setFormatedDate] = useState(initialDate || new Date());
+  const [formattedDate, setFormattedDate] = useState(initialDate || new Date());
 
   const updateDate = (year: number, month: number, day: number) => {
-    setFormatedDate(new Date(year, month, day));
+    setFormattedDate(new Date(year, month, day));
   };
 
   return {
-    date: formatedDate,
+    date: formattedDate,
     updateDate,
-    day: getDay(formatedDate),
-    month: getMonthIndex(locale, formatedDate),
-    year: getYear(formatedDate),
-    timeInMilliseconds: getTimeInMilliseconds(formatedDate),
-    dayOfWeek: getDayOfWeek(locale, formatedDate),
-    monthNumberOfDays: getMonthNumberOfDays(locale, formatedDate),
+    day: getDay(formattedDate),
+    month: getMonthIndex(locale, formattedDate),
+    year: getYear(formattedDate),
+    timeInMilliseconds: getTimeInMilliseconds(formattedDate),
+    dayOfWeek: getDayOfWeek(locale, formattedDate),
+    monthNumberOfDays: getMonthNumberOfDays(locale, formattedDate),
   };
 };

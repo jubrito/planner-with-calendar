@@ -1,7 +1,7 @@
 import { DateConfig } from '../../types/calendar/types';
 import { IntlDateTimeFormatLong, IntlDateTimeFormatShort } from '../constants';
 import { numberOfDaysOfTheWeek } from './constants';
-import { getFormatedDate } from './utils';
+import { getFormattedDate } from './utils';
 import { getDayName } from './utils';
 
 export const getWeekDaysNames = (locale: string) => {
@@ -32,7 +32,7 @@ export const getWeekDayName = (
   dayToFind: number,
   locale: string,
 ) => {
-  const dayOfTheMonthDate = getFormatedDate(
+  const dayOfTheMonthDate = getFormattedDate(
     locale,
     new Date(year, month, dayToFind),
   );

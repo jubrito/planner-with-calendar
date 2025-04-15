@@ -73,10 +73,10 @@ export const getMonthIndex = (
     | typeof IntlDateTimeFormatNumeric
     | typeof IntlDateTimeFormat2Digit,
 ) => {
-  const formatedDate = new Intl.DateTimeFormat(locale, {
+  const formattedDate = new Intl.DateTimeFormat(locale, {
     month: monthStyle || IntlDateTimeFormatNumeric,
   }).format(date);
-  const zeroBaseMonthNumber = parseInt(formatedDate) - 1;
+  const zeroBaseMonthNumber = parseInt(formattedDate) - 1;
   return zeroBaseMonthNumber;
 };
 
@@ -136,45 +136,45 @@ export const getHoursOfTheDay = (
   month: DateConfig['month'],
   day: DateConfig['day'],
 ) => {
-  const formatedHours = [];
+  const formattedHours = [];
 
-  const addZeroDigitBeforeSingleDigits = (formatedHour: string) => {
-    const [digits, period] = formatedHour.split(' ');
-    let formatedHourWithZero = formatedHour;
+  const addZeroDigitBeforeSingleDigits = (formattedHour: string) => {
+    const [digits, period] = formattedHour.split(' ');
+    let formattedHourWithZero = formattedHour;
     if (digits.length === 1) {
-      formatedHourWithZero = '0' + digits + ' ' + period;
+      formattedHourWithZero = '0' + digits + ' ' + period;
     }
-    return formatedHourWithZero;
+    return formattedHourWithZero;
   };
 
-  const addZeroDigitsAfterDigits = (formatedHour: string) => {
-    return formatedHour + ':00';
+  const addZeroDigitsAfterDigits = (formattedHour: string) => {
+    return formattedHour + ':00';
   };
 
   for (let i = 0; i < numberOfHoursInADay + 1; i++) {
-    let formatedHour = new Intl.DateTimeFormat(locale, {
+    let formattedHour = new Intl.DateTimeFormat(locale, {
       hour: IntlDateTimeFormatNumeric,
     }).format(new Date(year, month, day, i));
-    if (formatedHour.includes('AM') || formatedHour.includes('PM')) {
-      formatedHour = addZeroDigitBeforeSingleDigits(formatedHour);
+    if (formattedHour.includes('AM') || formattedHour.includes('PM')) {
+      formattedHour = addZeroDigitBeforeSingleDigits(formattedHour);
     } else {
-      formatedHour = addZeroDigitsAfterDigits(formatedHour);
+      formattedHour = addZeroDigitsAfterDigits(formattedHour);
     }
-    formatedHours.push(formatedHour);
+    formattedHours.push(formattedHour);
   }
-  return formatedHours;
+  return formattedHours;
 };
-export const getFormatedDateString = (
+export const getFormattedDateString = (
   locale: LocaleLanguage,
   date: DateConfig['date'],
   options: Intl.DateTimeFormatOptions = {},
 ) => new Intl.DateTimeFormat(locale, options).format(date);
 
-export const getFormatedDate = (
+export const getFormattedDate = (
   locale: LocaleLanguage,
   date: DateConfig['date'],
   options: Intl.DateTimeFormatOptions = {},
-) => new Date(getFormatedDateString(locale, date, options));
+) => new Date(getFormattedDateString(locale, date, options));
 
 export const getCurrentMonthDays = (
   year: DateConfig['year'],

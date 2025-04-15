@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { sizeOfEach15MinBlock } from '../../../../utils/calendar/constants';
-import { getFormatedDateString } from '../../../../utils/calendar/utils';
+import { getFormattedDateString } from '../../../../utils/calendar/utils';
 import styles from './event.module.scss';
 import { EventBlock } from '../ClickableHoursOfTheDay';
 import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
@@ -43,7 +43,7 @@ export const Event = ({ event, onClick }: EventProps) => {
   };
 
   const getEventTime = () => {
-    const startFullTime = getFormatedDateString(
+    const startFullTime = getFormattedDateString(
       localeString,
       event.start.date,
       {
@@ -51,7 +51,7 @@ export const Event = ({ event, onClick }: EventProps) => {
         minute: IntlDateTimeFormat2Digit,
       },
     );
-    const endFullTime = getFormatedDateString(localeString, event.end.date, {
+    const endFullTime = getFormattedDateString(localeString, event.end.date, {
       hour: IntlDateTimeFormat2Digit,
       minute: IntlDateTimeFormat2Digit,
     });
