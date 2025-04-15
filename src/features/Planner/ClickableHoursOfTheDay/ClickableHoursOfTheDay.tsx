@@ -104,9 +104,10 @@ export const ClickableHoursOfTheDay = () => {
   const throttledMouseMoveRef = useRef(throttle(80, handleMouseMove));
 
   useEffect(() => {
-    throttledMouseMoveRef.current = throttle(80, handleMouseMove);
+    const throttledFn = throttle(80, handleMouseMove);
+    throttledMouseMoveRef.current = throttledFn;
     return () => {
-      throttledMouseMoveRef.current.cancel();
+      throttledFn.cancel();
     };
   }, [handleMouseMove]);
 
