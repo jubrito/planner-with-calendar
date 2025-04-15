@@ -51,4 +51,10 @@ describe('Event', () => {
     }
     expect(onClickMock).toHaveBeenCalled();
   });
+  describe('Hours display when locale lang is english', () => {
+    it('should display event with only one AM/PM if the even is within the same period', () => {
+      renderWithProviders(<Event event={event} />);
+      expect(screen.getByText('12:00 – 01:00 AM')).toBeInTheDocument();
+    });
+  });
 });
