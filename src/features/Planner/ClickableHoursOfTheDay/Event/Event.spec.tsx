@@ -5,6 +5,7 @@ import { EventBlock } from '../ClickableHoursOfTheDay';
 import { Event } from './Event';
 import { screen } from '@testing-library/dom';
 import '@testing-library/jest-dom';
+import { initialValue } from '../../../../redux/slices/localeSlice';
 
 describe('Event', () => {
   const year = 2025;
@@ -55,12 +56,12 @@ describe('Event', () => {
     }
     expect(onClickMock).toHaveBeenCalled();
   });
-  describe('Hours display when locale lang is english', () => {
-    it('should display event with only one AM/PM if the even start and end is within the same period', () => {
+  describe('Hours display when using 12-hour clock system', () => {
+    it('should display event with only one AM/PM if the event start and end is within the same period', () => {
       renderWithProviders(<Event event={event} />);
       expect(screen.getByText('12:00 – 01:00 AM')).toBeInTheDocument();
     });
-    it('should display event with both AM and PM if even start and end is not within the same period', () => {
+    it('should display event with both AM and PM if event start and end is not within the same period', () => {
       const startHour = 11;
       const startMinutes = 0;
       const endHour = 12;
@@ -91,6 +92,24 @@ describe('Event', () => {
       };
       renderWithProviders(<Event event={event} />);
       expect(screen.getByText('11:00 AM – 12:15 PM')).toBeInTheDocument();
+    });
+  });
+  describe('Hours display when using 24-hour clock system', () => {
+    it('should display time correctly when event start and end is within the same period', () => {
+      renderWithProviders(<Event event={event} />, {
+        preloadedState: {
+          localeSlice: {
+            ...initialValue,
+            currentState: {
+              ...initialValue.currentState,
+              locale: {
+                lang: 'PT-br',
+              },
+            },
+          },
+        },
+      });
+      expect(screen.getByText('00:00 – 01:00')).toBeInTheDocument();
     });
   });
 });
