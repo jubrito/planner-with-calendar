@@ -5,6 +5,7 @@ import styles from './event.module.scss';
 import { EventBlock } from '../ClickableHoursOfTheDay';
 import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
 import { IntlDateTimeFormat2Digit } from '../../../../utils/constants';
+import { useMemo } from 'react';
 
 type EventProps = {
   event: EventBlock;
@@ -42,13 +43,16 @@ export const Event = ({ event, onClick }: EventProps) => {
     marginTop: isAtLeast30MinEvent ? '5px' : '1px',
   };
 
-  /**
-   * Function to get event time based on time, period, hour and minutes of the event
-   * If it is 12-hour clock system and the start and end of the events are from different
-   * periods, the first period will be omited (e.g., 10 – 11 AM, 11 AM – 12 PM)
-   * @returns eventTime following the format $time$period – $time$period
-   */
-  const getEventTime = () => {
+  const [endTime, endPeriod] = useMemo(() => {
+    const endFullTime = getFormattedDateString(localeString, event.end.date, {
+      hour: IntlDateTimeFormat2Digit,
+      minute: IntlDateTimeFormat2Digit,
+    });
+    const [endTime, endPeriod] = getTimeInformation(endFullTime);
+    return [endTime, endPeriod];
+  }, [event.end.date, localeString]);
+
+  const [startTime, startPeriod] = useMemo(() => {
     const startFullTime = getFormattedDateString(
       localeString,
       event.start.date,
@@ -57,15 +61,10 @@ export const Event = ({ event, onClick }: EventProps) => {
         minute: IntlDateTimeFormat2Digit,
       },
     );
-    const endFullTime = getFormattedDateString(localeString, event.end.date, {
-      hour: IntlDateTimeFormat2Digit,
-      minute: IntlDateTimeFormat2Digit,
-    });
     const [startTime, startPeriod] = getTimeInformation(startFullTime);
-    const [endTime, endPeriod] = getTimeInformation(endFullTime);
     const updatedStartPeriod = startPeriod !== endPeriod ? startPeriod : '';
-    return `${startTime}${updatedStartPeriod} – ${endTime}${endPeriod}`;
-  };
+    return [startTime, updatedStartPeriod];
+  }, [event.start.date, endPeriod, localeString]);
 
   return (
     <div
@@ -85,7 +84,9 @@ export const Event = ({ event, onClick }: EventProps) => {
           }}
         >
           <span style={titleStyle}>{event.title}</span>
-          <span style={timeStyle}>{getEventTime()}</span>
+          <span
+            style={timeStyle}
+          >{`${startTime}${startPeriod} – ${endTime}${endPeriod}`}</span>
         </div>
       )}
     </div>
