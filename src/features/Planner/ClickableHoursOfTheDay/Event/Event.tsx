@@ -98,5 +98,7 @@ const getTimeInformation = (formatedFullTime: string) => {
     const periodWithSpaceBef = ' ' + period;
     return [time, periodWithSpaceBef, hour, minutes];
   }
-  return ['', '', '', ''];
+  const [hour, minutes] = formatedFullTime.split(':');
+  const noPeriod = '';
+  return [formatedFullTime, noPeriod, hour, minutes];
 };
