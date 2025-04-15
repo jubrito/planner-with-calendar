@@ -95,6 +95,7 @@ describe('Event', () => {
     });
   });
   describe('Hours display when using 24-hour clock system', () => {
+    const ptBrLang = 'pt-BR';
     it('should display time correctly when event start and end is within the same period', () => {
       renderWithProviders(<Event event={event} />, {
         preloadedState: {
@@ -103,13 +104,57 @@ describe('Event', () => {
             currentState: {
               ...initialValue.currentState,
               locale: {
-                lang: 'PT-br',
+                lang: ptBrLang,
               },
             },
           },
         },
       });
       expect(screen.getByText('00:00 – 01:00')).toBeInTheDocument();
+    });
+    it('should display time correctly if event start and end is not within the same period', () => {
+      const startHour = 11;
+      const startMinutes = 0;
+      const endHour = 12;
+      const endMinutes = 15;
+      const event: EventBlock = {
+        eventId: 'id',
+        title: 'title',
+        start: {
+          positionY: 4,
+          fixedPositionY: 0,
+          date: new Date(year, month, day, startHour, startMinutes),
+          block: {
+            fifteenMinBlock: 0,
+            hour: startHour,
+            minutes: startMinutes,
+          },
+        },
+        end: {
+          positionY: 43,
+          fixedPositionY: 50,
+          date: new Date(year, month, day, endHour, endMinutes),
+          block: {
+            fifteenMinBlock: 4,
+            hour: endHour,
+            minutes: endMinutes,
+          },
+        },
+      };
+      renderWithProviders(<Event event={event} />, {
+        preloadedState: {
+          localeSlice: {
+            ...initialValue,
+            currentState: {
+              ...initialValue.currentState,
+              locale: {
+                lang: ptBrLang,
+              },
+            },
+          },
+        },
+      });
+      expect(screen.getByText('11:00 – 12:15')).toBeInTheDocument();
     });
   });
 });
