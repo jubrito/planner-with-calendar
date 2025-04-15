@@ -10,27 +10,31 @@ describe('Event', () => {
   const year = 2025;
   const month = Months.APRIL;
   const day = 11;
+  const startHour = 0;
+  const startMinutes = 0;
+  const endHour = 1;
+  const endMinutes = 0;
   const event: EventBlock = {
     eventId: 'id',
     title: 'title',
     start: {
       positionY: 4,
       fixedPositionY: 0,
-      date: new Date(year, month, day, 0, 0),
+      date: new Date(year, month, day, startHour, startMinutes),
       block: {
         fifteenMinBlock: 0,
-        hour: 0,
-        minutes: 0,
+        hour: startHour,
+        minutes: startMinutes,
       },
     },
     end: {
       positionY: 43,
       fixedPositionY: 50,
-      date: new Date(year, month, day, 1, 0),
+      date: new Date(year, month, day, endHour, endMinutes),
       block: {
         fifteenMinBlock: 4,
-        hour: 1,
-        minutes: 0,
+        hour: endHour,
+        minutes: endMinutes,
       },
     },
   };
@@ -52,9 +56,41 @@ describe('Event', () => {
     expect(onClickMock).toHaveBeenCalled();
   });
   describe('Hours display when locale lang is english', () => {
-    it('should display event with only one AM/PM if the even is within the same period', () => {
+    it('should display event with only one AM/PM if the even start and end is within the same period', () => {
       renderWithProviders(<Event event={event} />);
       expect(screen.getByText('12:00 – 01:00 AM')).toBeInTheDocument();
+    });
+    it('should display event with both AM and PM if even start and end is not within the same period', () => {
+      const startHour = 11;
+      const startMinutes = 0;
+      const endHour = 12;
+      const endMinutes = 15;
+      const event: EventBlock = {
+        eventId: 'id',
+        title: 'title',
+        start: {
+          positionY: 4,
+          fixedPositionY: 0,
+          date: new Date(year, month, day, startHour, startMinutes),
+          block: {
+            fifteenMinBlock: 0,
+            hour: startHour,
+            minutes: startMinutes,
+          },
+        },
+        end: {
+          positionY: 43,
+          fixedPositionY: 50,
+          date: new Date(year, month, day, endHour, endMinutes),
+          block: {
+            fifteenMinBlock: 4,
+            hour: endHour,
+            minutes: endMinutes,
+          },
+        },
+      };
+      renderWithProviders(<Event event={event} />);
+      expect(screen.getByText('11:00 AM – 12:15 PM')).toBeInTheDocument();
     });
   });
 });
