@@ -13,6 +13,7 @@ type EventProps = {
 
 export const Event = ({ event, onClick }: EventProps) => {
   const eventHeight = event.end.fixedPositionY - event.start.fixedPositionY;
+  const eventStart = event.start.fixedPositionY;
   const isAtLeast30MinEvent = eventHeight >= sizeOfEach15MinBlock * 2;
   const isAtLeast60MinEvent = eventHeight >= sizeOfEach15MinBlock * 4;
   const hasMinimumHeight = eventHeight >= sizeOfEach15MinBlock;
@@ -35,7 +36,7 @@ export const Event = ({ event, onClick }: EventProps) => {
     marginTop: isAtLeast60MinEvent ? '5px' : 0,
   };
   const eventStyle = {
-    top: `${event.start.fixedPositionY}px`,
+    top: `${eventStart}px`,
     height: `${eventHeight}px`,
   };
   const eventDetailsStyle = {
@@ -43,34 +44,23 @@ export const Event = ({ event, onClick }: EventProps) => {
   };
 
   const getEventTime = () => {
-    let startPeriod = '';
-    let endPeriod = '';
-    let startHour = getFormatedDateString(localeString, event.start.date, {
+    const startFullTime = getFormatedDateString(
+      localeString,
+      event.start.date,
+      {
+        hour: IntlDateTimeFormat2Digit,
+        minute: IntlDateTimeFormat2Digit,
+      },
+    );
+    const endFullTime = getFormatedDateString(localeString, event.end.date, {
       hour: IntlDateTimeFormat2Digit,
-    });
-    let endHour = getFormatedDateString(localeString, event.end.date, {
-      hour: IntlDateTimeFormat2Digit,
-    });
-    if (startHour.includes('AM') || startHour.includes('PM')) {
-      const [hour, period] = startHour.split(' ');
-      startHour = hour;
-      startPeriod = ' ' + period;
-    }
-    if (endHour.includes('AM') || endHour.includes('PM')) {
-      const [hour, period] = endHour.split(' ');
-      endHour = hour;
-      endPeriod = ' ' + period;
-    }
-    if (startPeriod === endPeriod) {
-      startPeriod = '';
-    }
-    const startMinutes = getFormatedDateString(localeString, event.start.date, {
       minute: IntlDateTimeFormat2Digit,
     });
-    const endMinutes = getFormatedDateString(localeString, event.end.date, {
-      minute: IntlDateTimeFormat2Digit,
-    });
-    return `${startHour}:${startMinutes}${startPeriod} – ${endHour}:${endMinutes}${endPeriod}`;
+    const [startTime, startPeriod] = getTimeInformation(startFullTime);
+    const [endTime, endPeriod] = getTimeInformation(endFullTime);
+    const updatedStartPeriod = startPeriod !== endPeriod ? startPeriod : '';
+
+    return `${startTime}${updatedStartPeriod} – ${endTime}${endPeriod}`;
   };
 
   return (
@@ -96,4 +86,17 @@ export const Event = ({ event, onClick }: EventProps) => {
       )}
     </div>
   );
+};
+
+const is12HourClockSystem = (time: string) =>
+  time.includes('AM') || time.includes('PM');
+
+const getTimeInformation = (formatedFullTime: string) => {
+  if (is12HourClockSystem(formatedFullTime)) {
+    const [time, period] = formatedFullTime.split(' ');
+    const [hour, minutes] = time.split(':');
+    const periodWithSpaceBef = ' ' + period;
+    return [time, periodWithSpaceBef, hour, minutes];
+  }
+  return ['', '', '', ''];
 };
