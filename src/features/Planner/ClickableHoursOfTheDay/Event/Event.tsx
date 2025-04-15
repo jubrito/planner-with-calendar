@@ -18,7 +18,6 @@ export const Event = ({ event, onClick }: EventProps) => {
   const isAtLeast60MinEvent = eventHeight >= sizeOfEach15MinBlock * 4;
   const hasMinimumHeight = eventHeight >= sizeOfEach15MinBlock;
   const localeString = useSelector(getLocaleLanguage());
-
   const titleStyle = {
     fontSize: isAtLeast60MinEvent
       ? '17px'
@@ -91,6 +90,14 @@ export const Event = ({ event, onClick }: EventProps) => {
 const is12HourClockSystem = (time: string) =>
   time.includes('AM') || time.includes('PM');
 
+/**
+ * Function to get time, period, hour and minutes of the event
+ * If it is 12-hour clock system it will return the AM/PM period
+ * If it is 24-hour clock system it will return the period as an empty string
+ * @param formatedFullTime complete time based on location
+ * (e.g., 12:00 for 24-hour clock system, 12:00 AM for 12-hour clock system)
+ * @returns [time, period, hours, minutes]
+ */
 const getTimeInformation = (formatedFullTime: string) => {
   if (is12HourClockSystem(formatedFullTime)) {
     const [time, period] = formatedFullTime.split(' ');
