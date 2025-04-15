@@ -6,6 +6,7 @@ Quality
 - hours of the day tests
 - clickable hours of the day tests
 - event tests
+- error handling
 
 Features
 
@@ -42,7 +43,7 @@ Features
 
 - Features
 
-  > Day / Week / Month / Compact (+ tests)
+  > Day / Week / Month / Year View / Compact (+ tests)
 
 - Layout
 
