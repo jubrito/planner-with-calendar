@@ -59,7 +59,11 @@ describe('Event', () => {
   describe('Hours display when using 12-hour clock system', () => {
     it('should display event with only one AM/PM if the event start and end is within the same period', () => {
       renderWithProviders(<Event event={event} />);
-      expect(screen.getByText('12:00 – 01:00 AM')).toBeInTheDocument();
+      const eventTimeRange = screen.getByLabelText(
+        `Time range from 12:00 to 01:00 AM`,
+      );
+      expect(eventTimeRange).toBeInTheDocument();
+      expect(eventTimeRange).toHaveTextContent('12:00 – 01:00 AM');
     });
     it('should display event with both AM and PM if event start and end is not within the same period', () => {
       const startHour = 11;
@@ -91,7 +95,11 @@ describe('Event', () => {
         },
       };
       renderWithProviders(<Event event={event} />);
-      expect(screen.getByText('11:00 AM – 12:15 PM')).toBeInTheDocument();
+      const eventTimeRange = screen.getByLabelText(
+        `Time range from 11:00 AM to 12:15 PM`,
+      );
+      expect(eventTimeRange).toBeInTheDocument();
+      expect(eventTimeRange).toHaveTextContent('11:00 AM – 12:15 PM');
     });
   });
   describe('Hours display when using 24-hour clock system', () => {
@@ -110,7 +118,11 @@ describe('Event', () => {
           },
         },
       });
-      expect(screen.getByText('00:00 – 01:00')).toBeInTheDocument();
+      const eventTimeRange = screen.getByLabelText(
+        `Time range from 00:00 to 01:00`,
+      );
+      expect(eventTimeRange).toBeInTheDocument();
+      expect(eventTimeRange).toHaveTextContent('00:00 – 01:00');
     });
     it('should display time correctly if event start and end is not within the same period', () => {
       const startHour = 11;
@@ -154,7 +166,11 @@ describe('Event', () => {
           },
         },
       });
-      expect(screen.getByText('11:00 – 12:15')).toBeInTheDocument();
+      const eventTimeRange = screen.getByLabelText(
+        `Time range from 11:00 to 12:15`,
+      );
+      expect(eventTimeRange).toBeInTheDocument();
+      expect(eventTimeRange).toHaveTextContent('11:00 – 12:15');
     });
   });
 });

@@ -86,6 +86,7 @@ export const Event = ({ event, onClick }: EventProps) => {
           <span style={titleStyle}>{event.title}</span>
           <span
             style={timeStyle}
+            aria-label={`Time range from ${startTime}${startPeriod} to ${endTime}${endPeriod}`}
           >{`${startTime}${startPeriod} – ${endTime}${endPeriod}`}</span>
         </div>
       )}
