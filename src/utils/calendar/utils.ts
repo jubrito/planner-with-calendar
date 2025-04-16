@@ -253,3 +253,26 @@ export const getPreviousMonthDaysOnCurrentMonth = (
   }
   return previousMonthDaysOnCurrentMonth.reverse();
 };
+
+const is12HourClockSystem = (time: string) =>
+  time.includes('AM') || time.includes('PM');
+
+/**
+ * Function to get time, period, hour and minutes of the event
+ * If it is 12-hour clock system it will return the AM/PM period
+ * If it is 24-hour clock system it will return the period as an empty string
+ * @param formattedFullTime complete time based on location
+ * (e.g., 12:00 for 24-hour clock system, 12:00 AM for 12-hour clock system)
+ * @returns [time, period, hours, minutes]
+ */
+export const getTimeInformation = (formattedFullTime: string) => {
+  if (is12HourClockSystem(formattedFullTime)) {
+    const [time, period] = formattedFullTime.split(' ');
+    const [hour, minutes] = time.split(':');
+    const periodWithSpaceBef = ' ' + period;
+    return [time, periodWithSpaceBef, hour, minutes];
+  }
+  const [hour, minutes] = formattedFullTime.split(':');
+  const noPeriod = '';
+  return [formattedFullTime, noPeriod, hour, minutes];
+};
