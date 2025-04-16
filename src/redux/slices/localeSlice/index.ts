@@ -7,7 +7,7 @@ type InitialLocaleState = {
   locale: { lang: LocaleLanguage };
 };
 
-type InitialState = {
+export type InitialState = {
   initialState: InitialLocaleState;
   currentState: InitialLocaleState;
 };
