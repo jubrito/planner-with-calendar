@@ -2,10 +2,7 @@
 
 Quality
 
-- planner tests
-- hours of the day tests
-- clickable hours of the day tests
-- event tests
+- replace imperative fors
 - error handling
 
 Features
@@ -77,6 +74,7 @@ Features
 - Locale
   - Button to change language (+ tests) + html lang
   - Update month names, getFullDateTitle, getHoursOfTheDay, date order (+ tests)
+  - Labels/descriptions
 - Timezones?
 
 ## v4
