@@ -54,12 +54,12 @@ export const getFullDateTitle = (
   month: DateConfig['month'],
   day: DateConfig['day'],
   locale: string,
-) =>
-  isToday(locale, new Date(year, month, day))
-    ? todayLabel
-    : new Intl.DateTimeFormat(locale, {
-        dateStyle: IntlDateTimeFormatFull,
-      }).format(new Date(year, month, day));
+) => {
+  if (isToday(locale, new Date(year, month, day))) return todayLabel;
+  return new Intl.DateTimeFormat(locale, {
+    dateStyle: IntlDateTimeFormatFull,
+  }).format(new Date(year, month, day));
+};
 
 export const getDateISOString = (date: DateConfig['date']) =>
   date.toISOString();
