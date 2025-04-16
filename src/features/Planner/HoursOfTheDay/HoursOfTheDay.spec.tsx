@@ -1,20 +1,45 @@
-import { initialValue } from '../../../redux/slices/localeSlice';
+import { initialValue, InitialState } from '../../../redux/slices/localeSlice';
+import {
+  initialValue as initialDateValue,
+  InitialState as InitialDateState,
+} from '../../../redux/slices/dateSlice';
+import { get2DigitsValue } from '../../../utils/calendar/utils';
 import { renderWithProviders } from '../../../utils/tests/renderWithProviders';
 import { HoursOfTheDay } from './HoursOfTheDay';
 import { screen } from '@testing-library/dom';
 import '@testing-library/jest-dom';
+import { Months } from '../../../types/calendar/enums';
 
 describe('Hours of the day', () => {
-  const getPreloadedState = (lang: string) => ({
+  const year = 2025;
+  const month = Months.APRIL;
+  const day = 1;
+
+  const getDateTime = (index: number) =>
+    `${year}-${get2DigitsValue(month)}-${get2DigitsValue(day)} ${get2DigitsValue(index)}:00:00`;
+
+  const getPreloadedState = (
+    lang: string,
+  ):
+    | Partial<{
+        dateSlice: InitialDateState;
+        localeSlice: InitialState;
+      }>
+    | undefined => ({
     localeSlice: {
-      initialState: {
-        ...initialValue.initialState,
-      },
+      ...initialValue,
       currentState: {
         ...initialValue.currentState,
         locale: {
           lang,
         },
+      },
+    },
+    dateSlice: {
+      ...initialDateValue,
+      currentState: {
+        ...initialDateValue.currentState,
+        dayViewISODate: new Date(year, month, day).toDateString(),
       },
     },
   });
@@ -49,10 +74,25 @@ describe('Hours of the day', () => {
       '11 PM',
     ];
     const midnight = '12 AM';
-    hours.forEach((hour) => {
-      expect(screen.getByText(hour)).toBeInTheDocument();
+    const midnightDateTime = getDateTime(0);
+    hours.forEach((hour, index) => {
+      const timeElement = screen.getByText(hour);
+      const dateTime = getDateTime(index + 1);
+      expect(timeElement).toBeInTheDocument();
+      expect(timeElement).toHaveRole('time');
+      expect(timeElement).toHaveProperty('dateTime', dateTime);
     });
     expect(screen.getAllByText(midnight).length).toBe(2);
+    expect(screen.getAllByText(midnight)[0]).toHaveRole('time');
+    expect(screen.getAllByText(midnight)[0]).toHaveProperty(
+      'dateTime',
+      midnightDateTime,
+    );
+    expect(screen.getAllByText(midnight)[1]).toHaveRole('time');
+    expect(screen.getAllByText(midnight)[1]).toHaveProperty(
+      'dateTime',
+      midnightDateTime,
+    );
   });
   it('should render hours using 24-hour notation when locale is pt-br', () => {
     renderWithProviders(<HoursOfTheDay />, {
@@ -84,9 +124,19 @@ describe('Hours of the day', () => {
       '23:00',
     ];
     const midnight = '00:00';
-    hours.forEach((hour) => {
-      expect(screen.getByText(hour)).toBeInTheDocument();
+    const midnightDateTime = getDateTime(0);
+    hours.forEach((hour, index) => {
+      const timeElement = screen.getByText(hour);
+      const dateTime = getDateTime(index + 1);
+      expect(timeElement).toBeInTheDocument();
+      expect(timeElement).toHaveRole('time');
+      expect(timeElement).toHaveProperty('dateTime', dateTime);
     });
     expect(screen.getAllByText(midnight).length).toBe(2);
+    expect(screen.getAllByText(midnight)[1]).toHaveRole('time');
+    expect(screen.getAllByText(midnight)[1]).toHaveProperty(
+      'dateTime',
+      midnightDateTime,
+    );
   });
 });
