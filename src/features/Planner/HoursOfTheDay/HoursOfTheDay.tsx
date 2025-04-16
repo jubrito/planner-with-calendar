@@ -35,7 +35,6 @@ export const HoursOfTheDay = () => {
             <time id={id} dateTime={dateTime}>
               {hourOfTheDay}
             </time>
-            <hr className={styles.line} />
           </div>
         );
       })}

@@ -9,20 +9,10 @@
   .container {
     display: flex;
     flex-direction: row;
-    overflow: hidden;
     min-height: 50px;
   }
   time {
     width: max-content;
-    position: relative;
-    line-height: 1.8;
-  }
-  hr {
-    width: calc(100% - 85px);
-    width: -webkit-fill-available;
-    position: absolute;
-    z-index: 20;
-    margin: 15px 0 0 64px;
-    background-color: black;
+    line-height: 1.7;
   }
 }

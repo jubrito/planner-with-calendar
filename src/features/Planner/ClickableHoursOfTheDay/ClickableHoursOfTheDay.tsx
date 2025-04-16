@@ -3,6 +3,7 @@ import styles from './clickable-hours-of-the-day.module.scss';
 import {
   fifteenMinBlocksInAHour,
   fifteenMinutes,
+  numberOfHoursInADay,
   sizeOfEach15MinBlock,
 } from '../../../utils/calendar/constants';
 import { throttle } from 'throttle-debounce';
@@ -14,6 +15,11 @@ import {
 } from '../../../redux/slices/dateSlice/selectors';
 import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
 import { Event } from './Event/Event';
+import {
+  getFormattedDateString,
+  getTimeInformation,
+} from '../../../utils/calendar/utils';
+import { IntlDateTimeFormat2Digit } from '../../../utils/constants';
 
 export type Block = {
   hour: number;
@@ -184,6 +190,35 @@ export const ClickableHoursOfTheDay = () => {
           onClick={() => handleEventClick(event)}
         />
       ))}
+      {Array.from(Array(numberOfHoursInADay).keys()).map((index) => {
+        const startHour = getFormattedDateString(
+          localeString,
+          new Date(year, month, day, index),
+          {
+            hour: IntlDateTimeFormat2Digit,
+            minute: IntlDateTimeFormat2Digit,
+          },
+        );
+        const endHour = getFormattedDateString(
+          localeString,
+          new Date(year, month, day, index + 1),
+          {
+            hour: IntlDateTimeFormat2Digit,
+            minute: IntlDateTimeFormat2Digit,
+          },
+        );
+        const [startTime, startPeriod] = getTimeInformation(startHour);
+        const [endTime, endPeriod] = getTimeInformation(endHour);
+        const updatedStartPeriod = startPeriod !== endPeriod ? startPeriod : '';
+        const title = `Click, hold, and drag to create an event within the range ${startTime}${updatedStartPeriod} to ${endTime}${endPeriod}`;
+        return (
+          <div
+            onClick={(e) => e.preventDefault()}
+            className={styles.hourBlock}
+            title={title}
+          />
+        );
+      })}
     </div>
   );
 };
