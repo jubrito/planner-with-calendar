@@ -32,10 +32,7 @@
       line-height: $height;
       font-weight: bold;
       text-align: center;
-
-      @include mixins.media-for-compact-calendar {
-        margin-bottom: variables.$inner-spacing;
-      }
+      margin-bottom: variables.$inner-spacing;
     }
   }
 
