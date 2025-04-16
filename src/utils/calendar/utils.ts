@@ -81,7 +81,7 @@ export const getMonthIndex = (
 };
 
 export const get2DigitsValue = (value: number) =>
-  value.toString().length === 1 ? '0' + value : value;
+  value.toString().padStart(2, '0');
 
 export const getMonthName = (
   locale: LocaleLanguage,

@@ -27,15 +27,13 @@ export const HoursOfTheDay = () => {
     <div className={styles.hourOfTheDay} ref={hourOfTheDaySpanRef}>
       {hoursOfTheDay.map((hourOfTheDay, index) => {
         const hour =
-          get2DigitsValue(index) === 24 ? '00' : get2DigitsValue(index);
+          get2DigitsValue(index) === '24' ? '00' : get2DigitsValue(index);
         const dateTime = `${year}-${get2DigitsValue(monthIndex)}-${get2DigitsValue(day)} ${hour}:00:00`;
         const id = (hourOfTheDay + index).toString().replace(' ', '');
         return (
-          <div className={styles.container} key={id}>
-            <time id={id} dateTime={dateTime}>
-              {hourOfTheDay}
-            </time>
-          </div>
+          <time id={id} key={id} dateTime={dateTime}>
+            {hourOfTheDay}
+          </time>
         );
       })}
     </div>
