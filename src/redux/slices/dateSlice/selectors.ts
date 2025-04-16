@@ -14,6 +14,10 @@ import {
   getYear,
 } from '../../../utils/calendar/utils';
 import { getDay } from '../../../utils/calendar/utils';
+import {
+  IntlDateTimeFormat2Digit,
+  IntlDateTimeFormatNumeric,
+} from '../../../utils/constants';
 
 const updateDateState = (store: RootState) => store.dateSlice;
 
@@ -88,9 +92,18 @@ export const getSelectedGlobalMonth = (locale: LocaleLanguage) =>
     getMonthIndex(locale, new Date(state.currentState.globalSODate)),
   );
 
-export const getSelectedDayViewMonth = (locale: LocaleLanguage) =>
+export const getSelectedDayViewMonth = (
+  locale: LocaleLanguage,
+  monthStyle?:
+    | typeof IntlDateTimeFormatNumeric
+    | typeof IntlDateTimeFormat2Digit,
+) =>
   createSelector(updateDateState, (state) =>
-    getMonthIndex(locale, new Date(state.currentState.dayViewISODate)),
+    getMonthIndex(
+      locale,
+      new Date(state.currentState.dayViewISODate),
+      monthStyle,
+    ),
   );
 
 export const getInitialGlobalYear = () =>

@@ -80,6 +80,9 @@ export const getMonthIndex = (
   return zeroBaseMonthNumber;
 };
 
+export const get2DigitsValue = (value: number) =>
+  value.toString().length === 1 ? '0' + value : value;
+
 export const getMonthName = (
   locale: LocaleLanguage,
   date: DateConfig['date'],
