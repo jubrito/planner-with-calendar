@@ -12,9 +12,10 @@
     overflow: hidden;
     min-height: 50px;
   }
-  span {
+  time {
     width: max-content;
     position: relative;
+    line-height: 1.8;
   }
   hr {
     width: calc(100% - 85px);
