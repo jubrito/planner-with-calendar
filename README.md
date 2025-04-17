@@ -2,7 +2,6 @@
 
 Quality
 
-- replace imperative fors
 - error handling
 
 Features
