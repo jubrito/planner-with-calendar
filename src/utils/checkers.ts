@@ -2,8 +2,14 @@ import { DateConfig } from '../types/calendar/types';
 import { ObjectType } from './constants';
 import { LocaleLanguage } from '../types/locale/types';
 import { getDay, getMonthIndex, getYear } from './calendar/utils';
+import { validateDateTimeFormatRequirements } from './validations';
 
 export const isToday = (locale: LocaleLanguage, date: DateConfig['date']) => {
+  validateDateTimeFormatRequirements(
+    date,
+    locale,
+    'determine if current date is today',
+  );
   const currentDate = new Date();
   return (
     getYear(date) === getYear(currentDate) &&
