@@ -98,10 +98,20 @@ export const getMonthNumberOfDays = (
   locale: LocaleLanguage,
   date: DateConfig['date'],
 ) => {
+  if (!isValidDate(date)) {
+    throw new Error('Failed to get month number of days, date is invalid');
+  }
+  if (!isValidLocale(locale))
+    throw new Error('Failed to get month number of days, language is invalid');
+
   const year = getYear(date);
   const month = getMonthIndex(locale, date) + 1;
   const getLastDayOfMonth = 0;
-  return new Date(year, month, getLastDayOfMonth).getDate();
+  try {
+    return new Date(year, month, getLastDayOfMonth).getDate();
+  } catch {
+    throw new Error('Failed to get month number of days');
+  }
 };
 
 export const getDayOfWeek = (
