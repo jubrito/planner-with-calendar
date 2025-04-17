@@ -3,13 +3,13 @@
 Quality
 
 - error handling
+
   - Wrap components on errorfallback
   - handle errors on components
     - [ ] calendar menu
   - handle errors on functions
-    - [ ] utils
-      - [x] getMonthName
-      - [x] getDay
+    - [x] utils
+
 - test error handling
 
 Features
