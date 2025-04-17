@@ -51,6 +51,11 @@ export const getMonthIndex = (
     | typeof IntlDateTimeFormatNumeric
     | typeof IntlDateTimeFormat2Digit,
 ) => {
+  if (!isValidDate(date))
+    throw new Error('Failed to get month index, date is invalid');
+  if (!isValidLocale(locale))
+    throw new Error('Failed to get month index, language is invalid');
+
   const formattedDate = new Intl.DateTimeFormat(locale, {
     month: monthStyle || IntlDateTimeFormatNumeric,
   }).format(date);
