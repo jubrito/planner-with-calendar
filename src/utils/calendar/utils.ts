@@ -129,7 +129,10 @@ export const getFormattedDateString = (
   locale: LocaleLanguage,
   date: DateConfig['date'],
   options: Intl.DateTimeFormatOptions = {},
-) => new Intl.DateTimeFormat(locale, options).format(date);
+) => {
+  validateDateTimeFormatRequirements(date, locale, 'get date');
+  return new Intl.DateTimeFormat(locale, options).format(date);
+};
 
 export const getFormattedDate = (
   locale: LocaleLanguage,
