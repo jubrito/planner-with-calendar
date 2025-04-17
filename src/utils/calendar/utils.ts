@@ -72,8 +72,10 @@ export const getYear = (date: DateConfig['date']) => {
   return date.getFullYear();
 };
 
-export const getTimeInMilliseconds = (date: DateConfig['date']) =>
-  date.getTime();
+export const getTimeInMilliseconds = (date: DateConfig['date']) => {
+  if (!isValidDate(date)) throw new Error('Failed to get time in milliseconds');
+  return date.getTime();
+};
 
 export const getMonthNumberOfDays = (
   locale: LocaleLanguage,
