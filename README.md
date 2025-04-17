@@ -9,6 +9,7 @@ Quality
     - [ ] calendar menu
   - handle errors on functions
     - [x] utils
+    - [x] weeks
 
 - test error handling
 
