@@ -139,26 +139,19 @@ export const getHoursOfTheDay = (
   month: DateConfig['month'],
   day: DateConfig['day'],
 ) => {
-  const formattedHours = [];
-
-  const addZeroDigitsAfterDigits = (formattedHour: string) => {
-    return formattedHour + ':00';
-  };
-
-  for (let i = 0; i < numberOfHoursInADay + 1; i++) {
-    let formattedHour = new Intl.DateTimeFormat(locale, {
+  const hoursInADay = Array.from(Array(numberOfHoursInADay + 1).keys());
+  return hoursInADay.map((hours) => {
+    const formattedHour = new Intl.DateTimeFormat(locale, {
       hour: IntlDateTimeFormatNumeric,
-    }).format(new Date(year, month, day, i));
-    if (formattedHour.includes('AM') || formattedHour.includes('PM')) {
-      const [time, period] = formattedHour.split(' ');
-      formattedHour = get2DigitsValue(time) + ' ' + period;
-    } else {
-      formattedHour = addZeroDigitsAfterDigits(formattedHour);
+    }).format(new Date(year, month, day, hours));
+    const [time, period, hour] = getTimeInformation(formattedHour);
+    if (is12HourClockSystem(formattedHour)) {
+      return time + period;
     }
-    formattedHours.push(formattedHour);
-  }
-  return formattedHours;
+    return hour + ':00';
+  });
 };
+
 export const getFormattedDateString = (
   locale: LocaleLanguage,
   date: DateConfig['date'],
@@ -262,7 +255,7 @@ export const getTimeInformation = (formattedFullTime: string) => {
     const [time, period] = formattedFullTime.split(' ');
     const [hour, minutes] = time.split(':');
     const periodWithSpaceBef = ' ' + period;
-    return [time, periodWithSpaceBef, hour, minutes];
+    return [get2DigitsValue(time), periodWithSpaceBef, hour, minutes];
   }
   const [hour, minutes] = formattedFullTime.split(':');
   const noPeriod = '';
