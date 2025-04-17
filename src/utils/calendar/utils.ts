@@ -67,7 +67,10 @@ export const getMonthName = (
   return monthNameFirstLetterUpperCase + monthName.slice(1);
 };
 
-export const getYear = (date: DateConfig['date']) => date.getFullYear();
+export const getYear = (date: DateConfig['date']) => {
+  if (!isValidDate(date)) throw new Error('Failed to get year');
+  return date.getFullYear();
+};
 
 export const getTimeInMilliseconds = (date: DateConfig['date']) =>
   date.getTime();
