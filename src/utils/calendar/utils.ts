@@ -12,7 +12,7 @@ import {
   IntlDateTimeFormatNumeric,
 } from '../constants';
 import { todayLabel } from './constants';
-import { isToday, isValidDate } from '../checkers';
+import { isToday, isValidDate, isValidLocale } from '../checkers';
 import { getWeekDaysNames } from './weeks';
 import { validateDateTimeFormatRequirements } from '../validations';
 
@@ -114,6 +114,8 @@ export const getDayOfWeek = (
 
 export const getDayName = (dayOfWeek: number, locale: string) => {
   let dayName: string;
+  if (!isValidLocale(locale))
+    throw new Error('Failed to get day name, language is invalid');
   const weekDays = getWeekDaysNames(locale);
   if (dayOfWeek === 0) {
     dayName = weekDays[WeekDays.SUNDAY].short;
