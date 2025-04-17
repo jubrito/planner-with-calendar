@@ -133,16 +133,11 @@ const CalendarCells = () => {
   );
 };
 
-const fillLastRowWithNextMonthCells = (lastCellInfo: CalendarCellInfo) => {
-  const nextMonthDaysLastRowCells: CalendarCellInfo[] = [];
-  for (let i = 1; i < numberOfDaysOfTheWeek + 1; i++) {
-    nextMonthDaysLastRowCells.push({
-      month: lastCellInfo.month,
-      day: lastCellInfo.day + i,
-      year: lastCellInfo.year,
-    });
-  }
-  return nextMonthDaysLastRowCells;
-};
+const fillLastRowWithNextMonthCells = (lastCellInfo: CalendarCellInfo) =>
+  Array.from(Array(numberOfDaysOfTheWeek).keys()).map((day) => ({
+    month: lastCellInfo.month,
+    day: lastCellInfo.day + day + 1,
+    year: lastCellInfo.year,
+  }));
 
 export default CalendarCells;
