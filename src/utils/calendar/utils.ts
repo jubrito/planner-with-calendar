@@ -12,22 +12,21 @@ import {
   IntlDateTimeFormatNumeric,
 } from '../constants';
 import { todayLabel } from './constants';
-import { isToday, isValidDate } from '../checkers';
+import { isToday, isValidDate, isValidLocale } from '../checkers';
 import { getWeekDaysNames } from './weeks';
 
 export const getFullDateTitle = (
   year: DateConfig['year'],
   month: DateConfig['month'],
   day: DateConfig['day'],
-  locale: string,
+  locale: LocaleLanguage,
 ) => {
   const errorMessage = (message: string) =>
     `Failed to get date title, ${message}`;
   if (!isValidDate(new Date(year, month, day)))
     throw new Error(errorMessage('date is invalid'));
-  if (month < 0 || month >= 12)
-    throw new Error(errorMessage('month is invalid'));
-  if (day <= 0 || day > 31) throw new Error(errorMessage('day is invalid'));
+  if (!isValidLocale(locale))
+    throw new Error(errorMessage('language is invalid'));
 
   if (isToday(locale, new Date(year, month, day))) return todayLabel;
   return new Intl.DateTimeFormat(locale, {
