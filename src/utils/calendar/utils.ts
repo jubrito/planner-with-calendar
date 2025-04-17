@@ -92,11 +92,11 @@ export const getMonthNumberOfDays = (
   const year = getYear(date);
   const month = getMonthIndex(locale, date) + 1;
   const getLastDayOfMonth = 0;
-  try {
-    return new Date(year, month, getLastDayOfMonth).getDate();
-  } catch {
+  const dateWithLastDayOfMonth = new Date(year, month, getLastDayOfMonth);
+  if (!isValidDate(dateWithLastDayOfMonth)) {
     throw new Error('Failed to get month number of days');
   }
+  return dateWithLastDayOfMonth.getDate();
 };
 
 export const getDayOfWeek = (
