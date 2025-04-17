@@ -8,6 +8,7 @@ Quality
   - handle errors on components
     - [ ] calendar menu
   - handle errors on functions
+    - [ ] utils
 
 - test error handling
 
