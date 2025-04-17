@@ -1,14 +1,22 @@
 import { DateConfig } from '../../types/calendar/types';
+import { isValidDate, isValidLocale } from '../checkers';
 import { IntlDateTimeFormatLong, IntlDateTimeFormatShort } from '../constants';
 import { numberOfDaysOfTheWeek } from './constants';
 import { getFormattedDate } from './utils';
 import { getDayName } from './utils';
 
 export const getWeekDaysNames = (locale: string) => {
+  if (!isValidLocale(locale))
+    throw new Error('Failed to get week days names, language is invalid');
+
   const date = new Date(0);
+
   return [...Array(numberOfDaysOfTheWeek).keys()].map((dayOfWeek) => {
     const dayOneIndexed = dayOfWeek + 1;
     date.setDate(dayOneIndexed);
+
+    if (!isValidDate(date))
+      throw new Error('Failed to get week days names, date is invalid');
 
     return {
       long: new Intl.DateTimeFormat([locale], {
