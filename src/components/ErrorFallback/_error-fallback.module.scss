@@ -1,0 +1,10 @@
+@use '../../styles/variables' as variables;
+
+.error {
+  border: 1px solid variables.$error-color;
+  padding: variables.$small-gap;
+  color: variables.$white-color;
+  background-color: variables.$error-color;
+  border-radius: variables.$small-gap;
+  margin: variables.$small-gap 0;
+}
