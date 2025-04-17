@@ -12,7 +12,7 @@ import {
   IntlDateTimeFormatNumeric,
 } from '../constants';
 import { todayLabel } from './constants';
-import { isToday } from '../checkers';
+import { isToday, isValidDate } from '../checkers';
 import { getWeekDaysNames } from './weeks';
 
 export const getFullDateTitle = (
@@ -54,6 +54,9 @@ export const getMonthName = (
   date: DateConfig['date'],
   monthStyle?: IntlDateTypeMonthStyle,
 ) => {
+  if (!isValidDate(date)) {
+    throw new Error('Failed to get current month name');
+  }
   const monthName = new Intl.DateTimeFormat(locale, {
     month: monthStyle || IntlDateTimeFormatLong,
   }).format(date);
