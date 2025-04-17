@@ -138,7 +138,10 @@ export const getFormattedDate = (
   locale: LocaleLanguage,
   date: DateConfig['date'],
   options: Intl.DateTimeFormatOptions = {},
-) => new Date(getFormattedDateString(locale, date, options));
+) => {
+  validateDateTimeFormatRequirements(date, locale, 'get date');
+  return new Date(getFormattedDateString(locale, date, options));
+};
 
 export const getLastDayOfPreviousMonth = (
   time: DateConfig['timeInMilliseconds'],
