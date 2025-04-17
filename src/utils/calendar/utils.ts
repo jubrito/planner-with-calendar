@@ -66,12 +66,7 @@ export const getMonthName = (
   date: DateConfig['date'],
   monthStyle?: IntlDateTypeMonthStyle,
 ) => {
-  if (!isValidDate(date)) {
-    throw new Error('Failed to get month name, date is invalid');
-  }
-  if (!isValidLocale(locale))
-    throw new Error('Failed to get month name, language is invalid');
-
+  validateDateTimeFormatRequirements(date, locale, 'get month name');
   const monthName = new Intl.DateTimeFormat(locale, {
     month: monthStyle || IntlDateTimeFormatLong,
   }).format(date);
