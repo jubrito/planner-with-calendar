@@ -1,7 +1,6 @@
 import { numberOfDaysOfTheWeek } from '../../../utils/calendar/constants';
 import styles from './_calendar-cells.module.scss';
 import {
-  getCurrentMonthDays,
   getLastDayOfPreviousMonth,
   getMonthIndex,
   getYear,
@@ -203,6 +202,20 @@ const getNextMonthDaysOnCurrentMonth = (
     month: getMonthIndex(locale, new Date(year, month + 1)) + 1,
     day: firstDayOfTheMonth + day,
     year: getYear(new Date(year, month + 1)),
+  }));
+};
+
+const getCurrentMonthDays = (
+  year: DateConfig['year'],
+  month: DateConfig['month'],
+  monthNumberOfDays: DateConfig['monthNumberOfDays'],
+  monthStartingInZero = false,
+) => {
+  const monthDays = [...Array(monthNumberOfDays).keys()];
+  return monthDays.map((day) => ({
+    month: monthStartingInZero ? month : month + 1,
+    day: day + 1,
+    year: year,
   }));
 };
 
