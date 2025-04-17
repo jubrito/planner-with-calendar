@@ -34,8 +34,10 @@ export const getFullDateTitle = (
   }).format(new Date(year, month, day));
 };
 
-export const getDateISOString = (date: DateConfig['date']) =>
-  date.toISOString();
+export const getDateISOString = (date: DateConfig['date']) => {
+  if (!isValidDate(date)) throw new Error('Failed to get date');
+  return date.toISOString();
+};
 
 export const getDay = (date: DateConfig['date']) => {
   if (!isValidDate(date)) throw new Error('Failed to get day');
