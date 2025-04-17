@@ -80,7 +80,7 @@ export const getMonthIndex = (
   return zeroBaseMonthNumber;
 };
 
-export const get2DigitsValue = (value: number) =>
+export const get2DigitsValue = (value: number | string) =>
   value.toString().padStart(2, '0');
 
 export const getMonthName = (
@@ -141,15 +141,6 @@ export const getHoursOfTheDay = (
 ) => {
   const formattedHours = [];
 
-  const addZeroDigitBeforeSingleDigits = (formattedHour: string) => {
-    const [digits, period] = formattedHour.split(' ');
-    let formattedHourWithZero = formattedHour;
-    if (digits.length === 1) {
-      formattedHourWithZero = '0' + digits + ' ' + period;
-    }
-    return formattedHourWithZero;
-  };
-
   const addZeroDigitsAfterDigits = (formattedHour: string) => {
     return formattedHour + ':00';
   };
@@ -159,7 +150,8 @@ export const getHoursOfTheDay = (
       hour: IntlDateTimeFormatNumeric,
     }).format(new Date(year, month, day, i));
     if (formattedHour.includes('AM') || formattedHour.includes('PM')) {
-      formattedHour = addZeroDigitBeforeSingleDigits(formattedHour);
+      const [time, period] = formattedHour.split(' ');
+      formattedHour = get2DigitsValue(time) + ' ' + period;
     } else {
       formattedHour = addZeroDigitsAfterDigits(formattedHour);
     }
