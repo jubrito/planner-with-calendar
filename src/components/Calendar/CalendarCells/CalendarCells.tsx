@@ -150,7 +150,6 @@ const getPreviousMonthDaysOnCurrentMonth = (
   time: DateConfig['timeInMilliseconds'],
   locale: string,
 ) => {
-  const previousMonthDaysOnCurrentMonth: CalendarCellInfo[] = [];
   const lastDayOfPreviousMonth = getLastDayOfPreviousMonth(time);
   const weekDayNameWhenMonthStarts = getWeekDayName(
     year,
@@ -162,14 +161,16 @@ const getPreviousMonthDaysOnCurrentMonth = (
     weekDayNameWhenMonthStarts,
     locale,
   );
-  for (let i = 0; i < numberOfDaysOfPreviousMonth; i++) {
-    previousMonthDaysOnCurrentMonth.push({
+  const numbersOfDaysOfPreviousMonth = Array.from(
+    Array(numberOfDaysOfPreviousMonth).keys(),
+  );
+  return numbersOfDaysOfPreviousMonth
+    .map((day) => ({
       month: getMonthIndex(locale, new Date(year, month - 1)) + 1,
-      day: lastDayOfPreviousMonth - i,
+      day: lastDayOfPreviousMonth - day,
       year: getYear(new Date(year, month - 1)),
-    });
-  }
-  return previousMonthDaysOnCurrentMonth.reverse();
+    }))
+    .reverse();
 };
 
 const getNextMonthDaysOnCurrentMonth = (
