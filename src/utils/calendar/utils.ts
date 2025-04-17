@@ -12,7 +12,7 @@ import {
   IntlDateTimeFormatNumeric,
 } from '../constants';
 import { todayLabel } from './constants';
-import { isToday, isValidDate, isValidLocale } from '../checkers';
+import { isToday, isValidDate } from '../checkers';
 import { getWeekDaysNames } from './weeks';
 import { validateDateTimeFormatRequirements } from '../validations';
 
@@ -104,12 +104,7 @@ export const getDayOfWeek = (
   date: DateConfig['date'],
   weekdayStyle?: IntlDateTypeWeekdayStyle,
 ) => {
-  if (!isValidDate(date)) {
-    throw new Error('Failed to get day of the week, date is invalid');
-  }
-  if (!isValidLocale(locale))
-    throw new Error('Failed to get day of the week, language is invalid');
-
+  validateDateTimeFormatRequirements(date, locale, 'get day of the week');
   const dayOfWeek = new Intl.DateTimeFormat(locale, {
     weekday: weekdayStyle || IntlDateTimeFormatLong,
   }).format(date);
