@@ -30,7 +30,10 @@ export const getFullDateTitle = (
 export const getDateISOString = (date: DateConfig['date']) =>
   date.toISOString();
 
-export const getDay = (date: DateConfig['date']) => date.getDate();
+export const getDay = (date: DateConfig['date']) => {
+  if (!isValidDate(date)) throw new Error('Failed to get day');
+  return date.getDate();
+};
 
 export const getMonthIndex = (
   locale: LocaleLanguage,
