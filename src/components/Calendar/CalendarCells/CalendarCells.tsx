@@ -15,7 +15,7 @@ import {
 } from '../../../redux/slices/dateSlice/selectors';
 import { useSelector } from 'react-redux';
 import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 import { getChunkArrayByChunkSize } from '../../../utils/utils';
 import { firstDayOfTheMonth } from '../../../utils/calendar/constants';
 import {
@@ -38,7 +38,7 @@ const CalendarCells = () => {
    *
    * @returns allCalendarCells: previous, current and next month days on current calendar
    */
-  const getAllCalendarCells = useCallback(() => {
+  const getAllCalendarCells = useMemo(() => {
     const currentMonthDays: CalendarCellInfo[] = getCurrentMonthDays(
       year,
       month,
@@ -74,8 +74,8 @@ const CalendarCells = () => {
    * @param chunks calendar chunked with 5 rows
    * @returns last extra row with following days of next month
    */
-  const getRowWithNextMonthCells = useCallback(
-    (chunks: CalendarCellInfo[][]) => {
+  const getRowWithNextMonthCells = useMemo(
+    () => (chunks: CalendarCellInfo[][]) => {
       const lastRow = chunks[chunks.length - 1];
       const lastCellInfo = lastRow[lastRow.length - 1];
       const cellIsAlreadyNextMonth = lastCellInfo.month !== month + 1; // 0 indexed
@@ -94,8 +94,8 @@ const CalendarCells = () => {
     [year, month],
   );
 
-  const getCalendarWithSixRows = useCallback(
-    (calendarCellsByWeekChunks: CalendarCellInfo[][]) => {
+  const getCalendarWithSixRows = useMemo(
+    () => (calendarCellsByWeekChunks: CalendarCellInfo[][]) => {
       const chunks = calendarCellsByWeekChunks;
       const minimalNumberOfRows = 6;
       const onlyFiveRows = chunks.length < minimalNumberOfRows;
@@ -106,7 +106,7 @@ const CalendarCells = () => {
   );
 
   const dayCellsChunked = useMemo(() => {
-    const allCalendarCells = getAllCalendarCells();
+    const allCalendarCells = getAllCalendarCells;
     const calendarCellsByWeekChunks: CalendarCellInfo[][] =
       getChunkArrayByChunkSize(allCalendarCells, numberOfDaysOfTheWeek);
     return getCalendarWithSixRows(calendarCellsByWeekChunks);
