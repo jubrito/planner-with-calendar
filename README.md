@@ -9,6 +9,7 @@ Quality
   - handle errors on functions
     - [ ] utils
       - [x] getMonthName
+      - [x] getDay
 - test error handling
 
 Features
