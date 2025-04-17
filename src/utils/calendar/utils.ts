@@ -183,7 +183,6 @@ export const getNextMonthDaysOnCurrentMonth = (
   monthNumberOfDays: DateConfig['monthNumberOfDays'],
   locale: string,
 ) => {
-  const nextMonthDaysOnCurrentMonth: CalendarCellInfo[] = [];
   const weekDayNameWhenMonthEnds = getWeekDayName(
     year,
     month,
@@ -194,15 +193,14 @@ export const getNextMonthDaysOnCurrentMonth = (
     numberOfDaysOfTheWeek -
     1 -
     numOfDaysFromOtherMonthOnCurrentCalendar(weekDayNameWhenMonthEnds, locale);
-
-  for (let i = 0; i < numberOfDaysOfNextMonth; i++) {
-    nextMonthDaysOnCurrentMonth.push({
-      month: getMonthIndex(locale, new Date(year, month + 1)) + 1,
-      day: firstDayOfTheMonth + i,
-      year: getYear(new Date(year, month + 1)),
-    });
-  }
-  return nextMonthDaysOnCurrentMonth;
+  const numbersOfDaysOfNextMonth = Array.from(
+    Array(numberOfDaysOfNextMonth).keys(),
+  );
+  return numbersOfDaysOfNextMonth.map((day) => ({
+    month: getMonthIndex(locale, new Date(year, month + 1)) + 1,
+    day: firstDayOfTheMonth + day,
+    year: getYear(new Date(year, month + 1)),
+  }));
 };
 export const getLastDayOfPreviousMonth = (
   time: DateConfig['timeInMilliseconds'],
