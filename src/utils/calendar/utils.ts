@@ -11,7 +11,7 @@ import {
   IntlDateTimeFormatLong,
   IntlDateTimeFormatNumeric,
 } from '../constants';
-import { numberOfHoursInADay, todayLabel } from './constants';
+import { todayLabel } from './constants';
 import { isToday } from '../checkers';
 import { getWeekDaysNames } from './weeks';
 
@@ -122,25 +122,6 @@ export const getDayName = (dayOfWeek: number, locale: string) => {
   return dayName;
 };
 
-export const getHoursOfTheDay = (
-  locale: LocaleLanguage,
-  year: DateConfig['year'],
-  month: DateConfig['month'],
-  day: DateConfig['day'],
-) => {
-  const hoursInADay = Array.from(Array(numberOfHoursInADay + 1).keys());
-  return hoursInADay.map((hours) => {
-    const formattedHour = new Intl.DateTimeFormat(locale, {
-      hour: IntlDateTimeFormatNumeric,
-    }).format(new Date(year, month, day, hours));
-    const [time, period, hour] = getTimeInformation(formattedHour);
-    if (is12HourClockSystem(formattedHour)) {
-      return time + period;
-    }
-    return hour + ':00';
-  });
-};
-
 export const getFormattedDateString = (
   locale: LocaleLanguage,
   date: DateConfig['date'],
@@ -175,7 +156,7 @@ export const getLastDayOfPreviousMonth = (
   return tempDate.getDate();
 };
 
-const is12HourClockSystem = (time: string) =>
+export const is12HourClockSystem = (time: string) =>
   time.includes('AM') || time.includes('PM');
 
 /**
