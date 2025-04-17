@@ -14,6 +14,7 @@ import {
 import { todayLabel } from './constants';
 import { isToday, isValidDate, isValidLocale } from '../checkers';
 import { getWeekDaysNames } from './weeks';
+import { validateDateTimeFormatRequirements } from '../validations';
 
 export const getFullDateTitle = (
   year: DateConfig['year'],
@@ -21,13 +22,11 @@ export const getFullDateTitle = (
   day: DateConfig['day'],
   locale: LocaleLanguage,
 ) => {
-  const errorMessage = (message: string) =>
-    `Failed to get date title, ${message}`;
-  if (!isValidDate(new Date(year, month, day)))
-    throw new Error(errorMessage('date is invalid'));
-  if (!isValidLocale(locale))
-    throw new Error(errorMessage('language is invalid'));
-
+  validateDateTimeFormatRequirements(
+    new Date(year, month, day),
+    locale,
+    'get date title',
+  );
   if (isToday(locale, new Date(year, month, day))) return todayLabel;
   return new Intl.DateTimeFormat(locale, {
     dateStyle: IntlDateTimeFormatFull,
@@ -51,11 +50,7 @@ export const getMonthIndex = (
     | typeof IntlDateTimeFormatNumeric
     | typeof IntlDateTimeFormat2Digit,
 ) => {
-  if (!isValidDate(date))
-    throw new Error('Failed to get month index, date is invalid');
-  if (!isValidLocale(locale))
-    throw new Error('Failed to get month index, language is invalid');
-
+  validateDateTimeFormatRequirements(date, locale, 'get month index');
   const formattedDate = new Intl.DateTimeFormat(locale, {
     month: monthStyle || IntlDateTimeFormatNumeric,
   }).format(date);
