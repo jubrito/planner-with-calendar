@@ -2,7 +2,8 @@ import { useRef } from 'react';
 import styles from './_hours-of-the-day.module.scss';
 import {
   get2DigitsValue,
-  getHoursOfTheDay,
+  getTimeInformation,
+  is12HourClockSystem,
 } from '../../../utils/calendar/utils';
 import { useSelector } from 'react-redux';
 import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
@@ -11,7 +12,13 @@ import {
   getSelectedDayViewMonth,
   getSelectedDayViewYear,
 } from '../../../redux/slices/dateSlice/selectors';
-import { IntlDateTimeFormat2Digit } from '../../../utils/constants';
+import {
+  IntlDateTimeFormat2Digit,
+  IntlDateTimeFormatNumeric,
+} from '../../../utils/constants';
+import { LocaleLanguage } from '../../../types/locale/types';
+import { DateConfig } from '../../../types/calendar/types';
+import { numberOfHoursInADay } from '../../../utils/calendar/constants';
 
 export const HoursOfTheDay = () => {
   const locale = useSelector(getLocaleLanguage());
@@ -38,4 +45,23 @@ export const HoursOfTheDay = () => {
       })}
     </div>
   );
+};
+
+const getHoursOfTheDay = (
+  locale: LocaleLanguage,
+  year: DateConfig['year'],
+  month: DateConfig['month'],
+  day: DateConfig['day'],
+) => {
+  const hoursInADay = Array.from(Array(numberOfHoursInADay + 1).keys());
+  return hoursInADay.map((hours) => {
+    const formattedHour = new Intl.DateTimeFormat(locale, {
+      hour: IntlDateTimeFormatNumeric,
+    }).format(new Date(year, month, day, hours));
+    const [time, period, hour] = getTimeInformation(formattedHour);
+    if (is12HourClockSystem(formattedHour)) {
+      return time + period;
+    }
+    return hour + ':00';
+  });
 };
