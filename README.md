@@ -10,6 +10,7 @@ Quality
   - handle errors on functions
     - [x] utils
     - [x] weeks
+    - [ ] selectors
 
 - test error handling
 
