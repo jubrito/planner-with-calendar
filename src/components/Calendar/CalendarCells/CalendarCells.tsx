@@ -2,11 +2,10 @@ import { numberOfDaysOfTheWeek } from '../../../utils/calendar/constants';
 import styles from './_calendar-cells.module.scss';
 import {
   getCurrentMonthDays,
+  getLastDayOfPreviousMonth,
   getMonthIndex,
   getYear,
-  numOfDaysFromOtherMonthOnCurrentCalendar,
 } from '../../../utils/calendar/utils';
-import { getPreviousMonthDaysOnCurrentMonth } from '../../../utils/calendar/utils';
 import { CalendarCellInfo, DateConfig } from '../../../types/calendar/types';
 import { Cell } from './Cell/Cell';
 import {
@@ -20,7 +19,10 @@ import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
 import { useCallback, useMemo } from 'react';
 import { getChunkArrayByChunkSize } from '../../../utils/utils';
 import { firstDayOfTheMonth } from '../../../utils/calendar/constants';
-import { getWeekDayName } from '../../../utils/calendar/weeks';
+import {
+  getWeekDayName,
+  getWeekDaysNames,
+} from '../../../utils/calendar/weeks';
 
 const CalendarCells = () => {
   const locale = useSelector(getLocaleLanguage());
@@ -144,6 +146,39 @@ const fillLastRowWithNextMonthCells = (lastCellInfo: CalendarCellInfo) =>
     day: lastCellInfo.day + day + 1,
     year: lastCellInfo.year,
   }));
+
+const numOfDaysFromOtherMonthOnCurrentCalendar = (
+  weekDayName: string,
+  locale: string,
+) => getWeekDaysNames(locale).findIndex((name) => weekDayName === name.short);
+
+const getPreviousMonthDaysOnCurrentMonth = (
+  month: DateConfig['month'],
+  year: DateConfig['year'],
+  time: DateConfig['timeInMilliseconds'],
+  locale: string,
+) => {
+  const previousMonthDaysOnCurrentMonth: CalendarCellInfo[] = [];
+  const lastDayOfPreviousMonth = getLastDayOfPreviousMonth(time);
+  const weekDayNameWhenMonthStarts = getWeekDayName(
+    year,
+    month,
+    firstDayOfTheMonth,
+    locale,
+  );
+  const numberOfDaysOfPreviousMonth = numOfDaysFromOtherMonthOnCurrentCalendar(
+    weekDayNameWhenMonthStarts,
+    locale,
+  );
+  for (let i = 0; i < numberOfDaysOfPreviousMonth; i++) {
+    previousMonthDaysOnCurrentMonth.push({
+      month: getMonthIndex(locale, new Date(year, month - 1)) + 1,
+      day: lastDayOfPreviousMonth - i,
+      year: getYear(new Date(year, month - 1)),
+    });
+  }
+  return previousMonthDaysOnCurrentMonth.reverse();
+};
 
 const getNextMonthDaysOnCurrentMonth = (
   month: DateConfig['month'],

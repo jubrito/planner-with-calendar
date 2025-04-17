@@ -1,6 +1,5 @@
 import { Months, WeekDays } from '../../types/calendar/enums';
 import {
-  CalendarCellInfo,
   DateConfig,
   IntlDateTypeMonthStyle,
   IntlDateTypeWeekdayStyle,
@@ -12,13 +11,9 @@ import {
   IntlDateTimeFormatLong,
   IntlDateTimeFormatNumeric,
 } from '../constants';
-import {
-  firstDayOfTheMonth,
-  numberOfHoursInADay,
-  todayLabel,
-} from './constants';
+import { numberOfHoursInADay, todayLabel } from './constants';
 import { isToday } from '../checkers';
-import { getWeekDayName, getWeekDaysNames } from './weeks';
+import { getWeekDaysNames } from './weeks';
 
 export const monthNameByIndex = (
   locale: LocaleLanguage,
@@ -42,11 +37,6 @@ export const monthNameByIndex = (
     [Months.DECEMBER]: getMonthName(locale, new Date(anyYear, Months.DECEMBER)),
   };
 };
-
-export const numOfDaysFromOtherMonthOnCurrentCalendar = (
-  weekDayName: string,
-  locale: string,
-) => getWeekDaysNames(locale).findIndex((name) => weekDayName === name.short);
 
 export const getFullDateTitle = (
   year: DateConfig['year'],
@@ -183,33 +173,6 @@ export const getLastDayOfPreviousMonth = (
   const tempDate = new Date(time);
   tempDate.setDate(0);
   return tempDate.getDate();
-};
-export const getPreviousMonthDaysOnCurrentMonth = (
-  month: DateConfig['month'],
-  year: DateConfig['year'],
-  time: DateConfig['timeInMilliseconds'],
-  locale: string,
-) => {
-  const previousMonthDaysOnCurrentMonth: CalendarCellInfo[] = [];
-  const lastDayOfPreviousMonth = getLastDayOfPreviousMonth(time);
-  const weekDayNameWhenMonthStarts = getWeekDayName(
-    year,
-    month,
-    firstDayOfTheMonth,
-    locale,
-  );
-  const numberOfDaysOfPreviousMonth = numOfDaysFromOtherMonthOnCurrentCalendar(
-    weekDayNameWhenMonthStarts,
-    locale,
-  );
-  for (let i = 0; i < numberOfDaysOfPreviousMonth; i++) {
-    previousMonthDaysOnCurrentMonth.push({
-      month: getMonthIndex(locale, new Date(year, month - 1)) + 1,
-      day: lastDayOfPreviousMonth - i,
-      year: getYear(new Date(year, month - 1)),
-    });
-  }
-  return previousMonthDaysOnCurrentMonth.reverse();
 };
 
 const is12HourClockSystem = (time: string) =>
