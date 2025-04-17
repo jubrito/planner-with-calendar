@@ -147,6 +147,8 @@ export const getLastDayOfPreviousMonth = (
   time: DateConfig['timeInMilliseconds'],
 ): number => {
   const tempDate = new Date(time);
+  if (!isValidDate(tempDate))
+    throw new Error('Failed to get last day of previous month');
   tempDate.setDate(0);
   return tempDate.getDate();
 };
