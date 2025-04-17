@@ -4,6 +4,10 @@ Quality
 
 - error handling
 
+  - Wrap components on errorfallback
+
+- test error handling
+
 Features
 
 - Show current hour of the day on a line on the planner
