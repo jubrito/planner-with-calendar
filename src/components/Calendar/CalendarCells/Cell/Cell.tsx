@@ -27,8 +27,8 @@ export const Cell = ({
 }: CellProps) => {
   const fullDate = `${cellYear}-${cellMonth}-${cellDay}`;
   const localeString = useSelector(getLocaleLanguage());
-  const cellMonthZeroIndexed = cellMonth - 1;
-  const date = new Date(cellYear, cellMonthZeroIndexed, cellDay);
+  const month = cellMonth - 1;
+  const date = new Date(cellYear, month, cellDay);
   const dispatch = useDispatch();
 
   const handleUpdateDayViewDate = () => {
@@ -49,7 +49,7 @@ export const Cell = ({
       ${cellMonth} +
       ${cellDay}`}
       className={
-        cellMonthZeroIndexed === currentMonth
+        month === currentMonth
           ? calendarCellsStyles.currentMonthDay
           : calendarCellsStyles.otherMonthDay
       }
@@ -62,12 +62,7 @@ export const Cell = ({
         >
           <time
             dateTime={fullDate}
-            title={getFullDateTitle(
-              cellYear,
-              cellMonthZeroIndexed,
-              cellDay,
-              localeString,
-            )}
+            title={getFullDateTitle(cellYear, month, cellDay, localeString)}
             className={
               isToday(localeString, date) ? cellsStyles.isToday : undefined
             }
