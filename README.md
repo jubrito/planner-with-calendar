@@ -5,6 +5,8 @@ Quality
 - error handling
 
   - Wrap components on errorfallback
+  - handle errors on components
+    - [ ] calendar menu
 
 - test error handling
 
