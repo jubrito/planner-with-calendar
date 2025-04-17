@@ -1,4 +1,4 @@
-import { Months, WeekDays } from '../../types/calendar/enums';
+import { WeekDays } from '../../types/calendar/enums';
 import {
   DateConfig,
   IntlDateTypeMonthStyle,
@@ -14,29 +14,6 @@ import {
 import { todayLabel } from './constants';
 import { isToday } from '../checkers';
 import { getWeekDaysNames } from './weeks';
-
-export const monthNameByIndex = (
-  locale: LocaleLanguage,
-): Record<Months, string> => {
-  const anyYear = 2025;
-  return {
-    [Months.JANUARY]: getMonthName(locale, new Date(anyYear, Months.JANUARY)),
-    [Months.FEBRUARY]: getMonthName(locale, new Date(anyYear, Months.FEBRUARY)),
-    [Months.MARCH]: getMonthName(locale, new Date(anyYear, Months.MARCH)),
-    [Months.APRIL]: getMonthName(locale, new Date(anyYear, Months.APRIL)),
-    [Months.MAY]: getMonthName(locale, new Date(anyYear, Months.MAY)),
-    [Months.JUNE]: getMonthName(locale, new Date(anyYear, Months.JUNE)),
-    [Months.JULY]: getMonthName(locale, new Date(anyYear, Months.JULY)),
-    [Months.AUGUST]: getMonthName(locale, new Date(anyYear, Months.AUGUST)),
-    [Months.SEPTEMBER]: getMonthName(
-      locale,
-      new Date(anyYear, Months.SEPTEMBER),
-    ),
-    [Months.OCTOBER]: getMonthName(locale, new Date(anyYear, Months.OCTOBER)),
-    [Months.NOVEMBER]: getMonthName(locale, new Date(anyYear, Months.NOVEMBER)),
-    [Months.DECEMBER]: getMonthName(locale, new Date(anyYear, Months.DECEMBER)),
-  };
-};
 
 export const getFullDateTitle = (
   year: DateConfig['year'],
