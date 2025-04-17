@@ -17,3 +17,6 @@ export const isObject = (obj: unknown): obj is ObjectType =>
   !Array.isArray(obj) &&
   (Object.getPrototypeOf(obj) === Object.prototype || // not an instance of a subclass such as array or date
     Object.getPrototypeOf(obj) === null); // created with Object.create(null)
+
+export const isValidDate = (date: Date) =>
+  date instanceof Date && !isNaN(date.getTime());
