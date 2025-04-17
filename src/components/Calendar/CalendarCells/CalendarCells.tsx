@@ -117,22 +117,15 @@ const CalendarCells = () => {
       {dayCellsChunked &&
         dayCellsChunked.map((week, weekIndex) => (
           <tr key={weekIndex}>
-            {week.map((calendarCell) => {
-              const {
-                day: cellDay,
-                month: cellMonth,
-                year: cellYear,
-              } = calendarCell;
-              return (
-                <Cell
-                  cellDay={cellDay}
-                  cellMonth={cellMonth}
-                  cellYear={cellYear}
-                  currentMonth={month}
-                  key={`${cellYear}-${cellMonth}-${cellDay}`}
-                />
-              );
-            })}
+            {week.map((calendarCell) => (
+              <Cell
+                cellDay={calendarCell.day}
+                cellMonth={calendarCell.month}
+                cellYear={calendarCell.year}
+                currentMonth={month}
+                key={`${calendarCell.year}-${calendarCell.month}-${calendarCell.day}`}
+              />
+            ))}
           </tr>
         ))}
     </tbody>
