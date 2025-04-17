@@ -21,6 +21,14 @@ export const getFullDateTitle = (
   day: DateConfig['day'],
   locale: string,
 ) => {
+  const errorMessage = (message: string) =>
+    `Failed to get date title, ${message}`;
+  if (!isValidDate(new Date(year, month, day)))
+    throw new Error(errorMessage('date is invalid'));
+  if (month < 0 || month >= 12)
+    throw new Error(errorMessage('month is invalid'));
+  if (day <= 0 || day > 31) throw new Error(errorMessage('day is invalid'));
+
   if (isToday(locale, new Date(year, month, day))) return todayLabel;
   return new Intl.DateTimeFormat(locale, {
     dateStyle: IntlDateTimeFormatFull,
