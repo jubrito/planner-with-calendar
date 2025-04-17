@@ -210,12 +210,14 @@ export const ClickableHoursOfTheDay = () => {
         const [startTime, startPeriod] = getTimeInformation(startHour);
         const [endTime, endPeriod] = getTimeInformation(endHour);
         const updatedStartPeriod = startPeriod !== endPeriod ? startPeriod : '';
-        const title = `Click, hold, and drag to create an event within the range ${startTime}${updatedStartPeriod} to ${endTime}${endPeriod}`;
+        const range = `range ${startTime}${updatedStartPeriod} to ${endTime}${endPeriod}`;
+        const title = `Click, hold, and drag to create an event within the ${range}`;
         return (
           <div
             onClick={(e) => e.preventDefault()}
             className={styles.hourBlock}
             title={title}
+            key={range}
           />
         );
       })}
