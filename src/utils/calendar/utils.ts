@@ -119,6 +119,12 @@ export const getDayOfWeek = (
   date: DateConfig['date'],
   weekdayStyle?: IntlDateTypeWeekdayStyle,
 ) => {
+  if (!isValidDate(date)) {
+    throw new Error('Failed to get day of the week, date is invalid');
+  }
+  if (!isValidLocale(locale))
+    throw new Error('Failed to get day of the week, language is invalid');
+
   const dayOfWeek = new Intl.DateTimeFormat(locale, {
     weekday: weekdayStyle || IntlDateTimeFormatLong,
   }).format(date);
