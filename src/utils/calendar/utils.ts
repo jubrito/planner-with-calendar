@@ -19,7 +19,6 @@ import {
 } from './constants';
 import { isToday } from '../checkers';
 import { getWeekDayName, getWeekDaysNames } from './weeks';
-import { numberOfDaysOfTheWeek } from './constants';
 
 export const monthNameByIndex = (
   locale: LocaleLanguage,
@@ -177,31 +176,7 @@ export const getCurrentMonthDays = (
     year: year,
   }));
 };
-export const getNextMonthDaysOnCurrentMonth = (
-  month: DateConfig['month'],
-  year: DateConfig['year'],
-  monthNumberOfDays: DateConfig['monthNumberOfDays'],
-  locale: string,
-) => {
-  const weekDayNameWhenMonthEnds = getWeekDayName(
-    year,
-    month,
-    monthNumberOfDays,
-    locale,
-  );
-  const numberOfDaysOfNextMonth =
-    numberOfDaysOfTheWeek -
-    1 -
-    numOfDaysFromOtherMonthOnCurrentCalendar(weekDayNameWhenMonthEnds, locale);
-  const numbersOfDaysOfNextMonth = Array.from(
-    Array(numberOfDaysOfNextMonth).keys(),
-  );
-  return numbersOfDaysOfNextMonth.map((day) => ({
-    month: getMonthIndex(locale, new Date(year, month + 1)) + 1,
-    day: firstDayOfTheMonth + day,
-    year: getYear(new Date(year, month + 1)),
-  }));
-};
+
 export const getLastDayOfPreviousMonth = (
   time: DateConfig['timeInMilliseconds'],
 ): number => {

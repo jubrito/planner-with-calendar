@@ -1,9 +1,13 @@
 import { numberOfDaysOfTheWeek } from '../../../utils/calendar/constants';
 import styles from './_calendar-cells.module.scss';
-import { getCurrentMonthDays } from '../../../utils/calendar/utils';
+import {
+  getCurrentMonthDays,
+  getMonthIndex,
+  getYear,
+  numOfDaysFromOtherMonthOnCurrentCalendar,
+} from '../../../utils/calendar/utils';
 import { getPreviousMonthDaysOnCurrentMonth } from '../../../utils/calendar/utils';
-import { getNextMonthDaysOnCurrentMonth } from '../../../utils/calendar/utils';
-import { CalendarCellInfo } from '../../../types/calendar/types';
+import { CalendarCellInfo, DateConfig } from '../../../types/calendar/types';
 import { Cell } from './Cell/Cell';
 import {
   getSelectedGlobalMonth,
@@ -16,6 +20,7 @@ import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
 import { useCallback, useMemo } from 'react';
 import { getChunkArrayByChunkSize } from '../../../utils/utils';
 import { firstDayOfTheMonth } from '../../../utils/calendar/constants';
+import { getWeekDayName } from '../../../utils/calendar/weeks';
 
 const CalendarCells = () => {
   const locale = useSelector(getLocaleLanguage());
@@ -139,5 +144,31 @@ const fillLastRowWithNextMonthCells = (lastCellInfo: CalendarCellInfo) =>
     day: lastCellInfo.day + day + 1,
     year: lastCellInfo.year,
   }));
+
+const getNextMonthDaysOnCurrentMonth = (
+  month: DateConfig['month'],
+  year: DateConfig['year'],
+  monthNumberOfDays: DateConfig['monthNumberOfDays'],
+  locale: string,
+) => {
+  const weekDayNameWhenMonthEnds = getWeekDayName(
+    year,
+    month,
+    monthNumberOfDays,
+    locale,
+  );
+  const numberOfDaysOfNextMonth =
+    numberOfDaysOfTheWeek -
+    1 -
+    numOfDaysFromOtherMonthOnCurrentCalendar(weekDayNameWhenMonthEnds, locale);
+  const numbersOfDaysOfNextMonth = Array.from(
+    Array(numberOfDaysOfNextMonth).keys(),
+  );
+  return numbersOfDaysOfNextMonth.map((day) => ({
+    month: getMonthIndex(locale, new Date(year, month + 1)) + 1,
+    day: firstDayOfTheMonth + day,
+    year: getYear(new Date(year, month + 1)),
+  }));
+};
 
 export default CalendarCells;
