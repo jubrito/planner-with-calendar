@@ -40,7 +40,7 @@ export const getDateISOString = (date: DateConfig['date']) => {
 };
 
 export const getDay = (date: DateConfig['date']) => {
-  if (!isValidDate(date)) throw new Error('Failed to get day');
+  if (!isValidDate(date)) throw new Error('Failed to get day, date is invalid');
   return date.getDate();
 };
 
@@ -67,7 +67,7 @@ export const getMonthName = (
   monthStyle?: IntlDateTypeMonthStyle,
 ) => {
   if (!isValidDate(date)) {
-    throw new Error('Failed to get current month name');
+    throw new Error('Failed to get month name, date is invalid');
   }
   const monthName = new Intl.DateTimeFormat(locale, {
     month: monthStyle || IntlDateTimeFormatLong,
