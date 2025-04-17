@@ -43,7 +43,6 @@ const CalendarCells = () => {
       year,
       month,
       monthNumberOfDays,
-      false,
     );
     const previousMonthDaysOnCurrentMonth = getPreviousMonthDaysOnCurrentMonth(
       month,
