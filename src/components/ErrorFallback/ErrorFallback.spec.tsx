@@ -6,9 +6,9 @@ describe('ErrorFallback', () => {
   it('should display error message received', () => {
     const error = new Error('error');
     render(<ErrorFallback error={error} />);
-    const errorElement = screen.getByText(
-      `Something went wrong: ${error.message}`,
-    );
-    expect(errorElement).toBeInTheDocument();
+    const errorDefaultText = screen.getByText('Something went wrong:');
+    const errorText = screen.getByText(error.message);
+    expect(errorDefaultText).toBeInTheDocument();
+    expect(errorText).toBeInTheDocument();
   });
 });
