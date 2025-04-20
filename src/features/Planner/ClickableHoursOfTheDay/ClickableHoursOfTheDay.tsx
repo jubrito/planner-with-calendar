@@ -3,7 +3,6 @@ import styles from './clickable-hours-of-the-day.module.scss';
 import {
   fifteenMinBlocksInAHour,
   fifteenMinutes,
-  // numberOfHoursInADay,
   sizeOfEach15MinBlock,
 } from '../../../utils/calendar/constants';
 import { throttle } from 'throttle-debounce';
@@ -16,11 +15,6 @@ import {
 import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
 import { Event } from './Event/Event';
 import { HourButtons } from './HourButtons/HourButtons';
-// import {
-//   getFormattedDateString,
-//   getTimeInformation,
-// } from '../../../utils/calendar/utils';
-// import { IntlDateTimeFormat2Digit } from '../../../utils/constants';
 
 export type Block = {
   hour: number;
