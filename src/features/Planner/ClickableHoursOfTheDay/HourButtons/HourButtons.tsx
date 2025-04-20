@@ -3,6 +3,7 @@ import { numberOfHoursInADay } from '../../../../utils/calendar/constants';
 import {
   getFormattedDateString,
   getTimeInformation,
+  is12HourClockSystem,
 } from '../../../../utils/calendar/utils';
 import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
 import {
@@ -23,7 +24,7 @@ export const HourButtons = () => {
   return (
     <>
       {twentyFourHours.map((index) => {
-        const startHour = getFormattedDateString(
+        const startFullHour = getFormattedDateString(
           localeString,
           new Date(year, month, day, index),
           {
@@ -31,7 +32,7 @@ export const HourButtons = () => {
             minute: IntlDateTimeFormat2Digit,
           },
         );
-        const endHour = getFormattedDateString(
+        const endFullHour = getFormattedDateString(
           localeString,
           new Date(year, month, day, index + 1),
           {
@@ -39,10 +40,15 @@ export const HourButtons = () => {
             minute: IntlDateTimeFormat2Digit,
           },
         );
-        const [startTime, startPeriod] = getTimeInformation(startHour);
-        const [endTime, endPeriod] = getTimeInformation(endHour);
+        const [startTime, startPeriod, startHour] =
+          getTimeInformation(startFullHour);
+        const [endTime, endPeriod, endHour] = getTimeInformation(endFullHour);
         const updatedStartPeriod = startPeriod !== endPeriod ? startPeriod : '';
-        const range = `range ${startTime}${updatedStartPeriod} to ${endTime}${endPeriod}`;
+        const updatedStart = is12HourClockSystem(startFullHour)
+          ? startHour
+          : startTime;
+        const updatedEnd = is12HourClockSystem(endFullHour) ? endHour : endTime;
+        const range = `range ${updatedStart}${updatedStartPeriod} to ${updatedEnd}${endPeriod}`;
         const title = `Click, hold, and drag to create an event within the ${range}`;
         return (
           <div
