@@ -9,6 +9,8 @@ import { getLocaleLanguage } from '../../redux/slices/localeSlice/selectors';
 import { IntlDateTimeFormatShort } from '../../utils/constants';
 import { HoursOfTheDay } from './HoursOfTheDay/HoursOfTheDay';
 import { ClickableHoursOfTheDay } from './ClickableHoursOfTheDay/ClickableHoursOfTheDay';
+import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorFallback } from '../../components/ErrorFallback/ErrorFallback';
 
 const Planner = () => {
   const locale = useSelector(getLocaleLanguage());
@@ -26,10 +28,12 @@ const Planner = () => {
           {plannerDateLabel}
         </h2>
       </div>
-      <div className={styles.plannerHours}>
-        <HoursOfTheDay />
-        <ClickableHoursOfTheDay />
-      </div>
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <div className={styles.plannerHours}>
+          <HoursOfTheDay />
+          <ClickableHoursOfTheDay />
+        </div>
+      </ErrorBoundary>
     </section>
   );
 };
