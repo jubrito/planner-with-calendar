@@ -1,16 +1,5 @@
 # Next steps (v1):
 
-Quality
-
-- error handling
-
-  - Wrap components on errorfallback
-  - handle errors on components
-    - [ ] calendar menu
-  - handle errors on functions
-    - [x] utils
-    - [x] weeks
-
 - test error handling
 
 Features
