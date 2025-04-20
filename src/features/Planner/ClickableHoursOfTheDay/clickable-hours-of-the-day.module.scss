@@ -8,13 +8,4 @@
   height: variables.$planner-hours-height;
   position: relative;
   margin-top: 15px;
-
-  .hourBlock {
-    height: 50px;
-
-    border-top: 1px solid variables.$black-color;
-    &:last-child {
-      border-bottom: 1px solid variables.$black-color;
-    }
-  }
 }
