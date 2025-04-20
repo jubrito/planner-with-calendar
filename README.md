@@ -1,7 +1,5 @@
 # Next steps (v1):
 
-- test error handling
-
 Features
 
 - Show current hour of the day on a line on the planner
