@@ -12,10 +12,9 @@ import { useMemo } from 'react';
 
 type EventProps = {
   event: EventBlock;
-  onClick?: React.MouseEventHandler<HTMLDivElement>;
 };
 
-export const Event = ({ event, onClick }: EventProps) => {
+export const Event = ({ event }: EventProps) => {
   const eventHeight = event.end.fixedPositionY - event.start.fixedPositionY;
   const eventStart = event.start.fixedPositionY;
   const isAtLeast30MinEvent = eventHeight >= sizeOfEach15MinBlock * 2;
@@ -69,13 +68,17 @@ export const Event = ({ event, onClick }: EventProps) => {
     return [startTime, updatedStartPeriod];
   }, [event.start.date, endPeriod, localeString]);
 
+  const handleEventClick = (event: EventBlock) => {
+    console.log('Event clicked:', event);
+  };
+
   return (
     <div
       id={event.eventId}
       key={event.eventId}
       className={styles.plannerEvent}
       style={eventStyle}
-      onClick={onClick}
+      onClick={() => handleEventClick(event)}
       onMouseDown={(e) => e.stopPropagation()}
     >
       {hasMinimumHeight && (

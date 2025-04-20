@@ -170,10 +170,6 @@ export const ClickableHoursOfTheDay = () => {
     setDraftEvent(null);
   }, []);
 
-  const handleEventClick = useCallback((event: EventBlock) => {
-    console.log('Event clicked:', event);
-  }, []);
-
   return (
     <div
       ref={containerRef}
@@ -185,11 +181,7 @@ export const ClickableHoursOfTheDay = () => {
     >
       {draftEvent && <Event event={draftEvent} />}
       {events.map((event) => (
-        <Event
-          key={event.eventId}
-          event={event}
-          onClick={() => handleEventClick(event)}
-        />
+        <Event key={event.eventId} event={event} />
       ))}
       <HourButtons />
     </div>
