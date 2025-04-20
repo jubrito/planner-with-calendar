@@ -4,9 +4,9 @@ import CancelIcon from '@mui/icons-material/Cancel';
 
 export const ErrorFallback = ({ error }: ErrorProps) => {
   return (
-    <div className={styles.error}>
+    <p className={styles.error}>
       <CancelIcon color={'error'} />
-      <p>Something went wrong: {error.message}</p>
-    </div>
+      <strong>Something went wrong:</strong> {error.message}
+    </p>
   );
 };
