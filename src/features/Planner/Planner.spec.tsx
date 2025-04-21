@@ -246,5 +246,50 @@ describe('Planner', () => {
         expect(timeElement).toHaveProperty('dateTime', time);
       });
     });
+    describe('When is 24-clock system', () => {
+      const ptBrLang = 'pt-BR';
+      it('should correctly display current hour (11:59) for hour 11', () => {
+        const hour = 11;
+        const minutes = 11;
+        renderWithProviders(<Planner />, {
+          preloadedState: {
+            dateSlice: {
+              ...initialDateValue,
+              currentState: {
+                ...initialDateValue.currentState,
+                dayViewISODate: new Date(
+                  currentYear,
+                  currentMonth,
+                  currentDay,
+                  hour,
+                  minutes,
+                ).toISOString(),
+                globalISODate: new Date(
+                  currentYear,
+                  currentMonth,
+                  currentDay,
+                  hour,
+                  minutes,
+                ).toISOString(),
+              },
+            },
+            localeSlice: {
+              ...initialLocaleValue,
+              currentState: {
+                ...initialLocaleValue.currentState,
+                locale: {
+                  lang: ptBrLang,
+                },
+              },
+            },
+          },
+        });
+        const time = '11:11';
+        const timeElement = screen.getByText(time);
+        expect(timeElement).toBeInTheDocument();
+        expect(timeElement).toHaveRole('time');
+        expect(timeElement).toHaveProperty('dateTime', time);
+      });
+    });
   });
 });
