@@ -5,9 +5,13 @@ import EditIcon from '@mui/icons-material/Edit';
 
 type EventDetailsModalProps = {
   isOpen: boolean;
+  top?: number;
 };
 
-export const EventDetailsModal = ({ isOpen }: EventDetailsModalProps) => {
+export const EventDetailsModal = ({
+  isOpen,
+  top = 0,
+}: EventDetailsModalProps) => {
   if (!isOpen) return <></>;
 
   return (
@@ -15,6 +19,7 @@ export const EventDetailsModal = ({ isOpen }: EventDetailsModalProps) => {
       className={styles.modal}
       id="event-details-modal"
       onMouseDown={(e) => e.stopPropagation()}
+      style={{ top }}
     >
       <div className={styles.actions}>
         <button className="closeTODO" aria-label="Close">
