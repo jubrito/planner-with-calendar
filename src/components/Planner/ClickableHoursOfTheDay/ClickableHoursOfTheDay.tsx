@@ -170,13 +170,21 @@ export const ClickableHoursOfTheDay = memo(() => {
     top: 0,
   });
 
-  const openEventDetailsModal = useCallback((eventEndY: number) => {
+  const toggleEventDetailsModal = useCallback((eventEndY: number) => {
     const moveEventInPixels = 20;
-    setEventClickedDetails((prevState) => ({
-      ...prevState,
-      isOpen: true,
-      top: eventEndY - moveEventInPixels,
-    }));
+    setEventClickedDetails((prevState) => {
+      let eventClickedDetails = {
+        ...prevState,
+        isOpen: true,
+      };
+      if (eventEndY) {
+        eventClickedDetails = {
+          ...eventClickedDetails,
+          top: eventEndY - moveEventInPixels,
+        };
+      }
+      return eventClickedDetails;
+    });
   }, []);
 
   return (
@@ -202,7 +210,7 @@ export const ClickableHoursOfTheDay = memo(() => {
               endY={draftEvent.end.fixedPositionY}
               startDate={draftEvent.start.date}
               endDate={draftEvent.end.date}
-              openDetails={openEventDetailsModal}
+              toggleDetailsModal={toggleEventDetailsModal}
             />
           )}
         </>
@@ -218,7 +226,7 @@ export const ClickableHoursOfTheDay = memo(() => {
             endY={event.end.fixedPositionY}
             startDate={event.start.date}
             endDate={event.end.date}
-            openDetails={openEventDetailsModal}
+            toggleDetailsModal={toggleEventDetailsModal}
           />
         ))}
       <HourButtons />
