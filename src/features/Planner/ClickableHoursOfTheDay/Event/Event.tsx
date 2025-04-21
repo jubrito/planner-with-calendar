@@ -41,14 +41,6 @@ export const Event = ({
     startDate,
     endDate,
   };
-  const timeStyle = {
-    fontSize: isAtLeast60MinEvent
-      ? '15px'
-      : isAtLeast30MinEvent
-        ? '15px'
-        : '10px',
-    marginTop: isAtLeast60MinEvent ? '5px' : 0,
-  };
   const eventStyle = {
     top: `${eventStart}px`,
     height: `${eventHeight}px`,
@@ -101,7 +93,7 @@ export const Event = ({
             {title}
           </span>
           <span
-            style={timeStyle}
+            style={getTimeStyle(isAtLeast30MinEvent, isAtLeast60MinEvent)}
             aria-label={`Time range from ${startTime}${startPeriod} to ${endTime}${endPeriod}`}
           >{`${startTime}${startPeriod} – ${endTime}${endPeriod}`}</span>
         </div>
@@ -120,4 +112,12 @@ const getTitleStyle = (
       ? '15px'
       : '10px',
   marginRight: isAtLeast60MinEvent ? 0 : '5px',
+});
+
+const getTimeStyle = (
+  isAtLeast30MinEvent: boolean,
+  isAtLeast60MinEvent: boolean,
+) => ({
+  fontSize: isAtLeast30MinEvent ? '15px' : '10px',
+  marginTop: isAtLeast60MinEvent ? '5px' : 0,
 });
