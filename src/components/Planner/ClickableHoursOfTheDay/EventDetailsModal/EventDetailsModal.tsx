@@ -5,9 +5,13 @@ import EditIcon from '@mui/icons-material/Edit';
 
 type EventDetailsModalProps = {
   top?: number;
+  toggleDetailsModal: (eventEndY?: number) => void;
 };
 
-export const EventDetailsModal = ({ top = 0 }: EventDetailsModalProps) => {
+export const EventDetailsModal = ({
+  top = 0,
+  toggleDetailsModal,
+}: EventDetailsModalProps) => {
   return (
     <div
       className={styles.modal}
@@ -16,7 +20,7 @@ export const EventDetailsModal = ({ top = 0 }: EventDetailsModalProps) => {
       style={{ top }}
     >
       <div className={styles.actions}>
-        <button className="closeTODO" aria-label="Close">
+        <button onClick={() => toggleDetailsModal()} aria-label="Close">
           <CloseIcon />
         </button>
         <button className="deletTODO" aria-label="Delete event">
