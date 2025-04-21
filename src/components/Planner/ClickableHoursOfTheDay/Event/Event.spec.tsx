@@ -15,6 +15,7 @@ const renderDefaultEvent = (event: EventBlock) =>
       endY={event.end.fixedPositionY}
       startDate={event.start.date}
       endDate={event.end.date}
+      openDetails={jest.fn()}
     />,
   );
 describe('Event', () => {
@@ -116,6 +117,7 @@ describe('Event', () => {
           endY={event.end.fixedPositionY}
           startDate={event.start.date}
           endDate={event.end.date}
+          openDetails={jest.fn()}
         />,
         {
           preloadedState: {
@@ -174,6 +176,7 @@ describe('Event', () => {
           endY={event.end.fixedPositionY}
           startDate={event.start.date}
           endDate={event.end.date}
+          openDetails={jest.fn()}
         />,
         {
           preloadedState: {

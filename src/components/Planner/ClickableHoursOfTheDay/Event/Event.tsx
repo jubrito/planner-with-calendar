@@ -66,6 +66,7 @@ export const Event = memo(function ({
 
   const handleEventClick = (event: Event) => {
     console.log('Event clicked:', event);
+    openDetails(endY);
   };
 
   return (
