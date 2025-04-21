@@ -26,7 +26,7 @@ describe('Planner', () => {
               ...initialDateValue.currentState,
               dayViewISODate: new Date(
                 currentYear,
-                Months.MARCH,
+                currentMonth,
                 1,
               ).toDateString(),
             },
