@@ -80,39 +80,6 @@ describe('Planner', () => {
 
   describe('Current hour display', () => {
     describe('When is 12-clock system', () => {
-      it('should correctly display current hour (01:11)', () => {
-        const hour = 1;
-        const minutes = 11;
-        renderWithProviders(<Planner />, {
-          preloadedState: {
-            dateSlice: {
-              ...initialDateValue,
-              currentState: {
-                ...initialDateValue.currentState,
-                dayViewISODate: new Date(
-                  currentYear,
-                  currentMonth,
-                  currentDay,
-                  hour,
-                  minutes,
-                ).toISOString(),
-                globalISODate: new Date(
-                  currentYear,
-                  currentMonth,
-                  currentDay,
-                  hour,
-                  minutes,
-                ).toISOString(),
-              },
-            },
-          },
-        });
-        const time = '01:11';
-        const timeElement = screen.getByText(time);
-        expect(timeElement).toBeInTheDocument();
-        expect(timeElement).toHaveRole('time');
-        expect(timeElement).toHaveProperty('dateTime', time);
-      });
       it('should correctly display current hour (11:59) for hour 11', () => {
         const hour = 11;
         const minutes = 11;
@@ -240,6 +207,39 @@ describe('Planner', () => {
           },
         });
         const time = '12:24';
+        const timeElement = screen.getByText(time);
+        expect(timeElement).toBeInTheDocument();
+        expect(timeElement).toHaveRole('time');
+        expect(timeElement).toHaveProperty('dateTime', time);
+      });
+      it('should correctly display current hour (12:00) for hour 0', () => {
+        const hour = 0;
+        const minutes = 0;
+        renderWithProviders(<Planner />, {
+          preloadedState: {
+            dateSlice: {
+              ...initialDateValue,
+              currentState: {
+                ...initialDateValue.currentState,
+                dayViewISODate: new Date(
+                  currentYear,
+                  currentMonth,
+                  currentDay,
+                  hour,
+                  minutes,
+                ).toISOString(),
+                globalISODate: new Date(
+                  currentYear,
+                  currentMonth,
+                  currentDay,
+                  hour,
+                  minutes,
+                ).toISOString(),
+              },
+            },
+          },
+        });
+        const time = '12:00';
         const timeElement = screen.getByText(time);
         expect(timeElement).toBeInTheDocument();
         expect(timeElement).toHaveRole('time');
