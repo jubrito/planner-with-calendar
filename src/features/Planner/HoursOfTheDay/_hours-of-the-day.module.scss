@@ -1,14 +1,15 @@
 @use '../../../styles/variables' as variables;
 
 .hourOfTheDay {
-  margin-right: variables.$inner-spacing;
+  margin-right: variables.$smaller-gap;
   min-height: max-content;
   display: flex;
   flex-direction: column;
+  font-size: 14px;
 
   time {
     width: max-content;
-    line-height: 1.7;
+    line-height: 2.1;
     min-height: 50px;
     height: 50px;
     width: 50px;
