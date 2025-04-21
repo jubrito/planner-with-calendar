@@ -374,6 +374,48 @@ describe('Planner', () => {
         expect(timeElement).toHaveRole('time');
         expect(timeElement).toHaveProperty('dateTime', time);
       });
+      it('should correctly display current hour (00:24) for hour 24', () => {
+        const hour = 24;
+        const minutes = 24;
+        renderWithProviders(<Planner />, {
+          preloadedState: {
+            dateSlice: {
+              ...initialDateValue,
+              currentState: {
+                ...initialDateValue.currentState,
+                dayViewISODate: new Date(
+                  currentYear,
+                  currentMonth,
+                  currentDay,
+                  hour,
+                  minutes,
+                ).toISOString(),
+                globalISODate: new Date(
+                  currentYear,
+                  currentMonth,
+                  currentDay,
+                  hour,
+                  minutes,
+                ).toISOString(),
+              },
+            },
+            localeSlice: {
+              ...initialLocaleValue,
+              currentState: {
+                ...initialLocaleValue.currentState,
+                locale: {
+                  lang: ptBrLang,
+                },
+              },
+            },
+          },
+        });
+        const time = '00:24';
+        const timeElement = screen.getByText(time);
+        expect(timeElement).toBeInTheDocument();
+        expect(timeElement).toHaveRole('time');
+        expect(timeElement).toHaveProperty('dateTime', time);
+      });
     });
   });
 });
