@@ -5,9 +5,10 @@
   content: '';
   width: 100%;
   left: 0;
-  background: variables.$blue-yonder-color;
+  background: variables.$astronaut-color;
   font-size: 2vw;
   border: 1px solid variables.$white-color;
+  border-radius: 6px;
   z-index: 11;
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
