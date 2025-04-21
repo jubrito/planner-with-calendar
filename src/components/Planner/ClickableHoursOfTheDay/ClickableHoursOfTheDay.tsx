@@ -170,17 +170,18 @@ export const ClickableHoursOfTheDay = memo(() => {
     top: 0,
   });
 
-  const toggleEventDetailsModal = useCallback((eventEndY: number) => {
+  const toggleEventDetailsModal = useCallback((eventEndY?: number) => {
     const moveEventInPixels = 20;
     setEventClickedDetails((prevState) => {
       let eventClickedDetails = {
         ...prevState,
-        isOpen: true,
+        isOpen: false,
       };
       if (eventEndY) {
         eventClickedDetails = {
           ...eventClickedDetails,
           top: eventEndY - moveEventInPixels,
+          isOpen: true,
         };
       }
       return eventClickedDetails;
@@ -197,7 +198,10 @@ export const ClickableHoursOfTheDay = memo(() => {
       onMouseLeave={handleMouseLeave}
     >
       {eventClickedDetails.isOpen && (
-        <EventDetailsModal top={eventClickedDetails.top} />
+        <EventDetailsModal
+          top={eventClickedDetails.top}
+          toggleDetailsModal={toggleEventDetailsModal}
+        />
       )}
       {draftEvent && (
         <>
