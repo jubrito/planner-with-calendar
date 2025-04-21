@@ -42,6 +42,12 @@ describe('Event', () => {
     renderWithProviders(<Event event={event} />);
     expect(screen.getByText(event.title)).toBeInTheDocument();
   });
+  it('should render title explaining event is editable', () => {
+    renderWithProviders(<Event event={event} />);
+    expect(
+      screen.getByTitle('Click on the event to edit it'),
+    ).toBeInTheDocument();
+  });
   describe('Hours display when using 12-hour clock system', () => {
     it('should display event with only one AM/PM if the event start and end is within the same period', () => {
       renderWithProviders(<Event event={event} />);
