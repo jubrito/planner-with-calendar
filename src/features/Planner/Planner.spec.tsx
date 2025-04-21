@@ -77,4 +77,35 @@ describe('Planner', () => {
       expect(screen.getByText('Mar. 1, Sábado')).toBeInTheDocument();
     });
   });
+
+  describe('Current hour display', () => {
+    describe('When is 12-clock system', () => {
+      it('should correctly display current hour (01:11)', () => {
+        const hour = 1;
+        const minutes = 11;
+        renderWithProviders(<Planner />, {
+          preloadedState: {
+            dateSlice: {
+              ...initialDateValue,
+              currentState: {
+                ...initialDateValue.currentState,
+                dayViewISODate: new Date(
+                  currentYear,
+                  currentMonth,
+                  currentDay,
+                  hour,
+                  minutes,
+                ).toISOString(),
+              },
+            },
+          },
+        });
+        const time = '01:11';
+        const timeElement = screen.getByText(time);
+        expect(timeElement).toBeInTheDocument();
+        expect(timeElement).toHaveRole('time');
+        expect(timeElement).toHaveProperty('dateTime', time);
+      });
+    });
+  });
 });
