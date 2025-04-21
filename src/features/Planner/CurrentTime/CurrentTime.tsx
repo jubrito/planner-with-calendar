@@ -31,6 +31,7 @@ export const CurrentTime = () => {
     startOfHoursBlockPx +
     currentHours * sizeOfEachHourBlock +
     currentMinutes * sizeOfEachMinute;
+
   return (
     <div className={styles.currentTime} style={{ top }}>
       <time
