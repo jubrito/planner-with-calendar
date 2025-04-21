@@ -33,7 +33,7 @@ export const CurrentTime = () => {
     currentMinutes * sizeOfEachMinute;
   return (
     <div className={styles.currentHour} style={{ top }}>
-      <span>{currentTimeDisplay}</span>
+      <time dateTime={currentTimeDisplay}>{currentTimeDisplay}</time>
     </div>
   );
 };
