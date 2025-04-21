@@ -4,10 +4,10 @@
 .planner {
   grid-area: planner;
   background-color: variables.$white-color;
-
   margin-right: variables.$outer-spacing;
   padding: variables.$inner-spacing;
   color: variables.$black-color;
+  border-radius: 10px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -53,6 +53,7 @@
       top: 4px;
       left: 0;
       width: 100%;
+      pointer-events: none;
 
       span {
         background: variables.$error-color;
@@ -70,9 +71,10 @@
         content: '';
         left: 50px;
         top: 10px;
-        width: calc(100% - 67px);
+        width: 100%;
         height: 2px;
         background-color: variables.$error-color;
+        z-index: 10;
       }
     }
 
