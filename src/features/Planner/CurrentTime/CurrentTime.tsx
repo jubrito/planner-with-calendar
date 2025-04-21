@@ -32,7 +32,7 @@ export const CurrentTime = () => {
     currentHours * sizeOfEachHourBlock +
     currentMinutes * sizeOfEachMinute;
   return (
-    <div className={styles.currentHour} style={{ top }}>
+    <div className={styles.currentTime} style={{ top }}>
       <time
         dateTime={currentTimeDisplay}
         id="currentTime"
