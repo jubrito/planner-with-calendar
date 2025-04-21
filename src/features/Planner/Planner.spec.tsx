@@ -290,6 +290,48 @@ describe('Planner', () => {
         expect(timeElement).toHaveRole('time');
         expect(timeElement).toHaveProperty('dateTime', time);
       });
+      it('should correctly display current hour (23:23) for hour 23', () => {
+        const hour = 23;
+        const minutes = 23;
+        renderWithProviders(<Planner />, {
+          preloadedState: {
+            dateSlice: {
+              ...initialDateValue,
+              currentState: {
+                ...initialDateValue.currentState,
+                dayViewISODate: new Date(
+                  currentYear,
+                  currentMonth,
+                  currentDay,
+                  hour,
+                  minutes,
+                ).toISOString(),
+                globalISODate: new Date(
+                  currentYear,
+                  currentMonth,
+                  currentDay,
+                  hour,
+                  minutes,
+                ).toISOString(),
+              },
+            },
+            localeSlice: {
+              ...initialLocaleValue,
+              currentState: {
+                ...initialLocaleValue.currentState,
+                locale: {
+                  lang: ptBrLang,
+                },
+              },
+            },
+          },
+        });
+        const time = '23:23';
+        const timeElement = screen.getByText(time);
+        expect(timeElement).toBeInTheDocument();
+        expect(timeElement).toHaveRole('time');
+        expect(timeElement).toHaveProperty('dateTime', time);
+      });
     });
   });
 });
