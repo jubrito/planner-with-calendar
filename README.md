@@ -8,6 +8,7 @@
 
 Features
 
+- Event validation
 - Create event from calendar to plot on planner
 - Add all day events to planner top
 - Edit events on click
