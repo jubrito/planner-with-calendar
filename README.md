@@ -2,6 +2,7 @@
 
 - react memo planner components?
 - extract current hour component
+  - use time html element
   - test
 - create banner that disappears if fails to create event (e.g., event.start is undefined)
   - don't run event component
@@ -57,11 +58,11 @@ Features
     > Scrollbar
 
 - Update README.md
-
 - Husky tool for automatic linting and test run on commit and push.
 
 ## v2
 
+- Allow user to edit event colors
 - Checklists (+ tests)
 - Components
   - Nav
