@@ -4,16 +4,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
 type EventDetailsModalProps = {
-  isOpen: boolean;
   top?: number;
 };
 
-export const EventDetailsModal = ({
-  isOpen,
-  top = 0,
-}: EventDetailsModalProps) => {
-  if (!isOpen) return <></>;
-
+export const EventDetailsModal = ({ top = 0 }: EventDetailsModalProps) => {
   return (
     <div
       className={styles.modal}
