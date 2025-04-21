@@ -80,6 +80,7 @@ export const Event = ({ event }: EventProps) => {
       style={eventStyle}
       onClick={() => handleEventClick(event)}
       onMouseDown={(e) => e.stopPropagation()}
+      title="Click on the event to edit it"
     >
       {hasMinimumHeight && (
         <div
