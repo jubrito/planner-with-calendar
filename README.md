@@ -2,9 +2,6 @@
 
 - create event button on planner for accessibility
 - react memo planner components?
-- extract current hour component
-  - use time html element
-  - test
 - create banner that disappears if fails to create event (e.g., event.start is undefined)
   - don't run event component
 
