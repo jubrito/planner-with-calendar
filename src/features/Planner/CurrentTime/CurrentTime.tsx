@@ -33,7 +33,13 @@ export const CurrentTime = () => {
     currentMinutes * sizeOfEachMinute;
   return (
     <div className={styles.currentHour} style={{ top }}>
-      <time dateTime={currentTimeDisplay}>{currentTimeDisplay}</time>
+      <time
+        dateTime={currentTimeDisplay}
+        id="currentTime"
+        data-testid="currentTime"
+      >
+        {currentTimeDisplay}
+      </time>
     </div>
   );
 };
