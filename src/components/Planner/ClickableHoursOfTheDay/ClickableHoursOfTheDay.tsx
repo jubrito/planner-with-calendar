@@ -53,11 +53,12 @@ type EventOnEditModalDetails = {
 export const ClickableHoursOfTheDay = memo(() => {
   const [draftEvent, setDraftEvent] = useState<EventBlock | null>(null);
   const [events, setEvents] = useState<EventBlock[]>([]);
-  const [eventOnEdit, setEventOnEdit] = useState<EventOnEditModalDetails>({
-    isOpen: false,
-    top: 0,
-    eventOnEdit: undefined,
-  });
+  const [eventClickedDetails, setEventClickedDetails] =
+    useState<EventOnEditModalDetails>({
+      isOpen: false,
+      top: 0,
+      eventOnEdit: undefined,
+    });
   const containerRef = useRef<HTMLDivElement>(null);
   const localeString = useSelector(getLocaleLanguage());
   const year = useSelector(getSelectedGlobalYear());
@@ -185,14 +186,14 @@ export const ClickableHoursOfTheDay = memo(() => {
 
   const toggleEventDetailsModal = useCallback((eventOnEdit?: EventOnEdit) => {
     const moveEventInPixels = 20;
-    setEventOnEdit((prevState) => {
-      let newEventOnEdit = {
+    setEventClickedDetails((prevState) => {
+      let eventClickedDetails = {
         ...prevState,
         isOpen: false,
       };
       if (eventOnEdit) {
-        newEventOnEdit = {
-          ...eventOnEdit,
+        eventClickedDetails = {
+          ...eventClickedDetails,
           top: eventOnEdit.endY - moveEventInPixels,
           isOpen: true,
           eventOnEdit: {
@@ -203,7 +204,7 @@ export const ClickableHoursOfTheDay = memo(() => {
           },
         };
       }
-      return newEventOnEdit;
+      return eventClickedDetails;
     });
   }, []);
 
@@ -216,9 +217,9 @@ export const ClickableHoursOfTheDay = memo(() => {
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseLeave}
     >
-      {eventOnEdit.isOpen && (
+      {eventClickedDetails.isOpen && (
         <EventDetailsModal
-          top={eventOnEdit.top}
+          top={eventClickedDetails.top}
           toggleDetailsModal={toggleEventDetailsModal}
         />
       )}
