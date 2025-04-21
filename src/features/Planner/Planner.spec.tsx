@@ -129,6 +129,13 @@ describe('Planner', () => {
                   hour,
                   minutes,
                 ).toISOString(),
+                globalISODate: new Date(
+                  currentYear,
+                  currentMonth,
+                  currentDay,
+                  hour,
+                  minutes,
+                ).toISOString(),
               },
             },
           },
