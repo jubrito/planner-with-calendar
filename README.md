@@ -1,6 +1,8 @@
 # Next steps (v1):
 
 - react memo planner components?
+- extract current hour component
+  - test
 
 Features
 
