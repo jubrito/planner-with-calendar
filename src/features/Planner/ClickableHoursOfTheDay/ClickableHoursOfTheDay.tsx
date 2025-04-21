@@ -15,6 +15,7 @@ import {
 import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
 import { Event } from './Event/Event';
 import { HourButtons } from './HourButtons/HourButtons';
+import * as React from 'react';
 
 export type Block = {
   hour: number;
@@ -36,7 +37,7 @@ export type EventBlock = {
   title: string;
 };
 
-export const ClickableHoursOfTheDay = () => {
+export const ClickableHoursOfTheDay = React.memo(() => {
   const [draftEvent, setDraftEvent] = useState<EventBlock | null>(null);
   const [events, setEvents] = useState<EventBlock[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -180,7 +181,7 @@ export const ClickableHoursOfTheDay = () => {
       <HourButtons />
     </div>
   );
-};
+});
 
 const getMinimumEventFixedPositionY = (
   startFixedPositionY: number,
