@@ -6,6 +6,18 @@ import { screen } from '@testing-library/dom';
 import '@testing-library/jest-dom';
 import { initialValue } from '../../../../redux/slices/localeSlice';
 
+const renderDefaultEvent = (event: EventBlock) =>
+  renderWithProviders(
+    <Event
+      event={event}
+      id={event.eventId}
+      title={event.title}
+      startY={event.start.fixedPositionY}
+      endY={event.end.fixedPositionY}
+      startDate={event.start.date}
+      endDate={event.end.date}
+    />,
+  );
 describe('Event', () => {
   const year = 2025;
   const month = Months.APRIL;
@@ -39,7 +51,7 @@ describe('Event', () => {
     },
   };
   it('should render event title', () => {
-    renderWithProviders(<Event event={event} />);
+    renderDefaultEvent(event);
     expect(screen.getByText(event.title)).toBeInTheDocument();
   });
   it('should render title explaining event is editable', () => {
