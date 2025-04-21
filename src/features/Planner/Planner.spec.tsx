@@ -147,7 +147,7 @@ describe('Planner', () => {
         expect(timeElement).toHaveProperty('dateTime', time);
       });
       it('should correctly display current hour (12:12) for hour 12', () => {
-        const hour = 0;
+        const hour = 12;
         const minutes = 12;
         renderWithProviders(<Planner />, {
           preloadedState: {
