@@ -1,5 +1,7 @@
 # Next steps (v1):
 
+- react memo planner components?
+
 Features
 
 - Show current hour of the day on a line on the planner
