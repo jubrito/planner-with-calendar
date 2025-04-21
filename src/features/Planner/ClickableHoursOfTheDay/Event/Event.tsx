@@ -8,7 +8,7 @@ import styles from './event.module.scss';
 import { EventBlock } from '../ClickableHoursOfTheDay';
 import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
 import { IntlDateTimeFormat2Digit } from '../../../../utils/constants';
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 
 type Event = {
   id: EventBlock['eventId'];
@@ -19,14 +19,14 @@ type Event = {
   endDate: EventBlock['end']['date'];
 };
 
-export const Event = ({
+export const Event = memo(function ({
   id,
   title,
   startY,
   endY,
   startDate,
   endDate,
-}: Event) => {
+}: Event) {
   const eventHeight = endY - startY;
   const eventStart = startY;
   const isAtLeast30MinEvent = eventHeight >= sizeOfEach15MinBlock * 2;
@@ -93,7 +93,7 @@ export const Event = ({
       )}
     </div>
   );
-};
+});
 
 const getTitleStyle = (
   isAtLeast30MinEvent: boolean,
