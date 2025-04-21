@@ -1,12 +1,15 @@
 # Next steps (v1):
 
+- edit event
+- delete event
 - create event button on planner for accessibility
 - create banner that disappears if fails to create event (e.g., event.start is undefined)
   - don't run event component
+- Event validation
 
 Features
 
-- Event validation
+- connect event to specific day
 - update current time base on if it is visible or not
 - Create event from calendar to plot on planner
 - Add all day events to planner top
@@ -41,6 +44,7 @@ Features
 - Features
 
   > Day / Week / Month / Year View / Compact (+ tests)
+  > Alerts
 
 - Layout
 
@@ -76,6 +80,7 @@ Features
   - Update month names, getFullDateTitle, getHoursOfTheDay, date order (+ tests)
   - Labels/descriptions
 - Timezones?
+- Duplicate events
 
 ## v4
 
