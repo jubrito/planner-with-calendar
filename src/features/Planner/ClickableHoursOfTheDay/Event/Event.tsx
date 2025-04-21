@@ -12,11 +12,25 @@ import { useMemo } from 'react';
 
 type EventProps = {
   event: EventBlock;
+  id: EventBlock['eventId'];
+  title: EventBlock['title'];
+  startY: EventBlock['start']['fixedPositionY'];
+  endY: EventBlock['end']['fixedPositionY'];
+  startDate: EventBlock['start']['date'];
+  endDate: EventBlock['end']['date'];
 };
 
-export const Event = ({ event }: EventProps) => {
-  const eventHeight = event.end.fixedPositionY - event.start.fixedPositionY;
-  const eventStart = event.start.fixedPositionY;
+export const Event = ({
+  id,
+  title,
+  startY,
+  endY,
+  startDate,
+  endDate,
+  event,
+}: EventProps) => {
+  const eventHeight = endY - startY;
+  const eventStart = startY;
   const isAtLeast30MinEvent = eventHeight >= sizeOfEach15MinBlock * 2;
   const isAtLeast60MinEvent = eventHeight >= sizeOfEach15MinBlock * 4;
   const hasMinimumHeight = eventHeight >= sizeOfEach15MinBlock;
@@ -46,27 +60,23 @@ export const Event = ({ event }: EventProps) => {
   };
 
   const [endTime, endPeriod] = useMemo(() => {
-    const endFullTime = getFormattedDateString(localeString, event.end.date, {
+    const endFullTime = getFormattedDateString(localeString, endDate, {
       hour: IntlDateTimeFormat2Digit,
       minute: IntlDateTimeFormat2Digit,
     });
     const [endTime, endPeriod] = getTimeInformation(endFullTime);
     return [endTime, endPeriod];
-  }, [event.end.date, localeString]);
+  }, [endDate, localeString]);
 
   const [startTime, startPeriod] = useMemo(() => {
-    const startFullTime = getFormattedDateString(
-      localeString,
-      event.start.date,
-      {
-        hour: IntlDateTimeFormat2Digit,
-        minute: IntlDateTimeFormat2Digit,
-      },
-    );
+    const startFullTime = getFormattedDateString(localeString, startDate, {
+      hour: IntlDateTimeFormat2Digit,
+      minute: IntlDateTimeFormat2Digit,
+    });
     const [startTime, startPeriod] = getTimeInformation(startFullTime);
     const updatedStartPeriod = startPeriod !== endPeriod ? startPeriod : '';
     return [startTime, updatedStartPeriod];
-  }, [event.start.date, endPeriod, localeString]);
+  }, [startDate, endPeriod, localeString]);
 
   const handleEventClick = (event: EventBlock) => {
     console.log('Event clicked:', event);
@@ -74,8 +84,7 @@ export const Event = ({ event }: EventProps) => {
 
   return (
     <div
-      id={event.eventId}
-      key={event.eventId}
+      id={id}
       className={styles.plannerEvent}
       style={eventStyle}
       onClick={() => handleEventClick(event)}
@@ -90,7 +99,7 @@ export const Event = ({ event }: EventProps) => {
             flexDirection: isAtLeast60MinEvent ? 'column' : 'row',
           }}
         >
-          <span style={titleStyle}>{event.title}</span>
+          <span style={titleStyle}>{title}</span>
           <span
             style={timeStyle}
             aria-label={`Time range from ${startTime}${startPeriod} to ${endTime}${endPeriod}`}

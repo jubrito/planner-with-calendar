@@ -174,14 +174,48 @@ export const ClickableHoursOfTheDay = React.memo(() => {
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseLeave}
     >
-      {draftEvent && <Event event={draftEvent} />}
-      {events.map((event) => (
-        <Event key={event.eventId} event={event} />
-      ))}
+      {draftEvent && (
+        <>
+          {isValidEvent(draftEvent) && (
+            <Event
+              key={draftEvent.eventId}
+              id={draftEvent.eventId}
+              title={draftEvent.title}
+              event={draftEvent}
+              startY={draftEvent.start.fixedPositionY}
+              endY={draftEvent.end.fixedPositionY}
+              startDate={draftEvent.start.date}
+              endDate={draftEvent.end.date}
+            />
+          )}
+        </>
+      )}
+      {events
+        .filter((event) => isValidEvent(event))
+        .map((event) => (
+          <Event
+            id={event.eventId}
+            key={event.eventId}
+            title={event.title}
+            event={event}
+            startY={event.start.fixedPositionY}
+            endY={event.end.fixedPositionY}
+            startDate={event.start.date}
+            endDate={event.end.date}
+          />
+        ))}
       <HourButtons />
     </div>
   );
 });
+
+const isValidEvent = (event: EventBlock) =>
+  event.eventId != null &&
+  event.title != null &&
+  event.start != null &&
+  event.start.fixedPositionY != null &&
+  event.end != null &&
+  event.end.fixedPositionY;
 
 const getMinimumEventFixedPositionY = (
   startFixedPositionY: number,
