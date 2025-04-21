@@ -1,0 +1,33 @@
+@use '../../../styles/variables' as variables;
+
+.currentHour {
+  $time-size: 43px;
+  position: absolute;
+  content: '';
+  top: 4px;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+
+  span {
+    background: variables.$error-color;
+    color: white;
+    display: block;
+    width: 43px;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 12px;
+    padding: 1px 0;
+  }
+
+  &::after {
+    position: absolute;
+    content: '';
+    left: $time-size;
+    top: 10px;
+    width: 100%;
+    height: 2px;
+    background-color: variables.$error-color;
+    z-index: 10;
+  }
+}
