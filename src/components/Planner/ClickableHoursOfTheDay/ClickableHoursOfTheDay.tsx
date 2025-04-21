@@ -166,7 +166,7 @@ export const ClickableHoursOfTheDay = memo(() => {
   }, []);
 
   const [eventClickedDetails, setEventClickedDetails] = useState({
-    isOpen: true,
+    isOpen: false,
     top: 0,
   });
 
