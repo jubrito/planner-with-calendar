@@ -146,9 +146,9 @@ describe('Planner', () => {
         expect(timeElement).toHaveRole('time');
         expect(timeElement).toHaveProperty('dateTime', time);
       });
-      it('should correctly display current hour (12:40)', () => {
+      it('should correctly display current hour (12:12)', () => {
         const hour = 0;
-        const minutes = 40;
+        const minutes = 12;
         renderWithProviders(<Planner />, {
           preloadedState: {
             dateSlice: {
@@ -173,7 +173,40 @@ describe('Planner', () => {
             },
           },
         });
-        const time = '12:40';
+        const time = '12:12';
+        const timeElement = screen.getByText(time);
+        expect(timeElement).toBeInTheDocument();
+        expect(timeElement).toHaveRole('time');
+        expect(timeElement).toHaveProperty('dateTime', time);
+      });
+      it('should correctly display current hour (11:23)', () => {
+        const hour = 23;
+        const minutes = 23;
+        renderWithProviders(<Planner />, {
+          preloadedState: {
+            dateSlice: {
+              ...initialDateValue,
+              currentState: {
+                ...initialDateValue.currentState,
+                dayViewISODate: new Date(
+                  currentYear,
+                  currentMonth,
+                  currentDay,
+                  hour,
+                  minutes,
+                ).toISOString(),
+                globalISODate: new Date(
+                  currentYear,
+                  currentMonth,
+                  currentDay,
+                  hour,
+                  minutes,
+                ).toISOString(),
+              },
+            },
+          },
+        });
+        const time = '11:23';
         const timeElement = screen.getByText(time);
         expect(timeElement).toBeInTheDocument();
         expect(timeElement).toHaveRole('time');
