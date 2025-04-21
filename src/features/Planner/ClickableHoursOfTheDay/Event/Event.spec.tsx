@@ -157,19 +157,30 @@ describe('Event', () => {
           },
         },
       };
-      renderWithProviders(<Event event={event} />, {
-        preloadedState: {
-          localeSlice: {
-            ...initialValue,
-            currentState: {
-              ...initialValue.currentState,
-              locale: {
-                lang: ptBrLang,
+      renderWithProviders(
+        <Event
+          event={event}
+          id={event.eventId}
+          title={event.title}
+          startY={event.start.fixedPositionY}
+          endY={event.end.fixedPositionY}
+          startDate={event.start.date}
+          endDate={event.end.date}
+        />,
+        {
+          preloadedState: {
+            localeSlice: {
+              ...initialValue,
+              currentState: {
+                ...initialValue.currentState,
+                locale: {
+                  lang: ptBrLang,
+                },
               },
             },
           },
         },
-      });
+      );
       const eventTimeRange = screen.getByLabelText(
         `Time range from 11:00 to 12:15`,
       );
