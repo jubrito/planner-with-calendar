@@ -3,6 +3,8 @@
 - react memo planner components?
 - extract current hour component
   - test
+- create banner that disappears if fails to create event (e.g., event.start is undefined)
+  - don't run event component
 
 Features
 
