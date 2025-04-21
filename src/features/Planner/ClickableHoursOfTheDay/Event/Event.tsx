@@ -41,13 +41,6 @@ export const Event = ({
     startDate,
     endDate,
   };
-  const eventStyle = {
-    top: `${eventStart}px`,
-    height: `${eventHeight}px`,
-  };
-  const eventDetailsStyle = {
-    marginTop: isAtLeast30MinEvent ? '5px' : '1px',
-  };
 
   const [endTime, endPeriod] = useMemo(() => {
     const endFullTime = getFormattedDateString(localeString, endDate, {
@@ -76,7 +69,7 @@ export const Event = ({
     <div
       id={id}
       className={styles.plannerEvent}
-      style={eventStyle}
+      style={getEventStyle(eventStart, eventHeight)}
       onClick={() => handleEventClick(event)}
       onMouseDown={(e) => e.stopPropagation()}
       title="Click on the event to edit it"
@@ -85,7 +78,7 @@ export const Event = ({
         <div
           className={styles.plannerEventDetails}
           style={{
-            ...eventDetailsStyle,
+            marginTop: isAtLeast30MinEvent ? '5px' : '1px',
             flexDirection: isAtLeast60MinEvent ? 'column' : 'row',
           }}
         >
@@ -120,4 +113,9 @@ const getTimeStyle = (
 ) => ({
   fontSize: isAtLeast30MinEvent ? '15px' : '10px',
   marginTop: isAtLeast60MinEvent ? '5px' : 0,
+});
+
+const getEventStyle = (eventStart: number, eventHeight: number) => ({
+  top: `${eventStart}px`,
+  height: `${eventHeight}px`,
 });
