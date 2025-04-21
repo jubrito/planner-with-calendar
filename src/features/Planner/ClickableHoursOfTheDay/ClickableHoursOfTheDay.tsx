@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useEffect } from 'react';
+import { useState, useCallback, useRef, useEffect, memo } from 'react';
 import styles from './clickable-hours-of-the-day.module.scss';
 import {
   fifteenMinBlocksInAHour,
@@ -15,7 +15,6 @@ import {
 import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
 import { Event } from './Event/Event';
 import { HourButtons } from './HourButtons/HourButtons';
-import * as React from 'react';
 
 export type Block = {
   hour: number;
@@ -37,7 +36,7 @@ export type EventBlock = {
   title: string;
 };
 
-export const ClickableHoursOfTheDay = React.memo(() => {
+export const ClickableHoursOfTheDay = memo(() => {
   const [draftEvent, setDraftEvent] = useState<EventBlock | null>(null);
   const [events, setEvents] = useState<EventBlock[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
