@@ -9,7 +9,6 @@ import { initialValue } from '../../../../redux/slices/localeSlice';
 const renderDefaultEvent = (event: EventBlock) =>
   renderWithProviders(
     <Event
-      event={event}
       id={event.eventId}
       title={event.title}
       startY={event.start.fixedPositionY}
@@ -111,7 +110,6 @@ describe('Event', () => {
     it('should display time correctly when event start and end is within the same period', () => {
       renderWithProviders(
         <Event
-          event={event}
           id={event.eventId}
           title={event.title}
           startY={event.start.fixedPositionY}
@@ -170,7 +168,6 @@ describe('Event', () => {
       };
       renderWithProviders(
         <Event
-          event={event}
           id={event.eventId}
           title={event.title}
           startY={event.start.fixedPositionY}
