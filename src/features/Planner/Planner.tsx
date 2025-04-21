@@ -7,11 +7,11 @@ import {
 } from '../../redux/slices/dateSlice/selectors';
 import { getLocaleLanguage } from '../../redux/slices/localeSlice/selectors';
 import { IntlDateTimeFormatShort } from '../../utils/constants';
-import { HoursOfTheDay } from './HoursOfTheDay/HoursOfTheDay';
+import { HoursOfTheDay } from '../../components/Planner/HoursOfTheDay/HoursOfTheDay';
 import { ClickableHoursOfTheDay } from '../../components/Planner/ClickableHoursOfTheDay/ClickableHoursOfTheDay';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorFallback } from '../../components/ErrorFallback/ErrorFallback';
-import { CurrentTime } from './CurrentTime/CurrentTime';
+import { CurrentTime } from '../../components/Planner/CurrentTime/CurrentTime';
 
 const Planner = () => {
   const locale = useSelector(getLocaleLanguage());
