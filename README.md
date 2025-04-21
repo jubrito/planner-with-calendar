@@ -1,5 +1,9 @@
 # Next steps (v1):
 
+- test modal details
+- test if modal is opening
+- close modal
+- test if modal is closing
 - edit event
 - delete event
 - create event button on planner for accessibility
