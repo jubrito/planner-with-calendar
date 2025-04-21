@@ -23,13 +23,10 @@ export const EventDetailsModal = ({
         <button onClick={() => toggleDetailsModal()} aria-label="Close">
           <CloseIcon />
         </button>
-        <button className="deletTODO" aria-label="Delete event">
+        <button aria-label="Delete event">
           <DeleteIcon />
         </button>
-        <button
-          className="editTODO"
-          aria-label="Edit event (from X AM to Y AM?)"
-        >
+        <button aria-label="Edit event (from X AM to Y AM?)">
           <EditIcon />
         </button>
       </div>
