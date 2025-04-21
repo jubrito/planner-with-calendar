@@ -17,6 +17,7 @@ type Event = {
   endY: EventBlock['end']['fixedPositionY'];
   startDate: EventBlock['start']['date'];
   endDate: EventBlock['end']['date'];
+  openDetails: (eventEndY: number) => void;
 };
 
 export const Event = memo(function ({
@@ -26,6 +27,7 @@ export const Event = memo(function ({
   endY,
   startDate,
   endDate,
+  openDetails,
 }: Event) {
   const eventHeight = endY - startY;
   const eventStart = startY;
@@ -40,6 +42,7 @@ export const Event = memo(function ({
     endY,
     startDate,
     endDate,
+    openDetails,
   };
 
   const [endTime, endPeriod] = useMemo(() => {
