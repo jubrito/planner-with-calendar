@@ -1,5 +1,6 @@
 # Next steps (v1):
 
+- update current time base on if it is visible or not
 - create event button on planner for accessibility
 - react memo planner components?
 - create banner that disappears if fails to create event (e.g., event.start is undefined)
