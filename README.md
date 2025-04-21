@@ -1,14 +1,13 @@
 # Next steps (v1):
 
-- update current time base on if it is visible or not
 - create event button on planner for accessibility
-- react memo planner components?
 - create banner that disappears if fails to create event (e.g., event.start is undefined)
   - don't run event component
 
 Features
 
 - Event validation
+- update current time base on if it is visible or not
 - Create event from calendar to plot on planner
 - Add all day events to planner top
 - Edit events on click
