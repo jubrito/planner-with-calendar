@@ -4,7 +4,7 @@
 .modal {
   @include mixins.modal;
   width: 300px;
-  height: 130px;
+  height: fit-content;
   top: 0;
   right: 0;
   border-radius: 11px;
