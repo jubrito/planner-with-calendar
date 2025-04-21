@@ -17,7 +17,7 @@ type Event = {
   endY: EventBlock['end']['fixedPositionY'];
   startDate: EventBlock['start']['date'];
   endDate: EventBlock['end']['date'];
-  toggleDetailsModal: (eventEndY: number) => void;
+  toggleDetailsModal: (eventEndY?: number) => void;
 };
 
 export const Event = memo(function ({
