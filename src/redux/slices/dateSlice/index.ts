@@ -4,7 +4,7 @@ import { deepCopy } from '../../../utils/utils';
 import { getDateISOString } from '../../../utils/calendar/utils';
 
 export type InitialDateState = {
-  globalSODate: string;
+  globalISODate: string;
   dayViewISODate: string;
 };
 
@@ -14,7 +14,7 @@ export type InitialState = {
 };
 
 const initialDate: InitialDateState = {
-  globalSODate: getDateISOString(new Date()),
+  globalISODate: getDateISOString(new Date()),
   dayViewISODate: getDateISOString(new Date()),
 };
 
@@ -36,7 +36,7 @@ export const dateSlice = createSlice({
       }>,
     ) => {
       const { year, month, day } = action.payload;
-      state.currentState.globalSODate = getDateISOString(
+      state.currentState.globalISODate = getDateISOString(
         new Date(year, month, day),
       );
     },

@@ -41,7 +41,7 @@ describe('Cell', () => {
         dateSlice: {
           currentState: {
             ...initialValue.currentState,
-            globalSODate: new Date(
+            globalISODate: new Date(
               cellYear,
               currentMonth,
               cellDay,
@@ -83,7 +83,7 @@ describe('Cell', () => {
         dateSlice: {
           currentState: {
             ...initialValue.currentState,
-            globalSODate: new Date(
+            globalISODate: new Date(
               cellYear,
               currentMonth,
               cellDay,

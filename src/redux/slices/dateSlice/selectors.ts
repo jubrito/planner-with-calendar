@@ -24,7 +24,7 @@ const updateDateState = (store: RootState) => store.dateSlice;
 export const getInitialGlobalDate = () =>
   createSelector(
     updateDateState,
-    (state) => new Date(state.initialState.globalSODate),
+    (state) => new Date(state.initialState.globalISODate),
   );
 
 export const getInitialDayViewDate = () =>
@@ -36,7 +36,7 @@ export const getInitialDayViewDate = () =>
 export const getSelectedGlobalDate = () =>
   createSelector(
     updateDateState,
-    (state) => new Date(state.currentState.globalSODate),
+    (state) => new Date(state.currentState.globalISODate),
   );
 
 export const getSelectedDayViewDate = () =>
@@ -46,20 +46,20 @@ export const getSelectedDayViewDate = () =>
   );
 
 export const getInitialIGlobalISODate = () =>
-  createSelector(updateDateState, (state) => state.initialState.globalSODate);
+  createSelector(updateDateState, (state) => state.initialState.globalISODate);
 
 export const getInitialIDayViewISODate = () =>
   createSelector(updateDateState, (state) => state.initialState.dayViewISODate);
 
 export const getSelectedGlobalISODate = () =>
-  createSelector(updateDateState, (state) => state.currentState.globalSODate);
+  createSelector(updateDateState, (state) => state.currentState.globalISODate);
 
 export const getSelectedDayViewISODate = () =>
   createSelector(updateDateState, (state) => state.currentState.dayViewISODate);
 
 export const getInitialGlobalDay = () =>
   createSelector(updateDateState, (state) =>
-    getDay(new Date(state.initialState.globalSODate)),
+    getDay(new Date(state.initialState.globalISODate)),
   );
 
 export const getInitialDayViewDay = () =>
@@ -69,7 +69,7 @@ export const getInitialDayViewDay = () =>
 
 export const getSelectedGlobalDay = () =>
   createSelector(updateDateState, (state) =>
-    getDay(new Date(state.currentState.globalSODate)),
+    getDay(new Date(state.currentState.globalISODate)),
   );
 
 export const getSelectedDayViewDay = () =>
@@ -79,7 +79,7 @@ export const getSelectedDayViewDay = () =>
 
 export const getInitialGlobalMonth = (locale: LocaleLanguage) =>
   createSelector(updateDateState, (state) =>
-    getMonthIndex(locale, new Date(state.initialState.globalSODate)),
+    getMonthIndex(locale, new Date(state.initialState.globalISODate)),
   );
 
 export const getInitialDayViewMonth = (locale: LocaleLanguage) =>
@@ -89,7 +89,7 @@ export const getInitialDayViewMonth = (locale: LocaleLanguage) =>
 
 export const getSelectedGlobalMonth = (locale: LocaleLanguage) =>
   createSelector(updateDateState, (state) =>
-    getMonthIndex(locale, new Date(state.currentState.globalSODate)),
+    getMonthIndex(locale, new Date(state.currentState.globalISODate)),
   );
 
 export const getSelectedDayViewMonth = (
@@ -108,7 +108,7 @@ export const getSelectedDayViewMonth = (
 
 export const getInitialGlobalYear = () =>
   createSelector(updateDateState, (state) =>
-    getYear(new Date(state.initialState.globalSODate)),
+    getYear(new Date(state.initialState.globalISODate)),
   );
 
 export const getInitialDayViewYear = () =>
@@ -118,7 +118,7 @@ export const getInitialDayViewYear = () =>
 
 export const getSelectedGlobalYear = () =>
   createSelector(updateDateState, (state) =>
-    getYear(new Date(state.currentState.globalSODate)),
+    getYear(new Date(state.currentState.globalISODate)),
   );
 
 export const getSelectedDayViewYear = () =>
@@ -128,7 +128,7 @@ export const getSelectedDayViewYear = () =>
 
 export const getInitialGlobalTimeInMilliseconds = () =>
   createSelector(updateDateState, (state) =>
-    getTimeInMilliseconds(new Date(state.initialState.globalSODate)),
+    getTimeInMilliseconds(new Date(state.initialState.globalISODate)),
   );
 
 export const getInitialDayViewTimeInMilliseconds = () =>
@@ -138,7 +138,7 @@ export const getInitialDayViewTimeInMilliseconds = () =>
 
 export const getSelectedGlobalTimeInMilliseconds = () =>
   createSelector(updateDateState, (state) =>
-    getTimeInMilliseconds(new Date(state.currentState.globalSODate)),
+    getTimeInMilliseconds(new Date(state.currentState.globalISODate)),
   );
 
 export const getSelectedDayViewTimeInMilliseconds = () =>
@@ -148,7 +148,7 @@ export const getSelectedDayViewTimeInMilliseconds = () =>
 
 export const getInitialGlobalMonthNumberOfDays = (locale: LocaleLanguage) =>
   createSelector(updateDateState, (state) =>
-    getMonthNumberOfDays(locale, new Date(state.initialState.globalSODate)),
+    getMonthNumberOfDays(locale, new Date(state.initialState.globalISODate)),
   );
 
 export const getInitialDayViewMonthNumberOfDays = (locale: LocaleLanguage) =>
@@ -158,7 +158,7 @@ export const getInitialDayViewMonthNumberOfDays = (locale: LocaleLanguage) =>
 
 export const getSelectedGlobalMonthNumberOfDays = (locale: LocaleLanguage) =>
   createSelector(updateDateState, (state) =>
-    getMonthNumberOfDays(locale, new Date(state.currentState.globalSODate)),
+    getMonthNumberOfDays(locale, new Date(state.currentState.globalISODate)),
   );
 
 export const getSelectedDayViewMonthNumberOfDays = (locale: LocaleLanguage) =>
@@ -173,7 +173,7 @@ export const getInitialGlobalDayOfWeek = (
   createSelector(updateDateState, (state) =>
     getDayOfWeek(
       locale,
-      new Date(state.initialState.globalSODate),
+      new Date(state.initialState.globalISODate),
       weekdayStyle,
     ),
   );
@@ -197,7 +197,7 @@ export const getSelectedGlobalDayOfWeek = (
   createSelector(updateDateState, (state) =>
     getDayOfWeek(
       locale,
-      new Date(state.currentState.globalSODate),
+      new Date(state.currentState.globalISODate),
       weekdayStyle,
     ),
   );
@@ -221,7 +221,7 @@ export const getInitialGlobalMonthName = (
   createSelector(updateDateState, (state) =>
     getDayOfWeek(
       locale,
-      new Date(state.initialState.globalSODate),
+      new Date(state.initialState.globalISODate),
       weekdayStyle,
     ),
   );
@@ -245,7 +245,7 @@ export const getSelectedGlobalMonthName = (
   createSelector(updateDateState, (state) =>
     getMonthName(
       locale,
-      new Date(state.currentState.globalSODate),
+      new Date(state.currentState.globalISODate),
       weekdayStyle,
     ),
   );
