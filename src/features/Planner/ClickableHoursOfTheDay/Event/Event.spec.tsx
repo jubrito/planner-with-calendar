@@ -50,7 +50,17 @@ describe('Event', () => {
   });
   describe('Hours display when using 12-hour clock system', () => {
     it('should display event with only one AM/PM if the event start and end is within the same period', () => {
-      renderWithProviders(<Event event={event} />);
+      renderWithProviders(
+        <Event
+          event={event}
+          id={event.eventId}
+          title={event.title}
+          startY={event.start.fixedPositionY}
+          endY={event.end.fixedPositionY}
+          startDate={event.start.date}
+          endDate={event.end.date}
+        />,
+      );
       const eventTimeRange = screen.getByLabelText(
         `Time range from 12:00 to 01:00 AM`,
       );
