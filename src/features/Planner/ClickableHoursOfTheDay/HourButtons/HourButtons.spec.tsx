@@ -36,7 +36,7 @@ describe('HourButtons', () => {
     ranges.forEach((range) => {
       expect(
         screen.getByTitle(
-          `Click, hold, and drag to create an event within the range ${range}`,
+          `Click, hold, and drag to create an event within ${range}`,
         ),
       );
     });
@@ -84,7 +84,7 @@ describe('HourButtons', () => {
     ranges.forEach((range) => {
       expect(
         screen.getByTitle(
-          `Click, hold, and drag to create an event within the range ${range}`,
+          `Click, hold, and drag to create an event within ${range}`,
         ),
       );
     });

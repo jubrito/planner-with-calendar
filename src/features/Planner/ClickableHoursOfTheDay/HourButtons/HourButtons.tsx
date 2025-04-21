@@ -48,8 +48,8 @@ export const HourButtons = () => {
           ? startHour
           : startTime;
         const updatedEnd = is12HourClockSystem(endFullHour) ? endHour : endTime;
-        const range = `range ${updatedStart}${updatedStartPeriod} to ${updatedEnd}${endPeriod}`;
-        const title = `Click, hold, and drag to create an event within the ${range}`;
+        const range = `${updatedStart}${updatedStartPeriod} to ${updatedEnd}${endPeriod}`;
+        const title = `Click, hold, and drag to create an event within ${range}`;
         return (
           <div
             onClick={(e) => e.preventDefault()}
