@@ -15,6 +15,7 @@ import {
 import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
 import { Event } from './Event/Event';
 import { HourButtons } from './HourButtons/HourButtons';
+import { EventDetailsModal } from './EventDetailsModal/EventDetailsModal';
 
 export type Block = {
   hour: number;
@@ -164,6 +165,12 @@ export const ClickableHoursOfTheDay = memo(() => {
     setDraftEvent(null);
   }, []);
 
+  const [eventDetailsModalIsOpen, setEventDetailsModalIsOpen] = useState(true);
+
+  const openEventDetailsModal = useCallback(() => {
+    setEventDetailsModalIsOpen(true);
+  }, []);
+
   return (
     <div
       ref={containerRef}
@@ -173,6 +180,7 @@ export const ClickableHoursOfTheDay = memo(() => {
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseLeave}
     >
+      <EventDetailsModal isOpen={eventDetailsModalIsOpen} />
       {draftEvent && (
         <>
           {isValidEvent(draftEvent) && (
@@ -184,6 +192,7 @@ export const ClickableHoursOfTheDay = memo(() => {
               endY={draftEvent.end.fixedPositionY}
               startDate={draftEvent.start.date}
               endDate={draftEvent.end.date}
+              openDetails={openEventDetailsModal}
             />
           )}
         </>
@@ -199,6 +208,7 @@ export const ClickableHoursOfTheDay = memo(() => {
             endY={event.end.fixedPositionY}
             startDate={event.start.date}
             endDate={event.end.date}
+            openDetails={openEventDetailsModal}
           />
         ))}
       <HourButtons />
