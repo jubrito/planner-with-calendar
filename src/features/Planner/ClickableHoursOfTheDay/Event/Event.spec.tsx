@@ -55,7 +55,7 @@ describe('Event', () => {
     expect(screen.getByText(event.title)).toBeInTheDocument();
   });
   it('should render title explaining event is editable', () => {
-    renderWithProviders(<Event event={event} />);
+    renderDefaultEvent(event);
     expect(
       screen.getByTitle('Click on the event to edit it'),
     ).toBeInTheDocument();
