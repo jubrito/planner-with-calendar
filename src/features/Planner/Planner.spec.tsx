@@ -416,6 +416,59 @@ describe('Planner', () => {
         expect(timeElement).toHaveRole('time');
         expect(timeElement).toHaveProperty('dateTime', time);
       });
+      it('should correctly display current hour (00:00) for hour 0', () => {
+        const hour = 0;
+        const minutes = 0;
+        renderWithProviders(<Planner />, {
+          preloadedState: {
+            dateSlice: {
+              ...initialDateValue,
+              currentState: {
+                ...initialDateValue.currentState,
+                dayViewISODate: new Date(
+                  currentYear,
+                  currentMonth,
+                  currentDay,
+                  hour,
+                  minutes,
+                ).toISOString(),
+                globalISODate: new Date(
+                  currentYear,
+                  currentMonth,
+                  currentDay,
+                  hour,
+                  minutes,
+                ).toISOString(),
+              },
+            },
+            localeSlice: {
+              ...initialLocaleValue,
+              currentState: {
+                ...initialLocaleValue.currentState,
+                locale: {
+                  lang: ptBrLang,
+                },
+              },
+            },
+          },
+        });
+        // const time = '00:00';
+        // const timeElements = screen.queryAllByText(time);
+        // const currentHourElementExists = timeElements.some(
+        //   (timeElement) => timeElement.id === 'currentHour' && timeElement.role === 'time'
+        // );
+        // expect(currentHourElementExists).toBeTruthy();
+
+        // expect(currentHourElementExists instanceof HTMLTimeElement).toBeTruthy();
+        // expect(timeElements).toHaveProperty('dateTime', time);
+        const time = '00:00';
+        const id = 'currentTime';
+        const timeElement = screen.getByTestId(id);
+        expect(timeElement).toBeInTheDocument();
+        expect(timeElement).toHaveRole('time');
+        expect(timeElement).toHaveProperty('dateTime', time);
+        expect(timeElement).toHaveProperty('id', id);
+      });
     });
   });
 });
