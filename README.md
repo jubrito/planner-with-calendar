@@ -1,5 +1,7 @@
 # Next steps (v1):
 
+- test if current time is being rendered on correct position on planner
+
 - create event button on planner for accessibility
 - react memo planner components?
 - extract current hour component
