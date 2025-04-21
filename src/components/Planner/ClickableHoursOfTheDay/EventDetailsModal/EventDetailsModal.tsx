@@ -3,10 +3,11 @@ import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { memo } from 'react';
+import { EventOnEdit } from '../ClickableHoursOfTheDay';
 
 type EventDetailsModalProps = {
   top?: number;
-  toggleDetailsModal: (eventEndY?: number) => void;
+  toggleDetailsModal: (eventOnEdit?: EventOnEdit) => void;
 };
 
 export const EventDetailsModal = memo(

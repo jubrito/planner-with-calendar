@@ -5,7 +5,7 @@ import {
   getTimeInformation,
 } from '../../../../utils/calendar/utils';
 import styles from './event.module.scss';
-import { EventBlock } from '../ClickableHoursOfTheDay';
+import { EventBlock, EventOnEdit } from '../ClickableHoursOfTheDay';
 import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
 import { IntlDateTimeFormat2Digit } from '../../../../utils/constants';
 import { memo, useMemo } from 'react';
@@ -17,7 +17,7 @@ type Event = {
   endY: EventBlock['end']['fixedPositionY'];
   startDate: EventBlock['start']['date'];
   endDate: EventBlock['end']['date'];
-  toggleDetailsModal: (eventEndY?: number) => void;
+  toggleDetailsModal: (eventOnEdit?: EventOnEdit) => void;
 };
 
 export const Event = memo(function ({
@@ -66,7 +66,7 @@ export const Event = memo(function ({
 
   const handleEventClick = (event: Event) => {
     console.log('Event clicked:', event);
-    toggleDetailsModal(endY);
+    toggleDetailsModal({ title, endDate, startDate, endY });
   };
 
   return (

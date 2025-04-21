@@ -37,9 +37,28 @@ export type EventBlock = {
   title: string;
 };
 
+export type EventOnEdit = {
+  title: EventBlock['title'];
+  startDate: EventBlock['start']['date'];
+  endDate: EventBlock['end']['date'];
+  endY: EventBlock['end']['fixedPositionY'];
+};
+
+type EventOnEditModalDetails = {
+  isOpen: boolean;
+  top: number;
+  eventOnEdit?: EventOnEdit;
+};
+
 export const ClickableHoursOfTheDay = memo(() => {
   const [draftEvent, setDraftEvent] = useState<EventBlock | null>(null);
   const [events, setEvents] = useState<EventBlock[]>([]);
+  const [eventClickedDetails, setEventClickedDetails] =
+    useState<EventOnEditModalDetails>({
+      isOpen: false,
+      top: 0,
+      eventOnEdit: undefined,
+    });
   const containerRef = useRef<HTMLDivElement>(null);
   const localeString = useSelector(getLocaleLanguage());
   const year = useSelector(getSelectedGlobalYear());
@@ -165,23 +184,24 @@ export const ClickableHoursOfTheDay = memo(() => {
     setDraftEvent(null);
   }, []);
 
-  const [eventClickedDetails, setEventClickedDetails] = useState({
-    isOpen: false,
-    top: 0,
-  });
-
-  const toggleEventDetailsModal = useCallback((eventEndY?: number) => {
+  const toggleEventDetailsModal = useCallback((eventOnEdit?: EventOnEdit) => {
     const moveEventInPixels = 20;
     setEventClickedDetails((prevState) => {
       let eventClickedDetails = {
         ...prevState,
         isOpen: false,
       };
-      if (eventEndY) {
+      if (eventOnEdit) {
         eventClickedDetails = {
           ...eventClickedDetails,
-          top: eventEndY - moveEventInPixels,
+          top: eventOnEdit.endY - moveEventInPixels,
           isOpen: true,
+          eventOnEdit: {
+            title: eventOnEdit.title,
+            endDate: eventOnEdit.endDate,
+            startDate: eventOnEdit.startDate,
+            endY: eventOnEdit.endY,
+          },
         };
       }
       return eventClickedDetails;
