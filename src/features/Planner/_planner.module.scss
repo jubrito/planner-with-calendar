@@ -3,7 +3,8 @@
 
 .planner {
   grid-area: planner;
-  background: variables.$blue-lightergray-color;
+  background-color: variables.$white-color;
+
   margin-right: variables.$outer-spacing;
   padding: variables.$inner-spacing;
   color: variables.$black-color;
