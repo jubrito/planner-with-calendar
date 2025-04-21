@@ -96,11 +96,44 @@ describe('Planner', () => {
                   hour,
                   minutes,
                 ).toISOString(),
+                globalISODate: new Date(
+                  currentYear,
+                  currentMonth,
+                  currentDay,
+                  hour,
+                  minutes,
+                ).toISOString(),
               },
             },
           },
         });
         const time = '01:11';
+        const timeElement = screen.getByText(time);
+        expect(timeElement).toBeInTheDocument();
+        expect(timeElement).toHaveRole('time');
+        expect(timeElement).toHaveProperty('dateTime', time);
+      });
+      it('should correctly display current hour (11:59)', () => {
+        const hour = 11;
+        const minutes = 59;
+        renderWithProviders(<Planner />, {
+          preloadedState: {
+            dateSlice: {
+              ...initialDateValue,
+              currentState: {
+                ...initialDateValue.currentState,
+                dayViewISODate: new Date(
+                  currentYear,
+                  currentMonth,
+                  currentDay,
+                  hour,
+                  minutes,
+                ).toISOString(),
+              },
+            },
+          },
+        });
+        const time = '11:59';
         const timeElement = screen.getByText(time);
         expect(timeElement).toBeInTheDocument();
         expect(timeElement).toHaveRole('time');
