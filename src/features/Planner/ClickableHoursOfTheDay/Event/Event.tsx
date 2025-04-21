@@ -10,8 +10,7 @@ import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selector
 import { IntlDateTimeFormat2Digit } from '../../../../utils/constants';
 import { useMemo } from 'react';
 
-type EventProps = {
-  event: EventBlock;
+type Event = {
   id: EventBlock['eventId'];
   title: EventBlock['title'];
   startY: EventBlock['start']['fixedPositionY'];
@@ -27,14 +26,23 @@ export const Event = ({
   endY,
   startDate,
   endDate,
-  event,
-}: EventProps) => {
+}: Event) => {
   const eventHeight = endY - startY;
   const eventStart = startY;
   const isAtLeast30MinEvent = eventHeight >= sizeOfEach15MinBlock * 2;
   const isAtLeast60MinEvent = eventHeight >= sizeOfEach15MinBlock * 4;
   const hasMinimumHeight = eventHeight >= sizeOfEach15MinBlock;
   const localeString = useSelector(getLocaleLanguage());
+
+  const event: Event = {
+    id,
+    title,
+    startY,
+    endY,
+    startDate,
+    endDate,
+  };
+
   const titleStyle = {
     fontSize: isAtLeast60MinEvent
       ? '17px'
@@ -78,7 +86,7 @@ export const Event = ({
     return [startTime, updatedStartPeriod];
   }, [startDate, endPeriod, localeString]);
 
-  const handleEventClick = (event: EventBlock) => {
+  const handleEventClick = (event: Event) => {
     console.log('Event clicked:', event);
   };
 

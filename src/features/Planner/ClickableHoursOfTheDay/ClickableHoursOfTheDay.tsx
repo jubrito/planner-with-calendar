@@ -181,7 +181,6 @@ export const ClickableHoursOfTheDay = React.memo(() => {
               key={draftEvent.eventId}
               id={draftEvent.eventId}
               title={draftEvent.title}
-              event={draftEvent}
               startY={draftEvent.start.fixedPositionY}
               endY={draftEvent.end.fixedPositionY}
               startDate={draftEvent.start.date}
@@ -197,7 +196,6 @@ export const ClickableHoursOfTheDay = React.memo(() => {
             id={event.eventId}
             key={event.eventId}
             title={event.title}
-            event={event}
             startY={event.start.fixedPositionY}
             endY={event.end.fixedPositionY}
             startDate={event.start.date}
