@@ -1,4 +1,4 @@
-@use "./_variables.scss" as variables;
+@use './_variables.scss' as variables;
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -39,8 +39,12 @@ body {
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: variables.$h1-size;
   line-height: 1.1;
+}
+
+h2 {
+  font-size: variables.$h2-size;
 }
 
 button {
