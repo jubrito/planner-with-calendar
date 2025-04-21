@@ -1,5 +1,6 @@
 # Next steps (v1):
 
+- create event button on planner for accessibility
 - react memo planner components?
 - extract current hour component
   - use time html element
