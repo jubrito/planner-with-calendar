@@ -33,7 +33,6 @@ export const Event = ({
   const isAtLeast60MinEvent = eventHeight >= sizeOfEach15MinBlock * 4;
   const hasMinimumHeight = eventHeight >= sizeOfEach15MinBlock;
   const localeString = useSelector(getLocaleLanguage());
-
   const event: Event = {
     id,
     title,
@@ -41,15 +40,6 @@ export const Event = ({
     endY,
     startDate,
     endDate,
-  };
-
-  const titleStyle = {
-    fontSize: isAtLeast60MinEvent
-      ? '17px'
-      : isAtLeast30MinEvent
-        ? '15px'
-        : '10px',
-    marginRight: isAtLeast60MinEvent ? 0 : '5px',
   };
   const timeStyle = {
     fontSize: isAtLeast60MinEvent
@@ -107,7 +97,9 @@ export const Event = ({
             flexDirection: isAtLeast60MinEvent ? 'column' : 'row',
           }}
         >
-          <span style={titleStyle}>{title}</span>
+          <span style={getTitleStyle(isAtLeast30MinEvent, isAtLeast60MinEvent)}>
+            {title}
+          </span>
           <span
             style={timeStyle}
             aria-label={`Time range from ${startTime}${startPeriod} to ${endTime}${endPeriod}`}
@@ -117,3 +109,15 @@ export const Event = ({
     </div>
   );
 };
+
+const getTitleStyle = (
+  isAtLeast30MinEvent: boolean,
+  isAtLeast60MinEvent: boolean,
+) => ({
+  fontSize: isAtLeast60MinEvent
+    ? '17px'
+    : isAtLeast30MinEvent
+      ? '15px'
+      : '10px',
+  marginRight: isAtLeast60MinEvent ? 0 : '5px',
+});
