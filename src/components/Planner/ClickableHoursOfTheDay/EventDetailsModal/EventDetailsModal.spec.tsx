@@ -105,7 +105,7 @@ describe('EventDetailsModal', () => {
       expect(timeElement).toBeInTheDocument();
       expect(timeElement).toHaveProperty('title', title);
     });
-    it.only('should render modal with multi day event within different years', () => {
+    it('should render modal with multi day event within different years', () => {
       endHour = 23;
       const endHourIn12HourSystem = 11;
       endMinutes = 59;
