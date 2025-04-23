@@ -1,11 +1,13 @@
 # Next steps (v1):
 
-- event details modal size responsiveness is wrong
+- test modal for 24-hour clock
+- give focus to event edit modal
 - test modal details
   - day/month/year is the same
   - day is not the same
     - year is not the same
 - test if modal is opening
+  - should not open if event does not exist
 - close modal
 - test if modal is closing
 - edit event
