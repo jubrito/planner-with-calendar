@@ -120,7 +120,11 @@ export const getDayName = (dayOfWeek: number, locale: string) => {
   if (dayOfWeek === 0) {
     dayName = weekDays[WeekDays.SUNDAY].short;
   } else {
-    dayName = weekDays[dayOfWeek - 1].short; // Monday (0) to Saturday (5)
+    const day = weekDays[dayOfWeek - 1];
+    if (day == null) {
+      throw new Error('Failed to get day name, day is invalid');
+    }
+    dayName = day.short; // Monday (0) to Saturday (5)
   }
   return dayName;
 };
