@@ -1,5 +1,6 @@
 # Next steps (v1):
 
+- capitalize first letter on br
 - test modal for 24-hour clock
 - give focus to event edit modal
 - test modal details
