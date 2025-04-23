@@ -6,6 +6,7 @@ import { memo } from 'react';
 import { EventOnEdit } from '../ClickableHoursOfTheDay';
 import { getWeekDayName } from '../../../../utils/calendar/weeks';
 import {
+  // get2DigitsValue,
   getFormattedDateString,
   getMonthIndex,
   getMonthName,
@@ -74,24 +75,18 @@ export const EventDetailsModal = memo(
         </div>
         <div className={styles.content}>
           <p>{title}</p>
-          <p>
-            {isSameDay && (
-              <time dateTime={getDateTime(startEvent)}>
-                {getSameDayEventText(startEvent, endEvent)}
-              </time>
-            )}
-            {!isSameDay && (
-              <>
-                <time dateTime={getDateTime(startEvent)}>
-                  {getMultiDayEventText(startEvent, endEvent).start}
-                </time>
-                –
-                <time dateTime={getDateTime(endEvent)}>
-                  {getMultiDayEventText(startEvent, endEvent).end}
-                </time>
-              </>
-            )}
-          </p>
+          {isSameDay && (
+            <p title={getEventLabel(getSameDayEventText(startEvent, endEvent))}>
+              {getSameDayEventText(startEvent, endEvent)}
+            </p>
+          )}
+          {!isSameDay && (
+            <p
+              title={getEventLabel(getMultiDayEventText(startEvent, endEvent))}
+            >
+              {getMultiDayEventText(startEvent, endEvent)}
+            </p>
+          )}
         </div>
       </div>
     );
@@ -133,13 +128,15 @@ const isSameDayEvent = (startEvent: EventInfo, endEvent: EventInfo) =>
   startEvent.monthName === endEvent.monthName &&
   startEvent.year === endEvent.year;
 
-const getDateTime = (event: EventInfo) =>
-  `${event.year}-${event.month}-${event.day} ${event.hour}:${event.minutes}`;
+const getEventLabel = (eventText: string) =>
+  'Event on ' + eventText.replace('⋅', 'from').replace('–', 'to');
 
 const getSameDayEventText = (startEvent: EventInfo, endEvent: EventInfo) => {
   const updatedStartPeriod =
     startEvent.period === endEvent.period ? '' : startEvent.period;
-  return `${startEvent.weekDay}, ${startEvent.monthName} ${startEvent.day} ⋅ ${startEvent.time}${updatedStartPeriod} – ${endEvent.time}${endEvent.period}`;
+  const date = `${startEvent.weekDay}, ${startEvent.monthName} ${startEvent.day}`;
+  const time = `${startEvent.time}${updatedStartPeriod} – ${endEvent.time}${endEvent.period}`;
+  return date + ' ⋅ ' + time;
 };
 
 const getMultiDayEventText = (startEvent: EventInfo, endEvent: EventInfo) => {
@@ -147,8 +144,8 @@ const getMultiDayEventText = (startEvent: EventInfo, endEvent: EventInfo) => {
   const startYearUpdated = !isSameYearEvent ? `${startEvent.year}, ` : '';
   const endYearUpdated = !isSameYearEvent ? `${endEvent.year}, ` : '';
   const getText = (event: EventInfo, yearUpdated: string) =>
-    `${event.monthName} ${event.day}, ${yearUpdated} ${event.time}${event.period}`;
+    `${event.monthName} ${event.day}, ${yearUpdated}${event.time}${event.period}`;
   const startText = getText(startEvent, startYearUpdated);
   const endText = getText(endEvent, endYearUpdated);
-  return { start: startText, end: endText };
+  return startText + ' – ' + endText;
 };
