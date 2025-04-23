@@ -15,7 +15,11 @@ describe('EventDetailsModal', () => {
   let endHour = 11;
   let endMinutes = 59;
   const weekDay = 'Tue';
-  const monthName = 'Feb';
+  const startMonthName = 'Feb';
+  const endMonthName = 'Dec';
+  const endYear = 2026;
+  const endMonth = Months.DECEMBER;
+  const endDay = 31;
   const startDate = new Date(year, month, day, startHour, startMinutes);
   let endDate = new Date(year, month, day, endHour, endMinutes);
   const startPeriod = 'AM';
@@ -44,7 +48,7 @@ describe('EventDetailsModal', () => {
           toggleDetailsModal={toggleDetailsModalMock}
         />,
       );
-      const date = `${weekDay}, ${monthName} ${day}`;
+      const date = `${weekDay}, ${startMonthName} ${day}`;
       const separator = '⋅';
       const startTime = `${get2DigitsValue(startDate.getHours())}:${get2DigitsValue(startDate.getMinutes())}`;
       const endTime = `${get2DigitsValue(endDate.getHours())}:${get2DigitsValue(endDate.getMinutes())}`;
@@ -66,13 +70,38 @@ describe('EventDetailsModal', () => {
           toggleDetailsModal={toggleDetailsModalMock}
         />,
       );
-      const date = `${weekDay}, ${monthName} ${day}`;
+      const date = `${weekDay}, ${startMonthName} ${day}`;
       const separator = '⋅';
       const startTime = `${get2DigitsValue(startDate.getHours())}:${get2DigitsValue(startDate.getMinutes())}`;
       const endTime = `${get2DigitsValue(endDate.getHours())}:${get2DigitsValue(endDate.getMinutes())}`;
       const fullTime = `${date} ${separator} ${startTime} ${startPeriod} – ${endTime} ${endPeriod}`;
       const timeElement = screen.getByText(fullTime);
       const title = `Event on ${date} from ${startTime} ${startPeriod} to ${endTime} ${endPeriod}`;
+      expect(timeElement).toBeInTheDocument();
+      expect(timeElement).toHaveProperty('title', title);
+    });
+  });
+  describe('When is multi day event', () => {
+    it('should render modal with multi day event within same year', () => {
+      endHour = 12;
+      endMinutes = 0;
+      endDate = new Date(endYear, endMonth, endDay, endHour, endMinutes);
+      renderWithProviders(
+        <EventDetailsModal
+          startDate={startDate}
+          endDate={endDate}
+          title={eventTitle}
+          toggleDetailsModal={toggleDetailsModalMock}
+        />,
+      );
+      const separator = '–';
+      const startTime = `${get2DigitsValue(startDate.getHours())}:${get2DigitsValue(startDate.getMinutes())}`;
+      const endTime = `${get2DigitsValue(endDate.getHours())}:${get2DigitsValue(endDate.getMinutes())}`;
+      const startFullDate = `${startMonthName} ${day}, ${startTime} ${startPeriod}`;
+      const endFullDate = `${endMonthName} ${endDay}, ${endTime} ${endPeriod}`;
+      const fullTime = `${startFullDate} ${separator} ${endFullDate}`;
+      const timeElement = screen.getByText(fullTime);
+      const title = `Event on ${startFullDate} to ${endFullDate}`;
       expect(timeElement).toBeInTheDocument();
       expect(timeElement).toHaveProperty('title', title);
     });
