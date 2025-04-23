@@ -6,7 +6,6 @@ import { memo } from 'react';
 import { EventOnEdit } from '../ClickableHoursOfTheDay';
 import { getWeekDayName } from '../../../../utils/calendar/weeks';
 import {
-  // get2DigitsValue,
   getFormattedDateString,
   getMonthIndex,
   getMonthName,
