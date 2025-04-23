@@ -79,13 +79,11 @@ export const EventDetailsModal = memo(
               {getSameDayEventText(startEvent, endEvent)}
             </p>
           )}
-          {!isSameDay && (
-            <p
-              title={getEventLabel(getMultiDayEventText(startEvent, endEvent))}
-            >
-              {getMultiDayEventText(startEvent, endEvent)}
-            </p>
-          )}
+          {/* {!isSameDay && ( */}
+          <p title={getEventLabel(getMultiDayEventText(startEvent, endEvent))}>
+            {getMultiDayEventText(startEvent, endEvent)}
+          </p>
+          {/* )} */}
         </div>
       </div>
     );
@@ -139,7 +137,7 @@ const getSameDayEventText = (startEvent: EventInfo, endEvent: EventInfo) => {
 };
 
 const getMultiDayEventText = (startEvent: EventInfo, endEvent: EventInfo) => {
-  const isSameYearEvent = startEvent.year === startEvent.year;
+  const isSameYearEvent = startEvent.year === endEvent.year;
   const startYearUpdated = !isSameYearEvent ? `${startEvent.year}, ` : '';
   const endYearUpdated = !isSameYearEvent ? `${endEvent.year}, ` : '';
   const getText = (event: EventInfo, yearUpdated: string) =>
