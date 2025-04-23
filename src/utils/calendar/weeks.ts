@@ -47,5 +47,5 @@ export const getWeekDayName = (
   const dayOfWeek = dayOfTheMonthDate.getDay();
   const dayName = getDayName(dayOfWeek, locale);
   const firstLetterCapitalized = dayName.charAt(0).toUpperCase();
-  return firstLetterCapitalized + dayName.slice(1);
+  return firstLetterCapitalized + dayName.slice(1).replace('.', '');
 };
