@@ -217,9 +217,12 @@ export const ClickableHoursOfTheDay = memo(() => {
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseLeave}
     >
-      {eventClickedDetails.isOpen && (
+      {eventClickedDetails.isOpen && eventClickedDetails.eventOnEdit && (
         <EventDetailsModal
           top={eventClickedDetails.top}
+          title={eventClickedDetails.eventOnEdit.title}
+          startDate={eventClickedDetails.eventOnEdit.startDate}
+          endDate={eventClickedDetails.eventOnEdit.endDate}
           toggleDetailsModal={toggleEventDetailsModal}
         />
       )}
