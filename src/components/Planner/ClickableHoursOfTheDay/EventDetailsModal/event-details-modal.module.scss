@@ -3,7 +3,9 @@
 
 .modal {
   @include mixins.modal;
-  width: 320px;
+  max-width: max-content;
+  width: 80%;
+
   height: fit-content;
   top: 0;
   right: 0;
@@ -14,11 +16,13 @@
   justify-content: space-between;
   box-sizing: border-box;
   padding: variables.$inner-spacing;
+  overflow: hidden;
   cursor: initial;
 
   .actions {
     width: 100%;
     max-height: max-content;
+    min-width: max-content;
 
     button {
       background-color: transparent;
