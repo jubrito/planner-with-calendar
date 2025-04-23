@@ -16,17 +16,14 @@ export const getWeekDaysNames = (locale: string) => {
     const dayOneIndexed = dayOfWeek + 1;
     date.setDate(dayOneIndexed);
 
-    if (!isValidDate(date))
-      throw new Error('Failed to get week days names, date is invalid');
-
     return {
-      long: new Intl.DateTimeFormat([locale], {
+      long: new Intl.DateTimeFormat(locale, {
         weekday: IntlDateTimeFormatLong,
       }).format(date),
-      short: new Intl.DateTimeFormat([locale], {
+      short: new Intl.DateTimeFormat(locale, {
         weekday: IntlDateTimeFormatShort,
       }).format(date),
-      initial: new Intl.DateTimeFormat([locale], {
+      initial: new Intl.DateTimeFormat(locale, {
         weekday: IntlDateTimeFormatShort,
       })
         .format(date)
