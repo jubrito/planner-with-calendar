@@ -34,46 +34,47 @@ describe('EventDetailsModal', () => {
     expect(screen.getByText(eventTitle)).toBeInTheDocument();
   });
 
-  it('should render modal with same day event within same period', () => {
-    renderWithProviders(
-      <EventDetailsModal
-        startDate={startDate}
-        endDate={endDate}
-        title={eventTitle}
-        toggleDetailsModal={toggleDetailsModalMock}
-      />,
-    );
-    const date = `${weekDay}, ${monthName} ${day}`;
-    const separator = '⋅';
-    const startTime = `${get2DigitsValue(startDate.getHours())}:${get2DigitsValue(startDate.getMinutes())}`;
-    const endTime = `${get2DigitsValue(endDate.getHours())}:${get2DigitsValue(endDate.getMinutes())}`;
-    const fullTime = `${date} ${separator} ${startTime} – ${endTime} ${startPeriod}`;
-    const timeElement = screen.getByText(fullTime);
-    const title = `Event on ${date} from ${startTime} to ${endTime} ${startPeriod}`;
-    expect(timeElement).toBeInTheDocument();
-    expect(timeElement).toHaveProperty('title', title);
-  });
-
-  it('should render modal with same day event within different periods', () => {
-    endHour = 12;
-    endMinutes = 0;
-    endDate = new Date(year, month, day, endHour, endMinutes);
-    renderWithProviders(
-      <EventDetailsModal
-        startDate={startDate}
-        endDate={endDate}
-        title={eventTitle}
-        toggleDetailsModal={toggleDetailsModalMock}
-      />,
-    );
-    const date = `${weekDay}, ${monthName} ${day}`;
-    const separator = '⋅';
-    const startTime = `${get2DigitsValue(startDate.getHours())}:${get2DigitsValue(startDate.getMinutes())}`;
-    const endTime = `${get2DigitsValue(endDate.getHours())}:${get2DigitsValue(endDate.getMinutes())}`;
-    const fullTime = `${date} ${separator} ${startTime} ${startPeriod} – ${endTime} ${endPeriod}`;
-    const timeElement = screen.getByText(fullTime);
-    const title = `Event on ${date} from ${startTime} ${startPeriod} to ${endTime} ${endPeriod}`;
-    expect(timeElement).toBeInTheDocument();
-    expect(timeElement).toHaveProperty('title', title);
+  describe('When is same day event', () => {
+    it('should render modal with same day event within same period', () => {
+      renderWithProviders(
+        <EventDetailsModal
+          startDate={startDate}
+          endDate={endDate}
+          title={eventTitle}
+          toggleDetailsModal={toggleDetailsModalMock}
+        />,
+      );
+      const date = `${weekDay}, ${monthName} ${day}`;
+      const separator = '⋅';
+      const startTime = `${get2DigitsValue(startDate.getHours())}:${get2DigitsValue(startDate.getMinutes())}`;
+      const endTime = `${get2DigitsValue(endDate.getHours())}:${get2DigitsValue(endDate.getMinutes())}`;
+      const fullTime = `${date} ${separator} ${startTime} – ${endTime} ${startPeriod}`;
+      const timeElement = screen.getByText(fullTime);
+      const title = `Event on ${date} from ${startTime} to ${endTime} ${startPeriod}`;
+      expect(timeElement).toBeInTheDocument();
+      expect(timeElement).toHaveProperty('title', title);
+    });
+    it('should render modal with same day event within different periods', () => {
+      endHour = 12;
+      endMinutes = 0;
+      endDate = new Date(year, month, day, endHour, endMinutes);
+      renderWithProviders(
+        <EventDetailsModal
+          startDate={startDate}
+          endDate={endDate}
+          title={eventTitle}
+          toggleDetailsModal={toggleDetailsModalMock}
+        />,
+      );
+      const date = `${weekDay}, ${monthName} ${day}`;
+      const separator = '⋅';
+      const startTime = `${get2DigitsValue(startDate.getHours())}:${get2DigitsValue(startDate.getMinutes())}`;
+      const endTime = `${get2DigitsValue(endDate.getHours())}:${get2DigitsValue(endDate.getMinutes())}`;
+      const fullTime = `${date} ${separator} ${startTime} ${startPeriod} – ${endTime} ${endPeriod}`;
+      const timeElement = screen.getByText(fullTime);
+      const title = `Event on ${date} from ${startTime} ${startPeriod} to ${endTime} ${endPeriod}`;
+      expect(timeElement).toBeInTheDocument();
+      expect(timeElement).toHaveProperty('title', title);
+    });
   });
 });
