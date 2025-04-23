@@ -1,6 +1,10 @@
 # Next steps (v1):
 
+- event details modal size responsiveness is wrong
 - test modal details
+  - day/month/year is the same
+  - day is not the same
+    - year is not the same
 - test if modal is opening
 - close modal
 - test if modal is closing
