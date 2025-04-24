@@ -1,5 +1,9 @@
 # Next steps (v1):
 
+- improve event structure
+
+  - use event redux date saving only what matters
+
 - improve architecture?
   - leave reusable components on components
   - reusable modal?
