@@ -54,13 +54,12 @@ export const EventDetailsModal = memo(
     const endEvent = getEventInfo(endDate, locale);
     const isSameDay = isSameDayEvent(startEvent, endEvent);
     const sameDayContent = getSameDayEventText(startEvent, endEvent);
-    const sameDayTitle = getEventTitle(
-      sameDayContent.replace('\u2022', 'from'),
-    );
     const multiDayContent = getMultiDayEventText(startEvent, endEvent);
-    const multiDayTitle = getEventTitle(
-      getMultiDayEventText(startEvent, endEvent),
-    ).replace('on', 'from');
+    const { sameDayTitle, multiDayTitle } = getEventTitle(
+      sameDayContent,
+      multiDayContent,
+    );
+
     return (
       <div
         className={styles.modal}
@@ -88,6 +87,11 @@ export const EventDetailsModal = memo(
     );
   },
 );
+
+const getEventTitle = (sameDayContent: string, multiDayContent: string) => ({
+  sameDayTitle: createEventTitle(sameDayContent).replace('\u2022', 'from'),
+  multiDayTitle: createEventTitle(multiDayContent).replace('on', 'from'),
+});
 
 const getEventInfo = (date: Date, locale: LocaleLanguage): EventInfo => {
   const year = date.getFullYear();
@@ -124,7 +128,7 @@ const isSameDayEvent = (startEvent: EventInfo, endEvent: EventInfo) =>
   startEvent.monthName === endEvent.monthName &&
   startEvent.year === endEvent.year;
 
-const getEventTitle = (eventText: string) =>
+const createEventTitle = (eventText: string) =>
   'Event on ' + eventText.replace('–', 'to');
 
 const getSameDayEventText = (startEvent: EventInfo, endEvent: EventInfo) => {
