@@ -74,7 +74,7 @@ describe('Planner', () => {
       const plannerDateLabel = `${monthName} ${currentDay}, ${dayOfWeek}`;
       const plannerDateLabelElement = screen.getByText(plannerDateLabel);
       expect(plannerDateLabelElement).toBeInTheDocument();
-      expect(screen.getByText('Mar. 1, Sábado')).toBeInTheDocument();
+      expect(screen.getByText('Mar 1, Sábado')).toBeInTheDocument();
     });
   });
 
