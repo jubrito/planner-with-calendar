@@ -1,5 +1,8 @@
 # Next steps (v1):
 
+- improve architecture?
+  - leave reusable components on components
+  - reusable modal?
 - give focus to event edit modal
 - test if modal is opening
   - should not open if event does not exist
