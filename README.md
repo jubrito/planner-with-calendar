@@ -1,10 +1,6 @@
 # Next steps (v1):
 
 - give focus to event edit modal
-- test modal details
-  - day/month/year is the same
-  - day is not the same
-    - year is not the same
 - test if modal is opening
   - should not open if event does not exist
 - close modal
