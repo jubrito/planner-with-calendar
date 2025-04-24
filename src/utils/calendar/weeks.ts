@@ -1,9 +1,8 @@
 import { DateConfig } from '../../types/calendar/types';
-import { isValidDate, isValidLocale } from '../checkers';
+import { isValidLocale } from '../checkers';
 import { IntlDateTimeFormatLong, IntlDateTimeFormatShort } from '../constants';
 import { validateDateTimeFormatRequirements } from '../validations';
 import { numberOfDaysOfTheWeek } from './constants';
-import { getFormattedDate } from './utils';
 import { getDayName } from './utils';
 
 export const getWeekDaysNames = (locale: string) => {
@@ -40,8 +39,7 @@ export const getWeekDayName = (
 ) => {
   const date = new Date(year, month, dayToFind);
   validateDateTimeFormatRequirements(date, locale, 'get week day name');
-  const dayOfTheMonthDate = getFormattedDate(locale, date);
-  const dayOfWeek = dayOfTheMonthDate.getDay();
+  const dayOfWeek = date.getDay();
   const dayName = getDayName(dayOfWeek, locale);
   const firstLetterCapitalized = dayName.charAt(0).toUpperCase();
   return firstLetterCapitalized + dayName.slice(1).replace('.', '');
