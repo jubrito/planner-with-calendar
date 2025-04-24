@@ -1,6 +1,5 @@
 # Next steps (v1):
 
-- test modal for 24-hour clock
 - give focus to event edit modal
 - test modal details
   - day/month/year is the same
