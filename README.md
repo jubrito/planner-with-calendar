@@ -1,14 +1,20 @@
 # Next steps (v1):
 
+- test useDraftEvent
+
 - close modal
 - test if modal is closing
 
 - improve event structure
   - use event redux date saving only what matters
 - improve architecture?
+
   - leave reusable components on components
   - reusable modal?
-- memoize clickable hours of the day functions?
+
+- memo
+  - memoize clickable hours of the day functions?
+  - memo rendering all events
 - virtualization of events? normalizing?
 - give focus to event edit modal
 - test if modal is opening
@@ -29,6 +35,8 @@
 Features
 
 - connect event to specific day
+- set day view date when clicking on calendar and opening planner
+
 - update current time base on if it is visible or not
 - Create event from calendar to plot on planner
 - Add all day events to planner top
