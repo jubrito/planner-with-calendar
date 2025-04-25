@@ -16,6 +16,10 @@ import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
 import { Event } from './Event/Event';
 import { HourButtons } from './HourButtons/HourButtons';
 import { EventDetailsModal } from './EventDetailsModal/EventDetailsModal';
+import { useDispatch } from 'react-redux';
+import { addEvent } from '../../../redux/slices/eventSlice';
+import { Event as EventType } from '../../../types/event';
+import { getCurrentEvents } from '../../../redux/slices/eventSlice/selectors';
 
 export type Block = {
   hour: number;
@@ -52,18 +56,19 @@ type EventOnEditModalDetails = {
 
 export const ClickableHoursOfTheDay = memo(() => {
   const [draftEvent, setDraftEvent] = useState<EventBlock | null>(null);
-  const [events, setEvents] = useState<EventBlock[]>([]);
   const [eventClickedDetails, setEventClickedDetails] =
     useState<EventOnEditModalDetails>({
       isOpen: false,
       top: 0,
       eventOnEdit: undefined,
     });
+  const events = useSelector(getCurrentEvents());
   const containerRef = useRef<HTMLDivElement>(null);
   const localeString = useSelector(getLocaleLanguage());
   const year = useSelector(getSelectedGlobalYear());
   const month = useSelector(getSelectedGlobalMonth(localeString));
   const day = useSelector(getSelectedGlobalDay());
+  const dispatch = useDispatch();
 
   useEffect(() => {
     console.log('events', events);
@@ -146,39 +151,31 @@ export const ClickableHoursOfTheDay = memo(() => {
       draftEvent.end.fixedPositionY,
     );
 
-    setEvents((prev) => [
-      ...prev,
-      {
-        title: draftEvent.title,
-        eventId: draftEvent.eventId.replace('draft', 'event'),
-        start: {
-          positionY: draftEvent.start.positionY,
-          fixedPositionY: draftEvent.start.fixedPositionY,
-          block: draftEvent.start.block,
-          date: new Date(
-            year,
-            month,
-            day,
-            draftEvent.start.block.hour,
-            draftEvent.start.block.minutes,
-          ),
-        },
-        end: {
-          positionY: draftEvent.end.positionY,
-          fixedPositionY: endMinimumFixedPosition,
-          block: draftEvent.end.block,
-          date: new Date(
-            year,
-            month,
-            day,
-            draftEvent.end.block.hour,
-            draftEvent.end.block.minutes,
-          ),
-        },
+    const event: EventType = {
+      id: draftEvent.eventId.replace('draft', 'event'),
+      title: draftEvent.title,
+      startDate: new Date(
+        year,
+        month,
+        day,
+        draftEvent.start.block.hour,
+        draftEvent.start.block.minutes,
+      ),
+      endDate: new Date(
+        year,
+        month,
+        day,
+        draftEvent.end.block.hour,
+        draftEvent.end.block.minutes,
+      ),
+      dayViewPosition: {
+        startY: draftEvent.start.fixedPositionY,
+        endY: endMinimumFixedPosition,
       },
-    ]);
+    };
+    dispatch(addEvent(event));
     setDraftEvent(null);
-  }, [draftEvent, year, month, day]);
+  }, [draftEvent, year, month, day, dispatch]);
 
   const handleMouseLeave = useCallback(() => {
     setDraftEvent(null);
@@ -226,7 +223,7 @@ export const ClickableHoursOfTheDay = memo(() => {
           toggleDetailsModal={toggleEventDetailsModal}
         />
       )}
-      {draftEvent && isValidEvent(draftEvent) && (
+      {draftEvent && isValidDraftEvent(draftEvent) && (
         <Event
           key={draftEvent.eventId}
           id={draftEvent.eventId}
@@ -242,13 +239,13 @@ export const ClickableHoursOfTheDay = memo(() => {
         .filter((event) => isValidEvent(event))
         .map((event) => (
           <Event
-            id={event.eventId}
-            key={event.eventId}
+            id={event.id}
+            key={event.id}
             title={event.title}
-            startY={event.start.fixedPositionY}
-            endY={event.end.fixedPositionY}
-            startDate={event.start.date}
-            endDate={event.end.date}
+            startY={event.dayViewPosition.startY}
+            endY={event.dayViewPosition.endY}
+            startDate={event.startDate}
+            endDate={event.endDate}
             toggleDetailsModal={toggleEventDetailsModal}
           />
         ))}
@@ -257,13 +254,21 @@ export const ClickableHoursOfTheDay = memo(() => {
   );
 });
 
-const isValidEvent = (event: EventBlock) =>
+const isValidDraftEvent = (event: EventBlock) =>
   event.eventId != null &&
   event.title != null &&
   event.start != null &&
   event.start.fixedPositionY != null &&
   event.end != null &&
   event.end.fixedPositionY;
+
+const isValidEvent = (event: EventType) =>
+  event.id != null &&
+  event.title != null &&
+  event.startDate != null &&
+  event.dayViewPosition.startY != null &&
+  event.endDate != null &&
+  event.dayViewPosition.endY !== null;
 
 const getMinimumEventFixedPositionY = (
   startFixedPositionY: number,
