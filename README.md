@@ -23,6 +23,7 @@
   - don't run event component
 
 - Improve Event validation (isValidEvent)
+  - ensure all are not nullish
   - test
 
 Features
