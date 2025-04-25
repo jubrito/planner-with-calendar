@@ -2,12 +2,6 @@ import { useState, useCallback, useRef, useEffect, memo } from 'react';
 import styles from './clickable-hours-of-the-day.module.scss';
 import { throttle } from 'throttle-debounce';
 import { useSelector } from 'react-redux';
-import {
-  getSelectedGlobalDay,
-  getSelectedGlobalMonth,
-  getSelectedGlobalYear,
-} from '../../../redux/slices/dateSlice/selectors';
-import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
 import { Event } from './Event/Event';
 import { HourButtons } from './HourButtons/HourButtons';
 import { EventDetailsModal } from './EventDetailsModal/EventDetailsModal';
@@ -15,7 +9,6 @@ import { useDispatch } from 'react-redux';
 import { addEvent } from '../../../redux/slices/eventSlice';
 import { Event as EventType } from '../../../types/event';
 import { getCurrentEvents } from '../../../redux/slices/eventSlice/selectors';
-import { getMinimumEventFixedPositionY } from './getPositionsY';
 import { useEvent } from '../../../hooks/useDraftEvent';
 
 export type Block = {
@@ -59,13 +52,14 @@ export const ClickableHoursOfTheDay = memo(() => {
     });
   const events = useSelector(getCurrentEvents());
   const containerRef = useRef<HTMLDivElement>(null);
-  const localeString = useSelector(getLocaleLanguage());
-  const year = useSelector(getSelectedGlobalYear());
-  const month = useSelector(getSelectedGlobalMonth(localeString));
-  const day = useSelector(getSelectedGlobalDay());
   const dispatch = useDispatch();
-  const { draftEvent, createDraftEvent, updateDraftEvent, clearDraftEvent } =
-    useEvent();
+  const {
+    draftEvent,
+    createDraftEvent,
+    updateDraftEvent,
+    clearDraftEvent,
+    createEvent,
+  } = useEvent();
 
   useEffect(() => {
     console.log('events', events);
@@ -113,40 +107,14 @@ export const ClickableHoursOfTheDay = memo(() => {
   const handleMouseUp = useCallback(() => {
     if (!draftEvent) return;
 
-    const endMinimumFixedPosition = getMinimumEventFixedPositionY(
-      draftEvent.start.fixedPositionY,
-      draftEvent.end.fixedPositionY,
-    );
-
-    const event: EventType = {
-      id: draftEvent.eventId.replace('draft', 'event'),
-      title: draftEvent.title,
-      startDate: new Date(
-        year,
-        month,
-        day,
-        draftEvent.start.block.hour,
-        draftEvent.start.block.minutes,
-      ),
-      endDate: new Date(
-        year,
-        month,
-        day,
-        draftEvent.end.block.hour,
-        draftEvent.end.block.minutes,
-      ),
-      dayViewPosition: {
-        startY: draftEvent.start.fixedPositionY,
-        endY: endMinimumFixedPosition,
-      },
-    };
-    dispatch(addEvent(event));
+    const newEvent = createEvent(draftEvent);
+    dispatch(addEvent(newEvent));
     clearDraftEvent();
-  }, [draftEvent, year, month, day, dispatch, clearDraftEvent]);
+  }, [draftEvent, dispatch, clearDraftEvent, createEvent]);
 
-  const handleMouseLeave = useCallback(() => {
+  const handleMouseLeave = () => {
     clearDraftEvent();
-  }, [clearDraftEvent]);
+  };
 
   const toggleEventDetailsModal = useCallback((eventOnEdit?: EventOnEdit) => {
     const moveEventInPixels = 20;
