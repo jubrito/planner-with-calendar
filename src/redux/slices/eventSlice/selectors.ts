@@ -8,3 +8,6 @@ export const getInitialEvent = () =>
 
 export const getCurrentEvent = () =>
   createSelector(eventSlice, (state) => state.initialState.event);
+
+export const getInitialEvents = () =>
+  createSelector(eventSlice, (state) => state.initialState.allEvents);
