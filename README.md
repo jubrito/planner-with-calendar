@@ -1,17 +1,20 @@
 # Next steps (v1):
 
+- close modal
+- test if modal is closing
+
 - improve event structure
-
   - use event redux date saving only what matters
-
 - improve architecture?
   - leave reusable components on components
   - reusable modal?
+- memoize clickable hours of the day functions?
+- virtualization of events? normalizing?
 - give focus to event edit modal
 - test if modal is opening
+
   - should not open if event does not exist
-- close modal
-- test if modal is closing
+
 - edit event
 - delete event
 - create event button on planner for accessibility
