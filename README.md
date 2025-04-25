@@ -1,5 +1,6 @@
 # Next steps (v1):
 
+- store serializable value on redux draft event
 - test useDraftEvent
 
 - close modal
