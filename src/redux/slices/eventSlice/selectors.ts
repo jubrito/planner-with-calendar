@@ -3,11 +3,11 @@ import { RootState } from '../../store';
 
 const eventSlice = (state: RootState) => state.eventSlice;
 
-export const getInitialEvent = () =>
-  createSelector(eventSlice, (state) => state.initialState.event);
+export const getInitialSelectedEvent = () =>
+  createSelector(eventSlice, (state) => state.initialState.selectedEvent);
 
-export const getCurrentEvent = () =>
-  createSelector(eventSlice, (state) => state.currentState.event);
+export const getCurrentSelectedEvent = () =>
+  createSelector(eventSlice, (state) => state.currentState.selectedEvent);
 
 export const getInitialEvents = () =>
   createSelector(eventSlice, (state) => state.initialState.allEvents);
