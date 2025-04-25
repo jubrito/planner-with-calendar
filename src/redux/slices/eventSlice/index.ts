@@ -4,7 +4,7 @@ import { Event } from '../../../types/event';
 
 type InitialEventsInfoState = {
   allEvents: Event[];
-  event: Event;
+  eventByIdMap: Record<Event['id'], Event>;
   selectedEvent?: Event;
 };
 
@@ -13,20 +13,9 @@ export type InitialState = {
   currentState: InitialEventsInfoState;
 };
 
-const initialEvent: Event = {
-  id: 'string',
-  title: 'string',
-  startDate: new Date(),
-  endDate: new Date(),
-  dayViewPositionY: {
-    start: 0,
-    end: 0,
-  },
-};
-
 const initialEventsInfo: InitialEventsInfoState = {
   allEvents: [],
-  event: initialEvent,
+  eventByIdMap: {},
   selectedEvent: undefined,
 };
 
@@ -47,7 +36,9 @@ export const eventSlice = createSlice({
     },
     addEvent(state: InitialState, action: PayloadAction<Event>) {
       const events = state.currentState.allEvents;
-      events.push(action.payload);
+      const newEvent = action.payload;
+      events.push(newEvent);
+      state.currentState.eventByIdMap[newEvent.id] = newEvent;
       state.currentState.allEvents = events;
     },
   },
