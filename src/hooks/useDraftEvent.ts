@@ -13,7 +13,7 @@ import {
 import { useSelector } from 'react-redux';
 import { getLocaleLanguage } from '../redux/slices/localeSlice/selectors';
 
-export const useDraftEvent = () => {
+export const useEvent = () => {
   const locale = useSelector(getLocaleLanguage());
   const year = useSelector(getSelectedDayViewYear());
   const month = useSelector(getSelectedDayViewMonth(locale));

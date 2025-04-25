@@ -15,11 +15,8 @@ import { useDispatch } from 'react-redux';
 import { addEvent } from '../../../redux/slices/eventSlice';
 import { Event as EventType } from '../../../types/event';
 import { getCurrentEvents } from '../../../redux/slices/eventSlice/selectors';
-import {
-  getFixedRelativeY,
-  getMinimumEventFixedPositionY,
-} from './getPositionsY';
-import { getEndBlock, getStartBlock } from './getBlocks';
+import { getMinimumEventFixedPositionY } from './getPositionsY';
+import { useEvent } from '../../../hooks/useDraftEvent';
 
 export type Block = {
   hour: number;
@@ -28,7 +25,6 @@ export type Block = {
 };
 
 export type TimeBlock = {
-  positionY: number;
   fixedPositionY: number;
   block: Block;
   date: Date;
@@ -55,7 +51,6 @@ type EventOnEditModalDetails = {
 };
 
 export const ClickableHoursOfTheDay = memo(() => {
-  const [draftEvent, setDraftEvent] = useState<EventBlock | null>(null);
   const [eventClickedDetails, setEventClickedDetails] =
     useState<EventOnEditModalDetails>({
       isOpen: false,
@@ -69,6 +64,8 @@ export const ClickableHoursOfTheDay = memo(() => {
   const month = useSelector(getSelectedGlobalMonth(localeString));
   const day = useSelector(getSelectedGlobalDay());
   const dispatch = useDispatch();
+  const { draftEvent, createDraftEvent, updateDraftEvent, clearDraftEvent } =
+    useEvent();
 
   useEffect(() => {
     console.log('events', events);
@@ -80,28 +77,9 @@ export const ClickableHoursOfTheDay = memo(() => {
 
       const rect = containerRef.current.getBoundingClientRect();
       const relativeY = event.clientY - rect.top;
-      const startBlock = getStartBlock(relativeY);
-      const endBlock = getEndBlock(startBlock);
-      const fixedHourAnd15MinBlock = getFixedRelativeY(startBlock, 'start');
-
-      setDraftEvent({
-        title: '(No title)',
-        eventId: `draft-${Date.now()}`,
-        start: {
-          positionY: relativeY,
-          fixedPositionY: fixedHourAnd15MinBlock,
-          block: startBlock,
-          date: new Date(year, month, day, startBlock.hour, startBlock.minutes),
-        },
-        end: {
-          positionY: relativeY,
-          fixedPositionY: fixedHourAnd15MinBlock,
-          block: endBlock,
-          date: new Date(year, month, day, endBlock.hour, endBlock.minutes),
-        },
-      });
+      createDraftEvent(relativeY);
     },
-    [day, month, year],
+    [createDraftEvent],
   );
 
   const handleMouseMove = useCallback(
@@ -110,21 +88,10 @@ export const ClickableHoursOfTheDay = memo(() => {
 
       const rect = containerRef.current.getBoundingClientRect();
       const relativeY = event.clientY - rect.top;
-      const startBlock = getStartBlock(relativeY);
-      const fixedHourAnd15MinBlock = getFixedRelativeY(startBlock, 'end');
-      const endBlock = getEndBlock(startBlock);
 
-      setDraftEvent((prev) => ({
-        ...prev!,
-        end: {
-          positionY: relativeY,
-          fixedPositionY: fixedHourAnd15MinBlock,
-          block: endBlock,
-          date: new Date(year, month, day, endBlock.hour, endBlock.minutes),
-        },
-      }));
+      updateDraftEvent(relativeY);
     },
-    [draftEvent, day, month, year],
+    [draftEvent, updateDraftEvent],
   );
 
   const throttledMouseMoveRef = useRef(throttle(80, handleMouseMove));
@@ -174,12 +141,12 @@ export const ClickableHoursOfTheDay = memo(() => {
       },
     };
     dispatch(addEvent(event));
-    setDraftEvent(null);
-  }, [draftEvent, year, month, day, dispatch]);
+    clearDraftEvent();
+  }, [draftEvent, year, month, day, dispatch, clearDraftEvent]);
 
   const handleMouseLeave = useCallback(() => {
-    setDraftEvent(null);
-  }, []);
+    clearDraftEvent();
+  }, [clearDraftEvent]);
 
   const toggleEventDetailsModal = useCallback((eventOnEdit?: EventOnEdit) => {
     const moveEventInPixels = 20;
