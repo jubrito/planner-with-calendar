@@ -226,21 +226,17 @@ export const ClickableHoursOfTheDay = memo(() => {
           toggleDetailsModal={toggleEventDetailsModal}
         />
       )}
-      {draftEvent && (
-        <>
-          {isValidEvent(draftEvent) && (
-            <Event
-              key={draftEvent.eventId}
-              id={draftEvent.eventId}
-              title={draftEvent.title}
-              startY={draftEvent.start.fixedPositionY}
-              endY={draftEvent.end.fixedPositionY}
-              startDate={draftEvent.start.date}
-              endDate={draftEvent.end.date}
-              toggleDetailsModal={toggleEventDetailsModal}
-            />
-          )}
-        </>
+      {draftEvent && isValidEvent(draftEvent) && (
+        <Event
+          key={draftEvent.eventId}
+          id={draftEvent.eventId}
+          title={draftEvent.title}
+          startY={draftEvent.start.fixedPositionY}
+          endY={draftEvent.end.fixedPositionY}
+          startDate={draftEvent.start.date}
+          endDate={draftEvent.end.date}
+          toggleDetailsModal={toggleEventDetailsModal}
+        />
       )}
       {events
         .filter((event) => isValidEvent(event))
