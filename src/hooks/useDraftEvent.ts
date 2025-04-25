@@ -18,7 +18,7 @@ export const useDraftEvent = () => {
   const year = useSelector(getSelectedDayViewYear());
   const month = useSelector(getSelectedDayViewMonth(locale));
   const day = useSelector(getSelectedDayViewDay());
-  const [draftEvent, setDraftEvent] = useState<EventBlock | null>(null);
+  const [draftEvent, setDraftEvent] = useState<EventBlock>();
 
   const createDraftEvent = (relativeY: number) => {
     const startBlock = getStartBlock(relativeY);
@@ -55,9 +55,12 @@ export const useDraftEvent = () => {
     }));
   };
 
+  const clearDraftEvent = () => setDraftEvent(undefined);
+
   return {
     draftEvent,
     createDraftEvent,
     updateDraftEvent,
+    clearDraftEvent,
   };
 };
