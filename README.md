@@ -19,8 +19,11 @@
 - delete event
 - create event button on planner for accessibility
 - create banner that disappears if fails to create event (e.g., event.start is undefined)
+
   - don't run event component
-- Event validation
+
+- Improve Event validation (isValidEvent)
+  - test
 
 Features
 
