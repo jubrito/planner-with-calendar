@@ -11,3 +11,6 @@ export const getCurrentEvent = () =>
 
 export const getInitialEvents = () =>
   createSelector(eventSlice, (state) => state.initialState.allEvents);
+
+export const getCurrentEvents = () =>
+  createSelector(eventSlice, (state) => state.currentState.allEvents);
