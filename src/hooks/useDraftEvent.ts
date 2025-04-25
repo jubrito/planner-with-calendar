@@ -40,8 +40,24 @@ export const useDraftEvent = () => {
     });
   };
 
+  const updateDraftEvent = (relativeY: number) => {
+    const startBlock = getStartBlock(relativeY);
+    const endBlock = getEndBlock(startBlock);
+    const fixedHourAnd15MinBlock = getFixedRelativeY(startBlock, 'end');
+
+    setDraftEvent((prev) => ({
+      ...prev!,
+      end: {
+        fixedPositionY: fixedHourAnd15MinBlock,
+        block: endBlock,
+        date: new Date(year, month, day, endBlock.hour, endBlock.minutes),
+      },
+    }));
+  };
+
   return {
     draftEvent,
     createDraftEvent,
+    updateDraftEvent,
   };
 };
