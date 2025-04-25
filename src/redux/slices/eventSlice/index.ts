@@ -3,9 +3,7 @@ import { deepCopy } from '../../../utils/utils';
 import { Event } from '../../../types/event';
 
 type InitialEventsInfoState = {
-  allEvents: Event[];
-  eventByIdMap: Record<Event['id'], Event>;
-  selectedEvent?: Event;
+  events: Event[];
 };
 
 export type InitialState = {
@@ -14,9 +12,7 @@ export type InitialState = {
 };
 
 const initialEventsInfo: InitialEventsInfoState = {
-  allEvents: [],
-  eventByIdMap: {},
-  selectedEvent: undefined,
+  events: [],
 };
 
 const initialValue: InitialState = {
@@ -28,23 +24,15 @@ export const eventSlice = createSlice({
   name: 'eventSlice',
   initialState: initialValue,
   reducers: {
-    clearSelectedEvent(state: InitialState) {
-      state.currentState.selectedEvent = state.initialState.selectedEvent;
-    },
-    updateSelectedEvent(state: InitialState, action: PayloadAction<Event>) {
-      state.currentState.selectedEvent = action.payload;
-    },
     addEvent(state: InitialState, action: PayloadAction<Event>) {
-      const events = state.currentState.allEvents;
+      const events = state.currentState.events;
       const newEvent = action.payload;
       events.push(newEvent);
-      state.currentState.eventByIdMap[newEvent.id] = newEvent;
-      state.currentState.allEvents = events;
+      state.currentState.events = events;
     },
   },
 });
 
-export const { addEvent, clearSelectedEvent, updateSelectedEvent } =
-  eventSlice.actions;
+export const { addEvent } = eventSlice.actions;
 
 export default eventSlice.reducer;
