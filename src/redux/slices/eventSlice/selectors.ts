@@ -5,3 +5,6 @@ const eventSlice = (state: RootState) => state.eventSlice;
 
 export const getInitialEvent = () =>
   createSelector(eventSlice, (state) => state.initialState.event);
+
+export const getCurrentEvent = () =>
+  createSelector(eventSlice, (state) => state.initialState.event);
