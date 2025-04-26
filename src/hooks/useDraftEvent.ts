@@ -15,7 +15,7 @@ import {
 } from '../redux/slices/dateSlice/selectors';
 import { useSelector } from 'react-redux';
 import { getLocaleLanguage } from '../redux/slices/localeSlice/selectors';
-import { Event } from '../types/event';
+import { EventOnCreation } from '../types/event';
 
 export const useEvent = () => {
   const locale = useSelector(getLocaleLanguage());
@@ -68,7 +68,7 @@ export const useEvent = () => {
   const clearDraftEvent = () => setDraftEvent(undefined);
 
   const createEvent = useCallback(
-    (draftEvent: EventBlock): Event => {
+    (draftEvent: EventBlock): EventOnCreation => {
       const endMinimumFixedPosition = getMinimumEventFixedPositionY(
         draftEvent.start.fixedPositionY,
         draftEvent.end.fixedPositionY,
