@@ -165,8 +165,8 @@ export const ClickableHoursOfTheDay = memo(() => {
           title={draftEvent.title}
           startY={draftEvent.start.fixedPositionY}
           endY={draftEvent.end.fixedPositionY}
-          startDate={draftEvent.start.date}
-          endDate={draftEvent.end.date}
+          startDate={new Date(draftEvent.start.date)}
+          endDate={new Date(draftEvent.end.date)}
           toggleDetailsModal={toggleEventDetailsModal}
         />
       )}
