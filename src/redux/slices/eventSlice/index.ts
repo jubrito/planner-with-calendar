@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { deepCopy } from '../../../utils/utils';
-import { Event } from '../../../types/event';
+import { Event, EventOnCreation } from '../../../types/event';
+import { getDateISOString } from '../../../utils/calendar/utils';
 
 type InitialEventsInfoState = {
   events: Event[];
@@ -24,9 +25,15 @@ export const eventSlice = createSlice({
   name: 'eventSlice',
   initialState: initialValue,
   reducers: {
-    addEvent(state: InitialState, action: PayloadAction<Event>) {
+    addEvent(state: InitialState, action: PayloadAction<EventOnCreation>) {
       const events = state.currentState.events;
-      const newEvent = action.payload;
+      const eventOnCreation = action.payload;
+      const newEvent = {
+        ...eventOnCreation,
+        endDate: getDateISOString(eventOnCreation.endDate),
+        startDate: getDateISOString(eventOnCreation.startDate),
+      };
+
       events.push(newEvent);
       state.currentState.events = events;
     },
