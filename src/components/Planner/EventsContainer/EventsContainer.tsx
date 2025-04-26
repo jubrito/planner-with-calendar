@@ -1,15 +1,14 @@
-import { useState, useCallback, useRef, useEffect, memo } from 'react';
+import { useCallback, useRef, useEffect, memo } from 'react';
 import styles from './events-container.module.scss';
 import { throttle } from 'throttle-debounce';
 import { useSelector } from 'react-redux';
 import { Event } from './Event/Event';
-import { HourButtons } from './HourButtons/HourButtons';
-import { EventDetailsModal } from './EventDetailsModal/EventDetailsModal';
 import { useDispatch } from 'react-redux';
 import { addEvent } from '../../../redux/slices/eventSlice';
 import { Event as EventType } from '../../../types/event';
 import { getCurrentEvents } from '../../../redux/slices/eventSlice/selectors';
 import { useEvent } from '../../../hooks/useDraftEvent';
+import { HourButtons } from './HourButtons/HourButtons';
 
 export type Block = {
   hour: number;
@@ -37,19 +36,7 @@ export type EventOnEdit = {
   endY: EventBlock['end']['fixedPositionY'];
 };
 
-type EventOnEditModalDetails = {
-  isOpen: boolean;
-  top: number;
-  eventOnEdit?: EventOnEdit;
-};
-
 export const ClickableHoursOfTheDay = memo(() => {
-  const [eventClickedDetails, setEventClickedDetails] =
-    useState<EventOnEditModalDetails>({
-      isOpen: false,
-      top: 0,
-      eventOnEdit: undefined,
-    });
   const events = useSelector(getCurrentEvents());
   const containerRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
@@ -82,7 +69,6 @@ export const ClickableHoursOfTheDay = memo(() => {
 
       const rect = containerRef.current.getBoundingClientRect();
       const relativeY = event.clientY - rect.top;
-
       updateDraftEvent(relativeY);
     },
     [draftEvent, updateDraftEvent],
@@ -116,30 +102,6 @@ export const ClickableHoursOfTheDay = memo(() => {
     clearDraftEvent();
   };
 
-  const toggleEventDetailsModal = useCallback((eventOnEdit?: EventOnEdit) => {
-    const moveEventInPixels = 20;
-    setEventClickedDetails((prevState) => {
-      let eventClickedDetails = {
-        ...prevState,
-        isOpen: false,
-      };
-      if (eventOnEdit) {
-        eventClickedDetails = {
-          ...eventClickedDetails,
-          top: eventOnEdit.endY - moveEventInPixels,
-          isOpen: true,
-          eventOnEdit: {
-            title: eventOnEdit.title,
-            endDate: eventOnEdit.endDate,
-            startDate: eventOnEdit.startDate,
-            endY: eventOnEdit.endY,
-          },
-        };
-      }
-      return eventClickedDetails;
-    });
-  }, []);
-
   return (
     <div
       ref={containerRef}
@@ -149,15 +111,6 @@ export const ClickableHoursOfTheDay = memo(() => {
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseLeave}
     >
-      {eventClickedDetails.isOpen && eventClickedDetails.eventOnEdit && (
-        <EventDetailsModal
-          top={eventClickedDetails.top}
-          title={eventClickedDetails.eventOnEdit.title}
-          startDate={eventClickedDetails.eventOnEdit.startDate}
-          endDate={eventClickedDetails.eventOnEdit.endDate}
-          toggleDetailsModal={toggleEventDetailsModal}
-        />
-      )}
       {draftEvent && isValidDraftEvent(draftEvent) && (
         <Event
           key={draftEvent.eventId}
@@ -167,7 +120,6 @@ export const ClickableHoursOfTheDay = memo(() => {
           endY={draftEvent.end.fixedPositionY}
           startDate={new Date(draftEvent.start.date)}
           endDate={new Date(draftEvent.end.date)}
-          toggleDetailsModal={toggleEventDetailsModal}
         />
       )}
       {events
@@ -181,7 +133,6 @@ export const ClickableHoursOfTheDay = memo(() => {
             endY={event.dayViewPosition.endY}
             startDate={new Date(event.startDate)}
             endDate={new Date(event.endDate)}
-            toggleDetailsModal={toggleEventDetailsModal}
           />
         ))}
       <HourButtons />

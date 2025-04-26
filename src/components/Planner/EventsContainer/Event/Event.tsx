@@ -5,10 +5,11 @@ import {
   getTimeInformation,
 } from '../../../../utils/calendar/utils';
 import styles from './event.module.scss';
-import { EventBlock, EventOnEdit } from '../EventsContainer';
+import { EventBlock } from '../EventsContainer';
 import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
 import { IntlDateTimeFormat2Digit } from '../../../../utils/constants';
-import { memo, useMemo } from 'react';
+import { memo, useMemo, useState } from 'react';
+import { EventDetailsModal } from '../EventDetailsModal/EventDetailsModal';
 
 type Event = {
   id: EventBlock['eventId'];
@@ -17,7 +18,11 @@ type Event = {
   endY: EventBlock['end']['fixedPositionY'];
   startDate: EventBlock['start']['date'];
   endDate: EventBlock['end']['date'];
-  toggleDetailsModal: (eventOnEdit?: EventOnEdit) => void;
+};
+
+type SelectedEvent = {
+  top?: number;
+  event?: Event;
 };
 
 export const Event = memo(function ({
@@ -27,7 +32,6 @@ export const Event = memo(function ({
   endY,
   startDate,
   endDate,
-  toggleDetailsModal,
 }: Event) {
   const eventHeight = endY - startY;
   const eventStart = startY;
@@ -42,8 +46,11 @@ export const Event = memo(function ({
     endY,
     startDate,
     endDate,
-    toggleDetailsModal,
   };
+  const [selectedEvent, setSelectedEvent] = useState<SelectedEvent>({
+    top: undefined,
+    event: undefined,
+  });
 
   const [endTime, endPeriod] = useMemo(() => {
     const endFullTime = getFormattedDateString(localeString, endDate, {
@@ -66,36 +73,58 @@ export const Event = memo(function ({
 
   const handleEventClick = (event: Event) => {
     console.log('Event clicked:', event);
-    toggleDetailsModal({ title, endDate, startDate, endY });
+    const moveEventInPixels = 20;
+    setSelectedEvent({
+      top: event.endY - moveEventInPixels,
+      event,
+    });
   };
 
   return (
-    <div
-      id={id}
-      className={styles.plannerEvent}
-      style={getEventStyle(eventStart, eventHeight)}
-      onClick={() => handleEventClick(event)}
-      onMouseDown={(e) => e.stopPropagation()}
-      title="Click on the event to edit it"
-    >
-      {hasMinimumHeight && (
-        <div
-          className={styles.plannerEventDetails}
-          style={{
-            marginTop: isAtLeast30MinEvent ? '5px' : '1px',
-            flexDirection: isAtLeast60MinEvent ? 'column' : 'row',
-          }}
-        >
-          <span style={getTitleStyle(isAtLeast30MinEvent, isAtLeast60MinEvent)}>
-            {title}
-          </span>
-          <span
-            style={getTimeStyle(isAtLeast30MinEvent, isAtLeast60MinEvent)}
-            aria-label={`Time range from ${startTime}${startPeriod} to ${endTime}${endPeriod}`}
-          >{`${startTime}${startPeriod} – ${endTime}${endPeriod}`}</span>
-        </div>
+    <>
+      <div
+        id={id}
+        className={styles.plannerEvent}
+        style={getEventStyle(eventStart, eventHeight)}
+        onClick={() => handleEventClick(event)}
+        onMouseDown={(e) => e.stopPropagation()}
+        title="Click on the event to edit it"
+      >
+        {hasMinimumHeight && (
+          <div
+            className={styles.plannerEventDetails}
+            style={{
+              marginTop: isAtLeast30MinEvent ? '5px' : '1px',
+              flexDirection: isAtLeast60MinEvent ? 'column' : 'row',
+            }}
+          >
+            <span
+              style={getTitleStyle(isAtLeast30MinEvent, isAtLeast60MinEvent)}
+            >
+              {title}
+            </span>
+            <span
+              style={getTimeStyle(isAtLeast30MinEvent, isAtLeast60MinEvent)}
+              aria-label={`Time range from ${startTime}${startPeriod} to ${endTime}${endPeriod}`}
+            >{`${startTime}${startPeriod} – ${endTime}${endPeriod}`}</span>
+          </div>
+        )}
+      </div>
+      {selectedEvent.event && (
+        <EventDetailsModal
+          top={selectedEvent.top}
+          title={selectedEvent.event.title}
+          startDate={selectedEvent.event.startDate}
+          endDate={selectedEvent.event.endDate}
+          toggleDetailsModal={() =>
+            setSelectedEvent({
+              top: undefined,
+              event: undefined,
+            })
+          }
+        />
       )}
-    </div>
+    </>
   );
 });
 
