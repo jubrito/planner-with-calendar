@@ -1,13 +1,13 @@
 import { useCallback, useState } from 'react';
-import { EventBlock } from '../components/Planner/ClickableHoursOfTheDay/EventsContainer';
+import { EventBlock } from '../components/Planner/EventsContainer/EventsContainer';
 import {
   getFixedRelativeY,
   getMinimumEventFixedPositionY,
-} from '../components/Planner/ClickableHoursOfTheDay/getPositionsY';
+} from '../components/Planner/EventsContainer/getPositionsY';
 import {
   getEndBlock,
   getStartBlock,
-} from '../components/Planner/ClickableHoursOfTheDay/getBlocks';
+} from '../components/Planner/EventsContainer/getBlocks';
 import {
   getSelectedDayViewDay,
   getSelectedDayViewMonth,
