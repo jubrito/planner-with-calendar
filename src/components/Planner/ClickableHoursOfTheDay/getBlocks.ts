@@ -3,7 +3,7 @@ import {
   fifteenMinutes,
   sizeOfEach15MinBlock,
 } from '../../../utils/calendar/constants';
-import { Block } from './ClickableHoursOfTheDay';
+import { Block } from './EventsContainer';
 
 /**
  * Function to determine which fifteen minute block the user clicked

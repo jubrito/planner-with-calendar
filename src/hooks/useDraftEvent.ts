@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { EventBlock } from '../components/Planner/ClickableHoursOfTheDay/ClickableHoursOfTheDay';
+import { EventBlock } from '../components/Planner/ClickableHoursOfTheDay/EventsContainer';
 import {
   getFixedRelativeY,
   getMinimumEventFixedPositionY,

@@ -5,7 +5,7 @@ import {
   getTimeInformation,
 } from '../../../../utils/calendar/utils';
 import styles from './event.module.scss';
-import { EventBlock, EventOnEdit } from '../ClickableHoursOfTheDay';
+import { EventBlock, EventOnEdit } from '../EventsContainer';
 import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
 import { IntlDateTimeFormat2Digit } from '../../../../utils/constants';
 import { memo, useMemo } from 'react';

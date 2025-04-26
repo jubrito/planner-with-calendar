@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { act, waitFor, screen } from '@testing-library/react';
 import { renderWithProviders } from '../../../utils/tests/renderWithProviders';
-import { ClickableHoursOfTheDay } from './ClickableHoursOfTheDay';
+import { ClickableHoursOfTheDay } from './EventsContainer';
 
 describe('ClickableHoursOfTheDay', () => {
   it('should display event details when interacting with the visible portion of the container', async () => {

@@ -1,6 +1,6 @@
 import { Months } from '../../../../types/calendar/enums';
 import { renderWithProviders } from '../../../../utils/tests/renderWithProviders';
-import { EventBlock } from '../ClickableHoursOfTheDay';
+import { EventBlock } from '../EventsContainer';
 import { Event } from './Event';
 import { screen } from '@testing-library/dom';
 import '@testing-library/jest-dom';
