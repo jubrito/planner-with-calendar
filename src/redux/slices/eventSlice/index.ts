@@ -38,9 +38,16 @@ export const eventSlice = createSlice({
     ) {
       state.currentState.selectedDayViewEvent = action.payload;
     },
+    clearSelectedDayViewEvent(state: InitialState) {
+      state.currentState.selectedDayViewEvent = undefined;
+    },
   },
 });
 
-export const { addEvent, updateSelectedDayViewEvent } = eventSlice.actions;
+export const {
+  addEvent,
+  updateSelectedDayViewEvent,
+  clearSelectedDayViewEvent,
+} = eventSlice.actions;
 
 export default eventSlice.reducer;
