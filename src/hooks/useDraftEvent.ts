@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { EventBlock } from '../components/Planner/EventsContainer/EventsContainer';
+import { EventBlock } from '../types/event';
 import {
   getFixedRelativeY,
   getMinimumEventFixedPositionY,

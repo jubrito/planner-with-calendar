@@ -8,3 +8,22 @@ export type EventStored = {
     endY: number;
   };
 };
+
+export type Block = {
+  hour: number;
+  minutes: number;
+  fifteenMinBlock: number;
+};
+
+export type TimeBlock = {
+  fixedPositionY: number;
+  block: Block;
+  date: Date;
+};
+
+export type EventBlock = {
+  eventId: string;
+  start: TimeBlock;
+  end: TimeBlock;
+  title: string;
+};

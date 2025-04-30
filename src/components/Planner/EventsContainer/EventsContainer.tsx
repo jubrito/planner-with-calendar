@@ -5,29 +5,10 @@ import { useSelector } from 'react-redux';
 import { Event } from './Event/Event';
 import { useDispatch } from 'react-redux';
 import { addEvent } from '../../../redux/slices/eventSlice';
-import { EventStored as EventType } from '../../../types/event';
+import { EventBlock, EventStored as EventType } from '../../../types/event';
 import { getCurrentEvents } from '../../../redux/slices/eventSlice/selectors';
 import { useEvent } from '../../../hooks/useDraftEvent';
 import { HourButtons } from './HourButtons/HourButtons';
-
-export type Block = {
-  hour: number;
-  minutes: number;
-  fifteenMinBlock: number;
-};
-
-export type TimeBlock = {
-  fixedPositionY: number;
-  block: Block;
-  date: Date;
-};
-
-export type EventBlock = {
-  eventId: string;
-  start: TimeBlock;
-  end: TimeBlock;
-  title: string;
-};
 
 export const EventContainer = memo(() => {
   const events = useSelector(getCurrentEvents());
