@@ -1,11 +1,16 @@
-import { useCallback, useRef, useEffect, memo, useState } from 'react';
+import { useCallback, useRef, useEffect, memo, useState, useMemo } from 'react';
 import styles from './events-container.module.scss';
 import { throttle } from 'throttle-debounce';
 import { useSelector } from 'react-redux';
 import { Event } from './Event/Event';
 import { useDispatch } from 'react-redux';
 import { addEvent } from '../../../redux/slices/eventSlice';
-import { EventOnCreate, EventOnSave, EventStored } from '../../../types/event';
+import {
+  EventOnCreate,
+  EventOnSave,
+  EventStored,
+  SelectedEventOnDayView,
+} from '../../../types/event';
 import { getCurrentEvents } from '../../../redux/slices/eventSlice/selectors';
 import { useEvent } from '../../../hooks/useDraftEvent';
 import { HourButtons } from './HourButtons/HourButtons';
@@ -15,16 +20,10 @@ import {
   getSelectedDayViewMonth,
   getSelectedDayViewYear,
 } from '../../../redux/slices/dateSlice/selectors';
-import { Modal } from '../../Modal/Modal';
-import { getModalContent } from './utils/getModalInfo';
-
-type SelectedEvent = {
-  top?: number;
-  event?: EventOnSave;
-};
+import { EventModalsContainer } from '../EventModalsContainer/EventModalsContainer';
 
 export const EventContainer = memo(() => {
-  const [selectedEvent, setSelectedEvent] = useState<SelectedEvent>({
+  const [selectedEvent, setSelectedEvent] = useState<SelectedEventOnDayView>({
     top: undefined,
     event: undefined,
   });
@@ -42,21 +41,6 @@ export const EventContainer = memo(() => {
     clearDraftEvent,
     createEvent,
   } = useEvent(year, month, day);
-
-  const modalContent = (selectedEvent: EventOnSave) => {
-    const { sameDay, multiDay, isSameDayEvent } = getModalContent(
-      selectedEvent.startDate,
-      selectedEvent.endDate,
-      locale,
-    );
-    return {
-      sameDayContent: sameDay.content,
-      sameDayTitle: sameDay.title,
-      multiDayContent: multiDay.content,
-      multiDayTitle: multiDay.title,
-      isSameDayEvent,
-    };
-  };
 
   useEffect(() => {
     console.log('events', events);
@@ -131,6 +115,10 @@ export const EventContainer = memo(() => {
     clearDraftEvent();
   };
 
+  const viewEventDetailsStyleMemoized = useMemo(() => {
+    return { top: selectedEvent.top };
+  }, [selectedEvent]);
+
   return (
     <div
       ref={containerRef}
@@ -142,7 +130,12 @@ export const EventContainer = memo(() => {
     >
       {selectedEvent.event && (
         <>
-          <Modal
+          <EventModalsContainer
+            selectedEvent={selectedEvent.event}
+            viewEventDetailsStyle={viewEventDetailsStyleMemoized}
+            closeModal={closeModal}
+          />
+          {/* <Modal
             title={selectedEvent.event.title}
             content={
               <>
@@ -163,7 +156,7 @@ export const EventContainer = memo(() => {
               closeLabel: 'Close',
               handleClose: closeModal,
             }}
-          />
+          /> */}
         </>
       )}
       {draftEvent && isValidDraftEvent(draftEvent) && (
