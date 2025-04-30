@@ -1,7 +1,5 @@
 # Next steps (v1):
 
-- test useDraftEvent
-
 - move state to control modal back to container
 
   - uncomment // toggleDetailsModal={jest.fn()} from Event test
