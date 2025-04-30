@@ -1,3 +1,5 @@
+import { DateConfig } from './calendar/types';
+
 export type EventStored = {
   id: string;
   title: string;
@@ -31,4 +33,17 @@ export type EventOnCreate = {
 export type EventOnSave = Omit<EventStored, 'startDate' | 'endDate'> & {
   startDate: Date;
   endDate: Date;
+};
+
+export type EventDetailsView = {
+  year: DateConfig['year'];
+  month: DateConfig['month'];
+  day: DateConfig['day'];
+  hour: number;
+  minutes: number;
+  monthName: string;
+  formattedFullTime: string;
+  time: string;
+  period: string;
+  weekDay: string;
 };
