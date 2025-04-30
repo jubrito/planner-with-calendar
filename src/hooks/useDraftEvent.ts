@@ -1,17 +1,14 @@
 import { useCallback, useState } from 'react';
 import { EventOnCreate } from '../types/event';
 
-import {
-  getEndBlock,
-  getStartBlock,
-} from '../components/Planner/EventsContainer/utils/getBlocks';
+import { getEndBlock, getStartBlock } from '../utils/events/dayView/getBlocks';
 import { EventStored } from '../types/event';
 import { getDateISOString } from '../utils/calendar/utils';
 import { DateConfig } from '../types/calendar/types';
 import {
   getFixedRelativeY,
   getMinimumEventFixedPositionY,
-} from '../components/Planner/EventsContainer/utils/getPositionsY';
+} from '../utils/events/dayView/getPositionsY';
 
 export const useEvent = (
   year: DateConfig['year'],

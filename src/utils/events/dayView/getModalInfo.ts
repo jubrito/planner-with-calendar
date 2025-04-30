@@ -1,16 +1,16 @@
-import { EventDetailsView, EventOnCreate } from '../../../../types/event';
-import { LocaleLanguage } from '../../../../types/locale/types';
+import { EventDetailsView, EventOnCreate } from '../../../types/event';
+import { LocaleLanguage } from '../../../types/locale/types';
 import {
   getFormattedDateString,
   getMonthIndex,
   getMonthName,
   getTimeInformation,
-} from '../../../../utils/calendar/utils';
-import { getWeekDayName } from '../../../../utils/calendar/weeks';
+} from '../../calendar/utils';
+import { getWeekDayName } from '../../calendar/weeks';
 import {
   IntlDateTimeFormat2Digit,
   IntlDateTimeFormatShort,
-} from '../../../../utils/constants';
+} from '../../constants';
 
 const getEventTitle = (sameDayContent: string, multiDayContent: string) => ({
   sameDayTitle: createEventTitle(sameDayContent).replace('\u2022', 'from'),

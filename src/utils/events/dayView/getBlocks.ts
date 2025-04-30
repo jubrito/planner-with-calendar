@@ -2,8 +2,8 @@ import {
   fifteenMinBlocksInAHour,
   fifteenMinutes,
   sizeOfEach15MinBlock,
-} from '../../../../utils/calendar/constants';
-import { EventBlock } from '../../../../types/event';
+} from '../../calendar/constants';
+import { EventBlock } from '../../../types/event';
 
 /**
  * Function to determine which fifteen minute block the user clicked

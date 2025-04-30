@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { EventOnSave } from '../../../types/event';
 import { ObjectType } from '../../../utils/constants';
 import { Modal } from '../../Modal/Modal';
-import { getModalContent } from '../EventsContainer/utils/getModalInfo';
+import { getModalContent } from '../../../utils/events/dayView/getModalInfo';
 import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
 
 type EventModalsContainerProps = {
