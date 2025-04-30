@@ -1,5 +1,11 @@
 # Next steps (v1):
 
+- test event modals
+- test modal
+
+- delete modal details component
+- rename selected event to selected event
+
 - close modal
 - test if modal is closing
 
