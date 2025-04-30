@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { deepCopy } from '../../../utils/utils';
-import { EventStored } from '../../../types/event';
+import { EventStored, SelectedEventOnDayView } from '../../../types/event';
 
 type InitialEventsInfoState = {
   events: EventStored[];
+  selectedEvent?: SelectedEventOnDayView;
 };
 
 export type InitialState = {
@@ -13,6 +14,7 @@ export type InitialState = {
 
 const initialEventsInfo: InitialEventsInfoState = {
   events: [],
+  selectedEvent: undefined,
 };
 
 const initialValue: InitialState = {
