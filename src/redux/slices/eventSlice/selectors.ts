@@ -9,8 +9,14 @@ export const getInitialEvents = () =>
 export const getCurrentEvents = () =>
   createSelector(eventSlice, (state) => state.currentState.events);
 
-export const getInitialSelectedEvent = () =>
-  createSelector(eventSlice, (state) => state.initialState.selectedEvent);
+export const getInitialSelectedDayViewEvent = () =>
+  createSelector(
+    eventSlice,
+    (state) => state.initialState.selectedDayViewEvent,
+  );
 
-export const getCurrentSelectedEvent = () =>
-  createSelector(eventSlice, (state) => state.currentState.selectedEvent);
+export const getCurrentSelectedDayViewEvent = () =>
+  createSelector(
+    eventSlice,
+    (state) => state.currentState.selectedDayViewEvent,
+  );

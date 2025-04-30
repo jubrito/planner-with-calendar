@@ -4,7 +4,7 @@ import { EventStored, SelectedEventOnDayView } from '../../../types/event';
 
 type InitialEventsInfoState = {
   events: EventStored[];
-  selectedEvent?: SelectedEventOnDayView;
+  selectedDayViewEvent?: SelectedEventOnDayView;
 };
 
 export type InitialState = {
@@ -14,7 +14,7 @@ export type InitialState = {
 
 const initialEventsInfo: InitialEventsInfoState = {
   events: [],
-  selectedEvent: undefined,
+  selectedDayViewEvent: undefined,
 };
 
 const initialValue: InitialState = {
@@ -32,6 +32,9 @@ export const eventSlice = createSlice({
       const updatedEvents = [...events, newEvent];
       state.currentState.events = updatedEvents;
     },
+    // updateSelectedEvent(state: InitialState, action: PayloadAction<SelectedEventOnDayView>) {
+
+    // }
   },
 });
 
