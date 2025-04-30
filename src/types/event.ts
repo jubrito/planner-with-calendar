@@ -9,21 +9,21 @@ export type EventStored = {
   };
 };
 
-export type Block = {
+export type EventBlock = {
   hour: number;
   minutes: number;
   fifteenMinBlock: number;
 };
 
-export type TimeBlock = {
+type EventOnCreateInfo = {
   fixedPositionY: number;
-  block: Block;
+  block: EventBlock;
   date: Date;
 };
 
 export type EventOnCreate = {
   eventId: string;
-  start: TimeBlock;
-  end: TimeBlock;
+  start: EventOnCreateInfo;
+  end: EventOnCreateInfo;
   title: string;
 };

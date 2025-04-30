@@ -3,7 +3,7 @@ import {
   fifteenMinutes,
   sizeOfEach15MinBlock,
 } from '../../../utils/calendar/constants';
-import { Block } from '../../../types/event';
+import { EventBlock } from '../../../types/event';
 
 /**
  * Function to determine which fifteen minute block the user clicked
@@ -54,7 +54,7 @@ export const getFifteenMinuteBlock = (rest: number) => {
  * be 0.98, which means the actual hour is the integer 0. The rest is
  * used to calculate the fifteen minute block on getFifteenMinuteBlock()
  */
-export const getStartBlock = (relativeY: number): Block => {
+export const getStartBlock = (relativeY: number): EventBlock => {
   const floatHour = relativeY / sizeOfEach15MinBlock / fifteenMinBlocksInAHour;
   const hour = Math.floor(floatHour);
   const rest = floatHour - hour;
@@ -77,7 +77,7 @@ export const getStartBlock = (relativeY: number): Block => {
  * @param block
  * @returns block for the end position
  */
-export const getEndBlock = (block: Block) => {
+export const getEndBlock = (block: EventBlock) => {
   const { fifteenMinBlock, hour, minutes: minute } = block;
   const fifteenMinBlockEnd = fifteenMinBlock + 1;
   const endMinute = minute + fifteenMinutes;
