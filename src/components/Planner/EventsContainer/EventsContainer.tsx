@@ -29,13 +29,6 @@ export type EventBlock = {
   title: string;
 };
 
-export type EventOnEdit = {
-  title: EventBlock['title'];
-  startDate: EventBlock['start']['date'];
-  endDate: EventBlock['end']['date'];
-  endY: EventBlock['end']['fixedPositionY'];
-};
-
 export const EventContainer = memo(() => {
   const events = useSelector(getCurrentEvents());
   const containerRef = useRef<HTMLDivElement>(null);

@@ -3,7 +3,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { memo } from 'react';
-import { EventOnEdit } from '../EventsContainer';
+import { EventBlock, EventOnEdit } from '../EventsContainer';
 import { getWeekDayName } from '../../../../utils/calendar/weeks';
 import {
   getFormattedDateString,
@@ -39,6 +39,13 @@ type EventInfo = {
   time: string;
   period: string;
   weekDay: string;
+};
+
+type EventOnEdit = {
+  title: EventBlock['title'];
+  startDate: EventBlock['start']['date'];
+  endDate: EventBlock['end']['date'];
+  endY: EventBlock['end']['fixedPositionY'];
 };
 
 export const EventDetailsModal = memo(
