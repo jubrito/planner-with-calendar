@@ -9,18 +9,28 @@ import { EventOnCreate, EventStored as EventType } from '../../../types/event';
 import { getCurrentEvents } from '../../../redux/slices/eventSlice/selectors';
 import { useEvent } from '../../../hooks/useDraftEvent';
 import { HourButtons } from './HourButtons/HourButtons';
+import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
+import {
+  getSelectedDayViewDay,
+  getSelectedDayViewMonth,
+  getSelectedDayViewYear,
+} from '../../../redux/slices/dateSlice/selectors';
 
 export const EventContainer = memo(() => {
   const events = useSelector(getCurrentEvents());
   const containerRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
+  const locale = useSelector(getLocaleLanguage());
+  const year = useSelector(getSelectedDayViewYear());
+  const month = useSelector(getSelectedDayViewMonth(locale));
+  const day = useSelector(getSelectedDayViewDay());
   const {
     draftEvent,
     createDraftEvent,
     updateDraftEvent,
     clearDraftEvent,
     createEvent,
-  } = useEvent();
+  } = useEvent(year, month, day);
 
   useEffect(() => {
     console.log('events', events);
