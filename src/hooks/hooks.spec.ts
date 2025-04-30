@@ -2,6 +2,7 @@ import { act, renderHook } from '@testing-library/react';
 import { Months } from '../types/calendar/enums';
 
 import { useEvent } from './useDraftEvent';
+import { EventStored } from '../types/event';
 
 describe('React hooks', () => {
   describe('useDate()', () => {
@@ -97,6 +98,44 @@ describe('React hooks', () => {
         const { draftEvent } = result.current;
 
         expect(draftEvent).toBeUndefined();
+      });
+
+      it('should return new event when creating event', () => {
+        const { result, rerender } = renderHook(() =>
+          useEvent(year, month, day),
+        );
+        const { createDraftEvent, createEvent } = result.current;
+        const relativeYCreate = 0;
+
+        act(() => {
+          createDraftEvent(relativeYCreate);
+        });
+        rerender();
+        const { draftEvent } = result.current;
+        const initialEvent = {
+          id: '',
+          dayViewPosition: { startY: 1000001, endY: 1000001 },
+          title: '',
+          endDate: '',
+          startDate: '',
+        };
+        let newEvent: EventStored = initialEvent;
+        act(() => {
+          expect(draftEvent).toBeDefined();
+          if (draftEvent != null) {
+            newEvent = createEvent(draftEvent);
+          }
+        });
+        expect(newEvent.id).not.toStrictEqual(initialEvent.id);
+        expect(newEvent.title).not.toStrictEqual(initialEvent.title);
+        expect(newEvent.dayViewPosition.startY).not.toStrictEqual(
+          initialEvent.dayViewPosition.startY,
+        );
+        expect(newEvent.dayViewPosition.startY).not.toStrictEqual(
+          initialEvent.dayViewPosition.endY,
+        );
+        expect(newEvent.startDate).not.toStrictEqual(initialEvent.startDate);
+        expect(newEvent.endDate).not.toStrictEqual(initialEvent.endDate);
       });
     });
   });
