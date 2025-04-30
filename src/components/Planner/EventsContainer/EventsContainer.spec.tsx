@@ -1,11 +1,11 @@
 import '@testing-library/jest-dom';
 import { act, waitFor, screen } from '@testing-library/react';
 import { renderWithProviders } from '../../../utils/tests/renderWithProviders';
-import { ClickableHoursOfTheDay } from './EventsContainer';
+import { EventContainer } from './EventsContainer';
 
-describe('ClickableHoursOfTheDay', () => {
+describe('EventContainer', () => {
   it('should display event details when interacting with the visible portion of the container', async () => {
-    const { container } = renderWithProviders(<ClickableHoursOfTheDay />);
+    const { container } = renderWithProviders(<EventContainer />);
     const targetElement = container.firstElementChild;
     expect(targetElement).not.toBe(null);
     if (targetElement) {
@@ -41,7 +41,7 @@ describe('ClickableHoursOfTheDay', () => {
     }
   });
   it('should display event details when interacting with the not visible portion of the container', async () => {
-    const { container } = renderWithProviders(<ClickableHoursOfTheDay />);
+    const { container } = renderWithProviders(<EventContainer />);
     const targetElement = container.firstElementChild;
     expect(targetElement).not.toBe(null);
     if (targetElement) {

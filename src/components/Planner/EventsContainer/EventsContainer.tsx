@@ -36,7 +36,7 @@ export type EventOnEdit = {
   endY: EventBlock['end']['fixedPositionY'];
 };
 
-export const ClickableHoursOfTheDay = memo(() => {
+export const EventContainer = memo(() => {
   const events = useSelector(getCurrentEvents());
   const containerRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();

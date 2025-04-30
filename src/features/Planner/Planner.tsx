@@ -8,7 +8,7 @@ import {
 import { getLocaleLanguage } from '../../redux/slices/localeSlice/selectors';
 import { IntlDateTimeFormatShort } from '../../utils/constants';
 import { HoursOfTheDay } from '../../components/Planner/HoursOfTheDay/HoursOfTheDay';
-import { ClickableHoursOfTheDay } from '../../components/Planner/EventsContainer/EventsContainer';
+import { EventContainer } from '../../components/Planner/EventsContainer/EventsContainer';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorFallback } from '../../components/ErrorFallback/ErrorFallback';
 import { CurrentTime } from '../../components/Planner/CurrentTime/CurrentTime';
@@ -33,7 +33,7 @@ const Planner = () => {
         <div className={styles.plannerHours}>
           <CurrentTime />
           <HoursOfTheDay />
-          <ClickableHoursOfTheDay />
+          <EventContainer />
         </div>
       </ErrorBoundary>
     </section>
