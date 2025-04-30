@@ -47,3 +47,8 @@ export type EventDetailsView = {
   period: string;
   weekDay: string;
 };
+
+export type SelectedEventOnDayView = {
+  top?: number;
+  event?: EventOnSave;
+};
