@@ -15,7 +15,8 @@ import {
   getSelectedDayViewMonth,
   getSelectedDayViewYear,
 } from '../../../redux/slices/dateSlice/selectors';
-import { EventDetailsModal } from './EventDetailsModal/EventDetailsModal';
+import { Modal } from '../../Modal/Modal';
+import { getModalContent } from './utils/getModalInfo';
 
 type SelectedEvent = {
   top?: number;
@@ -41,6 +42,21 @@ export const EventContainer = memo(() => {
     clearDraftEvent,
     createEvent,
   } = useEvent(year, month, day);
+
+  const modalContent = (selectedEvent: EventOnSave) => {
+    const { sameDay, multiDay, isSameDayEvent } = getModalContent(
+      selectedEvent.startDate,
+      selectedEvent.endDate,
+      locale,
+    );
+    return {
+      sameDayContent: sameDay.content,
+      sameDayTitle: sameDay.title,
+      multiDayContent: multiDay.content,
+      multiDayTitle: multiDay.title,
+      isSameDayEvent,
+    };
+  };
 
   useEffect(() => {
     console.log('events', events);
@@ -125,13 +141,30 @@ export const EventContainer = memo(() => {
       onMouseLeave={handleMouseLeave}
     >
       {selectedEvent.event && (
-        <EventDetailsModal
-          top={selectedEvent.top}
-          title={selectedEvent.event.title}
-          startDate={selectedEvent.event.startDate}
-          endDate={selectedEvent.event.endDate}
-          toggleDetailsModal={closeModal}
-        />
+        <>
+          <Modal
+            title={selectedEvent.event.title}
+            content={
+              <>
+                {modalContent(selectedEvent.event).isSameDayEvent && (
+                  <p title={modalContent(selectedEvent.event).sameDayTitle}>
+                    {modalContent(selectedEvent.event).sameDayContent}
+                  </p>
+                )}
+                {!modalContent(selectedEvent.event).isSameDayEvent && (
+                  <p title={modalContent(selectedEvent.event).multiDayTitle}>
+                    {modalContent(selectedEvent.event).multiDayContent}
+                  </p>
+                )}
+              </>
+            }
+            style={{ top: selectedEvent.top }}
+            closeModal={{
+              closeLabel: 'Close',
+              handleClose: closeModal,
+            }}
+          />
+        </>
       )}
       {draftEvent && isValidDraftEvent(draftEvent) && (
         <Event
