@@ -15,7 +15,7 @@ const renderDefaultEvent = (event: EventOnCreate) =>
       endY={event.end.fixedPositionY}
       startDate={event.start.date}
       endDate={event.end.date}
-      // toggleDetailsModal={jest.fn()}
+      viewEventDetails={jest.fn()}
     />,
   );
 describe('Event', () => {
@@ -113,7 +113,7 @@ describe('Event', () => {
           endY={event.end.fixedPositionY}
           startDate={event.start.date}
           endDate={event.end.date}
-          // toggleDetailsModal={jest.fn()}
+          viewEventDetails={jest.fn()}
         />,
         {
           preloadedState: {
@@ -170,7 +170,7 @@ describe('Event', () => {
           endY={event.end.fixedPositionY}
           startDate={event.start.date}
           endDate={event.end.date}
-          // toggleDetailsModal={jest.fn()}
+          viewEventDetails={jest.fn()}
         />,
         {
           preloadedState: {
