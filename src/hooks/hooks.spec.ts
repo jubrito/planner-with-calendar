@@ -47,6 +47,39 @@ describe('React hooks', () => {
         expect(draftEventUpdated?.start.date).toBeDefined();
         expect(draftEventUpdated?.end.date).toBeDefined();
       });
+      it('should return updated draft event when updating event', () => {
+        const { result, rerender } = renderHook(() =>
+          useEvent(year, month, day),
+        );
+        const { createDraftEvent, updateDraftEvent } = result.current;
+        const relativeYCreate = 0;
+        const relativeYUpdate = 49;
+
+        act(() => {
+          createDraftEvent(relativeYCreate);
+          updateDraftEvent(relativeYUpdate);
+        });
+        rerender();
+        const { draftEvent: draftEventUpdated } = result.current;
+
+        expect(draftEventUpdated).toBeDefined();
+        expect(draftEventUpdated?.id).toBeDefined();
+        expect(draftEventUpdated?.title).toStrictEqual('(No title)');
+        expect(draftEventUpdated?.start.block).toStrictEqual({
+          fifteenMinBlock: 0,
+          hour: 0,
+          minutes: 0,
+        });
+        expect(draftEventUpdated?.end.block).toStrictEqual({
+          fifteenMinBlock: 4,
+          hour: 1,
+          minutes: 0,
+        });
+        expect(draftEventUpdated?.start.fixedPositionY).toStrictEqual(0);
+        expect(draftEventUpdated?.end.fixedPositionY).toStrictEqual(50);
+        expect(draftEventUpdated?.start.date).toBeDefined();
+        expect(draftEventUpdated?.end.date).toBeDefined();
+      });
       // it('should update and return the date', async () => {
       //   let currentDate = new Date();
       //   const { result } = renderHook(() => useEvent(year, month, day));
