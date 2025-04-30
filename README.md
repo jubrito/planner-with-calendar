@@ -1,8 +1,6 @@
 # Next steps (v1):
 
-- move state to control modal back to container
-
-  - uncomment // toggleDetailsModal={jest.fn()} from Event test
+- uncomment // toggleDetailsModal={jest.fn()} from Event test
 
 - close modal
 - test if modal is closing
