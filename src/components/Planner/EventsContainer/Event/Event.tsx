@@ -5,13 +5,13 @@ import {
   getTimeInformation,
 } from '../../../../utils/calendar/utils';
 import styles from './event.module.scss';
-import { EventOnCreate } from '../../../../types/event';
+import { EventOnCreate, EventStored } from '../../../../types/event';
 import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
 import { IntlDateTimeFormat2Digit } from '../../../../utils/constants';
 import { memo, useMemo, useState } from 'react';
 import { EventDetailsModal } from '../EventDetailsModal/EventDetailsModal';
 
-type Event = {
+type EventProps = {
   id: EventOnCreate['eventId'];
   title: EventOnCreate['title'];
   startY: EventOnCreate['start']['fixedPositionY'];
@@ -20,9 +20,14 @@ type Event = {
   endDate: EventOnCreate['end']['date'];
 };
 
+type EventOnSave = Omit<EventStored, 'startDate' | 'endDate'> & {
+  startDate: Date;
+  endDate: Date;
+};
+
 type SelectedEvent = {
   top?: number;
-  event?: Event;
+  event?: EventOnSave;
 };
 
 export const Event = memo(function ({
@@ -32,18 +37,20 @@ export const Event = memo(function ({
   endY,
   startDate,
   endDate,
-}: Event) {
+}: EventProps) {
   const eventHeight = endY - startY;
   const eventStart = startY;
   const isAtLeast30MinEvent = eventHeight >= sizeOfEach15MinBlock * 2;
   const isAtLeast60MinEvent = eventHeight >= sizeOfEach15MinBlock * 4;
   const hasMinimumHeight = eventHeight >= sizeOfEach15MinBlock;
   const localeString = useSelector(getLocaleLanguage());
-  const event: Event = {
+  const event: EventOnSave = {
     id,
     title,
-    startY,
-    endY,
+    dayViewPosition: {
+      startY,
+      endY,
+    },
     startDate,
     endDate,
   };
@@ -71,11 +78,11 @@ export const Event = memo(function ({
     return [startTime, updatedStartPeriod];
   }, [startDate, endPeriod, localeString]);
 
-  const handleEventClick = (event: Event) => {
+  const handleEventClick = (event: EventOnSave) => {
     console.log('Event clicked:', event);
     const moveEventInPixels = 20;
     setSelectedEvent({
-      top: event.endY - moveEventInPixels,
+      top: event.dayViewPosition.endY - moveEventInPixels,
       event,
     });
   };
