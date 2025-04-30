@@ -1,6 +1,5 @@
 # Next steps (v1):
 
-- store serializable value on redux draft event
 - test useDraftEvent
 
 - move state to control modal back to container
