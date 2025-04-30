@@ -15,8 +15,9 @@ import { IntlDateTimeFormat2Digit } from '../../../../utils/constants';
 import styles from './hour-buttons.module.scss';
 import { LocaleLanguage } from '../../../../types/locale/types';
 import { DateConfig } from '../../../../types/calendar/types';
+import { memo } from 'react';
 
-export const HourButtons = () => {
+export const HourButtons = memo(() => {
   const twentyFourHours = Array.from(Array(numberOfHoursInADay).keys());
   const locale = useSelector(getLocaleLanguage());
   const year = useSelector(getSelectedGlobalYear());
@@ -39,7 +40,7 @@ export const HourButtons = () => {
       })}
     </>
   );
-};
+});
 
 const getHourRange = (
   locale: LocaleLanguage,
