@@ -3,7 +3,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { memo } from 'react';
-import { EventOnEdit } from '../EventsContainer';
 import { EventOnCreate } from '../../../../types/event';
 import { getWeekDayName } from '../../../../utils/calendar/weeks';
 import {
