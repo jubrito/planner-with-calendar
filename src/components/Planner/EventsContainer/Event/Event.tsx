@@ -12,7 +12,7 @@ import { memo, useMemo, useState } from 'react';
 import { EventDetailsModal } from '../EventDetailsModal/EventDetailsModal';
 
 type EventProps = {
-  id: EventOnCreate['eventId'];
+  id: EventOnCreate['id'];
   title: EventOnCreate['title'];
   startY: EventOnCreate['start']['fixedPositionY'];
   endY: EventOnCreate['end']['fixedPositionY'];
