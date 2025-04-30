@@ -1,11 +1,11 @@
-import { useCallback, useRef, useEffect, memo } from 'react';
+import { useCallback, useRef, useEffect, memo, useState } from 'react';
 import styles from './events-container.module.scss';
 import { throttle } from 'throttle-debounce';
 import { useSelector } from 'react-redux';
 import { Event } from './Event/Event';
 import { useDispatch } from 'react-redux';
 import { addEvent } from '../../../redux/slices/eventSlice';
-import { EventOnCreate, EventStored as EventType } from '../../../types/event';
+import { EventOnCreate, EventOnSave, EventStored } from '../../../types/event';
 import { getCurrentEvents } from '../../../redux/slices/eventSlice/selectors';
 import { useEvent } from '../../../hooks/useDraftEvent';
 import { HourButtons } from './HourButtons/HourButtons';
@@ -15,8 +15,18 @@ import {
   getSelectedDayViewMonth,
   getSelectedDayViewYear,
 } from '../../../redux/slices/dateSlice/selectors';
+import { EventDetailsModal } from './EventDetailsModal/EventDetailsModal';
+
+type SelectedEvent = {
+  top?: number;
+  event?: EventOnSave;
+};
 
 export const EventContainer = memo(() => {
+  const [selectedEvent, setSelectedEvent] = useState<SelectedEvent>({
+    top: undefined,
+    event: undefined,
+  });
   const events = useSelector(getCurrentEvents());
   const containerRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
@@ -82,6 +92,25 @@ export const EventContainer = memo(() => {
     clearDraftEvent();
   }, [draftEvent, dispatch, clearDraftEvent, createEvent]);
 
+  const closeModal = useCallback(() => {
+    setSelectedEvent({
+      top: undefined,
+      event: undefined,
+    });
+  }, [setSelectedEvent]);
+
+  const viewEventDetails = useCallback(
+    (event: EventOnSave) => {
+      console.log('Event clicked:', event);
+      const moveEventInPixels = 20;
+      setSelectedEvent({
+        top: event.dayViewPosition.endY - moveEventInPixels,
+        event,
+      });
+    },
+    [setSelectedEvent],
+  );
+
   const handleMouseLeave = () => {
     clearDraftEvent();
   };
@@ -95,6 +124,15 @@ export const EventContainer = memo(() => {
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseLeave}
     >
+      {selectedEvent.event && (
+        <EventDetailsModal
+          top={selectedEvent.top}
+          title={selectedEvent.event.title}
+          startDate={selectedEvent.event.startDate}
+          endDate={selectedEvent.event.endDate}
+          toggleDetailsModal={closeModal}
+        />
+      )}
       {draftEvent && isValidDraftEvent(draftEvent) && (
         <Event
           key={draftEvent.id}
@@ -104,6 +142,7 @@ export const EventContainer = memo(() => {
           endY={draftEvent.end.fixedPositionY}
           startDate={new Date(draftEvent.start.date)}
           endDate={new Date(draftEvent.end.date)}
+          viewEventDetails={viewEventDetails}
         />
       )}
       {events
@@ -117,6 +156,7 @@ export const EventContainer = memo(() => {
             endY={event.dayViewPosition.endY}
             startDate={new Date(event.startDate)}
             endDate={new Date(event.endDate)}
+            viewEventDetails={viewEventDetails}
           />
         ))}
       <HourButtons />
@@ -132,7 +172,7 @@ const isValidDraftEvent = (event: EventOnCreate) =>
   event.end != null &&
   event.end.fixedPositionY;
 
-const isValidEvent = (event: EventType) =>
+const isValidEvent = (event: EventStored) =>
   event.id != null &&
   event.title != null &&
   event.startDate != null &&

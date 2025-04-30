@@ -5,11 +5,10 @@ import {
   getTimeInformation,
 } from '../../../../utils/calendar/utils';
 import styles from './event.module.scss';
-import { EventOnCreate, EventStored } from '../../../../types/event';
+import { EventOnCreate, EventOnSave } from '../../../../types/event';
 import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
 import { IntlDateTimeFormat2Digit } from '../../../../utils/constants';
-import { memo, useMemo, useState } from 'react';
-import { EventDetailsModal } from '../EventDetailsModal/EventDetailsModal';
+import { memo, useMemo } from 'react';
 
 type EventProps = {
   id: EventOnCreate['id'];
@@ -18,16 +17,7 @@ type EventProps = {
   endY: EventOnCreate['end']['fixedPositionY'];
   startDate: EventOnCreate['start']['date'];
   endDate: EventOnCreate['end']['date'];
-};
-
-type EventOnSave = Omit<EventStored, 'startDate' | 'endDate'> & {
-  startDate: Date;
-  endDate: Date;
-};
-
-type SelectedEvent = {
-  top?: number;
-  event?: EventOnSave;
+  viewEventDetails: (event: EventOnSave) => void;
 };
 
 export const Event = memo(function ({
@@ -37,6 +27,7 @@ export const Event = memo(function ({
   endY,
   startDate,
   endDate,
+  viewEventDetails,
 }: EventProps) {
   const eventHeight = endY - startY;
   const eventStart = startY;
@@ -54,10 +45,6 @@ export const Event = memo(function ({
     startDate,
     endDate,
   };
-  const [selectedEvent, setSelectedEvent] = useState<SelectedEvent>({
-    top: undefined,
-    event: undefined,
-  });
 
   const [endTime, endPeriod] = useMemo(() => {
     const endFullTime = getFormattedDateString(localeString, endDate, {
@@ -78,22 +65,13 @@ export const Event = memo(function ({
     return [startTime, updatedStartPeriod];
   }, [startDate, endPeriod, localeString]);
 
-  const handleEventClick = (event: EventOnSave) => {
-    console.log('Event clicked:', event);
-    const moveEventInPixels = 20;
-    setSelectedEvent({
-      top: event.dayViewPosition.endY - moveEventInPixels,
-      event,
-    });
-  };
-
   return (
     <>
       <div
         id={id}
         className={styles.plannerEvent}
         style={getEventStyle(eventStart, eventHeight)}
-        onClick={() => handleEventClick(event)}
+        onClick={() => viewEventDetails(event)}
         onMouseDown={(e) => e.stopPropagation()}
         title="Click on the event to edit it"
       >
@@ -117,20 +95,6 @@ export const Event = memo(function ({
           </div>
         )}
       </div>
-      {selectedEvent.event && (
-        <EventDetailsModal
-          top={selectedEvent.top}
-          title={selectedEvent.event.title}
-          startDate={selectedEvent.event.startDate}
-          endDate={selectedEvent.event.endDate}
-          toggleDetailsModal={() =>
-            setSelectedEvent({
-              top: undefined,
-              event: undefined,
-            })
-          }
-        />
-      )}
     </>
   );
 });

@@ -27,3 +27,8 @@ export type EventOnCreate = {
   end: EventOnCreateInfo;
   title: string;
 };
+
+export type EventOnSave = Omit<EventStored, 'startDate' | 'endDate'> & {
+  startDate: Date;
+  endDate: Date;
+};
