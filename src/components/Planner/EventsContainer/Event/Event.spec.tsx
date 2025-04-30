@@ -15,7 +15,7 @@ const renderDefaultEvent = (event: EventOnCreate) =>
       endY={event.end.fixedPositionY}
       startDate={event.start.date}
       endDate={event.end.date}
-      toggleDetailsModal={jest.fn()}
+      // toggleDetailsModal={jest.fn()}
     />,
   );
 describe('Event', () => {
@@ -30,7 +30,6 @@ describe('Event', () => {
     eventId: 'id',
     title: 'title',
     start: {
-      positionY: 4,
       fixedPositionY: 0,
       date: new Date(year, month, day, startHour, startMinutes),
       block: {
@@ -40,7 +39,6 @@ describe('Event', () => {
       },
     },
     end: {
-      positionY: 43,
       fixedPositionY: 50,
       date: new Date(year, month, day, endHour, endMinutes),
       block: {
@@ -78,7 +76,6 @@ describe('Event', () => {
         eventId: 'id',
         title: 'title',
         start: {
-          positionY: 4,
           fixedPositionY: 0,
           date: new Date(year, month, day, startHour, startMinutes),
           block: {
@@ -88,7 +85,6 @@ describe('Event', () => {
           },
         },
         end: {
-          positionY: 43,
           fixedPositionY: 50,
           date: new Date(year, month, day, endHour, endMinutes),
           block: {
@@ -117,7 +113,7 @@ describe('Event', () => {
           endY={event.end.fixedPositionY}
           startDate={event.start.date}
           endDate={event.end.date}
-          toggleDetailsModal={jest.fn()}
+          // toggleDetailsModal={jest.fn()}
         />,
         {
           preloadedState: {
@@ -148,7 +144,6 @@ describe('Event', () => {
         eventId: 'id',
         title: 'title',
         start: {
-          positionY: 4,
           fixedPositionY: 0,
           date: new Date(year, month, day, startHour, startMinutes),
           block: {
@@ -158,7 +153,6 @@ describe('Event', () => {
           },
         },
         end: {
-          positionY: 43,
           fixedPositionY: 50,
           date: new Date(year, month, day, endHour, endMinutes),
           block: {
@@ -176,7 +170,7 @@ describe('Event', () => {
           endY={event.end.fixedPositionY}
           startDate={event.start.date}
           endDate={event.end.date}
-          toggleDetailsModal={jest.fn()}
+          // toggleDetailsModal={jest.fn()}
         />,
         {
           preloadedState: {
