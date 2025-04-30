@@ -1,5 +1,6 @@
 # Next steps (v1):
 
+- understand how to memoize container and modal
 - test event EventModalsContainer
 - test Modal
 
