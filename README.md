@@ -1,7 +1,5 @@
 # Next steps (v1):
 
-- uncomment // toggleDetailsModal={jest.fn()} from Event test
-
 - close modal
 - test if modal is closing
 
