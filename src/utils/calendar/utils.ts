@@ -117,7 +117,6 @@ export const getDayName = (dayOfWeek: number, locale: string) => {
   if (!isValidLocale(locale))
     throw new Error('Failed to get day name, language is invalid');
   const weekDays = getWeekDaysNames(locale);
-  console.log('juju dayOfWeek', dayOfWeek);
   if (dayOfWeek === 0) {
     dayName = weekDays[WeekDays.SUNDAY].short;
   } else {
