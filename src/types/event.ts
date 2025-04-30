@@ -8,8 +8,3 @@ export type EventStored = {
     endY: number;
   };
 };
-
-export type EventOnCreation = Omit<EventStored, 'startDate' | 'endDate'> & {
-  startDate: Date;
-  endDate: Date;
-};

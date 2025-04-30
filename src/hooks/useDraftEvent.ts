@@ -15,7 +15,8 @@ import {
 } from '../redux/slices/dateSlice/selectors';
 import { useSelector } from 'react-redux';
 import { getLocaleLanguage } from '../redux/slices/localeSlice/selectors';
-import { EventOnCreation } from '../types/event';
+import { EventStored } from '../types/event';
+import { getDateISOString } from '../utils/calendar/utils';
 
 export const useEvent = () => {
   const locale = useSelector(getLocaleLanguage());
@@ -68,29 +69,31 @@ export const useEvent = () => {
   const clearDraftEvent = () => setDraftEvent(undefined);
 
   const createEvent = useCallback(
-    (draftEvent: EventBlock): EventOnCreation => {
+    (draftEvent: EventBlock): EventStored => {
       const endMinimumFixedPosition = getMinimumEventFixedPositionY(
         draftEvent.start.fixedPositionY,
         draftEvent.end.fixedPositionY,
+      );
+      const startDate = new Date(
+        year,
+        month,
+        day,
+        draftEvent.start.block.hour,
+        draftEvent.start.block.minutes,
+      );
+      const endDate = new Date(
+        year,
+        month,
+        day,
+        draftEvent.end.block.hour,
+        draftEvent.end.block.minutes,
       );
 
       return {
         id: draftEvent.eventId.replace('draft', 'event'),
         title: draftEvent.title,
-        startDate: new Date(
-          year,
-          month,
-          day,
-          draftEvent.start.block.hour,
-          draftEvent.start.block.minutes,
-        ),
-        endDate: new Date(
-          year,
-          month,
-          day,
-          draftEvent.end.block.hour,
-          draftEvent.end.block.minutes,
-        ),
+        startDate: getDateISOString(startDate),
+        endDate: getDateISOString(endDate),
         dayViewPosition: {
           startY: draftEvent.start.fixedPositionY,
           endY: endMinimumFixedPosition,
