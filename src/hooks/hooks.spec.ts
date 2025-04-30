@@ -80,6 +80,22 @@ describe('React hooks', () => {
         expect(draftEventUpdated?.start.date).toBeDefined();
         expect(draftEventUpdated?.end.date).toBeDefined();
       });
+      it('should return cleaned draft event when clearing event', () => {
+        const { result, rerender } = renderHook(() =>
+          useEvent(year, month, day),
+        );
+        const { createDraftEvent, clearDraftEvent } = result.current;
+        const relativeYCreate = 0;
+
+        act(() => {
+          createDraftEvent(relativeYCreate);
+          clearDraftEvent();
+        });
+        rerender();
+        const { draftEvent: draftEventUpdated } = result.current;
+
+        expect(draftEventUpdated).toBeUndefined();
+      });
       // it('should update and return the date', async () => {
       //   let currentDate = new Date();
       //   const { result } = renderHook(() => useEvent(year, month, day));
