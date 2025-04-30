@@ -1,0 +1,53 @@
+@use '../../styles/mixins' as mixins;
+@use '../../styles/variables' as variables;
+
+.modal {
+  @include mixins.modal;
+  max-width: max-content;
+  width: 80%;
+
+  height: fit-content;
+  top: 0;
+  right: 0;
+  border-radius: 11px;
+  background-color: variables.$blue-lightgray-color;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: variables.$inner-spacing;
+  overflow: hidden;
+  cursor: initial;
+
+  .actions {
+    width: 100%;
+    max-height: max-content;
+    min-width: max-content;
+
+    button {
+      background-color: transparent;
+      padding: 0;
+      padding-left: 10px;
+      float: right;
+      svg {
+        font-size: 18px;
+        color: variables.$black-color;
+      }
+    }
+  }
+  .content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+
+    p {
+      margin: 0;
+      @include mixins.ellipsisText;
+
+      &:first-of-type {
+        font-weight: bold;
+      }
+    }
+  }
+}
