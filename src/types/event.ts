@@ -22,7 +22,7 @@ type EventOnCreateInfo = {
 };
 
 export type EventOnCreate = {
-  eventId: string;
+  id: string;
   start: EventOnCreateInfo;
   end: EventOnCreateInfo;
   title: string;

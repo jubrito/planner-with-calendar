@@ -9,7 +9,7 @@ import { initialValue } from '../../../../redux/slices/localeSlice';
 const renderDefaultEvent = (event: EventOnCreate) =>
   renderWithProviders(
     <Event
-      id={event.eventId}
+      id={event.id}
       title={event.title}
       startY={event.start.fixedPositionY}
       endY={event.end.fixedPositionY}
@@ -27,7 +27,7 @@ describe('Event', () => {
   const endHour = 1;
   const endMinutes = 0;
   const event: EventOnCreate = {
-    eventId: 'id',
+    id: 'id',
     title: 'title',
     start: {
       fixedPositionY: 0,
@@ -73,7 +73,7 @@ describe('Event', () => {
       const endHour = 12;
       const endMinutes = 15;
       const event: EventOnCreate = {
-        eventId: 'id',
+        id: 'id',
         title: 'title',
         start: {
           fixedPositionY: 0,
@@ -107,7 +107,7 @@ describe('Event', () => {
     it('should display time correctly when event start and end is within the same period', () => {
       renderWithProviders(
         <Event
-          id={event.eventId}
+          id={event.id}
           title={event.title}
           startY={event.start.fixedPositionY}
           endY={event.end.fixedPositionY}
@@ -141,7 +141,7 @@ describe('Event', () => {
       const endHour = 12;
       const endMinutes = 15;
       const event: EventOnCreate = {
-        eventId: 'id',
+        id: 'id',
         title: 'title',
         start: {
           fixedPositionY: 0,
@@ -164,7 +164,7 @@ describe('Event', () => {
       };
       renderWithProviders(
         <Event
-          id={event.eventId}
+          id={event.id}
           title={event.title}
           startY={event.start.fixedPositionY}
           endY={event.end.fixedPositionY}

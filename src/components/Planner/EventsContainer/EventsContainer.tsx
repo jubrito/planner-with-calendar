@@ -87,8 +87,8 @@ export const EventContainer = memo(() => {
     >
       {draftEvent && isValidDraftEvent(draftEvent) && (
         <Event
-          key={draftEvent.eventId}
-          id={draftEvent.eventId}
+          key={draftEvent.id}
+          id={draftEvent.id}
           title={draftEvent.title}
           startY={draftEvent.start.fixedPositionY}
           endY={draftEvent.end.fixedPositionY}
@@ -115,7 +115,7 @@ export const EventContainer = memo(() => {
 });
 
 const isValidDraftEvent = (event: EventOnCreate) =>
-  event.eventId != null &&
+  event.id != null &&
   event.title != null &&
   event.start != null &&
   event.start.fixedPositionY != null &&

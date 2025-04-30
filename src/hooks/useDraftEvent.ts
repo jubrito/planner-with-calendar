@@ -32,7 +32,7 @@ export const useEvent = () => {
       const fixedHourAnd15MinBlock = getFixedRelativeY(startBlock, 'start');
       setDraftEvent({
         title: '(No title)',
-        eventId: `draft-${Date.now()}`,
+        id: `draft-${Date.now()}`,
         start: {
           fixedPositionY: fixedHourAnd15MinBlock,
           block: startBlock,
@@ -90,7 +90,7 @@ export const useEvent = () => {
       );
 
       return {
-        id: draftEvent.eventId.replace('draft', 'event'),
+        id: draftEvent.id.replace('draft', 'event'),
         title: draftEvent.title,
         startDate: getDateISOString(startDate),
         endDate: getDateISOString(endDate),
