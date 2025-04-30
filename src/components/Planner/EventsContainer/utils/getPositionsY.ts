@@ -1,7 +1,7 @@
 import {
   fifteenMinBlocksInAHour,
   sizeOfEach15MinBlock,
-} from '../../../utils/calendar/constants';
+} from '../../../../utils/calendar/constants';
 
 export const getMinimumEventFixedPositionY = (
   startFixedPositionY: number,
