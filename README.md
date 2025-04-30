@@ -1,7 +1,7 @@
 # Next steps (v1):
 
-- test event modals
-- test modal
+- test event EventModalsContainer
+- test Modal
 
 - delete modal details component
 - rename selected event to selected event
