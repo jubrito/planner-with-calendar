@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { deepCopy } from '../../../utils/utils';
-import { Event, EventOnCreation } from '../../../types/event';
+import { EventStored, EventOnCreation } from '../../../types/event';
 import { getDateISOString } from '../../../utils/calendar/utils';
 
 type InitialEventsInfoState = {
-  events: Event[];
+  events: EventStored[];
 };
 
 export type InitialState = {

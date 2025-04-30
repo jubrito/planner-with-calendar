@@ -1,4 +1,4 @@
-export type Event = {
+export type EventStored = {
   id: string;
   title: string;
   startDate: string;
@@ -9,7 +9,7 @@ export type Event = {
   };
 };
 
-export type EventOnCreation = Omit<Event, 'startDate' | 'endDate'> & {
+export type EventOnCreation = Omit<EventStored, 'startDate' | 'endDate'> & {
   startDate: Date;
   endDate: Date;
 };

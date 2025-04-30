@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { Event } from './Event/Event';
 import { useDispatch } from 'react-redux';
 import { addEvent } from '../../../redux/slices/eventSlice';
-import { Event as EventType } from '../../../types/event';
+import { EventStored as EventType } from '../../../types/event';
 import { getCurrentEvents } from '../../../redux/slices/eventSlice/selectors';
 import { useEvent } from '../../../hooks/useDraftEvent';
 import { HourButtons } from './HourButtons/HourButtons';
