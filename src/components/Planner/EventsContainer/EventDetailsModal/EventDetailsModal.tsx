@@ -4,7 +4,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { memo } from 'react';
 import { EventOnEdit } from '../EventsContainer';
-import { EventBlock } from '../../../../types/event';
+import { EventOnCreate } from '../../../../types/event';
 import { getWeekDayName } from '../../../../utils/calendar/weeks';
 import {
   getFormattedDateString,
@@ -43,10 +43,10 @@ type EventInfo = {
 };
 
 type EventOnEdit = {
-  title: EventBlock['title'];
-  startDate: EventBlock['start']['date'];
-  endDate: EventBlock['end']['date'];
-  endY: EventBlock['end']['fixedPositionY'];
+  title: EventOnCreate['title'];
+  startDate: EventOnCreate['start']['date'];
+  endDate: EventOnCreate['end']['date'];
+  endY: EventOnCreate['end']['fixedPositionY'];
 };
 
 export const EventDetailsModal = memo(

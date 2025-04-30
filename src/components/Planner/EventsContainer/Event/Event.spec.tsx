@@ -1,12 +1,12 @@
 import { Months } from '../../../../types/calendar/enums';
 import { renderWithProviders } from '../../../../utils/tests/renderWithProviders';
-import { EventBlock } from '../../../../types/event';
+import { EventOnCreate } from '../../../../types/event';
 import { Event } from './Event';
 import { screen } from '@testing-library/dom';
 import '@testing-library/jest-dom';
 import { initialValue } from '../../../../redux/slices/localeSlice';
 
-const renderDefaultEvent = (event: EventBlock) =>
+const renderDefaultEvent = (event: EventOnCreate) =>
   renderWithProviders(
     <Event
       id={event.eventId}
@@ -26,7 +26,7 @@ describe('Event', () => {
   const startMinutes = 0;
   const endHour = 1;
   const endMinutes = 0;
-  const event: EventBlock = {
+  const event: EventOnCreate = {
     eventId: 'id',
     title: 'title',
     start: {
@@ -74,7 +74,7 @@ describe('Event', () => {
       const startMinutes = 0;
       const endHour = 12;
       const endMinutes = 15;
-      const event: EventBlock = {
+      const event: EventOnCreate = {
         eventId: 'id',
         title: 'title',
         start: {
@@ -144,7 +144,7 @@ describe('Event', () => {
       const startMinutes = 0;
       const endHour = 12;
       const endMinutes = 15;
-      const event: EventBlock = {
+      const event: EventOnCreate = {
         eventId: 'id',
         title: 'title',
         start: {

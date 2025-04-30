@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { EventBlock } from '../types/event';
+import { EventOnCreate } from '../types/event';
 import {
   getFixedRelativeY,
   getMinimumEventFixedPositionY,
@@ -23,7 +23,7 @@ export const useEvent = () => {
   const year = useSelector(getSelectedDayViewYear());
   const month = useSelector(getSelectedDayViewMonth(locale));
   const day = useSelector(getSelectedDayViewDay());
-  const [draftEvent, setDraftEvent] = useState<EventBlock>();
+  const [draftEvent, setDraftEvent] = useState<EventOnCreate>();
 
   const createDraftEvent = useCallback(
     (relativeY: number) => {
@@ -69,7 +69,7 @@ export const useEvent = () => {
   const clearDraftEvent = () => setDraftEvent(undefined);
 
   const createEvent = useCallback(
-    (draftEvent: EventBlock): EventStored => {
+    (draftEvent: EventOnCreate): EventStored => {
       const endMinimumFixedPosition = getMinimumEventFixedPositionY(
         draftEvent.start.fixedPositionY,
         draftEvent.end.fixedPositionY,

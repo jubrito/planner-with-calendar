@@ -21,7 +21,7 @@ export type TimeBlock = {
   date: Date;
 };
 
-export type EventBlock = {
+export type EventOnCreate = {
   eventId: string;
   start: TimeBlock;
   end: TimeBlock;

@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { Event } from './Event/Event';
 import { useDispatch } from 'react-redux';
 import { addEvent } from '../../../redux/slices/eventSlice';
-import { EventBlock, EventStored as EventType } from '../../../types/event';
+import { EventOnCreate, EventStored as EventType } from '../../../types/event';
 import { getCurrentEvents } from '../../../redux/slices/eventSlice/selectors';
 import { useEvent } from '../../../hooks/useDraftEvent';
 import { HourButtons } from './HourButtons/HourButtons';
@@ -114,7 +114,7 @@ export const EventContainer = memo(() => {
   );
 });
 
-const isValidDraftEvent = (event: EventBlock) =>
+const isValidDraftEvent = (event: EventOnCreate) =>
   event.eventId != null &&
   event.title != null &&
   event.start != null &&

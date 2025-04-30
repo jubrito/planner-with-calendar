@@ -5,19 +5,19 @@ import {
   getTimeInformation,
 } from '../../../../utils/calendar/utils';
 import styles from './event.module.scss';
-import { EventBlock } from '../../../../types/event';
+import { EventOnCreate } from '../../../../types/event';
 import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
 import { IntlDateTimeFormat2Digit } from '../../../../utils/constants';
 import { memo, useMemo, useState } from 'react';
 import { EventDetailsModal } from '../EventDetailsModal/EventDetailsModal';
 
 type Event = {
-  id: EventBlock['eventId'];
-  title: EventBlock['title'];
-  startY: EventBlock['start']['fixedPositionY'];
-  endY: EventBlock['end']['fixedPositionY'];
-  startDate: EventBlock['start']['date'];
-  endDate: EventBlock['end']['date'];
+  id: EventOnCreate['eventId'];
+  title: EventOnCreate['title'];
+  startY: EventOnCreate['start']['fixedPositionY'];
+  endY: EventOnCreate['end']['fixedPositionY'];
+  startDate: EventOnCreate['start']['date'];
+  endDate: EventOnCreate['end']['date'];
 };
 
 type SelectedEvent = {
