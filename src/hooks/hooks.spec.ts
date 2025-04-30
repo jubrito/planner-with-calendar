@@ -15,6 +15,7 @@ describe('React hooks', () => {
         const { draftEvent } = result.current;
         expect(draftEvent).toBe(undefined);
       });
+
       it('should return updated draft event when creating draft event', () => {
         const { result, rerender } = renderHook(() =>
           useEvent(year, month, day),
@@ -27,26 +28,26 @@ describe('React hooks', () => {
         });
         rerender();
 
-        const { draftEvent: draftEventUpdated } = result.current;
-        console.log(draftEventUpdated);
-        expect(draftEventUpdated).toBeDefined();
-        expect(draftEventUpdated?.id).toBeDefined();
-        expect(draftEventUpdated?.title).toStrictEqual('(No title)');
-        expect(draftEventUpdated?.start.block).toStrictEqual({
+        const { draftEvent } = result.current;
+        expect(draftEvent).toBeDefined();
+        expect(draftEvent?.id).toBeDefined();
+        expect(draftEvent?.title).toStrictEqual('(No title)');
+        expect(draftEvent?.start.block).toStrictEqual({
           fifteenMinBlock: 3,
           hour: 0,
           minutes: 45,
         });
-        expect(draftEventUpdated?.end.block).toStrictEqual({
+        expect(draftEvent?.end.block).toStrictEqual({
           fifteenMinBlock: 4,
           hour: 1,
           minutes: 0,
         });
-        expect(draftEventUpdated?.start.fixedPositionY).toStrictEqual(37.5);
-        expect(draftEventUpdated?.end.fixedPositionY).toStrictEqual(37.5);
-        expect(draftEventUpdated?.start.date).toBeDefined();
-        expect(draftEventUpdated?.end.date).toBeDefined();
+        expect(draftEvent?.start.fixedPositionY).toStrictEqual(37.5);
+        expect(draftEvent?.end.fixedPositionY).toStrictEqual(37.5);
+        expect(draftEvent?.start.date).toBeDefined();
+        expect(draftEvent?.end.date).toBeDefined();
       });
+
       it('should return updated draft event when updating draft event', () => {
         const { result, rerender } = renderHook(() =>
           useEvent(year, month, day),
@@ -60,26 +61,27 @@ describe('React hooks', () => {
           updateDraftEvent(relativeYUpdate);
         });
         rerender();
-        const { draftEvent: draftEventUpdated } = result.current;
+        const { draftEvent } = result.current;
 
-        expect(draftEventUpdated).toBeDefined();
-        expect(draftEventUpdated?.id).toBeDefined();
-        expect(draftEventUpdated?.title).toStrictEqual('(No title)');
-        expect(draftEventUpdated?.start.block).toStrictEqual({
+        expect(draftEvent).toBeDefined();
+        expect(draftEvent?.id).toBeDefined();
+        expect(draftEvent?.title).toStrictEqual('(No title)');
+        expect(draftEvent?.start.block).toStrictEqual({
           fifteenMinBlock: 0,
           hour: 0,
           minutes: 0,
         });
-        expect(draftEventUpdated?.end.block).toStrictEqual({
+        expect(draftEvent?.end.block).toStrictEqual({
           fifteenMinBlock: 4,
           hour: 1,
           minutes: 0,
         });
-        expect(draftEventUpdated?.start.fixedPositionY).toStrictEqual(0);
-        expect(draftEventUpdated?.end.fixedPositionY).toStrictEqual(50);
-        expect(draftEventUpdated?.start.date).toBeDefined();
-        expect(draftEventUpdated?.end.date).toBeDefined();
+        expect(draftEvent?.start.fixedPositionY).toStrictEqual(0);
+        expect(draftEvent?.end.fixedPositionY).toStrictEqual(50);
+        expect(draftEvent?.start.date).toBeDefined();
+        expect(draftEvent?.end.date).toBeDefined();
       });
+
       it('should return cleaned draft event when clearing draft event', () => {
         const { result, rerender } = renderHook(() =>
           useEvent(year, month, day),
@@ -92,9 +94,9 @@ describe('React hooks', () => {
           clearDraftEvent();
         });
         rerender();
-        const { draftEvent: draftEventUpdated } = result.current;
+        const { draftEvent } = result.current;
 
-        expect(draftEventUpdated).toBeUndefined();
+        expect(draftEvent).toBeUndefined();
       });
     });
   });
