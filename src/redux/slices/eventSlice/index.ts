@@ -32,12 +32,15 @@ export const eventSlice = createSlice({
       const updatedEvents = [...events, newEvent];
       state.currentState.events = updatedEvents;
     },
-    // updateSelectedEvent(state: InitialState, action: PayloadAction<SelectedEventOnDayView>) {
-
-    // }
+    updateSelectedDayViewEvent(
+      state: InitialState,
+      action: PayloadAction<SelectedEventOnDayView>,
+    ) {
+      state.currentState.selectedDayViewEvent = action.payload;
+    },
   },
 });
 
-export const { addEvent } = eventSlice.actions;
+export const { addEvent, updateSelectedDayViewEvent } = eventSlice.actions;
 
 export default eventSlice.reducer;
