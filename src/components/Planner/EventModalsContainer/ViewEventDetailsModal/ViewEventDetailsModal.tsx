@@ -43,24 +43,17 @@ export const ViewEventDetailsModal = memo(
     } = modalContent();
 
     return (
-      <>
-        <Modal
-          title={title}
-          content={
-            <>
-              {isSameDayEvent && <p title={sameDayTitle}>{sameDayContent}</p>}
-              {!isSameDayEvent && (
-                <p title={multiDayTitle}>{multiDayContent}</p>
-              )}
-            </>
-          }
-          style={{ top }}
-          closeModal={{
-            closeLabel: 'Close',
-            handleClose: closeModal,
-          }}
-        />
-      </>
+      <Modal
+        title={title}
+        content={
+          <>
+            {isSameDayEvent && <p title={sameDayTitle}>{sameDayContent}</p>}
+            {!isSameDayEvent && <p title={multiDayTitle}>{multiDayContent}</p>}
+          </>
+        }
+        style={{ top }}
+        closeModal={{ handleClose: closeModal }}
+      />
     );
   },
 );
