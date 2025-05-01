@@ -1,7 +1,5 @@
 # Next steps (v1):
 
-- rename selected event to selected event
-
 - close modal with escape
 - test if modal is closing
 - give focus to event edit modal
