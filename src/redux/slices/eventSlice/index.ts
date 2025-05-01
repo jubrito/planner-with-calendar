@@ -17,7 +17,7 @@ const initialEventsInfo: InitialEventsInfoState = {
   selectedDayViewEvent: undefined,
 };
 
-const initialValue: InitialState = {
+export const initialValue: InitialState = {
   initialState: deepCopy(initialEventsInfo),
   currentState: deepCopy(initialEventsInfo),
 };
