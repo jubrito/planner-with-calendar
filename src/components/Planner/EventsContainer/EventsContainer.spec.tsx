@@ -2,6 +2,46 @@ import '@testing-library/jest-dom';
 import { act, waitFor, screen } from '@testing-library/react';
 import { renderWithProviders } from '../../../utils/tests/renderWithProviders';
 import { EventContainer } from './EventsContainer';
+import { initialValue } from '../../../redux/slices/eventSlice';
+import { EventOnSave, SelectedEventOnDayView } from '../../../types/event';
+import { Months } from '../../../types/calendar/enums';
+
+const title = 'title';
+const year = 2025;
+const month = Months.FEBRUARY;
+const day = 11;
+const startDate = new Date(year, month, day);
+const endDate = new Date(year, month, day);
+const initialSelectedEvent: SelectedEventOnDayView = {
+  event: {
+    dayViewPosition: {
+      endY: 0,
+      startY: 0,
+    },
+    endDate,
+    startDate,
+    id: 'id',
+    title,
+  },
+  top: 0,
+};
+
+const renderEventDetailsModal = (event?: EventOnSave) => {
+  return renderWithProviders(<EventContainer />, {
+    preloadedState: {
+      eventSlice: {
+        ...initialValue,
+        currentState: {
+          ...initialValue.currentState,
+          selectedDayViewEvent: {
+            event: event ?? initialSelectedEvent.event,
+            top: initialSelectedEvent.top,
+          },
+        },
+      },
+    },
+  });
+};
 
 describe('EventContainer', () => {
   describe('When creating an event', () => {
@@ -79,11 +119,25 @@ describe('EventContainer', () => {
     });
   });
   describe('When opening modal', () => {
-    const eventTitle = 'title';
-    it('should not render modal if selected event is not defined', () => {
-      renderWithProviders(<EventContainer />);
-      const event = screen.queryByText(eventTitle);
+    it('should not render modal if selected day view event is not defined', () => {
+      renderWithProviders(<EventContainer />, {
+        preloadedState: {
+          eventSlice: {
+            ...initialValue,
+            currentState: {
+              ...initialValue.currentState,
+              selectedDayViewEvent: undefined,
+            },
+          },
+        },
+      });
+      const event = screen.queryByText(title);
       expect(event).not.toBeInTheDocument();
     });
+    // it('should not render modal if selected event is not defined', () => {
+    //   renderWithProviders(<EventContainer />, {});
+    //   const event = screen.queryByText(eventTitle);
+    //   expect(event).not.toBeInTheDocument();
+    // });
   });
 });
