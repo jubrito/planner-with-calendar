@@ -9,6 +9,7 @@ import {
   getFixedRelativeY,
   getMinimumEventFixedPositionY,
 } from '../utils/events/dayView/getPositionsY';
+import { defaultEventTitle } from '../utils/events/dayView/constants';
 
 export const useEvent = (
   year: DateConfig['year'],
@@ -24,7 +25,7 @@ export const useEvent = (
       const fixedHourAnd15MinBlock = getFixedRelativeY(startBlock, 'start');
 
       setDraftEvent({
-        title: '(No title)',
+        title: defaultEventTitle,
         id: `draft-${Date.now()}`,
         start: {
           fixedPositionY: fixedHourAnd15MinBlock,
