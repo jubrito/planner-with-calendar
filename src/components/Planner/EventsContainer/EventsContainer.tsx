@@ -1,4 +1,4 @@
-import { useCallback, useRef, useEffect, memo, useMemo } from 'react';
+import { useCallback, useRef, useEffect, useMemo } from 'react';
 import styles from './events-container.module.scss';
 import { throttle } from 'throttle-debounce';
 import { useSelector } from 'react-redux';
@@ -24,7 +24,7 @@ import {
 } from '../../../redux/slices/dateSlice/selectors';
 import { EventModalsContainer } from '../EventModalsContainer/EventModalsContainer';
 
-export const EventContainer = memo(() => {
+export const EventContainer = () => {
   const events = useSelector(getCurrentEvents());
   const containerRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
@@ -163,7 +163,7 @@ export const EventContainer = memo(() => {
       <HourButtons />
     </div>
   );
-});
+};
 
 const isValidDraftEvent = (event: EventOnCreate) =>
   event.id != null &&
