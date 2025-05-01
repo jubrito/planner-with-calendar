@@ -22,7 +22,7 @@ import {
   getSelectedDayViewMonth,
   getSelectedDayViewYear,
 } from '../../../redux/slices/dateSlice/selectors';
-import { ViewEventDetailsModal } from '../EventModalsContainer/ViewEventDetailsModal/ViewEventDetailsModal';
+import { EventModalsContainer } from '../EventModalsContainer/EventModalsContainer';
 
 export const EventContainer = () => {
   const events = useSelector(getCurrentEvents());
@@ -124,7 +124,7 @@ export const EventContainer = () => {
       onMouseLeave={handleMouseLeave}
     >
       {selectedEvent && selectedEvent.event && (
-        <ViewEventDetailsModal closeModal={closeModal} />
+        <EventModalsContainer closeModal={closeModal} />
       )}
       {draftEvent && isValidDraftEvent(draftEvent) && (
         <Event
