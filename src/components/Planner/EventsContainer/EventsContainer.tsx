@@ -114,10 +114,6 @@ export const EventContainer = () => {
     dispatch(clearSelectedDayViewEvent());
   }, [dispatch]);
 
-  const getViewEventDetailsStyle = useCallback(() => {
-    return selectedEvent ? { top: selectedEvent.top } : {};
-  }, [selectedEvent]);
-
   return (
     <div
       ref={containerRef}
@@ -128,10 +124,7 @@ export const EventContainer = () => {
       onMouseLeave={handleMouseLeave}
     >
       {selectedEvent && selectedEvent.event && (
-        <EventModalsContainer
-          viewEventDetailsStyle={getViewEventDetailsStyle()}
-          closeModal={closeModal}
-        />
+        <EventModalsContainer closeModal={closeModal} />
       )}
       {draftEvent && isValidDraftEvent(draftEvent) && (
         <Event
