@@ -1,5 +1,4 @@
 import { useSelector } from 'react-redux';
-import { ObjectType } from '../../../utils/constants';
 import { Modal } from '../../Modal/Modal';
 import { getModalContent } from '../../../utils/events/dayView/getModalInfo';
 import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
@@ -7,18 +6,17 @@ import { memo } from 'react';
 import { getCurrentSelectedDayViewEvent } from '../../../redux/slices/eventSlice/selectors';
 
 type EventModalsContainerProps = {
-  viewEventDetailsStyle: ObjectType;
   closeModal: () => void;
 };
 
 export const EventModalsContainer = memo(
-  ({ viewEventDetailsStyle, closeModal }: EventModalsContainerProps) => {
+  ({ closeModal }: EventModalsContainerProps) => {
     const locale = useSelector(getLocaleLanguage());
     const selectedDayViewEvent = useSelector(getCurrentSelectedDayViewEvent());
 
     if (!selectedDayViewEvent || !selectedDayViewEvent.event) return <></>;
 
-    const selectedEvent = selectedDayViewEvent.event;
+    const { event: selectedEvent, top } = selectedDayViewEvent;
     const { title } = selectedEvent;
 
     const modalContent = () => {
@@ -56,7 +54,7 @@ export const EventModalsContainer = memo(
               )}
             </>
           }
-          style={viewEventDetailsStyle}
+          style={{ top }}
           closeModal={{
             closeLabel: 'Close',
             handleClose: closeModal,
