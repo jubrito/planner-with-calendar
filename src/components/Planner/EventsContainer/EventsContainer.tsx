@@ -92,10 +92,6 @@ export const EventContainer = () => {
     clearDraftEvent();
   }, [draftEvent, dispatch, clearDraftEvent, createEvent]);
 
-  const closeModal = useCallback(() => {
-    dispatch(clearSelectedDayViewEvent());
-  }, [dispatch]);
-
   const viewEventDetails = useCallback(
     (event: EventOnSave) => {
       console.log('Event clicked:', event);
@@ -114,8 +110,16 @@ export const EventContainer = () => {
     clearDraftEvent();
   };
 
+  const closeModal = useCallback(() => {
+    dispatch(clearSelectedDayViewEvent());
+  }, [dispatch]);
+
   const getViewEventDetailsStyle = useCallback(() => {
     return selectedEvent ? { top: selectedEvent.top } : {};
+  }, [selectedEvent]);
+
+  const getSelectedEventOnSave = useCallback(() => {
+    return selectedEvent?.event;
   }, [selectedEvent]);
 
   return (
@@ -129,7 +133,7 @@ export const EventContainer = () => {
     >
       {selectedEvent && selectedEvent.event && (
         <EventModalsContainer
-          selectedEvent={selectedEvent.event}
+          selectedEvent={getSelectedEventOnSave()}
           viewEventDetailsStyle={getViewEventDetailsStyle()}
           closeModal={closeModal}
         />
