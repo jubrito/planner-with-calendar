@@ -6,6 +6,7 @@ import { initialValue } from '../../../redux/slices/eventSlice';
 import { SelectedEventOnDayView } from '../../../types/event';
 import { Months } from '../../../types/calendar/enums';
 import userEvent from '@testing-library/user-event';
+import { defaultEventTitle } from '../../../utils/events/dayView/constants';
 
 const title = 'title';
 const year = 2025;
@@ -94,7 +95,7 @@ describe('EventContainer', () => {
           mouseMoveY: 49,
           mouseUpY: 49,
         });
-        const eventDefaultTitle = '(No title)';
+        const eventDefaultTitle = defaultEventTitle;
         const eventTime = '12:00 – 01:00 AM';
         await waitFor(() => {
           expect(screen.getByText(eventDefaultTitle)).toBeInTheDocument();
@@ -115,7 +116,7 @@ describe('EventContainer', () => {
           mouseMoveY: positionY + 625,
           mouseUpY: positionY + 625,
         });
-        const eventDefaultTitle = '(No title)';
+        const eventDefaultTitle = defaultEventTitle;
         const eventTime = '10:30 AM – 12:45 PM';
         await waitFor(() => {
           expect(screen.getByText(eventDefaultTitle)).toBeInTheDocument();
