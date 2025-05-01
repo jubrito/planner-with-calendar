@@ -1,13 +1,15 @@
 # Next steps (v1):
 
+change focus
+
+-
 - give focus to event edit modal
 
 - improve event structure
-  - use event redux date saving only what matters
+  - use event redux date saving only what matters (e.g., date)
 - improve architecture?
 
   - leave reusable components on components
-  - reusable modal?
 
 - memo
   - memoize clickable hours of the day functions?
