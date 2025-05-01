@@ -1,6 +1,5 @@
 # Next steps (v1):
 
-- close modal with escape
 - test if modal is closing
 - give focus to event edit modal
 
