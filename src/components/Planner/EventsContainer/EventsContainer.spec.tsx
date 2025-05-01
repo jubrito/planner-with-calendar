@@ -134,10 +134,23 @@ describe('EventContainer', () => {
       const event = screen.queryByText(title);
       expect(event).not.toBeInTheDocument();
     });
-    // it('should not render modal if selected event is not defined', () => {
-    //   renderWithProviders(<EventContainer />, {});
-    //   const event = screen.queryByText(eventTitle);
-    //   expect(event).not.toBeInTheDocument();
-    // });
+    it('should not render modal if selected event is not defined', () => {
+      renderWithProviders(<EventContainer />, {
+        preloadedState: {
+          eventSlice: {
+            ...initialValue,
+            currentState: {
+              ...initialValue.currentState,
+              selectedDayViewEvent: {
+                event: undefined,
+                top: initialSelectedEvent.top,
+              },
+            },
+          },
+        },
+      });
+      const event = screen.queryByText(title);
+      expect(event).not.toBeInTheDocument();
+    });
   });
 });
