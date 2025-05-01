@@ -78,4 +78,12 @@ describe('EventContainer', () => {
       }
     });
   });
+  describe('When opening modal', () => {
+    const eventTitle = 'title';
+    it('should not render modal if selected event is not defined', () => {
+      renderWithProviders(<EventContainer />);
+      const event = screen.queryByText(eventTitle);
+      expect(event).not.toBeInTheDocument();
+    });
+  });
 });
