@@ -109,26 +109,11 @@ describe('EventContainer', () => {
       if (targetElement) {
         const rect = targetElement.getBoundingClientRect();
         const positionY = rect.top;
-        const mouseDownEvent = new MouseEvent('mousedown', {
-          clientY: positionY + 525,
-          bubbles: true,
-        });
-        const mouseMoveEvent = new MouseEvent('mousemove', {
-          clientY: positionY + 625,
-          bubbles: true,
-        });
-        const mouseUpEvent = new MouseEvent('mouseup', {
-          clientY: positionY + 625,
-          bubbles: true,
-        });
-        act(() => {
-          targetElement.dispatchEvent(mouseDownEvent);
-        });
-        act(() => {
-          targetElement.dispatchEvent(mouseMoveEvent);
-        });
-        act(() => {
-          targetElement.dispatchEvent(mouseUpEvent);
+        createEvent({
+          targetElement,
+          mouseDownY: positionY + 525,
+          mouseMoveY: positionY + 625,
+          mouseUpY: positionY + 625,
         });
         const eventDefaultTitle = '(No title)';
         const eventTime = '10:30 AM – 12:45 PM';
