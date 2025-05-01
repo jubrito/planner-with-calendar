@@ -3,6 +3,7 @@ import { Months } from '../types/calendar/enums';
 
 import { useEvent } from './useDraftEvent';
 import { EventStored } from '../types/event';
+import { defaultEventTitle } from '../utils/events/dayView/constants';
 
 describe('React hooks', () => {
   describe('useDate()', () => {
@@ -32,7 +33,7 @@ describe('React hooks', () => {
         const { draftEvent } = result.current;
         expect(draftEvent).toBeDefined();
         expect(draftEvent?.id).toBeDefined();
-        expect(draftEvent?.title).toStrictEqual('(No title)');
+        expect(draftEvent?.title).toStrictEqual(defaultEventTitle);
         expect(draftEvent?.start.block).toStrictEqual({
           fifteenMinBlock: 3,
           hour: 0,
@@ -66,7 +67,7 @@ describe('React hooks', () => {
 
         expect(draftEvent).toBeDefined();
         expect(draftEvent?.id).toBeDefined();
-        expect(draftEvent?.title).toStrictEqual('(No title)');
+        expect(draftEvent?.title).toStrictEqual(defaultEventTitle);
         expect(draftEvent?.start.block).toStrictEqual({
           fifteenMinBlock: 0,
           hour: 0,
