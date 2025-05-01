@@ -1,6 +1,5 @@
 # Next steps (v1):
 
-- test if modal is closing
 - give focus to event edit modal
 
 - improve event structure
