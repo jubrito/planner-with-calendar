@@ -41,18 +41,20 @@ export const Modal = ({
         {closeModal && (
           <button
             onClick={closeModal.handleClose}
-            aria-label={closeModal.closeLabel || 'Close'}
+            aria-label={closeModal.closeLabel || 'Click to close modal'}
           >
             <CloseIcon />
           </button>
         )}
         {deleteModal && (
-          <button aria-label={deleteModal.deleteLabel || 'Delete event'}>
+          <button
+            aria-label={deleteModal.deleteLabel || 'Click to delete item'}
+          >
             <DeleteIcon />
           </button>
         )}
         {editModal && (
-          <button aria-label="Edit event (from X AM to Y AM?)">
+          <button aria-label={editModal.editLabel || 'Click to edit item'}>
             <EditIcon />
           </button>
         )}
