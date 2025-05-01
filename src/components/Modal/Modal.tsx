@@ -34,6 +34,7 @@ export const Modal = ({
     <div
       className={styles.modal}
       id="modal"
+      role="dialog"
       onMouseDown={(e) => e.stopPropagation()}
       style={style}
     >
