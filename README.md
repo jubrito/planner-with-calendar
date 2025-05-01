@@ -5,8 +5,9 @@
 - delete modal details component
 - rename selected event to selected event
 
-- close modal
+- close modal with escape
 - test if modal is closing
+- give focus to event edit modal
 
 - improve event structure
   - use event redux date saving only what matters
@@ -19,7 +20,6 @@
   - memoize clickable hours of the day functions?
   - memo rendering all events
 - virtualization of events? normalizing?
-- give focus to event edit modal
 - test if modal is opening
 
   - should not open if event does not exist
