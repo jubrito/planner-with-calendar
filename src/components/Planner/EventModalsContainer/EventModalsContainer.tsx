@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { ViewEventDetailsModal } from './EventDetailsModal/EventDetailsModal';
+import { EventDetailsModal } from './EventDetailsModal/EventDetailsModal';
 
 type EventModalsContainerProps = {
   closeModal: () => void;
@@ -7,6 +7,6 @@ type EventModalsContainerProps = {
 
 export const EventModalsContainer = memo(
   ({ closeModal }: EventModalsContainerProps) => {
-    return <ViewEventDetailsModal closeModal={closeModal} />;
+    return <EventDetailsModal closeModal={closeModal} />;
   },
 );

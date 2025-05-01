@@ -5,12 +5,12 @@ import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selector
 import { memo } from 'react';
 import { getCurrentSelectedDayViewEvent } from '../../../../redux/slices/eventSlice/selectors';
 
-type ViewEventDetailsModalProps = {
+type EventDetailsModalProps = {
   closeModal: () => void;
 };
 
-export const ViewEventDetailsModal = memo(
-  ({ closeModal }: ViewEventDetailsModalProps) => {
+export const EventDetailsModal = memo(
+  ({ closeModal }: EventDetailsModalProps) => {
     const locale = useSelector(getLocaleLanguage());
     const selectedDayViewEvent = useSelector(getCurrentSelectedDayViewEvent());
 

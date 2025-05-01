@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { screen } from '@testing-library/react';
 import { renderWithProviders } from '../../../../utils/tests/renderWithProviders';
-import { ViewEventDetailsModal } from './EventDetailsModal';
+import { EventDetailsModal } from './EventDetailsModal';
 import { initialValue } from '../../../../redux/slices/eventSlice';
 
 describe('EventDetailsModal', () => {
@@ -30,7 +30,7 @@ describe('EventDetailsModal', () => {
   const closeModalMock = jest.fn();
 
   beforeEach(() => {
-    renderWithProviders(<ViewEventDetailsModal closeModal={closeModalMock} />, {
+    renderWithProviders(<EventDetailsModal closeModal={closeModalMock} />, {
       preloadedState: {
         eventSlice: {
           ...initialValue,

@@ -1,18 +1,18 @@
 import { screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { renderWithProviders } from '../../../utils/tests/renderWithProviders';
-import { ViewEventDetailsModal } from './EventDetailsModal/EventDetailsModal';
+import { EventDetailsModal } from './EventDetailsModal/EventDetailsModal';
 import { initialValue } from '../../../redux/slices/eventSlice';
 
 describe('EventModalsContainer', () => {
   const eventTitle = 'eventTitle';
   it('should not render modal if selected event is not defined', () => {
-    renderWithProviders(<ViewEventDetailsModal closeModal={jest.fn()} />);
+    renderWithProviders(<EventDetailsModal closeModal={jest.fn()} />);
     const event = screen.queryByText(eventTitle);
     expect(event).not.toBeInTheDocument();
   });
   it('should render modal if selected event is defined', () => {
-    renderWithProviders(<ViewEventDetailsModal closeModal={jest.fn()} />, {
+    renderWithProviders(<EventDetailsModal closeModal={jest.fn()} />, {
       preloadedState: {
         eventSlice: {
           ...initialValue,
