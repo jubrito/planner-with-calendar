@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { renderWithProviders } from '../../../utils/tests/renderWithProviders';
-import { ViewEventDetailsModal } from './EventDetailsModal/ViewEventDetailsModal';
+import { ViewEventDetailsModal } from './EventDetailsModal/EventDetailsModal';
 import { initialValue } from '../../../redux/slices/eventSlice';
 
 describe('EventModalsContainer', () => {
