@@ -10,15 +10,15 @@ type ModalProps = {
   content: string | JSX.Element | JSX.Element[] | React.ReactNode;
   closeModal?: {
     handleClose: () => void;
-    closeLabel: string;
+    closeLabel?: string;
   };
   deleteModal?: {
     handleDelete: () => void;
-    deleteLabel: string;
+    deleteLabel?: string;
   };
   editModal?: {
     handleEdit: () => void;
-    editLabel: string;
+    editLabel?: string;
   };
   style: ObjectType;
 };
@@ -39,12 +39,15 @@ export const Modal = ({
     >
       <div className={styles.actions}>
         {closeModal && (
-          <button onClick={closeModal.handleClose} aria-label="Close">
+          <button
+            onClick={closeModal.handleClose}
+            aria-label={closeModal.closeLabel || 'Close'}
+          >
             <CloseIcon />
           </button>
         )}
         {deleteModal && (
-          <button aria-label="Delete event">
+          <button aria-label={'Delete event'}>
             <DeleteIcon />
           </button>
         )}
