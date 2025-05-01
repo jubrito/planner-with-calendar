@@ -22,7 +22,7 @@ import {
   getSelectedDayViewMonth,
   getSelectedDayViewYear,
 } from '../../../redux/slices/dateSlice/selectors';
-import { ViewEventDetailsModal } from '../EventModalsContainer/ViewEventDetailsModal';
+import { ViewEventDetailsModal } from '../ViewEventDetailsModal/ViewEventDetailsModal';
 
 export const EventContainer = () => {
   const events = useSelector(getCurrentEvents());
