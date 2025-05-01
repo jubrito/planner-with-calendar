@@ -54,27 +54,15 @@ describe('Modal', () => {
   });
   it('should call actions functions when clicking on buttons', async () => {
     const closeButton = screen.getByLabelText(closeLabel);
+    const editButton = screen.getByLabelText(editLabel);
+    const deleteButton = screen.getByLabelText(deleteLabel);
 
     await userEvent.click(closeButton);
+    await userEvent.click(editButton);
+    await userEvent.click(deleteButton);
 
     expect(closeModalMock).toHaveBeenCalledTimes(1);
+    expect(editModalMock).toHaveBeenCalledTimes(1);
+    expect(deleteModalMock).toHaveBeenCalledTimes(1);
   });
-
-  //   it('should call actions functions when clicking on buttons', async () => {
-  //     const closeButton = screen.getByLabelText(closeLabel);
-  //     const editButton = screen.getByLabelText(editLabel);
-  //     const deleteButton = screen.getByLabelText(deleteLabel);
-
-  //     await act(async () => {
-  //       await userEvent.click(closeButton);
-  //       await userEvent.click(editButton);
-  //       await userEvent.click(deleteButton);
-  //     });
-
-  //     await waitFor(() => {
-  //       expect(closeModalMock).toHaveBeenCalledTimes(1);
-  //       expect(editModalMock).toHaveBeenCalledTimes(1);
-  //       expect(deleteModalMock).toHaveBeenCalledTimes(1);
-  //     });
-  //   });
 });
