@@ -5,6 +5,7 @@ import { EventContainer } from './EventsContainer';
 import { initialValue } from '../../../redux/slices/eventSlice';
 import { SelectedEventOnDayView } from '../../../types/event';
 import { Months } from '../../../types/calendar/enums';
+import userEvent from '@testing-library/user-event';
 
 const title = 'title';
 const year = 2025;
@@ -138,7 +139,7 @@ describe('EventContainer', () => {
       expect(event).not.toBeInTheDocument();
     });
   });
-  it('should display modal when clicking on event', () => {
+  it('should display modal when clicking on event', async () => {
     const { container } = renderEventDetailsModal({
       ...initialSelectedEvent,
       event: initialSelectedEvent.event,
@@ -154,7 +155,12 @@ describe('EventContainer', () => {
         mouseMoveY: positionY + 625,
         mouseUpY: positionY + 625,
       });
-      // const event = screen.queryByText(title);
+      const event = screen.getByTitle(
+        'Click on the event to view details and actions',
+      );
+      await userEvent.click(event);
+      const modal = screen.getByRole('dialog');
+      expect(modal).toBeInTheDocument();
     }
   });
   // it('should close the modal when clicking on close button', async () => {
