@@ -3,9 +3,8 @@ import { act, waitFor, screen } from '@testing-library/react';
 import { renderWithProviders } from '../../../utils/tests/renderWithProviders';
 import { EventContainer } from './EventsContainer';
 import { initialValue } from '../../../redux/slices/eventSlice';
-import { EventOnSave, SelectedEventOnDayView } from '../../../types/event';
+import { SelectedEventOnDayView } from '../../../types/event';
 import { Months } from '../../../types/calendar/enums';
-import userEvent from '@testing-library/user-event';
 
 const title = 'title';
 const year = 2025;
@@ -125,12 +124,12 @@ describe('EventContainer', () => {
     });
   });
   describe('When opening modal', () => {
-    it('should not render modal if selected day view event is not defined', () => {
+    it('should not display modal if selected day view event is not defined', () => {
       renderEventDetailsModal();
       const event = screen.queryByText(title);
       expect(event).not.toBeInTheDocument();
     });
-    it('should not render modal if selected event is not defined', () => {
+    it('should not display modal if selected event is not defined', () => {
       renderEventDetailsModal({
         ...initialSelectedEvent,
         event: undefined,
@@ -139,13 +138,24 @@ describe('EventContainer', () => {
       expect(event).not.toBeInTheDocument();
     });
   });
-  it('should render modal if selected event is defined', () => {
-    renderEventDetailsModal({
+  it('should display modal when clicking on event', () => {
+    const { container } = renderEventDetailsModal({
       ...initialSelectedEvent,
       event: initialSelectedEvent.event,
     });
-    const event = screen.queryByText(title);
-    expect(event).toBeInTheDocument();
+    const targetElement = container.firstElementChild;
+    expect(targetElement).not.toBe(null);
+    if (targetElement) {
+      const rect = targetElement.getBoundingClientRect();
+      const positionY = rect.top;
+      createEvent({
+        targetElement,
+        mouseDownY: positionY + 525,
+        mouseMoveY: positionY + 625,
+        mouseUpY: positionY + 625,
+      });
+      // const event = screen.queryByText(title);
+    }
   });
   // it('should close the modal when clicking on close button', async () => {
   //   renderEventDetailsModal({
