@@ -3,6 +3,7 @@ import { screen } from '@testing-library/react';
 import { renderWithProviders } from '../../../../utils/tests/renderWithProviders';
 import { EventDetailsModal } from './EventDetailsModal';
 import { initialValue } from '../../../../redux/slices/eventSlice';
+import { SelectedEventOnDayView } from '../../../../types/event';
 
 describe('EventDetailsModal', () => {
   const eventTitle = 'title';
@@ -29,6 +30,20 @@ describe('EventDetailsModal', () => {
   //   const toggleDetailsModalMock = jest.fn();
   const closeModalMock = jest.fn();
 
+  const selectedDayViewEvent: SelectedEventOnDayView = {
+    event: {
+      dayViewPosition: {
+        endY: 0,
+        startY: 0,
+      },
+      endDate: new Date(),
+      startDate: new Date(),
+      id: 'id',
+      title: eventTitle,
+    },
+    top: 0,
+  };
+
   beforeEach(() => {
     renderWithProviders(<EventDetailsModal closeModal={closeModalMock} />, {
       preloadedState: {
@@ -36,19 +51,7 @@ describe('EventDetailsModal', () => {
           ...initialValue,
           currentState: {
             ...initialValue.currentState,
-            selectedDayViewEvent: {
-              event: {
-                dayViewPosition: {
-                  endY: 0,
-                  startY: 0,
-                },
-                endDate: new Date(),
-                startDate: new Date(),
-                id: 'id',
-                title: eventTitle,
-              },
-              top: 0,
-            },
+            selectedDayViewEvent,
           },
         },
       },
