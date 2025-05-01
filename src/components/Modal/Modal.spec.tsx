@@ -38,4 +38,9 @@ describe('Modal', () => {
   it('should render modal title', () => {
     expect(screen.getByText(eventTitle)).toBeInTheDocument();
   });
+  it('should render actions labels as aria labels', () => {
+    expect(screen.getByLabelText(closeLabel)).toBeInTheDocument();
+    expect(screen.getByLabelText(editLabel)).toBeInTheDocument();
+    expect(screen.getByLabelText(deleteLabel)).toBeInTheDocument();
+  });
 });
