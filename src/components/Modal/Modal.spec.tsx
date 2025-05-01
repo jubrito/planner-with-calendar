@@ -14,9 +14,9 @@ describe('Modal', () => {
   const editLabel = 'Edit';
   const deleteLabel = 'Delete';
   const content = 'Content';
-
+  let rerenderModal: (ui: React.ReactNode) => void;
   beforeEach(() => {
-    renderWithProviders(
+    const { rerender } = renderWithProviders(
       <Modal
         content={<>{content}</>}
         style={eventStyle}
@@ -35,6 +35,7 @@ describe('Modal', () => {
         }}
       />,
     );
+    rerenderModal = rerender;
   });
   it('should render modal title', () => {
     expect(screen.getByText(eventTitle)).toBeInTheDocument();
@@ -46,6 +47,31 @@ describe('Modal', () => {
     expect(screen.getByLabelText(closeLabel)).toBeInTheDocument();
     expect(screen.getByLabelText(editLabel)).toBeInTheDocument();
     expect(screen.getByLabelText(deleteLabel)).toBeInTheDocument();
+  });
+  it('should render default aria-label if no label is provided', () => {
+    rerenderModal(
+      <Modal
+        content={<></>}
+        style={{}}
+        title={''}
+        closeModal={{
+          handleClose: closeModalMock,
+        }}
+        editModal={{
+          handleEdit: editModalMock,
+        }}
+        deleteModal={{
+          handleDelete: deleteModalMock,
+        }}
+      />,
+    );
+    const closeDefaultLabel = 'Click to close modal';
+    const editDefaultLabel = 'Click to edit';
+    const deleteDefaultLabel = 'Click to delete';
+
+    expect(screen.getByLabelText(closeDefaultLabel)).toBeInTheDocument();
+    expect(screen.getByLabelText(editDefaultLabel)).toBeInTheDocument();
+    expect(screen.getByLabelText(deleteDefaultLabel)).toBeInTheDocument();
   });
   it('should render actions as buttons', () => {
     const closeButton = screen.getByLabelText(closeLabel);
