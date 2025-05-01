@@ -43,4 +43,12 @@ describe('Modal', () => {
     expect(screen.getByLabelText(editLabel)).toBeInTheDocument();
     expect(screen.getByLabelText(deleteLabel)).toBeInTheDocument();
   });
+  it('should render actions as buttons', () => {
+    const closeButton = screen.getByLabelText(closeLabel);
+    const editButton = screen.getByLabelText(editLabel);
+    const deleteButton = screen.getByLabelText(deleteLabel);
+    expect(closeButton).toHaveRole('button');
+    expect(editButton).toHaveRole('button');
+    expect(deleteButton).toHaveRole('button');
+  });
 });
