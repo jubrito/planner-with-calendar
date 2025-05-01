@@ -1,6 +1,5 @@
 # Next steps (v1):
 
-- delete modal details component
 - rename selected event to selected event
 
 - close modal with escape
