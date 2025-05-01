@@ -33,7 +33,7 @@ export const Modal = ({
   return (
     <div
       className={styles.modal}
-      id="event-details-modal"
+      id="modal"
       onMouseDown={(e) => e.stopPropagation()}
       style={style}
     >
