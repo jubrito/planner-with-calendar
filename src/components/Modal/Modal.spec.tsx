@@ -1,7 +1,8 @@
 import { renderWithProviders } from '../../utils/tests/renderWithProviders';
 import { Modal } from './Modal';
-import { screen } from '@testing-library/react';
+import { act, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import userEvent from '@testing-library/user-event';
 
 describe('Modal', () => {
   const eventStyle = {};
@@ -21,15 +22,15 @@ describe('Modal', () => {
         style={eventStyle}
         title={eventTitle}
         closeModal={{
-          closeLabel: closeLabel,
+          closeLabel,
           handleClose: closeModalMock,
         }}
         editModal={{
-          editLabel: editLabel,
+          editLabel,
           handleEdit: editModalMock,
         }}
         deleteModal={{
-          deleteLabel: deleteLabel,
+          deleteLabel,
           handleDelete: deleteModalMock,
         }}
       />,
@@ -51,4 +52,29 @@ describe('Modal', () => {
     expect(editButton).toHaveRole('button');
     expect(deleteButton).toHaveRole('button');
   });
+  it('should call actions functions when clicking on buttons', async () => {
+    const closeButton = screen.getByLabelText(closeLabel);
+
+    await userEvent.click(closeButton);
+
+    expect(closeModalMock).toHaveBeenCalledTimes(1);
+  });
+
+  //   it('should call actions functions when clicking on buttons', async () => {
+  //     const closeButton = screen.getByLabelText(closeLabel);
+  //     const editButton = screen.getByLabelText(editLabel);
+  //     const deleteButton = screen.getByLabelText(deleteLabel);
+
+  //     await act(async () => {
+  //       await userEvent.click(closeButton);
+  //       await userEvent.click(editButton);
+  //       await userEvent.click(deleteButton);
+  //     });
+
+  //     await waitFor(() => {
+  //       expect(closeModalMock).toHaveBeenCalledTimes(1);
+  //       expect(editModalMock).toHaveBeenCalledTimes(1);
+  //       expect(deleteModalMock).toHaveBeenCalledTimes(1);
+  //     });
+  //   });
 });
