@@ -2,7 +2,8 @@ import '@testing-library/jest-dom';
 import { screen } from '@testing-library/react';
 import { renderWithProviders } from '../../../../utils/tests/renderWithProviders';
 import { EventDetailsModal } from './EventDetailsModal';
-import { initialValue } from '../../../../redux/slices/eventSlice';
+import { initialValue as initialEventValue } from '../../../../redux/slices/eventSlice';
+import { initialValue as initialLocaleValue } from '../../../../redux/slices/localeSlice';
 import { EventOnSave, SelectedEventOnDayView } from '../../../../types/event';
 import { Months } from '../../../../types/calendar/enums';
 import { get2DigitsValue } from '../../../../utils/calendar/utils';
@@ -32,7 +33,17 @@ describe('EventDetailsModal', () => {
   //   const toggleDetailsModalMock = jest.fn();
   const closeModalMock = jest.fn();
 
-  const renderEventDetailsModal = (event?: EventOnSave, top?: number) => {
+  type RenderEventDetailsModalProps = {
+    renderWith24hTimeSystem?: boolean;
+    event?: EventOnSave;
+    top?: number;
+  };
+
+  const renderEventDetailsModal = ({
+    event,
+    top,
+    renderWith24hTimeSystem = false,
+  }: RenderEventDetailsModalProps) => {
     const selectedDayViewEvent = {
       event: event ?? initialSelectedEvent.event,
       top: top ?? initialSelectedEvent.top,
@@ -42,10 +53,19 @@ describe('EventDetailsModal', () => {
       {
         preloadedState: {
           eventSlice: {
-            ...initialValue,
+            ...initialEventValue,
             currentState: {
-              ...initialValue.currentState,
+              ...initialEventValue.currentState,
               selectedDayViewEvent,
+            },
+          },
+          localeSlice: {
+            ...initialLocaleValue,
+            currentState: {
+              ...initialLocaleValue.currentState,
+              locale: {
+                lang: renderWith24hTimeSystem ? 'pt-BR' : 'en-US',
+              },
             },
           },
         },
@@ -68,14 +88,14 @@ describe('EventDetailsModal', () => {
   };
 
   it('should render event details modal title', () => {
-    renderEventDetailsModal();
+    renderEventDetailsModal({});
     expect(screen.getByText(eventTitle)).toBeInTheDocument();
   });
 
   describe('When is 12-hour time system', () => {
     describe('When is same day event', () => {
       it('should render modal with same day event within same period', () => {
-        renderEventDetailsModal();
+        renderEventDetailsModal({});
         const date = `${weekDay}, ${startMonthName} ${day}`;
         const separator = '\u2022';
         const startTime = `${get2DigitsValue(startDate.getHours())}:${get2DigitsValue(startDate.getMinutes())}`;
@@ -106,7 +126,7 @@ describe('EventDetailsModal', () => {
           startDate,
           endDate: updatedEndDate,
         };
-        renderEventDetailsModal(updatedEvent);
+        renderEventDetailsModal({ event: updatedEvent });
         const date = `${weekDay}, ${startMonthName} ${day}`;
         const separator = '\u2022';
         const startTime = `${get2DigitsValue(startDate.getHours())}:${get2DigitsValue(startDate.getMinutes())}`;
@@ -139,7 +159,7 @@ describe('EventDetailsModal', () => {
           startDate,
           endDate: updatedEndDate,
         };
-        renderEventDetailsModal(updatedEvent);
+        renderEventDetailsModal({ event: updatedEvent });
         const separator = '–';
         const startTime = `${get2DigitsValue(startDate.getHours())}:${get2DigitsValue(startDate.getMinutes())}`;
         const endTime = `${get2DigitsValue(updatedEndDate.getHours())}:${get2DigitsValue(updatedEndDate.getMinutes())}`;
@@ -172,7 +192,7 @@ describe('EventDetailsModal', () => {
           startDate,
           endDate: updatedEndDate,
         };
-        renderEventDetailsModal(updatedEvent);
+        renderEventDetailsModal({ event: updatedEvent });
         const separator = '–';
         const startTime = `${get2DigitsValue(startDate.getHours())}:${get2DigitsValue(startDate.getMinutes())}`;
         const endTime = `${endHourIn12HourSystem}:${get2DigitsValue(updatedEndDate.getMinutes())}`;
@@ -186,72 +206,72 @@ describe('EventDetailsModal', () => {
       });
     });
   });
-  //   describe.skip('When is 24-hour time system', () => {
-  //     describe('When is same day event', () => {
-  //       it('should render modal with same day event within same period', () => {
-  //         console.log('24 hour -------');
-  //         console.log({ year, month, day });
-  //         endDate = new Date(year, month, day, endHour, endMinutes);
-  //         renderWith24hTimeSystem(startDate, endDate);
-  //         const date = `${weekDayPtBr}, ${startMonthNamePtBr} ${day}`;
-  //         const separator = '\u2022';
-  //         const startTime = `${get2DigitsValue(startDate.getHours())}:${get2DigitsValue(startDate.getMinutes())}`;
-  //         const endTime = `${get2DigitsValue(endDate.getHours())}:${get2DigitsValue(endDate.getMinutes())}`;
-  //         const fullTime = `${date} ${separator} ${startTime} – ${endTime}`;
-  //         const timeElement = screen.getByText(fullTime);
-  //         const title = `Event on ${date} from ${startTime} to ${endTime}`;
-  //         expect(timeElement).toBeInTheDocument();
-  //         expect(timeElement).toHaveProperty('title', title);
-  //       });
-  //       it('should render modal with same day event within different periods', () => {
-  //         endHour = 12;
-  //         endMinutes = 0;
-  //         endDate = new Date(year, month, day, endHour, endMinutes);
-  //         renderWith24hTimeSystem(startDate, endDate);
-  //         const date = `${weekDayPtBr}, ${startMonthNamePtBr} ${day}`;
-  //         const separator = '\u2022';
-  //         const startTime = `${get2DigitsValue(startDate.getHours())}:${get2DigitsValue(startDate.getMinutes())}`;
-  //         const endTime = `${get2DigitsValue(endDate.getHours())}:${get2DigitsValue(endDate.getMinutes())}`;
-  //         const fullTime = `${date} ${separator} ${startTime} – ${endTime}`;
-  //         const timeElement = screen.getByText(fullTime);
-  //         const title = `Event on ${date} from ${startTime} to ${endTime}`;
-  //         expect(timeElement).toBeInTheDocument();
-  //         expect(timeElement).toHaveProperty('title', title);
-  //       });
+  // describe('When is 24-hour time system', () => {
+  //   describe('When is same day event', () => {
+  //     it('should render modal with same day event within same period', () => {
+  //       console.log('24 hour -------');
+  //       console.log({ year, month, day });
+  //       endDate = new Date(year, month, day, endHour, endMinutes);
+  //       renderWith24hTimeSystem(startDate, endDate);
+  //       const date = `${weekDayPtBr}, ${startMonthNamePtBr} ${day}`;
+  //       const separator = '\u2022';
+  //       const startTime = `${get2DigitsValue(startDate.getHours())}:${get2DigitsValue(startDate.getMinutes())}`;
+  //       const endTime = `${get2DigitsValue(endDate.getHours())}:${get2DigitsValue(endDate.getMinutes())}`;
+  //       const fullTime = `${date} ${separator} ${startTime} – ${endTime}`;
+  //       const timeElement = screen.getByText(fullTime);
+  //       const title = `Event on ${date} from ${startTime} to ${endTime}`;
+  //       expect(timeElement).toBeInTheDocument();
+  //       expect(timeElement).toHaveProperty('title', title);
   //     });
-  //     describe('When is multi day event', () => {
-  //       it('should render modal with multi day event within same year', () => {
-  //         endHour = 12;
-  //         endMinutes = 0;
-  //         endDate = new Date(year, endMonth, endDay, endHour, endMinutes);
-  //         renderWith24hTimeSystem(startDate, endDate);
-  //         const separator = '–';
-  //         const startTime = `${get2DigitsValue(startDate.getHours())}:${get2DigitsValue(startDate.getMinutes())}`;
-  //         const endTime = `${get2DigitsValue(endDate.getHours())}:${get2DigitsValue(endDate.getMinutes())}`;
-  //         const startFullDate = `${startMonthNamePtBr} ${day}, ${startTime}`;
-  //         const endFullDate = `${endMonthNamePtBr} ${endDay}, ${endTime}`;
-  //         const fullTime = `${startFullDate} ${separator} ${endFullDate}`;
-  //         const timeElement = screen.getByText(fullTime);
-  //         const title = `Event from ${startFullDate} to ${endFullDate}`;
-  //         expect(timeElement).toBeInTheDocument();
-  //         expect(timeElement).toHaveProperty('title', title);
-  //       });
-  //       it('should render modal with multi day event within different years', () => {
-  //         endHour = 23;
-  //         endMinutes = 59;
-  //         endDate = new Date(endYear, endMonth, endDay, endHour, endMinutes);
-  //         renderWith24hTimeSystem(startDate, endDate);
-  //         const separator = '–';
-  //         const startTime = `${get2DigitsValue(startDate.getHours())}:${get2DigitsValue(startDate.getMinutes())}`;
-  //         const endTime = `${get2DigitsValue(endDate.getHours())}:${get2DigitsValue(endDate.getMinutes())}`;
-  //         const startFullDate = `${startMonthNamePtBr} ${day}, ${year}, ${startTime}`;
-  //         const endFullDate = `${endMonthNamePtBr} ${endDay}, ${endYear}, ${endTime}`;
-  //         const fullTime = `${startFullDate} ${separator} ${endFullDate}`;
-  //         const timeElement = screen.getByText(fullTime);
-  //         const title = `Event from ${startFullDate} to ${endFullDate}`;
-  //         expect(timeElement).toBeInTheDocument();
-  //         expect(timeElement).toHaveProperty('title', title);
-  //       });
-  //     });
+  //     // it('should render modal with same day event within different periods', () => {
+  //     //   endHour = 12;
+  //     //   endMinutes = 0;
+  //     //   endDate = new Date(year, month, day, endHour, endMinutes);
+  //     //   renderWith24hTimeSystem(startDate, endDate);
+  //     //   const date = `${weekDayPtBr}, ${startMonthNamePtBr} ${day}`;
+  //     //   const separator = '\u2022';
+  //     //   const startTime = `${get2DigitsValue(startDate.getHours())}:${get2DigitsValue(startDate.getMinutes())}`;
+  //     //   const endTime = `${get2DigitsValue(endDate.getHours())}:${get2DigitsValue(endDate.getMinutes())}`;
+  //     //   const fullTime = `${date} ${separator} ${startTime} – ${endTime}`;
+  //     //   const timeElement = screen.getByText(fullTime);
+  //     //   const title = `Event on ${date} from ${startTime} to ${endTime}`;
+  //     //   expect(timeElement).toBeInTheDocument();
+  //     //   expect(timeElement).toHaveProperty('title', title);
+  //     // });
   //   });
+  //   // describe('When is multi day event', () => {
+  //   //   it('should render modal with multi day event within same year', () => {
+  //   //     endHour = 12;
+  //   //     endMinutes = 0;
+  //   //     endDate = new Date(year, endMonth, endDay, endHour, endMinutes);
+  //   //     renderWith24hTimeSystem(startDate, endDate);
+  //   //     const separator = '–';
+  //   //     const startTime = `${get2DigitsValue(startDate.getHours())}:${get2DigitsValue(startDate.getMinutes())}`;
+  //   //     const endTime = `${get2DigitsValue(endDate.getHours())}:${get2DigitsValue(endDate.getMinutes())}`;
+  //   //     const startFullDate = `${startMonthNamePtBr} ${day}, ${startTime}`;
+  //   //     const endFullDate = `${endMonthNamePtBr} ${endDay}, ${endTime}`;
+  //   //     const fullTime = `${startFullDate} ${separator} ${endFullDate}`;
+  //   //     const timeElement = screen.getByText(fullTime);
+  //   //     const title = `Event from ${startFullDate} to ${endFullDate}`;
+  //   //     expect(timeElement).toBeInTheDocument();
+  //   //     expect(timeElement).toHaveProperty('title', title);
+  //   //   });
+  //   //   it('should render modal with multi day event within different years', () => {
+  //   //     endHour = 23;
+  //   //     endMinutes = 59;
+  //   //     endDate = new Date(endYear, endMonth, endDay, endHour, endMinutes);
+  //   //     renderWith24hTimeSystem(startDate, endDate);
+  //   //     const separator = '–';
+  //   //     const startTime = `${get2DigitsValue(startDate.getHours())}:${get2DigitsValue(startDate.getMinutes())}`;
+  //   //     const endTime = `${get2DigitsValue(endDate.getHours())}:${get2DigitsValue(endDate.getMinutes())}`;
+  //   //     const startFullDate = `${startMonthNamePtBr} ${day}, ${year}, ${startTime}`;
+  //   //     const endFullDate = `${endMonthNamePtBr} ${endDay}, ${endYear}, ${endTime}`;
+  //   //     const fullTime = `${startFullDate} ${separator} ${endFullDate}`;
+  //   //     const timeElement = screen.getByText(fullTime);
+  //   //     const title = `Event from ${startFullDate} to ${endFullDate}`;
+  //   //     expect(timeElement).toBeInTheDocument();
+  //   //     expect(timeElement).toHaveProperty('title', title);
+  //   //   });
+  //   // });
+  // });
 });
