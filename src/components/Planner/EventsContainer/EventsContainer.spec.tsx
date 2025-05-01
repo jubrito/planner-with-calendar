@@ -3,7 +3,7 @@ import { act, waitFor, screen } from '@testing-library/react';
 import { renderWithProviders } from '../../../utils/tests/renderWithProviders';
 import { EventContainer } from './EventsContainer';
 import { initialValue } from '../../../redux/slices/eventSlice';
-import { EventOnSave, SelectedEventOnDayView } from '../../../types/event';
+import { SelectedEventOnDayView } from '../../../types/event';
 import { Months } from '../../../types/calendar/enums';
 
 const title = 'title';
@@ -24,23 +24,6 @@ const initialSelectedEvent: SelectedEventOnDayView = {
     title,
   },
   top: 0,
-};
-
-const renderEventDetailsModal = (event?: EventOnSave) => {
-  return renderWithProviders(<EventContainer />, {
-    preloadedState: {
-      eventSlice: {
-        ...initialValue,
-        currentState: {
-          ...initialValue.currentState,
-          selectedDayViewEvent: {
-            event: event ?? initialSelectedEvent.event,
-            top: initialSelectedEvent.top,
-          },
-        },
-      },
-    },
-  });
 };
 
 describe('EventContainer', () => {
