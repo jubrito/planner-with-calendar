@@ -47,7 +47,7 @@ export const Modal = ({
           </button>
         )}
         {deleteModal && (
-          <button aria-label={'Delete event'}>
+          <button aria-label={deleteModal.deleteLabel || 'Delete event'}>
             <DeleteIcon />
           </button>
         )}
