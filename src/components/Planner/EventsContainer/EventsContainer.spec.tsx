@@ -5,6 +5,7 @@ import { EventContainer } from './EventsContainer';
 import { initialValue } from '../../../redux/slices/eventSlice';
 import { EventOnSave, SelectedEventOnDayView } from '../../../types/event';
 import { Months } from '../../../types/calendar/enums';
+import userEvent from '@testing-library/user-event';
 
 const title = 'title';
 const year = 2025;
@@ -42,6 +43,42 @@ const renderEventDetailsModal = (
   });
 };
 
+const createEvent = ({
+  targetElement,
+  mouseDownY,
+  mouseMoveY,
+  mouseUpY,
+}: {
+  targetElement: Element;
+  mouseDownY: number;
+  mouseMoveY: number;
+  mouseUpY: number;
+}) => {
+  const rect = targetElement.getBoundingClientRect();
+  const positionY = rect.top;
+  const mouseDownEvent = new MouseEvent('mousedown', {
+    clientY: mouseDownY || positionY,
+    bubbles: true,
+  });
+  const mouseMoveEvent = new MouseEvent('mousemove', {
+    clientY: mouseMoveY,
+    bubbles: true,
+  });
+  const mouseUpEvent = new MouseEvent('mouseup', {
+    clientY: mouseUpY,
+    bubbles: true,
+  });
+  act(() => {
+    targetElement.dispatchEvent(mouseDownEvent);
+  });
+  act(() => {
+    targetElement.dispatchEvent(mouseMoveEvent);
+  });
+  act(() => {
+    targetElement.dispatchEvent(mouseUpEvent);
+  });
+};
+
 describe('EventContainer', () => {
   describe('When creating an event', () => {
     it('should display event details when interacting with the visible portion of the container', async () => {
@@ -51,26 +88,11 @@ describe('EventContainer', () => {
       if (targetElement) {
         const rect = targetElement.getBoundingClientRect();
         const positionY = rect.top;
-        const mouseDownEvent = new MouseEvent('mousedown', {
-          clientY: positionY,
-          bubbles: true,
-        });
-        const mouseMoveEvent = new MouseEvent('mousemove', {
-          clientY: 49,
-          bubbles: true,
-        });
-        const mouseUpEvent = new MouseEvent('mouseup', {
-          clientY: 49,
-          bubbles: true,
-        });
-        act(() => {
-          targetElement.dispatchEvent(mouseDownEvent);
-        });
-        act(() => {
-          targetElement.dispatchEvent(mouseMoveEvent);
-        });
-        act(() => {
-          targetElement.dispatchEvent(mouseUpEvent);
+        createEvent({
+          targetElement,
+          mouseDownY: positionY,
+          mouseMoveY: 49,
+          mouseUpY: 49,
         });
         const eventDefaultTitle = '(No title)';
         const eventTime = '12:00 – 01:00 AM';
@@ -140,4 +162,43 @@ describe('EventContainer', () => {
     const event = screen.queryByText(title);
     expect(event).toBeInTheDocument();
   });
+  // it('should close the modal when clicking on close button', async () => {
+  //   renderEventDetailsModal({
+  //     ...initialSelectedEvent,
+  //     event: initialSelectedEvent.event,
+  //   });
+  //   const event = screen.queryByText(title);
+
+  //   const { container } = renderWithProviders(<EventContainer />);
+  //   const targetElement = container.firstElementChild;
+  //   expect(targetElement).not.toBe(null);
+  //   if (targetElement) {
+  //     const rect = targetElement.getBoundingClientRect();
+  //     const positionY = rect.top;
+  //     const mouseDownEvent = new MouseEvent('mousedown', {
+  //       clientY: positionY,
+  //       bubbles: true,
+  //     });
+  //     // const mouseMoveEvent = new MouseEvent('mousemove', {
+  //     //   clientY: 49,
+  //     //   bubbles: true,
+  //     // });
+  //     const mouseUpEvent = new MouseEvent('mouseup', {
+  //       clientY: 49,
+  //       bubbles: true,
+  //     });
+  //     act(() => {
+  //       targetElement.dispatchEvent(mouseDownEvent);
+  //     });
+  //     // act(() => {
+  //     //   targetElement.dispatchEvent(mouseMoveEvent);
+  //     // });
+  //     act(() => {
+  //       targetElement.dispatchEvent(mouseUpEvent);
+  //     });
+  //     await waitFor(() => {
+  //       expect(screen.getByText(title)).toBeInTheDocument();
+  //     });
+  //   }
+  // });
 });
