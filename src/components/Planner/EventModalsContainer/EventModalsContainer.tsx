@@ -6,7 +6,7 @@ import { getModalContent } from '../../../utils/events/dayView/getModalInfo';
 import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
 
 type EventModalsContainerProps = {
-  selectedEvent: EventOnSave;
+  selectedEvent?: EventOnSave;
   viewEventDetailsStyle: ObjectType;
   closeModal: () => void;
 };
@@ -17,6 +17,7 @@ export const EventModalsContainer = ({
   closeModal,
 }: EventModalsContainerProps) => {
   const locale = useSelector(getLocaleLanguage());
+  if (!selectedEvent) return <></>;
   const { title } = selectedEvent;
 
   const modalContent = () => {
