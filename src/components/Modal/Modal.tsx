@@ -49,7 +49,7 @@ export const Modal = ({
         {deleteModal && (
           <button
             onClick={deleteModal.handleDelete}
-            aria-label={deleteModal.deleteLabel || 'Click to delete item'}
+            aria-label={deleteModal.deleteLabel || 'Click to delete'}
           >
             <DeleteIcon />
           </button>
@@ -57,7 +57,7 @@ export const Modal = ({
         {editModal && (
           <button
             onClick={editModal.handleEdit}
-            aria-label={editModal.editLabel || 'Click to edit item'}
+            aria-label={editModal.editLabel || 'Click to edit'}
           >
             <EditIcon />
           </button>
