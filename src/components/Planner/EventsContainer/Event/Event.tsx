@@ -73,7 +73,7 @@ export const Event = memo(function ({
         style={getEventStyle(eventStart, eventHeight)}
         onClick={() => viewEventDetails(event)}
         onMouseDown={(e) => e.stopPropagation()}
-        title="Click on the event to edit it"
+        title="Click on the event to view details and actions"
       >
         {hasMinimumHeight && (
           <div

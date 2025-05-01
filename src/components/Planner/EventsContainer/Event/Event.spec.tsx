@@ -55,7 +55,7 @@ describe('Event', () => {
   it('should render title explaining event is editable', () => {
     renderDefaultEvent(event);
     expect(
-      screen.getByTitle('Click on the event to edit it'),
+      screen.getByTitle('Click on the event to view details and actions'),
     ).toBeInTheDocument();
   });
   describe('Hours display when using 12-hour clock system', () => {
