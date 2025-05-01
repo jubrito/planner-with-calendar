@@ -1,25 +1,24 @@
 import { useSelector } from 'react-redux';
-import { EventOnSave } from '../../../types/event';
 import { ObjectType } from '../../../utils/constants';
 import { Modal } from '../../Modal/Modal';
 import { getModalContent } from '../../../utils/events/dayView/getModalInfo';
 import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
 import { memo } from 'react';
+import { getCurrentSelectedDayViewEvent } from '../../../redux/slices/eventSlice/selectors';
 
 type EventModalsContainerProps = {
-  selectedEvent?: EventOnSave;
   viewEventDetailsStyle: ObjectType;
   closeModal: () => void;
 };
 
 export const EventModalsContainer = memo(
-  ({
-    selectedEvent,
-    viewEventDetailsStyle,
-    closeModal,
-  }: EventModalsContainerProps) => {
+  ({ viewEventDetailsStyle, closeModal }: EventModalsContainerProps) => {
     const locale = useSelector(getLocaleLanguage());
-    if (!selectedEvent) return <></>;
+    const selectedDayViewEvent = useSelector(getCurrentSelectedDayViewEvent());
+
+    if (!selectedDayViewEvent || !selectedDayViewEvent.event) return <></>;
+
+    const selectedEvent = selectedDayViewEvent.event;
     const { title } = selectedEvent;
 
     const modalContent = () => {

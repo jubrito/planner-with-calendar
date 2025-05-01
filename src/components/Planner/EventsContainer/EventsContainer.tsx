@@ -118,10 +118,6 @@ export const EventContainer = () => {
     return selectedEvent ? { top: selectedEvent.top } : {};
   }, [selectedEvent]);
 
-  const getSelectedEventOnSave = useCallback(() => {
-    return selectedEvent?.event;
-  }, [selectedEvent]);
-
   return (
     <div
       ref={containerRef}
@@ -133,7 +129,6 @@ export const EventContainer = () => {
     >
       {selectedEvent && selectedEvent.event && (
         <EventModalsContainer
-          selectedEvent={getSelectedEventOnSave()}
           viewEventDetailsStyle={getViewEventDetailsStyle()}
           closeModal={closeModal}
         />
