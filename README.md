@@ -15,7 +15,6 @@ change focus
   - memoize clickable hours of the day functions?
   - memo rendering all events
 - virtualization of events? normalizing?
-- test if modal is opening
 
   - should not open if event does not exist
 
