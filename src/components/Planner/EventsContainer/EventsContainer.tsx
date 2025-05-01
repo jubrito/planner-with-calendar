@@ -32,7 +32,7 @@ export const EventContainer = () => {
   const year = useSelector(getSelectedDayViewYear());
   const month = useSelector(getSelectedDayViewMonth(locale));
   const day = useSelector(getSelectedDayViewDay());
-  const selectedEvent = useSelector(getCurrentSelectedDayViewEvent());
+  const selectedDayViewEvent = useSelector(getCurrentSelectedDayViewEvent());
 
   const {
     draftEvent,
@@ -123,7 +123,7 @@ export const EventContainer = () => {
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseLeave}
     >
-      {selectedEvent && selectedEvent.event && (
+      {selectedDayViewEvent && selectedDayViewEvent.event && (
         <EventModalsContainer closeModal={closeModal} />
       )}
       {draftEvent && isValidDraftEvent(draftEvent) && (
