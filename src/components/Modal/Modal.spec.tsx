@@ -1,6 +1,6 @@
 import { renderWithProviders } from '../../utils/tests/renderWithProviders';
 import { Modal } from './Modal';
-import { act, screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 
@@ -13,12 +13,12 @@ describe('Modal', () => {
   const closeLabel = 'Close';
   const editLabel = 'Edit';
   const deleteLabel = 'Delete';
-  const content = <>content</>;
+  const content = 'Content';
 
   beforeEach(() => {
     renderWithProviders(
       <Modal
-        content={content}
+        content={<>{content}</>}
         style={eventStyle}
         title={eventTitle}
         closeModal={{
@@ -38,6 +38,9 @@ describe('Modal', () => {
   });
   it('should render modal title', () => {
     expect(screen.getByText(eventTitle)).toBeInTheDocument();
+  });
+  it('should render modal content', () => {
+    expect(screen.getByText(content)).toBeInTheDocument();
   });
   it('should render actions labels as aria labels', () => {
     expect(screen.getByLabelText(closeLabel)).toBeInTheDocument();
