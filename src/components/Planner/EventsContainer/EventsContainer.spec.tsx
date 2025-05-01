@@ -132,4 +132,12 @@ describe('EventContainer', () => {
       expect(event).not.toBeInTheDocument();
     });
   });
+  it('should render modal if selected event is defined', () => {
+    renderEventDetailsModal({
+      ...initialSelectedEvent,
+      event: initialSelectedEvent.event,
+    });
+    const event = screen.queryByText(title);
+    expect(event).toBeInTheDocument();
+  });
 });
