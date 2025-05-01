@@ -6,6 +6,11 @@ import { initialValue } from '../../../redux/slices/eventSlice';
 
 describe('EventModalsContainer', () => {
   const eventTitle = 'eventTitle';
+  it('should not render modal if selected event is not defined', () => {
+    renderWithProviders(<ViewEventDetailsModal closeModal={jest.fn()} />);
+    const event = screen.queryByText(eventTitle);
+    expect(event).not.toBeInTheDocument();
+  });
   it('should render modal if selected event is defined', () => {
     renderWithProviders(<ViewEventDetailsModal closeModal={jest.fn()} />, {
       preloadedState: {
