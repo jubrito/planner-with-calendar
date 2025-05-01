@@ -163,43 +163,34 @@ describe('EventContainer', () => {
       expect(modal).toBeInTheDocument();
     }
   });
-  // it('should close the modal when clicking on close button', async () => {
-  //   renderEventDetailsModal({
-  //     ...initialSelectedEvent,
-  //     event: initialSelectedEvent.event,
-  //   });
-  //   const event = screen.queryByText(title);
+  it('should close the modal when clicking on close button', async () => {
+    const { container } = renderEventDetailsModal({
+      ...initialSelectedEvent,
+      event: initialSelectedEvent.event,
+    });
+    const targetElement = container.firstElementChild;
+    expect(targetElement).not.toBe(null);
+    if (targetElement) {
+      const rect = targetElement.getBoundingClientRect();
+      const positionY = rect.top;
+      createEvent({
+        targetElement,
+        mouseDownY: positionY + 525,
+        mouseMoveY: positionY + 625,
+        mouseUpY: positionY + 625,
+      });
+      const event = screen.getByTitle(
+        'Click on the event to view details and actions',
+      );
 
-  //   const { container } = renderWithProviders(<EventContainer />);
-  //   const targetElement = container.firstElementChild;
-  //   expect(targetElement).not.toBe(null);
-  //   if (targetElement) {
-  //     const rect = targetElement.getBoundingClientRect();
-  //     const positionY = rect.top;
-  //     const mouseDownEvent = new MouseEvent('mousedown', {
-  //       clientY: positionY,
-  //       bubbles: true,
-  //     });
-  //     // const mouseMoveEvent = new MouseEvent('mousemove', {
-  //     //   clientY: 49,
-  //     //   bubbles: true,
-  //     // });
-  //     const mouseUpEvent = new MouseEvent('mouseup', {
-  //       clientY: 49,
-  //       bubbles: true,
-  //     });
-  //     act(() => {
-  //       targetElement.dispatchEvent(mouseDownEvent);
-  //     });
-  //     // act(() => {
-  //     //   targetElement.dispatchEvent(mouseMoveEvent);
-  //     // });
-  //     act(() => {
-  //       targetElement.dispatchEvent(mouseUpEvent);
-  //     });
-  //     await waitFor(() => {
-  //       expect(screen.getByText(title)).toBeInTheDocument();
-  //     });
-  //   }
-  // });
+      await userEvent.click(event);
+
+      const modal = screen.getByRole('dialog');
+      const closeButton = screen.getByLabelText('Click to close modal');
+
+      await userEvent.click(closeButton);
+
+      expect(modal).not.toBeInTheDocument();
+    }
+  });
 });
