@@ -28,25 +28,30 @@ describe('EventDetailsModal', () => {
   const startDate = new Date(year, month, day, startHour, startMinutes);
   const endDate = new Date(year, month, day, endHour, endMinutes);
   const startPeriod = 'AM';
-  //   const endPeriod = 'PM';
+  const endPeriod = 'PM';
   //   const toggleDetailsModalMock = jest.fn();
   const closeModalMock = jest.fn();
 
-  const renderEventDetailsModal = (event?: EventOnSave, top?: number) =>
-    renderWithProviders(<EventDetailsModal closeModal={closeModalMock} />, {
-      preloadedState: {
-        eventSlice: {
-          ...initialValue,
-          currentState: {
-            ...initialValue.currentState,
-            selectedDayViewEvent: initialSelectedEvent || {
-              event,
-              top,
+  const renderEventDetailsModal = (event?: EventOnSave, top?: number) => {
+    const selectedDayViewEvent = {
+      event: event ?? initialSelectedEvent.event,
+      top: top ?? initialSelectedEvent.top,
+    };
+    return renderWithProviders(
+      <EventDetailsModal closeModal={closeModalMock} />,
+      {
+        preloadedState: {
+          eventSlice: {
+            ...initialValue,
+            currentState: {
+              ...initialValue.currentState,
+              selectedDayViewEvent,
             },
           },
         },
       },
-    });
+    );
+  };
 
   const initialSelectedEvent: SelectedEventOnDayView = {
     event: {
@@ -81,28 +86,37 @@ describe('EventDetailsModal', () => {
         expect(timeElement).toBeInTheDocument();
         expect(timeElement).toHaveProperty('title', title);
       });
-      // it('should render modal with same day event within different periods', () => {
-      //   endHour = 12;
-      //   endMinutes = 0;
-      //   endDate = new Date(year, month, day, endHour, endMinutes);
-      //   renderWithProviders(
-      //     <EventDetailsModal
-      //       startDate={startDate}
-      //       endDate={endDate}
-      //       title={eventTitle}
-      //       toggleDetailsModal={toggleDetailsModalMock}
-      //     />,
-      //   );
-      //   const date = `${weekDay}, ${startMonthName} ${day}`;
-      //   const separator = '\u2022';
-      //   const startTime = `${get2DigitsValue(startDate.getHours())}:${get2DigitsValue(startDate.getMinutes())}`;
-      //   const endTime = `${get2DigitsValue(endDate.getHours())}:${get2DigitsValue(endDate.getMinutes())}`;
-      //   const fullTime = `${date} ${separator} ${startTime} ${startPeriod} – ${endTime} ${endPeriod}`;
-      //   const timeElement = screen.getByText(fullTime);
-      //   const title = `Event on ${date} from ${startTime} ${startPeriod} to ${endTime} ${endPeriod}`;
-      //   expect(timeElement).toBeInTheDocument();
-      //   expect(timeElement).toHaveProperty('title', title);
-      // });
+      it('should render modal with same day event within different periods', () => {
+        const updatedEndHour = 12;
+        const updatedEndMinutes = 0;
+        const updatedEndDate = new Date(
+          year,
+          month,
+          day,
+          updatedEndHour,
+          updatedEndMinutes,
+        );
+        const updatedEvent = {
+          dayViewPosition: {
+            endY: 0,
+            startY: 0,
+          },
+          id: 'id',
+          title: eventTitle,
+          startDate,
+          endDate: updatedEndDate,
+        };
+        renderEventDetailsModal(updatedEvent);
+        const date = `${weekDay}, ${startMonthName} ${day}`;
+        const separator = '\u2022';
+        const startTime = `${get2DigitsValue(startDate.getHours())}:${get2DigitsValue(startDate.getMinutes())}`;
+        const endTime = `${get2DigitsValue(updatedEndDate.getHours())}:${get2DigitsValue(updatedEndDate.getMinutes())}`;
+        const fullTime = `${date} ${separator} ${startTime} ${startPeriod} – ${endTime} ${endPeriod}`;
+        const timeElement = screen.getByText(fullTime);
+        const title = `Event on ${date} from ${startTime} ${startPeriod} to ${endTime} ${endPeriod}`;
+        expect(timeElement).toBeInTheDocument();
+        expect(timeElement).toHaveProperty('title', title);
+      });
     });
     // describe.skip('When is multi day event', () => {
     //   it('should render modal with multi day event within same year', () => {
