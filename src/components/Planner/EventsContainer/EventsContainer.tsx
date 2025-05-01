@@ -1,4 +1,4 @@
-import { useCallback, useRef, useEffect, useMemo } from 'react';
+import { useCallback, useRef, useEffect } from 'react';
 import styles from './events-container.module.scss';
 import { throttle } from 'throttle-debounce';
 import { useSelector } from 'react-redux';
@@ -114,7 +114,7 @@ export const EventContainer = () => {
     clearDraftEvent();
   };
 
-  const viewEventDetailsStyleMemoized = useMemo(() => {
+  const getViewEventDetailsStyle = useCallback(() => {
     return selectedEvent ? { top: selectedEvent.top } : {};
   }, [selectedEvent]);
 
@@ -130,7 +130,7 @@ export const EventContainer = () => {
       {selectedEvent && selectedEvent.event && (
         <EventModalsContainer
           selectedEvent={selectedEvent.event}
-          viewEventDetailsStyle={viewEventDetailsStyleMemoized}
+          viewEventDetailsStyle={getViewEventDetailsStyle()}
           closeModal={closeModal}
         />
       )}
