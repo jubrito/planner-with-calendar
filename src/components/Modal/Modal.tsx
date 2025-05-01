@@ -48,6 +48,7 @@ export const Modal = ({
         )}
         {deleteModal && (
           <button
+            onClick={deleteModal.handleDelete}
             aria-label={deleteModal.deleteLabel || 'Click to delete item'}
           >
             <DeleteIcon />
