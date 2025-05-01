@@ -4,6 +4,7 @@ import { ObjectType } from '../../../utils/constants';
 import { Modal } from '../../Modal/Modal';
 import { getModalContent } from '../../../utils/events/dayView/getModalInfo';
 import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
+import { memo } from 'react';
 
 type EventModalsContainerProps = {
   selectedEvent?: EventOnSave;
@@ -11,54 +12,58 @@ type EventModalsContainerProps = {
   closeModal: () => void;
 };
 
-export const EventModalsContainer = ({
-  selectedEvent,
-  viewEventDetailsStyle,
-  closeModal,
-}: EventModalsContainerProps) => {
-  const locale = useSelector(getLocaleLanguage());
-  if (!selectedEvent) return <></>;
-  const { title } = selectedEvent;
+export const EventModalsContainer = memo(
+  ({
+    selectedEvent,
+    viewEventDetailsStyle,
+    closeModal,
+  }: EventModalsContainerProps) => {
+    const locale = useSelector(getLocaleLanguage());
+    if (!selectedEvent) return <></>;
+    const { title } = selectedEvent;
 
-  const modalContent = () => {
-    const { sameDay, multiDay, isSameDayEvent } = getModalContent(
-      selectedEvent.startDate,
-      selectedEvent.endDate,
-      locale,
-    );
-    return {
-      sameDayContent: sameDay.content,
-      sameDayTitle: sameDay.title,
-      multiDayContent: multiDay.content,
-      multiDayTitle: multiDay.title,
-      isSameDayEvent,
+    const modalContent = () => {
+      const { sameDay, multiDay, isSameDayEvent } = getModalContent(
+        selectedEvent.startDate,
+        selectedEvent.endDate,
+        locale,
+      );
+      return {
+        sameDayContent: sameDay.content,
+        sameDayTitle: sameDay.title,
+        multiDayContent: multiDay.content,
+        multiDayTitle: multiDay.title,
+        isSameDayEvent,
+      };
     };
-  };
 
-  const {
-    isSameDayEvent,
-    multiDayContent,
-    multiDayTitle,
-    sameDayContent,
-    sameDayTitle,
-  } = modalContent();
+    const {
+      isSameDayEvent,
+      multiDayContent,
+      multiDayTitle,
+      sameDayContent,
+      sameDayTitle,
+    } = modalContent();
 
-  return (
-    <>
-      <Modal
-        title={title}
-        content={
-          <>
-            {isSameDayEvent && <p title={sameDayTitle}>{sameDayContent}</p>}
-            {!isSameDayEvent && <p title={multiDayTitle}>{multiDayContent}</p>}
-          </>
-        }
-        style={viewEventDetailsStyle}
-        closeModal={{
-          closeLabel: 'Close',
-          handleClose: closeModal,
-        }}
-      />
-    </>
-  );
-};
+    return (
+      <>
+        <Modal
+          title={title}
+          content={
+            <>
+              {isSameDayEvent && <p title={sameDayTitle}>{sameDayContent}</p>}
+              {!isSameDayEvent && (
+                <p title={multiDayTitle}>{multiDayContent}</p>
+              )}
+            </>
+          }
+          style={viewEventDetailsStyle}
+          closeModal={{
+            closeLabel: 'Close',
+            handleClose: closeModal,
+          }}
+        />
+      </>
+    );
+  },
+);
