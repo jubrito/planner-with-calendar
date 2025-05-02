@@ -1,6 +1,5 @@
 # Next steps (v1):
 
-- store non serializable date on redux
 - rename event on save to event on view or something
 
 change focus
