@@ -2,17 +2,23 @@ import { useSelector } from 'react-redux';
 import { Modal } from '../../../Modal/Modal';
 import { getModalContent } from '../../../../utils/events/dayView/getModalInfo';
 import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
-import { memo } from 'react';
+import { memo, RefObject, useEffect } from 'react';
 import { getCurrentSelectedDayViewEvent } from '../../../../redux/slices/eventSlice/selectors';
 
 type EventDetailsModalProps = {
   closeModal: () => void;
+  viewEventModalRef: RefObject<HTMLDivElement | null>;
 };
 
 export const EventDetailsModal = memo(
-  ({ closeModal }: EventDetailsModalProps) => {
+  ({ closeModal, viewEventModalRef }: EventDetailsModalProps) => {
     const locale = useSelector(getLocaleLanguage());
     const selectedDayViewEvent = useSelector(getCurrentSelectedDayViewEvent());
+
+    useEffect(() => {
+      const modalRef = viewEventModalRef.current;
+      if (modalRef !== null) modalRef.focus();
+    }, [viewEventModalRef]);
 
     if (!selectedDayViewEvent || !selectedDayViewEvent.event) return <></>;
 
@@ -53,6 +59,7 @@ export const EventDetailsModal = memo(
         }
         style={{ top }}
         closeModal={{ handleClose: closeModal }}
+        ref={viewEventModalRef}
       />
     );
   },

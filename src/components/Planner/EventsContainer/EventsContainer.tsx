@@ -1,4 +1,4 @@
-import { useCallback, useRef, useEffect } from 'react';
+import { useCallback, useRef, useEffect, RefObject } from 'react';
 import styles from './events-container.module.scss';
 import { throttle } from 'throttle-debounce';
 import { useSelector } from 'react-redux';
@@ -92,8 +92,11 @@ export const EventContainer = () => {
     clearDraftEvent();
   }, [draftEvent, dispatch, clearDraftEvent, createEvent]);
 
+  const selectedEventRef: RefObject<HTMLDivElement | null> = useRef(null);
+  const viewEventModalRef: RefObject<HTMLDivElement | null> = useRef(null);
+
   const viewEventDetails = useCallback(
-    (event: EventStored) => {
+    (event: EventStored, eventRef: RefObject<HTMLDivElement>) => {
       console.log('Event clicked:', event);
       const moveEventInPixels = 20;
       dispatch(
@@ -102,6 +105,8 @@ export const EventContainer = () => {
           event,
         }),
       );
+      selectedEventRef.current = eventRef.current;
+      viewEventModalRef.current?.focus();
     },
     [dispatch],
   );
@@ -111,6 +116,8 @@ export const EventContainer = () => {
   };
 
   const closeModal = useCallback(() => {
+    const eventRef = selectedEventRef.current;
+    if (eventRef != null) eventRef.focus();
     dispatch(clearSelectedDayViewEvent());
   }, [dispatch]);
 
@@ -124,7 +131,10 @@ export const EventContainer = () => {
       onMouseLeave={handleMouseLeave}
     >
       {selectedDayViewEvent && selectedDayViewEvent.event && (
-        <EventModalsContainer closeModal={closeModal} />
+        <EventModalsContainer
+          closeModal={closeModal}
+          viewEventModalRef={viewEventModalRef}
+        />
       )}
       {draftEvent && isValidDraftEvent(draftEvent) && (
         <Event

@@ -3,7 +3,7 @@ import styles from './modal.module.scss';
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { JSX } from 'react';
+import { JSX, RefObject } from 'react';
 
 type ModalProps = {
   title: string;
@@ -21,6 +21,7 @@ type ModalProps = {
     editLabel?: string;
   };
   style: ObjectType;
+  ref: RefObject<HTMLDivElement | null>;
 };
 export const Modal = ({
   content,
@@ -29,6 +30,7 @@ export const Modal = ({
   closeModal,
   editModal,
   deleteModal,
+  ref,
 }: ModalProps) => {
   return (
     <div
@@ -37,6 +39,8 @@ export const Modal = ({
       role="dialog"
       onMouseDown={(e) => e.stopPropagation()}
       style={style}
+      ref={ref}
+      tabIndex={1}
     >
       <div className={styles.actions}>
         {closeModal && (

@@ -8,7 +8,7 @@ import styles from './event.module.scss';
 import { EventStored } from '../../../../types/event';
 import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
 import { IntlDateTimeFormat2Digit } from '../../../../utils/constants';
-import { memo, useMemo } from 'react';
+import { memo, useMemo, useRef } from 'react';
 
 type EventProps = {
   id: EventStored['id'];
@@ -17,7 +17,10 @@ type EventProps = {
   endY: EventStored['dayViewPosition']['endY'];
   startDate: EventStored['startDate'];
   endDate: EventStored['endDate'];
-  viewEventDetails: (event: EventStored) => void;
+  viewEventDetails: (
+    event: EventStored,
+    eventRef: React.RefObject<HTMLDivElement | null>,
+  ) => void;
 };
 
 export const Event = memo(function ({
@@ -35,6 +38,8 @@ export const Event = memo(function ({
   const isAtLeast60MinEvent = eventHeight >= sizeOfEach15MinBlock * 4;
   const hasMinimumHeight = eventHeight >= sizeOfEach15MinBlock;
   const localeString = useSelector(getLocaleLanguage());
+  const eventRef = useRef(null);
+
   const event: EventStored = {
     id,
     title,
@@ -81,9 +86,11 @@ export const Event = memo(function ({
         id={id}
         className={styles.plannerEvent}
         style={getEventStyle(eventStart, eventHeight)}
-        onClick={() => viewEventDetails(event)}
+        onClick={() => viewEventDetails(event, eventRef)}
         onMouseDown={(e) => e.stopPropagation()}
         title="Click on the event to view details and actions"
+        tabIndex={1}
+        ref={eventRef}
       >
         {hasMinimumHeight && (
           <div
