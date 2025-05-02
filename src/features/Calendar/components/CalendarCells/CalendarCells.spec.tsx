@@ -1,12 +1,15 @@
 import { screen, waitFor } from '@testing-library/dom';
 import CalendarCells from './CalendarCells';
 import '@testing-library/jest-dom';
-import { Months } from '../../../types/calendar/enums';
+import { Months } from '../../../../types/calendar/enums';
 import { ReactElement } from 'react';
-import { getFullDateTitle, getMonthName } from '../../../utils/calendar/utils';
-import { initialValue } from '../../../redux/slices/dateSlice';
-import { renderWithProviders } from '../../../utils/tests/renderWithProviders';
-import { IntlDateTimeFormatShort } from '../../../utils/constants';
+import {
+  getFullDateTitle,
+  getMonthName,
+} from '../../../../utils/calendar/utils';
+import { initialValue } from '../../../../redux/slices/dateSlice';
+import { renderWithProviders } from '../../../../utils/tests/renderWithProviders';
+import { IntlDateTimeFormatShort } from '../../../../utils/constants';
 import userEvent from '@testing-library/user-event';
 
 describe('CalendarCells', () => {

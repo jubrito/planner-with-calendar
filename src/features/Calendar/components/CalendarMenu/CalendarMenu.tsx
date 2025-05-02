@@ -1,16 +1,20 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { updateGlobalISODate } from '../../../redux/slices/dateSlice';
+import { updateGlobalISODate } from '../../../../redux/slices/dateSlice';
 import { UpdateCalendarButton } from '../UpdateCalendarButton/UpdateCalendarButton';
-import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
+import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
 import {
   getSelectedGlobalDay,
   getSelectedGlobalMonth,
   getSelectedGlobalMonthName,
   getSelectedGlobalYear,
-} from '../../../redux/slices/dateSlice/selectors';
+} from '../../../../redux/slices/dateSlice/selectors';
 import styles from './_calendar-menu.module.scss';
-import { IntlDateTimeFormatLong } from '../../../utils/constants';
-import { getDay, getMonthIndex, getYear } from '../../../utils/calendar/utils';
+import { IntlDateTimeFormatLong } from '../../../../utils/constants';
+import {
+  getDay,
+  getMonthIndex,
+  getYear,
+} from '../../../../utils/calendar/utils';
 
 export const CalendarMenu = () => {
   const dispatch = useDispatch();

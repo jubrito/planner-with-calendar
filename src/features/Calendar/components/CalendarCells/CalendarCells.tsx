@@ -1,27 +1,27 @@
-import { numberOfDaysOfTheWeek } from '../../../utils/calendar/constants';
+import { numberOfDaysOfTheWeek } from '../../../../utils/calendar/constants';
 import styles from './_calendar-cells.module.scss';
 import {
   getLastDayOfPreviousMonth,
   getMonthIndex,
   getYear,
-} from '../../../utils/calendar/utils';
-import { CalendarCellInfo, DateConfig } from '../../../types/calendar/types';
+} from '../../../../utils/calendar/utils';
+import { CalendarCellInfo, DateConfig } from '../../../../types/calendar/types';
 import { Cell } from './Cell/Cell';
 import {
   getSelectedGlobalMonth,
   getSelectedGlobalMonthNumberOfDays,
   getSelectedGlobalTimeInMilliseconds,
   getSelectedGlobalYear,
-} from '../../../redux/slices/dateSlice/selectors';
+} from '../../../../redux/slices/dateSlice/selectors';
 import { useSelector } from 'react-redux';
-import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
+import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
 import { useMemo } from 'react';
-import { getChunkArrayByChunkSize } from '../../../utils/utils';
-import { firstDayOfTheMonth } from '../../../utils/calendar/constants';
+import { getChunkArrayByChunkSize } from '../../../../utils/utils';
+import { firstDayOfTheMonth } from '../../../../utils/calendar/constants';
 import {
   getWeekDayName,
   getWeekDaysNames,
-} from '../../../utils/calendar/weeks';
+} from '../../../../utils/calendar/weeks';
 
 const CalendarCells = () => {
   const locale = useSelector(getLocaleLanguage());

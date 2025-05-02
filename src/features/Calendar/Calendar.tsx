@@ -1,7 +1,7 @@
 import { ErrorBoundary } from 'react-error-boundary';
-import CalendarCells from '../../components/Calendar/CalendarCells/CalendarCells';
-import { CalendarMenu } from '../../components/Calendar/CalendarMenu/CalendarMenu';
-import CalendarWeeks from '../../components/Calendar/CalendarWeeks/CalendarWeeks';
+import CalendarCells from './components/CalendarCells/CalendarCells';
+import { CalendarMenu } from './components/CalendarMenu/CalendarMenu';
+import CalendarWeeks from './components/CalendarWeeks/CalendarWeeks';
 import styles from './_calendar.module.scss';
 import { ErrorFallback } from '../../components/ErrorFallback/ErrorFallback';
 

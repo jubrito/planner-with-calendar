@@ -1,10 +1,10 @@
 import { screen, waitFor } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
-import { Months } from '../../../types/calendar/enums';
-import { renderWithProviders } from '../../../utils/tests/renderWithProviders';
-import { initialValue } from '../../../redux/slices/dateSlice';
-import { AppStore } from '../../../redux/store';
+import { Months } from '../../../../types/calendar/enums';
+import { renderWithProviders } from '../../../../utils/tests/renderWithProviders';
+import { initialValue } from '../../../../redux/slices/dateSlice';
+import { AppStore } from '../../../../redux/store';
 import { CalendarMenu } from './CalendarMenu';
 
 describe('CalendarMenu', () => {

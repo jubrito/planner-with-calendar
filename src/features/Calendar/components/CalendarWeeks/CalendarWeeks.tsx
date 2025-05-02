@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
-import { getWeekDaysNames } from '../../../utils/calendar/weeks';
+import { getWeekDaysNames } from '../../../../utils/calendar/weeks';
 import styles from './_calendar-weeks.module.scss';
-import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
+import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
 
 const CalendarWeeks = () => {
   const localeLang = useSelector(getLocaleLanguage());
