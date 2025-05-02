@@ -32,3 +32,9 @@ export const getInitialEventsOfSelectedDate = (ISODate: string) =>
     const eventsByDate = state.initialState.eventsByDates[ISODate];
     return eventsByDate ? eventsByDate.events : [];
   });
+
+export const getCurrentEventsOfSelectedDate = (ISODate: string) =>
+  createSelector(eventSlice, (state) => {
+    const eventsByDate = state.currentState.eventsByDates[ISODate];
+    return eventsByDate ? eventsByDate.events : [];
+  });
