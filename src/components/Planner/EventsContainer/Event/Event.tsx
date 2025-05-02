@@ -7,7 +7,10 @@ import {
 import styles from './event.module.scss';
 import { EventStored } from '../../../../types/event';
 import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
-import { IntlDateTimeFormat2Digit } from '../../../../utils/constants';
+import {
+  enterKey,
+  IntlDateTimeFormat2Digit,
+} from '../../../../utils/constants';
 import { memo, useMemo, useRef } from 'react';
 
 type EventProps = {
@@ -80,39 +83,42 @@ export const Event = memo(function ({
     return [startTime, updatedStartPeriod];
   }, [startDate, endPeriod, localeString]);
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === enterKey) {
+      viewEventDetails(event, eventRef);
+    }
+  };
+
   return (
-    <>
-      <div
-        id={id}
-        className={styles.plannerEvent}
-        style={getEventStyle(eventStart, eventHeight)}
-        onClick={() => viewEventDetails(event, eventRef)}
-        onMouseDown={(e) => e.stopPropagation()}
-        title="Click on the event to view details and actions"
-        tabIndex={1}
-        ref={eventRef}
-      >
-        {hasMinimumHeight && (
-          <div
-            className={styles.plannerEventDetails}
-            style={{
-              marginTop: isAtLeast30MinEvent ? '5px' : '1px',
-              flexDirection: isAtLeast60MinEvent ? 'column' : 'row',
-            }}
-          >
-            <span
-              style={getTitleStyle(isAtLeast30MinEvent, isAtLeast60MinEvent)}
-            >
-              {title}
-            </span>
-            <span
-              style={getTimeStyle(isAtLeast30MinEvent, isAtLeast60MinEvent)}
-              aria-label={`Time range from ${startTime}${startPeriod} to ${endTime}${endPeriod}`}
-            >{`${startTime}${startPeriod} – ${endTime}${endPeriod}`}</span>
-          </div>
-        )}
-      </div>
-    </>
+    <div
+      id={id}
+      className={styles.plannerEvent}
+      style={getEventStyle(eventStart, eventHeight)}
+      onClick={() => viewEventDetails(event, eventRef)}
+      onKeyDown={handleKeyDown}
+      onMouseDown={(e) => e.stopPropagation()}
+      title="Click on the event to view details and actions"
+      tabIndex={1}
+      ref={eventRef}
+    >
+      {hasMinimumHeight && (
+        <div
+          className={styles.plannerEventDetails}
+          style={{
+            marginTop: isAtLeast30MinEvent ? '5px' : '1px',
+            flexDirection: isAtLeast60MinEvent ? 'column' : 'row',
+          }}
+        >
+          <span style={getTitleStyle(isAtLeast30MinEvent, isAtLeast60MinEvent)}>
+            {title}
+          </span>
+          <span
+            style={getTimeStyle(isAtLeast30MinEvent, isAtLeast60MinEvent)}
+            aria-label={`Time range from ${startTime}${startPeriod} to ${endTime}${endPeriod}`}
+          >{`${startTime}${startPeriod} – ${endTime}${endPeriod}`}</span>
+        </div>
+      )}
+    </div>
   );
 });
 
