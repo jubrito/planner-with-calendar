@@ -1,6 +1,7 @@
 import {
   fifteenMinBlocksInAHour,
   fifteenMinutes,
+  oneHourInMinutes,
   sizeOfEach15MinBlock,
 } from '../../calendar/constants';
 import { EventBlock } from '../../../types/event';
@@ -81,7 +82,7 @@ export const getEndBlock = (block: EventBlock) => {
   const { fifteenMinBlock, hour, minutes: minute } = block;
   const fifteenMinBlockEnd = fifteenMinBlock + 1;
   const endMinute = minute + fifteenMinutes;
-  const isFullHour = endMinute === 60;
+  const isFullHour = endMinute === oneHourInMinutes;
   if (isFullHour)
     return { hour: hour + 1, minutes: 0, fifteenMinBlock: fifteenMinBlockEnd };
   return {
