@@ -15,7 +15,10 @@ import {
   IntlDateTimeFormat2Digit,
 } from '../../../../utils/constants';
 import { memo, useMemo, useRef } from 'react';
-import { getFixedRelativeY } from '../../../../utils/events/dayView/getPositionsY';
+import {
+  getFixedRelativeY,
+  getMinimumEventFixedPositionY,
+} from '../../../../utils/events/dayView/getPositionsY';
 import { getFifteenMinuteBlock } from '../../../../utils/events/dayView/getBlocks';
 
 type EventProps = {
@@ -152,8 +155,6 @@ const calculateYPosition = (
   const end15MinBlock = getFifteenMinuteBlock(
     endDateMinutes / oneHourInMinutes,
   );
-  console.log('start15MinBlock', start15MinBlock);
-  console.log('end15MinBlock', end15MinBlock);
   const startBlock = {
     hour: startDateHours,
     minutes: startDateMinutes,
@@ -167,7 +168,8 @@ const calculateYPosition = (
   };
   const startY = getFixedRelativeY(startBlock, 'start');
   const endY = getFixedRelativeY(endBlock, 'end');
-  return { startY, endY };
+  const minimumEndY = getMinimumEventFixedPositionY(startY, endY);
+  return { startY, endY: minimumEndY };
 };
 
 const getTitleStyle = (
