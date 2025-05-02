@@ -4,34 +4,34 @@ import { throttle } from 'throttle-debounce';
 import { useSelector } from 'react-redux';
 import { Event } from './Event/Event';
 import { useDispatch } from 'react-redux';
-import {
-  addEvent,
-  clearSelectedDayViewEvent,
-  updateSelectedDayViewEvent,
-} from '../../../redux/slices/eventSlice';
-import {
-  EventOnCreate,
-  EventOnOpenDetails,
-  EventStored,
-} from '../../../types/event';
+import { EventModalsContainer } from '../EventModalsContainer/EventModalsContainer';
 import {
   getCurrentEvents,
   getCurrentSelectedDayViewEvent,
-} from '../../../redux/slices/eventSlice/selectors';
-import { useEvent } from '../../../hooks/useDraftEvent';
-import { HourButtons } from './HourButtons/HourButtons';
-import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
+} from '../../../../redux/slices/eventSlice/selectors';
+import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
 import {
   getSelectedDayViewDay,
   getSelectedDayViewMonth,
   getSelectedDayViewYear,
-} from '../../../redux/slices/dateSlice/selectors';
-import { EventModalsContainer } from '../EventModalsContainer/EventModalsContainer';
+} from '../../../../redux/slices/dateSlice/selectors';
+import { useEvent } from '../../../../hooks/useDraftEvent';
+import {
+  addEvent,
+  clearSelectedDayViewEvent,
+  updateSelectedDayViewEvent,
+} from '../../../../redux/slices/eventSlice';
+import {
+  EventOnCreate,
+  EventOnOpenDetails,
+  EventStored,
+} from '../../../../types/event';
+import { HourButtons } from './HourButtons/HourButtons';
 
 export const EventContainer = () => {
-  const events = useSelector(getCurrentEvents());
-  const containerRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const events = useSelector(getCurrentEvents());
   const locale = useSelector(getLocaleLanguage());
   const year = useSelector(getSelectedDayViewYear());
   const month = useSelector(getSelectedDayViewMonth(locale));

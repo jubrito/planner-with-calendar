@@ -1,12 +1,15 @@
 import '@testing-library/jest-dom';
 import { screen } from '@testing-library/react';
-import { renderWithProviders } from '../../../../utils/tests/renderWithProviders';
 import { EventDetailsModal } from './EventDetailsModal';
-import { initialValue as initialEventValue } from '../../../../redux/slices/eventSlice';
-import { initialValue as initialLocaleValue } from '../../../../redux/slices/localeSlice';
-import { EventStored, SelectedEventOnDayView } from '../../../../types/event';
-import { Months } from '../../../../types/calendar/enums';
-import { get2DigitsValue } from '../../../../utils/calendar/utils';
+import { Months } from '../../../../../types/calendar/enums';
+import {
+  EventStored,
+  SelectedEventOnDayView,
+} from '../../../../../types/event';
+import { renderWithProviders } from '../../../../../utils/tests/renderWithProviders';
+import { initialValue as initialEventValue } from '../../../../../redux/slices/eventSlice';
+import { initialValue as initialLocaleValue } from '../../../../../redux/slices/localeSlice';
+import { get2DigitsValue } from '../../../../../utils/calendar/utils';
 
 describe('EventDetailsModal', () => {
   const eventTitle = 'title';
@@ -83,10 +86,6 @@ describe('EventDetailsModal', () => {
 
   const initialSelectedEvent: SelectedEventOnDayView = {
     event: {
-      dayViewPosition: {
-        endY: 0,
-        startY: 0,
-      },
       endDate,
       startDate,
       id: 'id',

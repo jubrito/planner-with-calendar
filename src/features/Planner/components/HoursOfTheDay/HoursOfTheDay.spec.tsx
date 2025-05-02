@@ -1,14 +1,15 @@
-import { initialValue, InitialState } from '../../../redux/slices/localeSlice';
-import {
-  initialValue as initialDateValue,
-  InitialState as InitialDateState,
-} from '../../../redux/slices/dateSlice';
-import { get2DigitsValue } from '../../../utils/calendar/utils';
-import { renderWithProviders } from '../../../utils/tests/renderWithProviders';
 import { HoursOfTheDay } from './HoursOfTheDay';
 import { screen } from '@testing-library/dom';
 import '@testing-library/jest-dom';
-import { Months } from '../../../types/calendar/enums';
+import { Months } from '../../../../types/calendar/enums';
+import { get2DigitsValue } from '../../../../utils/calendar/utils';
+import { InitialState as InitialDateState } from '../../../../redux/slices/dateSlice';
+import {
+  InitialState,
+  initialValue,
+} from '../../../../redux/slices/localeSlice';
+import { initialValue as initialDateValue } from '../../../../redux/slices/dateSlice';
+import { renderWithProviders } from '../../../../utils/tests/renderWithProviders';
 
 describe('Hours of the day', () => {
   const year = 2025;
@@ -39,7 +40,7 @@ describe('Hours of the day', () => {
       ...initialDateValue,
       currentState: {
         ...initialDateValue.currentState,
-        dayViewISODate: new Date(year, month, day).toDateString(),
+        dayViewISODate: new Date(year, month, day).toISOString(),
       },
     },
   });

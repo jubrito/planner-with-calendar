@@ -1,8 +1,8 @@
 import { screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { renderWithProviders } from '../../../utils/tests/renderWithProviders';
 import { EventDetailsModal } from './EventDetailsModal/EventDetailsModal';
-import { initialValue } from '../../../redux/slices/eventSlice';
+import { renderWithProviders } from '../../../../utils/tests/renderWithProviders';
+import { initialValue } from '../../../../redux/slices/eventSlice';
 
 describe('EventModalsContainer', () => {
   const refMock = { current: null };
@@ -25,10 +25,6 @@ describe('EventModalsContainer', () => {
               ...initialValue.currentState,
               selectedDayViewEvent: {
                 event: {
-                  dayViewPosition: {
-                    endY: 0,
-                    startY: 0,
-                  },
                   endDate: new Date().toISOString(),
                   startDate: new Date().toISOString(),
                   id: 'id',

@@ -1,10 +1,10 @@
-import { Months } from '../../../../types/calendar/enums';
-import { renderWithProviders } from '../../../../utils/tests/renderWithProviders';
-import { EventOnCreate } from '../../../../types/event';
 import { Event } from './Event';
 import { screen } from '@testing-library/dom';
 import '@testing-library/jest-dom';
-import { initialValue } from '../../../../redux/slices/localeSlice';
+import { EventOnCreate } from '../../../../../types/event';
+import { renderWithProviders } from '../../../../../utils/tests/renderWithProviders';
+import { Months } from '../../../../../types/calendar/enums';
+import { initialValue } from '../../../../../redux/slices/localeSlice';
 
 const renderDefaultEvent = (event: EventOnCreate) =>
   renderWithProviders(
@@ -31,7 +31,7 @@ describe('Event', () => {
     title: 'title',
     start: {
       fixedPositionY: 0,
-      date: new Date(year, month, day, startHour, startMinutes),
+      date: new Date(year, month, day, startHour, startMinutes).toISOString(),
       block: {
         fifteenMinBlock: 0,
         hour: startHour,
@@ -40,7 +40,7 @@ describe('Event', () => {
     },
     end: {
       fixedPositionY: 50,
-      date: new Date(year, month, day, endHour, endMinutes),
+      date: new Date(year, month, day, endHour, endMinutes).toISOString(),
       block: {
         fifteenMinBlock: 4,
         hour: endHour,
@@ -77,7 +77,13 @@ describe('Event', () => {
         title: 'title',
         start: {
           fixedPositionY: 0,
-          date: new Date(year, month, day, startHour, startMinutes),
+          date: new Date(
+            year,
+            month,
+            day,
+            startHour,
+            startMinutes,
+          ).toISOString(),
           block: {
             fifteenMinBlock: 0,
             hour: startHour,
@@ -86,7 +92,7 @@ describe('Event', () => {
         },
         end: {
           fixedPositionY: 50,
-          date: new Date(year, month, day, endHour, endMinutes),
+          date: new Date(year, month, day, endHour, endMinutes).toISOString(),
           block: {
             fifteenMinBlock: 4,
             hour: endHour,
@@ -145,7 +151,13 @@ describe('Event', () => {
         title: 'title',
         start: {
           fixedPositionY: 0,
-          date: new Date(year, month, day, startHour, startMinutes),
+          date: new Date(
+            year,
+            month,
+            day,
+            startHour,
+            startMinutes,
+          ).toISOString(),
           block: {
             fifteenMinBlock: 0,
             hour: startHour,
@@ -154,7 +166,7 @@ describe('Event', () => {
         },
         end: {
           fixedPositionY: 50,
-          date: new Date(year, month, day, endHour, endMinutes),
+          date: new Date(year, month, day, endHour, endMinutes).toISOString(),
           block: {
             fifteenMinBlock: 4,
             hour: endHour,

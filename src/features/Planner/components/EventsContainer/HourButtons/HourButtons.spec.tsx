@@ -1,8 +1,8 @@
 import '@testing-library/jest-dom';
-import { renderWithProviders } from '../../../../utils/tests/renderWithProviders';
 import { HourButtons } from './HourButtons';
 import { screen } from '@testing-library/react';
-import { initialValue } from '../../../../redux/slices/localeSlice';
+import { renderWithProviders } from '../../../../../utils/tests/renderWithProviders';
+import { initialValue } from '../../../../../redux/slices/localeSlice';
 
 describe('HourButtons', () => {
   it('should render buttons with accessibility title using 12-hour clock system', () => {

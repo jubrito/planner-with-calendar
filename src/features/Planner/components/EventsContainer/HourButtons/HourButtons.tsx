@@ -1,21 +1,21 @@
 import { useSelector } from 'react-redux';
-import { numberOfHoursInADay } from '../../../../utils/calendar/constants';
-import {
-  getFormattedDateString,
-  getTimeInformation,
-  is12HourClockSystem,
-} from '../../../../utils/calendar/utils';
-import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
+import { memo } from 'react';
+import { numberOfHoursInADay } from '../../../../../utils/calendar/constants';
+import { getLocaleLanguage } from '../../../../../redux/slices/localeSlice/selectors';
 import {
   getSelectedGlobalDay,
   getSelectedGlobalMonth,
   getSelectedGlobalYear,
-} from '../../../../redux/slices/dateSlice/selectors';
-import { IntlDateTimeFormat2Digit } from '../../../../utils/constants';
+} from '../../../../../redux/slices/dateSlice/selectors';
 import styles from './hour-buttons.module.scss';
-import { LocaleLanguage } from '../../../../types/locale/types';
-import { DateConfig } from '../../../../types/calendar/types';
-import { memo } from 'react';
+import { LocaleLanguage } from '../../../../../types/locale/types';
+import { DateConfig } from '../../../../../types/calendar/types';
+import {
+  getFormattedDateString,
+  getTimeInformation,
+  is12HourClockSystem,
+} from '../../../../../utils/calendar/utils';
+import { IntlDateTimeFormat2Digit } from '../../../../../utils/constants';
 
 export const HourButtons = memo(() => {
   const twentyFourHours = Array.from(Array(numberOfHoursInADay).keys());

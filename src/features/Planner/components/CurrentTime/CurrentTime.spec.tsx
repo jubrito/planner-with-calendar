@@ -1,10 +1,10 @@
 import '@testing-library/jest-dom';
 import { screen } from '@testing-library/react';
 import { CurrentTime } from './CurrentTime';
-import { renderWithProviders } from '../../../utils/tests/renderWithProviders';
-import { initialValue } from '../../../redux/slices/dateSlice';
-import { initialValue as localeInitialValue } from '../../../redux/slices/localeSlice';
-import { Months } from '../../../types/calendar/enums';
+import { Months } from '../../../../types/calendar/enums';
+import { renderWithProviders } from '../../../../utils/tests/renderWithProviders';
+import { initialValue } from '../../../../redux/slices/dateSlice';
+import { initialValue as localeInitialValue } from '../../../../redux/slices/localeSlice';
 
 describe('CurrentTime', () => {
   const year = 2025;

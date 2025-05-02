@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux';
-import { Modal } from '../../../Modal/Modal';
-import { getModalContent } from '../../../../utils/events/dayView/getModalInfo';
-import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
 import { memo, RefObject, useEffect } from 'react';
-import { getCurrentSelectedDayViewEvent } from '../../../../redux/slices/eventSlice/selectors';
+import { getLocaleLanguage } from '../../../../../redux/slices/localeSlice/selectors';
+import { getCurrentSelectedDayViewEvent } from '../../../../../redux/slices/eventSlice/selectors';
+import { getModalContent } from '../../../../../utils/events/dayView/getModalInfo';
+import { Modal } from '../../../../../components/Modal/Modal';
 
 type EventDetailsModalProps = {
   closeModal: () => void;

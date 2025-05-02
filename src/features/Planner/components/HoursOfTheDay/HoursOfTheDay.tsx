@@ -1,24 +1,24 @@
 import { useRef } from 'react';
 import styles from './_hours-of-the-day.module.scss';
-import {
-  get2DigitsValue,
-  getTimeInformation,
-  is12HourClockSystem,
-} from '../../../utils/calendar/utils';
 import { useSelector } from 'react-redux';
-import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
+import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
 import {
   getSelectedDayViewDay,
   getSelectedDayViewMonth,
   getSelectedDayViewYear,
-} from '../../../redux/slices/dateSlice/selectors';
+} from '../../../../redux/slices/dateSlice/selectors';
 import {
   IntlDateTimeFormat2Digit,
   IntlDateTimeFormatNumeric,
-} from '../../../utils/constants';
-import { LocaleLanguage } from '../../../types/locale/types';
-import { DateConfig } from '../../../types/calendar/types';
-import { numberOfHoursInADay } from '../../../utils/calendar/constants';
+} from '../../../../utils/constants';
+import {
+  get2DigitsValue,
+  getTimeInformation,
+  is12HourClockSystem,
+} from '../../../../utils/calendar/utils';
+import { DateConfig } from '../../../../types/calendar/types';
+import { numberOfHoursInADay } from '../../../../utils/calendar/constants';
+import { LocaleLanguage } from '../../../../types/locale/types';
 
 export const HoursOfTheDay = () => {
   const locale = useSelector(getLocaleLanguage());

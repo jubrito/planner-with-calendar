@@ -1,12 +1,12 @@
 import '@testing-library/jest-dom';
 import { act, waitFor, screen } from '@testing-library/react';
-import { renderWithProviders } from '../../../utils/tests/renderWithProviders';
 import { EventContainer } from './EventsContainer';
-import { initialValue } from '../../../redux/slices/eventSlice';
-import { SelectedEventOnDayView } from '../../../types/event';
-import { Months } from '../../../types/calendar/enums';
 import userEvent from '@testing-library/user-event';
-import { defaultEventTitle } from '../../../utils/events/dayView/constants';
+import { SelectedEventOnDayView } from '../../../../types/event';
+import { Months } from '../../../../types/calendar/enums';
+import { renderWithProviders } from '../../../../utils/tests/renderWithProviders';
+import { initialValue } from '../../../../redux/slices/eventSlice';
+import { defaultEventTitle } from '../../../../utils/events/dayView/constants';
 
 const title = 'title';
 const year = 2025;
@@ -16,10 +16,6 @@ const startDate = new Date(year, month, day).toISOString();
 const endDate = new Date(year, month, day).toISOString();
 const initialSelectedEvent: SelectedEventOnDayView = {
   event: {
-    dayViewPosition: {
-      endY: 0,
-      startY: 0,
-    },
     endDate,
     startDate,
     id: 'id',

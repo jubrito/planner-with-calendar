@@ -1,13 +1,13 @@
 import { useSelector } from 'react-redux';
-import { getSelectedGlobalDate } from '../../../redux/slices/dateSlice/selectors';
-import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
-import { IntlDateTimeFormat2Digit } from '../../../utils/constants';
+import styles from './current-time.module.scss';
+import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
+import { getSelectedGlobalDate } from '../../../../redux/slices/dateSlice/selectors';
 import {
   getFormattedDateString,
   getTimeInformation,
   is12HourClockSystem,
-} from '../../../utils/calendar/utils';
-import styles from './current-time.module.scss';
+} from '../../../../utils/calendar/utils';
+import { IntlDateTimeFormat2Digit } from '../../../../utils/constants';
 
 export const CurrentTime = () => {
   const locale = useSelector(getLocaleLanguage());

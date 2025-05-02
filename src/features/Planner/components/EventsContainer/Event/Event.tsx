@@ -1,29 +1,29 @@
 import { useSelector } from 'react-redux';
-import {
-  oneHourInMinutes,
-  sizeOfEach15MinBlock,
-} from '../../../../utils/calendar/constants';
-import {
-  getFormattedDateString,
-  getTimeInformation,
-} from '../../../../utils/calendar/utils';
 import styles from './event.module.scss';
+import { memo, useMemo, useRef } from 'react';
 import {
   EventOnCreate,
   EventOnOpenDetails,
   EventStored,
-} from '../../../../types/event';
-import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
+} from '../../../../../types/event';
+import {
+  getFormattedDateString,
+  getTimeInformation,
+} from '../../../../../utils/calendar/utils';
+import { getLocaleLanguage } from '../../../../../redux/slices/localeSlice/selectors';
+import {
+  oneHourInMinutes,
+  sizeOfEach15MinBlock,
+} from '../../../../../utils/calendar/constants';
 import {
   enterKey,
   IntlDateTimeFormat2Digit,
-} from '../../../../utils/constants';
-import { memo, useMemo, useRef } from 'react';
+} from '../../../../../utils/constants';
+import { getFifteenMinuteBlock } from '../../../../../utils/events/dayView/getBlocks';
 import {
   getFixedRelativeY,
   getMinimumEventFixedPositionY,
-} from '../../../../utils/events/dayView/getPositionsY';
-import { getFifteenMinuteBlock } from '../../../../utils/events/dayView/getBlocks';
+} from '../../../../../utils/events/dayView/getPositionsY';
 
 type EventProps = {
   id: EventOnCreate['id'];
@@ -55,7 +55,8 @@ export const Event = memo(function ({
     endYPosition = endY;
   }
 
-  const eventHeight = endYPosition - startYPosition;
+  const newLocal = endYPosition - startYPosition;
+  const eventHeight = newLocal;
   const eventStart = startYPosition;
   const isAtLeast30MinEvent = eventHeight >= sizeOfEach15MinBlock * 2;
   const isAtLeast60MinEvent = eventHeight >= sizeOfEach15MinBlock * 4;
