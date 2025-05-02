@@ -49,7 +49,13 @@ export const Event = memo(function ({
 }: EventProps) {
   let startYPosition = startY;
   let endYPosition = endY;
-  if (!startYPosition || !endYPosition || !startY || !endY) {
+
+  if (
+    startYPosition == null ||
+    endYPosition == null ||
+    startY == null ||
+    endY == null
+  ) {
     const { endY, startY } = calculateYPosition(startDate, endDate);
     startYPosition = startY;
     endYPosition = endY;
