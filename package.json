@@ -11,7 +11,7 @@
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --format friendly",
     "lint:fix": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
     "preview": "vite preview",
-    "test": "jest"
+    "test": "jest --watchAll"
   },
   "babel": {
     "presets": [
