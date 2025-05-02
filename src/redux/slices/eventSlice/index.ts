@@ -4,7 +4,11 @@ import { EventStored, SelectedEventOnDayView } from '../../../types/event';
 
 type InitialEventsInfoState = {
   events: EventStored[];
-  eventsByDate: { [key: string]: EventStored[] };
+  eventsByDates: {
+    [key: string]: {
+      events: EventStored[];
+    };
+  };
   selectedDayViewEvent?: SelectedEventOnDayView;
 };
 
@@ -13,9 +17,14 @@ export type InitialState = {
   currentState: InitialEventsInfoState;
 };
 
+type AddEvent = {
+  newEvent: EventStored;
+  ISODate: string;
+};
+
 const initialEventsInfo: InitialEventsInfoState = {
   events: [],
-  eventsByDate: {},
+  eventsByDates: {},
   selectedDayViewEvent: undefined,
 };
 
@@ -28,11 +37,23 @@ export const eventSlice = createSlice({
   name: 'eventSlice',
   initialState: initialValue,
   reducers: {
-    addEvent(state: InitialState, action: PayloadAction<EventStored>) {
+    addEvent(state: InitialState, action: PayloadAction<AddEvent>) {
       const events = state.currentState.events;
-      const newEvent = action.payload;
-      const updatedEvents = [...events, newEvent];
-      state.currentState.events = updatedEvents;
+      const { newEvent, ISODate } = action.payload;
+      state.currentState.events = [...events, newEvent];
+
+      const eventsByDates = { ...state.currentState.eventsByDates };
+
+      let eventsByDate = eventsByDates[ISODate];
+      if (!eventsByDate) {
+        eventsByDate = {
+          events: [],
+        };
+      }
+
+      eventsByDate.events.push(newEvent);
+      eventsByDates[ISODate] = eventsByDate;
+      state.currentState.eventsByDates = eventsByDates;
     },
     updateSelectedDayViewEvent(
       state: InitialState,

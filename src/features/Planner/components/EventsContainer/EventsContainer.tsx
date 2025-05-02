@@ -12,6 +12,7 @@ import {
 import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
 import {
   getSelectedDayViewDay,
+  getSelectedDayViewISODate,
   getSelectedDayViewMonth,
   getSelectedDayViewYear,
 } from '../../../../redux/slices/dateSlice/selectors';
@@ -37,6 +38,7 @@ export const EventContainer = () => {
   const month = useSelector(getSelectedDayViewMonth(locale));
   const day = useSelector(getSelectedDayViewDay());
   const selectedDayViewEvent = useSelector(getCurrentSelectedDayViewEvent());
+  const date = useSelector(getSelectedDayViewISODate());
 
   const {
     draftEvent,
@@ -92,9 +94,9 @@ export const EventContainer = () => {
     if (!draftEvent) return;
 
     const newEvent = createEvent(draftEvent);
-    dispatch(addEvent(newEvent));
+    dispatch(addEvent({ newEvent, ISODate: date }));
     clearDraftEvent();
-  }, [draftEvent, dispatch, clearDraftEvent, createEvent]);
+  }, [draftEvent, dispatch, clearDraftEvent, createEvent, date]);
 
   const selectedEventRef: RefObject<HTMLDivElement | null> = useRef(null);
   const viewEventModalRef: RefObject<HTMLDivElement | null> = useRef(null);
