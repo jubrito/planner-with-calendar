@@ -1,34 +1,24 @@
 # Next steps (v1):
 
+Tests
+
 - test view details should disappear when changing view day dates
 - test logic that gets only events of that day
-- remove old events[]
 
-- edit event
-- delete event
-- create event button on planner for accessibility
+Improvements
 
-- create banner that disappears if fails to create event (e.g., event.start is undefined)
-
-  - don't run event component
-
-- Improve Event validation (isValidEvent)
-  - ensure all are not nullish
-  - test
+- event validation (isValidEvent) + test
+- update current time base on if it is visible or not
+- remove old events[]?
 
 Features
 
-- connect event to specific day
-- set day view date when clicking on calendar and opening planner
-
-- update current time base on if it is visible or not
-- Create event from calendar to plot on planner
+- create banner that disappears if fails to create event (e.g., event.start is undefined)
+  - don't run event component
 - Add all day events to planner top
-- Edit events on click
-- Connect events created to specific day
-  - How to change days but preserve events? State? Only with bd?
-- Display dynamically the hours of the event being created during creation
-- If two events happen at the same time, show side by side
+- Edit event
+- Create event button on planner for accessibility
+- Delete event
 
 // https://www.npmjs.com/package/@fullcalendar/react
 
@@ -64,6 +54,7 @@ Features
 
 - Features
 
+  > If two events happen at the same time, show side by side
   > Day / Week / Month / Year View / Compact (+ tests)
   > Alerts
 
