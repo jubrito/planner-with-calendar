@@ -3,7 +3,6 @@
 - test view details should disappear when changing view day dates
 - test logic that gets only events of that day
 - remove old events[]
-- connect day on top with events
 
 - edit event
 - delete event
