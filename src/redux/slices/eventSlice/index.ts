@@ -4,6 +4,7 @@ import { EventStored, SelectedEventOnDayView } from '../../../types/event';
 
 type InitialEventsInfoState = {
   events: EventStored[];
+  eventsByDate: { [key: string]: EventStored[] };
   selectedDayViewEvent?: SelectedEventOnDayView;
 };
 
@@ -14,6 +15,7 @@ export type InitialState = {
 
 const initialEventsInfo: InitialEventsInfoState = {
   events: [],
+  eventsByDate: {},
   selectedDayViewEvent: undefined,
 };
 
