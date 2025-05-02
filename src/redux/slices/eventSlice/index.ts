@@ -41,19 +41,14 @@ export const eventSlice = createSlice({
       const events = state.currentState.events;
       const { newEvent, ISODate } = action.payload;
       state.currentState.events = [...events, newEvent];
-
       const eventsByDates = { ...state.currentState.eventsByDates };
-
-      let eventsByDate = eventsByDates[ISODate];
-      if (!eventsByDate) {
-        eventsByDate = {
-          events: [],
-        };
-      }
-
-      eventsByDate.events.push(newEvent);
-      eventsByDates[ISODate] = eventsByDate;
-      state.currentState.eventsByDates = eventsByDates;
+      const eventsByDate = eventsByDates[ISODate];
+      state.currentState.eventsByDates = {
+        ...eventsByDates,
+        [ISODate]: {
+          events: [...(eventsByDate?.events || []), newEvent],
+        },
+      };
     },
     updateSelectedDayViewEvent(
       state: InitialState,
