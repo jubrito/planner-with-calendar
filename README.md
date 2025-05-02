@@ -1,7 +1,5 @@
 # Next steps (v1):
 
-- move component/calendar to features/component
-
 - rename redux to selectedEventOnView to be more clear and allow other variables like onEdit (onView must close/be cleared when clicking on calendar, on edit maybe not)
 - view details should disappear when changing view day dates
   - test view details should disappear when changing view day dates
