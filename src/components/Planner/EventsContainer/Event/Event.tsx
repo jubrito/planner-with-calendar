@@ -1,5 +1,8 @@
 import { useSelector } from 'react-redux';
-import { sizeOfEach15MinBlock } from '../../../../utils/calendar/constants';
+import {
+  oneHourInMinutes,
+  sizeOfEach15MinBlock,
+} from '../../../../utils/calendar/constants';
 import {
   getFormattedDateString,
   getTimeInformation,
@@ -12,12 +15,14 @@ import {
   IntlDateTimeFormat2Digit,
 } from '../../../../utils/constants';
 import { memo, useMemo, useRef } from 'react';
+import { getFixedRelativeY } from '../../../../utils/events/dayView/getPositionsY';
+import { getFifteenMinuteBlock } from '../../../../utils/events/dayView/getBlocks';
 
 type EventProps = {
   id: EventStored['id'];
   title: EventStored['title'];
-  startY: EventStored['dayViewPosition']['startY'];
-  endY: EventStored['dayViewPosition']['endY'];
+  startY?: EventStored['dayViewPosition']['startY'];
+  endY?: EventStored['dayViewPosition']['endY'];
   startDate: EventStored['startDate'];
   endDate: EventStored['endDate'];
   viewEventDetails: (
@@ -35,20 +40,31 @@ export const Event = memo(function ({
   endDate,
   viewEventDetails,
 }: EventProps) {
-  const eventHeight = endY - startY;
-  const eventStart = startY;
+  let startYPosition = startY;
+  let endYPosition = endY;
+  if (!startYPosition || !endYPosition || !startY || !endY) {
+    const { endY, startY } = calculateYPosition(startDate, endDate);
+    startYPosition = startY;
+    endYPosition = endY;
+  }
+  console.log('startY', startY);
+  console.log('endY', endY);
+  console.log('startYPosition', startYPosition);
+  console.log('endYPosition', endYPosition);
+
+  const eventHeight = endYPosition - startYPosition;
+  const eventStart = startYPosition;
   const isAtLeast30MinEvent = eventHeight >= sizeOfEach15MinBlock * 2;
   const isAtLeast60MinEvent = eventHeight >= sizeOfEach15MinBlock * 4;
   const hasMinimumHeight = eventHeight >= sizeOfEach15MinBlock;
   const localeString = useSelector(getLocaleLanguage());
   const eventRef = useRef(null);
-
   const event: EventStored = {
     id,
     title,
     dayViewPosition: {
-      startY,
-      endY,
+      startY: startYPosition,
+      endY: endYPosition,
     },
     startDate,
     endDate,
@@ -121,6 +137,38 @@ export const Event = memo(function ({
     </div>
   );
 });
+
+const calculateYPosition = (
+  startDate: EventStored['startDate'],
+  endDate: EventStored['endDate'],
+) => {
+  const startDateHours = new Date(startDate).getHours();
+  const endDateHours = new Date(endDate).getHours();
+  const startDateMinutes = new Date(startDate).getMinutes();
+  const endDateMinutes = new Date(endDate).getMinutes();
+  const start15MinBlock = getFifteenMinuteBlock(
+    startDateMinutes / oneHourInMinutes,
+  );
+  const end15MinBlock = getFifteenMinuteBlock(
+    endDateMinutes / oneHourInMinutes,
+  );
+  console.log('start15MinBlock', start15MinBlock);
+  console.log('end15MinBlock', end15MinBlock);
+  const startBlock = {
+    hour: startDateHours,
+    minutes: startDateMinutes,
+    fifteenMinBlock: start15MinBlock,
+  };
+  const zeroIndexedEnd15MinBlock = end15MinBlock - 1;
+  const endBlock = {
+    hour: endDateHours,
+    minutes: endDateMinutes,
+    fifteenMinBlock: zeroIndexedEnd15MinBlock,
+  };
+  const startY = getFixedRelativeY(startBlock, 'start');
+  const endY = getFixedRelativeY(endBlock, 'end');
+  return { startY, endY };
+};
 
 const getTitleStyle = (
   isAtLeast30MinEvent: boolean,

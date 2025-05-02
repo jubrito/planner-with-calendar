@@ -155,8 +155,6 @@ export const EventContainer = () => {
             id={event.id}
             key={event.id}
             title={event.title}
-            startY={event.dayViewPosition.startY}
-            endY={event.dayViewPosition.endY}
             startDate={event.startDate}
             endDate={event.endDate}
             viewEventDetails={viewEventDetails}
