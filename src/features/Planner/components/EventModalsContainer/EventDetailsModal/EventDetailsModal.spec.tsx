@@ -40,6 +40,7 @@ describe('EventDetailsModal', () => {
   const startPeriod = 'AM';
   const endPeriod = 'PM';
   const closeModalMock = jest.fn();
+  const editModalMock = jest.fn();
   const refMock = { current: null };
   type RenderEventDetailsModalProps = {
     renderWith24hTimeSystem?: boolean;
@@ -60,6 +61,7 @@ describe('EventDetailsModal', () => {
       <EventDetailsModal
         closeModal={closeModalMock}
         viewEventModalRef={refMock}
+        editModal={editModalMock}
       />,
       {
         preloadedState: {
