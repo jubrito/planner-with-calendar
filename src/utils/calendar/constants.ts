@@ -5,3 +5,4 @@ export const fifteenMinBlocksInAHour = 4; // 1h block divided by 4 results in 4 
 export const sizeOfEach15MinBlock = 12.5;
 export const numberOfDaysOfTheWeek = 7;
 export const fifteenMinutes = 15;
+export const oneHourInMinutes = 60;
