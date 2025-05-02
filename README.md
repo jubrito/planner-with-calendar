@@ -4,7 +4,6 @@ change focus
 
 - buttons of calendar should be focusable
 - give focus to planner when clicking on calendar day
-- give focus to event edit modal when clicking on event
 
 - improve event structure
   - use event redux date saving only what matters (e.g., date)
