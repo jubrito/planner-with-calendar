@@ -9,7 +9,7 @@ import {
   clearSelectedDayViewEvent,
   updateSelectedDayViewEvent,
 } from '../../../redux/slices/eventSlice';
-import { EventOnCreate, EventOnSave, EventStored } from '../../../types/event';
+import { EventOnCreate, EventStored } from '../../../types/event';
 import {
   getCurrentEvents,
   getCurrentSelectedDayViewEvent,
@@ -93,7 +93,7 @@ export const EventContainer = () => {
   }, [draftEvent, dispatch, clearDraftEvent, createEvent]);
 
   const viewEventDetails = useCallback(
-    (event: EventOnSave) => {
+    (event: EventStored) => {
       console.log('Event clicked:', event);
       const moveEventInPixels = 20;
       dispatch(
@@ -133,8 +133,8 @@ export const EventContainer = () => {
           title={draftEvent.title}
           startY={draftEvent.start.fixedPositionY}
           endY={draftEvent.end.fixedPositionY}
-          startDate={new Date(draftEvent.start.date)}
-          endDate={new Date(draftEvent.end.date)}
+          startDate={draftEvent.start.date}
+          endDate={draftEvent.end.date}
           viewEventDetails={viewEventDetails}
         />
       )}
@@ -147,8 +147,8 @@ export const EventContainer = () => {
             title={event.title}
             startY={event.dayViewPosition.startY}
             endY={event.dayViewPosition.endY}
-            startDate={new Date(event.startDate)}
-            endDate={new Date(event.endDate)}
+            startDate={event.startDate}
+            endDate={event.endDate}
             viewEventDetails={viewEventDetails}
           />
         ))}

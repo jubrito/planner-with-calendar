@@ -5,19 +5,19 @@ import {
   getTimeInformation,
 } from '../../../../utils/calendar/utils';
 import styles from './event.module.scss';
-import { EventOnCreate, EventOnSave } from '../../../../types/event';
+import { EventStored } from '../../../../types/event';
 import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
 import { IntlDateTimeFormat2Digit } from '../../../../utils/constants';
 import { memo, useMemo } from 'react';
 
 type EventProps = {
-  id: EventOnCreate['id'];
-  title: EventOnCreate['title'];
-  startY: EventOnCreate['start']['fixedPositionY'];
-  endY: EventOnCreate['end']['fixedPositionY'];
-  startDate: EventOnCreate['start']['date'];
-  endDate: EventOnCreate['end']['date'];
-  viewEventDetails: (event: EventOnSave) => void;
+  id: EventStored['id'];
+  title: EventStored['title'];
+  startY: EventStored['dayViewPosition']['startY'];
+  endY: EventStored['dayViewPosition']['endY'];
+  startDate: EventStored['startDate'];
+  endDate: EventStored['endDate'];
+  viewEventDetails: (event: EventStored) => void;
 };
 
 export const Event = memo(function ({
@@ -35,7 +35,7 @@ export const Event = memo(function ({
   const isAtLeast60MinEvent = eventHeight >= sizeOfEach15MinBlock * 4;
   const hasMinimumHeight = eventHeight >= sizeOfEach15MinBlock;
   const localeString = useSelector(getLocaleLanguage());
-  const event: EventOnSave = {
+  const event: EventStored = {
     id,
     title,
     dayViewPosition: {
@@ -47,19 +47,29 @@ export const Event = memo(function ({
   };
 
   const [endTime, endPeriod] = useMemo(() => {
-    const endFullTime = getFormattedDateString(localeString, endDate, {
-      hour: IntlDateTimeFormat2Digit,
-      minute: IntlDateTimeFormat2Digit,
-    });
+    const deserializedEndDate = new Date(endDate);
+    const endFullTime = getFormattedDateString(
+      localeString,
+      deserializedEndDate,
+      {
+        hour: IntlDateTimeFormat2Digit,
+        minute: IntlDateTimeFormat2Digit,
+      },
+    );
     const [endTime, endPeriod] = getTimeInformation(endFullTime);
     return [endTime, endPeriod];
   }, [endDate, localeString]);
 
   const [startTime, startPeriod] = useMemo(() => {
-    const startFullTime = getFormattedDateString(localeString, startDate, {
-      hour: IntlDateTimeFormat2Digit,
-      minute: IntlDateTimeFormat2Digit,
-    });
+    const deserializedStartDate = new Date(startDate);
+    const startFullTime = getFormattedDateString(
+      localeString,
+      deserializedStartDate,
+      {
+        hour: IntlDateTimeFormat2Digit,
+        minute: IntlDateTimeFormat2Digit,
+      },
+    );
     const [startTime, startPeriod] = getTimeInformation(startFullTime);
     const updatedStartPeriod = startPeriod !== endPeriod ? startPeriod : '';
     return [startTime, updatedStartPeriod];

@@ -85,8 +85,10 @@ export const getModalContent = (
   endDate: EventOnCreate['end']['date'],
   locale: LocaleLanguage,
 ) => {
-  const startEvent = getEventInfo(startDate, locale);
-  const endEvent = getEventInfo(endDate, locale);
+  const deserializedStartDate = new Date(startDate);
+  const deserializedEndDate = new Date(endDate);
+  const startEvent = getEventInfo(deserializedStartDate, locale);
+  const endEvent = getEventInfo(deserializedEndDate, locale);
   const sameDayContent = getSameDayEventText(startEvent, endEvent);
   const multiDayContent = getMultiDayEventText(startEvent, endEvent);
   const { sameDayTitle, multiDayTitle } = getEventTitle(

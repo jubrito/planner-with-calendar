@@ -23,6 +23,22 @@ export const useEvent = (
       const startBlock = getStartBlock(relativeY);
       const endBlock = getEndBlock(startBlock);
       const fixedHourAnd15MinBlock = getFixedRelativeY(startBlock, 'start');
+      const startDate = new Date(
+        year,
+        month,
+        day,
+        startBlock.hour,
+        startBlock.minutes,
+      );
+      const endDate = new Date(
+        year,
+        month,
+        day,
+        endBlock.hour,
+        endBlock.minutes,
+      );
+      const serializableStartDate = startDate.toISOString();
+      const serializableEndDate = endDate.toISOString();
 
       setDraftEvent({
         title: defaultEventTitle,
@@ -30,12 +46,12 @@ export const useEvent = (
         start: {
           fixedPositionY: fixedHourAnd15MinBlock,
           block: startBlock,
-          date: new Date(year, month, day, startBlock.hour, startBlock.minutes),
+          date: serializableStartDate,
         },
         end: {
           fixedPositionY: fixedHourAnd15MinBlock,
           block: endBlock,
-          date: new Date(year, month, day, endBlock.hour, endBlock.minutes),
+          date: serializableEndDate,
         },
       });
     },
@@ -47,13 +63,15 @@ export const useEvent = (
       const startBlock = getStartBlock(relativeY);
       const endBlock = getEndBlock(startBlock);
       const fixedHourAnd15MinBlock = getFixedRelativeY(startBlock, 'end');
+      const date = new Date(year, month, day, endBlock.hour, endBlock.minutes);
+      const serializableDate = date.toISOString();
 
       setDraftEvent((prev) => ({
         ...prev!,
         end: {
           fixedPositionY: fixedHourAnd15MinBlock,
           block: endBlock,
-          date: new Date(year, month, day, endBlock.hour, endBlock.minutes),
+          date: serializableDate,
         },
       }));
     },

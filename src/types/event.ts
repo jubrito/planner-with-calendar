@@ -20,7 +20,7 @@ export type EventBlock = {
 type EventOnCreateInfo = {
   fixedPositionY: number;
   block: EventBlock;
-  date: Date;
+  date: string;
 };
 
 export type EventOnCreate = {
@@ -30,10 +30,10 @@ export type EventOnCreate = {
   title: string;
 };
 
-export type EventOnSave = Omit<EventStored, 'startDate' | 'endDate'> & {
-  startDate: Date;
-  endDate: Date;
-};
+// export type EventOnSave = Omit<EventStored, 'startDate' | 'endDate'> & {
+//   startDate: Date;
+//   endDate: Date;
+// };
 
 export type EventDetailsView = {
   year: DateConfig['year'];
@@ -50,5 +50,5 @@ export type EventDetailsView = {
 
 export type SelectedEventOnDayView = {
   top?: number;
-  event?: EventOnSave;
+  event?: EventStored;
 };
