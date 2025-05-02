@@ -1,12 +1,5 @@
 # Next steps (v1):
 
-change focus
-
-- buttons of planner should be focusable
-- give focus to planner when clicking on calendar day
-
-  - create 'go back to calendar' with ref of prev cell, focusing it
-
 - improve event structure
   - use event redux date saving only what matters (e.g., date)
 - improve architecture?
@@ -55,8 +48,10 @@ Features
 
   > Keyboard navigation (calendar, button planners, modal)
   > create event on edit mode when clicking on enter on calendar cell
-  > open / close view event modal with enter on calendar
-  > close view event modal using open
+  > buttons of planner should be focusable
+
+  > give focus to planner when clicking on calendar day
+  > create 'go back to calendar' with ref of prev cell, focusing it
   > Lighthouse report
   > SEO
 
