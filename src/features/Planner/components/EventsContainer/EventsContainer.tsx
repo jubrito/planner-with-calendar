@@ -6,7 +6,7 @@ import { Event } from './Event/Event';
 import { useDispatch } from 'react-redux';
 import { EventModalsContainer } from '../EventModalsContainer/EventModalsContainer';
 import {
-  getCurrentEvents,
+  getCurrentEventsOfSelectedDate,
   getCurrentSelectedDayViewEvent,
 } from '../../../../redux/slices/eventSlice/selectors';
 import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
@@ -32,13 +32,15 @@ import { HourButtons } from './HourButtons/HourButtons';
 export const EventContainer = () => {
   const dispatch = useDispatch();
   const containerRef = useRef<HTMLDivElement>(null);
-  const events = useSelector(getCurrentEvents());
   const locale = useSelector(getLocaleLanguage());
   const year = useSelector(getSelectedDayViewYear());
   const month = useSelector(getSelectedDayViewMonth(locale));
   const day = useSelector(getSelectedDayViewDay());
   const selectedDayViewEvent = useSelector(getCurrentSelectedDayViewEvent());
   const date = useSelector(getSelectedDayViewISODate());
+  const eventsOfSelectedDate = useSelector(
+    getCurrentEventsOfSelectedDate(date),
+  );
 
   const {
     draftEvent,
@@ -47,10 +49,6 @@ export const EventContainer = () => {
     clearDraftEvent,
     createEvent,
   } = useEvent(year, month, day);
-
-  useEffect(() => {
-    console.log('events', events);
-  }, [events]);
 
   const handleMouseDown = useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
@@ -159,7 +157,7 @@ export const EventContainer = () => {
           viewEventDetails={viewEventDetails}
         />
       )}
-      {events
+      {eventsOfSelectedDate
         .filter((event) => isValidEvent(event))
         .map((event) => (
           <Event
