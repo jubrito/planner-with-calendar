@@ -1,11 +1,6 @@
 # Next steps (v1):
 
-- memo
-  - memoize clickable hours of the day functions?
-  - memo rendering all events
-- virtualization of events? normalizing?
-
-  - should not open if event does not exist
+- should not open if event does not exist
 
 - edit event
 - delete event
