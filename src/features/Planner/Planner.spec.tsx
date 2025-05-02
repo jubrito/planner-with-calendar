@@ -452,15 +452,6 @@ describe('Planner', () => {
             },
           },
         });
-        // const time = '00:00';
-        // const timeElements = screen.queryAllByText(time);
-        // const currentHourElementExists = timeElements.some(
-        //   (timeElement) => timeElement.id === 'currentHour' && timeElement.role === 'time'
-        // );
-        // expect(currentHourElementExists).toBeTruthy();
-
-        // expect(currentHourElementExists instanceof HTMLTimeElement).toBeTruthy();
-        // expect(timeElements).toHaveProperty('dateTime', time);
         const time = '00:00';
         const id = 'currentTime';
         const timeElement = screen.getByTestId(id);
