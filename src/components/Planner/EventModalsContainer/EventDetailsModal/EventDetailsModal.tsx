@@ -17,7 +17,6 @@ export const EventDetailsModal = memo(
     if (!selectedDayViewEvent || !selectedDayViewEvent.event) return <></>;
 
     const { event: selectedEvent, top } = selectedDayViewEvent;
-    console.log('selectedEvemt', selectedEvent);
     const { title } = selectedEvent;
 
     const modalContent = () => {
