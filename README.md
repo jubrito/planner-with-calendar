@@ -54,6 +54,7 @@ Features
 
 - Accessibility
 
+  > Keyboard navigation (calendar, button planners, modal)
   > Lighthouse report
   > SEO
 
