@@ -30,11 +30,6 @@ export type EventOnCreate = {
   title: string;
 };
 
-// export type EventOnSave = Omit<EventStored, 'startDate' | 'endDate'> & {
-//   startDate: Date;
-//   endDate: Date;
-// };
-
 export type EventDetailsView = {
   year: DateConfig['year'];
   month: DateConfig['month'];
