@@ -98,7 +98,7 @@ export const Event = memo(function ({
       onKeyDown={handleKeyDown}
       onMouseDown={(e) => e.stopPropagation()}
       title="Click on the event to view details and actions"
-      tabIndex={1}
+      tabIndex={0}
       ref={eventRef}
     >
       {hasMinimumHeight && (
