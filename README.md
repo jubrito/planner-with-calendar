@@ -2,8 +2,10 @@
 
 change focus
 
-- buttons of calendar should be focusable
+- buttons of planner should be focusable
 - give focus to planner when clicking on calendar day
+
+  - create 'go back to calendar' with ref of prev cell, focusing it
 
 - improve event structure
   - use event redux date saving only what matters (e.g., date)
