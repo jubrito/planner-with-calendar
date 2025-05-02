@@ -1,7 +1,5 @@
 # Next steps (v1):
 
-- should not open if event does not exist
-
 - edit event
 - delete event
 - create event button on planner for accessibility
