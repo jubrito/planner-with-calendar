@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { deepCopy } from '../../../utils/utils';
 import { EventStored, SelectedEventOnDayView } from '../../../types/event';
+import { formatDateIDFromDate } from '../../../utils/events/utils';
 
 type InitialEventsInfoState = {
   events: EventStored[];
@@ -43,9 +44,10 @@ export const eventSlice = createSlice({
       state.currentState.events = [...events, newEvent];
       const eventsByDates = { ...state.currentState.eventsByDates };
       const eventsByDate = eventsByDates[ISODate];
+      const id = formatDateIDFromDate(ISODate);
       state.currentState.eventsByDates = {
         ...eventsByDates,
-        [ISODate]: {
+        [id]: {
           events: [...(eventsByDate?.events || []), newEvent],
         },
       };
