@@ -1,6 +1,5 @@
 # Next steps (v1):
 
-- store map of date in millisseconds (event32329329) and convert to milli to get property of the date that can be used to acess all events inside
 - remove old events[]
 - connect day on top with events
 
