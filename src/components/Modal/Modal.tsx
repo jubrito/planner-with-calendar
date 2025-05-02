@@ -1,4 +1,4 @@
-import { ObjectType } from '../../utils/constants';
+import { ObjectType } from '../../types/types';
 import styles from './modal.module.scss';
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';

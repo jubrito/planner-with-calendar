@@ -1,5 +1,5 @@
 import { DateConfig } from '../types/calendar/types';
-import { ObjectType } from './constants';
+import { ObjectType } from '../types/types';
 import { LocaleLanguage } from '../types/locale/types';
 import { getDay, getMonthIndex, getYear } from './calendar/utils';
 import { validateDateTimeFormatRequirements } from './validations';
