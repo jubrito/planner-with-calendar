@@ -9,7 +9,11 @@ import {
   clearSelectedDayViewEvent,
   updateSelectedDayViewEvent,
 } from '../../../redux/slices/eventSlice';
-import { EventOnCreate, EventStored } from '../../../types/event';
+import {
+  EventOnCreate,
+  EventOnOpenDetails,
+  EventStored,
+} from '../../../types/event';
 import {
   getCurrentEvents,
   getCurrentSelectedDayViewEvent,
@@ -96,12 +100,12 @@ export const EventContainer = () => {
   const viewEventModalRef: RefObject<HTMLDivElement | null> = useRef(null);
 
   const viewEventDetails = useCallback(
-    (event: EventStored, eventRef: RefObject<HTMLDivElement | null>) => {
+    (event: EventOnOpenDetails, eventRef: RefObject<HTMLDivElement | null>) => {
       console.log('Event clicked:', event);
       const moveEventInPixels = 20;
       dispatch(
         updateSelectedDayViewEvent({
-          top: event.dayViewPosition.endY - moveEventInPixels,
+          top: event.endY - moveEventInPixels,
           event,
         }),
       );
@@ -177,6 +181,4 @@ const isValidEvent = (event: EventStored) =>
   event.id != null &&
   event.title != null &&
   event.startDate != null &&
-  event.dayViewPosition.startY != null &&
-  event.endDate != null &&
-  event.dayViewPosition.endY !== null;
+  event.endDate != null;

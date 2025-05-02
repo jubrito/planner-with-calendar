@@ -5,10 +5,7 @@ import { getEndBlock, getStartBlock } from '../utils/events/dayView/getBlocks';
 import { EventStored } from '../types/event';
 import { getDateISOString } from '../utils/calendar/utils';
 import { DateConfig } from '../types/calendar/types';
-import {
-  getFixedRelativeY,
-  getMinimumEventFixedPositionY,
-} from '../utils/events/dayView/getPositionsY';
+import { getFixedRelativeY } from '../utils/events/dayView/getPositionsY';
 import { defaultEventTitle } from '../utils/events/dayView/constants';
 
 export const useEvent = (
@@ -82,10 +79,6 @@ export const useEvent = (
 
   const createEvent = useCallback(
     (draftEvent: EventOnCreate): EventStored => {
-      const endMinimumFixedPosition = getMinimumEventFixedPositionY(
-        draftEvent.start.fixedPositionY,
-        draftEvent.end.fixedPositionY,
-      );
       const startDate = new Date(
         year,
         month,
@@ -100,16 +93,11 @@ export const useEvent = (
         draftEvent.end.block.hour,
         draftEvent.end.block.minutes,
       );
-
       return {
         id: draftEvent.id.replace('draft', 'event'),
         title: draftEvent.title,
         startDate: getDateISOString(startDate),
         endDate: getDateISOString(endDate),
-        dayViewPosition: {
-          startY: draftEvent.start.fixedPositionY,
-          endY: endMinimumFixedPosition,
-        },
       };
     },
     [year, month, day],

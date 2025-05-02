@@ -113,9 +113,8 @@ describe('React hooks', () => {
         });
         rerender();
         const { draftEvent } = result.current;
-        const initialEvent = {
+        const initialEvent: EventStored = {
           id: '',
-          dayViewPosition: { startY: 1000001, endY: 1000001 },
           title: '',
           endDate: '',
           startDate: '',
@@ -129,12 +128,6 @@ describe('React hooks', () => {
         });
         expect(newEvent.id).not.toStrictEqual(initialEvent.id);
         expect(newEvent.title).not.toStrictEqual(initialEvent.title);
-        expect(newEvent.dayViewPosition.startY).not.toStrictEqual(
-          initialEvent.dayViewPosition.startY,
-        );
-        expect(newEvent.dayViewPosition.startY).not.toStrictEqual(
-          initialEvent.dayViewPosition.endY,
-        );
         expect(newEvent.startDate).not.toStrictEqual(initialEvent.startDate);
         expect(newEvent.endDate).not.toStrictEqual(initialEvent.endDate);
       });

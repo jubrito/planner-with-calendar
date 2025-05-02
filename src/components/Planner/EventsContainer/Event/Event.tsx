@@ -8,7 +8,11 @@ import {
   getTimeInformation,
 } from '../../../../utils/calendar/utils';
 import styles from './event.module.scss';
-import { EventStored } from '../../../../types/event';
+import {
+  EventOnCreate,
+  EventOnOpenDetails,
+  EventStored,
+} from '../../../../types/event';
 import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
 import {
   enterKey,
@@ -22,14 +26,14 @@ import {
 import { getFifteenMinuteBlock } from '../../../../utils/events/dayView/getBlocks';
 
 type EventProps = {
-  id: EventStored['id'];
-  title: EventStored['title'];
-  startY?: EventStored['dayViewPosition']['startY'];
-  endY?: EventStored['dayViewPosition']['endY'];
-  startDate: EventStored['startDate'];
-  endDate: EventStored['endDate'];
+  id: EventOnCreate['id'];
+  title: EventOnCreate['title'];
+  startY?: EventOnCreate['start']['fixedPositionY'];
+  endY?: EventOnCreate['end']['fixedPositionY'];
+  startDate: EventOnCreate['start']['date'];
+  endDate: EventOnCreate['end']['date'];
   viewEventDetails: (
-    event: EventStored,
+    event: EventOnOpenDetails,
     eventRef: React.RefObject<HTMLDivElement | null>,
   ) => void;
 };
@@ -50,10 +54,6 @@ export const Event = memo(function ({
     startYPosition = startY;
     endYPosition = endY;
   }
-  console.log('startY', startY);
-  console.log('endY', endY);
-  console.log('startYPosition', startYPosition);
-  console.log('endYPosition', endYPosition);
 
   const eventHeight = endYPosition - startYPosition;
   const eventStart = startYPosition;
@@ -62,15 +62,13 @@ export const Event = memo(function ({
   const hasMinimumHeight = eventHeight >= sizeOfEach15MinBlock;
   const localeString = useSelector(getLocaleLanguage());
   const eventRef = useRef(null);
-  const event: EventStored = {
+  const event: EventOnOpenDetails = {
     id,
     title,
-    dayViewPosition: {
-      startY: startYPosition,
-      endY: endYPosition,
-    },
     startDate,
     endDate,
+    startY: startYPosition,
+    endY: endYPosition,
   };
 
   const [endTime, endPeriod] = useMemo(() => {

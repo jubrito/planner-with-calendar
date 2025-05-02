@@ -5,10 +5,6 @@ export type EventStored = {
   title: string;
   startDate: string;
   endDate: string;
-  dayViewPosition: {
-    startY: number;
-    endY: number;
-  };
 };
 
 export type EventBlock = {
@@ -29,6 +25,8 @@ export type EventOnCreate = {
   end: EventOnCreateInfo;
   title: string;
 };
+
+export type EventOnOpenDetails = EventStored & { startY: number; endY: number };
 
 export type EventDetailsView = {
   year: DateConfig['year'];
