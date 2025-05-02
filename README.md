@@ -54,10 +54,6 @@ Features
   > CDN: Serve static resources via a CDN:
   > Content Delivery Network is to reduce latency and deliver content to the end user as quickly as possible. They implement multiple strategies for this. The two most important ones for this article are "distributed servers" and "caching."
 
-- Improvements
-
-  > store only event dates, not position
-
 - Web Hosting
 
   > Netlify/HottestNewProvider
