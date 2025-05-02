@@ -7,11 +7,12 @@ import { Modal } from '../../../../../components/Modal/Modal';
 
 type EventDetailsModalProps = {
   closeModal: () => void;
+  editModal: () => void;
   viewEventModalRef: RefObject<HTMLDivElement | null>;
 };
 
 export const EventDetailsModal = memo(
-  ({ closeModal, viewEventModalRef }: EventDetailsModalProps) => {
+  ({ closeModal, editModal, viewEventModalRef }: EventDetailsModalProps) => {
     const locale = useSelector(getLocaleLanguage());
     const selectedDayViewEvent = useSelector(getCurrentSelectedDayViewEvent());
 
@@ -59,6 +60,7 @@ export const EventDetailsModal = memo(
         }
         style={{ top }}
         closeModal={{ handleClose: closeModal }}
+        editModal={{ handleEdit: editModal }}
         ref={viewEventModalRef}
       />
     );

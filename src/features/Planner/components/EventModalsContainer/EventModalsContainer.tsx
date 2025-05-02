@@ -3,14 +3,16 @@ import { EventDetailsModal } from './EventDetailsModal/EventDetailsModal';
 
 type EventModalsContainerProps = {
   closeModal: () => void;
+  editModal: () => void;
   viewEventModalRef: RefObject<HTMLDivElement | null>;
 };
 
 export const EventModalsContainer = memo(
-  ({ closeModal, viewEventModalRef }: EventModalsContainerProps) => {
+  ({ closeModal, editModal, viewEventModalRef }: EventModalsContainerProps) => {
     return (
       <EventDetailsModal
         closeModal={closeModal}
+        editModal={editModal}
         viewEventModalRef={viewEventModalRef}
       />
     );

@@ -125,6 +125,10 @@ export const EventContainer = () => {
     dispatch(clearSelectedDayViewEvent());
   }, [dispatch]);
 
+  const editModal = useCallback(() => {
+    alert('edit');
+  }, []);
+
   return (
     <div
       ref={containerRef}
@@ -137,6 +141,7 @@ export const EventContainer = () => {
       {selectedDayViewEvent && selectedDayViewEvent.event && (
         <EventModalsContainer
           closeModal={closeModal}
+          editModal={editModal}
           viewEventModalRef={viewEventModalRef}
         />
       )}
