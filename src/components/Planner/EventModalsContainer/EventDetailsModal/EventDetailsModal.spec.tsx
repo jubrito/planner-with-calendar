@@ -4,7 +4,7 @@ import { renderWithProviders } from '../../../../utils/tests/renderWithProviders
 import { EventDetailsModal } from './EventDetailsModal';
 import { initialValue as initialEventValue } from '../../../../redux/slices/eventSlice';
 import { initialValue as initialLocaleValue } from '../../../../redux/slices/localeSlice';
-import { EventOnSave, SelectedEventOnDayView } from '../../../../types/event';
+import { EventStored, SelectedEventOnDayView } from '../../../../types/event';
 import { Months } from '../../../../types/calendar/enums';
 import { get2DigitsValue } from '../../../../utils/calendar/utils';
 
@@ -26,15 +26,21 @@ describe('EventDetailsModal', () => {
   const endYear = 2026;
   const endMonth = Months.DECEMBER;
   const endDay = 31;
-  const startDate = new Date(year, month, day, startHour, startMinutes);
-  const endDate = new Date(year, month, day, endHour, endMinutes);
+  const startDate = new Date(
+    year,
+    month,
+    day,
+    startHour,
+    startMinutes,
+  ).toISOString();
+  const endDate = new Date(year, month, day, endHour, endMinutes).toISOString();
   const startPeriod = 'AM';
   const endPeriod = 'PM';
   const closeModalMock = jest.fn();
-
+  const refMock = { current: null };
   type RenderEventDetailsModalProps = {
     renderWith24hTimeSystem?: boolean;
-    event?: EventOnSave;
+    event?: EventStored;
     top?: number;
   };
 
@@ -48,7 +54,10 @@ describe('EventDetailsModal', () => {
       top: top ?? initialSelectedEvent.top,
     };
     return renderWithProviders(
-      <EventDetailsModal closeModal={closeModalMock} />,
+      <EventDetailsModal
+        closeModal={closeModalMock}
+        viewEventModalRef={refMock}
+      />,
       {
         preloadedState: {
           eventSlice: {
@@ -97,8 +106,8 @@ describe('EventDetailsModal', () => {
         renderEventDetailsModal({});
         const date = `${weekDay}, ${startMonthName} ${day}`;
         const separator = '\u2022';
-        const startTime = `${get2DigitsValue(startDate.getHours())}:${get2DigitsValue(startDate.getMinutes())}`;
-        const endTime = `${get2DigitsValue(endDate.getHours())}:${get2DigitsValue(endDate.getMinutes())}`;
+        const startTime = `${get2DigitsValue(new Date(startDate).getHours())}:${get2DigitsValue(new Date(startDate).getMinutes())}`;
+        const endTime = `${get2DigitsValue(new Date(endDate).getHours())}:${get2DigitsValue(new Date(endDate).getMinutes())}`;
         const fullTime = `${date} ${separator} ${startTime} – ${endTime} ${startPeriod}`;
         const timeElement = screen.getByText(fullTime);
         const title = `Event on ${date} from ${startTime} to ${endTime} ${startPeriod}`;
@@ -114,7 +123,7 @@ describe('EventDetailsModal', () => {
           day,
           updatedEndHour,
           updatedEndMinutes,
-        );
+        ).toISOString();
         const updatedEvent = {
           dayViewPosition: {
             endY: 0,
@@ -128,8 +137,8 @@ describe('EventDetailsModal', () => {
         renderEventDetailsModal({ event: updatedEvent });
         const date = `${weekDay}, ${startMonthName} ${day}`;
         const separator = '\u2022';
-        const startTime = `${get2DigitsValue(startDate.getHours())}:${get2DigitsValue(startDate.getMinutes())}`;
-        const endTime = `${get2DigitsValue(updatedEndDate.getHours())}:${get2DigitsValue(updatedEndDate.getMinutes())}`;
+        const startTime = `${get2DigitsValue(new Date(startDate).getHours())}:${get2DigitsValue(new Date(startDate).getMinutes())}`;
+        const endTime = `${get2DigitsValue(new Date(updatedEndDate).getHours())}:${get2DigitsValue(new Date(updatedEndDate).getMinutes())}`;
         const fullTime = `${date} ${separator} ${startTime} ${startPeriod} – ${endTime} ${endPeriod}`;
         const timeElement = screen.getByText(fullTime);
         const title = `Event on ${date} from ${startTime} ${startPeriod} to ${endTime} ${endPeriod}`;
@@ -147,7 +156,7 @@ describe('EventDetailsModal', () => {
           endDay,
           updatedEndHour,
           updatedEndMinutes,
-        );
+        ).toISOString();
         const updatedEvent = {
           dayViewPosition: {
             endY: 0,
@@ -160,8 +169,8 @@ describe('EventDetailsModal', () => {
         };
         renderEventDetailsModal({ event: updatedEvent });
         const separator = '–';
-        const startTime = `${get2DigitsValue(startDate.getHours())}:${get2DigitsValue(startDate.getMinutes())}`;
-        const endTime = `${get2DigitsValue(updatedEndDate.getHours())}:${get2DigitsValue(updatedEndDate.getMinutes())}`;
+        const startTime = `${get2DigitsValue(new Date(startDate).getHours())}:${get2DigitsValue(new Date(startDate).getMinutes())}`;
+        const endTime = `${get2DigitsValue(new Date(updatedEndDate).getHours())}:${get2DigitsValue(new Date(updatedEndDate).getMinutes())}`;
         const startFullDate = `${startMonthName} ${day}, ${startTime} ${startPeriod}`;
         const endFullDate = `${endMonthName} ${endDay}, ${endTime} ${endPeriod}`;
         const fullTime = `${startFullDate} ${separator} ${endFullDate}`;
@@ -180,7 +189,7 @@ describe('EventDetailsModal', () => {
           endDay,
           updatedEndHour,
           updatedEndMinutes,
-        );
+        ).toISOString();
         const updatedEvent = {
           dayViewPosition: {
             endY: 0,
@@ -193,8 +202,8 @@ describe('EventDetailsModal', () => {
         };
         renderEventDetailsModal({ event: updatedEvent });
         const separator = '–';
-        const startTime = `${get2DigitsValue(startDate.getHours())}:${get2DigitsValue(startDate.getMinutes())}`;
-        const endTime = `${endHourIn12HourSystem}:${get2DigitsValue(updatedEndDate.getMinutes())}`;
+        const startTime = `${get2DigitsValue(new Date(startDate).getHours())}:${get2DigitsValue(new Date(startDate).getMinutes())}`;
+        const endTime = `${endHourIn12HourSystem}:${get2DigitsValue(new Date(updatedEndDate).getMinutes())}`;
         const startFullDate = `${startMonthName} ${day}, ${year}, ${startTime} ${startPeriod}`;
         const endFullDate = `${endMonthName} ${endDay}, ${endYear}, ${endTime} ${endPeriod}`;
         const fullTime = `${startFullDate} ${separator} ${endFullDate}`;
@@ -211,8 +220,8 @@ describe('EventDetailsModal', () => {
         renderEventDetailsModal({ renderWith24hTimeSystem: true });
         const date = `${weekDayPtBr}, ${startMonthNamePtBr} ${day}`;
         const separator = '\u2022';
-        const startTime = `${get2DigitsValue(startDate.getHours())}:${get2DigitsValue(startDate.getMinutes())}`;
-        const endTime = `${get2DigitsValue(endDate.getHours())}:${get2DigitsValue(endDate.getMinutes())}`;
+        const startTime = `${get2DigitsValue(new Date(startDate).getHours())}:${get2DigitsValue(new Date(startDate).getMinutes())}`;
+        const endTime = `${get2DigitsValue(new Date(endDate).getHours())}:${get2DigitsValue(new Date(endDate).getMinutes())}`;
         const fullTime = `${date} ${separator} ${startTime} – ${endTime}`;
         const timeElement = screen.getByText(fullTime);
         const title = `Event on ${date} from ${startTime} to ${endTime}`;
@@ -229,7 +238,7 @@ describe('EventDetailsModal', () => {
         day,
         updatedEndHour,
         updatedEndMinutes,
-      );
+      ).toISOString();
       const updatedEvent = {
         dayViewPosition: {
           endY: 0,
@@ -246,8 +255,8 @@ describe('EventDetailsModal', () => {
       });
       const date = `${weekDayPtBr}, ${startMonthNamePtBr} ${day}`;
       const separator = '\u2022';
-      const startTime = `${get2DigitsValue(startDate.getHours())}:${get2DigitsValue(startDate.getMinutes())}`;
-      const endTime = `${get2DigitsValue(updatedEndDate.getHours())}:${get2DigitsValue(updatedEndDate.getMinutes())}`;
+      const startTime = `${get2DigitsValue(new Date(startDate).getHours())}:${get2DigitsValue(new Date(startDate).getMinutes())}`;
+      const endTime = `${get2DigitsValue(new Date(updatedEndDate).getHours())}:${get2DigitsValue(new Date(updatedEndDate).getMinutes())}`;
       const fullTime = `${date} ${separator} ${startTime} – ${endTime}`;
       const timeElement = screen.getByText(fullTime);
       const title = `Event on ${date} from ${startTime} to ${endTime}`;
@@ -265,7 +274,7 @@ describe('EventDetailsModal', () => {
         endDay,
         updatedEndHour,
         updatedEndMinutes,
-      );
+      ).toISOString();
       const updatedEvent = {
         dayViewPosition: {
           endY: 0,
@@ -281,8 +290,8 @@ describe('EventDetailsModal', () => {
         renderWith24hTimeSystem: true,
       });
       const separator = '–';
-      const startTime = `${get2DigitsValue(startDate.getHours())}:${get2DigitsValue(startDate.getMinutes())}`;
-      const endTime = `${get2DigitsValue(updatedEndDate.getHours())}:${get2DigitsValue(updatedEndDate.getMinutes())}`;
+      const startTime = `${get2DigitsValue(new Date(startDate).getHours())}:${get2DigitsValue(new Date(startDate).getMinutes())}`;
+      const endTime = `${get2DigitsValue(new Date(updatedEndDate).getHours())}:${get2DigitsValue(new Date(updatedEndDate).getMinutes())}`;
       const startFullDate = `${startMonthNamePtBr} ${day}, ${startTime}`;
       const endFullDate = `${endMonthNamePtBr} ${endDay}, ${endTime}`;
       const fullTime = `${startFullDate} ${separator} ${endFullDate}`;
@@ -300,7 +309,7 @@ describe('EventDetailsModal', () => {
         endDay,
         updatedEndHour,
         updatedEndMinutes,
-      );
+      ).toISOString();
       const updatedEvent = {
         dayViewPosition: {
           endY: 0,
@@ -316,8 +325,8 @@ describe('EventDetailsModal', () => {
         renderWith24hTimeSystem: true,
       });
       const separator = '–';
-      const startTime = `${get2DigitsValue(startDate.getHours())}:${get2DigitsValue(startDate.getMinutes())}`;
-      const endTime = `${get2DigitsValue(updatedEndDate.getHours())}:${updatedEndMinutes}`;
+      const startTime = `${get2DigitsValue(new Date(startDate).getHours())}:${get2DigitsValue(new Date(startDate).getMinutes())}`;
+      const endTime = `${get2DigitsValue(new Date(updatedEndDate).getHours())}:${updatedEndMinutes}`;
       const startFullDate = `${startMonthNamePtBr} ${day}, ${year}, ${startTime}`;
       const endFullDate = `${endMonthNamePtBr} ${endDay}, ${endYear}, ${endTime}`;
       const fullTime = `${startFullDate} ${separator} ${endFullDate}`;
