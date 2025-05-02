@@ -1,7 +1,5 @@
 # Next steps (v1):
 
-- rename event on save to event on view or something
-
 change focus
 
 - buttons of calendar should be focusable
