@@ -55,6 +55,9 @@ Features
 - Accessibility
 
   > Keyboard navigation (calendar, button planners, modal)
+  > create event on edit mode when clicking on enter on calendar cell
+  > open / close view event modal with enter on calendar
+  > close view event modal using open
   > Lighthouse report
   > SEO
 
