@@ -26,3 +26,9 @@ export const getCurrentSelectedDayViewEvent = () =>
     eventSlice,
     (state) => state.currentState.selectedDayViewEvent,
   );
+
+export const getInitialEventsOfSelectedDate = (ISODate: string) =>
+  createSelector(eventSlice, (state) => {
+    const eventsByDate = state.initialState.eventsByDates[ISODate];
+    return eventsByDate ? eventsByDate.events : [];
+  });
