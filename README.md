@@ -1,9 +1,5 @@
 # Next steps (v1):
 
-- improve architecture?
-
-  - leave reusable components on components
-
 - memo
   - memoize clickable hours of the day functions?
   - memo rendering all events
