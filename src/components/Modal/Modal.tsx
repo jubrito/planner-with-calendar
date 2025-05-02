@@ -47,6 +47,7 @@ export const Modal = ({
           <button
             onClick={closeModal.handleClose}
             aria-label={closeModal.closeLabel || 'Click to close modal'}
+            tabIndex={1}
           >
             <CloseIcon />
           </button>
@@ -55,6 +56,7 @@ export const Modal = ({
           <button
             onClick={deleteModal.handleDelete}
             aria-label={deleteModal.deleteLabel || 'Click to delete'}
+            tabIndex={1}
           >
             <DeleteIcon />
           </button>
@@ -63,6 +65,7 @@ export const Modal = ({
           <button
             onClick={editModal.handleEdit}
             aria-label={editModal.editLabel || 'Click to edit'}
+            tabIndex={1}
           >
             <EditIcon />
           </button>
