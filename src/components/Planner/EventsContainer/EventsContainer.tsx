@@ -96,7 +96,7 @@ export const EventContainer = () => {
   const viewEventModalRef: RefObject<HTMLDivElement | null> = useRef(null);
 
   const viewEventDetails = useCallback(
-    (event: EventStored, eventRef: RefObject<HTMLDivElement>) => {
+    (event: EventStored, eventRef: RefObject<HTMLDivElement | null>) => {
       console.log('Event clicked:', event);
       const moveEventInPixels = 20;
       dispatch(
