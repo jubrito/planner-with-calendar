@@ -1,6 +1,6 @@
-@use '../../../../features/Calendar/_calendar.module.scss';
-@use '../../../../styles/variables' as variables;
-@use '../../../../styles/mixins' as mixins;
+@use '../../../../..//features/Calendar/_calendar.module.scss';
+@use '../../../../../styles/variables' as variables;
+@use '../../../../../styles/mixins' as mixins;
 
 .isToday {
   background: variables.$blue-lightgray-color;
