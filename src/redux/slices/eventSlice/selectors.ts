@@ -1,5 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
+import { formatDateIDFromDate } from '../../../utils/events/utils';
 
 const eventSlice = (state: RootState) => state.eventSlice;
 
@@ -29,12 +30,14 @@ export const getCurrentSelectedDayViewEvent = () =>
 
 export const getInitialEventsOfSelectedDate = (ISODate: string) =>
   createSelector(eventSlice, (state) => {
-    const eventsByDate = state.initialState.eventsByDates[ISODate];
+    const id = formatDateIDFromDate(ISODate);
+    const eventsByDate = state.initialState.eventsByDates[id];
     return eventsByDate ? eventsByDate.events : [];
   });
 
 export const getCurrentEventsOfSelectedDate = (ISODate: string) =>
   createSelector(eventSlice, (state) => {
-    const eventsByDate = state.currentState.eventsByDates[ISODate];
+    const id = formatDateIDFromDate(ISODate);
+    const eventsByDate = state.currentState.eventsByDates[id];
     return eventsByDate ? eventsByDate.events : [];
   });
