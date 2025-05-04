@@ -2,8 +2,9 @@
 
 Tests
 
-- test view details should disappear when changing view day dates
 - test logic that gets only events of that day
+- replace toDateString with ISOString
+- use getDateISOString instead of .toISOSTring()
 
 Improvements
 
