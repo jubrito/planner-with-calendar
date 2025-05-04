@@ -24,7 +24,7 @@ const initialSelectedEvent: SelectedEventOnDayView = {
   top: 0,
 };
 
-const renderEventDetailsModal = (
+const renderEventsContainer = (
   selectedDayViewEvent?: SelectedEventOnDayView,
 ) => {
   return renderWithProviders(<EventContainer />, {
@@ -123,12 +123,12 @@ describe('EventContainer', () => {
   });
   describe('When opening modal', () => {
     it('should not display modal if selected day view event is not defined', () => {
-      renderEventDetailsModal();
+      renderEventsContainer();
       const event = screen.queryByText(title);
       expect(event).not.toBeInTheDocument();
     });
     it('should not display modal if selected event is not defined', () => {
-      renderEventDetailsModal({
+      renderEventsContainer({
         ...initialSelectedEvent,
         event: undefined,
       });
@@ -137,7 +137,7 @@ describe('EventContainer', () => {
     });
   });
   it('should display modal when clicking on event', async () => {
-    const { container } = renderEventDetailsModal({
+    const { container } = renderEventsContainer({
       ...initialSelectedEvent,
       event: initialSelectedEvent.event,
     });
@@ -161,7 +161,7 @@ describe('EventContainer', () => {
     }
   });
   it('should close the modal when clicking on close button', async () => {
-    const { container } = renderEventDetailsModal({
+    const { container } = renderEventsContainer({
       ...initialSelectedEvent,
       event: initialSelectedEvent.event,
     });
@@ -189,5 +189,8 @@ describe('EventContainer', () => {
 
       expect(modal).not.toBeInTheDocument();
     }
+  });
+  it('should only render events day opened', () => {
+    const { container } = renderWithProviders(<EventContainer />);
   });
 });
