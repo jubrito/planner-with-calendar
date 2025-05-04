@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { screen, within } from '@testing-library/dom';
+import { screen, waitFor, within } from '@testing-library/dom';
 import { Cell } from './Cell';
 import { Months } from '../../../../../types/calendar/enums';
 import {
@@ -9,7 +9,10 @@ import {
 import { firstDayOfTheMonth } from '../../../../../utils/calendar/constants';
 import { renderWithProviders } from '../../../../../utils/tests/renderWithProviders';
 import { initialValue } from '../../../../../redux/slices/dateSlice';
+import { initialValue as initialEventValue } from '../../../../../redux/slices/eventSlice';
 import { IntlDateTimeFormatShort } from '../../../../../utils/constants';
+import { EventStored } from '../../../../../types/event';
+import userEvent from '@testing-library/user-event';
 
 const cellYear = 2025;
 const cellDay = firstDayOfTheMonth;
@@ -81,6 +84,7 @@ describe('Cell', () => {
     renderWithProviders(<TestTable cellMonth={nextMonth} />, {
       preloadedState: {
         dateSlice: {
+          ...initialValue,
           currentState: {
             ...initialValue.currentState,
             globalISODate: new Date(
@@ -88,9 +92,6 @@ describe('Cell', () => {
               currentMonth,
               cellDay,
             ).toDateString(),
-          },
-          initialState: {
-            ...initialValue.initialState,
           },
         },
       },
@@ -111,5 +112,55 @@ describe('Cell', () => {
     expect(timeElement).toHaveProperty('dateTime', fullDate);
     expect(timeElement).toHaveProperty('title', fullDateTitle);
     expect(timeElement).toHaveTextContent(cellDay.toString());
+  });
+
+  it('should hide modal with event details when selecting a different date by clicking on a cell', async () => {
+    const nextMonth = Months.FEBRUARY;
+    const initialEvent: EventStored = {
+      id: '',
+      title: '',
+      endDate: '',
+      startDate: '',
+    };
+    const initialSelectedDayViewEvent = {
+      event: initialEvent,
+      top: 101,
+    };
+    const { store } = renderWithProviders(<TestTable cellMonth={nextMonth} />, {
+      preloadedState: {
+        dateSlice: {
+          ...initialValue,
+          currentState: {
+            ...initialValue.currentState,
+            globalISODate: new Date(
+              cellYear,
+              currentMonth,
+              cellDay,
+            ).toDateString(),
+          },
+        },
+        eventSlice: {
+          ...initialEventValue,
+          currentState: {
+            ...initialEventValue.currentState,
+            selectedDayViewEvent: initialSelectedDayViewEvent,
+          },
+        },
+      },
+    });
+    const tdElement = screen.getByRole('cell');
+    const buttonElement = within(tdElement).getByRole('button');
+    let selectedDayViewEvent =
+      store.getState().eventSlice.currentState.selectedDayViewEvent;
+
+    expect(selectedDayViewEvent?.top).toBe(initialSelectedDayViewEvent.top);
+    expect(selectedDayViewEvent?.event).toBe(initialSelectedDayViewEvent.event);
+
+    await userEvent.click(buttonElement);
+
+    selectedDayViewEvent =
+      store.getState().eventSlice.currentState.selectedDayViewEvent;
+
+    expect(selectedDayViewEvent).toBeUndefined();
   });
 });
