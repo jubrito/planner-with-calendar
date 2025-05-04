@@ -8,10 +8,7 @@ import {
 } from '../../../../../utils/calendar/utils';
 import { firstDayOfTheMonth } from '../../../../../utils/calendar/constants';
 import { renderWithProviders } from '../../../../../utils/tests/renderWithProviders';
-import {
-  initialDate,
-  initialValue,
-} from '../../../../../redux/slices/dateSlice';
+import { initialValue } from '../../../../../redux/slices/dateSlice';
 import { initialValue as initialEventValue } from '../../../../../redux/slices/eventSlice';
 import { IntlDateTimeFormatShort } from '../../../../../utils/constants';
 import { EventStored } from '../../../../../types/event';
