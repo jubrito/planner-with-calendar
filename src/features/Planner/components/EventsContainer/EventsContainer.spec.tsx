@@ -24,9 +24,12 @@ const initialSelectedEvent: SelectedEventOnDayView = {
   top: 0,
 };
 
-const renderEventsContainer = (
-  selectedDayViewEvent?: SelectedEventOnDayView,
-) => {
+type renderEventsContainerProps = {
+  selectedDayViewEvent?: SelectedEventOnDayView;
+};
+const renderEventsContainer = ({
+  selectedDayViewEvent,
+}: renderEventsContainerProps) => {
   return renderWithProviders(<EventContainer />, {
     preloadedState: {
       eventSlice: {
@@ -123,14 +126,16 @@ describe('EventContainer', () => {
   });
   describe('When opening modal', () => {
     it('should not display modal if selected day view event is not defined', () => {
-      renderEventsContainer();
+      renderEventsContainer({});
       const event = screen.queryByText(title);
       expect(event).not.toBeInTheDocument();
     });
     it('should not display modal if selected event is not defined', () => {
       renderEventsContainer({
-        ...initialSelectedEvent,
-        event: undefined,
+        selectedDayViewEvent: {
+          ...initialSelectedEvent,
+          event: undefined,
+        },
       });
       const event = screen.queryByText(title);
       expect(event).not.toBeInTheDocument();
@@ -138,8 +143,10 @@ describe('EventContainer', () => {
   });
   it('should display modal when clicking on event', async () => {
     const { container } = renderEventsContainer({
-      ...initialSelectedEvent,
-      event: initialSelectedEvent.event,
+      selectedDayViewEvent: {
+        ...initialSelectedEvent,
+        event: initialSelectedEvent.event,
+      },
     });
     const targetElement = container.firstElementChild;
     expect(targetElement).not.toBe(null);
@@ -162,8 +169,10 @@ describe('EventContainer', () => {
   });
   it('should close the modal when clicking on close button', async () => {
     const { container } = renderEventsContainer({
-      ...initialSelectedEvent,
-      event: initialSelectedEvent.event,
+      selectedDayViewEvent: {
+        ...initialSelectedEvent,
+        event: initialSelectedEvent.event,
+      },
     });
     const targetElement = container.firstElementChild;
     expect(targetElement).not.toBe(null);
@@ -190,7 +199,8 @@ describe('EventContainer', () => {
       expect(modal).not.toBeInTheDocument();
     }
   });
-  it('should only render events day opened', () => {
-    const { container } = renderWithProviders(<EventContainer />);
-  });
+
+  // it('should only render events day opened', () => {
+  //   renderEventsContainer();
+  // });
 });
