@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { screen, waitFor, within } from '@testing-library/dom';
+import { screen, within } from '@testing-library/dom';
 import { Cell } from './Cell';
 import { Months } from '../../../../../types/calendar/enums';
 import {
@@ -8,7 +8,10 @@ import {
 } from '../../../../../utils/calendar/utils';
 import { firstDayOfTheMonth } from '../../../../../utils/calendar/constants';
 import { renderWithProviders } from '../../../../../utils/tests/renderWithProviders';
-import { initialValue } from '../../../../../redux/slices/dateSlice';
+import {
+  initialDate,
+  initialValue,
+} from '../../../../../redux/slices/dateSlice';
 import { initialValue as initialEventValue } from '../../../../../redux/slices/eventSlice';
 import { IntlDateTimeFormatShort } from '../../../../../utils/constants';
 import { EventStored } from '../../../../../types/event';
@@ -162,5 +165,40 @@ describe('Cell', () => {
       store.getState().eventSlice.currentState.selectedDayViewEvent;
 
     expect(selectedDayViewEvent).toBeUndefined();
+  });
+
+  it('should change day view date when to update planner by clicking on cell', async () => {
+    const cellMonth = Months.FEBRUARY;
+    const initialDayViewISODate = new Date(
+      2025,
+      Months.DECEMBER,
+      17,
+    ).toISOString();
+    const cellDate = new Date(cellYear, currentMonth, cellDay).toISOString();
+    const { store } = renderWithProviders(<TestTable cellMonth={cellMonth} />, {
+      preloadedState: {
+        dateSlice: {
+          ...initialValue,
+          currentState: {
+            ...initialValue.currentState,
+            globalISODate: cellDate,
+            dayViewISODate: initialDayViewISODate,
+          },
+        },
+      },
+    });
+    const tdElement = screen.getByRole('cell');
+    const buttonElement = within(tdElement).getByRole('button');
+    const cellDateStored =
+      store.getState().dateSlice.currentState.globalISODate;
+
+    let dayViewISODate = store.getState().dateSlice.currentState.dayViewISODate;
+    expect(dayViewISODate).toBe(initialDayViewISODate);
+
+    await userEvent.click(buttonElement);
+
+    dayViewISODate = store.getState().dateSlice.currentState.dayViewISODate;
+
+    expect(dayViewISODate).toBe(cellDateStored);
   });
 });
