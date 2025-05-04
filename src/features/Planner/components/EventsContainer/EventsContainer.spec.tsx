@@ -6,6 +6,12 @@ import { SelectedEventOnDayView } from '../../../../types/event';
 import { Months } from '../../../../types/calendar/enums';
 import { renderWithProviders } from '../../../../utils/tests/renderWithProviders';
 import { initialValue } from '../../../../redux/slices/eventSlice';
+import { InitialState as InitialLocaleState } from '../../../../redux/slices/localeSlice';
+import { InitialState as InitialEventState } from '../../../../redux/slices/eventSlice';
+import {
+  initialValue as initialDateValue,
+  InitialState as InitialDateState,
+} from '../../../../redux/slices/dateSlice';
 import { defaultEventTitle } from '../../../../utils/events/dayView/constants';
 
 const title = 'title';
@@ -26,21 +32,39 @@ const initialSelectedEvent: SelectedEventOnDayView = {
 
 type renderEventsContainerProps = {
   selectedDayViewEvent?: SelectedEventOnDayView;
+  dayViewISODate?: string;
 };
+type PreloadedState =
+  | Partial<{
+      dateSlice: InitialDateState;
+      localeSlice: InitialLocaleState;
+      eventSlice: InitialEventState;
+    }>
+  | undefined;
+
 const renderEventsContainer = ({
   selectedDayViewEvent,
+  dayViewISODate,
 }: renderEventsContainerProps) => {
-  return renderWithProviders(<EventContainer />, {
-    preloadedState: {
-      eventSlice: {
-        ...initialValue,
-        currentState: {
-          ...initialValue.currentState,
-          selectedDayViewEvent,
-        },
+  const preloadedState: PreloadedState = {
+    eventSlice: {
+      ...initialValue,
+      currentState: {
+        ...initialValue.currentState,
+        selectedDayViewEvent,
       },
     },
-  });
+  };
+  if (dayViewISODate) {
+    preloadedState.dateSlice = {
+      ...initialDateValue,
+      currentState: {
+        ...initialDateValue.currentState,
+        dayViewISODate: dayViewISODate || '',
+      },
+    };
+  }
+  return renderWithProviders(<EventContainer />, { preloadedState });
 };
 
 const createEvent = ({
@@ -199,8 +223,4 @@ describe('EventContainer', () => {
       expect(modal).not.toBeInTheDocument();
     }
   });
-
-  // it('should only render events day opened', () => {
-  //   renderEventsContainer();
-  // });
 });
