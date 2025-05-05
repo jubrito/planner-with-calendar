@@ -43,12 +43,11 @@ export const eventSlice = createSlice({
       const { newEvent, ISODate } = action.payload;
       state.currentState.events = [...events, newEvent];
       const eventsByDates = { ...state.currentState.eventsByDates };
-      const eventsByDate = eventsByDates[ISODate];
       const id = formatDateIDFromDate(ISODate);
       state.currentState.eventsByDates = {
         ...eventsByDates,
         [id]: {
-          events: [...(eventsByDate?.events || []), newEvent],
+          events: [...(eventsByDates[id]?.events || []), newEvent],
         },
       };
     },
