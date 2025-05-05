@@ -2,7 +2,10 @@ import { HoursOfTheDay } from './HoursOfTheDay';
 import { screen } from '@testing-library/dom';
 import '@testing-library/jest-dom';
 import { Months } from '../../../../types/calendar/enums';
-import { get2DigitsValue } from '../../../../utils/calendar/utils';
+import {
+  get2DigitsValue,
+  getDateISOString,
+} from '../../../../utils/calendar/utils';
 import { InitialState as InitialDateState } from '../../../../redux/slices/dateSlice';
 import {
   InitialState,
@@ -40,7 +43,7 @@ describe('Hours of the day', () => {
       ...initialDateValue,
       currentState: {
         ...initialDateValue.currentState,
-        dayViewISODate: new Date(year, month, day).toISOString(),
+        dayViewISODate: getDateISOString(new Date(year, month, day)),
       },
     },
   });
