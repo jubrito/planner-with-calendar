@@ -1,5 +1,8 @@
 # Next steps (v1):
 
+- hide modal on click/mouse down of events container
+  - test
+
 Tests
 
 - test logic that gets only events of that day
