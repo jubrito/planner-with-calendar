@@ -1,10 +1,5 @@
 # Next steps (v1):
 
-- hide modal on click/mouse down of events container
-  - test
-
-Tests
-
 Improvements
 
 - event validation (isValidEvent) + test
