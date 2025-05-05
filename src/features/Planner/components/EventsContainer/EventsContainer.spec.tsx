@@ -19,8 +19,8 @@ const title = 'title';
 const year = 2025;
 const month = Months.FEBRUARY;
 const day = 11;
-const startDate = new Date(year, month, day).toISOString();
-const endDate = new Date(year, month, day).toISOString();
+const startDate = getDateISOString(new Date(year, month, day));
+const endDate = getDateISOString(new Date(year, month, day));
 const initialSelectedEvent: SelectedEventOnDayView = {
   event: {
     endDate,
