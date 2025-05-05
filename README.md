@@ -6,6 +6,7 @@
 Tests
 
 - test logic that gets only events of that day
+- test can create multiple events
 - replace toDateString with ISOString
 - use getDateISOString instead of .toISOSTring()
 
