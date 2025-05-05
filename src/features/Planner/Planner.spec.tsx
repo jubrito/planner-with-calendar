@@ -5,7 +5,11 @@ import { initialValue as initialLocaleValue } from '../../redux/slices/localeSli
 import { Months } from '../../types/calendar/enums';
 import { renderWithProviders } from '../../utils/tests/renderWithProviders';
 import Planner from './Planner';
-import { getDayOfWeek, getMonthName } from '../../utils/calendar/utils';
+import {
+  getDateISOString,
+  getDayOfWeek,
+  getMonthName,
+} from '../../utils/calendar/utils';
 import { IntlDateTimeFormatShort } from '../../utils/constants';
 
 describe('Planner', () => {
@@ -24,11 +28,9 @@ describe('Planner', () => {
             },
             currentState: {
               ...initialDateValue.currentState,
-              dayViewISODate: new Date(
-                currentYear,
-                currentMonth,
-                1,
-              ).toDateString(),
+              dayViewISODate: getDateISOString(
+                new Date(currentYear, currentMonth, 1),
+              ),
             },
           },
         },
@@ -51,11 +53,9 @@ describe('Planner', () => {
             },
             currentState: {
               ...initialDateValue.currentState,
-              dayViewISODate: new Date(
-                currentYear,
-                Months.MARCH,
-                1,
-              ).toDateString(),
+              dayViewISODate: getDateISOString(
+                new Date(currentYear, Months.MARCH, 1),
+              ),
             },
           },
           localeSlice: {
@@ -89,20 +89,24 @@ describe('Planner', () => {
               ...initialDateValue,
               currentState: {
                 ...initialDateValue.currentState,
-                dayViewISODate: new Date(
-                  currentYear,
-                  currentMonth,
-                  currentDay,
-                  hour,
-                  minutes,
-                ).toISOString(),
-                globalISODate: new Date(
-                  currentYear,
-                  currentMonth,
-                  currentDay,
-                  hour,
-                  minutes,
-                ).toISOString(),
+                dayViewISODate: getDateISOString(
+                  new Date(
+                    currentYear,
+                    currentMonth,
+                    currentDay,
+                    hour,
+                    minutes,
+                  ),
+                ),
+                globalISODate: getDateISOString(
+                  new Date(
+                    currentYear,
+                    currentMonth,
+                    currentDay,
+                    hour,
+                    minutes,
+                  ),
+                ),
               },
             },
           },
