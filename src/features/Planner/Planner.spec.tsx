@@ -11,30 +11,56 @@ import {
   getMonthName,
 } from '../../utils/calendar/utils';
 import { IntlDateTimeFormatShort } from '../../utils/constants';
+import { LocaleLanguage } from '../../types/locale/types';
 
 describe('Planner', () => {
   const currentYear = 2025;
   const currentMonth = Months.MARCH;
   const currentDay = 1;
 
-  describe('Header', () => {
-    it('should render header initial date text in English', () => {
-      const enEsLocale = 'en-US';
-      renderWithProviders(<Planner />, {
-        preloadedState: {
-          dateSlice: {
-            initialState: {
-              ...initialDateValue.initialState,
-            },
-            currentState: {
-              ...initialDateValue.currentState,
-              dayViewISODate: getDateISOString(
-                new Date(currentYear, currentMonth, 1),
-              ),
+  const renderPlanner = ({
+    hour,
+    minutes,
+    locale,
+  }: {
+    hour: number;
+    minutes: number;
+    locale?: LocaleLanguage;
+  }) => {
+    return renderWithProviders(<Planner />, {
+      preloadedState: {
+        dateSlice: {
+          ...initialDateValue,
+          currentState: {
+            ...initialDateValue.currentState,
+            dayViewISODate: getDateISOString(
+              new Date(currentYear, currentMonth, currentDay, hour, minutes),
+            ),
+            globalISODate: getDateISOString(
+              new Date(currentYear, currentMonth, currentDay, hour, minutes),
+            ),
+          },
+        },
+        localeSlice: {
+          ...initialLocaleValue,
+          currentState: {
+            ...initialLocaleValue.currentState,
+            locale: {
+              ...initialLocaleValue.currentState.locale,
+              lang: locale || 'en-US',
             },
           },
         },
-      });
+      },
+    });
+  };
+
+  const brLocale = 'pt-BR';
+  const enEsLocale = 'en-US';
+
+  describe('Header', () => {
+    it('should render header initial date text in English', () => {
+      renderPlanner({ hour: 1, minutes: 1 });
       const date = new Date(currentYear, currentMonth, currentDay);
       const dayOfWeek = getDayOfWeek(enEsLocale, date);
       const monthName = getMonthName(enEsLocale, date, IntlDateTimeFormatShort);
@@ -44,30 +70,7 @@ describe('Planner', () => {
       expect(screen.getByText('Mar 1, Saturday')).toBeInTheDocument();
     });
     it('should render header initial date text in Portuguese', () => {
-      const brLocale = 'pt-BR';
-      renderWithProviders(<Planner />, {
-        preloadedState: {
-          dateSlice: {
-            initialState: {
-              ...initialDateValue.initialState,
-            },
-            currentState: {
-              ...initialDateValue.currentState,
-              dayViewISODate: getDateISOString(
-                new Date(currentYear, Months.MARCH, 1),
-              ),
-            },
-          },
-          localeSlice: {
-            ...initialLocaleValue,
-            currentState: {
-              locale: {
-                lang: brLocale,
-              },
-            },
-          },
-        },
-      });
+      renderPlanner({ hour: 1, minutes: 1, locale: brLocale });
       const date = new Date(currentYear, currentMonth, currentDay);
       const dayOfWeek = getDayOfWeek(brLocale, date);
       const monthName = getMonthName(brLocale, date, IntlDateTimeFormatShort);
@@ -83,34 +86,7 @@ describe('Planner', () => {
       it('should correctly display current hour (11:59) for hour 11', () => {
         const hour = 11;
         const minutes = 11;
-        renderWithProviders(<Planner />, {
-          preloadedState: {
-            dateSlice: {
-              ...initialDateValue,
-              currentState: {
-                ...initialDateValue.currentState,
-                dayViewISODate: getDateISOString(
-                  new Date(
-                    currentYear,
-                    currentMonth,
-                    currentDay,
-                    hour,
-                    minutes,
-                  ),
-                ),
-                globalISODate: getDateISOString(
-                  new Date(
-                    currentYear,
-                    currentMonth,
-                    currentDay,
-                    hour,
-                    minutes,
-                  ),
-                ),
-              },
-            },
-          },
-        });
+        renderPlanner({ hour, minutes });
         const time = '11:11';
         const timeElement = screen.getByText(time);
         expect(timeElement).toBeInTheDocument();
@@ -120,30 +96,7 @@ describe('Planner', () => {
       it('should correctly display current hour (11:23) for hour 23', () => {
         const hour = 23;
         const minutes = 23;
-        renderWithProviders(<Planner />, {
-          preloadedState: {
-            dateSlice: {
-              ...initialDateValue,
-              currentState: {
-                ...initialDateValue.currentState,
-                dayViewISODate: new Date(
-                  currentYear,
-                  currentMonth,
-                  currentDay,
-                  hour,
-                  minutes,
-                ).toISOString(),
-                globalISODate: new Date(
-                  currentYear,
-                  currentMonth,
-                  currentDay,
-                  hour,
-                  minutes,
-                ).toISOString(),
-              },
-            },
-          },
-        });
+        renderPlanner({ hour, minutes });
         const time = '11:23';
         const timeElement = screen.getByText(time);
         expect(timeElement).toBeInTheDocument();
@@ -153,30 +106,7 @@ describe('Planner', () => {
       it('should correctly display current hour (12:12) for hour 12', () => {
         const hour = 12;
         const minutes = 12;
-        renderWithProviders(<Planner />, {
-          preloadedState: {
-            dateSlice: {
-              ...initialDateValue,
-              currentState: {
-                ...initialDateValue.currentState,
-                dayViewISODate: new Date(
-                  currentYear,
-                  currentMonth,
-                  currentDay,
-                  hour,
-                  minutes,
-                ).toISOString(),
-                globalISODate: new Date(
-                  currentYear,
-                  currentMonth,
-                  currentDay,
-                  hour,
-                  minutes,
-                ).toISOString(),
-              },
-            },
-          },
-        });
+        renderPlanner({ hour, minutes });
         const time = '12:12';
         const timeElement = screen.getByText(time);
         expect(timeElement).toBeInTheDocument();
@@ -186,30 +116,7 @@ describe('Planner', () => {
       it('should correctly display current hour (12:24) for hour 24', () => {
         const hour = 24;
         const minutes = 24;
-        renderWithProviders(<Planner />, {
-          preloadedState: {
-            dateSlice: {
-              ...initialDateValue,
-              currentState: {
-                ...initialDateValue.currentState,
-                dayViewISODate: new Date(
-                  currentYear,
-                  currentMonth,
-                  currentDay,
-                  hour,
-                  minutes,
-                ).toISOString(),
-                globalISODate: new Date(
-                  currentYear,
-                  currentMonth,
-                  currentDay,
-                  hour,
-                  minutes,
-                ).toISOString(),
-              },
-            },
-          },
-        });
+        renderPlanner({ hour, minutes });
         const time = '12:24';
         const timeElement = screen.getByText(time);
         expect(timeElement).toBeInTheDocument();
@@ -219,30 +126,7 @@ describe('Planner', () => {
       it('should correctly display current hour (12:00) for hour 0', () => {
         const hour = 0;
         const minutes = 0;
-        renderWithProviders(<Planner />, {
-          preloadedState: {
-            dateSlice: {
-              ...initialDateValue,
-              currentState: {
-                ...initialDateValue.currentState,
-                dayViewISODate: new Date(
-                  currentYear,
-                  currentMonth,
-                  currentDay,
-                  hour,
-                  minutes,
-                ).toISOString(),
-                globalISODate: new Date(
-                  currentYear,
-                  currentMonth,
-                  currentDay,
-                  hour,
-                  minutes,
-                ).toISOString(),
-              },
-            },
-          },
-        });
+        renderPlanner({ hour, minutes });
         const time = '12:00';
         const timeElement = screen.getByText(time);
         expect(timeElement).toBeInTheDocument();
@@ -251,43 +135,10 @@ describe('Planner', () => {
       });
     });
     describe('When is 24-clock system', () => {
-      const ptBrLang = 'pt-BR';
       it('should correctly display current hour (11:59) for hour 11', () => {
         const hour = 11;
         const minutes = 11;
-        renderWithProviders(<Planner />, {
-          preloadedState: {
-            dateSlice: {
-              ...initialDateValue,
-              currentState: {
-                ...initialDateValue.currentState,
-                dayViewISODate: new Date(
-                  currentYear,
-                  currentMonth,
-                  currentDay,
-                  hour,
-                  minutes,
-                ).toISOString(),
-                globalISODate: new Date(
-                  currentYear,
-                  currentMonth,
-                  currentDay,
-                  hour,
-                  minutes,
-                ).toISOString(),
-              },
-            },
-            localeSlice: {
-              ...initialLocaleValue,
-              currentState: {
-                ...initialLocaleValue.currentState,
-                locale: {
-                  lang: ptBrLang,
-                },
-              },
-            },
-          },
-        });
+        renderPlanner({ hour, minutes, locale: brLocale });
         const time = '11:11';
         const timeElement = screen.getByText(time);
         expect(timeElement).toBeInTheDocument();
@@ -297,39 +148,7 @@ describe('Planner', () => {
       it('should correctly display current hour (23:23) for hour 23', () => {
         const hour = 23;
         const minutes = 23;
-        renderWithProviders(<Planner />, {
-          preloadedState: {
-            dateSlice: {
-              ...initialDateValue,
-              currentState: {
-                ...initialDateValue.currentState,
-                dayViewISODate: new Date(
-                  currentYear,
-                  currentMonth,
-                  currentDay,
-                  hour,
-                  minutes,
-                ).toISOString(),
-                globalISODate: new Date(
-                  currentYear,
-                  currentMonth,
-                  currentDay,
-                  hour,
-                  minutes,
-                ).toISOString(),
-              },
-            },
-            localeSlice: {
-              ...initialLocaleValue,
-              currentState: {
-                ...initialLocaleValue.currentState,
-                locale: {
-                  lang: ptBrLang,
-                },
-              },
-            },
-          },
-        });
+        renderPlanner({ hour, minutes, locale: brLocale });
         const time = '23:23';
         const timeElement = screen.getByText(time);
         expect(timeElement).toBeInTheDocument();
@@ -339,39 +158,7 @@ describe('Planner', () => {
       it('should correctly display current hour (12:12) for hour 12', () => {
         const hour = 12;
         const minutes = 12;
-        renderWithProviders(<Planner />, {
-          preloadedState: {
-            dateSlice: {
-              ...initialDateValue,
-              currentState: {
-                ...initialDateValue.currentState,
-                dayViewISODate: new Date(
-                  currentYear,
-                  currentMonth,
-                  currentDay,
-                  hour,
-                  minutes,
-                ).toISOString(),
-                globalISODate: new Date(
-                  currentYear,
-                  currentMonth,
-                  currentDay,
-                  hour,
-                  minutes,
-                ).toISOString(),
-              },
-            },
-            localeSlice: {
-              ...initialLocaleValue,
-              currentState: {
-                ...initialLocaleValue.currentState,
-                locale: {
-                  lang: ptBrLang,
-                },
-              },
-            },
-          },
-        });
+        renderPlanner({ hour, minutes });
         const time = '12:12';
         const timeElement = screen.getByText(time);
         expect(timeElement).toBeInTheDocument();
@@ -381,39 +168,7 @@ describe('Planner', () => {
       it('should correctly display current hour (00:24) for hour 24', () => {
         const hour = 24;
         const minutes = 24;
-        renderWithProviders(<Planner />, {
-          preloadedState: {
-            dateSlice: {
-              ...initialDateValue,
-              currentState: {
-                ...initialDateValue.currentState,
-                dayViewISODate: new Date(
-                  currentYear,
-                  currentMonth,
-                  currentDay,
-                  hour,
-                  minutes,
-                ).toISOString(),
-                globalISODate: new Date(
-                  currentYear,
-                  currentMonth,
-                  currentDay,
-                  hour,
-                  minutes,
-                ).toISOString(),
-              },
-            },
-            localeSlice: {
-              ...initialLocaleValue,
-              currentState: {
-                ...initialLocaleValue.currentState,
-                locale: {
-                  lang: ptBrLang,
-                },
-              },
-            },
-          },
-        });
+        renderPlanner({ hour, minutes, locale: brLocale });
         const time = '00:24';
         const timeElement = screen.getByText(time);
         expect(timeElement).toBeInTheDocument();
@@ -423,39 +178,7 @@ describe('Planner', () => {
       it('should correctly display current hour (00:00) for hour 0', () => {
         const hour = 0;
         const minutes = 0;
-        renderWithProviders(<Planner />, {
-          preloadedState: {
-            dateSlice: {
-              ...initialDateValue,
-              currentState: {
-                ...initialDateValue.currentState,
-                dayViewISODate: new Date(
-                  currentYear,
-                  currentMonth,
-                  currentDay,
-                  hour,
-                  minutes,
-                ).toISOString(),
-                globalISODate: new Date(
-                  currentYear,
-                  currentMonth,
-                  currentDay,
-                  hour,
-                  minutes,
-                ).toISOString(),
-              },
-            },
-            localeSlice: {
-              ...initialLocaleValue,
-              currentState: {
-                ...initialLocaleValue.currentState,
-                locale: {
-                  lang: ptBrLang,
-                },
-              },
-            },
-          },
-        });
+        renderPlanner({ hour, minutes, locale: brLocale });
         const time = '00:00';
         const id = 'currentTime';
         const timeElement = screen.getByTestId(id);
