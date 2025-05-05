@@ -78,22 +78,22 @@ const createEvent = ({
   mouseUpY,
 }: {
   targetElement: Element;
-  mouseDownY: number;
-  mouseMoveY: number;
-  mouseUpY: number;
+  mouseDownY?: number;
+  mouseMoveY?: number;
+  mouseUpY?: number;
 }) => {
   const rect = targetElement.getBoundingClientRect();
   const positionY = rect.top;
   const mouseDownEvent = new MouseEvent('mousedown', {
-    clientY: mouseDownY || positionY,
+    clientY: mouseDownY || positionY || 0,
     bubbles: true,
   });
   const mouseMoveEvent = new MouseEvent('mousemove', {
-    clientY: mouseMoveY,
+    clientY: mouseMoveY || 0,
     bubbles: true,
   });
   const mouseUpEvent = new MouseEvent('mouseup', {
-    clientY: mouseUpY,
+    clientY: mouseUpY || 0,
     bubbles: true,
   });
   act(() => {
@@ -109,7 +109,7 @@ const createEvent = ({
 
 describe('EventContainer', () => {
   describe('When creating an event', () => {
-    it('should display event details when interacting with the visible portion of the container', async () => {
+    it('should create event and display event details', async () => {
       const { container } = renderWithProviders(<EventContainer />);
       const targetElement = container.firstElementChild;
       expect(targetElement).not.toBe(null);
@@ -127,6 +127,26 @@ describe('EventContainer', () => {
         await waitFor(() => {
           expect(screen.getByText(eventDefaultTitle)).toBeInTheDocument();
           expect(screen.getByText(eventTime)).toBeInTheDocument();
+        });
+      }
+    });
+    it('should create and display multiple events', async () => {
+      const { container } = renderWithProviders(<EventContainer />);
+      const targetElement = container.firstElementChild;
+      expect(targetElement).not.toBe(null);
+      if (targetElement) {
+        createEvent({
+          targetElement,
+        });
+        createEvent({
+          targetElement,
+        });
+        createEvent({
+          targetElement,
+        });
+        const eventDefaultTitle = defaultEventTitle;
+        await waitFor(() => {
+          expect(screen.getAllByText(eventDefaultTitle).length).toBe(3);
         });
       }
     });
