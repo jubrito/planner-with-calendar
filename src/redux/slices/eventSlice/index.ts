@@ -1,15 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { deepCopy } from '../../../utils/utils';
-import { EventStored, SelectedEventOnDayView } from '../../../types/event';
+import {
+  EventsByDates,
+  EventStored,
+  SelectedEventOnDayView,
+} from '../../../types/event';
 import { formatDateIDFromDate } from '../../../utils/events/utils';
 
 type InitialEventsInfoState = {
   events: EventStored[];
-  eventsByDates: {
-    [key: string]: {
-      events: EventStored[];
-    };
-  };
+  eventsByDates: EventsByDates;
   selectedDayViewEvent?: SelectedEventOnDayView;
 };
 
