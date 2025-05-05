@@ -3,6 +3,7 @@ import { screen, within } from '@testing-library/dom';
 import { Cell } from './Cell';
 import { Months } from '../../../../../types/calendar/enums';
 import {
+  getDateISOString,
   getFullDateTitle,
   getMonthName,
 } from '../../../../../utils/calendar/utils';
@@ -44,11 +45,9 @@ describe('Cell', () => {
         dateSlice: {
           currentState: {
             ...initialValue.currentState,
-            globalISODate: new Date(
-              cellYear,
-              currentMonth,
-              cellDay,
-            ).toDateString(),
+            globalISODate: getDateISOString(
+              new Date(cellYear, currentMonth, cellDay),
+            ),
           },
           initialState: {
             ...initialValue.initialState,
@@ -87,11 +86,9 @@ describe('Cell', () => {
           ...initialValue,
           currentState: {
             ...initialValue.currentState,
-            globalISODate: new Date(
-              cellYear,
-              currentMonth,
-              cellDay,
-            ).toDateString(),
+            globalISODate: getDateISOString(
+              new Date(cellYear, currentMonth, cellDay),
+            ),
           },
         },
       },
@@ -132,11 +129,9 @@ describe('Cell', () => {
           ...initialValue,
           currentState: {
             ...initialValue.currentState,
-            globalISODate: new Date(
-              cellYear,
-              currentMonth,
-              cellDay,
-            ).toDateString(),
+            globalISODate: getDateISOString(
+              new Date(cellYear, currentMonth, cellDay),
+            ),
           },
         },
         eventSlice: {
