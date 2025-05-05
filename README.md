@@ -5,7 +5,6 @@
 
 Tests
 
-- test can create multiple events
 - replace toDateString with ISOString
 - use getDateISOString instead of .toISOSTring()
 
