@@ -5,6 +5,7 @@ import { Months } from '../../../../types/calendar/enums';
 import { renderWithProviders } from '../../../../utils/tests/renderWithProviders';
 import { initialValue } from '../../../../redux/slices/dateSlice';
 import { initialValue as localeInitialValue } from '../../../../redux/slices/localeSlice';
+import { getDateISOString } from '../../../../utils/calendar/utils';
 
 describe('CurrentTime', () => {
   const year = 2025;
@@ -19,13 +20,9 @@ describe('CurrentTime', () => {
           ...initialValue,
           currentState: {
             ...initialValue.currentState,
-            globalISODate: new Date(
-              year,
-              month,
-              day,
-              hour,
-              minutes,
-            ).toISOString(),
+            globalISODate: getDateISOString(
+              new Date(year, month, day, hour, minutes),
+            ),
           },
         },
       },
@@ -52,13 +49,9 @@ describe('CurrentTime', () => {
           ...initialValue,
           currentState: {
             ...initialValue.currentState,
-            globalISODate: new Date(
-              year,
-              month,
-              day,
-              hour,
-              minutes,
-            ).toISOString(),
+            globalISODate: getDateISOString(
+              new Date(year, month, day, hour, minutes),
+            ),
           },
         },
       },
