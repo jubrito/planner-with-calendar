@@ -6,7 +6,7 @@
 Tests
 
 - replace toDateString with ISOString
-- use getDateISOString instead of .toISOSTring()
+- use getDateISOString instead of .toISOSTring() and .toDateString
 
 Improvements
 
