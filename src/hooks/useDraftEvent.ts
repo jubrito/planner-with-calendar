@@ -34,8 +34,8 @@ export const useEvent = (
         endBlock.hour,
         endBlock.minutes,
       );
-      const serializableStartDate = startDate.toISOString();
-      const serializableEndDate = endDate.toISOString();
+      const serializableStartDate = getDateISOString(startDate);
+      const serializableEndDate = getDateISOString(endDate);
 
       setDraftEvent({
         title: defaultEventTitle,
@@ -61,7 +61,7 @@ export const useEvent = (
       const endBlock = getEndBlock(startBlock);
       const fixedHourAnd15MinBlock = getFixedRelativeY(startBlock, 'end');
       const date = new Date(year, month, day, endBlock.hour, endBlock.minutes);
-      const serializableDate = date.toISOString();
+      const serializableDate = getDateISOString(date);
 
       setDraftEvent((prev) => ({
         ...prev!,
