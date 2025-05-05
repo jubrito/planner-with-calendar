@@ -6,6 +6,7 @@ import { renderWithProviders } from '../../../../utils/tests/renderWithProviders
 import { initialValue } from '../../../../redux/slices/dateSlice';
 import { AppStore } from '../../../../redux/store';
 import { CalendarMenu } from './CalendarMenu';
+import { getDateISOString } from '../../../../utils/calendar/utils';
 
 describe('CalendarMenu', () => {
   describe('Changing calendar dates', () => {
@@ -24,11 +25,15 @@ describe('CalendarMenu', () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                globalISODate: new Date(year, Months.JANUARY, 1).toDateString(),
+                globalISODate: getDateISOString(
+                  new Date(year, Months.JANUARY, 1),
+                ),
               },
               initialState: {
                 ...initialValue.initialState,
-                globalISODate: new Date(year, Months.JANUARY, 1).toDateString(),
+                globalISODate: getDateISOString(
+                  new Date(year, Months.JANUARY, 1),
+                ),
               },
             },
           },
@@ -180,19 +185,15 @@ describe('CalendarMenu', () => {
             dateSlice: {
               currentState: {
                 ...initialValue.currentState,
-                globalISODate: new Date(
-                  year,
-                  Months.DECEMBER,
-                  1,
-                ).toDateString(),
+                globalISODate: getDateISOString(
+                  new Date(year, Months.DECEMBER, 1),
+                ),
               },
               initialState: {
                 ...initialValue.initialState,
-                globalISODate: new Date(
-                  year,
-                  Months.DECEMBER,
-                  1,
-                ).toDateString(),
+                globalISODate: getDateISOString(
+                  new Date(year, Months.DECEMBER, 1),
+                ),
               },
             },
           },
