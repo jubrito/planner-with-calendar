@@ -45,3 +45,9 @@ export type SelectedEventOnDayView = {
   top?: number;
   event?: EventStored;
 };
+
+export type EventsByDates = {
+  [key: string]: {
+    events: EventStored[];
+  };
+};
