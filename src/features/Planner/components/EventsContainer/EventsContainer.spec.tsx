@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import { act, waitFor, screen } from '@testing-library/react';
 import { EventContainer } from './EventsContainer';
 import userEvent from '@testing-library/user-event';
-import { SelectedEventOnDayView } from '../../../../types/event';
+import { EventsByDates, SelectedEventOnDayView } from '../../../../types/event';
 import { Months } from '../../../../types/calendar/enums';
 import { renderWithProviders } from '../../../../utils/tests/renderWithProviders';
 import { initialValue } from '../../../../redux/slices/eventSlice';
@@ -13,6 +13,7 @@ import {
   InitialState as InitialDateState,
 } from '../../../../redux/slices/dateSlice';
 import { defaultEventTitle } from '../../../../utils/events/dayView/constants';
+import { getDateISOString } from '../../../../utils/calendar/utils';
 
 const title = 'title';
 const year = 2025;
@@ -33,6 +34,7 @@ const initialSelectedEvent: SelectedEventOnDayView = {
 type renderEventsContainerProps = {
   selectedDayViewEvent?: SelectedEventOnDayView;
   dayViewISODate?: string;
+  eventsByDates?: EventsByDates;
 };
 type PreloadedState =
   | Partial<{
@@ -44,6 +46,7 @@ type PreloadedState =
 
 const renderEventsContainer = ({
   selectedDayViewEvent,
+  eventsByDates,
   dayViewISODate,
 }: renderEventsContainerProps) => {
   const preloadedState: PreloadedState = {
@@ -52,6 +55,7 @@ const renderEventsContainer = ({
       currentState: {
         ...initialValue.currentState,
         selectedDayViewEvent,
+        eventsByDates: eventsByDates || {},
       },
     },
   };
@@ -222,5 +226,89 @@ describe('EventContainer', () => {
 
       expect(modal).not.toBeInTheDocument();
     }
+  });
+
+  it('should only render events day opened', () => {
+    const dayOnDayViewContainer = 1;
+    const monthOnDayViewContainer = 1;
+    const yearOnDayViewContainer = 2025;
+    const day1Mock = {
+      key: `${dayOnDayViewContainer}/${monthOnDayViewContainer}/25`,
+      events: [
+        {
+          id: 'event-1746404701734',
+          title: 'First event from day 1',
+          startDate: '2025-01-01T03:15:00.000Z',
+          endDate: '2025-01-01T04:00:00.000Z',
+        },
+        {
+          id: 'event-1746404702252',
+          title: 'Second event from day 1',
+          startDate: '2025-01-01T04:45:00.000Z',
+          endDate: '2025-01-01T05:15:00.000Z',
+        },
+      ],
+    };
+    const day2Mock = {
+      key: '1/2/25',
+      events: [
+        {
+          id: 'event-1746405007716',
+          title: 'First event from day 2',
+          startDate: '2025-01-02T04:15:00.000Z',
+          endDate: '2025-01-02T04:30:00.000Z',
+        },
+        {
+          id: 'event-1746405090400',
+          title: 'Second event from day 2',
+          startDate: '2025-01-02T05:30:00.000Z',
+          endDate: '2025-01-02T06:00:00.000Z',
+        },
+      ],
+    };
+    const day3Mock = {
+      key: '1/3/25',
+      events: [
+        {
+          id: 'event-1746405144092',
+          title: 'Event from day 3',
+          startDate: '2025-01-03T04:30:00.000Z',
+          endDate: '2025-01-03T05:00:00.000Z',
+        },
+      ],
+    };
+    const eventsByDatesMock = {
+      [day1Mock.key]: {
+        events: day1Mock.events,
+      },
+      [day2Mock.key]: {
+        events: day2Mock.events,
+      },
+      [day3Mock.key]: {
+        events: day3Mock.events,
+      },
+    };
+    const monthZeroIndexed = monthOnDayViewContainer - 1;
+    const date = new Date(
+      yearOnDayViewContainer,
+      monthZeroIndexed,
+      dayOnDayViewContainer,
+    );
+    renderEventsContainer({
+      dayViewISODate: getDateISOString(date),
+      eventsByDates: eventsByDatesMock,
+    });
+    day1Mock.events.forEach((day1MockEvent) => {
+      const event = screen.getByText(day1MockEvent.title);
+      expect(event).toBeInTheDocument();
+    });
+    day2Mock.events.forEach((day2MockEvent) => {
+      const event = screen.queryByText(day2MockEvent.title);
+      expect(event).not.toBeInTheDocument();
+    });
+    day3Mock.events.forEach((day3MockEvent) => {
+      const event = screen.queryByText(day3MockEvent.title);
+      expect(event).not.toBeInTheDocument();
+    });
   });
 });
