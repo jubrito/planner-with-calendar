@@ -5,9 +5,6 @@
 
 Tests
 
-- replace toDateString with ISOString
-- use getDateISOString instead of .toISOSTring() and .toDateString
-
 Improvements
 
 - event validation (isValidEvent) + test
