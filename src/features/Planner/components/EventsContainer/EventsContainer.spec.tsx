@@ -190,7 +190,7 @@ describe('EventContainer', () => {
       expect(event).not.toBeInTheDocument();
     });
   });
-  it('should hide modal when clicking on container on mouse down', async () => {
+  it('should hide modal when clicking on container (on mouse down)', async () => {
     const date = getDateISOString(new Date(year, month, day));
     const { container, store } = renderEventsContainer({
       selectedDayViewEvent: {
@@ -223,9 +223,7 @@ describe('EventContainer', () => {
         initialSelectedEvent.event,
       );
 
-      // const event = screen.getByText(initialSelectedEvent.event.title);
       await userEvent.click(event);
-      screen.debug();
 
       expect(modalTitle).toBeInTheDocument();
 
@@ -240,6 +238,7 @@ describe('EventContainer', () => {
       });
     }
   });
+
   it('should close the modal when clicking on close button', async () => {
     const { container } = renderEventsContainer({
       selectedDayViewEvent: {
