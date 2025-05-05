@@ -52,13 +52,14 @@ export const EventContainer = () => {
 
   const handleMouseDown = useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
+      dispatch(clearSelectedDayViewEvent()); // close view event details modal
       if (!containerRef.current) return;
 
       const rect = containerRef.current.getBoundingClientRect();
       const relativeY = event.clientY - rect.top;
       createDraftEvent(relativeY);
     },
-    [createDraftEvent],
+    [createDraftEvent, dispatch],
   );
 
   const handleMouseMove = useCallback(
