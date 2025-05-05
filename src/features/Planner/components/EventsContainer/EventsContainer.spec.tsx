@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { act, waitFor, screen } from '@testing-library/react';
+import { act, waitFor, screen, within } from '@testing-library/react';
 import { EventContainer } from './EventsContainer';
 import userEvent from '@testing-library/user-event';
 import { EventsByDates, SelectedEventOnDayView } from '../../../../types/event';
@@ -14,6 +14,7 @@ import {
 } from '../../../../redux/slices/dateSlice';
 import { defaultEventTitle } from '../../../../utils/events/dayView/constants';
 import { getDateISOString } from '../../../../utils/calendar/utils';
+import { formatDateIDFromDate } from '../../../../utils/events/utils';
 
 const title = 'title';
 const year = 2025;
@@ -21,7 +22,7 @@ const month = Months.FEBRUARY;
 const day = 11;
 const startDate = getDateISOString(new Date(year, month, day));
 const endDate = getDateISOString(new Date(year, month, day));
-const initialSelectedEvent: SelectedEventOnDayView = {
+const initialSelectedEvent = {
   event: {
     endDate,
     startDate,
@@ -189,30 +190,54 @@ describe('EventContainer', () => {
       expect(event).not.toBeInTheDocument();
     });
   });
-  it('should display modal when clicking on event', async () => {
-    const { container } = renderEventsContainer({
+  it('should hide modal when clicking on container on mouse down', async () => {
+    const date = getDateISOString(new Date(year, month, day));
+    const { container, store } = renderEventsContainer({
       selectedDayViewEvent: {
         ...initialSelectedEvent,
         event: initialSelectedEvent.event,
       },
+      dayViewISODate: date,
+      eventsByDates: {
+        [formatDateIDFromDate(date)]: {
+          events: [initialSelectedEvent.event],
+        },
+      },
     });
-    const targetElement = container.firstElementChild;
-    expect(targetElement).not.toBe(null);
-    if (targetElement) {
-      const rect = targetElement.getBoundingClientRect();
-      const positionY = rect.top;
-      createEvent({
-        targetElement,
-        mouseDownY: positionY + 525,
-        mouseMoveY: positionY + 625,
-        mouseUpY: positionY + 625,
-      });
-      const event = screen.getByTitle(
+    const dayViewContainer = container.firstElementChild;
+    expect(dayViewContainer).not.toBe(null);
+    if (dayViewContainer) {
+      const eventWrapper = screen.getByTitle(
         'Click on the event to view details and actions',
       );
-      await userEvent.click(event);
       const modal = screen.getByRole('dialog');
-      expect(modal).toBeInTheDocument();
+      const modalTitle = within(modal).getByText(
+        initialSelectedEvent.event.title,
+      );
+      const event = within(eventWrapper).getByText(
+        initialSelectedEvent.event.title,
+      );
+      const initialSelectedDayViewEvent =
+        store.getState().eventSlice.currentState.selectedDayViewEvent;
+      expect(initialSelectedDayViewEvent?.event).toBe(
+        initialSelectedEvent.event,
+      );
+
+      // const event = screen.getByText(initialSelectedEvent.event.title);
+      await userEvent.click(event);
+      screen.debug();
+
+      expect(modalTitle).toBeInTheDocument();
+
+      createEvent({ targetElement: dayViewContainer });
+
+      const currentSelectedDayViewEvent =
+        store.getState().eventSlice.currentState.selectedDayViewEvent;
+
+      await waitFor(() => {
+        expect(currentSelectedDayViewEvent).toBeUndefined();
+        expect(modalTitle).not.toBeInTheDocument();
+      });
     }
   });
   it('should close the modal when clicking on close button', async () => {
