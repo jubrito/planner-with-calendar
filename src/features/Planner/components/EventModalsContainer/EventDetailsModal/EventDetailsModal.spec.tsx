@@ -9,7 +9,10 @@ import {
 import { renderWithProviders } from '../../../../../utils/tests/renderWithProviders';
 import { initialValue as initialEventValue } from '../../../../../redux/slices/eventSlice';
 import { initialValue as initialLocaleValue } from '../../../../../redux/slices/localeSlice';
-import { get2DigitsValue } from '../../../../../utils/calendar/utils';
+import {
+  get2DigitsValue,
+  getDateISOString,
+} from '../../../../../utils/calendar/utils';
 
 describe('EventDetailsModal', () => {
   const eventTitle = 'title';
@@ -29,14 +32,12 @@ describe('EventDetailsModal', () => {
   const endYear = 2026;
   const endMonth = Months.DECEMBER;
   const endDay = 31;
-  const startDate = new Date(
-    year,
-    month,
-    day,
-    startHour,
-    startMinutes,
-  ).toISOString();
-  const endDate = new Date(year, month, day, endHour, endMinutes).toISOString();
+  const startDate = getDateISOString(
+    new Date(year, month, day, startHour, startMinutes),
+  );
+  const endDate = getDateISOString(
+    new Date(year, month, day, endHour, endMinutes),
+  );
   const startPeriod = 'AM';
   const endPeriod = 'PM';
   const closeModalMock = jest.fn();
@@ -118,13 +119,9 @@ describe('EventDetailsModal', () => {
       it('should render modal with same day event within different periods', () => {
         const updatedEndHour = 12;
         const updatedEndMinutes = 0;
-        const updatedEndDate = new Date(
-          year,
-          month,
-          day,
-          updatedEndHour,
-          updatedEndMinutes,
-        ).toISOString();
+        const updatedEndDate = getDateISOString(
+          new Date(year, month, day, updatedEndHour, updatedEndMinutes),
+        );
         const updatedEvent = {
           dayViewPosition: {
             endY: 0,
@@ -151,13 +148,9 @@ describe('EventDetailsModal', () => {
       it('should render modal with multi day event within same year', () => {
         const updatedEndHour = 12;
         const updatedEndMinutes = 0;
-        const updatedEndDate = new Date(
-          year,
-          endMonth,
-          endDay,
-          updatedEndHour,
-          updatedEndMinutes,
-        ).toISOString();
+        const updatedEndDate = getDateISOString(
+          new Date(year, endMonth, endDay, updatedEndHour, updatedEndMinutes),
+        );
         const updatedEvent = {
           dayViewPosition: {
             endY: 0,
@@ -184,13 +177,15 @@ describe('EventDetailsModal', () => {
         const endHourIn12HourSystem = 11;
         const updatedEndHour = 23;
         const updatedEndMinutes = 59;
-        const updatedEndDate = new Date(
-          endYear,
-          endMonth,
-          endDay,
-          updatedEndHour,
-          updatedEndMinutes,
-        ).toISOString();
+        const updatedEndDate = getDateISOString(
+          new Date(
+            endYear,
+            endMonth,
+            endDay,
+            updatedEndHour,
+            updatedEndMinutes,
+          ),
+        );
         const updatedEvent = {
           dayViewPosition: {
             endY: 0,
@@ -233,13 +228,9 @@ describe('EventDetailsModal', () => {
     it('should render modal with same day event within different periods', () => {
       const updatedEndHour = 12;
       const updatedEndMinutes = 0;
-      const updatedEndDate = new Date(
-        year,
-        month,
-        day,
-        updatedEndHour,
-        updatedEndMinutes,
-      ).toISOString();
+      const updatedEndDate = getDateISOString(
+        new Date(year, month, day, updatedEndHour, updatedEndMinutes),
+      );
       const updatedEvent = {
         dayViewPosition: {
           endY: 0,
@@ -269,13 +260,9 @@ describe('EventDetailsModal', () => {
     it('should render modal with multi day event within same year', () => {
       const updatedEndHour = 12;
       const updatedEndMinutes = 0;
-      const updatedEndDate = new Date(
-        year,
-        endMonth,
-        endDay,
-        updatedEndHour,
-        updatedEndMinutes,
-      ).toISOString();
+      const updatedEndDate = getDateISOString(
+        new Date(year, endMonth, endDay, updatedEndHour, updatedEndMinutes),
+      );
       const updatedEvent = {
         dayViewPosition: {
           endY: 0,
@@ -304,13 +291,9 @@ describe('EventDetailsModal', () => {
     it('should render modal with multi day event within different years', () => {
       const updatedEndHour = 23;
       const updatedEndMinutes = 59;
-      const updatedEndDate = new Date(
-        endYear,
-        endMonth,
-        endDay,
-        updatedEndHour,
-        updatedEndMinutes,
-      ).toISOString();
+      const updatedEndDate = getDateISOString(
+        new Date(endYear, endMonth, endDay, updatedEndHour, updatedEndMinutes),
+      );
       const updatedEvent = {
         dayViewPosition: {
           endY: 0,
