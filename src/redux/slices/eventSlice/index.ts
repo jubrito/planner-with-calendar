@@ -58,6 +58,7 @@ export const eventSlice = createSlice({
       state.currentState.selectedDayViewEvent = action.payload;
     },
     clearSelectedDayViewEvent(state: InitialState) {
+      // closes event details modal
       state.currentState.selectedDayViewEvent = undefined;
     },
   },
