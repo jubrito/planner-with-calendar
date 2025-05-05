@@ -161,12 +161,12 @@ describe('Cell', () => {
 
   it('should change day view date when to update planner by clicking on cell', async () => {
     const cellMonth = Months.FEBRUARY;
-    const initialDayViewISODate = new Date(
-      2025,
-      Months.DECEMBER,
-      17,
-    ).toISOString();
-    const cellDate = new Date(cellYear, currentMonth, cellDay).toISOString();
+    const initialDayViewISODate = getDateISOString(
+      new Date(2025, Months.DECEMBER, 17),
+    );
+    const cellDate = getDateISOString(
+      new Date(cellYear, currentMonth, cellDay),
+    );
     const { store } = renderWithProviders(<TestTable cellMonth={cellMonth} />, {
       preloadedState: {
         dateSlice: {
