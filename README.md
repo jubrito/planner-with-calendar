@@ -1,5 +1,19 @@
 # Next steps (v1):
 
+- Can't create event from the last hour
+
+  - TODO: hour created on the last block (11-12) gets hour inside endBlock as 0, so the event is not created
+  - Fifteen min block is coming -1 (seems ok? all have it)
+
+  - Test
+
+- Create events from back to start
+  - Test
+
+Architecture
+
+- Create /utils and /types folder inside features
+
 Improvements
 
 - event validation (isValidEvent) + test
