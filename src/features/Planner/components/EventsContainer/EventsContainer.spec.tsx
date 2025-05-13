@@ -15,6 +15,10 @@ import {
 import { defaultEventTitle } from '../../../../utils/events/dayView/constants';
 import { getDateISOString } from '../../../../utils/calendar/utils';
 import { formatDateIDFromDate } from '../../../../utils/events/utils';
+import {
+  numberOfHoursInADay,
+  sizeOfEach15MinBlock,
+} from '../../../../utils/calendar/constants';
 
 const title = 'title';
 const year = 2025;
@@ -125,6 +129,29 @@ describe('EventContainer', () => {
         });
         const eventDefaultTitle = defaultEventTitle;
         const eventTime = '12:00 – 01:00 AM';
+        await waitFor(() => {
+          expect(screen.getByText(eventDefaultTitle)).toBeInTheDocument();
+          expect(screen.getByText(eventTime)).toBeInTheDocument();
+        });
+      }
+    });
+    it('should create event ending on 12 am and display event details', async () => {
+      const { container } = renderWithProviders(<EventContainer />);
+      const targetElement = container.firstElementChild;
+      expect(targetElement).not.toBe(null);
+      if (targetElement) {
+        const sizeOfHourBlockDisplayed = sizeOfEach15MinBlock * 4;
+        const sizeOfAllBlocks = sizeOfHourBlockDisplayed * numberOfHoursInADay;
+        const secondLastCell = sizeOfAllBlocks - sizeOfEach15MinBlock * 2;
+        const lastCell = sizeOfAllBlocks - 1;
+        createEvent({
+          targetElement,
+          mouseDownY: secondLastCell,
+          mouseMoveY: lastCell,
+          mouseUpY: lastCell,
+        });
+        const eventDefaultTitle = defaultEventTitle;
+        const eventTime = '11:30 PM – 12:00 AM';
         await waitFor(() => {
           expect(screen.getByText(eventDefaultTitle)).toBeInTheDocument();
           expect(screen.getByText(eventTime)).toBeInTheDocument();
