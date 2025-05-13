@@ -151,9 +151,10 @@ const calculateYPosition = (
   endDate: EventStored['endDate'],
 ) => {
   const startDateHours = new Date(startDate).getHours();
-  const endDateHours = new Date(endDate).getHours();
-  const startDateMinutes = new Date(startDate).getMinutes();
+  let endDateHours = new Date(endDate).getHours();
   const endDateMinutes = new Date(endDate).getMinutes();
+  endDateHours = endDateHours === 0 ? 24 : endDateHours;
+  const startDateMinutes = new Date(startDate).getMinutes();
   const start15MinBlock = getFifteenMinuteBlock(
     startDateMinutes / oneHourInMinutes,
   );
