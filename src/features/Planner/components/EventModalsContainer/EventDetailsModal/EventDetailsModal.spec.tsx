@@ -224,100 +224,106 @@ describe('EventDetailsModal', () => {
         expect(timeElement).toBeInTheDocument();
         expect(timeElement).toHaveProperty('title', title);
       });
-    });
-    it('should render modal with same day event within different periods', () => {
-      const updatedEndHour = 12;
-      const updatedEndMinutes = 0;
-      const updatedEndDate = getDateISOString(
-        new Date(year, month, day, updatedEndHour, updatedEndMinutes),
-      );
-      const updatedEvent = {
-        dayViewPosition: {
-          endY: 0,
-          startY: 0,
-        },
-        id: 'id',
-        title: eventTitle,
-        startDate,
-        endDate: updatedEndDate,
-      };
-      renderEventDetailsModal({
-        event: updatedEvent,
-        renderWith24hTimeSystem: true,
+      it('should render modal with same day event within different periods', () => {
+        const updatedEndHour = 12;
+        const updatedEndMinutes = 0;
+        const updatedEndDate = getDateISOString(
+          new Date(year, month, day, updatedEndHour, updatedEndMinutes),
+        );
+        const updatedEvent = {
+          dayViewPosition: {
+            endY: 0,
+            startY: 0,
+          },
+          id: 'id',
+          title: eventTitle,
+          startDate,
+          endDate: updatedEndDate,
+        };
+        renderEventDetailsModal({
+          event: updatedEvent,
+          renderWith24hTimeSystem: true,
+        });
+        const date = `${weekDayPtBr}, ${startMonthNamePtBr} ${day}`;
+        const separator = '\u2022';
+        const startTime = `${get2DigitsValue(new Date(startDate).getHours())}:${get2DigitsValue(new Date(startDate).getMinutes())}`;
+        const endTime = `${get2DigitsValue(new Date(updatedEndDate).getHours())}:${get2DigitsValue(new Date(updatedEndDate).getMinutes())}`;
+        const fullTime = `${date} ${separator} ${startTime} – ${endTime}`;
+        const timeElement = screen.getByText(fullTime);
+        const title = `Event on ${date} from ${startTime} to ${endTime}`;
+        expect(timeElement).toBeInTheDocument();
+        expect(timeElement).toHaveProperty('title', title);
       });
-      const date = `${weekDayPtBr}, ${startMonthNamePtBr} ${day}`;
-      const separator = '\u2022';
-      const startTime = `${get2DigitsValue(new Date(startDate).getHours())}:${get2DigitsValue(new Date(startDate).getMinutes())}`;
-      const endTime = `${get2DigitsValue(new Date(updatedEndDate).getHours())}:${get2DigitsValue(new Date(updatedEndDate).getMinutes())}`;
-      const fullTime = `${date} ${separator} ${startTime} – ${endTime}`;
-      const timeElement = screen.getByText(fullTime);
-      const title = `Event on ${date} from ${startTime} to ${endTime}`;
-      expect(timeElement).toBeInTheDocument();
-      expect(timeElement).toHaveProperty('title', title);
     });
-  });
-  describe('When is multi day event', () => {
-    it('should render modal with multi day event within same year', () => {
-      const updatedEndHour = 12;
-      const updatedEndMinutes = 0;
-      const updatedEndDate = getDateISOString(
-        new Date(year, endMonth, endDay, updatedEndHour, updatedEndMinutes),
-      );
-      const updatedEvent = {
-        dayViewPosition: {
-          endY: 0,
-          startY: 0,
-        },
-        id: 'id',
-        title: eventTitle,
-        startDate,
-        endDate: updatedEndDate,
-      };
-      renderEventDetailsModal({
-        event: updatedEvent,
-        renderWith24hTimeSystem: true,
+    describe('When is multi day event', () => {
+      it('should render modal with multi day event within same year', () => {
+        const updatedEndHour = 12;
+        const updatedEndMinutes = 0;
+        const updatedEndDate = getDateISOString(
+          new Date(year, endMonth, endDay, updatedEndHour, updatedEndMinutes),
+        );
+        const updatedEvent = {
+          dayViewPosition: {
+            endY: 0,
+            startY: 0,
+          },
+          id: 'id',
+          title: eventTitle,
+          startDate,
+          endDate: updatedEndDate,
+        };
+        renderEventDetailsModal({
+          event: updatedEvent,
+          renderWith24hTimeSystem: true,
+        });
+        const separator = '–';
+        const startTime = `${get2DigitsValue(new Date(startDate).getHours())}:${get2DigitsValue(new Date(startDate).getMinutes())}`;
+        const endTime = `${get2DigitsValue(new Date(updatedEndDate).getHours())}:${get2DigitsValue(new Date(updatedEndDate).getMinutes())}`;
+        const startFullDate = `${startMonthNamePtBr} ${day}, ${startTime}`;
+        const endFullDate = `${endMonthNamePtBr} ${endDay}, ${endTime}`;
+        const fullTime = `${startFullDate} ${separator} ${endFullDate}`;
+        const timeElement = screen.getByText(fullTime);
+        const title = `Event from ${startFullDate} to ${endFullDate}`;
+        expect(timeElement).toBeInTheDocument();
+        expect(timeElement).toHaveProperty('title', title);
       });
-      const separator = '–';
-      const startTime = `${get2DigitsValue(new Date(startDate).getHours())}:${get2DigitsValue(new Date(startDate).getMinutes())}`;
-      const endTime = `${get2DigitsValue(new Date(updatedEndDate).getHours())}:${get2DigitsValue(new Date(updatedEndDate).getMinutes())}`;
-      const startFullDate = `${startMonthNamePtBr} ${day}, ${startTime}`;
-      const endFullDate = `${endMonthNamePtBr} ${endDay}, ${endTime}`;
-      const fullTime = `${startFullDate} ${separator} ${endFullDate}`;
-      const timeElement = screen.getByText(fullTime);
-      const title = `Event from ${startFullDate} to ${endFullDate}`;
-      expect(timeElement).toBeInTheDocument();
-      expect(timeElement).toHaveProperty('title', title);
-    });
-    it('should render modal with multi day event within different years', () => {
-      const updatedEndHour = 23;
-      const updatedEndMinutes = 59;
-      const updatedEndDate = getDateISOString(
-        new Date(endYear, endMonth, endDay, updatedEndHour, updatedEndMinutes),
-      );
-      const updatedEvent = {
-        dayViewPosition: {
-          endY: 0,
-          startY: 0,
-        },
-        id: 'id',
-        title: eventTitle,
-        startDate,
-        endDate: updatedEndDate,
-      };
-      renderEventDetailsModal({
-        event: updatedEvent,
-        renderWith24hTimeSystem: true,
+      it('should render modal with multi day event within different years', () => {
+        const updatedEndHour = 23;
+        const updatedEndMinutes = 59;
+        const updatedEndDate = getDateISOString(
+          new Date(
+            endYear,
+            endMonth,
+            endDay,
+            updatedEndHour,
+            updatedEndMinutes,
+          ),
+        );
+        const updatedEvent = {
+          dayViewPosition: {
+            endY: 0,
+            startY: 0,
+          },
+          id: 'id',
+          title: eventTitle,
+          startDate,
+          endDate: updatedEndDate,
+        };
+        renderEventDetailsModal({
+          event: updatedEvent,
+          renderWith24hTimeSystem: true,
+        });
+        const separator = '–';
+        const startTime = `${get2DigitsValue(new Date(startDate).getHours())}:${get2DigitsValue(new Date(startDate).getMinutes())}`;
+        const endTime = `${get2DigitsValue(new Date(updatedEndDate).getHours())}:${updatedEndMinutes}`;
+        const startFullDate = `${startMonthNamePtBr} ${day}, ${year}, ${startTime}`;
+        const endFullDate = `${endMonthNamePtBr} ${endDay}, ${endYear}, ${endTime}`;
+        const fullTime = `${startFullDate} ${separator} ${endFullDate}`;
+        const timeElement = screen.getByText(fullTime);
+        const title = `Event from ${startFullDate} to ${endFullDate}`;
+        expect(timeElement).toBeInTheDocument();
+        expect(timeElement).toHaveProperty('title', title);
       });
-      const separator = '–';
-      const startTime = `${get2DigitsValue(new Date(startDate).getHours())}:${get2DigitsValue(new Date(startDate).getMinutes())}`;
-      const endTime = `${get2DigitsValue(new Date(updatedEndDate).getHours())}:${updatedEndMinutes}`;
-      const startFullDate = `${startMonthNamePtBr} ${day}, ${year}, ${startTime}`;
-      const endFullDate = `${endMonthNamePtBr} ${endDay}, ${endYear}, ${endTime}`;
-      const fullTime = `${startFullDate} ${separator} ${endFullDate}`;
-      const timeElement = screen.getByText(fullTime);
-      const title = `Event from ${startFullDate} to ${endFullDate}`;
-      expect(timeElement).toBeInTheDocument();
-      expect(timeElement).toHaveProperty('title', title);
     });
   });
 });
