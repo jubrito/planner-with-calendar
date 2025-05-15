@@ -8,39 +8,88 @@ import {
   is12HourClockSystem,
 } from '../../../../utils/calendar/utils';
 import { IntlDateTimeFormat2Digit } from '../../../../utils/constants';
+import { useEffect, useState } from 'react';
 
 export const CurrentTime = () => {
+  const currentTimeElementId = 'currentTime';
   const locale = useSelector(getLocaleLanguage());
   const date = useSelector(getSelectedGlobalDate());
-  const currentHours = date.getHours();
-  const currentMinutes = date.getMinutes();
   const fullFormattedCurrentTime = getFormattedDateString(locale, date, {
     hour: IntlDateTimeFormat2Digit,
     minute: IntlDateTimeFormat2Digit,
   });
+  const [time, setTime] = useState(getCurrentTime(fullFormattedCurrentTime));
+  const [isCurrentHourVisible, setIsCurrentHourVisible] = useState(false);
+  const currentTimeElement = document.getElementById(`${currentTimeElementId}`);
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const fullFormattedCurrentTime = getFormattedDateString(
+          locale,
+          new Date(),
+          {
+            hour: IntlDateTimeFormat2Digit,
+            minute: IntlDateTimeFormat2Digit,
+          },
+        );
+        setTime(getCurrentTime(fullFormattedCurrentTime));
+        setIsCurrentHourVisible(true);
+      } else {
+        setIsCurrentHourVisible(false);
+      }
+    });
+  });
+
+  if (currentTimeElement) observer.observe(currentTimeElement);
+
+  useEffect(() => {
+    const fourtySeconds = 10000 * 40;
+    const fullFormattedCurrentTime = getFormattedDateString(
+      locale,
+      new Date(),
+      {
+        hour: IntlDateTimeFormat2Digit,
+        minute: IntlDateTimeFormat2Digit,
+      },
+    );
+    const currentTimeUpdate = setInterval(() => {
+      setTime(getCurrentTime(fullFormattedCurrentTime));
+    }, fourtySeconds);
+    return () => clearInterval(currentTimeUpdate);
+  }, [isCurrentHourVisible, locale]);
+
+  return (
+    <div className={styles.currentTime} style={{ top: getTop(date) }}>
+      <time
+        dateTime={time}
+        id={currentTimeElementId}
+        data-testid={currentTimeElementId}
+      >
+        {time}
+      </time>
+    </div>
+  );
+};
+
+const getCurrentTime = (formattedTime: string) => {
   const [currentTime, _currentPeriod, currentHour, currentMins] =
-    getTimeInformation(fullFormattedCurrentTime);
-  const currentTimeDisplay = is12HourClockSystem(fullFormattedCurrentTime)
+    getTimeInformation(formattedTime);
+  return is12HourClockSystem(formattedTime)
     ? `${currentHour}:${currentMins}`
     : currentTime;
+};
+
+const getTop = (date: Date) => {
   const startOfHoursBlockPx = 4;
   const sizeOfEachHourBlock = 50; // px
   const oneHour = 60;
   const sizeOfEachMinute = sizeOfEachHourBlock / oneHour;
-  const top =
+  const currentHours = date.getHours();
+  const currentMinutes = date.getMinutes();
+  return (
     startOfHoursBlockPx +
     currentHours * sizeOfEachHourBlock +
-    currentMinutes * sizeOfEachMinute;
-
-  return (
-    <div className={styles.currentTime} style={{ top }}>
-      <time
-        dateTime={currentTimeDisplay}
-        id="currentTime"
-        data-testid="currentTime"
-      >
-        {currentTimeDisplay}
-      </time>
-    </div>
+    currentMinutes * sizeOfEachMinute
   );
 };
