@@ -65,8 +65,8 @@ describe('Planner', () => {
   const brLocale = 'pt-BR';
   const enEsLocale = 'en-US';
 
-  describe('When is rendering', () => {
-    it('should display header initial date text in English', () => {
+  describe('Header', () => {
+    it('should render header initial date text in English', () => {
       renderPlanner({ hour: 1, minutes: 1 });
       const date = new Date(currentYear, currentMonth, currentDay);
       const dayOfWeek = getDayOfWeek(enEsLocale, date);
@@ -76,7 +76,7 @@ describe('Planner', () => {
       expect(plannerDateLabelElement).toBeInTheDocument();
       expect(screen.getByText('Mar 1, Saturday')).toBeInTheDocument();
     });
-    it('should display header initial date text in Portuguese', () => {
+    it('should render header initial date text in Portuguese', () => {
       renderPlanner({ hour: 1, minutes: 1, locale: brLocale });
       const date = new Date(currentYear, currentMonth, currentDay);
       const dayOfWeek = getDayOfWeek(brLocale, date);
@@ -85,6 +85,32 @@ describe('Planner', () => {
       const plannerDateLabelElement = screen.getByText(plannerDateLabel);
       expect(plannerDateLabelElement).toBeInTheDocument();
       expect(screen.getByText('Mar 1, Sábado')).toBeInTheDocument();
+    });
+  });
+
+  describe('Rendering', () => {
+    beforeEach(() => {
+      jest.useFakeTimers();
+    });
+
+    afterEach(() => {
+      jest.useRealTimers();
+    });
+
+    afterAll(() => {
+      jest.restoreAllMocks();
+    });
+
+    it('should display current hour if it is today', () => {
+      const hour = 12;
+      const minutes = 12;
+      jest.setSystemTime(
+        new Date(currentYear, currentMonth, currentDay, hour, minutes),
+      );
+      renderPlanner({ hour, minutes });
+      const time = '12:12';
+      const timeElement = screen.getByText(time);
+      expect(timeElement).toBeInTheDocument();
     });
   });
 
