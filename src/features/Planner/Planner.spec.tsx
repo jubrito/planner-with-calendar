@@ -65,8 +65,8 @@ describe('Planner', () => {
   const brLocale = 'pt-BR';
   const enEsLocale = 'en-US';
 
-  describe('Header', () => {
-    it('should render header initial date text in English', () => {
+  describe('When is rendering', () => {
+    it('should display header initial date text in English', () => {
       renderPlanner({ hour: 1, minutes: 1 });
       const date = new Date(currentYear, currentMonth, currentDay);
       const dayOfWeek = getDayOfWeek(enEsLocale, date);
@@ -76,7 +76,7 @@ describe('Planner', () => {
       expect(plannerDateLabelElement).toBeInTheDocument();
       expect(screen.getByText('Mar 1, Saturday')).toBeInTheDocument();
     });
-    it('should render header initial date text in Portuguese', () => {
+    it('should display header initial date text in Portuguese', () => {
       renderPlanner({ hour: 1, minutes: 1, locale: brLocale });
       const date = new Date(currentYear, currentMonth, currentDay);
       const dayOfWeek = getDayOfWeek(brLocale, date);
