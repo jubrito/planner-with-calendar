@@ -1,12 +1,5 @@
 # Next steps (v1):
 
-Architecture
-
-- Create /utils and /types folder inside features
-
-Improvements
-
-- event validation (isValidEvent) + test
 - update current time base on if it is visible or not
 - remove old events[]?
 
@@ -46,6 +39,7 @@ Features
 - Improvements
 
   > create selectors for initial or current based on received props key
+  > event validation (isValidEvent) + test
 
 - Web Hosting
 
