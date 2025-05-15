@@ -8,7 +8,6 @@ import {
 import { formatDateIDFromDate } from '../../../utils/events/utils';
 
 type InitialEventsInfoState = {
-  events: EventStored[];
   eventsByDates: EventsByDates;
   selectedDayViewEvent?: SelectedEventOnDayView;
 };
@@ -24,7 +23,6 @@ type AddEvent = {
 };
 
 const initialEventsInfo: InitialEventsInfoState = {
-  events: [],
   eventsByDates: {},
   selectedDayViewEvent: undefined,
 };
@@ -39,9 +37,7 @@ export const eventSlice = createSlice({
   initialState: initialValue,
   reducers: {
     addEvent(state: InitialState, action: PayloadAction<AddEvent>) {
-      const events = state.currentState.events;
       const { newEvent, ISODate } = action.payload;
-      state.currentState.events = [...events, newEvent];
       const eventsByDates = { ...state.currentState.eventsByDates };
       const id = formatDateIDFromDate(ISODate);
       state.currentState.eventsByDates = {

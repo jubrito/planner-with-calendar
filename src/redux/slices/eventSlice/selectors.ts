@@ -4,12 +4,6 @@ import { formatDateIDFromDate } from '../../../utils/events/utils';
 
 const eventSlice = (state: RootState) => state.eventSlice;
 
-export const getInitialEvents = () =>
-  createSelector(eventSlice, (state) => state.initialState.events);
-
-export const getCurrentEvents = () =>
-  createSelector(eventSlice, (state) => state.currentState.events);
-
 export const getInitialEventsByDates = () =>
   createSelector(eventSlice, (state) => state.initialState.eventsByDates);
 
