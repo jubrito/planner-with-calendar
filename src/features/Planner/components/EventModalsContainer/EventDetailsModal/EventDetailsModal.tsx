@@ -26,31 +26,11 @@ export const EventDetailsModal = memo(
     const { event: selectedEvent, top } = selectedDayViewEvent;
     const { title } = selectedEvent;
 
-    const modalContent = () => {
-      const { sameDay, multiDay, isSameDayEvent } = getModalContent(
-        selectedEvent.startDate,
-        selectedEvent.endDate,
-        locale,
-      );
-      return {
-        sameDayContent: {
-          date: sameDay.date,
-          time: sameDay.time,
-        },
-        sameDayTitle: sameDay.title,
-        multiDayContent: multiDay.content,
-        multiDayTitle: multiDay.title,
-        isSameDayEvent,
-      };
-    };
-
-    const {
-      isSameDayEvent,
-      multiDayContent,
-      multiDayTitle,
-      sameDayContent,
-      sameDayTitle,
-    } = modalContent();
+    const { sameDay, multiDay, isSameDayEvent } = getModalContent(
+      selectedEvent.startDate,
+      selectedEvent.endDate,
+      locale,
+    );
 
     return (
       <Modal
@@ -58,12 +38,14 @@ export const EventDetailsModal = memo(
         content={
           <>
             {isSameDayEvent && (
-              <div title={sameDayTitle}>
-                <p aria-hidden={true}>{sameDayContent.date}</p>
-                <p aria-hidden={true}>{sameDayContent.time}</p>
+              <div title={sameDay.title}>
+                <p aria-hidden={true}>{sameDay.date}</p>
+                <p aria-hidden={true}>{sameDay.time}</p>
               </div>
             )}
-            {!isSameDayEvent && <p title={multiDayTitle}>{multiDayContent}</p>}
+            {!isSameDayEvent && (
+              <p title={multiDay.title}>{multiDay.content}</p>
+            )}
           </>
         }
         style={{ top }}
