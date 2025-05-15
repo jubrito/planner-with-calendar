@@ -13,6 +13,20 @@ describe('CurrentTime', () => {
   const day = 11;
   const hour = 15;
   const minutes = 25;
+
+  const intersectionObserverMock = () => ({
+    observe: () => null,
+  });
+  const initialIntersectionObserver = window.IntersectionObserver;
+  beforeEach(() => {
+    window.IntersectionObserver = jest
+      .fn()
+      .mockImplementation(intersectionObserverMock);
+  });
+  afterAll(() => {
+    window.IntersectionObserver = initialIntersectionObserver;
+  });
+
   it('should render current hour correctly for 12-clock systems', () => {
     renderWithProviders(<CurrentTime />, {
       preloadedState: {
