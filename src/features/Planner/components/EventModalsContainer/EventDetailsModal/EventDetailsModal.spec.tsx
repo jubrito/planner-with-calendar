@@ -256,6 +256,7 @@ describe('EventDetailsModal', () => {
         const timeElement = screen.getByText(time);
         const dateElement = screen.getByText(date);
         const titleElement = timeElement.parentElement;
+
         expect(titleElement).toHaveProperty('title', title);
         expect(timeElement).toBeInTheDocument();
         expect(timeElement).toHaveAttribute('aria-hidden', 'true');
