@@ -89,6 +89,14 @@ describe('Planner', () => {
   });
 
   describe('Current hour display', () => {
+    beforeEach(() => {
+      jest.useFakeTimers();
+    });
+
+    afterEach(() => {
+      jest.useRealTimers();
+    });
+
     afterAll(() => {
       jest.restoreAllMocks();
     });
@@ -97,8 +105,12 @@ describe('Planner', () => {
       it('should correctly display current hour (11:59) for hour 11', () => {
         const hour = 11;
         const minutes = 11;
+        jest.setSystemTime(
+          new Date(currentYear, currentMonth, currentDay, hour, minutes),
+        );
         renderPlanner({ hour, minutes });
         const time = '11:11';
+
         const timeElement = screen.getByText(time);
         expect(timeElement).toBeInTheDocument();
         expect(timeElement).toHaveRole('time');
@@ -107,9 +119,13 @@ describe('Planner', () => {
       it('should correctly display current hour (11:23) for hour 23', () => {
         const hour = 23;
         const minutes = 23;
+        jest.setSystemTime(
+          new Date(currentYear, currentMonth, currentDay, hour, minutes),
+        );
         renderPlanner({ hour, minutes });
         const time = '11:23';
         const timeElement = screen.getByText(time);
+
         expect(timeElement).toBeInTheDocument();
         expect(timeElement).toHaveRole('time');
         expect(timeElement).toHaveProperty('dateTime', time);
@@ -117,9 +133,13 @@ describe('Planner', () => {
       it('should correctly display current hour (12:12) for hour 12', () => {
         const hour = 12;
         const minutes = 12;
+        jest.setSystemTime(
+          new Date(currentYear, currentMonth, currentDay, hour, minutes),
+        );
         renderPlanner({ hour, minutes });
         const time = '12:12';
         const timeElement = screen.getByText(time);
+
         expect(timeElement).toBeInTheDocument();
         expect(timeElement).toHaveRole('time');
         expect(timeElement).toHaveProperty('dateTime', time);
@@ -127,9 +147,13 @@ describe('Planner', () => {
       it('should correctly display current hour (12:24) for hour 24', () => {
         const hour = 24;
         const minutes = 24;
+        jest.setSystemTime(
+          new Date(currentYear, currentMonth, currentDay, hour, minutes),
+        );
         renderPlanner({ hour, minutes });
         const time = '12:24';
         const timeElement = screen.getByText(time);
+
         expect(timeElement).toBeInTheDocument();
         expect(timeElement).toHaveRole('time');
         expect(timeElement).toHaveProperty('dateTime', time);
@@ -137,9 +161,13 @@ describe('Planner', () => {
       it('should correctly display current hour (12:00) for hour 0', () => {
         const hour = 0;
         const minutes = 0;
+        jest.setSystemTime(
+          new Date(currentYear, currentMonth, currentDay, hour, minutes),
+        );
         renderPlanner({ hour, minutes });
         const time = '12:00';
         const timeElement = screen.getByText(time);
+
         expect(timeElement).toBeInTheDocument();
         expect(timeElement).toHaveRole('time');
         expect(timeElement).toHaveProperty('dateTime', time);
@@ -149,9 +177,13 @@ describe('Planner', () => {
       it('should correctly display current hour (11:59) for hour 11', () => {
         const hour = 11;
         const minutes = 11;
+        jest.setSystemTime(
+          new Date(currentYear, currentMonth, currentDay, hour, minutes),
+        );
         renderPlanner({ hour, minutes, locale: brLocale });
         const time = '11:11';
         const timeElement = screen.getByText(time);
+
         expect(timeElement).toBeInTheDocument();
         expect(timeElement).toHaveRole('time');
         expect(timeElement).toHaveProperty('dateTime', time);
@@ -159,9 +191,13 @@ describe('Planner', () => {
       it('should correctly display current hour (23:23) for hour 23', () => {
         const hour = 23;
         const minutes = 23;
+        jest.setSystemTime(
+          new Date(currentYear, currentMonth, currentDay, hour, minutes),
+        );
         renderPlanner({ hour, minutes, locale: brLocale });
         const time = '23:23';
         const timeElement = screen.getByText(time);
+
         expect(timeElement).toBeInTheDocument();
         expect(timeElement).toHaveRole('time');
         expect(timeElement).toHaveProperty('dateTime', time);
@@ -169,9 +205,13 @@ describe('Planner', () => {
       it('should correctly display current hour (12:12) for hour 12', () => {
         const hour = 12;
         const minutes = 12;
+        jest.setSystemTime(
+          new Date(currentYear, currentMonth, currentDay, hour, minutes),
+        );
         renderPlanner({ hour, minutes });
         const time = '12:12';
         const timeElement = screen.getByText(time);
+
         expect(timeElement).toBeInTheDocument();
         expect(timeElement).toHaveRole('time');
         expect(timeElement).toHaveProperty('dateTime', time);
@@ -179,9 +219,13 @@ describe('Planner', () => {
       it('should correctly display current hour (00:24) for hour 24', () => {
         const hour = 24;
         const minutes = 24;
+        jest.setSystemTime(
+          new Date(currentYear, currentMonth, currentDay, hour, minutes),
+        );
         renderPlanner({ hour, minutes, locale: brLocale });
         const time = '00:24';
         const timeElement = screen.getByText(time);
+
         expect(timeElement).toBeInTheDocument();
         expect(timeElement).toHaveRole('time');
         expect(timeElement).toHaveProperty('dateTime', time);
@@ -189,10 +233,14 @@ describe('Planner', () => {
       it('should correctly display current hour (00:00) for hour 0', () => {
         const hour = 0;
         const minutes = 0;
+        jest.setSystemTime(
+          new Date(currentYear, currentMonth, currentDay, hour, minutes),
+        );
         renderPlanner({ hour, minutes, locale: brLocale });
         const time = '00:00';
         const id = 'currentTime';
         const timeElement = screen.getByTestId(id);
+
         expect(timeElement).toBeInTheDocument();
         expect(timeElement).toHaveRole('time');
         expect(timeElement).toHaveProperty('dateTime', time);
