@@ -112,6 +112,18 @@ describe('Planner', () => {
       const timeElement = screen.getByText(time);
       expect(timeElement).toBeInTheDocument();
     });
+
+    it('should not display current hour if it is not today', () => {
+      const hour = 12;
+      const minutes = 12;
+      jest.setSystemTime(
+        new Date(2011, currentMonth, currentDay, hour, minutes),
+      );
+      renderPlanner({ hour, minutes });
+      const time = '12:12';
+      const timeElement = screen.queryByText(time);
+      expect(timeElement).not.toBeInTheDocument();
+    });
   });
 
   describe('Current hour display', () => {
