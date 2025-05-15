@@ -25,7 +25,6 @@ export const EventDetailsModal = memo(
 
     const { event: selectedEvent, top } = selectedDayViewEvent;
     const { title } = selectedEvent;
-
     const { sameDay, multiDay, isSameDayEvent } = getModalContent(
       selectedEvent.startDate,
       selectedEvent.endDate,

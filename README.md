@@ -1,5 +1,7 @@
 # Next steps (v1):
 
+- fix modal title property
+
 Architecture
 
 - Create /utils and /types folder inside features
