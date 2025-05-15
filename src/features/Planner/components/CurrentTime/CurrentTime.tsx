@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import styles from './current-time.module.scss';
 import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
-import { getSelectedGlobalDate } from '../../../../redux/slices/dateSlice/selectors';
+import { getSelectedDayViewDate } from '../../../../redux/slices/dateSlice/selectors';
 import {
   getFormattedDateString,
   getTimeInformation,
@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react';
 export const CurrentTime = () => {
   const currentTimeElementId = 'currentTime';
   const locale = useSelector(getLocaleLanguage());
-  const date = useSelector(getSelectedGlobalDate());
+  const date = useSelector(getSelectedDayViewDate());
   const fullFormattedCurrentTime = getFormattedDateString(locale, date, {
     hour: IntlDateTimeFormat2Digit,
     minute: IntlDateTimeFormat2Digit,
