@@ -1,7 +1,5 @@
 # Next steps (v1):
 
-- remove old events[]?
-
 Features
 
 - create banner that disappears if fails to create event (e.g., event.start is undefined)
