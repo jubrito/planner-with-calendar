@@ -1,3 +1,10 @@
+global.IntersectionObserver = jest.fn().mockImplementation(() => ({
+  observe: jest.fn(),
+  unobserve: jest.fn(),
+  disconnect: jest.fn(),
+  takeRecords: jest.fn(() => []),
+}));
+
 import '@testing-library/jest-dom';
 import { screen } from '@testing-library/dom';
 import { initialValue as initialDateValue } from '../../redux/slices/dateSlice';
@@ -82,6 +89,10 @@ describe('Planner', () => {
   });
 
   describe('Current hour display', () => {
+    afterAll(() => {
+      jest.restoreAllMocks();
+    });
+
     describe('When is 12-clock system', () => {
       it('should correctly display current hour (11:59) for hour 11', () => {
         const hour = 11;
