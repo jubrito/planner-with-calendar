@@ -22,12 +22,9 @@ import {
   clearSelectedDayViewEvent,
   updateSelectedDayViewEvent,
 } from '../../../../redux/slices/eventSlice';
-import {
-  EventOnCreate,
-  EventOnOpenDetails,
-  EventStored,
-} from '../../../../types/event';
+import { EventOnOpenDetails } from '../../../../types/event';
 import { HourButtons } from './HourButtons/HourButtons';
+import { isValidDraftEvent, isValidEvent } from '../../utils/eventValidation';
 
 export const EventContainer = () => {
   const dispatch = useDispatch();
@@ -175,16 +172,16 @@ export const EventContainer = () => {
   );
 };
 
-const isValidDraftEvent = (event: EventOnCreate) =>
-  event.id != null &&
-  event.title != null &&
-  event.start != null &&
-  event.start.fixedPositionY != null &&
-  event.end != null &&
-  event.end.fixedPositionY;
+// const isValidDraftEvent = (event: EventOnCreate) =>
+//   event.id != null &&
+//   event.title != null &&
+//   event.start != null &&
+//   event.start.fixedPositionY != null &&
+//   event.end != null &&
+//   event.end.fixedPositionY;
 
-const isValidEvent = (event: EventStored) =>
-  event.id != null &&
-  event.title != null &&
-  event.startDate != null &&
-  event.endDate != null;
+// const isValidEvent = (event: EventStored) =>
+//   event.id != null &&
+//   event.title != null &&
+//   event.startDate != null &&
+//   event.endDate != null;
