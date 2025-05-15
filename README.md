@@ -9,6 +9,7 @@ Features
 - Create event button on planner for accessibility
 - Delete event
 - Create event from end to finish?
+- Move events through drag/drop
 
 // https://www.npmjs.com/package/@fullcalendar/react
 
