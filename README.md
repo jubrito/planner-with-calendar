@@ -8,6 +8,7 @@ Features
 - Edit event
 - Create event button on planner for accessibility
 - Delete event
+- Create event from end to finish?
 
 // https://www.npmjs.com/package/@fullcalendar/react
 
