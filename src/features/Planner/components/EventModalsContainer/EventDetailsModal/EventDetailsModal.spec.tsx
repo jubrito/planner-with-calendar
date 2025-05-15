@@ -133,11 +133,16 @@ describe('EventDetailsModal', () => {
         const date = `${weekDay}, ${startMonthName} ${day}`;
         const { startTime, endTime } = getTime({});
         const time = `${startTime} – ${endTime} ${startPeriod}`;
-        const timeWrapperElement = screen.getByText(time);
-        const dateWrapperElement = screen.getByText(date);
+        const title = `Event on ${date} ${time}`;
+        const timeElement = screen.getByText(time);
+        const dateElement = screen.getByText(date);
+        const titleElement = timeElement.parentElement;
 
-        expect(timeWrapperElement).toBeInTheDocument();
-        expect(dateWrapperElement).toBeInTheDocument();
+        expect(titleElement).toHaveProperty('title', title);
+        expect(timeElement).toBeInTheDocument();
+        expect(timeElement).toHaveAttribute('aria-hidden', 'true');
+        expect(dateElement).toBeInTheDocument();
+        expect(dateElement).toHaveAttribute('aria-hidden', 'true');
       });
       it('should render modal with same day event within different periods', () => {
         const updatedEndHour = 12;
