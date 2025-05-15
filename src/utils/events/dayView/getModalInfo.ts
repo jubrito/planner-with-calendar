@@ -12,9 +12,17 @@ import {
   IntlDateTimeFormatShort,
 } from '../../constants';
 
-const getEventTitle = (sameDayContent: string, multiDayContent: string) => ({
-  sameDayTitle: createEventTitle(sameDayContent).replace('\u2022', 'from'),
-  multiDayTitle: createEventTitle(multiDayContent).replace('on', 'from'),
+const getEventTitle = (
+  sameDayContent: { date: string; time: string },
+  multiDayContent: { initialDate: string; endDate: string },
+) => ({
+  sameDayTitle: createEventTitle({
+    start: `${sameDayContent.date} ${sameDayContent.time}`,
+  }),
+  multiDayTitle: createEventTitle({
+    start: multiDayContent.initialDate,
+    end: multiDayContent.endDate,
+  }),
 });
 
 const getEventInfo = (date: Date, locale: LocaleLanguage): EventDetailsView => {
@@ -44,8 +52,10 @@ const getEventInfo = (date: Date, locale: LocaleLanguage): EventDetailsView => {
   };
 };
 
-const createEventTitle = (eventText: string) =>
-  'Event on ' + eventText.replace('–', 'to');
+const createEventTitle = (sameDayContent: { start: string; end?: string }) => {
+  if (!sameDayContent.end) return `Event on ${sameDayContent.start}`;
+  return `Event from ${sameDayContent.start} to ${sameDayContent.end}`;
+};
 
 const getSameDayEventText = (
   startEvent: EventDetailsView,
@@ -55,13 +65,10 @@ const getSameDayEventText = (
     startEvent.period === endEvent.period ? '' : startEvent.period;
   const date = `${startEvent.weekDay}, ${startEvent.monthName} ${startEvent.day}`;
   const time = `${startEvent.time}${updatedStartPeriod} – ${endEvent.time}${endEvent.period}`;
-  // const separator = '\u2022'; // •
-  // return date + '\n' + time;
   return {
     date,
     time,
   };
-  // return date + separator + time;
 };
 
 const getMultiDayEventText = (
@@ -75,8 +82,7 @@ const getMultiDayEventText = (
     `${event.monthName} ${event.day}, ${yearUpdated}${event.time}${event.period}`;
   const startText = getText(startEvent, startYearUpdated);
   const endText = getText(endEvent, endYearUpdated);
-  // return startText + '\n' + endText;
-  return startText + ' – ' + endText;
+  return { initialDateText: startText, endDateText: endText };
 };
 
 const isSameDayEvent = (
@@ -97,19 +103,21 @@ export const getModalContent = (
   const startEvent = getEventInfo(deserializedStartDate, locale);
   const endEvent = getEventInfo(deserializedEndDate, locale);
   const sameDayContent = getSameDayEventText(startEvent, endEvent);
-  const multiDayContent = getMultiDayEventText(startEvent, endEvent);
-  const { sameDayTitle, multiDayTitle } = getEventTitle(
-    sameDayContent.date, // todo pass complete date info
-    multiDayContent,
-  );
+  const multiDayEventContent = getMultiDayEventText(startEvent, endEvent);
+  const { initialDateText, endDateText } = multiDayEventContent;
+  const { sameDayTitle, multiDayTitle } = getEventTitle(sameDayContent, {
+    initialDate: initialDateText,
+    endDate: endDateText,
+  });
   return {
     sameDay: {
-      date: sameDayContent.date,
-      time: sameDayContent.time,
-      title: sameDayTitle, // todo review this
+      start: sameDayContent.date,
+      end: sameDayContent.time,
+      title: sameDayTitle,
     },
     multiDay: {
-      content: multiDayContent,
+      start: initialDateText,
+      end: endDateText,
       title: multiDayTitle,
     },
     isSameDayEvent: isSameDayEvent(startEvent, endEvent),
