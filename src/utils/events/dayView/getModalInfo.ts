@@ -55,7 +55,13 @@ const getSameDayEventText = (
     startEvent.period === endEvent.period ? '' : startEvent.period;
   const date = `${startEvent.weekDay}, ${startEvent.monthName} ${startEvent.day}`;
   const time = `${startEvent.time}${updatedStartPeriod} – ${endEvent.time}${endEvent.period}`;
-  return date + ' \u2022 ' + time;
+  // const separator = '\u2022'; // •
+  // return date + '\n' + time;
+  return {
+    date,
+    time,
+  };
+  // return date + separator + time;
 };
 
 const getMultiDayEventText = (
@@ -69,6 +75,7 @@ const getMultiDayEventText = (
     `${event.monthName} ${event.day}, ${yearUpdated}${event.time}${event.period}`;
   const startText = getText(startEvent, startYearUpdated);
   const endText = getText(endEvent, endYearUpdated);
+  // return startText + '\n' + endText;
   return startText + ' – ' + endText;
 };
 
@@ -92,13 +99,14 @@ export const getModalContent = (
   const sameDayContent = getSameDayEventText(startEvent, endEvent);
   const multiDayContent = getMultiDayEventText(startEvent, endEvent);
   const { sameDayTitle, multiDayTitle } = getEventTitle(
-    sameDayContent,
+    sameDayContent.date, // todo pass complete date info
     multiDayContent,
   );
   return {
     sameDay: {
-      content: sameDayContent,
-      title: sameDayTitle,
+      date: sameDayContent.date,
+      time: sameDayContent.time,
+      title: sameDayTitle, // todo review this
     },
     multiDay: {
       content: multiDayContent,

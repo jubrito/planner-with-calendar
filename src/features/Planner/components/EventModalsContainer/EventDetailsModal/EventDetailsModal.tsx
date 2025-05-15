@@ -33,7 +33,10 @@ export const EventDetailsModal = memo(
         locale,
       );
       return {
-        sameDayContent: sameDay.content,
+        sameDayContent: {
+          date: sameDay.date,
+          time: sameDay.time,
+        },
         sameDayTitle: sameDay.title,
         multiDayContent: multiDay.content,
         multiDayTitle: multiDay.title,
@@ -54,7 +57,12 @@ export const EventDetailsModal = memo(
         title={title}
         content={
           <>
-            {isSameDayEvent && <p title={sameDayTitle}>{sameDayContent}</p>}
+            {isSameDayEvent && (
+              <div title={sameDayTitle}>
+                <p aria-hidden={true}>{sameDayContent.date}</p>
+                <p aria-hidden={true}>{sameDayContent.time}</p>
+              </div>
+            )}
             {!isSameDayEvent && <p title={multiDayTitle}>{multiDayContent}</p>}
           </>
         }
