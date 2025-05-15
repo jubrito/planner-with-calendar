@@ -38,12 +38,14 @@ export const EventDetailsModal = memo(
           <>
             {isSameDayEvent && (
               <div title={sameDay.title}>
-                <p aria-hidden={true}>{sameDay.date}</p>
-                <p aria-hidden={true}>{sameDay.time}</p>
+                <p aria-hidden={true}>{sameDay.start}</p>
+                <p aria-hidden={true}>{sameDay.end}</p>
               </div>
             )}
             {!isSameDayEvent && (
-              <p title={multiDay.title}>{multiDay.content}</p>
+              <p title={multiDay.title}>
+                {multiDay.start} – {multiDay.end}
+              </p>
             )}
           </>
         }
