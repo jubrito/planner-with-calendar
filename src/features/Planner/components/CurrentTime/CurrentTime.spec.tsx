@@ -18,13 +18,25 @@ describe('CurrentTime', () => {
     observe: () => null,
   });
   const initialIntersectionObserver = window.IntersectionObserver;
+  // console.log('hour', hour);
+  // console.log('minutes', minutes);
+  // console.log(
+  //   'new Date(year, month, day, hour, minutes)',
+  //   new Date(year, month, day, hour, minutes),
+  // );
   beforeEach(() => {
+    jest.useFakeTimers();
+    jest.setSystemTime(new Date(year, month, day, hour, minutes));
     window.IntersectionObserver = jest
       .fn()
       .mockImplementation(intersectionObserverMock);
   });
+  afterEach(() => {
+    jest.useRealTimers();
+  });
   afterAll(() => {
     window.IntersectionObserver = initialIntersectionObserver;
+    jest.restoreAllMocks();
   });
 
   it('should render current hour correctly for 12-clock systems', () => {
@@ -34,13 +46,14 @@ describe('CurrentTime', () => {
           ...initialValue,
           currentState: {
             ...initialValue.currentState,
-            globalISODate: getDateISOString(
+            dayViewISODate: getDateISOString(
               new Date(year, month, day, hour, minutes),
             ),
           },
         },
       },
     });
+
     const time = '03:25';
     const timeElement = screen.getByText(time);
     expect(timeElement).toBeInTheDocument();
@@ -63,7 +76,7 @@ describe('CurrentTime', () => {
           ...initialValue,
           currentState: {
             ...initialValue.currentState,
-            globalISODate: getDateISOString(
+            dayViewISODate: getDateISOString(
               new Date(year, month, day, hour, minutes),
             ),
           },
