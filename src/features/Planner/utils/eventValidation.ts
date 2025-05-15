@@ -24,10 +24,10 @@ export const isValidDraftEvent = (event: EventOnCreate) => {
 
 export const isValidEvent = (event: EventStored) =>
   event.id != null &&
-  typeof event.id === 'string' &&
   event.title != null &&
-  typeof event.id === 'string' &&
   event.startDate != null &&
-  isValidDate(new Date(event.startDate)) &&
   event.endDate != null &&
+  typeof event.id === 'string' &&
+  typeof event.title === 'string' &&
+  isValidDate(new Date(event.startDate)) &&
   isValidDate(new Date(event.endDate));
