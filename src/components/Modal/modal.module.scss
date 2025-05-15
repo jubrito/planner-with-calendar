@@ -44,10 +44,6 @@
     p {
       margin: 0;
       @include mixins.ellipsisText;
-
-      &:first-of-type {
-        font-weight: bold;
-      }
     }
   }
 }

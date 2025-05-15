@@ -72,7 +72,9 @@ export const Modal = ({
         )}
       </div>
       <div className={styles.content}>
-        <p>{title}</p>
+        <p>
+          <strong>{title}</strong>
+        </p>
         {content}
       </div>
     </div>
