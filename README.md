@@ -1,6 +1,5 @@
 # Next steps (v1):
 
-- only show current time if it is today
 - remove old events[]?
 
 Features
