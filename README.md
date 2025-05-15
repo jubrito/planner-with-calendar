@@ -1,6 +1,6 @@
 # Next steps (v1):
 
-- update current time base on if it is visible or not
+- only show current time if it is today
 - remove old events[]?
 
 Features
