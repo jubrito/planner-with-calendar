@@ -131,13 +131,7 @@ describe('EventDetailsModal', () => {
       it('should render modal with same day event within same period', () => {
         renderEventDetailsModal({});
         const date = `${weekDay}, ${startMonthName} ${day}`;
-        const { startTime, endTime } = getTime({
-          start: {
-            hourDate: new Date(startDate),
-            minutesDate: new Date(startDate),
-          },
-          end: { hourDate: new Date(endDate), minutesDate: new Date(endDate) },
-        });
+        const { startTime, endTime } = getTime({});
         const time = `${startTime} – ${endTime} ${startPeriod}`;
         const timeWrapperElement = screen.getByText(time);
         const dateWrapperElement = screen.getByText(date);
