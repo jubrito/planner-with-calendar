@@ -320,5 +320,9 @@ describe('utils', () => {
       expect(is12HourClockSystem('AM')).toBeTruthy();
       expect(is12HourClockSystem('PM')).toBeTruthy();
     });
+    it('should return false if it does not include AM or PM', () => {
+      expect(is12HourClockSystem('anything')).toBeFalsy();
+      expect(is12HourClockSystem('')).toBeFalsy();
+    });
   });
 });
