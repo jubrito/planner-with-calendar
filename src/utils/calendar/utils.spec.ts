@@ -373,48 +373,34 @@ describe('utils', () => {
       );
     });
     it('should return time information when it is not 12 hour clock system', () => {
-      const formattedDateStringAM = getFormattedDateString(
-        localePortuguese,
-        new Date(year, month, day, 0, 0),
-        {
-          hour: IntlDateTimeFormat2Digit,
-          minute: IntlDateTimeFormat2Digit,
-        },
+      const formattedDateString = {
+        am: createFormattedDateString(
+          new Date(year, month, day, 0, 0),
+          localePortuguese,
+        ),
+        pm: createFormattedDateString(
+          new Date(year, month, day, hours, minutes),
+          localePortuguese,
+        ),
+        lastHour: createFormattedDateString(
+          new Date(year, month, day, 24, minutes),
+          localePortuguese,
+        ),
+      };
+      const expectedResults = {
+        am: ['00:00', '', '00', '00'],
+        pm: ['13:12', '', '13', '12'],
+        lastHour: ['00:12', '', '00', '12'],
+      };
+      expect(getTimeInformation(formattedDateString.am)).toStrictEqual(
+        expectedResults.am,
       );
-      const formattedDateStringPM = getFormattedDateString(
-        localePortuguese,
-        new Date(year, month, day, hours, minutes),
-        {
-          hour: IntlDateTimeFormat2Digit,
-          minute: IntlDateTimeFormat2Digit,
-        },
+      expect(getTimeInformation(formattedDateString.pm)).toStrictEqual(
+        expectedResults.pm,
       );
-      const formattedDateStringLastHour = getFormattedDateString(
-        localePortuguese,
-        new Date(year, month, day, 24, minutes),
-        {
-          hour: IntlDateTimeFormat2Digit,
-          minute: IntlDateTimeFormat2Digit,
-        },
+      expect(getTimeInformation(formattedDateString.lastHour)).toStrictEqual(
+        expectedResults.lastHour,
       );
-      expect(getTimeInformation(formattedDateStringAM)).toStrictEqual([
-        '00:00',
-        '',
-        '00',
-        '00',
-      ]);
-      expect(getTimeInformation(formattedDateStringPM)).toStrictEqual([
-        '13:12',
-        '',
-        '13',
-        '12',
-      ]);
-      expect(getTimeInformation(formattedDateStringLastHour)).toStrictEqual([
-        '00:12',
-        '',
-        '00',
-        '12',
-      ]);
     });
     it('should throw error if time is empty', () => {
       expect(() => getTimeInformation('')).toThrow(
