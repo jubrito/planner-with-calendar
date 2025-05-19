@@ -54,12 +54,12 @@ describe('utils', () => {
         'Segunda-feira, 1 de dezembro de 2025',
       );
     });
-    it('should throw date error if date is invalid', () => {
+    it('should throw error if date is invalid', () => {
       expect(() => getFullDateTitle(year, month, 0 / 0, localeEnglish)).toThrow(
         'Failed to get date title, date is invalid',
       );
     });
-    it('should throw locale error if date is invalid', () => {
+    it('should throw error if locale is invalid', () => {
       expect(() => getFullDateTitle(year, month, day, `${0}`)).toThrow(
         'Failed to get date title, language is invalid',
       );
@@ -70,7 +70,7 @@ describe('utils', () => {
       const date = new Date(year, month, day);
       expect(getDateISOString(date)).toBe(date.toISOString());
     });
-    it('should throw error date if date is invalid', () => {
+    it('should throw error if date is invalid', () => {
       expect(() => getDateISOString(new Date(year, month, 0 / 0))).toThrow(
         'Failed to get date, date is invalid',
       );
@@ -81,7 +81,7 @@ describe('utils', () => {
       expect(getDay(date)).toBe(date.getDate());
       expect(getDay(date)).toBe(day);
     });
-    it('should throw error date if date is invalid', () => {
+    it('should throw error if date is invalid', () => {
       expect(() => getDay(new Date(year, month, 0 / 0))).toThrow(
         'Failed to get day, date is invalid',
       );
@@ -121,7 +121,7 @@ describe('utils', () => {
         ),
       ).toBe(month);
     });
-    it('should throw error date if date is invalid', () => {
+    it('should throw error if date is invalid', () => {
       expect(() =>
         getMonthIndex(localeEnglish, new Date(year, month, 0 / 0)),
       ).toThrow('Failed to get month index, date is invalid');
@@ -151,7 +151,7 @@ describe('utils', () => {
     it('should return december month name in portuguese if arguments are valid', () => {
       expect(getMonthName(localePortuguese, date)).toBe('Dezembro');
     });
-    it('should throw error date if date is invalid', () => {
+    it('should throw error if date is invalid', () => {
       expect(() =>
         getMonthName(localeEnglish, new Date(year, month, 0 / 0)),
       ).toThrow('Failed to get month name, date is invalid');
@@ -161,7 +161,7 @@ describe('utils', () => {
     it('should return year if argument is valid', () => {
       expect(getYear(date)).toBe(year);
     });
-    it('should throw error date if date is invalid', () => {
+    it('should throw error if date is invalid', () => {
       expect(() => getYear(new Date(year, month, 0 / 0))).toThrow(
         'Failed to get year, date is invalid',
       );
@@ -171,7 +171,7 @@ describe('utils', () => {
     it('should return time in milliseconds if argument is valid', () => {
       expect(getTimeInMilliseconds(date)).toBe(date.getTime());
     });
-    it('should throw error date if date is invalid', () => {
+    it('should throw error if date is invalid', () => {
       expect(() => getTimeInMilliseconds(new Date(year, month, 0 / 0))).toThrow(
         'Failed to get time in milliseconds, date is invalid',
       );
@@ -192,12 +192,12 @@ describe('utils', () => {
           ),
         ).toBe(28);
       });
-      it('should throw error date if date is invalid', () => {
+      it('should throw error if date is invalid', () => {
         expect(() =>
           getMonthNumberOfDays(localeEnglish, new Date(year, month, 0 / 0)),
         ).toThrow('Failed to get month number of days, date is invalid');
       });
-      it('should throw error date if locale is invalid', () => {
+      it('should throw error if locale is invalid', () => {
         expect(() => getMonthNumberOfDays(`${0}`, date)).toThrow(
           'Failed to get month number of days, language is invalid',
         );
@@ -219,12 +219,12 @@ describe('utils', () => {
           getDayOfWeek(localePortuguese, new Date(year, Months.FEBRUARY, 8)),
         ).toBe('Sábado');
       });
-      it('should throw error date if date is invalid', () => {
+      it('should throw error if date is invalid', () => {
         expect(() =>
           getDayOfWeek(localeEnglish, new Date(year, month, 0 / 0)),
         ).toThrow('Failed to get day of the week, date is invalid');
       });
-      it('should throw error date if locale is invalid', () => {
+      it('should throw error if locale is invalid', () => {
         expect(() => getDayOfWeek(`${0}`, date)).toThrow(
           'Failed to get day of the week, language is invalid',
         );
@@ -242,7 +242,7 @@ describe('utils', () => {
       expect(getDayName(5, localePortuguese)).toBe('Sex.');
       expect(getDayName(6, localePortuguese)).toBe('Sáb.');
     });
-    it('should throw error date if locale is invalid', () => {
+    it('should throw error if day is invalid', () => {
       expect(() => getDayName(0, `${0}`)).toThrow(
         'Failed to get day name, language is invalid',
       );
