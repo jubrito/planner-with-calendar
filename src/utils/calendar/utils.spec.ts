@@ -125,5 +125,10 @@ describe('utils', () => {
       const twoDigitsValue = '00';
       expect(get2DigitsValue(twoDigitsValue)).toBe(twoDigitsValue);
     });
+    describe('When value needs to be modified', () => {
+      it('should return value with zero added on the start if it does not have two digits yet', () => {
+        expect(get2DigitsValue('5')).toBe('05');
+      });
+    });
   });
 });
