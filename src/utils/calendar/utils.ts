@@ -192,8 +192,12 @@ export const is12HourClockSystem = (time: string) =>
  * @param formattedFullTime complete time based on location
  * (e.g., 12:00 for 24-hour clock system, 12:00 AM for 12-hour clock system)
  * @returns [time, period, hours, minutes]
+ * Examples: [00, 00]
  */
 export const getTimeInformation = (formattedFullTime: string) => {
+  if (!formattedFullTime)
+    throw new Error("Failed to get time information, time can't be empty");
+
   if (is12HourClockSystem(formattedFullTime)) {
     const [time, period] = formattedFullTime.split(' ');
     const [hour, minutes] = time.split(':');
