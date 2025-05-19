@@ -391,11 +391,16 @@ describe('utils', () => {
           new Date(year, month, day, 24, minutes),
           localePortuguese,
         ),
+        singleDigit: createFormattedDateString(
+          new Date(year, 1, 2, 3, 4),
+          localeEnglish,
+        ),
       };
       const expectedResults = {
         am: ['00:00', '', '00', '00'],
         pm: ['13:12', '', '13', '12'],
         lastHour: ['00:12', '', '00', '12'],
+        singleDigit: ['03:04', '', '03', '04'],
       };
       expect(getTimeInformation(formattedDateString.am)).toStrictEqual(
         expectedResults.am,
