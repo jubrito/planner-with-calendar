@@ -21,7 +21,7 @@ import { validateDateTimeFormatRequirements } from '../validations';
  * @param year
  * @param month
  * @param day
- * @param locale
+ * @param locale valid to be a paramerter to Intl
  * @returns full title string
  * Examples:
  * - 'Monday, December 1, 2025' (en-US)

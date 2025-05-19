@@ -48,8 +48,11 @@ describe('utils', () => {
       );
     });
   });
-  it('getDateISOString(date)', () => {
-    const dateISOString = getDateISOString(new Date(year, month, day));
-    expect(dateISOString);
+  describe('getDateISOString(date)', () => {
+    it('should return ISO date', () => {
+      const date = new Date(year, month, day);
+      const dateISOString = getDateISOString(date);
+      expect(dateISOString).toBe(date.toISOString());
+    });
   });
 });
