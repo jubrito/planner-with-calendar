@@ -11,6 +11,7 @@ import {
   getDay,
   getDayName,
   getDayOfWeek,
+  getFormattedDateString,
   getFullDateTitle,
   getMonthIndex,
   getMonthName,
@@ -251,6 +252,12 @@ describe('utils', () => {
       expect(() => getDayName(11, localeEnglish)).toThrow(
         'Failed to get day name, day is invalid',
       );
+    });
+  });
+  describe('getFormattedDateString(...)', () => {
+    it('should return formatted date string in english', () => {
+      const formattedDateString = getFormattedDateString(localeEnglish, date);
+      expect(formattedDateString).toBe(`${month + 1}/${day}/${year}`);
     });
   });
 });
