@@ -14,19 +14,24 @@ export const getWeekDaysNames = (locale: string) => {
   return [...Array(numberOfDaysOfTheWeek).keys()].map((dayOfWeek) => {
     const dayOneIndexed = dayOfWeek + 1;
     date.setDate(dayOneIndexed);
+    const long = new Intl.DateTimeFormat(locale, {
+      weekday: IntlDateTimeFormatLong,
+    }).format(date);
+    const short = new Intl.DateTimeFormat(locale, {
+      weekday: IntlDateTimeFormatShort,
+    }).format(date);
+    const initial = new Intl.DateTimeFormat(locale, {
+      weekday: IntlDateTimeFormatShort,
+    })
+      .format(date)
+      .charAt(0);
+    const getNameWithFirstLetterUppercased = (name: string) =>
+      name.charAt(0).toUpperCase() + name.slice(1, name.length);
 
     return {
-      long: new Intl.DateTimeFormat(locale, {
-        weekday: IntlDateTimeFormatLong,
-      }).format(date),
-      short: new Intl.DateTimeFormat(locale, {
-        weekday: IntlDateTimeFormatShort,
-      }).format(date),
-      initial: new Intl.DateTimeFormat(locale, {
-        weekday: IntlDateTimeFormatShort,
-      })
-        .format(date)
-        .charAt(0),
+      long: getNameWithFirstLetterUppercased(long),
+      short: getNameWithFirstLetterUppercased(short),
+      initial: getNameWithFirstLetterUppercased(initial),
     };
   });
 };
