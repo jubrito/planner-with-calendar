@@ -276,5 +276,10 @@ describe('utils', () => {
         }),
       ).toBe(`segunda-feira`);
     });
+    it('should throw error if date is invalid', () => {
+      expect(() =>
+        getFormattedDateString(localeEnglish, new Date(year, month, 0 / 0)),
+      ).toThrow('Failed to get date, date is invalid');
+    });
   });
 });
