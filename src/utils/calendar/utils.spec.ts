@@ -237,8 +237,10 @@ describe('utils', () => {
       expect(getDayName(5, localeEnglish)).toBe('Fri');
       expect(getDayName(6, localeEnglish)).toBe('Sat');
     });
-    // it('should return day name in portuguese', () => {
-    //   expect(getDayName(0, localePortuguese)).toBe('Segunda-feira');
-    // });
+    it('should return day name in portuguese', () => {
+      expect(getDayName(0, localePortuguese)).toBe('Dom.');
+      expect(getDayName(5, localePortuguese)).toBe('Sex.');
+      expect(getDayName(6, localePortuguese)).toBe('Sáb.');
+    });
   });
 });
