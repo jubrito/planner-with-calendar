@@ -9,6 +9,7 @@ import {
   get2DigitsValue,
   getDateISOString,
   getDay,
+  getDayName,
   getDayOfWeek,
   getFullDateTitle,
   getMonthIndex,
@@ -229,5 +230,15 @@ describe('utils', () => {
         );
       });
     });
+  });
+  describe('getDayName(dayOfWeek, locale)', () => {
+    it('should return day name in english', () => {
+      expect(getDayName(0, localeEnglish)).toBe('Sun');
+      expect(getDayName(5, localeEnglish)).toBe('Fri');
+      expect(getDayName(6, localeEnglish)).toBe('Sat');
+    });
+    // it('should return day name in portuguese', () => {
+    //   expect(getDayName(0, localePortuguese)).toBe('Segunda-feira');
+    // });
   });
 });
