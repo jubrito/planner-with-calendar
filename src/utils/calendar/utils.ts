@@ -195,13 +195,14 @@ export const is12HourClockSystem = (time: string) =>
  * Examples: [00, 00]
  */
 export const getTimeInformation = (formattedFullTime: string) => {
+  const initialErrorMessage = 'Failed to get time information';
   if (!formattedFullTime)
-    throw new Error("Failed to get time information, time can't be empty");
+    throw new Error(`${initialErrorMessage}, time can't be empty`);
 
   if (is12HourClockSystem(formattedFullTime)) {
     if (!formattedFullTime.includes(' '))
       throw new Error(
-        `Failed to get time information, invalid 12-hour format: missing AM/PM period`,
+        `${initialErrorMessage}, invalid 12-hour format: missing AM/PM period`,
       );
     const [time, period] = formattedFullTime.split(' ');
     const [hour, minutes] = time.split(':');
