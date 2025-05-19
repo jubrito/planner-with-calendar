@@ -133,6 +133,9 @@ describe('utils', () => {
       it('should return value with zero added on the start if start param is provided and it does not have two digits yet', () => {
         expect(get2DigitsValue('5')).toBe('05');
       });
+      it('should return value with zero added on the start if end params is provided and it does not have two digits yet', () => {
+        expect(get2DigitsValue('5', endLabel)).toBe('50');
+      });
     });
   });
 });
