@@ -1,9 +1,11 @@
 import {
+  endLabel,
   IntlDateTimeFormat2Digit,
   IntlDateTimeFormatLong,
   IntlDateTimeFormatNarrow,
   IntlDateTimeFormatNumeric,
   IntlDateTimeFormatShort,
+  startLabel,
 } from '../../utils/constants';
 import { Months } from './enums';
 
@@ -37,3 +39,5 @@ export type IntlDateTypeMonthStyle =
   | typeof IntlDateTimeFormatNumeric
   | typeof IntlDateTimeFormat2Digit
   | undefined;
+
+export type ZeroPosition = typeof startLabel | typeof endLabel;
