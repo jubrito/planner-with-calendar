@@ -138,6 +138,14 @@ export const getDayOfWeek = (
   return dayOfWeekFirstLetterUpperCased + dayOfWeek.slice(1);
 };
 
+/**
+ * Function to get the day name
+ * Current implementation only returns short week day name
+ * @param dayOfWeek
+ * @param locale
+ * @returns short day name
+ * Examples: Sun (in english), Dom. (in portuguese)
+ */
 export const getDayName = (dayOfWeek: number, locale: string) => {
   let dayName: string;
   if (!isValidLocale(locale))
@@ -147,9 +155,7 @@ export const getDayName = (dayOfWeek: number, locale: string) => {
     dayName = weekDays[WeekDays.SUNDAY].short;
   } else {
     const day = weekDays[dayOfWeek - 1];
-    if (day == null) {
-      throw new Error('Failed to get day name, day is invalid');
-    }
+    if (day == null) throw new Error('Failed to get day name, day is invalid');
     dayName = day.short; // Monday (0) to Saturday (5)
   }
   return dayName;
