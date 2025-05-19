@@ -27,10 +27,11 @@ export const getFullDateTitle = (
     locale,
     'get date title',
   );
-  if (isToday(locale, new Date(year, month, day))) return todayLabel;
-  return new Intl.DateTimeFormat(locale, {
+  const date = new Date(year, month, day);
+  if (isToday(locale, date)) return todayLabel;
+  return getFormattedDateString(locale, date, {
     dateStyle: IntlDateTimeFormatFull,
-  }).format(new Date(year, month, day));
+  });
 };
 
 export const getDateISOString = (date: DateConfig['date']) => {
