@@ -190,12 +190,11 @@ describe('utils', () => {
           ),
         ).toBe(28);
       });
-      it('should return number of february days if argument is valid', () => {});
-      // it('should throw error date if date is invalid', () => {
-      //   expect(() => getTimeInMilliseconds(new Date(year, month, 0 / 0))).toThrow(
-      //     'Failed to get time in milliseconds, date is invalid',
-      //   );
-      // });
+      it('should throw error date if date is invalid', () => {
+        expect(() =>
+          getMonthNumberOfDays(localeEnglish, new Date(year, month, 0 / 0)),
+        ).toThrow('Failed to get month number of days, date is invalid');
+      });
     });
   });
 });
