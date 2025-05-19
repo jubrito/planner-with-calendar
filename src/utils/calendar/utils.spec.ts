@@ -203,13 +203,20 @@ describe('utils', () => {
       });
     });
     describe('getDayOfWeek(...)', () => {
-      describe('When arguments are valid', () => {
-        it('should return day of the week in english', () => {
-          expect(getDayOfWeek(localeEnglish, date)).toBe('Monday');
-          expect(
-            getDayOfWeek(localeEnglish, new Date(year, Months.JANUARY, 1)),
-          ).toBe('Wednesday');
-        });
+      it('should return day of the week in english', () => {
+        expect(getDayOfWeek(localeEnglish, date)).toBe('Monday');
+        expect(
+          getDayOfWeek(localeEnglish, new Date(year, Months.JANUARY, 1)),
+        ).toBe('Wednesday');
+      });
+      it('should return day of the week in portuguese', () => {
+        expect(getDayOfWeek(localePortuguese, date)).toBe('Segunda-feira');
+        expect(
+          getDayOfWeek(localePortuguese, new Date(year, Months.JANUARY, 1)),
+        ).toBe('Quarta-feira');
+        expect(
+          getDayOfWeek(localePortuguese, new Date(year, Months.FEBRUARY, 8)),
+        ).toBe('Sábado');
       });
       it('should throw error date if date is invalid', () => {
         expect(() =>
