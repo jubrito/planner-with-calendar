@@ -368,7 +368,7 @@ describe('utils', () => {
       ]);
       expect(getTimeInformation(formattedDateStringLastHour)).toStrictEqual([
         '12:12',
-        ' PM',
+        ' AM',
         '12',
         '12',
       ]);
@@ -390,6 +390,14 @@ describe('utils', () => {
           minute: IntlDateTimeFormat2Digit,
         },
       );
+      const formattedDateStringLastHour = getFormattedDateString(
+        localePortuguese,
+        new Date(year, month, day, 24, minutes),
+        {
+          hour: IntlDateTimeFormat2Digit,
+          minute: IntlDateTimeFormat2Digit,
+        },
+      );
       expect(getTimeInformation(formattedDateStringAM)).toStrictEqual([
         '00:00',
         '',
@@ -402,12 +410,17 @@ describe('utils', () => {
         '13',
         '12',
       ]);
-      expect(getTimeInformation(formattedDateStringPM)).toStrictEqual([
-        '13:12',
+      expect(getTimeInformation(formattedDateStringLastHour)).toStrictEqual([
+        '00:12',
         '',
-        '13',
+        '00',
         '12',
       ]);
     });
+    // it('should throw error if time is empty', () => {
+    //   expect(() => getTimeInformation('')).toThrow(
+    //     'Failed to get last day of previous month, time is invalid',
+    //   );
+    // });
   });
 });
