@@ -59,7 +59,7 @@ describe('utils', () => {
       );
     });
   });
-  describe('getDateISOString(date)', () => {
+  describe('getDay(date)', () => {
     it('should get day', () => {
       const date = new Date(year, month, day);
       expect(getDay(date)).toBe(date.getDate());
