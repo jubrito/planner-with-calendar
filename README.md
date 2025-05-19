@@ -1,5 +1,7 @@
 # Next steps (v1):
 
+- replace 'start' and 'end' with new const everywhere
+
 Tests
 
 - utils
