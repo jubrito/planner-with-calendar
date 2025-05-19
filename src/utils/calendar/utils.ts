@@ -105,7 +105,8 @@ export const getYear = (date: DateConfig['date']) => {
 };
 
 export const getTimeInMilliseconds = (date: DateConfig['date']) => {
-  if (!isValidDate(date)) throw new Error('Failed to get time in milliseconds');
+  if (!isValidDate(date))
+    throw new Error('Failed to get time in milliseconds, date is invalid');
   return date.getTime();
 };
 
