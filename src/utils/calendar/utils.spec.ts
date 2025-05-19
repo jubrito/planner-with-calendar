@@ -158,9 +158,9 @@ describe('utils', () => {
       expect(getYear(date)).toBe(year);
     });
     it('should throw error date if date is invalid', () => {
-      expect(() =>
-        getMonthName(localeEnglish, new Date(year, month, 0 / 0)),
-      ).toThrow('Failed to get month name, date is invalid');
+      expect(() => getYear(new Date(year, month, 0 / 0))).toThrow(
+        'Failed to get year, date is invalid',
+      );
     });
   });
 });
