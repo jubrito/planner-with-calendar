@@ -359,5 +359,35 @@ describe('utils', () => {
         '12',
       ]);
     });
+    it('should return time information when it is not 12 hour clock system', () => {
+      const formattedDateStringAM = getFormattedDateString(
+        localePortuguese,
+        new Date(year, month, day, 0, 0),
+        {
+          hour: IntlDateTimeFormat2Digit,
+          minute: IntlDateTimeFormat2Digit,
+        },
+      );
+      const formattedDateStringPM = getFormattedDateString(
+        localePortuguese,
+        new Date(year, month, day, hours, minutes),
+        {
+          hour: IntlDateTimeFormat2Digit,
+          minute: IntlDateTimeFormat2Digit,
+        },
+      );
+      expect(getTimeInformation(formattedDateStringAM)).toStrictEqual([
+        '00:00',
+        '',
+        '00',
+        '00',
+      ]);
+      expect(getTimeInformation(formattedDateStringPM)).toStrictEqual([
+        '13:12',
+        '',
+        '13',
+        '12',
+      ]);
+    });
   });
 });
