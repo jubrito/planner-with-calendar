@@ -9,6 +9,7 @@ import {
   get2DigitsValue,
   getDateISOString,
   getDay,
+  getDayOfWeek,
   getFullDateTitle,
   getMonthIndex,
   getMonthName,
@@ -199,6 +200,13 @@ describe('utils', () => {
         expect(() => getMonthNumberOfDays(`${0}`, date)).toThrow(
           'Failed to get month number of days, language is invalid',
         );
+      });
+    });
+    describe('getDayOfWeek(...)', () => {
+      it('should throw error date if date is invalid', () => {
+        expect(() =>
+          getDayOfWeek(localeEnglish, new Date(year, month, 0 / 0)),
+        ).toThrow('Failed to get day of the week, date is invalid');
       });
     });
   });
