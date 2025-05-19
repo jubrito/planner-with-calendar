@@ -120,7 +120,7 @@ export const getMonthNumberOfDays = (
   const getLastDayOfMonth = 0;
   const dateWithLastDayOfMonth = new Date(year, month, getLastDayOfMonth);
   if (!isValidDate(dateWithLastDayOfMonth)) {
-    throw new Error('Failed to get month number of days');
+    throw new Error('Failed to get month number of days, date is invalid');
   }
   return dateWithLastDayOfMonth.getDate();
 };
