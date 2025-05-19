@@ -195,6 +195,11 @@ describe('utils', () => {
           getMonthNumberOfDays(localeEnglish, new Date(year, month, 0 / 0)),
         ).toThrow('Failed to get month number of days, date is invalid');
       });
+      it('should throw error date if locale is invalid', () => {
+        expect(() => getMonthNumberOfDays(`${0}`, date)).toThrow(
+          'Failed to get month number of days, language is invalid',
+        );
+      });
     });
   });
 });
