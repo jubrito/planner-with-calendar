@@ -11,6 +11,7 @@ import {
   getDay,
   getFullDateTitle,
   getMonthIndex,
+  getMonthName,
 } from './utils';
 
 describe('utils', () => {
@@ -136,6 +137,11 @@ describe('utils', () => {
       it('should return value with zero added on the start if end params is provided and it does not have two digits yet', () => {
         expect(get2DigitsValue('5', endLabel)).toBe('50');
       });
+    });
+  });
+  describe('getMonthName', () => {
+    it('should return december month name in english if arguments are valid', () => {
+      expect(getMonthName(localeEnglish, date)).toBe('December');
     });
   });
 });
