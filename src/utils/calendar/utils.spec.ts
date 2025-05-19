@@ -1,4 +1,6 @@
 import { Months } from '../../types/calendar/enums';
+import { DateConfig } from '../../types/calendar/types';
+import { LocaleLanguage } from '../../types/locale/types';
 import {
   endLabel,
   IntlDateTimeFormat2Digit,
@@ -23,6 +25,15 @@ import {
   getYear,
   is12HourClockSystem,
 } from './utils';
+
+const createFormattedDateString = (
+  date: DateConfig['date'],
+  locale: LocaleLanguage,
+) =>
+  getFormattedDateString(locale, date, {
+    hour: IntlDateTimeFormat2Digit,
+    minute: IntlDateTimeFormat2Digit,
+  });
 
 describe('utils', () => {
   const year = 2025;
@@ -330,48 +341,36 @@ describe('utils', () => {
   });
   describe('getTimeInformation(formattedFullTime)', () => {
     it('should return time information when it is 12 hour clock system', () => {
-      const formattedDateStringAM = getFormattedDateString(
-        localeEnglish,
-        new Date(year, month, day, 0, 0),
-        {
-          hour: IntlDateTimeFormat2Digit,
-          minute: IntlDateTimeFormat2Digit,
-        },
+      const formattedDateString = {
+        am: createFormattedDateString(
+          new Date(year, month, day, 0, 0),
+          localeEnglish,
+        ),
+        pm: createFormattedDateString(
+          new Date(year, month, day, hours, minutes),
+          localeEnglish,
+        ),
+        lastHour: createFormattedDateString(
+          new Date(year, month, day, 24, minutes),
+          localeEnglish,
+        ),
+      };
+
+      const expectedResults = {
+        am: ['12:00', ' AM', '12', '00'],
+        pm: ['01:12', ' PM', '01', '12'],
+        lastHour: ['12:12', ' AM', '12', '12'],
+      };
+
+      expect(getTimeInformation(formattedDateString.am)).toStrictEqual(
+        expectedResults.am,
       );
-      const formattedDateStringPM = getFormattedDateString(
-        localeEnglish,
-        new Date(year, month, day, hours, minutes),
-        {
-          hour: IntlDateTimeFormat2Digit,
-          minute: IntlDateTimeFormat2Digit,
-        },
+      expect(getTimeInformation(formattedDateString.pm)).toStrictEqual(
+        expectedResults.pm,
       );
-      const formattedDateStringLastHour = getFormattedDateString(
-        localeEnglish,
-        new Date(year, month, day, 24, minutes),
-        {
-          hour: IntlDateTimeFormat2Digit,
-          minute: IntlDateTimeFormat2Digit,
-        },
+      expect(getTimeInformation(formattedDateString.lastHour)).toStrictEqual(
+        expectedResults.lastHour,
       );
-      expect(getTimeInformation(formattedDateStringAM)).toStrictEqual([
-        '12:00',
-        ' AM',
-        '12',
-        '00',
-      ]);
-      expect(getTimeInformation(formattedDateStringPM)).toStrictEqual([
-        '01:12',
-        ' PM',
-        '01',
-        '12',
-      ]);
-      expect(getTimeInformation(formattedDateStringLastHour)).toStrictEqual([
-        '12:12',
-        ' AM',
-        '12',
-        '12',
-      ]);
     });
     it('should return time information when it is not 12 hour clock system', () => {
       const formattedDateStringAM = getFormattedDateString(
