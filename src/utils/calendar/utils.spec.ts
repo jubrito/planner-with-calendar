@@ -175,9 +175,22 @@ describe('utils', () => {
       );
     });
     describe('getMonthNumberOfDays(locale, date)', () => {
-      it('should return number of december days if argument is valid', () => {
+      it('should return number of days if argument is valid', () => {
+        expect(
+          getMonthNumberOfDays(
+            localeEnglish,
+            new Date(year, Months.JANUARY, 1),
+          ),
+        ).toBe(31);
         expect(getMonthNumberOfDays(localeEnglish, date)).toBe(31);
+        expect(
+          getMonthNumberOfDays(
+            localeEnglish,
+            new Date(year, Months.FEBRUARY, day),
+          ),
+        ).toBe(28);
       });
+      it('should return number of february days if argument is valid', () => {});
       // it('should throw error date if date is invalid', () => {
       //   expect(() => getTimeInMilliseconds(new Date(year, month, 0 / 0))).toThrow(
       //     'Failed to get time in milliseconds, date is invalid',
