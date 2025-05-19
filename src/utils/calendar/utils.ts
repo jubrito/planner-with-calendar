@@ -29,9 +29,11 @@ export const getFullDateTitle = (
   );
   const date = new Date(year, month, day);
   if (isToday(locale, date)) return todayLabel;
-  return getFormattedDateString(locale, date, {
+  const result = getFormattedDateString(locale, date, {
     dateStyle: IntlDateTimeFormatFull,
   });
+  const firstLetter = result.charAt(0).toUpperCase();
+  return firstLetter + result.slice(1, result.length);
 };
 
 export const getDateISOString = (date: DateConfig['date']) => {
