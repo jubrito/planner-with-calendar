@@ -18,8 +18,13 @@ describe('utils', () => {
       expect(fullDateTitle).toStrictEqual('Monday, December 1, 2025');
     });
     it('should throw date error if date is invalid', () => {
-      expect(() => getFullDateTitle(3, Months.JANUARY, 0 / 0, locale)).toThrow(
+      expect(() => getFullDateTitle(year, month, 0 / 0, locale)).toThrow(
         'Failed to get date title, date is invalid',
+      );
+    });
+    it('should throw locale error if date is invalid', () => {
+      expect(() => getFullDateTitle(year, month, day, `${0}`)).toThrow(
+        'Failed to get date title, language is invalid',
       );
     });
   });
