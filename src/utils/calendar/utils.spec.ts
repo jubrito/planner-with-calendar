@@ -208,6 +208,11 @@ describe('utils', () => {
           getDayOfWeek(localeEnglish, new Date(year, month, 0 / 0)),
         ).toThrow('Failed to get day of the week, date is invalid');
       });
+      it('should throw error date if locale is invalid', () => {
+        expect(() => getDayOfWeek(`${0}`, date)).toThrow(
+          'Failed to get day of the week, language is invalid',
+        );
+      });
     });
   });
 });
