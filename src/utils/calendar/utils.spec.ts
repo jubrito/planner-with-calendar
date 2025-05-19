@@ -18,6 +18,7 @@ import {
   getMonthIndex,
   getMonthName,
   getMonthNumberOfDays,
+  getTimeInformation,
   getTimeInMilliseconds,
   getYear,
   is12HourClockSystem,
@@ -27,9 +28,11 @@ describe('utils', () => {
   const year = 2025;
   const month = Months.DECEMBER;
   const day = 1;
+  const hours = 13;
+  const minutes = 12;
   const localeEnglish = 'en-US';
   const localePortuguese = 'pt-BR';
-  const date = new Date(year, month, day);
+  const date = new Date(year, month, day, hours, minutes);
   describe('getFullDateTitle(...)', () => {
     it('should return full date title in english', () => {
       const formattedDate = new Intl.DateTimeFormat(localeEnglish, {
@@ -323,6 +326,20 @@ describe('utils', () => {
     it('should return false if it does not include AM or PM', () => {
       expect(is12HourClockSystem('anything')).toBeFalsy();
       expect(is12HourClockSystem('')).toBeFalsy();
+    });
+  });
+  describe('getTimeInformation(formattedFullTime)', () => {
+    it('should return time information when it is 12 hour clock system', () => {
+      const formattedDateString = getFormattedDateString(
+        localeEnglish,
+        new Date(year, month, day, hours, minutes),
+        {
+          hour: IntlDateTimeFormat2Digit,
+          minute: IntlDateTimeFormat2Digit,
+        },
+      );
+      const timeInformation = getTimeInformation(formattedDateString);
+      expect(timeInformation).toStrictEqual(['01:12', ' PM', '01', '12']);
     });
   });
 });
