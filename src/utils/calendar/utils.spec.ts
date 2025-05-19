@@ -54,5 +54,10 @@ describe('utils', () => {
       const dateISOString = getDateISOString(date);
       expect(dateISOString).toBe(date.toISOString());
     });
+    it('should throw error date if date is invalid', () => {
+      expect(() => getDateISOString(new Date(year, month, 0 / 0))).toThrow(
+        'Failed to get date, date is invalid',
+      );
+    });
   });
 });
