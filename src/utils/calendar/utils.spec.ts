@@ -281,5 +281,10 @@ describe('utils', () => {
         getFormattedDateString(localeEnglish, new Date(year, month, 0 / 0)),
       ).toThrow('Failed to get date, date is invalid');
     });
+    it('should throw error if locale is invalid', () => {
+      expect(() => getFormattedDateString(`${0}`, date)).toThrow(
+        'Failed to get date, language is invalid',
+      );
+    });
   });
 });
