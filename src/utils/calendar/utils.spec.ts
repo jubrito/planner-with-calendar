@@ -7,6 +7,7 @@ describe('utils', () => {
   const month = Months.DECEMBER;
   const day = 1;
   const localeEnglish = 'en-US';
+  const localePortuguese = 'pt-BR';
   const date = new Date(year, month, day);
   describe('getFullDateTitle(...)', () => {
     it('should return full date title in english', () => {
@@ -16,6 +17,25 @@ describe('utils', () => {
       const fullDateTitle = getFullDateTitle(year, month, day, localeEnglish);
       expect(fullDateTitle).toStrictEqual(formattedDate);
       expect(fullDateTitle).toStrictEqual('Monday, December 1, 2025');
+    });
+    it('should return full date title in portuguese', () => {
+      const formattedDate = new Intl.DateTimeFormat(localePortuguese, {
+        dateStyle: IntlDateTimeFormatFull,
+      }).format(date);
+      console.log(getDateISOString(date));
+      const fullDateTitle = getFullDateTitle(
+        year,
+        month,
+        day,
+        localePortuguese,
+      );
+      const firstLetter = fullDateTitle.charAt(0).toUpperCase();
+      expect(fullDateTitle).toStrictEqual(
+        firstLetter + formattedDate.slice(1, formattedDate.length),
+      );
+      expect(fullDateTitle).toStrictEqual(
+        'Segunda-feira, 1 de dezembro de 2025',
+      );
     });
     it('should throw date error if date is invalid', () => {
       expect(() => getFullDateTitle(year, month, 0 / 0, localeEnglish)).toThrow(
