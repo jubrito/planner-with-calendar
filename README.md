@@ -1,6 +1,7 @@
 # Next steps (v1):
 
 - replace 'start' and 'end' with new const everywhere
+- replace new Intl with formatted function everywhere
 
 Tests
 
