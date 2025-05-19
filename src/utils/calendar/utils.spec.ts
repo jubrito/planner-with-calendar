@@ -51,8 +51,7 @@ describe('utils', () => {
   describe('getDateISOString(date)', () => {
     it('should return ISO date', () => {
       const date = new Date(year, month, day);
-      const dateISOString = getDateISOString(date);
-      expect(dateISOString).toBe(date.toISOString());
+      expect(getDateISOString(date)).toBe(date.toISOString());
     });
     it('should throw error date if date is invalid', () => {
       expect(() => getDateISOString(new Date(year, month, 0 / 0))).toThrow(
