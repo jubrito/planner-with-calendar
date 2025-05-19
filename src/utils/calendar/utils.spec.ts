@@ -1,5 +1,6 @@
 import { Months } from '../../types/calendar/enums';
 import {
+  endLabel,
   IntlDateTimeFormat2Digit,
   IntlDateTimeFormatFull,
   IntlDateTimeFormatNumeric,
@@ -126,7 +127,10 @@ describe('utils', () => {
       expect(get2DigitsValue(twoDigitsValue)).toBe(twoDigitsValue);
     });
     describe('When value needs to be modified', () => {
-      it('should return value with zero added on the start if it does not have two digits yet', () => {
+      it('should return value with zero added on the start if only value is provided and it does not have two digits yet', () => {
+        expect(get2DigitsValue('5')).toBe('05');
+      });
+      it('should return value with zero added on the start if start param is provided and it does not have two digits yet', () => {
         expect(get2DigitsValue('5')).toBe('05');
       });
     });
