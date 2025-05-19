@@ -1,5 +1,9 @@
 import { Months } from '../../types/calendar/enums';
-import { IntlDateTimeFormat2Digit, IntlDateTimeFormatFull } from '../constants';
+import {
+  IntlDateTimeFormat2Digit,
+  IntlDateTimeFormatFull,
+  IntlDateTimeFormatNumeric,
+} from '../constants';
 import {
   getDateISOString,
   getDay,
@@ -99,6 +103,15 @@ describe('utils', () => {
           IntlDateTimeFormat2Digit,
         ),
       ).toBe(january);
+    });
+    it('should get month index 11 for december with long option', () => {
+      expect(
+        getMonthIndex(
+          localeEnglish,
+          new Date(year, month, day),
+          IntlDateTimeFormatNumeric,
+        ),
+      ).toBe(month);
     });
     it('should throw error date if date is invalid', () => {
       expect(() =>
