@@ -64,10 +64,10 @@ describe('utils', () => {
       const date = new Date(year, month, day);
       expect(getDay(date)).toBe(date.getDate());
     });
-    // it('should throw error date if date is invalid', () => {
-    //   expect(() => getDateISOString(new Date(year, month, 0 / 0))).toThrow(
-    //     'Failed to get date, date is invalid',
-    //   );
-    // });
+    it('should throw error date if date is invalid', () => {
+      expect(() => getDay(new Date(year, month, 0 / 0))).toThrow(
+        'Failed to get day, date is invalid',
+      );
+    });
   });
 });
