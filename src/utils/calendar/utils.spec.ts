@@ -5,6 +5,7 @@ import {
   IntlDateTimeFormatNumeric,
 } from '../constants';
 import {
+  get2DigitsValue,
   getDateISOString,
   getDay,
   getFullDateTitle,
@@ -117,6 +118,12 @@ describe('utils', () => {
       expect(() =>
         getMonthIndex(localeEnglish, new Date(year, month, 0 / 0)),
       ).toThrow('Failed to get month index, date is invalid');
+    });
+  });
+  describe('get2DigitsValue(value)', () => {
+    it('should return same value if it already has two digits', () => {
+      const twoDigitsValue = '00';
+      expect(get2DigitsValue(twoDigitsValue)).toBe(twoDigitsValue);
     });
   });
 });
