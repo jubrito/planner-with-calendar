@@ -259,5 +259,12 @@ describe('utils', () => {
       const formattedDateString = getFormattedDateString(localeEnglish, date);
       expect(formattedDateString).toBe(`${month + 1}/${day}/${year}`);
     });
+    it('should return formatted date string in portuguese', () => {
+      const formattedDateString = getFormattedDateString(
+        localePortuguese,
+        date,
+      );
+      expect(formattedDateString).toBe(`0${day}/${month + 1}/${year}`);
+    });
   });
 });
