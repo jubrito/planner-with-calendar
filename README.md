@@ -1,5 +1,10 @@
 # Next steps (v1):
 
+Tests
+
+- utils
+  - [ ] getFullDateTitle
+
 Features
 
 - create banner that disappears if fails to create event (e.g., event.start is undefined)
