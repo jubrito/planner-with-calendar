@@ -12,6 +12,7 @@ import {
   getFullDateTitle,
   getMonthIndex,
   getMonthName,
+  getTimeInMilliseconds,
   getYear,
 } from './utils';
 
@@ -162,5 +163,15 @@ describe('utils', () => {
         'Failed to get year, date is invalid',
       );
     });
+  });
+  describe('getTimeInMilliseconds(date)', () => {
+    it('should return year if argument is valid', () => {
+      expect(getTimeInMilliseconds(date)).toBe(date.getTime());
+    });
+    // it('should throw error date if date is invalid', () => {
+    //   expect(() => getTimeInMilliseconds(new Date(year, month, 0 / 0))).toThrow(
+    //     'Failed to get year, date is invalid',
+    //   );
+    // });
   });
 });
