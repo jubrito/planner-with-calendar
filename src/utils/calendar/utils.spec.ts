@@ -14,6 +14,7 @@ import {
   getDayOfWeek,
   getFormattedDateString,
   getFullDateTitle,
+  getLastDayOfPreviousMonth,
   getMonthIndex,
   getMonthName,
   getMonthNumberOfDays,
@@ -286,5 +287,30 @@ describe('utils', () => {
         'Failed to get date, language is invalid',
       );
     });
+  });
+  describe('getLastDayOfPreviousMonth(time)', () => {
+    it('should return last day of previous month if argument is valid and it is not leap year', () => {
+      expect(getLastDayOfPreviousMonth(date.getTime())).toBe(30);
+      expect(
+        getLastDayOfPreviousMonth(
+          new Date(year, Months.JANUARY, day).getTime(),
+        ),
+      ).toBe(31);
+      expect(
+        getLastDayOfPreviousMonth(new Date(year, Months.MARCH, day).getTime()),
+      ).toBe(28);
+    });
+
+    // it('should throw error if time is invalid', () => {
+    //     const timeInMilliseconds = 8.64e15 + 1;
+    //   expect(() =>
+    //     getLastDayOfPreviousMonth(0),
+    //   ).toThrow('Failed to get date, date is invalid');
+    // });
+    // it('should throw error if locale is invalid', () => {
+    //   expect(() => getLastDayOfPreviousMonth(`${0}`, date)).toThrow(
+    //     'Failed to get date, language is invalid',
+    //   );
+    // });
   });
 });
