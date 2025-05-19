@@ -1,24 +1,24 @@
 import { Months } from '../../types/calendar/enums';
 import { IntlDateTimeFormatFull } from '../constants';
-import { getFullDateTitle } from './utils';
+import { getDateISOString, getFullDateTitle } from './utils';
 
 describe('utils', () => {
   const year = 2025;
   const month = Months.DECEMBER;
   const day = 1;
-  const locale = 'en-US';
+  const localeEnglish = 'en-US';
   const date = new Date(year, month, day);
   describe('getFullDateTitle(...)', () => {
     it('should return full date title in english', () => {
-      const formattedDate = new Intl.DateTimeFormat(locale, {
+      const formattedDate = new Intl.DateTimeFormat(localeEnglish, {
         dateStyle: IntlDateTimeFormatFull,
       }).format(date);
-      const fullDateTitle = getFullDateTitle(year, month, day, locale);
+      const fullDateTitle = getFullDateTitle(year, month, day, localeEnglish);
       expect(fullDateTitle).toStrictEqual(formattedDate);
       expect(fullDateTitle).toStrictEqual('Monday, December 1, 2025');
     });
     it('should throw date error if date is invalid', () => {
-      expect(() => getFullDateTitle(year, month, 0 / 0, locale)).toThrow(
+      expect(() => getFullDateTitle(year, month, 0 / 0, localeEnglish)).toThrow(
         'Failed to get date title, date is invalid',
       );
     });
@@ -27,5 +27,9 @@ describe('utils', () => {
         'Failed to get date title, language is invalid',
       );
     });
+  });
+  it('getDateISOString(date)', () => {
+    const dateISOString = getDateISOString(new Date(year, month, day));
+    expect(dateISOString);
   });
 });
