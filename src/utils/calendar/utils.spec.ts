@@ -1,6 +1,11 @@
 import { Months } from '../../types/calendar/enums';
-import { IntlDateTimeFormatFull } from '../constants';
-import { getDateISOString, getDay, getFullDateTitle } from './utils';
+import { IntlDateTimeFormat2Digit, IntlDateTimeFormatFull } from '../constants';
+import {
+  getDateISOString,
+  getDay,
+  getFullDateTitle,
+  getMonthIndex,
+} from './utils';
 
 describe('utils', () => {
   const year = 2025;
@@ -61,13 +66,25 @@ describe('utils', () => {
   });
   describe('getDay(date)', () => {
     it('should get day', () => {
-      const date = new Date(year, month, day);
       expect(getDay(date)).toBe(date.getDate());
+      expect(getDay(date)).toBe(day);
     });
     it('should throw error date if date is invalid', () => {
       expect(() => getDay(new Date(year, month, 0 / 0))).toThrow(
         'Failed to get day, date is invalid',
       );
     });
+  });
+  describe('getMonthIndex(...)', () => {
+    it('should get december month index', () => {
+      expect(getMonthIndex(localeEnglish, date, IntlDateTimeFormat2Digit)).toBe(
+        month,
+      );
+    });
+    // it('should throw error date if date is invalid', () => {
+    //   expect(() => getDay(new Date(year, month, 0 / 0))).toThrow(
+    //     'Failed to get day, date is invalid',
+    //   );
+    // });
   });
 });
