@@ -242,5 +242,10 @@ describe('utils', () => {
       expect(getDayName(5, localePortuguese)).toBe('Sex.');
       expect(getDayName(6, localePortuguese)).toBe('Sáb.');
     });
+    it('should throw error date if locale is invalid', () => {
+      expect(() => getDayName(0, `${0}`)).toThrow(
+        'Failed to get day name, language is invalid',
+      );
+    });
   });
 });
