@@ -417,10 +417,10 @@ describe('utils', () => {
         '12',
       ]);
     });
-    // it('should throw error if time is empty', () => {
-    //   expect(() => getTimeInformation('')).toThrow(
-    //     'Failed to get last day of previous month, time is invalid',
-    //   );
-    // });
+    it('should throw error if time is empty', () => {
+      expect(() => getTimeInformation('')).toThrow(
+        "Failed to get time information, time can't be empty",
+      );
+    });
   });
 });
