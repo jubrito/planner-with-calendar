@@ -170,16 +170,6 @@ export const getFormattedDateString = (
   return new Intl.DateTimeFormat(locale, options).format(date);
 };
 
-export const getFormattedDate = (
-  locale: LocaleLanguage,
-  date: DateConfig['date'],
-  options: Intl.DateTimeFormatOptions = {},
-) => {
-  console.log('date', date);
-  validateDateTimeFormatRequirements(date, locale, 'get date');
-  return new Date(getFormattedDateString(locale, date, options));
-};
-
 export const getLastDayOfPreviousMonth = (
   time: DateConfig['timeInMilliseconds'],
 ): number => {
