@@ -346,6 +346,14 @@ describe('utils', () => {
           minute: IntlDateTimeFormat2Digit,
         },
       );
+      const formattedDateStringLastHour = getFormattedDateString(
+        localeEnglish,
+        new Date(year, month, day, 24, minutes),
+        {
+          hour: IntlDateTimeFormat2Digit,
+          minute: IntlDateTimeFormat2Digit,
+        },
+      );
       expect(getTimeInformation(formattedDateStringAM)).toStrictEqual([
         '12:00',
         ' AM',
@@ -356,6 +364,12 @@ describe('utils', () => {
         '01:12',
         ' PM',
         '01',
+        '12',
+      ]);
+      expect(getTimeInformation(formattedDateStringLastHour)).toStrictEqual([
+        '12:12',
+        ' PM',
+        '12',
         '12',
       ]);
     });
@@ -381,6 +395,12 @@ describe('utils', () => {
         '',
         '00',
         '00',
+      ]);
+      expect(getTimeInformation(formattedDateStringPM)).toStrictEqual([
+        '13:12',
+        '',
+        '13',
+        '12',
       ]);
       expect(getTimeInformation(formattedDateStringPM)).toStrictEqual([
         '13:12',
