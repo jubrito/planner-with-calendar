@@ -1,5 +1,6 @@
 # Next steps (v1):
 
+- check why
 - replace 'start' and 'end' with new const everywhere
 - replace new Intl with formatted function everywhere
 
