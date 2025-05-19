@@ -330,7 +330,15 @@ describe('utils', () => {
   });
   describe('getTimeInformation(formattedFullTime)', () => {
     it('should return time information when it is 12 hour clock system', () => {
-      const formattedDateString = getFormattedDateString(
+      const formattedDateStringAM = getFormattedDateString(
+        localeEnglish,
+        new Date(year, month, day, 0, 0),
+        {
+          hour: IntlDateTimeFormat2Digit,
+          minute: IntlDateTimeFormat2Digit,
+        },
+      );
+      const formattedDateStringPM = getFormattedDateString(
         localeEnglish,
         new Date(year, month, day, hours, minutes),
         {
@@ -338,8 +346,18 @@ describe('utils', () => {
           minute: IntlDateTimeFormat2Digit,
         },
       );
-      const timeInformation = getTimeInformation(formattedDateString);
-      expect(timeInformation).toStrictEqual(['01:12', ' PM', '01', '12']);
+      expect(getTimeInformation(formattedDateStringAM)).toStrictEqual([
+        '12:00',
+        ' AM',
+        '12',
+        '00',
+      ]);
+      expect(getTimeInformation(formattedDateStringPM)).toStrictEqual([
+        '01:12',
+        ' PM',
+        '01',
+        '12',
+      ]);
     });
   });
 });
