@@ -3,6 +3,7 @@ import {
   DateConfig,
   IntlDateTypeMonthStyle,
   IntlDateTypeWeekdayStyle,
+  ZeroPosition,
 } from '../../types/calendar/types';
 import { LocaleLanguage } from '../../types/locale/types';
 import {
@@ -10,6 +11,7 @@ import {
   IntlDateTimeFormatFull,
   IntlDateTimeFormatLong,
   IntlDateTimeFormatNumeric,
+  startLabel,
 } from '../constants';
 import { todayLabel } from './constants';
 import { isToday, isValidDate, isValidLocale } from '../checkers';
@@ -73,8 +75,15 @@ export const getMonthIndex = (
   return zeroBaseMonthNumber;
 };
 
-export const get2DigitsValue = (value: number | string) =>
-  value.toString().padStart(2, '0');
+export const get2DigitsValue = (
+  value: number | string,
+  zeroPosition: ZeroPosition = startLabel,
+) => {
+  const initialValue = value.toString();
+  const zero = '0';
+  if (zeroPosition === startLabel) return initialValue.padStart(2, zero);
+  return initialValue.padEnd(2, zero);
+};
 
 export const getMonthName = (
   locale: LocaleLanguage,
