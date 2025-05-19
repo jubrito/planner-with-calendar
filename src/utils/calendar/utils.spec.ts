@@ -300,17 +300,13 @@ describe('utils', () => {
         getLastDayOfPreviousMonth(new Date(year, Months.MARCH, day).getTime()),
       ).toBe(28);
     });
-
-    // it('should throw error if time is invalid', () => {
-    //     const timeInMilliseconds = 8.64e15 + 1;
-    //   expect(() =>
-    //     getLastDayOfPreviousMonth(0),
-    //   ).toThrow('Failed to get date, date is invalid');
-    // });
-    // it('should throw error if locale is invalid', () => {
-    //   expect(() => getLastDayOfPreviousMonth(`${0}`, date)).toThrow(
-    //     'Failed to get date, language is invalid',
-    //   );
-    // });
+    it('should return last day of previous month if argument is valid and it is leap year', () => {
+      const leapYear = 2028;
+      expect(
+        getLastDayOfPreviousMonth(
+          new Date(leapYear, Months.MARCH, day).getTime(),
+        ),
+      ).toBe(29);
+    });
   });
 });
