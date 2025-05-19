@@ -247,5 +247,10 @@ describe('utils', () => {
         'Failed to get day name, language is invalid',
       );
     });
+    it('should throw error if locale is invalid', () => {
+      expect(() => getDayName(11, localeEnglish)).toThrow(
+        'Failed to get day name, day is invalid',
+      );
+    });
   });
 });
