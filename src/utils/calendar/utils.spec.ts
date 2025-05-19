@@ -308,5 +308,10 @@ describe('utils', () => {
         ),
       ).toBe(29);
     });
+    it('should throw error if date is invalid', () => {
+      expect(() =>
+        getLastDayOfPreviousMonth(new Date(year, month, 0 / 0).getTime()),
+      ).toThrow('Failed to get last day of previous month, time is invalid');
+    });
   });
 });
