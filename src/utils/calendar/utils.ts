@@ -16,6 +16,17 @@ import { isToday, isValidDate, isValidLocale } from '../checkers';
 import { getWeekDaysNames } from './weeks';
 import { validateDateTimeFormatRequirements } from '../validations';
 
+/**
+ * Function to generate title based on date properties
+ * @param year
+ * @param month
+ * @param day
+ * @param locale
+ * @returns full title string
+ * Examples:
+ * - 'Monday, December 1, 2025' (en-US)
+ * - 'Segunda-feira, 1 de dezembro de 2025' (pt-BR)
+ */
 export const getFullDateTitle = (
   year: DateConfig['year'],
   month: DateConfig['month'],
