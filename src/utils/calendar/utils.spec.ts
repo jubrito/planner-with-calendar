@@ -3,6 +3,7 @@ import {
   endLabel,
   IntlDateTimeFormat2Digit,
   IntlDateTimeFormatFull,
+  IntlDateTimeFormatLong,
   IntlDateTimeFormatNumeric,
 } from '../constants';
 import {
@@ -256,15 +257,24 @@ describe('utils', () => {
   });
   describe('getFormattedDateString(...)', () => {
     it('should return formatted date string in english', () => {
-      const formattedDateString = getFormattedDateString(localeEnglish, date);
-      expect(formattedDateString).toBe(`${month + 1}/${day}/${year}`);
+      expect(getFormattedDateString(localeEnglish, date)).toBe(
+        `${month + 1}/${day}/${year}`,
+      );
+      expect(
+        getFormattedDateString(localeEnglish, date, {
+          weekday: IntlDateTimeFormatLong,
+        }),
+      ).toBe(`Monday`);
     });
     it('should return formatted date string in portuguese', () => {
-      const formattedDateString = getFormattedDateString(
-        localePortuguese,
-        date,
+      expect(getFormattedDateString(localePortuguese, date)).toBe(
+        `0${day}/${month + 1}/${year}`,
       );
-      expect(formattedDateString).toBe(`0${day}/${month + 1}/${year}`);
+      expect(
+        getFormattedDateString(localePortuguese, date, {
+          weekday: IntlDateTimeFormatLong,
+        }),
+      ).toBe(`segunda-feira`);
     });
   });
 });
