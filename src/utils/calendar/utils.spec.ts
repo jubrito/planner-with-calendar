@@ -20,6 +20,7 @@ import {
   getMonthNumberOfDays,
   getTimeInMilliseconds,
   getYear,
+  is12HourClockSystem,
 } from './utils';
 
 describe('utils', () => {
@@ -312,6 +313,12 @@ describe('utils', () => {
       expect(() =>
         getLastDayOfPreviousMonth(new Date(year, month, 0 / 0).getTime()),
       ).toThrow('Failed to get last day of previous month, time is invalid');
+    });
+  });
+  describe('is12HourClockSystem(time)', () => {
+    it('should return true if it includes AM or PM', () => {
+      expect(is12HourClockSystem('AM')).toBeTruthy();
+      expect(is12HourClockSystem('PM')).toBeTruthy();
     });
   });
 });
