@@ -175,6 +175,7 @@ export const getFormattedDate = (
   date: DateConfig['date'],
   options: Intl.DateTimeFormatOptions = {},
 ) => {
+  console.log('date', date);
   validateDateTimeFormatRequirements(date, locale, 'get date');
   return new Date(getFormattedDateString(locale, date, options));
 };
