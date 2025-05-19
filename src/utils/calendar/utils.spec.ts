@@ -86,15 +86,24 @@ describe('utils', () => {
       expect(
         getMonthIndex(
           localeEnglish,
+          new Date(year, january), // not definish options [for monthSyle] use the default (2-digit)
+        ),
+      ).toBe(january);
+    });
+    it('should get month index 0 for january', () => {
+      const january = Months.JANUARY;
+      expect(
+        getMonthIndex(
+          localeEnglish,
           new Date(year, january),
           IntlDateTimeFormat2Digit,
         ),
       ).toBe(january);
     });
-    // it('should throw error date if date is invalid', () => {
-    //   expect(() => getDay(new Date(year, month, 0 / 0))).toThrow(
-    //     'Failed to get day, date is invalid',
-    //   );
-    // });
+    it('should throw error date if date is invalid', () => {
+      expect(() => getDay(new Date(year, month, 0 / 0))).toThrow(
+        'Failed to get day, date is invalid',
+      );
+    });
   });
 });
