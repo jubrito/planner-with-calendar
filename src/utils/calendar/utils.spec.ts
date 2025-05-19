@@ -12,6 +12,7 @@ import {
   getFullDateTitle,
   getMonthIndex,
   getMonthName,
+  getYear,
 } from './utils';
 
 describe('utils', () => {
@@ -139,12 +140,22 @@ describe('utils', () => {
       });
     });
   });
-  describe('getMonthName', () => {
+  describe('getMonthName(...)', () => {
     it('should return december month name in english if arguments are valid', () => {
       expect(getMonthName(localeEnglish, date)).toBe('December');
     });
     it('should return december month name in portuguese if arguments are valid', () => {
       expect(getMonthName(localePortuguese, date)).toBe('Dezembro');
+    });
+    it('should throw error date if date is invalid', () => {
+      expect(() =>
+        getMonthName(localeEnglish, new Date(year, month, 0 / 0)),
+      ).toThrow('Failed to get month name, date is invalid');
+    });
+  });
+  describe('getYear(date)', () => {
+    it('should return year if argument is valid', () => {
+      expect(getYear(date)).toBe(year);
     });
     it('should throw error date if date is invalid', () => {
       expect(() =>
