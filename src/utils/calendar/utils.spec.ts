@@ -1,6 +1,6 @@
 import { Months } from '../../types/calendar/enums';
 import { IntlDateTimeFormatFull } from '../constants';
-import { getDateISOString, getFullDateTitle } from './utils';
+import { getDateISOString, getDay, getFullDateTitle } from './utils';
 
 describe('utils', () => {
   const year = 2025;
@@ -58,5 +58,16 @@ describe('utils', () => {
         'Failed to get date, date is invalid',
       );
     });
+  });
+  describe('getDateISOString(date)', () => {
+    it('should get day', () => {
+      const date = new Date(year, month, day);
+      expect(getDay(date)).toBe(date.getDate());
+    });
+    // it('should throw error date if date is invalid', () => {
+    //   expect(() => getDateISOString(new Date(year, month, 0 / 0))).toThrow(
+    //     'Failed to get date, date is invalid',
+    //   );
+    // });
   });
 });
