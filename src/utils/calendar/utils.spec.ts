@@ -168,10 +168,10 @@ describe('utils', () => {
     it('should return year if argument is valid', () => {
       expect(getTimeInMilliseconds(date)).toBe(date.getTime());
     });
-    // it('should throw error date if date is invalid', () => {
-    //   expect(() => getTimeInMilliseconds(new Date(year, month, 0 / 0))).toThrow(
-    //     'Failed to get year, date is invalid',
-    //   );
-    // });
+    it('should throw error date if date is invalid', () => {
+      expect(() => getTimeInMilliseconds(new Date(year, month, 0 / 0))).toThrow(
+        'Failed to get time in milliseconds, date is invalid',
+      );
+    });
   });
 });
