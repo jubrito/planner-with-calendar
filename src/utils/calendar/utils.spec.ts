@@ -101,9 +101,9 @@ describe('utils', () => {
       ).toBe(january);
     });
     it('should throw error date if date is invalid', () => {
-      expect(() => getDay(new Date(year, month, 0 / 0))).toThrow(
-        'Failed to get day, date is invalid',
-      );
+      expect(() =>
+        getMonthIndex(localeEnglish, new Date(year, month, 0 / 0)),
+      ).toThrow('Failed to get month index, date is invalid');
     });
   });
 });
