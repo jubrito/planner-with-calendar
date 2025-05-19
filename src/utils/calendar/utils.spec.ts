@@ -146,5 +146,10 @@ describe('utils', () => {
     it('should return december month name in portuguese if arguments are valid', () => {
       expect(getMonthName(localePortuguese, date)).toBe('Dezembro');
     });
+    it('should throw error date if date is invalid', () => {
+      expect(() =>
+        getMonthName(localeEnglish, new Date(year, month, 0 / 0)),
+      ).toThrow('Failed to get month name, date is invalid');
+    });
   });
 });
