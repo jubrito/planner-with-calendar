@@ -86,23 +86,24 @@ describe('getBlocks', () => {
       });
     });
     describe('When relative position corresponds to the last hour block', () => {
+      const lastHourOfTheDay = numberOfHoursInADay - 1; // 23
+      const startOfLastHourFirstBlock = sizeOfEachHourBlock * lastHourOfTheDay; // start of last hour, first 15 min block
       it('should return first 15 minutes block info', () => {
-        const lastHourOfTheDay = numberOfHoursInADay - 1; // 23
-        const relativeY = sizeOfEachHourBlock * lastHourOfTheDay; // start of last hour, first 15 min block
+        const relativeY = startOfLastHourFirstBlock;
         expect(getStartBlock(relativeY)).toStrictEqual({
           hour: lastHourOfTheDay,
           minutes: 0,
           fifteenMinBlock: firstBlock,
         });
       });
-      //   it('should return second 15 minutes block info', () => {
-      //     const relativeY = sizeOfEach15MinBlock;
-      //     expect(getStartBlock(relativeY)).toStrictEqual({
-      //       hour: 0,
-      //       minutes: 15,
-      //       fifteenMinBlock: secondBlock,
-      //     });
-      //   });
+      it('should return second 15 minutes block info', () => {
+        const relativeY = startOfLastHourFirstBlock + sizeOfEach15MinBlock;
+        expect(getStartBlock(relativeY)).toStrictEqual({
+          hour: lastHourOfTheDay,
+          minutes: 15,
+          fifteenMinBlock: secondBlock,
+        });
+      });
       //   it('should return third 15 minutes block info', () => {
       //     const relativeY = sizeOfEach15MinBlock * 2;
       //     expect(getStartBlock(relativeY)).toStrictEqual({
