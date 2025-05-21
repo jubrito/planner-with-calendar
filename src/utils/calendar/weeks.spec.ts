@@ -1,7 +1,7 @@
 import {
   weekDaysNamesOnEnglishLongFormatMock,
   weekDaysNamesOnPortugueseLongFormatMock,
-} from '../tests/mocks/utils';
+} from '../tests/mocks/utils/calendar';
 import { getWeekDaysNames } from './weeks';
 
 describe('weeks', () => {
