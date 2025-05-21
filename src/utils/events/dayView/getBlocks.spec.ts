@@ -1,11 +1,11 @@
-import { getFifteenMinuteBlock } from './getBlocks';
+import { getFifteenMinuteBlock, getStartBlock } from './getBlocks';
 
 describe('getBlocks', () => {
+  const firstBlock = 0;
+  const secondBlock = 1;
+  const thirdBlock = 2;
+  const lastBlock = 3;
   describe('getFifteenMinuteBlock(rest)', () => {
-    const firstBlock = 0;
-    const secondBlock = 1;
-    const thirdBlock = 2;
-    const lastBlock = 3;
     it('should return first block if rest is negative', () => {
       expect(getFifteenMinuteBlock(-1)).toBe(firstBlock);
     });
@@ -32,6 +32,17 @@ describe('getBlocks', () => {
       expect(getFifteenMinuteBlock(0.75999)).toBe(lastBlock);
       expect(getFifteenMinuteBlock(0.999)).toBe(lastBlock);
       expect(getFifteenMinuteBlock(1)).not.toBe(lastBlock);
+    });
+  });
+  // each hour block has 50px (divided in four 15 min blocks of 12.5px each)
+  describe('getStartBlock(relativeY)', () => {
+    it('should return last block info if relative position corresponds to the last portion of the first hour planner block', () => {
+      const relativeY = 49; // end of first hour, last 15 min block
+      expect(getStartBlock(relativeY)).toStrictEqual({
+        hour: 0,
+        minutes: 45,
+        fifteenMinBlock: lastBlock,
+      });
     });
   });
 });
