@@ -230,6 +230,20 @@ describe('getBlocks', () => {
           fifteenMinBlock: lastBlock,
         });
       });
+      it('should return last 15 minutes block info', () => {
+        const initialMinutes = 45;
+        expect(
+          getEndBlock({
+            hour: lastHourOfTheDay,
+            minutes: initialMinutes,
+            fifteenMinBlock: lastBlock,
+          }),
+        ).toStrictEqual({
+          hour: numberOfHoursInADay, // lastHourOfTheDay + 1
+          minutes: 0,
+          fifteenMinBlock: firstBlock,
+        });
+      });
     });
     // it('full hour')
   });
