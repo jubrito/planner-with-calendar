@@ -186,8 +186,23 @@ describe('getBlocks', () => {
           fifteenMinBlock: lastBlock,
         });
       });
+      it('should return first 15 minutes block info for the next hour if start 15 min block is the last block', () => {
+        const initialMinutes = 45;
+        const initialHour = 0;
+        expect(
+          getEndBlock({
+            hour: initialHour,
+            minutes: initialMinutes,
+            fifteenMinBlock: lastBlock,
+          }),
+        ).toStrictEqual({
+          hour: initialHour + 1,
+          minutes: 0,
+          fifteenMinBlock: firstBlock,
+        });
+      });
     });
-    describe('When received blcok corresponds to the last hour block', () => {
+    describe('When received block corresponds to the last hour block', () => {
       it('should return first 15 minutes block info', () => {
         const initialMinutes = 0;
         expect(
@@ -230,7 +245,7 @@ describe('getBlocks', () => {
           fifteenMinBlock: lastBlock,
         });
       });
-      it('should return last 15 minutes block info', () => {
+      it('should return first 15 minutes block info for the next hour if start 15 min block is the last block', () => {
         const initialMinutes = 45;
         expect(
           getEndBlock({
