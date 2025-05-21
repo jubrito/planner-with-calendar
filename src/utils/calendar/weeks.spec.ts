@@ -8,11 +8,6 @@ describe('weeks', () => {
   const localeEnUs = 'en-US';
   const localePtBr = 'pt-BR';
   describe('getWeekDaysNames', () => {
-    it('should throw error if locale is invalid', () => {
-      expect(() => getWeekDaysNames(`${0}`)).toThrow(
-        'Failed to get week days names, language is invalid',
-      );
-    });
     it('should get week names in english', () => {
       expect(getWeekDaysNames(localeEnUs)).toStrictEqual(
         weekDaysNamesOnEnglishLongFormatMock,
@@ -21,6 +16,11 @@ describe('weeks', () => {
     it('should get week names in portuguese', () => {
       expect(getWeekDaysNames(localePtBr)).toStrictEqual(
         weekDaysNamesOnPortugueseLongFormatMock,
+      );
+    });
+    it('should throw error if locale is invalid', () => {
+      expect(() => getWeekDaysNames(`${0}`)).toThrow(
+        'Failed to get week days names, language is invalid',
       );
     });
   });
