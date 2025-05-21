@@ -1,3 +1,4 @@
+import { sizeOfEach15MinBlock } from '../../calendar/constants';
 import { getFifteenMinuteBlock, getStartBlock } from './getBlocks';
 
 describe('getBlocks', () => {
@@ -36,12 +37,20 @@ describe('getBlocks', () => {
   });
   // each hour block has 50px (divided in four 15 min blocks of 12.5px each)
   describe('getStartBlock(relativeY)', () => {
-    it('should return first block info if relative position corresponds to the last portion of the first hour planner block', () => {
+    it('should return first block info if relative position corresponds to the first portion of the first hour planner block', () => {
       const relativeY = 0; // start of first hour, first 15 min block
       expect(getStartBlock(relativeY)).toStrictEqual({
         hour: 0,
         minutes: 0,
         fifteenMinBlock: firstBlock,
+      });
+    });
+    it('should return second block info if relative position corresponds to the second portion of the first hour planner block', () => {
+      const relativeY = sizeOfEach15MinBlock;
+      expect(getStartBlock(relativeY)).toStrictEqual({
+        hour: 0,
+        minutes: 15,
+        fifteenMinBlock: secondBlock,
       });
     });
     it('should return last block info if relative position corresponds to the last portion of the first hour planner block', () => {
