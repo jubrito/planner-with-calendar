@@ -10,8 +10,8 @@ describe('weeks', () => {
   const localePtBr = 'pt-BR';
   const year = 2025;
   const month = Months.MAY;
-  const validDay = 1;
-  const invalidDay = describe('getWeekDaysNames(locale)', () => {
+  const validDay = 21;
+  describe('getWeekDaysNames(locale)', () => {
     it('should get week names in english', () => {
       expect(getWeekDaysNames(localeEnUs)).toStrictEqual(
         weekDaysNamesOnEnglishLongFormatMock,
@@ -29,6 +29,11 @@ describe('weeks', () => {
     });
   });
   describe('getWeekDayName(...)', () => {
+    it('should return week day name in english', () => {
+      expect(getWeekDayName(year, month, validDay, localeEnUs)).toStrictEqual(
+        'Wed',
+      );
+    });
     it('should throw error if date is invalid', () => {
       expect(() => getWeekDayName(year, month, 0 / 0, localeEnUs)).toThrow(
         'Failed to get week day name, date is invalid',
