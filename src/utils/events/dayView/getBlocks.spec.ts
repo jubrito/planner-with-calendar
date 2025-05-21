@@ -216,20 +216,20 @@ describe('getBlocks', () => {
           fifteenMinBlock: thirdBlock,
         });
       });
-      //   it('should return third 15 minutes block info', () => {
-      //     const initialMinutes = 30;
-      //     expect(
-      //       getEndBlock({
-      //         hour: 0,
-      //         minutes: initialMinutes,
-      //         fifteenMinBlock: thirdBlock,
-      //       }),
-      //     ).toStrictEqual({
-      //       hour: 0,
-      //       minutes: initialMinutes + fifteenMinutes,
-      //       fifteenMinBlock: lastBlock,
-      //     });
-      //   });
+      it('should return third 15 minutes block info', () => {
+        const initialMinutes = 30;
+        expect(
+          getEndBlock({
+            hour: lastHourOfTheDay,
+            minutes: initialMinutes,
+            fifteenMinBlock: thirdBlock,
+          }),
+        ).toStrictEqual({
+          hour: lastHourOfTheDay,
+          minutes: initialMinutes + fifteenMinutes,
+          fifteenMinBlock: lastBlock,
+        });
+      });
     });
     // it('full hour')
   });
