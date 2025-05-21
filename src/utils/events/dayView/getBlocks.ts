@@ -1,8 +1,10 @@
 import {
   fifteenMinBlocksInAHour,
   fifteenMinutes,
+  numberOfHoursInADay,
   oneHourInMinutes,
   sizeOfEach15MinBlock,
+  sizeOfEachHourBlock,
 } from '../../calendar/constants';
 import { EventBlock } from '../../../types/event';
 
@@ -56,6 +58,10 @@ export const getFifteenMinuteBlock = (rest: number) => {
  * used to calculate the fifteen minute block on getFifteenMinuteBlock()
  */
 export const getStartBlock = (relativeY: number): EventBlock => {
+  const firstBlock = { hour: 0, fifteenMinBlock: 0, minutes: 0 };
+
+  if (relativeY < 0) return firstBlock;
+
   const floatHour = relativeY / sizeOfEach15MinBlock / fifteenMinBlocksInAHour;
   const hour = Math.floor(floatHour);
   const rest = floatHour - hour;
