@@ -172,6 +172,20 @@ describe('getBlocks', () => {
           fifteenMinBlock: thirdBlock,
         });
       });
+      it('should return third 15 minutes block info', () => {
+        const initialMinutes = 30;
+        expect(
+          getEndBlock({
+            hour: 0,
+            minutes: initialMinutes,
+            fifteenMinBlock: thirdBlock,
+          }),
+        ).toStrictEqual({
+          hour: 0,
+          minutes: initialMinutes + fifteenMinutes,
+          fifteenMinBlock: lastBlock,
+        });
+      });
       //   describe('When relative position corresponds to the last hour block', () => {});
       // it('full hour')
     });
