@@ -13,10 +13,12 @@ describe('weeks', () => {
         'Failed to get week days names, language is invalid',
       );
     });
-    it('should return week names long format', () => {
+    it('should get week names in english', () => {
       expect(getWeekDaysNames(localeEnUs)).toStrictEqual(
         weekDaysNamesOnEnglishLongFormatMock,
       );
+    });
+    it('should get week names in portuguese', () => {
       expect(getWeekDaysNames(localePtBr)).toStrictEqual(
         weekDaysNamesOnPortugueseLongFormatMock,
       );
