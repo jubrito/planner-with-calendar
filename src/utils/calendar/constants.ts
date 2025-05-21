@@ -7,3 +7,9 @@ export const sizeOfEachHourBlock = 50; // px
 export const numberOfDaysOfTheWeek = 7;
 export const fifteenMinutes = 15;
 export const oneHourInMinutes = 60;
+export const fifteenMinutesBlocks = {
+  first: 0,
+  second: 1,
+  third: 2,
+  last: 3,
+};
