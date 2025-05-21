@@ -53,6 +53,14 @@ describe('getBlocks', () => {
         fifteenMinBlock: secondBlock,
       });
     });
+    it('should return third block info if relative position corresponds to the third portion of the first hour planner block', () => {
+      const relativeY = sizeOfEach15MinBlock * 2;
+      expect(getStartBlock(relativeY)).toStrictEqual({
+        hour: 0,
+        minutes: 30,
+        fifteenMinBlock: thirdBlock,
+      });
+    });
     it('should return last block info if relative position corresponds to the last portion of the first hour planner block', () => {
       const relativeY = 49; // end of first hour, last 15 min block
       expect(getStartBlock(relativeY)).toStrictEqual({
