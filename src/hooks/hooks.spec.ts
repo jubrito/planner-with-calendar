@@ -40,7 +40,7 @@ describe('React hooks', () => {
           minutes: 45,
         });
         expect(draftEvent?.end.block).toStrictEqual({
-          fifteenMinBlock: 4,
+          fifteenMinBlock: 0,
           hour: 1,
           minutes: 0,
         });
@@ -74,7 +74,7 @@ describe('React hooks', () => {
           minutes: 0,
         });
         expect(draftEvent?.end.block).toStrictEqual({
-          fifteenMinBlock: 4,
+          fifteenMinBlock: 0,
           hour: 1,
           minutes: 0,
         });

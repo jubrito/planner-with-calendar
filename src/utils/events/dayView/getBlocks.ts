@@ -90,18 +90,24 @@ export const getStartBlock = (relativeY: number): EventBlock => {
  * @returns block for the end position
  */
 export const getEndBlock = (block: EventBlock) => {
-  const lastFifteenMinBlock = 3;
+  // const lastFifteenMinBlock = 3;
   const {
-    fifteenMinBlock: fifteenMinBlockStart,
     hour,
     minutes: minutesStart,
+    fifteenMinBlock: fifteenMinBlockStart,
   } = block;
-  // if (fifteenMinBlock === lastFifteenMinBlock)
+
   const fifteenMinBlockEnd = fifteenMinBlockStart + 1;
   const endMinute = minutesStart + fifteenMinutes;
   const isFullHour = endMinute === oneHourInMinutes;
-  if (isFullHour)
-    return { hour: hour + 1, minutes: 0, fifteenMinBlock: fifteenMinBlockEnd };
+  if (isFullHour) return { hour: hour + 1, minutes: 0, fifteenMinBlock: 0 };
+
+  // if (fifteenMinBlockStart === lastFifteenMinBlock) {
+  //   return {
+  //     hour:
+  //   }
+  // }
+
   return {
     hour,
     minutes: endMinute,
