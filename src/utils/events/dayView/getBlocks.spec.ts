@@ -1,4 +1,5 @@
 import {
+  fifteenMinutes,
   numberOfHoursInADay,
   sizeOfEach15MinBlock,
   sizeOfEachHourBlock,
@@ -144,16 +145,31 @@ describe('getBlocks', () => {
   describe('getEndBlock(block)', () => {
     describe('When relative position corresponds to the first hour block', () => {
       it('should return first 15 minutes block info', () => {
+        const initialMinutes = 0;
         expect(
           getEndBlock({
             hour: 0,
-            minutes: 0,
+            minutes: initialMinutes,
             fifteenMinBlock: firstBlock,
           }),
         ).toStrictEqual({
           hour: 0,
-          minutes: 15,
+          minutes: initialMinutes + fifteenMinutes,
           fifteenMinBlock: secondBlock,
+        });
+      });
+      it('should return second 15 minutes block info', () => {
+        const initialMinutes = 15;
+        expect(
+          getEndBlock({
+            hour: 0,
+            minutes: initialMinutes,
+            fifteenMinBlock: secondBlock,
+          }),
+        ).toStrictEqual({
+          hour: 0,
+          minutes: initialMinutes + fifteenMinutes,
+          fifteenMinBlock: thirdBlock,
         });
       });
       //   describe('When relative position corresponds to the last hour block', () => {});
