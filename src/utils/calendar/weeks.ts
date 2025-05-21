@@ -5,7 +5,7 @@ import { validateDateTimeFormatRequirements } from '../validations';
 import { numberOfDaysOfTheWeek } from './constants';
 import { getDayName } from './utils';
 
-const getNameWithFirstLetterUppercased = (name: string) =>
+const makeFirstLetterUppercase = (name: string) =>
   name.charAt(0).toUpperCase() + name.slice(1, name.length);
 
 export const getWeekDaysNames = (locale: string) => {
@@ -30,9 +30,9 @@ export const getWeekDaysNames = (locale: string) => {
       .charAt(0);
 
     return {
-      long: getNameWithFirstLetterUppercased(long),
-      short: getNameWithFirstLetterUppercased(short)?.replace('.', ''),
-      initial: getNameWithFirstLetterUppercased(initial),
+      long: makeFirstLetterUppercase(long),
+      short: makeFirstLetterUppercase(short)?.replace('.', ''),
+      initial: makeFirstLetterUppercase(initial),
     };
   });
 };
