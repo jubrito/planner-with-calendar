@@ -34,6 +34,11 @@ describe('weeks', () => {
         'Wed',
       );
     });
+    it('should return week day name in portuguese', () => {
+      expect(getWeekDayName(year, month, validDay, localePtBr)).toStrictEqual(
+        'Qua',
+      );
+    });
     it('should throw error if date is invalid', () => {
       expect(() => getWeekDayName(year, month, 0 / 0, localeEnUs)).toThrow(
         'Failed to get week day name, date is invalid',
