@@ -49,7 +49,14 @@ describe('getBlocks', () => {
         fifteenMinBlock: firstBlock,
       });
     });
-    // it('outside container befor and after')
+    it('should return first 15 minutes block info of first hour when relative position is negative', () => {
+      const relativeY = -1;
+      expect(getStartBlock(relativeY)).toStrictEqual({
+        hour: 0,
+        minutes: 0,
+        fifteenMinBlock: firstBlock,
+      });
+    });
 
     describe('When relative position corresponds to the first hour block', () => {
       it('should return first 15 minutes block info', () => {
