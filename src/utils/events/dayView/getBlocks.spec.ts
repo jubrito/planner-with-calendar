@@ -2,8 +2,21 @@ import { getFifteenMinuteBlock } from './getBlocks';
 
 describe('getBlocks', () => {
   describe('getFifteenMinuteBlock(rest)', () => {
+    const firstBlock = 0;
+    const secondBlock = 1;
+    const thirdBlock = 2;
     const lastBlock = 3;
-    it('should return as last block if rests are greater than or equal to 0.75 and smaller than 1', () => {
+    it('should return first block if rest is negative', () => {
+      expect(getFifteenMinuteBlock(-1)).toBe(firstBlock);
+    });
+    it('should return first block if rest is greater than or equal to 0 and smaller than 0.25', () => {
+      expect(getFifteenMinuteBlock(0)).toBe(firstBlock);
+      expect(getFifteenMinuteBlock(0.19)).toBe(firstBlock);
+      expect(getFifteenMinuteBlock(0.24)).toBe(firstBlock);
+      expect(getFifteenMinuteBlock(0.2499)).toBe(firstBlock);
+      expect(getFifteenMinuteBlock(0.25)).not.toBe(firstBlock);
+    });
+    it('should return last block if rest is greater than or equal to 0.75 and smaller than 1', () => {
       expect(getFifteenMinuteBlock(0.75)).toBe(lastBlock);
       expect(getFifteenMinuteBlock(0.75999)).toBe(lastBlock);
       expect(getFifteenMinuteBlock(0.76)).toBe(lastBlock);
