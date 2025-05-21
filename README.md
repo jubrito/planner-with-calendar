@@ -1,5 +1,9 @@
 # Next steps (v1):
 
+- getEndBlock
+  - finish function refactor
+  - finish tests
+- replace firstBlock, secondBlock... on tests with fifteenMinutesBlocks
 - test all utility functions
 - make validateDateTimeFormatRequirements generic?
 - replace 'start' and 'end' with new const everywhere
