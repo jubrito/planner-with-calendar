@@ -19,7 +19,7 @@ import { EventBlock } from '../../../types/event';
  * (remembering the container has 1200px with each hour block having 50px), a relativeY position of 49
  * indicates it should be the last fifteen minute block of the first hour. So if the floatHour calculated
  * on fifteenMinuteBlock() is 0.98 and we know the hour is 0, the rest (0.98) is compared with each possible
- * value (0.25, 0,5, 0.75, 1). As it is greater than 0.75 but smaller than 1, we know it is on the last block.
+ * value (0.25, 0,5, 0.75, 1). As it is greater than 0.75 but smaller than 1, we know it is on the last block (3).
  *
  * @param rest the rest of the hour with decimals calculated on getHourAnd15MinBlock()
  * @returns fifteenMinuteBlock – the fifteen minute block of the hour the user clicked
