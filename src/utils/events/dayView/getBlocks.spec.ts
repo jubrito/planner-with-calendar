@@ -21,6 +21,12 @@ describe('getBlocks', () => {
       expect(getFifteenMinuteBlock(0.4999)).toBe(secondBlock);
       expect(getFifteenMinuteBlock(0.5)).not.toBe(secondBlock);
     });
+    it('should return third block if rest is equal to or greater than 0.50 and smaller than 0.75', () => {
+      expect(getFifteenMinuteBlock(0.499)).not.toBe(thirdBlock);
+      expect(getFifteenMinuteBlock(0.5)).toBe(thirdBlock);
+      expect(getFifteenMinuteBlock(0.7499)).toBe(thirdBlock);
+      expect(getFifteenMinuteBlock(0.75)).not.toBe(thirdBlock);
+    });
     it('should return last block if rest is greater than or equal to 0.75 and smaller than 1', () => {
       expect(getFifteenMinuteBlock(0.75)).toBe(lastBlock);
       expect(getFifteenMinuteBlock(0.75999)).toBe(lastBlock);
