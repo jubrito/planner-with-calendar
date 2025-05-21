@@ -11,6 +11,7 @@ describe('getBlocks', () => {
   const secondBlock = 1;
   const thirdBlock = 2;
   const lastBlock = 3;
+  const lastHourOfTheDay = numberOfHoursInADay - 1; // 23
 
   describe('getFifteenMinuteBlock(rest)', () => {
     it('should return first block if rest is negative', () => {
@@ -105,7 +106,6 @@ describe('getBlocks', () => {
     });
 
     describe('When relative position corresponds to the last hour block', () => {
-      const lastHourOfTheDay = numberOfHoursInADay - 1; // 23
       const startOfLastHourFirstBlock = sizeOfEachHourBlock * lastHourOfTheDay; // start of last hour, first 15 min block
       it('should return first 15 minutes block info', () => {
         const relativeY = startOfLastHourFirstBlock;
@@ -143,7 +143,7 @@ describe('getBlocks', () => {
   });
 
   describe('getEndBlock(block)', () => {
-    describe('When relative position corresponds to the first hour block', () => {
+    describe('When received block corresponds to the first hour block', () => {
       it('should return first 15 minutes block info', () => {
         const initialMinutes = 0;
         expect(
@@ -186,8 +186,51 @@ describe('getBlocks', () => {
           fifteenMinBlock: lastBlock,
         });
       });
-      //   describe('When relative position corresponds to the last hour block', () => {});
-      // it('full hour')
     });
+    describe('When received blcok corresponds to the last hour block', () => {
+      it('should return first 15 minutes block info', () => {
+        const initialMinutes = 0;
+        expect(
+          getEndBlock({
+            hour: lastHourOfTheDay,
+            minutes: initialMinutes,
+            fifteenMinBlock: firstBlock,
+          }),
+        ).toStrictEqual({
+          hour: lastHourOfTheDay,
+          minutes: initialMinutes + fifteenMinutes,
+          fifteenMinBlock: secondBlock,
+        });
+      });
+      //   it('should return second 15 minutes block info', () => {
+      //     const initialMinutes = 15;
+      //     expect(
+      //       getEndBlock({
+      //         hour: 0,
+      //         minutes: initialMinutes,
+      //         fifteenMinBlock: secondBlock,
+      //       }),
+      //     ).toStrictEqual({
+      //       hour: 0,
+      //       minutes: initialMinutes + fifteenMinutes,
+      //       fifteenMinBlock: thirdBlock,
+      //     });
+      //   });
+      //   it('should return third 15 minutes block info', () => {
+      //     const initialMinutes = 30;
+      //     expect(
+      //       getEndBlock({
+      //         hour: 0,
+      //         minutes: initialMinutes,
+      //         fifteenMinBlock: thirdBlock,
+      //       }),
+      //     ).toStrictEqual({
+      //       hour: 0,
+      //       minutes: initialMinutes + fifteenMinutes,
+      //       fifteenMinBlock: lastBlock,
+      //     });
+      //   });
+    });
+    // it('full hour')
   });
 });
