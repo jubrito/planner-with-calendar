@@ -57,6 +57,14 @@ describe('getBlocks', () => {
         fifteenMinBlock: firstBlock,
       });
     });
+    it('should last 15 minutes block info of last hour when relative position is negative', () => {
+      const relativeY = sizeOfEachHourBlock * numberOfHoursInADay + 0.001;
+      expect(getStartBlock(relativeY)).toStrictEqual({
+        hour: numberOfHoursInADay - 1,
+        minutes: 45,
+        fifteenMinBlock: lastBlock,
+      });
+    });
 
     describe('When relative position corresponds to the first hour block', () => {
       it('should return first 15 minutes block info', () => {
