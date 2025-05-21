@@ -1,5 +1,6 @@
 # Next steps (v1):
 
+- test all utility functions
 - make validateDateTimeFormatRequirements generic?
 - replace 'start' and 'end' with new const everywhere
 - replace new Intl with formatted function everywhere
