@@ -38,3 +38,6 @@ export const getChunkArrayByChunkSize = <T>(
     chunks[chunkIndex].push(item);
     return chunks;
   }, []);
+
+export const makeFirstLetterUppercase = (name: string) =>
+  name.charAt(0).toUpperCase() + name.slice(1, name.length);

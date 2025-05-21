@@ -1,12 +1,10 @@
 import { DateConfig } from '../../types/calendar/types';
 import { isValidLocale } from '../checkers';
 import { IntlDateTimeFormatLong, IntlDateTimeFormatShort } from '../constants';
+import { makeFirstLetterUppercase } from '../utils';
 import { validateDateTimeFormatRequirements } from '../validations';
 import { numberOfDaysOfTheWeek } from './constants';
 import { getDayName } from './utils';
-
-const makeFirstLetterUppercase = (name: string) =>
-  name.charAt(0).toUpperCase() + name.slice(1, name.length);
 
 export const getWeekDaysNames = (locale: string) => {
   if (!isValidLocale(locale))
