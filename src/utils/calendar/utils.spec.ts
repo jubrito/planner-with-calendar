@@ -256,9 +256,9 @@ describe('utils', () => {
       expect(getDayName(6, localeEnglish)).toBe('Sat');
     });
     it('should return day name in portuguese', () => {
-      expect(getDayName(0, localePortuguese)).toBe('Dom.');
-      expect(getDayName(5, localePortuguese)).toBe('Sex.');
-      expect(getDayName(6, localePortuguese)).toBe('Sáb.');
+      expect(getDayName(0, localePortuguese)).toBe('Dom');
+      expect(getDayName(5, localePortuguese)).toBe('Sex');
+      expect(getDayName(6, localePortuguese)).toBe('Sáb');
     });
     it('should throw error if day is invalid', () => {
       expect(() => getDayName(0, `${0}`)).toThrow(
