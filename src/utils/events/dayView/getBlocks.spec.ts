@@ -69,5 +69,13 @@ describe('getBlocks', () => {
         fifteenMinBlock: lastBlock,
       });
     });
+    it('should return next hour block info if relative position corresponds to the first portion of the next hour planner block', () => {
+      const relativeY = 50; // start of next hour, first 15 min block
+      expect(getStartBlock(relativeY)).toStrictEqual({
+        hour: 1,
+        minutes: 0,
+        fifteenMinBlock: firstBlock,
+      });
+    });
   });
 });
