@@ -112,14 +112,14 @@ describe('getBlocks', () => {
           fifteenMinBlock: thirdBlock,
         });
       });
-      //   it('should return last 15 minutes block info', () => {
-      //     const relativeY = 49; // end of first hour, last 15 min block
-      //     expect(getStartBlock(relativeY)).toStrictEqual({
-      //       hour: 0,
-      //       minutes: 45,
-      //       fifteenMinBlock: lastBlock,
-      //     });
-      //   });
+      it('should return last 15 minutes block info', () => {
+        const relativeY = startOfLastHourFirstBlock + sizeOfEach15MinBlock * 3;
+        expect(getStartBlock(relativeY)).toStrictEqual({
+          hour: lastHourOfTheDay,
+          minutes: 45,
+          fifteenMinBlock: lastBlock,
+        });
+      });
     });
   });
 });
