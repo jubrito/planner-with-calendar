@@ -1,13 +1,17 @@
+import { Months } from '../../types/calendar/enums';
 import {
   weekDaysNamesOnEnglishLongFormatMock,
   weekDaysNamesOnPortugueseLongFormatMock,
 } from '../tests/mocks/utils/calendar';
-import { getWeekDaysNames } from './weeks';
+import { getWeekDayName, getWeekDaysNames } from './weeks';
 
 describe('weeks', () => {
   const localeEnUs = 'en-US';
   const localePtBr = 'pt-BR';
-  describe('getWeekDaysNames', () => {
+  const year = 2025;
+  const month = Months.MAY;
+  const validDay = 1;
+  const invalidDay = describe('getWeekDaysNames(locale)', () => {
     it('should get week names in english', () => {
       expect(getWeekDaysNames(localeEnUs)).toStrictEqual(
         weekDaysNamesOnEnglishLongFormatMock,
@@ -22,6 +26,11 @@ describe('weeks', () => {
       expect(() => getWeekDaysNames(`${0}`)).toThrow(
         'Failed to get week days names, language is invalid',
       );
+    });
+  });
+  describe('getWeekDayName(...)', () => {
+    it('should throw error if date is invalid', () => {
+      expect(() => getWeekDayName(year, month, 0 / 0, localeEnUs));
     });
   });
 });
