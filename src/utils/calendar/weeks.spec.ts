@@ -30,7 +30,9 @@ describe('weeks', () => {
   });
   describe('getWeekDayName(...)', () => {
     it('should throw error if date is invalid', () => {
-      expect(() => getWeekDayName(year, month, 0 / 0, localeEnUs));
+      expect(() => getWeekDayName(year, month, 0 / 0, localeEnUs)).toThrow(
+        'Failed to get week day name, date is invalid',
+      );
     });
   });
 });
