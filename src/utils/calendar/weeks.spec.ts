@@ -1,5 +1,5 @@
 import {
-  weekDaysNamesOnEnglishLongFormat,
+  weekDaysNamesOnEnglishLongFormatMock,
   weekDaysNamesOnPortugueseLongFormatMock,
 } from '../../mocks/utils/utils';
 import { getWeekDaysNames } from './weeks';
@@ -15,7 +15,7 @@ describe('weeks', () => {
     });
     it('should return week names long format', () => {
       expect(getWeekDaysNames(localeEnUs)).toStrictEqual(
-        weekDaysNamesOnEnglishLongFormat,
+        weekDaysNamesOnEnglishLongFormatMock,
       );
       expect(getWeekDaysNames(localePtBr)).toStrictEqual(
         weekDaysNamesOnPortugueseLongFormatMock,

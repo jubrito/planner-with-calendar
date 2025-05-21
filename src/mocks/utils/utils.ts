@@ -7,7 +7,7 @@ export const weekDaysNamesOnPortugueseLongFormatMock = [
   { initial: 'S', long: 'Sábado', short: 'Sáb' },
   { initial: 'D', long: 'Domingo', short: 'Dom' },
 ];
-export const weekDaysNamesOnEnglishLongFormat = [
+export const weekDaysNamesOnEnglishLongFormatMock = [
   { initial: 'M', long: 'Monday', short: 'Mon' },
   { initial: 'T', long: 'Tuesday', short: 'Tue' },
   { initial: 'W', long: 'Wednesday', short: 'Wed' },
