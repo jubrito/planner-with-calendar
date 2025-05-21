@@ -3,13 +3,14 @@ import {
   sizeOfEach15MinBlock,
   sizeOfEachHourBlock,
 } from '../../calendar/constants';
-import { getFifteenMinuteBlock, getStartBlock } from './getBlocks';
+import { getEndBlock, getFifteenMinuteBlock, getStartBlock } from './getBlocks';
 
 describe('getBlocks', () => {
   const firstBlock = 0;
   const secondBlock = 1;
   const thirdBlock = 2;
   const lastBlock = 3;
+
   describe('getFifteenMinuteBlock(rest)', () => {
     it('should return first block if rest is negative', () => {
       expect(getFifteenMinuteBlock(-1)).toBe(firstBlock);
@@ -39,6 +40,7 @@ describe('getBlocks', () => {
       expect(getFifteenMinuteBlock(1)).not.toBe(lastBlock);
     });
   });
+
   // each hour block has 50px (divided in four 15 min blocks of 12.5px each)
   describe('getStartBlock(relativeY)', () => {
     it('should return next hour block info if relative position corresponds to the first portion of the next hour planner block', () => {
@@ -100,6 +102,7 @@ describe('getBlocks', () => {
         });
       });
     });
+
     describe('When relative position corresponds to the last hour block', () => {
       const lastHourOfTheDay = numberOfHoursInADay - 1; // 23
       const startOfLastHourFirstBlock = sizeOfEachHourBlock * lastHourOfTheDay; // start of last hour, first 15 min block
@@ -135,6 +138,26 @@ describe('getBlocks', () => {
           fifteenMinBlock: lastBlock,
         });
       });
+    });
+  });
+
+  describe('getEndBlock(block)', () => {
+    describe('When relative position corresponds to the first hour block', () => {
+      it('should return first 15 minutes block info', () => {
+        expect(
+          getEndBlock({
+            hour: 0,
+            minutes: 0,
+            fifteenMinBlock: firstBlock,
+          }),
+        ).toStrictEqual({
+          hour: 0,
+          minutes: 15,
+          fifteenMinBlock: secondBlock,
+        });
+      });
+      //   describe('When relative position corresponds to the last hour block', () => {});
+      // it('full hour')
     });
   });
 });
