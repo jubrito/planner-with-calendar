@@ -59,8 +59,13 @@ export const getFifteenMinuteBlock = (rest: number) => {
  */
 export const getStartBlock = (relativeY: number): EventBlock => {
   const firstBlock = { hour: 0, fifteenMinBlock: 0, minutes: 0 };
-
+  const lastBlock = {
+    hour: numberOfHoursInADay - 1,
+    fifteenMinBlock: 3,
+    minutes: 45,
+  };
   if (relativeY < 0) return firstBlock;
+  if (relativeY > sizeOfEachHourBlock * numberOfHoursInADay) return lastBlock;
 
   const floatHour = relativeY / sizeOfEach15MinBlock / fifteenMinBlocksInAHour;
   const hour = Math.floor(floatHour);
