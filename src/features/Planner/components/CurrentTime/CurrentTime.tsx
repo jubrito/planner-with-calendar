@@ -9,6 +9,7 @@ import {
 } from '../../../../utils/calendar/utils';
 import { IntlDateTimeFormat2Digit } from '../../../../utils/constants';
 import { useEffect, useState } from 'react';
+import { sizeOfEachHourBlock } from '../../../../utils/calendar/constants';
 
 export const CurrentTime = () => {
   const currentTimeElementId = 'currentTime';
@@ -82,7 +83,6 @@ const getCurrentTime = (formattedTime: string) => {
 
 const getTop = (date: Date) => {
   const startOfHoursBlockPx = 4;
-  const sizeOfEachHourBlock = 50; // px
   const oneHour = 60;
   const sizeOfEachMinute = sizeOfEachHourBlock / oneHour;
   const currentHours = date.getHours();
