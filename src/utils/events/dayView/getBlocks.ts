@@ -78,7 +78,7 @@ export const getStartBlock = (relativeY: number): EventBlock => {
  * Function to get the block values for the end of the event
  *
  * The fifteenMinuteBlock of the end should be the end of the current
- * fifteen minute block (so fifteenMinuteBlock + 1)
+ * fifteen minute block, which is the start of the next (so fifteenMinuteBlock + 1)
  *
  * The minute of the end should be the current minute + 15 minutes
  * (as we only store values of 15 minutes)
