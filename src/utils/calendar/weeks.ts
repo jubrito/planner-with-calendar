@@ -44,7 +44,7 @@ export const getWeekDayName = (
   const date = new Date(year, month, dayToFind);
   validateDateTimeFormatRequirements(date, locale, 'get week day name');
   const dayOfWeek = date.getDay();
-  const dayName = getDayName(dayOfWeek, locale);
+  const dayName = getDayName(dayOfWeek, locale).replace('.', '');
   const firstLetterCapitalized = dayName.charAt(0).toUpperCase();
-  return firstLetterCapitalized + dayName.slice(1).replace('.', '');
+  return firstLetterCapitalized + dayName.slice(1);
 };
