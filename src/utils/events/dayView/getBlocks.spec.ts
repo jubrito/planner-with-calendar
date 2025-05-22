@@ -274,7 +274,22 @@ describe('getBlocks', () => {
       //     minutes: 0,
       //     fifteenMinBlock: 0,
       //   });
-      // });
+      // })
+      it('should return 15 min block info when fifteen min block is smalled than min block min value (fifteenMinutesBlocks.last)', () => {
+        const initialMinutes = 0;
+        const initialHour = 0;
+        expect(
+          getEndBlock({
+            hour: initialHour,
+            minutes: initialMinutes,
+            fifteenMinBlock: -1,
+          }),
+        ).toStrictEqual({
+          hour: initialHour,
+          minutes: initialMinutes + fifteenMinutes,
+          fifteenMinBlock: firstBlock, // min value
+        });
+      });
       it('should return 15 min block info when fifteen min block is higher than min block max value (fifteenMinutesBlocks.last)', () => {
         const initialMinutes = 0;
         const initialHour = 0;
