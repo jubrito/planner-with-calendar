@@ -261,20 +261,21 @@ describe('getBlocks', () => {
           fifteenMinBlock: firstBlock,
         });
       });
-      // it.todo('should when minute is 60 full hour', () => {
-      //   const initialMinutes = 60;
-      //   expect(
-      //     getEndBlock({
-      //       hour:,
-      //       minutes: ,
-      //       fifteenMinBlock:,
-      //     }),
-      //   ).toStrictEqual({
-      //     hour: 0,
-      //     minutes: 0,
-      //     fifteenMinBlock: 0,
-      //   });
-      // })
+      it('should return 15 min block for next hour when is full hour (60 minutes)', () => {
+        const initialHour = 0;
+        const initialMinutes = 60;
+        expect(
+          getEndBlock({
+            hour: initialHour,
+            minutes: initialMinutes,
+            fifteenMinBlock: firstBlock,
+          }),
+        ).toStrictEqual({
+          hour: initialHour + 1,
+          minutes: 0,
+          fifteenMinBlock: firstBlock,
+        });
+      });
       it('should return 15 min block info when fifteen min block is smalled than min block min value (fifteenMinutesBlocks.last)', () => {
         const initialMinutes = 0;
         const initialHour = 0;
