@@ -247,19 +247,49 @@ describe('getBlocks', () => {
       });
       it('should return first 15 minutes block info for the next hour if start 15 min block is the last block', () => {
         const initialMinutes = 45;
+        const initialHour = lastHourOfTheDay;
         expect(
           getEndBlock({
-            hour: lastHourOfTheDay,
+            hour: initialHour,
             minutes: initialMinutes,
             fifteenMinBlock: lastBlock,
           }),
         ).toStrictEqual({
-          hour: numberOfHoursInADay, // lastHourOfTheDay + 1
+          // next hour with 0 minutes
+          hour: initialHour + 1,
           minutes: 0,
           fifteenMinBlock: firstBlock,
         });
       });
+      // it.todo('should when minute is 60 full hour', () => {
+      //   const initialMinutes = 60;
+      //   expect(
+      //     getEndBlock({
+      //       hour:,
+      //       minutes: ,
+      //       fifteenMinBlock:,
+      //     }),
+      //   ).toStrictEqual({
+      //     hour: 0,
+      //     minutes: 0,
+      //     fifteenMinBlock: 0,
+      //   });
+      // });
+      it('should return 15 min block info when fifteen min block is higher than min block max value (fifteenMinutesBlocks.last)', () => {
+        const initialMinutes = 0;
+        const initialHour = 0;
+        expect(
+          getEndBlock({
+            hour: initialHour,
+            minutes: initialMinutes,
+            fifteenMinBlock: lastBlock + 1,
+          }),
+        ).toStrictEqual({
+          hour: initialHour,
+          minutes: initialMinutes + fifteenMinutes,
+          fifteenMinBlock: lastBlock, // max value
+        });
+      });
     });
-    // it('full hour')
   });
 });
