@@ -143,6 +143,51 @@ describe('getBlocks', () => {
   });
 
   describe('getEndBlock(block)', () => {
+    it('should return 15 min block for next hour when is full hour (60 minutes)', () => {
+      const initialHour = 0;
+      const initialMinutes = 60;
+      expect(
+        getEndBlock({
+          hour: initialHour,
+          minutes: initialMinutes,
+          fifteenMinBlock: firstBlock,
+        }),
+      ).toStrictEqual({
+        hour: initialHour + 1,
+        minutes: 0,
+        fifteenMinBlock: firstBlock,
+      });
+    });
+    it('should return 15 min block info when fifteen min block is smalled than min block min value (fifteenMinutesBlocks.last)', () => {
+      const initialMinutes = 0;
+      const initialHour = 0;
+      expect(
+        getEndBlock({
+          hour: initialHour,
+          minutes: initialMinutes,
+          fifteenMinBlock: -1,
+        }),
+      ).toStrictEqual({
+        hour: initialHour,
+        minutes: initialMinutes + fifteenMinutes,
+        fifteenMinBlock: firstBlock, // min value
+      });
+    });
+    it('should return 15 min block info when fifteen min block is higher than min block max value (fifteenMinutesBlocks.last)', () => {
+      const initialMinutes = 0;
+      const initialHour = 0;
+      expect(
+        getEndBlock({
+          hour: initialHour,
+          minutes: initialMinutes,
+          fifteenMinBlock: lastBlock + 1,
+        }),
+      ).toStrictEqual({
+        hour: initialHour,
+        minutes: initialMinutes + fifteenMinutes,
+        fifteenMinBlock: lastBlock, // max value
+      });
+    });
     describe('When received block corresponds to the first hour block', () => {
       it('should return first 15 minutes block info', () => {
         const initialMinutes = 0;
@@ -259,51 +304,6 @@ describe('getBlocks', () => {
           hour: initialHour + 1,
           minutes: 0,
           fifteenMinBlock: firstBlock,
-        });
-      });
-      it('should return 15 min block for next hour when is full hour (60 minutes)', () => {
-        const initialHour = 0;
-        const initialMinutes = 60;
-        expect(
-          getEndBlock({
-            hour: initialHour,
-            minutes: initialMinutes,
-            fifteenMinBlock: firstBlock,
-          }),
-        ).toStrictEqual({
-          hour: initialHour + 1,
-          minutes: 0,
-          fifteenMinBlock: firstBlock,
-        });
-      });
-      it('should return 15 min block info when fifteen min block is smalled than min block min value (fifteenMinutesBlocks.last)', () => {
-        const initialMinutes = 0;
-        const initialHour = 0;
-        expect(
-          getEndBlock({
-            hour: initialHour,
-            minutes: initialMinutes,
-            fifteenMinBlock: -1,
-          }),
-        ).toStrictEqual({
-          hour: initialHour,
-          minutes: initialMinutes + fifteenMinutes,
-          fifteenMinBlock: firstBlock, // min value
-        });
-      });
-      it('should return 15 min block info when fifteen min block is higher than min block max value (fifteenMinutesBlocks.last)', () => {
-        const initialMinutes = 0;
-        const initialHour = 0;
-        expect(
-          getEndBlock({
-            hour: initialHour,
-            minutes: initialMinutes,
-            fifteenMinBlock: lastBlock + 1,
-          }),
-        ).toStrictEqual({
-          hour: initialHour,
-          minutes: initialMinutes + fifteenMinutes,
-          fifteenMinBlock: lastBlock, // max value
         });
       });
     });
