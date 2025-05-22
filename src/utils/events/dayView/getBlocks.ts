@@ -2,6 +2,7 @@ import {
   fifteenMinBlocksInAHour,
   fifteenMinutes,
   fifteenMinutesBlocks,
+  hourBlocks,
   numberOfHoursInADay,
   oneHourInMinutes,
   sizeOfEach15MinBlock,
@@ -96,31 +97,24 @@ export const getEndBlock = (block: EventBlock) => {
     minutes: minutesStart,
     fifteenMinBlock: fifteenMinBlockStart,
   } = block;
-  // hour, minutes, fifteenMinBlock < 0
-  // hour > 24 (should be reseted starting on 0)
-  // minutes === 60 (full hour)
-  // minutes > 60 (should also be full hour)
-  // fifteenMinBlock > 3 (should be converted to 3?)
-  // TODO should make values greater than maximum be the maximum or turn the other values to the next one?
   const numberOfHoursInADayZeroIndex = numberOfHoursInADay - 1;
+  const firstMinimum = 0;
   const sanitizedHour =
-    hour < 0
-      ? 0
+    hour < hourBlocks.first
+      ? hourBlocks.first
       : hour > numberOfHoursInADayZeroIndex
         ? numberOfHoursInADayZeroIndex
         : hour;
   const sanitizedMinutes =
-    minutesStart < 0
-      ? 0
+    minutesStart < firstMinimum
+      ? firstMinimum
       : minutesStart > oneHourInMinutes
         ? oneHourInMinutes
         : minutesStart;
   const sanitized15MinBlockStart =
-    fifteenMinBlockStart < fifteenMinutesBlocks.first
-      ? fifteenMinutesBlocks.first
-      : fifteenMinBlockStart > fifteenMinutesBlocks.last
-        ? fifteenMinutesBlocks.last
-        : fifteenMinBlockStart; // if it is greater than last 15 min block, should get next hour (so it's the first 15 min block)
+    fifteenMinBlockStart > fifteenMinutesBlocks.last
+      ? fifteenMinutesBlocks.last
+      : fifteenMinBlockStart; // if it is greater than last 15 min block, should get next hour (so it's the first 15 min block)
   const fifteenMinBlockEnd =
     sanitized15MinBlockStart + 1 > fifteenMinutesBlocks.last
       ? sanitized15MinBlockStart
