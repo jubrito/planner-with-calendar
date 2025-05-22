@@ -1,6 +1,7 @@
 import {
   fifteenMinBlocksInAHour,
   fifteenMinutes,
+  fifteenMinutesBlocks,
   numberOfHoursInADay,
   oneHourInMinutes,
   sizeOfEach15MinBlock,
@@ -90,26 +91,47 @@ export const getStartBlock = (relativeY: number): EventBlock => {
  * @returns block for the end position
  */
 export const getEndBlock = (block: EventBlock) => {
-  // const lastFifteenMinBlock = 3;
   const {
     hour,
     minutes: minutesStart,
     fifteenMinBlock: fifteenMinBlockStart,
   } = block;
-
-  const fifteenMinBlockEnd = fifteenMinBlockStart + 1;
-  const endMinute = minutesStart + fifteenMinutes;
-  const isFullHour = endMinute === oneHourInMinutes;
-  if (isFullHour) return { hour: hour + 1, minutes: 0, fifteenMinBlock: 0 };
-
-  // if (fifteenMinBlockStart === lastFifteenMinBlock) {
-  //   return {
-  //     hour:
-  //   }
-  // }
+  // hour, minutes, fifteenMinBlock < 0
+  // hour > 24 (should be reseted starting on 0)
+  // minutes === 60 (full hour)
+  // minutes > 60 (should also be full hour)
+  // fifteenMinBlock > 3 (should be converted to 3?)
+  // TODO should make values greater than maximum be the maximum or turn the other values to the next one?
+  const numberOfHoursInADayZeroIndex = numberOfHoursInADay - 1;
+  const sanitizedHour =
+    hour < 0
+      ? 0
+      : hour > numberOfHoursInADayZeroIndex
+        ? numberOfHoursInADayZeroIndex
+        : hour;
+  const sanitizedMinutes =
+    minutesStart < 0
+      ? 0
+      : minutesStart > oneHourInMinutes
+        ? oneHourInMinutes
+        : minutesStart;
+  const sanitized15MinBlockStart =
+    fifteenMinBlockStart < fifteenMinutesBlocks.first
+      ? fifteenMinutesBlocks.first
+      : fifteenMinBlockStart > fifteenMinutesBlocks.last
+        ? fifteenMinutesBlocks.last
+        : fifteenMinBlockStart; // if it is greater than last 15 min block, should get next hour (so it's the first 15 min block)
+  const fifteenMinBlockEnd =
+    sanitized15MinBlockStart + 1 > fifteenMinutesBlocks.last
+      ? sanitized15MinBlockStart
+      : sanitized15MinBlockStart + 1;
+  const endMinute = sanitizedMinutes + fifteenMinutes;
+  const isFullHour = endMinute >= oneHourInMinutes;
+  if (isFullHour)
+    return { hour: sanitizedHour + 1, minutes: 0, fifteenMinBlock: 0 };
 
   return {
-    hour,
+    hour: sanitizedHour,
     minutes: endMinute,
     fifteenMinBlock: fifteenMinBlockEnd,
   };
