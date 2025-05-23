@@ -248,7 +248,7 @@ describe('getBlocks', () => {
       });
     });
     describe('Hour changes', () => {
-      it('Should not change hour value if it is >= 0', () => {
+      it('should not change hour value if it is >= 0', () => {
         const initialMinutes = 0;
         const firstHour = 0;
         expect(
@@ -263,20 +263,20 @@ describe('getBlocks', () => {
           fifteenMinBlock: secondBlock,
         });
       });
-      // it('When received block corresponds to the first hour block', () => {
-      //   const initialMinutes = 0;
-      //   expect(
-      //     getEndBlock({
-      //       hour: lastHourOfTheDay,
-      //       minutes: initialMinutes,
-      //       fifteenMinBlock: firstBlock,
-      //     }),
-      //   ).toStrictEqual({
-      //     hour: lastHourOfTheDay,
-      //     minutes: initialMinutes + fifteenMinutes,
-      //     fifteenMinBlock: secondBlock,
-      //   });
-      // });
+      it('should not change hour value if it is <= 24', () => {
+        const initialMinutes = 0;
+        expect(
+          getEndBlock({
+            hour: lastHourOfTheDay,
+            minutes: initialMinutes,
+            fifteenMinBlock: firstBlock,
+          }),
+        ).toStrictEqual({
+          hour: lastHourOfTheDay,
+          minutes: initialMinutes + fifteenMinutes,
+          fifteenMinBlock: secondBlock,
+        });
+      });
       // it('should return second 15 minutes block info', () => {
       //   const initialMinutes = 15;
       //   expect(
