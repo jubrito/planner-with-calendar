@@ -277,6 +277,21 @@ describe('getBlocks', () => {
           fifteenMinBlock: secondBlock,
         });
       });
+      it('should use minimum hour value if hour is < 0', () => {
+        const initialMinutes = 0;
+        const firstHour = 0;
+        expect(
+          getEndBlock({
+            hour: -1,
+            minutes: initialMinutes,
+            fifteenMinBlock: firstBlock,
+          }),
+        ).toStrictEqual({
+          hour: firstHour,
+          minutes: initialMinutes + fifteenMinutes,
+          fifteenMinBlock: secondBlock,
+        });
+      });
       // it('should return second 15 minutes block info', () => {
       //   const initialMinutes = 15;
       //   expect(
