@@ -1,6 +1,7 @@
 import {
   fifteenMinutes,
   numberOfHoursInADay,
+  oneHourInMinutes,
   sizeOfEach15MinBlock,
   sizeOfEachHourBlock,
 } from '../../calendar/constants';
@@ -357,6 +358,20 @@ describe('getBlocks', () => {
           getEndBlock({
             hour: initialHour,
             minutes: initialMinutes,
+            fifteenMinBlock: firstBlock,
+          }),
+        ).toStrictEqual({
+          hour: initialHour + 1,
+          minutes: 0,
+          fifteenMinBlock: firstBlock,
+        });
+      });
+      it('should return 0 minutes (originally 60) when start minutes is > 60', () => {
+        const initialHour = 0;
+        expect(
+          getEndBlock({
+            hour: initialHour,
+            minutes: oneHourInMinutes + 1,
             fifteenMinBlock: firstBlock,
           }),
         ).toStrictEqual({
