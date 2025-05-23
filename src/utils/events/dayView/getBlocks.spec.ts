@@ -144,52 +144,37 @@ describe('getBlocks', () => {
   });
 
   describe('getEndBlock(block)', () => {
-    it('should return start of next hour when is full hour (i.e., minutes is 60)', () => {
-      const initialHour = 0;
-      const initialMinutes = 60;
-      expect(
-        getEndBlock({
-          hour: initialHour,
-          minutes: initialMinutes,
-          fifteenMinBlock: firstBlock,
-        }),
-      ).toStrictEqual({
-        hour: initialHour + 1,
-        minutes: 0,
-        fifteenMinBlock: firstBlock,
-      });
-    });
-    it('should use minimum 15 block (0) when fifteen min block is smaller than min block min value (fifteenMinutesBlocks.first)', () => {
-      const initialMinutes = 0;
-      const initialHour = 0;
-      expect(
-        getEndBlock({
-          hour: initialHour,
-          minutes: initialMinutes,
-          fifteenMinBlock: -1, // is threated like 0
-        }),
-      ).toStrictEqual({
-        hour: initialHour,
-        minutes: initialMinutes + fifteenMinutes,
-        fifteenMinBlock: firstBlock + 1,
-      });
-    });
-    it('should return maximum 15 min block (3) when fifteen min block is higher than min block max value (fifteenMinutesBlocks.last)', () => {
-      const initialMinutes = 0;
-      const initialHour = 0;
-      expect(
-        getEndBlock({
-          hour: initialHour,
-          minutes: initialMinutes,
-          fifteenMinBlock: lastBlock + 1,
-        }),
-      ).toStrictEqual({
-        hour: initialHour,
-        minutes: initialMinutes + fifteenMinutes,
-        fifteenMinBlock: lastBlock, // max value
-      });
-    });
     describe('15 minute blocks changes', () => {
+      it('should use minimum 15 block (0) when fifteen min block is smaller than min block min value (fifteenMinutesBlocks.first)', () => {
+        const initialMinutes = 0;
+        const initialHour = 0;
+        expect(
+          getEndBlock({
+            hour: initialHour,
+            minutes: initialMinutes,
+            fifteenMinBlock: -1, // is threated like 0
+          }),
+        ).toStrictEqual({
+          hour: initialHour,
+          minutes: initialMinutes + fifteenMinutes,
+          fifteenMinBlock: firstBlock + 1,
+        });
+      });
+      it('should return maximum 15 min block (3) when fifteen min block is higher than min block max value (fifteenMinutesBlocks.last)', () => {
+        const initialMinutes = 0;
+        const initialHour = 0;
+        expect(
+          getEndBlock({
+            hour: initialHour,
+            minutes: initialMinutes,
+            fifteenMinBlock: lastBlock + 1,
+          }),
+        ).toStrictEqual({
+          hour: initialHour,
+          minutes: initialMinutes + fifteenMinutes,
+          fifteenMinBlock: lastBlock, // max value
+        });
+      });
       it('should return second 15 minutes block (1) when start is first block (0)', () => {
         const initialMinutes = 0;
         expect(
@@ -351,21 +336,21 @@ describe('getBlocks', () => {
           fifteenMinBlock: lastBlock,
         });
       });
-      // it('should return last 15 minutes block (3, which is the limit) when start is last (3)', () => {
-      //   const initialMinutes = 30;
-      //   const initialHour = 0;
-      //   expect(
-      //     getEndBlock({
-      //       hour: initialHour,
-      //       minutes: initialMinutes,
-      //       fifteenMinBlock: lastBlock,
-      //     }),
-      //   ).toStrictEqual({
-      //     hour: initialHour,
-      //     minutes: initialMinutes + fifteenMinutes,
-      //     fifteenMinBlock: lastBlock,
-      //   });
-      // });
+      it('should return start of next hour when is full hour (i.e., minutes is 60)', () => {
+        const initialHour = 0;
+        const initialMinutes = 60;
+        expect(
+          getEndBlock({
+            hour: initialHour,
+            minutes: initialMinutes,
+            fifteenMinBlock: firstBlock,
+          }),
+        ).toStrictEqual({
+          hour: initialHour + 1,
+          minutes: 0,
+          fifteenMinBlock: firstBlock,
+        });
+      });
     });
   });
 });
