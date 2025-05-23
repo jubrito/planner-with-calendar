@@ -151,9 +151,12 @@ const calculateYPosition = (
   endDate: EventStored['endDate'],
 ) => {
   const startDateHours = new Date(startDate).getHours();
-  let endDateHours = new Date(endDate).getHours();
   const endDateMinutes = new Date(endDate).getMinutes();
-  endDateHours = endDateHours === 0 ? 24 : endDateHours;
+  let endDateHours = new Date(endDate).getHours();
+  const isMidnightFromNextDay =
+    endDateHours === 0 && startDateHours > endDateHours; // ensure it's not event from midnight of current day
+  const midnightFromNextDay = 24;
+  endDateHours = isMidnightFromNextDay ? midnightFromNextDay : endDateHours;
   const startDateMinutes = new Date(startDate).getMinutes();
   const start15MinBlock = getFifteenMinuteBlock(
     startDateMinutes / oneHourInMinutes,
