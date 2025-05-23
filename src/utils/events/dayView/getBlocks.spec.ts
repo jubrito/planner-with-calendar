@@ -11,7 +11,7 @@ describe('getBlocks', () => {
   const secondBlock = 1;
   const thirdBlock = 2;
   const lastBlock = 3;
-  const lastHourOfTheDay = numberOfHoursInADay - 1; // 23
+  const lastHourOfThePlanner = numberOfHoursInADay - 1; // 23
 
   describe('getFifteenMinuteBlock(rest)', () => {
     it('should return first block if rest is negative', () => {
@@ -106,11 +106,12 @@ describe('getBlocks', () => {
     });
 
     describe('When relative position corresponds to the last hour block', () => {
-      const startOfLastHourFirstBlock = sizeOfEachHourBlock * lastHourOfTheDay; // start of last hour, first 15 min block
+      const startOfLastHourFirstBlock =
+        sizeOfEachHourBlock * lastHourOfThePlanner; // start of last hour, first 15 min block
       it('should return first 15 minutes block info', () => {
         const relativeY = startOfLastHourFirstBlock;
         expect(getStartBlock(relativeY)).toStrictEqual({
-          hour: lastHourOfTheDay,
+          hour: lastHourOfThePlanner,
           minutes: 0,
           fifteenMinBlock: firstBlock,
         });
@@ -118,7 +119,7 @@ describe('getBlocks', () => {
       it('should return second 15 minutes block info', () => {
         const relativeY = startOfLastHourFirstBlock + sizeOfEach15MinBlock;
         expect(getStartBlock(relativeY)).toStrictEqual({
-          hour: lastHourOfTheDay,
+          hour: lastHourOfThePlanner,
           minutes: 15,
           fifteenMinBlock: secondBlock,
         });
@@ -126,7 +127,7 @@ describe('getBlocks', () => {
       it('should return third 15 minutes block info', () => {
         const relativeY = startOfLastHourFirstBlock + sizeOfEach15MinBlock * 2;
         expect(getStartBlock(relativeY)).toStrictEqual({
-          hour: lastHourOfTheDay,
+          hour: lastHourOfThePlanner,
           minutes: 30,
           fifteenMinBlock: thirdBlock,
         });
@@ -134,7 +135,7 @@ describe('getBlocks', () => {
       it('should return last 15 minutes block info', () => {
         const relativeY = startOfLastHourFirstBlock + sizeOfEach15MinBlock * 3;
         expect(getStartBlock(relativeY)).toStrictEqual({
-          hour: lastHourOfTheDay,
+          hour: lastHourOfThePlanner,
           minutes: 45,
           fifteenMinBlock: lastBlock,
         });
@@ -267,12 +268,12 @@ describe('getBlocks', () => {
         const initialMinutes = 0;
         expect(
           getEndBlock({
-            hour: lastHourOfTheDay,
+            hour: lastHourOfThePlanner,
             minutes: initialMinutes,
             fifteenMinBlock: firstBlock,
           }),
         ).toStrictEqual({
-          hour: lastHourOfTheDay,
+          hour: lastHourOfThePlanner,
           minutes: initialMinutes + fifteenMinutes,
           fifteenMinBlock: secondBlock,
         });
@@ -301,7 +302,7 @@ describe('getBlocks', () => {
             fifteenMinBlock: firstBlock,
           }),
         ).toStrictEqual({
-          hour: lastHourOfTheDay,
+          hour: lastHourOfThePlanner,
           minutes: initialMinutes + fifteenMinutes,
           fifteenMinBlock: secondBlock,
         });
