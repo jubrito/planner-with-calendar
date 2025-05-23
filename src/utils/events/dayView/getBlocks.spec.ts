@@ -337,20 +337,20 @@ describe('getBlocks', () => {
           fifteenMinBlock: thirdBlock,
         });
       });
-      // it('should return last 15 minutes block (3) when start is third (0)', () => {
-      //   const initialMinutes = 30;
-      //   expect(
-      //     getEndBlock({
-      //       hour: 0,
-      //       minutes: initialMinutes,
-      //       fifteenMinBlock: thirdBlock,
-      //     }),
-      //   ).toStrictEqual({
-      //     hour: 0,
-      //     minutes: initialMinutes + fifteenMinutes,
-      //     fifteenMinBlock: lastBlock,
-      //   });
-      // });
+      it('should return 45 minutes when start minutes is 30 (result: 30 + 15)', () => {
+        const initialMinutes = 30;
+        expect(
+          getEndBlock({
+            hour: 0,
+            minutes: initialMinutes,
+            fifteenMinBlock: thirdBlock,
+          }),
+        ).toStrictEqual({
+          hour: 0,
+          minutes: initialMinutes + fifteenMinutes,
+          fifteenMinBlock: lastBlock,
+        });
+      });
       // it('should return last 15 minutes block (3, which is the limit) when start is last (3)', () => {
       //   const initialMinutes = 30;
       //   const initialHour = 0;
