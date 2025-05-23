@@ -203,7 +203,7 @@ describe('getBlocks', () => {
           fifteenMinBlock: thirdBlock,
         });
       });
-      it('should return last 15 minutes block (3) when start is third (0)', () => {
+      it('should return last 15 minutes block (3) when start is third block (2)', () => {
         const initialMinutes = 30;
         expect(
           getEndBlock({
@@ -294,6 +294,20 @@ describe('getBlocks', () => {
       });
     });
     describe('Minutes changes', () => {
+      it('should return 15 minutes when start minutes is < 0 (result: 0 + 15)', () => {
+        const initialMinutes = -1;
+        expect(
+          getEndBlock({
+            hour: 0,
+            minutes: initialMinutes,
+            fifteenMinBlock: firstBlock,
+          }),
+        ).toStrictEqual({
+          hour: 0,
+          minutes: fifteenMinutes,
+          fifteenMinBlock: secondBlock,
+        });
+      });
       it('should return 15 minutes when start minutes is 0 (result: 0 + 15)', () => {
         const initialMinutes = 0;
         expect(
