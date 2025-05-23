@@ -95,54 +95,61 @@ function constrainValueToRange(
 /**
  * Function to get the block values for the end of the event
  *
- * The fifteenMinuteBlock of the end should be the end of the current
+ * * Hour
+ * Always stays the same
+ *
+ * * Fifteen Minute Block:
+ * The end fifteenMinuteBlock should be the end of the current
  * fifteen minute block, which is the start of the next (so fifteenMinuteBlock + 1)
  *
+ * * Minutes
  * The minute of the end should be the current minute + 15 minutes
- * (as we only store values of 15 minutes)
+ * (as we only store values of 15 minutes)]
  *
- * If minute is 60 it means it is a whole hour, so minute should be 0
- * and we need the next hour
+ * Note: If minutes is "60" it means it is a whole hour, so minute and 15 min will be transformed into 00
  *
  * @param block
  * @returns block for the end position
  */
+
 export const getEndBlock = (block: EventBlock) => {
   const {
-    hour,
+    hour: hourStart,
     minutes: minutesStart,
     fifteenMinBlock: fifteenMinBlockStart,
   } = block;
   const numberOfHoursInADayZeroIndex = numberOfHoursInADay - 1;
-  const firstMinimum = 0;
-  const sanitizedHour =
-    hour < hourBlocks.first
-      ? hourBlocks.first
-      : hour > numberOfHoursInADayZeroIndex
-        ? numberOfHoursInADayZeroIndex
-        : hour;
-  const sanitizedMinutes =
-    minutesStart < firstMinimum
-      ? firstMinimum
-      : minutesStart > oneHourInMinutes
-        ? oneHourInMinutes
-        : minutesStart;
-  const sanitized15MinBlockStart =
-    fifteenMinBlockStart > fifteenMinutesBlocks.last
-      ? fifteenMinutesBlocks.last
-      : fifteenMinBlockStart; // if it is greater than last 15 min block, should get next hour (so it's the first 15 min block)
-  const fifteenMinBlockEnd =
-    sanitized15MinBlockStart + 1 > fifteenMinutesBlocks.last
-      ? sanitized15MinBlockStart
-      : sanitized15MinBlockStart + 1;
-  const endMinute = sanitizedMinutes + fifteenMinutes;
+  const minimumMinutes = 0;
+  const minimum15MinBlock = 0;
+  const validHour = constrainValueToRange(
+    hourStart,
+    hourBlocks.first,
+    numberOfHoursInADayZeroIndex,
+  );
+  const validMinutes = constrainValueToRange(
+    minutesStart,
+    minimumMinutes,
+    oneHourInMinutes,
+  );
+  const valid15MinBlock = constrainValueToRange(
+    fifteenMinBlockStart,
+    minimum15MinBlock,
+    fifteenMinutesBlocks.last,
+  );
+  const valid15MinBlockIsLastOne =
+    valid15MinBlock + 1 > fifteenMinutesBlocks.last;
+  const startOfNext15MinBlock = valid15MinBlockIsLastOne
+    ? valid15MinBlock
+    : valid15MinBlock + 1;
+  const endMinute = validMinutes + fifteenMinutes;
   const isFullHour = endMinute >= oneHourInMinutes;
+
   if (isFullHour)
-    return { hour: sanitizedHour + 1, minutes: 0, fifteenMinBlock: 0 };
+    return { hour: validHour + 1, minutes: 0, fifteenMinBlock: 0 };
 
   return {
-    hour: sanitizedHour,
+    hour: validHour,
     minutes: endMinute,
-    fifteenMinBlock: fifteenMinBlockEnd,
+    fifteenMinBlock: startOfNext15MinBlock,
   };
 };
