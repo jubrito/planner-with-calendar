@@ -292,6 +292,20 @@ describe('getBlocks', () => {
           fifteenMinBlock: secondBlock,
         });
       });
+      it('should use maximum hour value if hour is > 24', () => {
+        const initialMinutes = 0;
+        expect(
+          getEndBlock({
+            hour: numberOfHoursInADay,
+            minutes: initialMinutes,
+            fifteenMinBlock: firstBlock,
+          }),
+        ).toStrictEqual({
+          hour: lastHourOfTheDay,
+          minutes: initialMinutes + fifteenMinutes,
+          fifteenMinBlock: secondBlock,
+        });
+      });
       // it('should return second 15 minutes block info', () => {
       //   const initialMinutes = 15;
       //   expect(
