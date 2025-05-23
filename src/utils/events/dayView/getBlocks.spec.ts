@@ -158,19 +158,19 @@ describe('getBlocks', () => {
         fifteenMinBlock: firstBlock,
       });
     });
-    it('should return 15 min block info when fifteen min block is smalled than min block min value (fifteenMinutesBlocks.last)', () => {
+    it('should return 15 min block info when fifteen min block is smaller than min block min value (fifteenMinutesBlocks.first)', () => {
       const initialMinutes = 0;
       const initialHour = 0;
       expect(
         getEndBlock({
           hour: initialHour,
           minutes: initialMinutes,
-          fifteenMinBlock: -1,
+          fifteenMinBlock: -1, // is threated like 0
         }),
       ).toStrictEqual({
         hour: initialHour,
         minutes: initialMinutes + fifteenMinutes,
-        fifteenMinBlock: firstBlock, // min value
+        fifteenMinBlock: firstBlock + 1,
       });
     });
     it('should return 15 min block info when fifteen min block is higher than min block max value (fifteenMinutesBlocks.last)', () => {
