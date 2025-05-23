@@ -1,6 +1,6 @@
 # Next steps (v1):
 
-- test get end block: should create events on:
+- test calculateYPosition: should create events on:
 
   - midnight of current day
   - last hour of the day
@@ -17,7 +17,24 @@
 Tests
 
 - utils
-  - [ ] getFullDateTitle
+
+  - calendar
+    - [x] utils
+    - [x] weeks
+  - events
+    - [ ] utils
+    - dayview
+      - [x] get blocks
+      - [x] get modal info
+      - [x] get position Y
+    - [x] calculateYPosition
+
+- calculateYPosition
+  add this line: `endDateHours = endDateHours === 0 ? 24 : endDateHours;`and create test to see if it s calculating correctly
+
+Refactor
+
+- Move constrainValueToRange to utils and test i
 
 Features
 
