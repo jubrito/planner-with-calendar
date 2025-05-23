@@ -135,6 +135,27 @@ describe('EventContainer', () => {
         });
       }
     });
+    it('should create event 12 am of the same day and display event details', async () => {
+      const { container } = renderWithProviders(<EventContainer />);
+      const targetElement = container.firstElementChild;
+      expect(targetElement).not.toBe(null);
+      if (targetElement) {
+        const lastCellOfFirstHour = 49;
+        createEvent({
+          targetElement,
+          mouseDownY: 0,
+          mouseMoveY: lastCellOfFirstHour,
+          mouseUpY: lastCellOfFirstHour,
+        });
+        const eventDefaultTitle = defaultEventTitle;
+        const eventTime = '12:00 – 01:00 AM';
+
+        await waitFor(() => {
+          expect(screen.getByText(eventDefaultTitle)).toBeInTheDocument();
+          expect(screen.getByText(eventTime)).toBeInTheDocument();
+        });
+      }
+    });
     it('should create event ending on 12 am and display event details', async () => {
       const { container } = renderWithProviders(<EventContainer />);
       const targetElement = container.firstElementChild;
