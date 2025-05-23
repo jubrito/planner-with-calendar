@@ -59,7 +59,7 @@ export const getFifteenMinuteBlock = (rest: number) => {
  * be 0.98, which means the actual hour is the integer 0. The rest is
  * used to calculate the fifteen minute block on getFifteenMinuteBlock()
  */
-export const getStartBlock = (relativeY: number): EventBlock => {
+export function getStartBlock(relativeY: number): EventBlock {
   const firstBlock = { hour: 0, fifteenMinBlock: 0, minutes: 0 };
   const lastBlock = {
     hour: numberOfHoursInADay - 1,
@@ -72,9 +72,25 @@ export const getStartBlock = (relativeY: number): EventBlock => {
   const floatHour = relativeY / sizeOfEach15MinBlock / fifteenMinBlocksInAHour;
   const hour = Math.floor(floatHour);
   const rest = floatHour - hour;
-  const fifteenMinBlock = getFifteenMinuteBlock(rest);
-  return { hour, fifteenMinBlock, minutes: fifteenMinBlock * fifteenMinutes };
-};
+  const fifteenMinBlocksInAnHour = getFifteenMinuteBlock(rest);
+  return {
+    hour,
+    fifteenMinBlock: fifteenMinBlocksInAnHour,
+    minutes: fifteenMinBlocksInAnHour * fifteenMinutes,
+  };
+}
+
+function constrainValueToRange(
+  initialValue: number,
+  minimum: number,
+  maximum: number,
+) {
+  const isNegative = initialValue < minimum;
+  const exceedsMaximum = initialValue > maximum;
+  if (isNegative) return minimum;
+  if (exceedsMaximum) return maximum;
+  return initialValue;
+}
 
 /**
  * Function to get the block values for the end of the event
