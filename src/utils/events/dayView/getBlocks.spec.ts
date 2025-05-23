@@ -143,7 +143,7 @@ describe('getBlocks', () => {
   });
 
   describe('getEndBlock(block)', () => {
-    it('should return 15 min block for next hour when is full hour (60 minutes)', () => {
+    it('should return start of next hour when is full hour (i.e., minutes is 60)', () => {
       const initialHour = 0;
       const initialMinutes = 60;
       expect(
@@ -158,7 +158,7 @@ describe('getBlocks', () => {
         fifteenMinBlock: firstBlock,
       });
     });
-    it('should return 15 min block info when fifteen min block is smaller than min block min value (fifteenMinutesBlocks.first)', () => {
+    it('should use minimum 15 block (0) when fifteen min block is smaller than min block min value (fifteenMinutesBlocks.first)', () => {
       const initialMinutes = 0;
       const initialHour = 0;
       expect(
@@ -173,7 +173,7 @@ describe('getBlocks', () => {
         fifteenMinBlock: firstBlock + 1,
       });
     });
-    it('should return 15 min block info when fifteen min block is higher than min block max value (fifteenMinutesBlocks.last)', () => {
+    it('should return maximum 15 min block (3) when fifteen min block is higher than min block max value (fifteenMinutesBlocks.last)', () => {
       const initialMinutes = 0;
       const initialHour = 0;
       expect(
@@ -189,7 +189,7 @@ describe('getBlocks', () => {
       });
     });
     describe('When received block corresponds to the first hour block', () => {
-      it('should return first 15 minutes block info', () => {
+      it('should return second 15 minutes block (1) when start is first block (0)', () => {
         const initialMinutes = 0;
         expect(
           getEndBlock({
@@ -203,7 +203,7 @@ describe('getBlocks', () => {
           fifteenMinBlock: secondBlock,
         });
       });
-      it('should return second 15 minutes block info', () => {
+      it('should return third 15 minutes block (2) when start is second block (1)', () => {
         const initialMinutes = 15;
         expect(
           getEndBlock({
@@ -217,7 +217,7 @@ describe('getBlocks', () => {
           fifteenMinBlock: thirdBlock,
         });
       });
-      it('should return third 15 minutes block info', () => {
+      it('should return last 15 minutes block (3) when start is third (0)', () => {
         const initialMinutes = 30;
         expect(
           getEndBlock({
@@ -231,8 +231,8 @@ describe('getBlocks', () => {
           fifteenMinBlock: lastBlock,
         });
       });
-      it('should return first 15 minutes block info for the next hour if start 15 min block is the last block', () => {
-        const initialMinutes = 45;
+      it('should return last 15 minutes block (3, which is the limit) when start is last (3)', () => {
+        const initialMinutes = 30;
         const initialHour = 0;
         expect(
           getEndBlock({
@@ -241,9 +241,9 @@ describe('getBlocks', () => {
             fifteenMinBlock: lastBlock,
           }),
         ).toStrictEqual({
-          hour: initialHour + 1,
-          minutes: 0,
-          fifteenMinBlock: firstBlock,
+          hour: initialHour,
+          minutes: initialMinutes + fifteenMinutes,
+          fifteenMinBlock: lastBlock,
         });
       });
     });
