@@ -1,5 +1,10 @@
 # Next steps (v1):
 
+- test on event container and get end block: should create events on:
+
+  - midnight of current day
+  - last hour of the day
+
 - getEndBlock
   - finish function refactor
   - finish tests
