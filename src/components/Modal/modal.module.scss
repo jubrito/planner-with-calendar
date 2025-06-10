@@ -4,8 +4,7 @@
 .modal {
   @include mixins.modal;
   max-width: max-content;
-  width: 80%;
-
+  min-width: 200px;
   height: fit-content;
   top: 0;
   right: 0;
