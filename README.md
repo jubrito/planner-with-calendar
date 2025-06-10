@@ -18,21 +18,23 @@ A customizable and accessible calendar application that allows anyone to create 
 
 ### Key principles
 
-- **Accessibility by design** – Created to be accessible by anyone, focusing on improving users experience through mouse, screen readers and keyboard navigation.
+- **Accessibility by design** – Built to be accessible to everyone, with support for mouse, screen readers, and keyboard navigation.
 
-- **Test-Driven Quality** – Rigorously tested with Jest and React Testing Library to ensure reliability and maintainability.
+- **Test-Driven Quality** – Rigorously tested (Jest, React Testing Library) to ensure reliability and maintainability.
 
-- **Optimized Performance** – Focused on providing a lightweight and fast app to improve the user experience.
+- **Optimized Performance** – Lightweight and fast for an improved user experience.
+
+– **Customizable & Scalable** – Modular architecture (Redux, React) to enable extending new features and improve scalability.
 
 ### Included features:
 
 - **Event Creation** – Add, edit, and delete events.
 
-- **Day and Month Views** – Interact with events through the calendar month view or through the day view lplanner
+- **Day and Month Views** – Interact with events in either a calendar month view or a daily planner view.
 
-- **Responsive Design** – Work on different devices and screen sizes.
+- **Responsive Design** – Works on different devices and screen sizes.
 
-- **Current hour** – See what is the current hour on the day view mode
+- **Current hour** – Highlights the current hour in day-view mode.
 
 
 ### Features in progress:
@@ -43,11 +45,11 @@ A customizable and accessible calendar application that allows anyone to create 
 
 - **Drag and Drop** – Update events by dragging and dropping.
 
-- **Web Hosting**
+- **Web Hosting** – Deploy the app for public access.
 
-- **Styling**
+- **Styling** – Enhance the UI/UX.
 
--  **Storing and persisting data**
+- **Database Connection** – Store and persist user data.
 
 ## Installation
 
