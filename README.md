@@ -1,11 +1,11 @@
 # Customizable Calendar
-[![React](https://img.shields.io/badge/React-19.0.0-mediumvioletred?logo=react)](https://react.dev/)
+[![React](https://img.shields.io/badge/React-19-mediumvioletred?logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7.2-royalblue?logo=typescript)](https://www.typescriptlang.org/)
-[![Vite](https://img.shields.io/badge/Vite-6.2.0-darkmagenta?logo=vite)](https://vitejs.dev/)
+[![Vite](https://img.shields.io/badge/Vite-6.2-darkmagenta?logo=vite)](https://vitejs.dev/)
 [![MUI](https://img.shields.io/badge/MUI-7.0.2-teal?logo=mui)](https://mui.com/)
-[![Redux](https://img.shields.io/badge/Redux-9.2.0-indigo?logo=redux)](https://redux-toolkit.js.org/)
-[![Jest](https://img.shields.io/badge/Jest-29.7.0-palevioletred?logo=jest)](https://jestjs.io/)
-[![ESLint](https://img.shields.io/badge/ESLint-9.23.0-tomato?logo=eslint)](https://eslint.org/)
+[![Redux](https://img.shields.io/badge/Redux-9.2-indigo?logo=redux)](https://redux-toolkit.js.org/)
+[![Jest](https://img.shields.io/badge/Jest-29.7-palevioletred?logo=jest)](https://jestjs.io/)
+[![ESLint](https://img.shields.io/badge/ESLint-9.23-tomato?logo=eslint)](https://eslint.org/)
 [![Jest](https://img.shields.io/badge/Babel-7.26.9-gold?logo=babel)]([https://babeljs.io/)
 [![License](https://img.shields.io/badge/License-MIT-lawngreen?logo=eslint)](https://opensource.org/licenses/MIT)
 
