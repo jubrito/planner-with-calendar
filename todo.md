@@ -1,6 +1,5 @@
 # Next steps (v1):
 
-- create draft readme
 - test calculateYPosition: should create events on:
 
   - midnight of current day
