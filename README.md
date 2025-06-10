@@ -12,7 +12,7 @@
 
 A customizable and accessible calendar application that allows anyone to create and manage, and track events.
 
-**In progress**
+## **Progress**
 
  ![](https://us-central1-progress-markdown.cloudfunctions.net/progress/30)
 
