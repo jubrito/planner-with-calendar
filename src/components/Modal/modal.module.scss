@@ -4,7 +4,7 @@
 .modal {
   @include mixins.modal;
   max-width: max-content;
-  min-width: 200px;
+  min-width: 285px;
   height: fit-content;
   top: 0;
   right: 0;
@@ -17,6 +17,10 @@
   padding: variables.$inner-spacing;
   overflow: hidden;
   cursor: initial;
+
+  @include mixins.media-max-tablet {
+    min-width: 200px;
+  }
 
   .actions {
     width: 100%;
