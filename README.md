@@ -15,9 +15,16 @@ A customizable and accessible calendar application that allows anyone to create 
  ![](https://us-central1-progress-markdown.cloudfunctions.net/progress/30)
 
 ## Features
-### Included features:
 
-- **Accessibility by design** – Created to be accessible by anyone, focusing on improving users experience through mouse, screen readers and keyboard navigation
+### Key principles
+
+- **Accessibility by design** – Created to be accessible by anyone, focusing on improving users experience through mouse, screen readers and keyboard navigation.
+
+- **Test-Driven Quality** – Rigorously tested with Jest and React Testing Library to ensure reliability and maintainability.
+
+- **Optimized Performance** – Focused on providing a lightweight and fast app to improve the user experience.
+
+### Included features:
 
 - **Event Creation** – Add, edit, and delete events.
 
