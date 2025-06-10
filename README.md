@@ -7,7 +7,6 @@
 [![Jest](https://img.shields.io/badge/Jest-29.7-palevioletred?logo=jest)](https://jestjs.io/)
 [![ESLint](https://img.shields.io/badge/ESLint-9.23-tomato?logo=eslint)](https://eslint.org/)
 [![Jest](https://img.shields.io/badge/Babel-7.26.9-gold?logo=babel)]([https://babeljs.io/)
-[![License](https://img.shields.io/badge/License-MIT-lawngreen?logo=eslint)](https://opensource.org/licenses/MIT)
 
 
 A customizable and accessible calendar application that allows anyone to create and manage, and track events.
@@ -60,3 +59,7 @@ npm start
  ```sh
  npm run test
  ```
+
+## License
+[MIT](https://github.com/arthurfiorette/try/blob/main/LICENSE)
+
