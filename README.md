@@ -2,7 +2,6 @@
 [![React](https://img.shields.io/badge/React-19-mediumvioletred?logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7.2-royalblue?logo=typescript)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-6.2-darkmagenta?logo=vite)](https://vitejs.dev/)
-[![MUI](https://img.shields.io/badge/MUI-7.0.2-teal?logo=mui)](https://mui.com/)
 [![Redux](https://img.shields.io/badge/Redux-9.2-indigo?logo=redux)](https://redux-toolkit.js.org/)
 [![Jest](https://img.shields.io/badge/Jest-29.7-palevioletred?logo=jest)](https://jestjs.io/)
 [![ESLint](https://img.shields.io/badge/ESLint-9.23-tomato?logo=eslint)](https://eslint.org/)
