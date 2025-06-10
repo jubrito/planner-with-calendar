@@ -6,6 +6,7 @@
 [![Redux](https://img.shields.io/badge/Redux-9.2.0-indigo?logo=redux)](https://redux-toolkit.js.org/)
 [![Jest](https://img.shields.io/badge/Jest-29.7.0-palevioletred?logo=jest)](https://jestjs.io/)
 [![ESLint](https://img.shields.io/badge/ESLint-9.23.0-tomato?logo=eslint)](https://eslint.org/)
+[![Jest](https://img.shields.io/badge/Babel-7.26.9-gold?logo=babel)]([https://babeljs.io/)
 [![License](https://img.shields.io/badge/License-MIT-lawngreen?logo=eslint)](https://opensource.org/licenses/MIT)
 
 
