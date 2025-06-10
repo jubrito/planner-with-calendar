@@ -26,6 +26,9 @@ A customizable and accessible calendar application that allows anyone to create 
 
 - **Responsive Design** – Work on different devices and screen sizes.
 
+- **Current hour** – See what is the current hour on the day view mode
+
+
 ### Features in progress:
 
 - **Recurring Events** – Set repeating events (daily, weekly, monthly).
@@ -37,6 +40,8 @@ A customizable and accessible calendar application that allows anyone to create 
 - **Web Hosting**
 
 - **Styling**
+
+-  **Storing and persisting data**
 
 ## Installation
 
