@@ -39,16 +39,6 @@ A customizable and accessible calendar application that allows anyone to create 
 
 - **Styling**
 
-
-## Installation
-
-1. Clone the repository
-2. Navigate to the project directory: `cd planner-with-calendar`
-3. Install dependencies: `npm install`
-4. Build the project: `npm run build`
-5. Start the project: `npm start`
-6. Run tests `npm run test`
-
 ## Installation
 
 1. Clone the repository
@@ -58,21 +48,15 @@ A customizable and accessible calendar application that allows anyone to create 
  ```sh
  cd planner-with-calendar
  ```
- 
 3. Install dependencies: 
-
  ```sh
 npm install
 ```
-
 4. Start the project:  
-
 ```sh
 npm start
 ```
-
 5. Run tests 
-
  ```sh
  npm run test
  ```
