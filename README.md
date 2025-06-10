@@ -1,28 +1,42 @@
 # Customizable Calendar
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000)
+[![React](https://img.shields.io/badge/React-19.0.0-mediumvioletred?logo=react)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7.2-royalblue?logo=typescript)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-6.2.0-darkmagenta?logo=vite)](https://vitejs.dev/)
+[![MUI](https://img.shields.io/badge/MUI-7.0.2-teal?logo=mui)](https://mui.com/)
+[![Redux](https://img.shields.io/badge/Redux-9.2.0-indigo?logo=redux)](https://redux-toolkit.js.org/)
+[![Jest](https://img.shields.io/badge/Jest-29.7.0-palevioletred?logo=jest)](https://jestjs.io/)
+[![ESLint](https://img.shields.io/badge/ESLint-9.23.0-tomato?logo=eslint)](https://eslint.org/)
+[![License](https://img.shields.io/badge/License-MIT-lawngreen?logo=eslint)](https://opensource.org/licenses/MIT)
 
-> A customizable and accessible calendar application that allows anyone to create and manage, and track events
+
+A customizable and accessible calendar application that allows anyone to create and manage, and track events.
 
 **In progress**
 
- ![](https://us-central1-progress-markdown.cloudfunctions.net/progress/40)
+ ![](https://us-central1-progress-markdown.cloudfunctions.net/progress/30)
 
 ## Features
-### Features include:
+### Included features:
 
 - **Accessibility by design** – Created to be accessible by anyone, focusing on improving users experience through mouse, screen readers and keyboard navigation
 
 - **Event Creation** – Add, edit, and delete events.
 
-- **Customizable Visualization** – See 
+- **Day and Month Views** – Interact with events through the calendar month view or through the day view lplanner
 
-### Future features being implemented:
+- **Responsive Design** – Work on different devices and screen sizes.
+
+### Features in progress:
 
 - **Recurring Events** – Set repeating events (daily, weekly, monthly).
 
 - **TO-DO List Integration** – Connect tasks with calendar events for a better planning experience.
 
-- **Responsive Design** – Works on different devices.
+- **Drag and Drop** – Update events by dragging and dropping.
+
+- **Web Hosting**
+
+- **Styling**
 
 
 ## Installation
@@ -47,11 +61,11 @@
  ```sh
 npm install
 ```
-5. Start the project:  
+4. Start the project:  
 ```sh
 npm start
 ```
-6. Run tests 
+5. Run tests 
  ```sh
  npm run test
  ```
