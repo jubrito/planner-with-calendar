@@ -58,15 +58,21 @@ A customizable and accessible calendar application that allows anyone to create 
  ```sh
  cd planner-with-calendar
  ```
+ 
 3. Install dependencies: 
+
  ```sh
 npm install
 ```
+
 4. Start the project:  
+
 ```sh
 npm start
 ```
+
 5. Run tests 
+
  ```sh
  npm run test
  ```
