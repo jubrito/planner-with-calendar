@@ -37,6 +37,12 @@
   }
 }
 
+@mixin media-max-tablet {
+  @media only screen and (max-width: 768px) {
+    @content;
+  }
+}
+
 @mixin modal {
   content: '';
   position: absolute;
@@ -68,12 +74,6 @@
 
 // @mixin media-min-tablet {
 //   @media only screen and (min-width: 768px) {
-//     @content;
-//   }
-// }
-
-// @mixin media-max-tablet {
-//   @media only screen and (max-width: 768px) {
 //     @content;
 //   }
 // }
