@@ -5,6 +5,7 @@ import {
   hourBlocks,
   numberOfHoursInADay,
   oneHourInMinutes,
+  plannerContainerSize,
   sizeOfEach15MinBlock,
   sizeOfEachHourBlock,
 } from '../../calendar/constants';
@@ -67,7 +68,7 @@ export function getStartBlock(relativeY: number): EventBlock {
     minutes: 45,
   };
   if (relativeY < 0) return firstBlock;
-  if (relativeY > sizeOfEachHourBlock * numberOfHoursInADay) return lastBlock;
+  if (relativeY > plannerContainerSize) return lastBlock;
 
   const floatHour = relativeY / sizeOfEach15MinBlock / fifteenMinBlocksInAHour;
   const hour = Math.floor(floatHour);

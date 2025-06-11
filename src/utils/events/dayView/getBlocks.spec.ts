@@ -2,6 +2,7 @@ import {
   fifteenMinutes,
   numberOfHoursInADay,
   oneHourInMinutes,
+  plannerContainerSize,
   sizeOfEach15MinBlock,
   sizeOfEachHourBlock,
 } from '../../calendar/constants';
@@ -63,7 +64,7 @@ describe('getBlocks', () => {
       });
     });
     it('should last 15 minutes block info of last hour when relative position is negative', () => {
-      const relativeY = sizeOfEachHourBlock * numberOfHoursInADay + 0.001;
+      const relativeY = plannerContainerSize + 0.001;
       expect(getStartBlock(relativeY)).toStrictEqual({
         hour: numberOfHoursInADay - 1,
         minutes: 45,
