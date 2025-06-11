@@ -14,7 +14,7 @@ export const calculateYPosition = (
   const endDateMinutes = new Date(endDate).getMinutes();
   let endDateHours = new Date(endDate).getHours();
   const isMidnightFromNextDay =
-    endDateHours === 0 && startDateHours > endDateHours; // ensure it's not event from midnight of current day
+    endDateHours === 0 && startDateHours > endDateHours; // ensure it's not event from midnight of next day
   const midnightFromNextDay = 24;
   endDateHours = isMidnightFromNextDay ? midnightFromNextDay : endDateHours;
   const startDateMinutes = new Date(startDate).getMinutes();
