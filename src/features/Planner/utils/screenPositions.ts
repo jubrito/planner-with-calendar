@@ -10,11 +10,12 @@ export const calculateYPosition = (
   startDate: EventStored['startDate'],
   endDate: EventStored['endDate'],
 ) => {
+
   const startDateHours = new Date(startDate).getHours();
   const endDateMinutes = new Date(endDate).getMinutes();
   let endDateHours = new Date(endDate).getHours();
   const isMidnightFromNextDay =
-    endDateHours === 0 && startDateHours > endDateHours; // ensure it's not event from midnight of next day
+    endDateHours === 0 && endDateMinutes === 0;
   const midnightFromNextDay = 24;
   endDateHours = isMidnightFromNextDay ? midnightFromNextDay : endDateHours;
   const startDateMinutes = new Date(startDate).getMinutes();
