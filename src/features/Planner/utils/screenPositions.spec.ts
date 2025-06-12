@@ -1,5 +1,5 @@
 import { Months } from "../../../types/calendar/enums";
-import { numberOfHoursInADay, plannerContainerSize, sizeOfEachHourBlock } from "../../../utils/calendar/constants";
+import { fifteenMinBlocksInAHour, fifteenMinutes, numberOfHoursInADay, plannerContainerSize, sizeOfEach15MinBlock, sizeOfEachHourBlock } from "../../../utils/calendar/constants";
 import { getDateISOString, getFormattedDateString } from "../../../utils/calendar/utils";
 import { calculateYPosition } from "./screenPositions";
 
@@ -26,6 +26,17 @@ describe('screenPositions', () => {
             const endDate = getDateISOString(new Date(year, month, day, endHour, minute))
             const yPosition = calculateYPosition(startDate, endDate)
             expect(yPosition).toStrictEqual({startY: sizeOfEachHourBlock * startHour, endY: plannerContainerSize})
+        })
+        it.todo('event hour ending on 24')
+        it('should create events with a minimum size of 15 minutes', () => {
+            const startHour = 12;
+            const endHour = 12;
+            const minutes = 0;
+            const startDate = getDateISOString(new Date(year, month, day, startHour, minutes))
+            const endDate = getDateISOString(new Date(year, month, day, endHour, minutes))
+            const yPosition = calculateYPosition(startDate, endDate)
+            const startY = sizeOfEachHourBlock * startHour;
+            expect(yPosition).toStrictEqual({startY: startY, endY: startY + sizeOfEach15MinBlock})
         })
     })
 })
