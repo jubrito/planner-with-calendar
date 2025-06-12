@@ -27,7 +27,6 @@ describe('screenPositions', () => {
             const yPosition = calculateYPosition(startDate, endDate)
             expect(yPosition).toStrictEqual({startY: sizeOfEachHourBlock * startHour, endY: plannerContainerSize})
         })
-        it.todo('event hour ending on 24')
         it('should create events with a minimum size of 15 minutes', () => {
             const startHour = 12;
             const endHour = 12;

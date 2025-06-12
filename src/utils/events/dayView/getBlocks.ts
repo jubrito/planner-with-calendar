@@ -7,7 +7,6 @@ import {
   oneHourInMinutes,
   plannerContainerSize,
   sizeOfEach15MinBlock,
-  sizeOfEachHourBlock,
 } from '../../calendar/constants';
 import { EventBlock } from '../../../types/event';
 
