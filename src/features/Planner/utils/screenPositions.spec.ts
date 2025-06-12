@@ -1,5 +1,5 @@
 import { Months } from "../../../types/calendar/enums";
-import { fifteenMinBlocksInAHour, fifteenMinutes, numberOfHoursInADay, plannerContainerSize, sizeOfEach15MinBlock, sizeOfEachHourBlock } from "../../../utils/calendar/constants";
+import {  numberOfHoursInADay, plannerContainerSize, sizeOfEach15MinBlock, sizeOfEachHourBlock } from "../../../utils/calendar/constants";
 import { getDateISOString, getFormattedDateString } from "../../../utils/calendar/utils";
 import { calculateYPosition } from "./screenPositions";
 
