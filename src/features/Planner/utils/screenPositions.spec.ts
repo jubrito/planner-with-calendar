@@ -1,6 +1,6 @@
 import { Months } from "../../../types/calendar/enums";
-import { plannerContainerSize } from "../../../utils/calendar/constants";
-import { getFormattedDateString } from "../../../utils/calendar/utils";
+import { numberOfHoursInADay, plannerContainerSize, sizeOfEachHourBlock } from "../../../utils/calendar/constants";
+import { getDateISOString, getFormattedDateString } from "../../../utils/calendar/utils";
 import { calculateYPosition } from "./screenPositions";
 
 describe('screenPositions', () => {
@@ -17,7 +17,15 @@ describe('screenPositions', () => {
             const endDate = date
             const yPosition = calculateYPosition(startDate, endDate)
             expect(yPosition).toStrictEqual({startY: 0, endY: plannerContainerSize})
-
+        })
+        it('should create event that start on last hour and end on midnight of current day', () => {
+            const startHour = numberOfHoursInADay - 1;
+            const endHour = 0;
+            const minute = 0;
+            const startDate = getDateISOString(new Date(year, month, day, startHour, minute))
+            const endDate = getDateISOString(new Date(year, month, day, endHour, minute))
+            const yPosition = calculateYPosition(startDate, endDate)
+            expect(yPosition).toStrictEqual({startY: sizeOfEachHourBlock * startHour, endY: plannerContainerSize})
         })
     })
 })
