@@ -2,7 +2,6 @@
 
 - test calculateYPosition: should create events on:
 
-  - midnight of current day
   - last hour of the day
 
 - getEndBlock
