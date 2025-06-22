@@ -55,7 +55,10 @@ export const getEventInfo = (
   };
 };
 
-const createEventTitle = (sameDayContent: { start: string; end?: string }) => {
+export const createEventTitle = (sameDayContent: {
+  start: string;
+  end?: string;
+}) => {
   if (!sameDayContent.end) return `Event on ${sameDayContent.start}`;
   return `Event from ${sameDayContent.start} to ${sameDayContent.end}`;
 };

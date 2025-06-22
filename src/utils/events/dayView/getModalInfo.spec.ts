@@ -1,6 +1,6 @@
 import { Months } from '../../../types/calendar/enums';
 import { getMonthName } from '../../calendar/utils';
-import { getEventInfo, getEventTitle } from './getModalInfo';
+import { createEventTitle, getEventInfo, getEventTitle } from './getModalInfo';
 
 describe('getModalInfo', () => {
   const defaultEnglishLocale = 'en-US';
@@ -63,6 +63,12 @@ describe('getModalInfo', () => {
         period: ` ${period}`,
         weekDay: 'Sun',
       });
+    });
+  });
+  describe('createEventTitle()', () => {
+    it('should add range to event title if same day content contains end', () => {
+      const eventTitle = createEventTitle({ start: 'start', end: 'end' });
+      expect(eventTitle).toBe('Event from start to end');
     });
   });
 });
