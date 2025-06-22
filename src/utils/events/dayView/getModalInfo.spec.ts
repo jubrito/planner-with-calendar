@@ -13,6 +13,8 @@ describe('getModalInfo', () => {
   const year = 2025;
   const month = Months.JUNE;
   const day = 29;
+  const monthName = 'Jun';
+  const weekDay = 'Sun';
 
   describe('getEventTitle', () => {
     it('should return event title for same and multi day events', () => {
@@ -43,11 +45,11 @@ describe('getModalInfo', () => {
         day,
         hour,
         minutes,
-        monthName: 'Jun',
+        monthName,
         formattedFullTime: `11:${minutes} ${period}`,
         time: `11:${minutes}`,
         period: ` ${period}`,
-        weekDay: 'Sun',
+        weekDay,
       });
     });
 
@@ -63,11 +65,11 @@ describe('getModalInfo', () => {
         day,
         hour,
         minutes,
-        monthName: 'Jun',
+        monthName,
         formattedFullTime: `11:${minutes} ${period}`,
         time: `11:${minutes}`,
         period: ` ${period}`,
-        weekDay: 'Sun',
+        weekDay,
       });
     });
   });
@@ -90,8 +92,6 @@ describe('getModalInfo', () => {
       const endMinutes = 30;
       const startPeriod = ' AM';
       const endPeriod = ' AM';
-      const monthName = 'Jun';
-      const weekDay = 'Sun';
       const startTime = `${startHour}:${startMinutes}`;
       const endTime = `${endHour}:${endMinutes}`;
       const startEvent = {
@@ -122,6 +122,45 @@ describe('getModalInfo', () => {
       expect(sameDayEventText).toStrictEqual({
         date: `${weekDay}, ${monthName} ${day}`,
         time: `${startTime} ${dashSeparator} ${endTime}${endPeriod}`,
+      });
+    });
+    it('should create same day event title within different periods', () => {
+      const startHour = 10;
+      const endHour = 10;
+      const startMinutes = 12;
+      const endMinutes = 45;
+      const startPeriod = ' AM';
+      const endPeriod = ' PM';
+      const startTime = `${startHour}:${startMinutes}`;
+      const endTime = `${endHour}:${endMinutes}`;
+      const startEvent = {
+        year,
+        month,
+        day,
+        hour: startHour,
+        minutes: startMinutes,
+        monthName,
+        formattedFullTime: `${startTime} ${startPeriod}`,
+        time: `${startTime}`,
+        period: startPeriod,
+        weekDay,
+      };
+      const endEvent = {
+        year,
+        month,
+        day,
+        hour: endHour,
+        minutes: endMinutes,
+        monthName,
+        formattedFullTime: `${endTime} ${endPeriod}`,
+        time: `${endTime}`,
+        period: endPeriod,
+        weekDay,
+      };
+      const sameDayEventText = getSameDayEventText(startEvent, endEvent);
+      expect(sameDayEventText).toStrictEqual({
+        date: `${weekDay}, ${monthName} ${day}`,
+        time: `${startTime}${startPeriod} ${dashSeparator} ${endTime}${endPeriod}`,
       });
     });
   });
