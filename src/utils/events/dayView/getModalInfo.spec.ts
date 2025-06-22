@@ -7,8 +7,6 @@ describe('getModalInfo', () => {
   const year = 2025;
   const month = Months.JUNE;
   const day = 29;
-  const hour = 23;
-  const minutes = 12;
 
   describe('getEventTitle', () => {
     it('should return event title for same and multi day events', () => {
@@ -27,10 +25,12 @@ describe('getModalInfo', () => {
   });
 
   describe('getEventInfo', () => {
-    it('should get event info from events from the last hour', () => {
+    it('should get event info from events from the first hour', () => {
+      const hour = 11;
+      const minutes = 12;
+      const period = 'AM';
       const date = new Date(year, month, day, hour, minutes);
       const eventInfo = getEventInfo(date, defaultEnglishLocale);
-      const period = 'PM';
       expect(eventInfo).toStrictEqual({
         year,
         month,
@@ -40,7 +40,27 @@ describe('getModalInfo', () => {
         monthName: 'Jun',
         formattedFullTime: `11:${minutes} ${period}`,
         time: `11:${minutes}`,
-        period: ' PM',
+        period: ` ${period}`,
+        weekDay: 'Sun',
+      });
+    });
+
+    it('should get event info from events from the last hour', () => {
+      const hour = 23;
+      const minutes = 12;
+      const period = 'PM';
+      const date = new Date(year, month, day, hour, minutes);
+      const eventInfo = getEventInfo(date, defaultEnglishLocale);
+      expect(eventInfo).toStrictEqual({
+        year,
+        month,
+        day,
+        hour,
+        minutes,
+        monthName: 'Jun',
+        formattedFullTime: `11:${minutes} ${period}`,
+        time: `11:${minutes}`,
+        period: ` ${period}`,
         weekDay: 'Sun',
       });
     });
