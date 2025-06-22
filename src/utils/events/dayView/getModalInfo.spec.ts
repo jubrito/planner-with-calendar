@@ -7,6 +7,7 @@ import {
   getEventTitle,
   getMultiDayEventText,
   getSameDayEventText,
+  isSameDayEvent,
 } from './getModalInfo';
 
 describe('getModalInfo', () => {
@@ -254,6 +255,36 @@ describe('getModalInfo', () => {
         initialDateText: `${startMonthName} ${day}, ${startYear}, ${startTime}${startPeriod}`,
         endDateText: `${endMonthName} ${day}, ${endYear}, ${endTime}${endPeriod}`,
       });
+    });
+  });
+
+  describe('isSameDayEvent()', () => {
+    it('should return true if events have same day, month and year', () => {
+      const eventA: EventDetailsView = {
+        day,
+        monthName,
+        year,
+        month: Months.JANUARY,
+        hour: 0,
+        minutes: 1,
+        formattedFullTime: 'a',
+        time: 'a',
+        period: 'a',
+        weekDay: 'a',
+      };
+      const eventB: EventDetailsView = {
+        day,
+        monthName,
+        year,
+        month: Months.JANUARY,
+        hour: 2,
+        minutes: 3,
+        formattedFullTime: 'b',
+        time: 'b',
+        period: 'b',
+        weekDay: 'b',
+      };
+      expect(isSameDayEvent(eventA, eventB));
     });
   });
 });

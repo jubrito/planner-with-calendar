@@ -92,12 +92,12 @@ export const getMultiDayEventText = (
   return { initialDateText: startText, endDateText: endText };
 };
 
-const isSameDayEvent = (
+export const isSameDayEvent = (
   startEvent: EventDetailsView,
   endEvent: EventDetailsView,
 ) =>
   startEvent.day === endEvent.day &&
-  startEvent.monthName === endEvent.monthName &&
+  startEvent.month === endEvent.month &&
   startEvent.year === endEvent.year;
 
 export const getModalContent = (
