@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { memo, RefObject, useEffect } from 'react';
 import { getLocaleLanguage } from '../../../../../redux/slices/localeSlice/selectors';
 import { getCurrentSelectedDayViewEvent } from '../../../../../redux/slices/eventSlice/selectors';
-import { getModalContent } from '../../../../../utils/events/dayView/getModalInfo';
+import { getEventModalContent } from '../../../../../utils/events/dayView/getModalInfo';
 import { Modal } from '../../../../../components/Modal/Modal';
 import { dashSeparator } from '../../../../../utils/constants';
 
@@ -26,7 +26,7 @@ export const EventDetailsModal = memo(
 
     const { event: selectedEvent, top } = selectedDayViewEvent;
     const { title } = selectedEvent;
-    const { sameDay, multiDay, isSameDayEvent } = getModalContent(
+    const { sameDay, multiDay, isSameDayEvent } = getEventModalContent(
       selectedEvent.startDate,
       selectedEvent.endDate,
       locale,

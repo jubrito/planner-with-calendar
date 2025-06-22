@@ -6,7 +6,7 @@ import {
   createEventTitle,
   getEventInfo,
   getEventTitle,
-  getModalContent,
+  getEventModalContent,
   getMultiDayEventText,
   getSameDayEventText,
   isSameDayEvent,
@@ -378,7 +378,7 @@ describe('getModalInfo', () => {
         'Failed to get modal content, date is invalid';
       it('should throw error if start date is not a valid date', () => {
         expect(() =>
-          getModalContent(
+          getEventModalContent(
             'invalid start date',
             getFormattedDateString(localeEnglish, new Date()),
             localeEnglish,
@@ -387,7 +387,7 @@ describe('getModalInfo', () => {
       });
       it('should throw error if end date is not a valid date', () => {
         expect(() =>
-          getModalContent(
+          getEventModalContent(
             getFormattedDateString(localeEnglish, new Date()),
             'invalid end date',
             localeEnglish,
@@ -395,5 +395,7 @@ describe('getModalInfo', () => {
         ).toThrow(dateIsInvalidErrorMsg);
       });
     });
+
+    it('should return modal cont');
   });
 });

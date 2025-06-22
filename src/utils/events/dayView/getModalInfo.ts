@@ -101,17 +101,16 @@ export const isSameDayEvent = (
   startEvent.month === endEvent.month &&
   startEvent.year === endEvent.year;
 
-export const getModalContent = (
+export const getEventModalContent = (
   startDate: EventOnCreate['start']['date'],
   endDate: EventOnCreate['end']['date'],
   locale: LocaleLanguage,
 ) => {
-  const deserializedStartDate = new Date(startDate);
-
   if (isValidDate(new Date(startDate)) || isValidDate(new Date(endDate))) {
     throw new Error('Failed to get modal content, date is invalid');
   }
 
+  const deserializedStartDate = new Date(startDate);
   const deserializedEndDate = new Date(endDate);
   const startEvent = getEventInfo(deserializedStartDate, locale);
   const endEvent = getEventInfo(deserializedEndDate, locale);
