@@ -4,6 +4,7 @@ import { getLocaleLanguage } from '../../../../../redux/slices/localeSlice/selec
 import { getCurrentSelectedDayViewEvent } from '../../../../../redux/slices/eventSlice/selectors';
 import { getModalContent } from '../../../../../utils/events/dayView/getModalInfo';
 import { Modal } from '../../../../../components/Modal/Modal';
+import { dashSeparator } from '../../../../../utils/constants';
 
 type EventDetailsModalProps = {
   closeModal: () => void;
@@ -44,7 +45,7 @@ export const EventDetailsModal = memo(
             )}
             {!isSameDayEvent && (
               <p title={multiDay.title}>
-                {multiDay.start} – {multiDay.end}
+                {multiDay.start} {dashSeparator} {multiDay.end}
               </p>
             )}
           </>

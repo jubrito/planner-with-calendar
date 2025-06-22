@@ -8,6 +8,7 @@ import {
 } from '../../calendar/utils';
 import { getWeekDayName } from '../../calendar/weeks';
 import {
+  dashSeparator,
   IntlDateTimeFormat2Digit,
   IntlDateTimeFormatShort,
 } from '../../constants';
@@ -63,14 +64,14 @@ export const createEventTitle = (sameDayContent: {
   return `Event from ${sameDayContent.start} to ${sameDayContent.end}`;
 };
 
-const getSameDayEventText = (
+export const getSameDayEventText = (
   startEvent: EventDetailsView,
   endEvent: EventDetailsView,
 ) => {
   const updatedStartPeriod =
     startEvent.period === endEvent.period ? '' : startEvent.period;
   const date = `${startEvent.weekDay}, ${startEvent.monthName} ${startEvent.day}`;
-  const time = `${startEvent.time}${updatedStartPeriod} – ${endEvent.time}${endEvent.period}`;
+  const time = `${startEvent.time}${updatedStartPeriod} ${dashSeparator} ${endEvent.time}${endEvent.period}`;
   return {
     date,
     time,

@@ -9,6 +9,7 @@ import {
 import { getLocaleLanguage } from '../../../../../redux/slices/localeSlice/selectors';
 import { sizeOfEach15MinBlock } from '../../../../../utils/calendar/constants';
 import {
+  dashSeparator,
   enterKey,
   IntlDateTimeFormat2Digit,
 } from '../../../../../utils/constants';
@@ -128,7 +129,7 @@ export const Event = memo(function ({
           <span
             style={getTimeStyle(isAtLeast30MinEvent, isAtLeast60MinEvent)}
             aria-label={`Time range from ${startTime}${startPeriod} to ${endTime}${endPeriod}`}
-          >{`${startTime}${startPeriod} – ${endTime}${endPeriod}`}</span>
+          >{`${startTime}${startPeriod} ${dashSeparator} ${endTime}${endPeriod}`}</span>
         </div>
       )}
     </div>
