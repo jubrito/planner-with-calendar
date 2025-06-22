@@ -1,3 +1,4 @@
+import { EventModalContent } from '../../../types/calendar/types';
 import { EventDetailsView, EventOnCreate } from '../../../types/event';
 import { LocaleLanguage } from '../../../types/locale/types';
 import {
@@ -106,7 +107,10 @@ export const getEventModalContent = (
   endDate: EventOnCreate['end']['date'],
   locale: LocaleLanguage,
 ) => {
-  if (isValidDate(new Date(startDate)) || isValidDate(new Date(endDate))) {
+  console.log({ startDate, endDate });
+  // console.log('date instanceof Date', new Date(endDate) instanceof Date);
+  // console.log('date.getTime()', new Date(endDate).getTime());
+  if (!isValidDate(new Date(startDate)) || !isValidDate(new Date(endDate))) {
     throw new Error('Failed to get modal content, date is invalid');
   }
 
@@ -121,17 +125,22 @@ export const getEventModalContent = (
     initialDate: initialDateText,
     endDate: endDateText,
   });
-  return {
-    sameDay: {
+  const result: EventModalContent = {
+    isSameDayEvent: isSameDayEvent(startEvent, endEvent),
+  };
+
+  if (isSameDayEvent(startEvent, endEvent)) {
+    result.sameDay = {
       start: sameDayContent.date,
       end: sameDayContent.time,
       title: sameDayTitle,
-    },
-    multiDay: {
+    };
+  } else {
+    result.multiDay = {
       start: initialDateText,
       end: endDateText,
       title: multiDayTitle,
-    },
-    isSameDayEvent: isSameDayEvent(startEvent, endEvent),
-  };
+    };
+  }
+  return result;
 };
