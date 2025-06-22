@@ -1,6 +1,12 @@
 import { Months } from '../../../types/calendar/enums';
 import { getMonthName } from '../../calendar/utils';
-import { createEventTitle, getEventInfo, getEventTitle } from './getModalInfo';
+import { dashSeparator } from '../../constants';
+import {
+  createEventTitle,
+  getEventInfo,
+  getEventTitle,
+  getSameDayEventText,
+} from './getModalInfo';
 
 describe('getModalInfo', () => {
   const defaultEnglishLocale = 'en-US';
@@ -73,6 +79,50 @@ describe('getModalInfo', () => {
     it('should not add range to event title if same day content does not contain end', () => {
       const eventTitle = createEventTitle({ start: 'start' });
       expect(eventTitle).toBe('Event on start');
+    });
+  });
+
+  describe('getSameDayEventText()', () => {
+    it('should create same day event title within same period', () => {
+      const startHour = 10;
+      const endHour = 10;
+      const startMinutes = 15;
+      const endMinutes = 30;
+      const startPeriod = ' AM';
+      const endPeriod = ' AM';
+      const monthName = 'Jun';
+      const weekDay = 'Sun';
+      const startTime = `${startHour}:${startMinutes}`;
+      const endTime = `${endHour}:${endMinutes}`;
+      const startEvent = {
+        year,
+        month,
+        day,
+        hour: startHour,
+        minutes: startMinutes,
+        monthName,
+        formattedFullTime: `${startTime} ${startPeriod}`,
+        time: `${startTime}`,
+        period: startPeriod,
+        weekDay,
+      };
+      const endEvent = {
+        year,
+        month,
+        day,
+        hour: endHour,
+        minutes: endMinutes,
+        monthName,
+        formattedFullTime: `${endTime} ${endPeriod}`,
+        time: `${endTime}`,
+        period: endPeriod,
+        weekDay,
+      };
+      const sameDayEventText = getSameDayEventText(startEvent, endEvent);
+      expect(sameDayEventText).toStrictEqual({
+        date: `${weekDay}, ${monthName} ${day}`,
+        time: `${startTime} ${dashSeparator} ${endTime}${endPeriod}`,
+      });
     });
   });
 });
