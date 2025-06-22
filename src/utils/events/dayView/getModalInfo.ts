@@ -78,15 +78,15 @@ export const getSameDayEventText = (
   };
 };
 
-const getMultiDayEventText = (
+export const getMultiDayEventText = (
   startEvent: EventDetailsView,
   endEvent: EventDetailsView,
 ) => {
+  const getText = (event: EventDetailsView, yearUpdated: string) =>
+    `${event.monthName} ${event.day}, ${yearUpdated}${event.time}${event.period}`;
   const isSameYearEvent = startEvent.year === endEvent.year;
   const startYearUpdated = !isSameYearEvent ? `${startEvent.year}, ` : '';
   const endYearUpdated = !isSameYearEvent ? `${endEvent.year}, ` : '';
-  const getText = (event: EventDetailsView, yearUpdated: string) =>
-    `${event.monthName} ${event.day}, ${yearUpdated}${event.time}${event.period}`;
   const startText = getText(startEvent, startYearUpdated);
   const endText = getText(endEvent, endYearUpdated);
   return { initialDateText: startText, endDateText: endText };

@@ -1,6 +1,5 @@
 import { Months } from '../../../types/calendar/enums';
 import { EventDetailsView } from '../../../types/event';
-import { getMonthName } from '../../calendar/utils';
 import { dashSeparator } from '../../constants';
 import {
   createEventTitle,
@@ -168,7 +167,7 @@ describe('getModalInfo', () => {
   });
 
   describe('getMultiDayEventText', () => {
-    it('should create multi day event text within same period and year', () => {
+    it('should create multi day event text within different periods and same year', () => {
       const startMonth = Months.JULY;
       const endMonth = Months.AUGUST;
       const startMonthName = 'Jul';
@@ -209,6 +208,51 @@ describe('getModalInfo', () => {
       expect(multiDayEventText).toStrictEqual({
         initialDateText: `${startMonthName} ${day}, ${startTime}${startPeriod}`,
         endDateText: `${endMonthName} ${day}, ${endTime}${endPeriod}`,
+      });
+    });
+    it('should create multi day event text within different periods and different years', () => {
+      const startYear = 2030;
+      const endYear = 2031;
+      const startMonth = Months.JULY;
+      const endMonth = Months.AUGUST;
+      const startMonthName = 'Jul';
+      const endMonthName = 'Aug';
+      const startHour = 1;
+      const endHour = 12;
+      const startMinutes = 2;
+      const endMinutes = 13;
+      const startPeriod = ' AM';
+      const endPeriod = ' PM';
+      const startTime = `${startHour}:${startMinutes}`;
+      const endTime = `${endHour}:${endMinutes}`;
+      const startEvent: EventDetailsView = {
+        year: startYear,
+        month: startMonth,
+        day,
+        hour: startHour,
+        minutes: startMinutes,
+        monthName: startMonthName,
+        formattedFullTime: `${startTime} ${startPeriod}`,
+        time: `${startTime}`,
+        period: startPeriod,
+        weekDay,
+      };
+      const endEvent: EventDetailsView = {
+        year: endYear,
+        month: endMonth,
+        day,
+        hour: endHour,
+        minutes: endMinutes,
+        monthName: endMonthName,
+        formattedFullTime: `${endTime} ${endPeriod}`,
+        time: `${endTime}`,
+        period: endPeriod,
+        weekDay,
+      };
+      const multiDayEventText = getMultiDayEventText(startEvent, endEvent);
+      expect(multiDayEventText).toStrictEqual({
+        initialDateText: `${startMonthName} ${day}, ${startYear}, ${startTime}${startPeriod}`,
+        endDateText: `${endMonthName} ${day}, ${endYear}, ${endTime}${endPeriod}`,
       });
     });
   });
