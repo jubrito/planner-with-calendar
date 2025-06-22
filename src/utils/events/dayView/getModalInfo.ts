@@ -7,6 +7,7 @@ import {
   getTimeInformation,
 } from '../../calendar/utils';
 import { getWeekDayName } from '../../calendar/weeks';
+import { isValidDate } from '../../checkers';
 import {
   dashSeparator,
   IntlDateTimeFormat2Digit,
@@ -106,6 +107,11 @@ export const getModalContent = (
   locale: LocaleLanguage,
 ) => {
   const deserializedStartDate = new Date(startDate);
+
+  if (isValidDate(new Date(startDate)) || isValidDate(new Date(endDate))) {
+    throw new Error('Failed to get modal content, date is invalid');
+  }
+
   const deserializedEndDate = new Date(endDate);
   const startEvent = getEventInfo(deserializedStartDate, locale);
   const endEvent = getEventInfo(deserializedEndDate, locale);
