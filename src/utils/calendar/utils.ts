@@ -79,7 +79,7 @@ export const get2DigitsValue = (
   value: number | string,
   zeroPosition: ZeroPosition = startLabel,
 ) => {
-  const initialValue = value.toString();
+  const initialValue = value?.toString() ?? '';
   const zero = '0';
   if (zeroPosition === startLabel) return initialValue.padStart(2, zero);
   return initialValue.padEnd(2, zero);
@@ -207,9 +207,14 @@ export const getTimeInformation = (formattedFullTime: string) => {
     const [time, period] = formattedFullTime.split(' ');
     const [hour, minutes] = time.split(':');
     const periodWithSpaceBef = ' ' + period;
-    return [get2DigitsValue(time), periodWithSpaceBef, hour, minutes];
+    return [
+      get2DigitsValue(time),
+      periodWithSpaceBef,
+      hour,
+      get2DigitsValue(minutes),
+    ];
   }
   const [hour, minutes] = formattedFullTime.split(':');
   const noPeriod = '';
-  return [formattedFullTime, noPeriod, hour, minutes];
+  return [formattedFullTime, noPeriod, hour, get2DigitsValue(minutes)];
 };
