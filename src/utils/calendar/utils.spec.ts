@@ -57,7 +57,6 @@ describe('utils', () => {
       const formattedDate = new Intl.DateTimeFormat(localePortuguese, {
         dateStyle: IntlDateTimeFormatFull,
       }).format(date);
-      console.log(getDateISOString(date));
       const fullDateTitle = getFullDateTitle(
         year,
         month,

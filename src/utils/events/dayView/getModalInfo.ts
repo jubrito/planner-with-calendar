@@ -107,9 +107,6 @@ export const getEventModalContent = (
   endDate: EventOnCreate['end']['date'],
   locale: LocaleLanguage,
 ) => {
-  console.log({ startDate, endDate });
-  // console.log('date instanceof Date', new Date(endDate) instanceof Date);
-  // console.log('date.getTime()', new Date(endDate).getTime());
   if (!isValidDate(new Date(startDate)) || !isValidDate(new Date(endDate))) {
     throw new Error('Failed to get modal content, date is invalid');
   }

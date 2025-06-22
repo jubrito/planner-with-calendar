@@ -18,12 +18,6 @@ describe('CurrentTime', () => {
     observe: () => null,
   });
   const initialIntersectionObserver = window.IntersectionObserver;
-  // console.log('hour', hour);
-  // console.log('minutes', minutes);
-  // console.log(
-  //   'new Date(year, month, day, hour, minutes)',
-  //   new Date(year, month, day, hour, minutes),
-  // );
   beforeEach(() => {
     jest.useFakeTimers();
     jest.setSystemTime(new Date(year, month, day, hour, minutes));
