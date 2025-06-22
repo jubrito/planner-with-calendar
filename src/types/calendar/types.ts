@@ -41,3 +41,15 @@ export type IntlDateTypeMonthStyle =
   | undefined;
 
 export type ZeroPosition = typeof startLabel | typeof endLabel;
+
+export type EventModalContentBlock = {
+  start: string;
+  end: string;
+  title: string;
+};
+
+export type EventModalContent = {
+  isSameDayEvent: boolean;
+  multiDay?: EventModalContentBlock;
+  sameDay?: EventModalContentBlock;
+};
