@@ -396,7 +396,32 @@ describe('getModalInfo', () => {
       });
     });
 
-    it('should return event modal full content when it is multi day event', () => {
+    it('should return event modal full same day content and same day as true when it is same day event', () => {
+      const startHour = 11;
+      const endHour = 1;
+      const startMinutes = 45;
+      const endMinutes = 0;
+      const startDate = getDateISOString(
+        new Date(year, month, day, startHour, startMinutes),
+      );
+      const endDate = getDateISOString(
+        new Date(year, month, day, endHour, endMinutes),
+      );
+      const eventModalContent = getEventModalContent(
+        startDate,
+        endDate,
+        localeEnglish,
+      );
+      expect(eventModalContent).toStrictEqual({
+        isSameDayEvent: true,
+        sameDay: {
+          start: 'Sun, Jun 29',
+          end: `11:45 ${dashSeparator} 01:00 AM`,
+          title: `Event on Sun, Jun 29 11:45 ${dashSeparator} 01:00 AM`,
+        },
+      });
+    });
+    it('should return event modal full multi content and same day as false when it is multi day event', () => {
       const startYear = 2025;
       const endYear = 2026;
       const startMonth = Months.DECEMBER;
