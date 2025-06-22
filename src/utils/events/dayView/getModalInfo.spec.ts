@@ -284,7 +284,34 @@ describe('getModalInfo', () => {
         period: 'b',
         weekDay: 'b',
       };
-      expect(isSameDayEvent(eventA, eventB));
+      expect(isSameDayEvent(eventA, eventB)).toBe(true);
+    });
+    it('should return false if events have same day and month but not year', () => {
+      const eventA: EventDetailsView = {
+        day,
+        monthName,
+        year: year + 1,
+        month: Months.JANUARY,
+        hour: 0,
+        minutes: 1,
+        formattedFullTime: 'a',
+        time: 'a',
+        period: 'a',
+        weekDay: 'a',
+      };
+      const eventB: EventDetailsView = {
+        day,
+        monthName,
+        year,
+        month: Months.JANUARY,
+        hour: 2,
+        minutes: 3,
+        formattedFullTime: 'b',
+        time: 'b',
+        period: 'b',
+        weekDay: 'b',
+      };
+      expect(isSameDayEvent(eventA, eventB)).toBe(false);
     });
   });
 });
