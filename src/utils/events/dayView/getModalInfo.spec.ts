@@ -1,6 +1,6 @@
 import { Months } from '../../../types/calendar/enums';
 import { EventDetailsView } from '../../../types/event';
-import { getFormattedDateString } from '../../calendar/utils';
+import { getDateISOString, getFormattedDateString } from '../../calendar/utils';
 import { dashSeparator } from '../../constants';
 import {
   createEventTitle,
@@ -371,7 +371,7 @@ describe('getModalInfo', () => {
     });
   });
 
-  describe('getModalContent()', () => {
+  describe('getEventModalContent()', () => {
     const localeEnglish = 'en-US';
     describe('When date is invalid', () => {
       const dateIsInvalidErrorMsg =
@@ -396,6 +396,36 @@ describe('getModalInfo', () => {
       });
     });
 
-    it('should return modal cont');
+    it('should return event modal full content when it is multi day event', () => {
+      const startYear = 2025;
+      const endYear = 2026;
+      const startMonth = Months.DECEMBER;
+      const endMonth = Months.JANUARY;
+      const startDay = 31;
+      const endDay = 1;
+      const startHour = 11;
+      const endHour = 1;
+      const startMinutes = 45;
+      const endMinutes = 0;
+      const startDate = getDateISOString(
+        new Date(startYear, startMonth, startDay, startHour, startMinutes),
+      );
+      const endDate = getDateISOString(
+        new Date(endYear, endMonth, endDay, endHour, endMinutes),
+      );
+      const eventModalContent = getEventModalContent(
+        startDate,
+        endDate,
+        localeEnglish,
+      );
+      expect(eventModalContent).toStrictEqual({
+        isSameDayEvent: false,
+        multiDay: {
+          end: `Jan 1, 2026, 01:00 AM`,
+          start: 'Dec 31, 2025, 11:45 AM',
+          title: 'Event from Dec 31, 2025, 11:45 AM to Jan 1, 2026, 01:00 AM',
+        },
+      });
+    });
   });
 });
