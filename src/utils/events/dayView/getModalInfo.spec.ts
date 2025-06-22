@@ -1,10 +1,12 @@
 import { Months } from '../../../types/calendar/enums';
 import { EventDetailsView } from '../../../types/event';
+import { getFormattedDateString } from '../../calendar/utils';
 import { dashSeparator } from '../../constants';
 import {
   createEventTitle,
   getEventInfo,
   getEventTitle,
+  getModalContent,
   getMultiDayEventText,
   getSameDayEventText,
   isSameDayEvent,
@@ -366,6 +368,21 @@ describe('getModalInfo', () => {
         weekDay: 'b',
       };
       expect(isSameDayEvent(eventA, eventB)).toBe(false);
+    });
+  });
+
+  describe('getModalContent()', () => {
+    const localeEnglish = 'en-US';
+    describe('When date is invalid', () => {
+      it('should throw error if start date is not a valid date', () => {
+        expect(() =>
+          getModalContent(
+            'invalid',
+            getFormattedDateString(localeEnglish, new Date()),
+            localeEnglish,
+          ),
+        ).toThrow('Failed to get modal content, date is invalid');
+      });
     });
   });
 });
