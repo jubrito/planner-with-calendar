@@ -374,14 +374,25 @@ describe('getModalInfo', () => {
   describe('getModalContent()', () => {
     const localeEnglish = 'en-US';
     describe('When date is invalid', () => {
+      const dateIsInvalidErrorMsg =
+        'Failed to get modal content, date is invalid';
       it('should throw error if start date is not a valid date', () => {
         expect(() =>
           getModalContent(
-            'invalid',
+            'invalid start date',
             getFormattedDateString(localeEnglish, new Date()),
             localeEnglish,
           ),
-        ).toThrow('Failed to get modal content, date is invalid');
+        ).toThrow(dateIsInvalidErrorMsg);
+      });
+      it('should throw error if end date is not a valid date', () => {
+        expect(() =>
+          getModalContent(
+            getFormattedDateString(localeEnglish, new Date()),
+            'invalid end date',
+            localeEnglish,
+          ),
+        ).toThrow(dateIsInvalidErrorMsg);
       });
     });
   });
