@@ -25,7 +25,10 @@ export const getEventTitle = (
   }),
 });
 
-const getEventInfo = (date: Date, locale: LocaleLanguage): EventDetailsView => {
+export const getEventInfo = (
+  date: Date,
+  locale: LocaleLanguage,
+): EventDetailsView => {
   const year = date.getFullYear();
   const month = getMonthIndex(locale, date);
   const day = date.getDate();
