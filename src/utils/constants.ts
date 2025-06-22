@@ -8,3 +8,4 @@ export const startLabel = 'start';
 export const endLabel = 'end';
 export const spacingTopClickablePlannerArea = 11; // must be the same as the scss variables.$spacing-top-clickable-planner-area
 export const enterKey = 'Enter';
+export const dashSeparator = '–';
