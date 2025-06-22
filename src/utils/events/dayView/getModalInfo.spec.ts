@@ -313,5 +313,32 @@ describe('getModalInfo', () => {
       };
       expect(isSameDayEvent(eventA, eventB)).toBe(false);
     });
+    it('should return true if events have same day and year but not month', () => {
+      const eventA: EventDetailsView = {
+        day,
+        monthName,
+        year,
+        month: Months.JANUARY,
+        hour: 0,
+        minutes: 1,
+        formattedFullTime: 'a',
+        time: 'a',
+        period: 'a',
+        weekDay: 'a',
+      };
+      const eventB: EventDetailsView = {
+        day,
+        monthName,
+        year,
+        month: Months.FEBRUARY,
+        hour: 2,
+        minutes: 3,
+        formattedFullTime: 'b',
+        time: 'b',
+        period: 'b',
+        weekDay: 'b',
+      };
+      expect(isSameDayEvent(eventA, eventB)).toBe(false);
+    });
   });
 });
