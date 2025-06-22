@@ -1,5 +1,6 @@
 import {
   fifteenMinutes,
+  fifteenMinutesBlocks,
   numberOfHoursInADay,
   oneHourInMinutes,
   plannerContainerSize,
@@ -9,10 +10,10 @@ import {
 import { getEndBlock, getFifteenMinuteBlock, getStartBlock } from './getBlocks';
 
 describe('getBlocks', () => {
-  const firstBlock = 0;
-  const secondBlock = 1;
-  const thirdBlock = 2;
-  const lastBlock = 3;
+  const firstBlock = fifteenMinutesBlocks.first;
+  const secondBlock = fifteenMinutesBlocks.second;
+  const thirdBlock = fifteenMinutesBlocks.third;
+  const lastBlock = fifteenMinutesBlocks.last;
   const lastHourOfThePlanner = numberOfHoursInADay - 1; // 23
 
   describe('getFifteenMinuteBlock(rest)', () => {

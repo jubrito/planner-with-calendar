@@ -103,7 +103,7 @@ function constrainValueToRange(
  * fifteen minute block, which is the start of the next (so fifteenMinuteBlock + 1)
  *
  * * Minutes
- * The minute of the end should be the current minute + 15 minutes
+ * The actual minutes of the end of the event should be the current minute + 15 minutes
  * (as we only store values of 15 minutes)]
  *
  * Note: If minutes is "60" it means it is a whole hour, so minute and 15 min will be transformed into 00
