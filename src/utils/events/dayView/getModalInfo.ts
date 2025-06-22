@@ -12,7 +12,7 @@ import {
   IntlDateTimeFormatShort,
 } from '../../constants';
 
-const getEventTitle = (
+export const getEventTitle = (
   sameDayContent: { date: string; time: string },
   multiDayContent: { initialDate: string; endDate: string },
 ) => ({
