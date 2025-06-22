@@ -70,5 +70,9 @@ describe('getModalInfo', () => {
       const eventTitle = createEventTitle({ start: 'start', end: 'end' });
       expect(eventTitle).toBe('Event from start to end');
     });
+    it('should not add range to event title if same day content does not contain end', () => {
+      const eventTitle = createEventTitle({ start: 'start' });
+      expect(eventTitle).toBe('Event on start');
+    });
   });
 });
