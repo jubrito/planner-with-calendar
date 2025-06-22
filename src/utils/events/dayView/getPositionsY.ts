@@ -17,19 +17,28 @@ export const getMinimumEventFixedPositionY = (
 };
 
 /**
- * Function to get a fixed position of the event
+ * Considering we only allow creating events (through dragging withing the events container)
+ * by using periods of 15 minutes (starting in 0 min, 15 min, etc) this function enables
+ * retrieving this fixed position of the event (based on 15 min blocks) on the container.
  *
- * Instead of creating events with the exact position that was selected,
- * if endOrStartOf15MinBlock is start, it gets the beggining of the hour
- * based on the fifteenMinBlock
+ * The result combines the size of 15 min blocks in px with the number of 15 min blocks received
+ * and the size of hour pixel blocks in px with the number of hour blocks received
  *
- * Example: If hour is 0 and block is 1, and we want to get the relative fixed
- * position, we multiply the fifteenMinBlock (1) with the size of each 15 min block (12.5)
- * to get 12.5 (which is the start of the first block). So regardless of the relativeY,
- * we calculate the relative Y fixed position based on the block (which took relativeY
- * into consideration). If we want to calculate for the hour 1, we need to add the previous
- * hours heights (in this case hour 0), thus we add 'hour (1) * sizeOfAnHour (12.5 * 4)' on top
- * When we want to get the end of the fifteenMinBlock, we need to add another fifteenMinBlock
+ * When endOrStartOf15MinBlock is 'end', it creates 15 min events (as a default
+ * for when the user only clicks inside the container without dragging) by adding
+ * one 15 min block to the start position Y
+ *
+ * Example: If it is the first hour (0) with fifteen minutes (the 15 min block is 1),
+ * the relative position is the result of multiplying the fifteenMinBlock received (1)
+ * with the size of each 15 min block in px (result 12.5)
+ *
+ * For hours greater than one, we add to this value the container hours blocks in pixel
+ * based on how many hours have passed, i.e., the hours value (for hour 1, we add 1
+ * container hours block, for hour 2, we add 2 container hours blocks and so on).
+ *
+ * Since the 15 min block received was created based on the relative Y position and this
+ * function uses the 15 min block to calculate the result, this function
+ * don't have to directly use the relative Y position to know the end result
  *
  * @param block
  * @param endOrStartOf15MinBlock
@@ -46,9 +55,11 @@ export const getFixedRelativeY = (
   const sizeOfAnHour = fifteenMinBlocksInAHour * sizeOfEach15MinBlock;
   const startOfBlock =
     hour * sizeOfAnHour + fifteenMinBlock * sizeOfEach15MinBlock;
+  // creates 15 min events if user just clicked inside the container without dragging:
+  const endOfBlockWith15MinEventAsDefault = startOfBlock + sizeOfEach15MinBlock;
   const fixedRelativeY =
     endOrStartOf15MinBlock === 'start'
       ? startOfBlock
-      : startOfBlock + sizeOfEach15MinBlock;
+      : endOfBlockWith15MinEventAsDefault;
   return fixedRelativeY;
 };
