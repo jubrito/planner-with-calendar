@@ -13,6 +13,7 @@ import {
 } from '../../../../utils/constants';
 import {
   get2DigitsValue,
+  getFormattedDateString,
   getTimeInformation,
   is12HourClockSystem,
 } from '../../../../utils/calendar/utils';
@@ -55,9 +56,11 @@ const getHoursOfTheDay = (
 ) => {
   const hoursInADay = Array.from(Array(numberOfHoursInADay + 1).keys());
   return hoursInADay.map((hours) => {
-    const formattedHour = new Intl.DateTimeFormat(locale, {
+    const date = new Date(year, month, day, hours);
+    const formattedHour = getFormattedDateString(locale, date, {
       hour: IntlDateTimeFormatNumeric,
-    }).format(new Date(year, month, day, hours));
+    });
+
     const [time, period, hour] = getTimeInformation(formattedHour);
     if (is12HourClockSystem(formattedHour)) {
       return time + period;
