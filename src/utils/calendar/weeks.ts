@@ -4,7 +4,7 @@ import { IntlDateTimeFormatLong, IntlDateTimeFormatShort } from '../constants';
 import { makeFirstLetterUppercase } from '../utils';
 import { validateDateTimeFormatRequirements } from '../validations';
 import { numberOfDaysOfTheWeek } from './constants';
-import { getDayName } from './utils';
+import { getDayName, getFormattedDateString } from './utils';
 
 export const getWeekDaysNames = (locale: string) => {
   if (!isValidLocale(locale))
@@ -15,17 +15,13 @@ export const getWeekDaysNames = (locale: string) => {
   return [...Array(numberOfDaysOfTheWeek).keys()].map((dayOfWeek) => {
     const dayOneIndexed = dayOfWeek + 1;
     date.setDate(dayOneIndexed);
-    const long = new Intl.DateTimeFormat(locale, {
+    const long = getFormattedDateString(locale, date, {
       weekday: IntlDateTimeFormatLong,
-    }).format(date);
-    const short = new Intl.DateTimeFormat(locale, {
+    });
+    const short = getFormattedDateString(locale, date, {
       weekday: IntlDateTimeFormatShort,
-    }).format(date);
-    const initial = new Intl.DateTimeFormat(locale, {
-      weekday: IntlDateTimeFormatShort,
-    })
-      .format(date)
-      .charAt(0);
+    });
+    const initial = short.charAt(0);
 
     return {
       long: makeFirstLetterUppercase(long),
