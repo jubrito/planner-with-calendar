@@ -1,6 +1,9 @@
 import {
   fifteenMinBlocksInAHour,
   fifteenMinutesBlocks,
+  numberOfHoursInADay,
+  sizeOfEach15MinBlock,
+  sizeOfEachHourBlock,
 } from '../../calendar/constants';
 import { getFixedRelativeY } from './getPositionsY';
 
@@ -8,27 +11,47 @@ describe('getYPosition', () => {
   describe('getFixedRelativeY', () => {
     const start = 'start';
     const end = 'end';
+    const dayHours = Array.from(new Array(numberOfHoursInADay).keys()).map(
+      (hourZeroIndexed) => hourZeroIndexed + 1,
+    );
     describe('When it calculates the start position', () => {
       describe.each(Array.from(new Array(fifteenMinBlocksInAHour).keys()))(
         'calculates for each $fifteenMinBlock possible as we create events with a 15 min period',
-        (fifteenMinBlock) => {
+        (currentFifteenMinBlock) => {
           it('should get position Y using first hour', () => {
-            console.log('fifteenMinBlock', fifteenMinBlock);
             const positionY = getFixedRelativeY(
               {
                 hour: 0,
-                fifteenMinBlock: fifteenMinutesBlocks.first * fifteenMinBlock,
+                fifteenMinBlock:
+                  fifteenMinutesBlocks.first * currentFifteenMinBlock,
               },
               start,
             );
+            const sizeOf15MinBlocksResult =
+              fifteenMinutesBlocks.first * fifteenMinBlocksInAHour;
             expect(positionY).toBe(
-              fifteenMinutesBlocks.first *
-                fifteenMinBlocksInAHour *
-                fifteenMinBlock,
+              sizeOf15MinBlocksResult * currentFifteenMinBlock,
             );
           });
         },
       );
+      describe.each(dayHours)('calculate for each $dayHour', (dayHour) => {
+        it('should get position Y from hours greater than 1', () => {
+          const positionY = getFixedRelativeY(
+            {
+              hour: dayHour, // starts in 1
+              fifteenMinBlock: fifteenMinutesBlocks.second,
+            },
+            start,
+          );
+          const sizeOf15MinBlocksResult =
+            sizeOfEach15MinBlock * fifteenMinutesBlocks.second;
+          const sizeOfHourBlocksResult = dayHour * sizeOfEachHourBlock;
+          expect(positionY).toBe(
+            sizeOfHourBlocksResult + sizeOf15MinBlocksResult,
+          );
+        });
+      });
     });
   });
 });
