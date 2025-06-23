@@ -131,9 +131,9 @@ export const getDayOfWeek = (
   weekdayStyle?: IntlDateTypeWeekdayStyle,
 ) => {
   validateDateTimeFormatRequirements(date, locale, 'get day of the week');
-  const dayOfWeek = new Intl.DateTimeFormat(locale, {
+  const dayOfWeek = getFormattedDateString(locale, date, {
     weekday: weekdayStyle || IntlDateTimeFormatLong,
-  }).format(date);
+  });
   const dayOfWeekFirstLetterUpperCased = dayOfWeek.charAt(0).toUpperCase();
   return dayOfWeekFirstLetterUpperCased + dayOfWeek.slice(1);
 };
