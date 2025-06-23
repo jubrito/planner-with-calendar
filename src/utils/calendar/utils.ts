@@ -91,9 +91,9 @@ export const getMonthName = (
   monthStyle?: IntlDateTypeMonthStyle,
 ) => {
   validateDateTimeFormatRequirements(date, locale, 'get month name');
-  const monthName = new Intl.DateTimeFormat(locale, {
+  const monthName = getFormattedDateString(locale, date, {
     month: monthStyle || IntlDateTimeFormatLong,
-  }).format(date);
+  });
   const monthNameFirstLetterUpperCase = monthName.charAt(0).toUpperCase();
   return monthNameFirstLetterUpperCase + monthName.slice(1).replace('.', '');
 };
