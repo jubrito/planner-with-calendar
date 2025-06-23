@@ -55,7 +55,6 @@ export const getFixedRelativeY = (
   const sizeOfAnHour = fifteenMinBlocksInAHour * sizeOfEach15MinBlock;
   const startOfBlock =
     hour * sizeOfAnHour + fifteenMinBlock * sizeOfEach15MinBlock;
-  // creates 15 min events if user just clicked inside the container without dragging:
   const endOfBlockWith15MinEventAsDefault = startOfBlock + sizeOfEach15MinBlock;
   const fixedRelativeY =
     endOrStartOf15MinBlock === 'start'
