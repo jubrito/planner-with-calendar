@@ -68,10 +68,10 @@ export const getMonthIndex = (
     | typeof IntlDateTimeFormat2Digit,
 ) => {
   validateDateTimeFormatRequirements(date, locale, 'get month index');
-  const formattedDate = new Intl.DateTimeFormat(locale, {
+  const month = getFormattedDateString(locale, date, {
     month: monthStyle || IntlDateTimeFormatNumeric,
-  }).format(date);
-  const zeroBaseMonthNumber = parseInt(formattedDate) - 1;
+  });
+  const zeroBaseMonthNumber = parseInt(month) - 1;
   return zeroBaseMonthNumber;
 };
 
