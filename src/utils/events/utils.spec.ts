@@ -10,7 +10,7 @@ describe('utils', () => {
       );
     });
 
-    it('shold get formatted date in english when provided date is valid', () => {
+    it('should get formatted date in english when provided date is valid', () => {
       const id = formatDateIDFromDate(
         getFormattedDateString('en-US', new Date(2025, Months.DECEMBER, 11), {
           dateStyle: 'short',
