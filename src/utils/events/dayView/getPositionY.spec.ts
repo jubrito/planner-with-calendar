@@ -14,7 +14,7 @@ describe('getYPosition', () => {
     const dayHours = Array.from(new Array(numberOfHoursInADay).keys()).map(
       (hourZeroIndexed) => hourZeroIndexed + 1,
     );
-    describe('When it calculates the start position', () => {
+    describe("WHEN it calculates the 'start' position", () => {
       describe.each(Array.from(new Array(fifteenMinBlocksInAHour).keys()))(
         'calculates for each $fifteenMinBlock possible as we create events with a 15 min period',
         (currentFifteenMinBlock) => {
@@ -52,6 +52,28 @@ describe('getYPosition', () => {
           );
         });
       });
+    });
+    describe("WHEN it calculates the 'end' position", () => {
+      describe.each(Array.from(new Array(fifteenMinBlocksInAHour).keys()))(
+        'calculates for each $fifteenMinBlock possible as we create events with a 15 min period',
+        (currentFifteenMinBlock) => {
+          it('should get position Y using first hour', () => {
+            const positionY = getFixedRelativeY(
+              {
+                hour: 0,
+                fifteenMinBlock:
+                  fifteenMinutesBlocks.first * currentFifteenMinBlock,
+              },
+              end, // endOrStartOf15MinBlock
+            );
+            const sizeOf15MinBlocksResult =
+              fifteenMinutesBlocks.first * fifteenMinBlocksInAHour;
+            const resultForStart =
+              sizeOf15MinBlocksResult * currentFifteenMinBlock; // if endOrStartOf15MinBlock was 'start'
+            expect(positionY).toBe(resultForStart + sizeOfEach15MinBlock);
+          });
+        },
+      );
     });
   });
 });
