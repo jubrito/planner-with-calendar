@@ -41,4 +41,11 @@ describe('Calendar', () => {
       expect(screen.getByText(weekDay.short)).toBeInTheDocument();
     });
   });
+
+  it('should render weeks', () => {
+    const weekDays = getWeekDaysNames(englishLocale);
+    weekDays.forEach((weekDay) => {
+      expect(screen.getByText(weekDay.short)).toBeInTheDocument();
+    });
+  });
 });
