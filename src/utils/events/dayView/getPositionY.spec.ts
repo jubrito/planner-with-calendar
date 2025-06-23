@@ -74,6 +74,23 @@ describe('getYPosition', () => {
           });
         },
       );
+      describe.each(dayHours)('calculate for each $dayHour', (dayHour) => {
+        it('should get position Y from hours greater than 1', () => {
+          const positionY = getFixedRelativeY(
+            {
+              hour: dayHour, // starts in 1
+              fifteenMinBlock: fifteenMinutesBlocks.second,
+            },
+            end, // endOrStartOf15MinBlock
+          );
+          const sizeOf15MinBlocksResult =
+            sizeOfEach15MinBlock * fifteenMinutesBlocks.second;
+          const sizeOfHourBlocksResult = dayHour * sizeOfEachHourBlock;
+          const resultForStart =
+            sizeOfHourBlocksResult + sizeOf15MinBlocksResult; // if endOrStartOf15MinBlock was 'start'
+          expect(positionY).toBe(resultForStart + sizeOfEach15MinBlock);
+        });
+      });
     });
   });
 });
