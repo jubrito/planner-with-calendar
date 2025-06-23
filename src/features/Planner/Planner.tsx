@@ -34,7 +34,6 @@ const Planner = () => {
       </div>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <div className={styles.plannerHours}>
-          {/* <CurrentTime /> */}
           {isToday(locale, date) && <CurrentTime />}
           <HoursOfTheDay />
           <EventContainer />
