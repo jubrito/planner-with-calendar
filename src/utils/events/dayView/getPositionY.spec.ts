@@ -5,9 +5,30 @@ import {
   sizeOfEach15MinBlock,
   sizeOfEachHourBlock,
 } from '../../calendar/constants';
-import { getFixedRelativeY } from './getPositionsY';
+import {
+  getFixedRelativeY,
+  getMinimumEventFixedPositionY,
+} from './getPositionsY';
 
 describe('getYPosition', () => {
+  describe('getMinimumEventFixedPositionY()', () => {
+    it('should return event original height if event has the minimum height of 15 minutes', () => {
+      const startPositionY = 0;
+      const minimumY = startPositionY + sizeOfEach15MinBlock;
+      expect(
+        getMinimumEventFixedPositionY(startPositionY, startPositionY),
+      ).toBe(minimumY);
+      expect(getMinimumEventFixedPositionY(startPositionY, 1)).toBe(minimumY);
+
+      expect(
+        getMinimumEventFixedPositionY(startPositionY, sizeOfEach15MinBlock - 1),
+      ).toBe(minimumY);
+      expect(
+        getMinimumEventFixedPositionY(startPositionY, sizeOfEach15MinBlock),
+      ).toBe(minimumY);
+    });
+  });
+
   describe('getFixedRelativeY', () => {
     const start = 'start';
     const end = 'end';
