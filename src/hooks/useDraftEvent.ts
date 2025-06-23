@@ -7,6 +7,7 @@ import { getDateISOString } from '../utils/calendar/utils';
 import { DateConfig } from '../types/calendar/types';
 import { getFixedRelativeY } from '../utils/events/dayView/getPositionsY';
 import { defaultEventTitle } from '../utils/events/dayView/constants';
+import { startLabel } from '../utils/constants';
 
 export const useEvent = (
   year: DateConfig['year'],
@@ -19,7 +20,7 @@ export const useEvent = (
     (relativeY: number) => {
       const startBlock = getStartBlock(relativeY);
       const endBlock = getEndBlock(startBlock);
-      const fixedHourAnd15MinBlock = getFixedRelativeY(startBlock, 'start');
+      const fixedHourAnd15MinBlock = getFixedRelativeY(startBlock, startLabel);
       const startDate = new Date(
         year,
         month,
