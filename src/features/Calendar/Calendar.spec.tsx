@@ -48,4 +48,12 @@ describe('Calendar', () => {
       expect(screen.getByText(weekDay.short)).toBeInTheDocument();
     });
   });
+
+  it('should render calendar actions', () => {
+    expect(screen.getByText('Go to previous year')).toBeInTheDocument();
+    expect(screen.getByText('Go to previous month')).toBeInTheDocument();
+    expect(screen.getByText('Today'));
+    expect(screen.getByText('Go to next month')).toBeInTheDocument();
+    expect(screen.getByText('Go to next year')).toBeInTheDocument();
+  });
 });
