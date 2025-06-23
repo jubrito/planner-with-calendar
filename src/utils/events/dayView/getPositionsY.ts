@@ -2,6 +2,7 @@ import {
   fifteenMinBlocksInAHour,
   sizeOfEach15MinBlock,
 } from '../../calendar/constants';
+import { endLabel, startLabel } from '../../constants';
 
 export const getMinimumEventFixedPositionY = (
   startFixedPositionY: number,
@@ -49,7 +50,7 @@ export const getFixedRelativeY = (
     hour: number;
     fifteenMinBlock: number;
   },
-  endOrStartOf15MinBlock: 'start' | 'end',
+  endOrStartOf15MinBlock: typeof startLabel | typeof endLabel,
 ) => {
   const { fifteenMinBlock, hour } = block;
   const sizeOfAnHour = fifteenMinBlocksInAHour * sizeOfEach15MinBlock;
@@ -57,7 +58,7 @@ export const getFixedRelativeY = (
     hour * sizeOfAnHour + fifteenMinBlock * sizeOfEach15MinBlock;
   const endOfBlockWith15MinEventAsDefault = startOfBlock + sizeOfEach15MinBlock;
   const fixedRelativeY =
-    endOrStartOf15MinBlock === 'start'
+    endOrStartOf15MinBlock === startLabel
       ? startOfBlock
       : endOfBlockWith15MinEventAsDefault;
   return fixedRelativeY;

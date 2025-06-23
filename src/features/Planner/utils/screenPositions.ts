@@ -1,5 +1,6 @@
 import { EventStored } from '../../../types/event';
 import { oneHourInMinutes } from '../../../utils/calendar/constants';
+import { endLabel, startLabel } from '../../../utils/constants';
 import { getFifteenMinuteBlock } from '../../../utils/events/dayView/getBlocks';
 import {
   getFixedRelativeY,
@@ -10,12 +11,10 @@ export const calculateYPosition = (
   startDate: EventStored['startDate'],
   endDate: EventStored['endDate'],
 ) => {
-
   const startDateHours = new Date(startDate).getHours();
   const endDateMinutes = new Date(endDate).getMinutes();
   let endDateHours = new Date(endDate).getHours();
-  const isMidnightFromNextDay =
-    endDateHours === 0 && endDateMinutes === 0;
+  const isMidnightFromNextDay = endDateHours === 0 && endDateMinutes === 0;
   const midnightFromNextDay = 24;
   endDateHours = isMidnightFromNextDay ? midnightFromNextDay : endDateHours;
   const startDateMinutes = new Date(startDate).getMinutes();
@@ -36,8 +35,8 @@ export const calculateYPosition = (
     minutes: endDateMinutes,
     fifteenMinBlock: zeroIndexedEnd15MinBlock,
   };
-  const startY = getFixedRelativeY(startBlock, 'start');
-  const endY = getFixedRelativeY(endBlock, 'end');
+  const startY = getFixedRelativeY(startBlock, startLabel);
+  const endY = getFixedRelativeY(endBlock, endLabel);
   const minimumEndY = getMinimumEventFixedPositionY(startY, endY);
   return { startY, endY: minimumEndY };
 };
