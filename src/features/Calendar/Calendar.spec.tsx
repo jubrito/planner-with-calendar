@@ -32,9 +32,13 @@ describe('Calendar', () => {
 
   it('should render calendar header', () => {
     const currentMonthName = getMonthName(englishLocale, date);
+    const weekDays = getWeekDaysNames(englishLocale);
 
     expect(
       screen.getByText(`${currentMonthName}, ${year}`),
     ).toBeInTheDocument();
+    weekDays.forEach((weekDay) => {
+      expect(screen.getByText(weekDay.short)).toBeInTheDocument();
+    });
   });
 });
