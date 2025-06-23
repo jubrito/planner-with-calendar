@@ -1,27 +1,6 @@
 # Next steps (v1):
 
-- test all utility functions
 - make validateDateTimeFormatRequirements generic?
-- replace 'start' and 'end' with new const everywhere
-- replace new Intl with formatted function everywhere
-
-Tests
-
-- utils
-
-  - calendar
-    - [x] utils
-    - [x] weeks
-  - events
-    - [ ] utils
-    - dayview
-      - [x] get blocks
-      - [x] get modal info
-      - [x] get position Y
-    - [x] calculateYPosition
-
-- calculateYPosition
-  add this line: `endDateHours = endDateHours === 0 ? 24 : endDateHours;`and create test to see if it s calculating correctly
 
 Refactor
 
@@ -67,6 +46,7 @@ Features
 
   > create selectors for initial or current based on received props key
   > event validation (isValidEvent) + test
+  > improve error handling
 
 - Web Hosting
 
