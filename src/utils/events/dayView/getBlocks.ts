@@ -85,9 +85,9 @@ export function constrainValueToRange(
   minimum: number,
   maximum: number,
 ) {
-  const isNegative = initialValue < minimum;
+  const isNotEnough = initialValue < minimum;
   const exceedsMaximum = initialValue > maximum;
-  if (isNegative) return minimum;
+  if (isNotEnough) return minimum;
   if (exceedsMaximum) return maximum;
   return initialValue;
 }
