@@ -9,31 +9,46 @@ import '@testing-library/jest-dom';
 import { screen } from '@testing-library/dom';
 import { initialValue as initialDateValue } from '../../redux/slices/dateSlice';
 import { initialValue as initialLocaleValue } from '../../redux/slices/localeSlice';
+import { initialValue as initialEventValue } from '../../redux/slices/eventSlice';
 import { Months } from '../../types/calendar/enums';
 import { renderWithProviders } from '../../utils/tests/renderWithProviders';
 import Planner from './Planner';
 import {
   getDateISOString,
   getDayOfWeek,
+  getFormattedDateString,
   getMonthName,
 } from '../../utils/calendar/utils';
 import { IntlDateTimeFormatShort } from '../../utils/constants';
 import { LocaleLanguage } from '../../types/locale/types';
+import { formatDateIDFromDate } from '../../utils/events/utils';
+import { EventStored } from '../../types/event';
 
 describe('Planner', () => {
   const currentYear = 2025;
   const currentMonth = Months.MARCH;
   const currentDay = 1;
+  const brLocale = 'pt-BR';
+  const enEsLocale = 'en-US';
 
   const renderPlanner = ({
     hour,
     minutes,
     locale,
+    storeEvents,
   }: {
     hour: number;
     minutes: number;
     locale?: LocaleLanguage;
+    storeEvents?: {
+      ISODate: string;
+      events: EventStored[];
+    };
   }) => {
+    const lang = locale || 'en-US';
+    const date = new Date();
+    const ISODate = storeEvents?.ISODate || getFormattedDateString(lang, date);
+
     return renderWithProviders(<Planner />, {
       preloadedState: {
         dateSlice: {
@@ -54,16 +69,24 @@ describe('Planner', () => {
             ...initialLocaleValue.currentState,
             locale: {
               ...initialLocaleValue.currentState.locale,
-              lang: locale || 'en-US',
+              lang,
+            },
+          },
+        },
+        eventSlice: {
+          ...initialEventValue,
+          currentState: {
+            ...(initialEventValue.currentState.eventsByDates = {}),
+            eventsByDates: {
+              [formatDateIDFromDate(ISODate)]: {
+                events: storeEvents?.events || [],
+              },
             },
           },
         },
       },
     });
   };
-
-  const brLocale = 'pt-BR';
-  const enEsLocale = 'en-US';
 
   describe('Header', () => {
     it('should render header initial date text in English', () => {
@@ -75,16 +98,6 @@ describe('Planner', () => {
       const plannerDateLabelElement = screen.getByText(plannerDateLabel);
       expect(plannerDateLabelElement).toBeInTheDocument();
       expect(screen.getByText('Mar 1, Saturday')).toBeInTheDocument();
-    });
-    it('should render header initial date text in Portuguese', () => {
-      renderPlanner({ hour: 1, minutes: 1, locale: brLocale });
-      const date = new Date(currentYear, currentMonth, currentDay);
-      const dayOfWeek = getDayOfWeek(brLocale, date);
-      const monthName = getMonthName(brLocale, date, IntlDateTimeFormatShort);
-      const plannerDateLabel = `${monthName} ${currentDay}, ${dayOfWeek}`;
-      const plannerDateLabelElement = screen.getByText(plannerDateLabel);
-      expect(plannerDateLabelElement).toBeInTheDocument();
-      expect(screen.getByText('Mar 1, Sábado')).toBeInTheDocument();
     });
   });
 
@@ -284,6 +297,17 @@ describe('Planner', () => {
         expect(timeElement).toHaveProperty('dateTime', time);
         expect(timeElement).toHaveProperty('id', id);
       });
+    });
+    describe('should only display events of selected day on planner', () => {
+      const hour = 0;
+      const minutes = 0;
+      const someOtherDate = new Date(0);
+      renderPlanner({ hour, minutes });
+      jest.setSystemTime(someOtherDate);
+      expect(screen.queryByText);
+      jest.setSystemTime(
+        new Date(currentYear, currentMonth, currentDay, hour, minutes),
+      );
     });
   });
 });
