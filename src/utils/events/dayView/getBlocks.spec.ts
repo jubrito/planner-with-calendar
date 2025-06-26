@@ -412,6 +412,17 @@ describe('getBlocks', () => {
         );
         expect(constrained).toBe(maximum);
       });
+      it('should return initial value if it is between minimum and maximum', () => {
+        const initialValue = 11;
+        const minimum = 0;
+        const maximum = 12;
+        const constrained = constrainValueToRange(
+          initialValue,
+          minimum,
+          maximum,
+        );
+        expect(constrained).toBe(initialValue);
+      });
     });
   });
 });
