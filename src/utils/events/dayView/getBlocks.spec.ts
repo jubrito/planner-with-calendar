@@ -401,6 +401,17 @@ describe('getBlocks', () => {
         );
         expect(constrained).toBe(minimum);
       });
+      it('should return maximum if value is greater than maximum', () => {
+        const initialValue = 11;
+        const minimum = 10;
+        const maximum = 10;
+        const constrained = constrainValueToRange(
+          initialValue,
+          minimum,
+          maximum,
+        );
+        expect(constrained).toBe(maximum);
+      });
     });
   });
 });
