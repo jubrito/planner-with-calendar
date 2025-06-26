@@ -2,8 +2,6 @@
 
 Features
 
-- create banner that disappears if fails to create event (e.g., event.start is undefined)
-  - don't run event component
 - Add all day events to planner top
 - Edit event
 - Create event button on planner for accessibility
@@ -41,6 +39,7 @@ Features
   > create selectors for initial or current based on received props key
   > event validation (isValidEvent) + test
   > improve error handling
+  > create banner that disappears if fails to create event (e.g., event.start is undefined) and don't run event component
 
 - Web Hosting
 
