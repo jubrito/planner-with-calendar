@@ -1,11 +1,5 @@
 # Next steps (v1):
 
-- make validateDateTimeFormatRequirements generic?
-
-Refactor
-
-- Move constrainValueToRange to utils and test i
-
 Features
 
 - create banner that disappears if fails to create event (e.g., event.start is undefined)
