@@ -80,7 +80,7 @@ export function getStartBlock(relativeY: number): EventBlock {
   };
 }
 
-function constrainValueToRange(
+export function constrainValueToRange(
   initialValue: number,
   minimum: number,
   maximum: number,

@@ -7,7 +7,12 @@ import {
   sizeOfEach15MinBlock,
   sizeOfEachHourBlock,
 } from '../../calendar/constants';
-import { getEndBlock, getFifteenMinuteBlock, getStartBlock } from './getBlocks';
+import {
+  constrainValueToRange,
+  getEndBlock,
+  getFifteenMinuteBlock,
+  getStartBlock,
+} from './getBlocks';
 
 describe('getBlocks', () => {
   const firstBlock = fifteenMinutesBlocks.first;
@@ -381,6 +386,20 @@ describe('getBlocks', () => {
           minutes: 0,
           fifteenMinBlock: firstBlock,
         });
+      });
+    });
+
+    describe('constrainValueToRange()', () => {
+      it('should return minimum if value is smaller than minimum', () => {
+        const initialValue = 11;
+        const minimum = 12;
+        const maximum = 12;
+        const constrained = constrainValueToRange(
+          initialValue,
+          minimum,
+          maximum,
+        );
+        expect(constrained).toBe(minimum);
       });
     });
   });
