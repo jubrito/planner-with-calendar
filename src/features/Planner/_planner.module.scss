@@ -20,21 +20,6 @@
     margin: 0;
   }
 
-  .plannerHeader {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    .plannerHeaderLabel {
-      $height: 40px;
-      margin: 0;
-      line-height: $height;
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: variables.$inner-spacing;
-    }
-  }
-
   .plannerHours {
     display: flex;
     flex-direction: row;
