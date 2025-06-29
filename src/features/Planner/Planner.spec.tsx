@@ -46,7 +46,7 @@ describe('Planner', () => {
       events: EventStored[];
     };
   }) => {
-    const lang = locale || 'en-US';
+    const lang = locale || enEsLocale;
     const date = new Date();
     const ISODate = storeEvents?.ISODate || getFormattedDateString(lang, date);
 
