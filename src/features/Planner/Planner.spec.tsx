@@ -6,7 +6,7 @@ global.IntersectionObserver = jest.fn().mockImplementation(() => ({
 }));
 
 import '@testing-library/jest-dom';
-import { screen } from '@testing-library/dom';
+import { screen, waitFor } from '@testing-library/dom';
 import { initialValue as initialDateValue } from '../../redux/slices/dateSlice';
 import { initialValue as initialLocaleValue } from '../../redux/slices/localeSlice';
 import { initialValue as initialEventValue } from '../../redux/slices/eventSlice';
@@ -23,10 +23,11 @@ import { IntlDateTimeFormatShort } from '../../utils/constants';
 import { LocaleLanguage } from '../../types/locale/types';
 import { formatDateIDFromDate } from '../../utils/events/utils';
 import { EventStored } from '../../types/event';
+import userEvent from '@testing-library/user-event';
 
 describe('Planner', () => {
   const currentYear = 2025;
-  const currentMonth = Months.MARCH;
+  const currentMonth = 2; // Months.MARCH
   const currentDay = 1;
   const brLocale = 'pt-BR';
   const enEsLocale = 'en-US';
@@ -76,7 +77,7 @@ describe('Planner', () => {
         eventSlice: {
           ...initialEventValue,
           currentState: {
-            ...(initialEventValue.currentState.eventsByDates = {}),
+            ...initialEventValue.currentState,
             eventsByDates: {
               [formatDateIDFromDate(ISODate)]: {
                 events: storeEvents?.events || [],
@@ -298,16 +299,93 @@ describe('Planner', () => {
         expect(timeElement).toHaveProperty('id', id);
       });
     });
-    describe('should only display events of selected day on planner', () => {
+  });
+
+  describe('Interaction between planner and calendar', () => {
+    it('should only display events of selected day on planner', async () => {
       const hour = 0;
       const minutes = 0;
-      const someOtherDate = new Date(0);
-      renderPlanner({ hour, minutes });
-      jest.setSystemTime(someOtherDate);
-      expect(screen.queryByText);
-      jest.setSystemTime(
-        new Date(currentYear, currentMonth, currentDay, hour, minutes),
+      const month = Months.DECEMBER;
+      const someOtherYear = currentYear - 1;
+      const someOtherMonth = currentMonth - 1;
+      const someOtherDay = currentDay - 1;
+      const plannerDate = new Date(currentYear, month, currentDay);
+      const events: EventStored[] = [
+        {
+          id: 'id',
+          title: 'title',
+          startDate: getDateISOString(
+            new Date(currentYear, month, currentDay, 9),
+          ),
+          endDate: getDateISOString(
+            new Date(currentYear, month, currentDay, 10),
+          ),
+        },
+      ];
+      const { store, rerender } = renderPlanner({
+        hour,
+        minutes,
+        locale: enEsLocale,
+        storeEvents: {
+          ISODate: getDateISOString(plannerDate),
+          events,
+        },
+      });
+      const createEventButton = screen.getByTitle(
+        'Click, hold, and drag to create an event within 06 to 07 AM',
       );
+
+      // event don't exist
+      expect(
+        screen.queryByText('(No title)', { exact: false }),
+      ).not.toBeInTheDocument();
+
+      // creates event
+      userEvent.click(createEventButton);
+
+      await waitFor(() => {
+        // event is created
+        screen.debug();
+        expect(
+          screen.getByText('(No title)', { exact: false }),
+        ).toBeInTheDocument();
+      });
+
+      // Changes day view date to another day simulate changing the planner dates
+      store.dispatch({
+        type: 'dateSlice/updateDayViewISODate',
+        payload: {
+          year: someOtherYear,
+          month: someOtherMonth,
+          day: someOtherDay,
+        },
+      });
+
+      rerender(<Planner />);
+
+      // Event should not appear anymore
+      await waitFor(() => {
+        expect(
+          screen.queryByText('(No title)', { exact: false }),
+        ).not.toBeInTheDocument();
+      });
+
+      // Changes day view date back to the initial day (same day as the event)
+      store.dispatch({
+        type: 'dateSlice/updateDayViewISODate',
+        payload: {
+          year: currentYear,
+          month: currentMonth,
+          day: currentDay,
+        },
+      });
+
+      // Event should be displayed again
+      await waitFor(() => {
+        expect(
+          screen.getByText('(No title)', { exact: false }),
+        ).toBeInTheDocument();
+      });
     });
   });
 });
