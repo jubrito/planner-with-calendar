@@ -7,8 +7,9 @@ import {
 import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
 import { IntlDateTimeFormatShort } from '../../../../utils/constants';
 import styles from './_header.module.scss';
+import { memo } from 'react';
 
-export const Header = () => {
+export const Header = memo(() => {
   const locale = useSelector(getLocaleLanguage());
   const monthName = useSelector(
     getSelectedDayViewMonthName(locale, IntlDateTimeFormatShort),
@@ -17,11 +18,16 @@ export const Header = () => {
   const dayOfWeek = useSelector(getSelectedDayViewDayOfWeek(locale));
   const plannerDateLabel = `${monthName} ${day}, ${dayOfWeek}`;
 
+  function handleCreateEvent() {
+    alert('yes');
+  }
+
   return (
     <div className={styles.plannerHeader}>
       <h2 className={styles.plannerHeaderLabel} id="calendar-month-name">
         {plannerDateLabel}
       </h2>
+      <button onClick={handleCreateEvent}>Create event</button>
     </div>
   );
-};
+});
