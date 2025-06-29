@@ -59,4 +59,14 @@ describe('Header', () => {
     expect(plannerDateLabelElement).toBeInTheDocument();
     expect(screen.getByText('Dec 1, Monday')).toBeInTheDocument();
   });
+  it('should render header initial date text in Portuguese', () => {
+    renderHeader({ locale: brLocale });
+    const date = new Date(currentYear, currentMonth, currentDay);
+    const dayOfWeek = getDayOfWeek(brLocale, date);
+    const monthName = getMonthName(brLocale, date, IntlDateTimeFormatShort);
+    const plannerDateLabel = `${monthName} ${currentDay}, ${dayOfWeek}`;
+    const plannerDateLabelElement = screen.getByText(plannerDateLabel);
+    expect(plannerDateLabelElement).toBeInTheDocument();
+    expect(screen.getByText('Dez 1, Segunda-feira')).toBeInTheDocument();
+  });
 });
