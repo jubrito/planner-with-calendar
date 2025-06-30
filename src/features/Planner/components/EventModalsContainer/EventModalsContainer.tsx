@@ -15,10 +15,11 @@ export type CreateEventModalProps = {
 
 type EventModalsContainerProps = {
   viewEvent: ViewEventDetailsModalProps;
+  createEvent: CreateEventModalProps;
 };
 
 export const EventModalsContainer = memo(
-  ({ viewEvent }: EventModalsContainerProps) => {
+  ({ viewEvent, createEvent }: EventModalsContainerProps) => {
     const dispatch = useDispatch();
 
     const closeModal = useCallback(() => {
@@ -37,6 +38,10 @@ export const EventModalsContainer = memo(
           closeModal={closeModal}
           editModal={editModal}
           viewEventModalRef={viewEvent.modalRef}
+        />
+        <EventCreationModal
+          closeModal={closeModal}
+          createEventModalRef={createEvent.modalRef}
         />
       </>
     );
