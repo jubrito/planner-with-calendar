@@ -1,10 +1,14 @@
-import { useCallback, useRef, useEffect, RefObject } from 'react';
+import { useCallback, useRef, useEffect, RefObject, useMemo } from 'react';
 import styles from './events-container.module.scss';
 import { throttle } from 'throttle-debounce';
 import { useSelector } from 'react-redux';
 import { Event } from './Event/Event';
 import { useDispatch } from 'react-redux';
-import { EventModalsContainer } from '../EventModalsContainer/EventModalsContainer';
+import {
+  CreateEventModalProps,
+  EventModalsContainer,
+  ViewEventDetailsModalProps,
+} from '../EventModalsContainer/EventModalsContainer';
 import {
   getCurrentEventsOfSelectedDate,
   getCurrentSelectedDayViewEvent,
@@ -38,6 +42,9 @@ export const EventContainer = () => {
   const eventsOfSelectedDate = useSelector(
     getCurrentEventsOfSelectedDate(date),
   );
+  const viewEventModalRef: RefObject<HTMLDivElement | null> = useRef(null);
+  const createEventModalRef: RefObject<HTMLDivElement | null> = useRef(null);
+  const selectedEventRef: RefObject<HTMLDivElement | null> = useRef(null);
 
   const {
     draftEvent,
@@ -46,6 +53,21 @@ export const EventContainer = () => {
     clearDraftEvent,
     createEvent,
   } = useEvent(year, month, day);
+
+  const viewEventModalInfo: ViewEventDetailsModalProps = useMemo(
+    () => ({
+      modalRef: viewEventModalRef,
+      selectedEventRef: selectedEventRef,
+    }),
+    [],
+  );
+
+  const createEventModalInfo: CreateEventModalProps = useMemo(
+    () => ({
+      modalRef: createEventModalRef,
+    }),
+    [],
+  );
 
   const handleMouseDown = useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
@@ -94,8 +116,9 @@ export const EventContainer = () => {
     clearDraftEvent();
   }, [draftEvent, dispatch, clearDraftEvent, createEvent, date]);
 
-  const selectedEventRef: RefObject<HTMLDivElement | null> = useRef(null);
-  const viewEventModalRef: RefObject<HTMLDivElement | null> = useRef(null);
+  const handleMouseLeave = () => {
+    clearDraftEvent();
+  };
 
   const viewEventDetails = useCallback(
     (event: EventOnOpenDetails, eventRef: RefObject<HTMLDivElement | null>) => {
@@ -113,20 +136,6 @@ export const EventContainer = () => {
     [dispatch],
   );
 
-  const handleMouseLeave = () => {
-    clearDraftEvent();
-  };
-
-  const closeModal = useCallback(() => {
-    const eventRef = selectedEventRef.current;
-    if (eventRef != null) eventRef.focus();
-    dispatch(clearSelectedDayViewEvent());
-  }, [dispatch]);
-
-  const editModal = useCallback(() => {
-    alert('edit');
-  }, []);
-
   return (
     <div
       ref={containerRef}
@@ -138,9 +147,8 @@ export const EventContainer = () => {
     >
       {selectedDayViewEvent && selectedDayViewEvent.event && (
         <EventModalsContainer
-          closeModal={closeModal}
-          editModal={editModal}
-          viewEventModalRef={viewEventModalRef}
+          viewEvent={viewEventModalInfo}
+          createEvent={createEventModalInfo}
         />
       )}
       {draftEvent && isValidDraftEvent(draftEvent) && (
