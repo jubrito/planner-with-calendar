@@ -1,10 +1,33 @@
 # Next steps (v1):
 
+- Update top on Event Creation Modal (remove 200)
+
+- Rename selectedDayViewEvent redux variable to selectedEventOnViewDetails
+
+- Move focus handling to modal?
+
+- Replicate the behavior that exists on View Event Details modal on Create Event modal (e.g. changing focus) and test
+
 Features
 
+- Update where modal is created
+
+- Should open create event modal
+
+  - (should not open when clicking on event inside contianer)
+  - Create event button
+  - Creating events on calendar
+  - Editing event (inside event details modal)
+  - Test everything
+
+- Tests
+
+  - Events Container dont control modal things
+  - EventCreationModal
+  - EventModalsContainer to check if new creation modal is working (like the details one)
+  - Header (creation of events)
+
 - Add all day events to planner top
-- Edit event
-- Create event button on planner for accessibility
 - Delete event
 - Create event from end to finish?
 - Move events through drag/drop
