@@ -1,20 +1,44 @@
-import { memo, RefObject } from 'react';
+import { memo, RefObject, useCallback } from 'react';
 import { EventDetailsModal } from './EventDetailsModal/EventDetailsModal';
+import { EventCreationModal } from './EventCreationModal/EventCreationModal';
+import { clearSelectedDayViewEvent } from '../../../../redux/slices/eventSlice';
+import { useDispatch } from 'react-redux';
+
+export type ViewEventDetailsModalProps = {
+  selectedEventRef: RefObject<HTMLDivElement | null>;
+  modalRef: RefObject<HTMLDivElement | null>;
+};
+
+export type CreateEventModalProps = {
+  modalRef: RefObject<HTMLDivElement | null>;
+};
 
 type EventModalsContainerProps = {
-  closeModal: () => void;
-  editModal: () => void;
-  viewEventModalRef: RefObject<HTMLDivElement | null>;
+  viewEvent: ViewEventDetailsModalProps;
 };
 
 export const EventModalsContainer = memo(
-  ({ closeModal, editModal, viewEventModalRef }: EventModalsContainerProps) => {
+  ({ viewEvent }: EventModalsContainerProps) => {
+    const dispatch = useDispatch();
+
+    const closeModal = useCallback(() => {
+      const eventRef = viewEvent.selectedEventRef.current;
+      if (eventRef != null) eventRef.focus();
+      dispatch(clearSelectedDayViewEvent());
+    }, [dispatch, viewEvent]);
+
+    const editModal = useCallback(() => {
+      alert('edit');
+    }, []);
+
     return (
-      <EventDetailsModal
-        closeModal={closeModal}
-        editModal={editModal}
-        viewEventModalRef={viewEventModalRef}
-      />
+      <>
+        <EventDetailsModal
+          closeModal={closeModal}
+          editModal={editModal}
+          viewEventModalRef={viewEvent.modalRef}
+        />
+      </>
     );
   },
 );
