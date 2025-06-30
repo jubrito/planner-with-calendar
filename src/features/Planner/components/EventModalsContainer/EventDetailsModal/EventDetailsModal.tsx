@@ -34,7 +34,11 @@ export const EventDetailsModal = memo(
 
     return (
       <Modal
-        title={title}
+        title={
+          <p>
+            <strong>{title}</strong>
+          </p>
+        }
         content={
           <>
             {isSameDayEvent && (
