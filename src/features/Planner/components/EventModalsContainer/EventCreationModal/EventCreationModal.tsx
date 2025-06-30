@@ -22,7 +22,7 @@ export const EventCreationModal = memo(
           </>
         }
         content={<p>content</p>}
-        style={{ top: 200 }} // TODO removes
+        style={{ top: 200 }}
         closeModal={{ handleClose: closeModal }}
         ref={createEventModalRef}
       />
