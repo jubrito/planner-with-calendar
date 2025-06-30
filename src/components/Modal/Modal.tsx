@@ -6,7 +6,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { JSX, RefObject } from 'react';
 
 type ModalProps = {
-  title: string;
+  title: string | JSX.Element | JSX.Element[] | React.ReactNode;
   content: string | JSX.Element | JSX.Element[] | React.ReactNode;
   closeModal?: {
     handleClose: () => void;
@@ -72,9 +72,7 @@ export const Modal = ({
         )}
       </div>
       <div className={styles.content}>
-        <p>
-          <strong>{title}</strong>
-        </p>
+        {title}
         {content}
       </div>
     </div>
