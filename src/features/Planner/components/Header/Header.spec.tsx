@@ -69,4 +69,13 @@ describe('Header', () => {
     expect(plannerDateLabelElement).toBeInTheDocument();
     expect(screen.getByText('Dez 1, Segunda-feira')).toBeInTheDocument();
   });
+
+  it('should render button to create calendar', () => {
+    renderHeader({});
+    screen.debug();
+    expect(
+      screen.getByRole('button', { name: 'Create event' }),
+    ).toBeInTheDocument();
+    expect(screen.getByText('Create event')).toBeInTheDocument();
+  });
 });
