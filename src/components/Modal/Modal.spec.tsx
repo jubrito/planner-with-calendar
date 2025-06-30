@@ -7,20 +7,23 @@ import userEvent from '@testing-library/user-event';
 describe('Modal', () => {
   const eventStyle = {};
   const eventTitle = 'Title';
+  const content = 'Content';
   const closeModalMock = jest.fn();
   const editModalMock = jest.fn();
   const deleteModalMock = jest.fn();
   const closeLabel = 'Close';
   const editLabel = 'Edit';
   const deleteLabel = 'Delete';
-  const content = 'Content';
   let rerenderModal: (ui: React.ReactNode) => void;
+  const useRefMock = {
+    current: null,
+  };
   beforeEach(() => {
     const { rerender } = renderWithProviders(
       <Modal
-        content={<>{content}</>}
+        content={<p>{content}</p>}
         style={eventStyle}
-        title={eventTitle}
+        title={<p>{eventTitle}</p>}
         closeModal={{
           closeLabel,
           handleClose: closeModalMock,
@@ -33,6 +36,7 @@ describe('Modal', () => {
           deleteLabel,
           handleDelete: deleteModalMock,
         }}
+        ref={useRefMock}
       />,
     );
     rerenderModal = rerender;
@@ -63,6 +67,7 @@ describe('Modal', () => {
         deleteModal={{
           handleDelete: deleteModalMock,
         }}
+        ref={useRefMock}
       />,
     );
     const closeDefaultLabel = 'Click to close modal';
