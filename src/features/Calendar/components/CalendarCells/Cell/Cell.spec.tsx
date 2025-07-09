@@ -119,7 +119,7 @@ describe('Cell', () => {
       endDate: '',
       startDate: '',
     };
-    const initialSelectedDayViewEvent = {
+    const initialeventOnViewMode = {
       event: initialEvent,
       top: 101,
     };
@@ -138,25 +138,24 @@ describe('Cell', () => {
           ...initialEventValue,
           currentState: {
             ...initialEventValue.currentState,
-            eventOnViewMode: initialSelectedDayViewEvent,
+            eventOnViewMode: initialeventOnViewMode,
           },
         },
       },
     });
     const tdElement = screen.getByRole('cell');
     const buttonElement = within(tdElement).getByRole('button');
-    let selectedDayViewEvent =
+    let eventOnViewMode =
       store.getState().eventSlice.currentState.eventOnViewMode;
 
-    expect(selectedDayViewEvent?.top).toBe(initialSelectedDayViewEvent.top);
-    expect(selectedDayViewEvent?.event).toBe(initialSelectedDayViewEvent.event);
+    expect(eventOnViewMode?.top).toBe(initialeventOnViewMode.top);
+    expect(eventOnViewMode?.event).toBe(initialeventOnViewMode.event);
 
     await userEvent.click(buttonElement);
 
-    selectedDayViewEvent =
-      store.getState().eventSlice.currentState.eventOnViewMode;
+    eventOnViewMode = store.getState().eventSlice.currentState.eventOnViewMode;
 
-    expect(selectedDayViewEvent).toBeUndefined();
+    expect(eventOnViewMode).toBeUndefined();
   });
 
   it('should change day view date when to update planner by clicking on cell', async () => {

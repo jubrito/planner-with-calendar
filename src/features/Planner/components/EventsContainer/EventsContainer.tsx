@@ -11,7 +11,7 @@ import {
 } from '../EventModalsContainer/EventModalsContainer';
 import {
   getCurrentEventsOfSelectedDate,
-  getCurrentSelectedDayViewEvent,
+  getCurrenteventOnViewMode,
 } from '../../../../redux/slices/eventSlice/selectors';
 import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
 import {
@@ -23,8 +23,8 @@ import {
 import { useEvent } from '../../../../hooks/useDraftEvent';
 import {
   addEvent,
-  clearSelectedDayViewEvent,
-  updateSelectedDayViewEvent,
+  cleareventOnViewMode,
+  updateeventOnViewMode,
 } from '../../../../redux/slices/eventSlice';
 import { EventOnOpenDetails } from '../../../../types/event';
 import { HourButtons } from './HourButtons/HourButtons';
@@ -37,7 +37,7 @@ export const EventContainer = () => {
   const year = useSelector(getSelectedDayViewYear());
   const month = useSelector(getSelectedDayViewMonth(locale));
   const day = useSelector(getSelectedDayViewDay());
-  const selectedDayViewEvent = useSelector(getCurrentSelectedDayViewEvent());
+  const eventOnViewMode = useSelector(getCurrenteventOnViewMode());
   const date = useSelector(getSelectedDayViewISODate());
   const eventsOfSelectedDate = useSelector(
     getCurrentEventsOfSelectedDate(date),
@@ -71,7 +71,7 @@ export const EventContainer = () => {
 
   const handleMouseDown = useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
-      dispatch(clearSelectedDayViewEvent()); // close view event details modal
+      dispatch(cleareventOnViewMode()); // close view event details modal
       if (!containerRef.current) return;
 
       const rect = containerRef.current.getBoundingClientRect();
@@ -125,7 +125,7 @@ export const EventContainer = () => {
       console.log('Event clicked:', event);
       const moveEventInPixels = 20;
       dispatch(
-        updateSelectedDayViewEvent({
+        updateeventOnViewMode({
           top: event.endY - moveEventInPixels,
           event,
         }),
@@ -145,7 +145,7 @@ export const EventContainer = () => {
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseLeave}
     >
-      {selectedDayViewEvent && selectedDayViewEvent.event && (
+      {eventOnViewMode && eventOnViewMode.event && (
         <EventModalsContainer
           viewEvent={viewEventModalInfo}
           createEvent={createEventModalInfo}

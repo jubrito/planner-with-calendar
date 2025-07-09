@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { memo, RefObject, useEffect } from 'react';
 import { getLocaleLanguage } from '../../../../../redux/slices/localeSlice/selectors';
-import { getCurrentSelectedDayViewEvent } from '../../../../../redux/slices/eventSlice/selectors';
+import { getCurrenteventOnViewMode } from '../../../../../redux/slices/eventSlice/selectors';
 import { getEventModalContent } from '../../../../../utils/events/dayView/getModalInfo';
 import { Modal } from '../../../../../components/Modal/Modal';
 import { dashSeparator } from '../../../../../utils/constants';
@@ -15,16 +15,16 @@ type EventDetailsModalProps = {
 export const EventDetailsModal = memo(
   ({ closeModal, editModal, viewEventModalRef }: EventDetailsModalProps) => {
     const locale = useSelector(getLocaleLanguage());
-    const selectedDayViewEvent = useSelector(getCurrentSelectedDayViewEvent());
+    const eventOnViewMode = useSelector(getCurrenteventOnViewMode());
 
     useEffect(() => {
       const modalRef = viewEventModalRef.current;
       if (modalRef !== null) modalRef.focus();
     }, [viewEventModalRef]);
 
-    if (!selectedDayViewEvent || !selectedDayViewEvent.event) return <></>;
+    if (!eventOnViewMode || !eventOnViewMode.event) return <></>;
 
-    const { event: selectedEvent, top } = selectedDayViewEvent;
+    const { event: selectedEvent, top } = eventOnViewMode;
     const { title } = selectedEvent;
     const { sameDay, multiDay, isSameDayEvent } = getEventModalContent(
       selectedEvent.startDate,

@@ -49,13 +49,13 @@ export const eventSlice = createSlice({
         },
       };
     },
-    updateSelectedDayViewEvent(
+    updateeventOnViewMode(
       state: InitialState,
       action: PayloadAction<SelectedEventOnDayView>,
     ) {
       state.currentState.eventOnViewMode = action.payload;
     },
-    clearSelectedDayViewEvent(state: InitialState) {
+    cleareventOnViewMode(state: InitialState) {
       // closes View Event Details modal
       state.currentState.eventOnViewMode = undefined;
     },
@@ -74,8 +74,8 @@ export const eventSlice = createSlice({
 
 export const {
   addEvent,
-  updateSelectedDayViewEvent,
-  clearSelectedDayViewEvent,
+  updateeventOnViewMode,
+  cleareventOnViewMode,
   updateSelectedEventOnCreation,
   clearSelectedEventOnCreation,
 } = eventSlice.actions;

@@ -54,7 +54,7 @@ describe('EventDetailsModal', () => {
     top,
     renderWith24hTimeSystem = false,
   }: RenderEventDetailsModalProps) => {
-    const selectedDayViewEvent = {
+    const eventOnViewMode = {
       event: event ?? initialSelectedEvent.event,
       top: top ?? initialSelectedEvent.top,
     };
@@ -70,7 +70,7 @@ describe('EventDetailsModal', () => {
             ...initialEventValue,
             currentState: {
               ...initialEventValue.currentState,
-              eventOnViewMode: selectedDayViewEvent,
+              eventOnViewMode: eventOnViewMode,
             },
           },
           localeSlice: {

@@ -37,7 +37,7 @@ const initialSelectedEvent = {
 };
 
 type renderEventsContainerProps = {
-  selectedDayViewEvent?: SelectedEventOnDayView;
+  eventOnViewMode?: SelectedEventOnDayView;
   dayViewISODate?: string;
   eventsByDates?: EventsByDates;
 };
@@ -50,7 +50,7 @@ type PreloadedState =
   | undefined;
 
 const renderEventsContainer = ({
-  selectedDayViewEvent,
+  eventOnViewMode,
   eventsByDates,
   dayViewISODate,
 }: renderEventsContainerProps) => {
@@ -59,7 +59,7 @@ const renderEventsContainer = ({
       ...initialValue,
       currentState: {
         ...initialValue.currentState,
-        eventOnViewMode: selectedDayViewEvent,
+        eventOnViewMode: eventOnViewMode,
         eventsByDates: eventsByDates || {},
       },
     },
@@ -229,7 +229,7 @@ describe('EventContainer', () => {
     });
     it('should not display modal if selected event is not defined', () => {
       renderEventsContainer({
-        selectedDayViewEvent: {
+        eventOnViewMode: {
           ...initialSelectedEvent,
           event: undefined,
         },
@@ -241,7 +241,7 @@ describe('EventContainer', () => {
   it('should hide modal when clicking on container (on mouse down)', async () => {
     const date = getDateISOString(new Date(year, month, day));
     const { container, store } = renderEventsContainer({
-      selectedDayViewEvent: {
+      eventOnViewMode: {
         ...initialSelectedEvent,
         event: initialSelectedEvent.event,
       },
@@ -265,11 +265,9 @@ describe('EventContainer', () => {
       const event = within(eventWrapper).getByText(
         initialSelectedEvent.event.title,
       );
-      const initialSelectedDayViewEvent =
+      const initialeventOnViewMode =
         store.getState().eventSlice.currentState.eventOnViewMode;
-      expect(initialSelectedDayViewEvent?.event).toBe(
-        initialSelectedEvent.event,
-      );
+      expect(initialeventOnViewMode?.event).toBe(initialSelectedEvent.event);
 
       await userEvent.click(event);
 
@@ -277,11 +275,11 @@ describe('EventContainer', () => {
 
       createEvent({ targetElement: dayViewContainer });
 
-      const currentSelectedDayViewEvent =
+      const currenteventOnViewMode =
         store.getState().eventSlice.currentState.eventOnViewMode;
 
       await waitFor(() => {
-        expect(currentSelectedDayViewEvent).toBeUndefined();
+        expect(currenteventOnViewMode).toBeUndefined();
         expect(modalTitle).not.toBeInTheDocument();
       });
     }
@@ -289,7 +287,7 @@ describe('EventContainer', () => {
 
   it('should close the modal when clicking on close button', async () => {
     const { container } = renderEventsContainer({
-      selectedDayViewEvent: {
+      eventOnViewMode: {
         ...initialSelectedEvent,
         event: initialSelectedEvent.event,
       },
