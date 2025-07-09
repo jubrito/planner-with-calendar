@@ -11,16 +11,10 @@ export const getCurrentEventsByDates = () =>
   createSelector(eventSlice, (state) => state.currentState.eventsByDates);
 
 export const getInitialSelectedDayViewEvent = () =>
-  createSelector(
-    eventSlice,
-    (state) => state.initialState.selectedDayViewEvent,
-  );
+  createSelector(eventSlice, (state) => state.initialState.eventOnViewMode);
 
 export const getCurrentSelectedDayViewEvent = () =>
-  createSelector(
-    eventSlice,
-    (state) => state.currentState.selectedDayViewEvent,
-  );
+  createSelector(eventSlice, (state) => state.currentState.eventOnViewMode);
 
 export const getInitialEventsOfSelectedDate = (ISODate: string) =>
   createSelector(eventSlice, (state) => {

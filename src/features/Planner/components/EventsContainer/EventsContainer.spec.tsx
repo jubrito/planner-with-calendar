@@ -59,7 +59,7 @@ const renderEventsContainer = ({
       ...initialValue,
       currentState: {
         ...initialValue.currentState,
-        selectedDayViewEvent,
+        eventOnViewMode: selectedDayViewEvent,
         eventsByDates: eventsByDates || {},
       },
     },
@@ -266,7 +266,7 @@ describe('EventContainer', () => {
         initialSelectedEvent.event.title,
       );
       const initialSelectedDayViewEvent =
-        store.getState().eventSlice.currentState.selectedDayViewEvent;
+        store.getState().eventSlice.currentState.eventOnViewMode;
       expect(initialSelectedDayViewEvent?.event).toBe(
         initialSelectedEvent.event,
       );
@@ -278,7 +278,7 @@ describe('EventContainer', () => {
       createEvent({ targetElement: dayViewContainer });
 
       const currentSelectedDayViewEvent =
-        store.getState().eventSlice.currentState.selectedDayViewEvent;
+        store.getState().eventSlice.currentState.eventOnViewMode;
 
       await waitFor(() => {
         expect(currentSelectedDayViewEvent).toBeUndefined();

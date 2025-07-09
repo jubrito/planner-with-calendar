@@ -70,7 +70,7 @@ describe('EventDetailsModal', () => {
             ...initialEventValue,
             currentState: {
               ...initialEventValue.currentState,
-              selectedDayViewEvent,
+              eventOnViewMode: selectedDayViewEvent,
             },
           },
           localeSlice: {

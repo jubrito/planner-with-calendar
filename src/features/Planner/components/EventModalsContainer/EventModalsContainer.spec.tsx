@@ -32,7 +32,7 @@ describe('EventModalsContainer', () => {
             ...initialValue,
             currentState: {
               ...initialValue.currentState,
-              selectedDayViewEvent: {
+              eventOnViewMode: {
                 event: {
                   endDate: getDateISOString(new Date()),
                   startDate: getDateISOString(new Date()),

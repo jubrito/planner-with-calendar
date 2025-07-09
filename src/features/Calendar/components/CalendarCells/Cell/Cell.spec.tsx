@@ -138,7 +138,7 @@ describe('Cell', () => {
           ...initialEventValue,
           currentState: {
             ...initialEventValue.currentState,
-            selectedDayViewEvent: initialSelectedDayViewEvent,
+            eventOnViewMode: initialSelectedDayViewEvent,
           },
         },
       },
@@ -146,7 +146,7 @@ describe('Cell', () => {
     const tdElement = screen.getByRole('cell');
     const buttonElement = within(tdElement).getByRole('button');
     let selectedDayViewEvent =
-      store.getState().eventSlice.currentState.selectedDayViewEvent;
+      store.getState().eventSlice.currentState.eventOnViewMode;
 
     expect(selectedDayViewEvent?.top).toBe(initialSelectedDayViewEvent.top);
     expect(selectedDayViewEvent?.event).toBe(initialSelectedDayViewEvent.event);
@@ -154,7 +154,7 @@ describe('Cell', () => {
     await userEvent.click(buttonElement);
 
     selectedDayViewEvent =
-      store.getState().eventSlice.currentState.selectedDayViewEvent;
+      store.getState().eventSlice.currentState.eventOnViewMode;
 
     expect(selectedDayViewEvent).toBeUndefined();
   });

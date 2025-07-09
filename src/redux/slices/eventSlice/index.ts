@@ -9,7 +9,7 @@ import { formatDateIDFromDate } from '../../../utils/events/utils';
 
 type InitialEventsInfoState = {
   eventsByDates: EventsByDates;
-  selectedDayViewEvent?: SelectedEventOnDayView;
+  eventOnViewMode?: SelectedEventOnDayView;
   selectedEventOnCreation?: SelectedEventOnDayView;
 };
 
@@ -25,7 +25,7 @@ type AddEvent = {
 
 const initialEventsInfo: InitialEventsInfoState = {
   eventsByDates: {},
-  selectedDayViewEvent: undefined,
+  eventOnViewMode: undefined,
   selectedEventOnCreation: undefined,
 };
 
@@ -53,11 +53,11 @@ export const eventSlice = createSlice({
       state: InitialState,
       action: PayloadAction<SelectedEventOnDayView>,
     ) {
-      state.currentState.selectedDayViewEvent = action.payload;
+      state.currentState.eventOnViewMode = action.payload;
     },
     clearSelectedDayViewEvent(state: InitialState) {
       // closes View Event Details modal
-      state.currentState.selectedDayViewEvent = undefined;
+      state.currentState.eventOnViewMode = undefined;
     },
     updateSelectedEventOnCreation(
       state: InitialState,
