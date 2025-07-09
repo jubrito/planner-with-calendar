@@ -9,10 +9,7 @@ import {
   EventModalsContainer,
   ViewEventDetailsModalProps,
 } from '../EventModalsContainer/EventModalsContainer';
-import {
-  getCurrentEventsOfSelectedDate,
-  getCurrenteventOnViewMode,
-} from '../../../../redux/slices/eventSlice/selectors';
+import { getCurrentEventsOfSelectedDate } from '../../../../redux/slices/eventSlice/selectors';
 import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
 import {
   getSelectedDayViewDay,
@@ -37,7 +34,6 @@ export const EventContainer = () => {
   const year = useSelector(getSelectedDayViewYear());
   const month = useSelector(getSelectedDayViewMonth(locale));
   const day = useSelector(getSelectedDayViewDay());
-  const eventOnViewMode = useSelector(getCurrenteventOnViewMode());
   const date = useSelector(getSelectedDayViewISODate());
   const eventsOfSelectedDate = useSelector(
     getCurrentEventsOfSelectedDate(date),
@@ -145,12 +141,10 @@ export const EventContainer = () => {
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseLeave}
     >
-      {eventOnViewMode && eventOnViewMode.event && (
-        <EventModalsContainer
-          viewEvent={viewEventModalInfo}
-          createEvent={createEventModalInfo}
-        />
-      )}
+      <EventModalsContainer
+        viewEvent={viewEventModalInfo}
+        createEvent={createEventModalInfo}
+      />
       {draftEvent && isValidDraftEvent(draftEvent) && (
         <Event
           key={draftEvent.id}
