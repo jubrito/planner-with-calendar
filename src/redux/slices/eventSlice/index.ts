@@ -49,7 +49,7 @@ export const eventSlice = createSlice({
         },
       };
     },
-    updateeventOnViewMode(
+    updateEventOnViewMode(
       state: InitialState,
       action: PayloadAction<SelectedEventOnDayView>,
     ) {
@@ -74,7 +74,7 @@ export const eventSlice = createSlice({
 
 export const {
   addEvent,
-  updateeventOnViewMode,
+  updateEventOnViewMode,
   clearEventOnViewMode,
   updateSelectedEventOnCreation,
   clearSelectedEventOnCreation,

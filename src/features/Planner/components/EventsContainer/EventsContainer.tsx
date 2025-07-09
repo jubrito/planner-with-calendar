@@ -21,7 +21,7 @@ import { useEvent } from '../../../../hooks/useDraftEvent';
 import {
   addEvent,
   clearEventOnViewMode,
-  updateeventOnViewMode,
+  updateEventOnViewMode,
 } from '../../../../redux/slices/eventSlice';
 import { EventOnOpenDetails } from '../../../../types/event';
 import { HourButtons } from './HourButtons/HourButtons';
@@ -121,7 +121,7 @@ export const EventContainer = () => {
       console.log('Event clicked:', event);
       const moveEventInPixels = 20;
       dispatch(
-        updateeventOnViewMode({
+        updateEventOnViewMode({
           top: event.endY - moveEventInPixels,
           event,
         }),
