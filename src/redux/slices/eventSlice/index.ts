@@ -75,7 +75,7 @@ export const eventSlice = createSlice({
 export const {
   addEvent,
   updateeventOnViewMode,
-  clearEventOnViewMode: cleareventOnViewMode,
+  clearEventOnViewMode,
   updateSelectedEventOnCreation,
   clearSelectedEventOnCreation,
 } = eventSlice.actions;
