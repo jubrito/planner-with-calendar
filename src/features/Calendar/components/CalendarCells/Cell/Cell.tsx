@@ -11,7 +11,7 @@ import { isToday } from '../../../../../utils/checkers';
 import { IntlDateTimeFormatShort } from '../../../../../utils/constants';
 import { useDispatch } from 'react-redux';
 import { updateDayViewISODate } from '../../../../../redux/slices/dateSlice';
-import { cleareventOnViewMode } from '../../../../../redux/slices/eventSlice';
+import { clearEventOnViewMode } from '../../../../../redux/slices/eventSlice';
 
 type CellProps = {
   cellYear: DateConfig['year'];
@@ -42,7 +42,7 @@ export const Cell = ({
     );
     dispatch(
       // hide view events modal
-      cleareventOnViewMode(),
+      clearEventOnViewMode(),
     );
   };
 

@@ -20,7 +20,7 @@ import {
 import { useEvent } from '../../../../hooks/useDraftEvent';
 import {
   addEvent,
-  cleareventOnViewMode,
+  clearEventOnViewMode,
   updateeventOnViewMode,
 } from '../../../../redux/slices/eventSlice';
 import { EventOnOpenDetails } from '../../../../types/event';
@@ -67,7 +67,7 @@ export const EventContainer = () => {
 
   const handleMouseDown = useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
-      dispatch(cleareventOnViewMode()); // close view event details modal
+      dispatch(clearEventOnViewMode()); // close view event details modal
       if (!containerRef.current) return;
 
       const rect = containerRef.current.getBoundingClientRect();
