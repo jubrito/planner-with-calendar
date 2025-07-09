@@ -1,8 +1,24 @@
 # Next steps (v1):
 
-- Update top on Event Creation Modal (remove 200)
+- Rename selectedEventOnCreation to eventOnCreation
 
-- Rename selectedDayViewEvent redux variable to selectedEventOnViewDetails
+- Modals are weird, maybe refactor the whole thing
+
+  - The responsability of closing and opening should be the modal
+  - Modal should receive only what it needs to focus and do the rest inside
+  - Trying to use a variable eventOnViewMode and selectedEventOnCreation (future eventOnCreation) to decide when to show/hide modal
+    - Where to handle this?
+
+- Fix modal tests
+
+Modal accessibility:
+
+- role="dialog"
+- aria-modal="true"
+- aria busy open etc
+- Tabbing the icons shouldn't start with close, should go to left to right
+
+- Update top on Event Creation Modal (remove 200)
 
 - Move focus handling to modal?
 
@@ -48,6 +64,7 @@ Features
   > give focus to planner when clicking on calendar day
   > create 'go back to calendar' with ref of prev cell, focusing it
   > Lighthouse report
+  > Modal focus trapping https://medium.com/cstech/achieving-focus-trapping-in-a-react-modal-component-3f28f596f35b
   > SEO
 
 - Performance
@@ -60,7 +77,7 @@ Features
 - Improvements
 
   > create selectors for initial or current based on received props key
-  > event validation (isValidEvent) + test
+  > event validation (isValidEvent) + test (remove comments from eventscontainer component)
   > improve error handling
   > create banner that disappears if fails to create event (e.g., event.start is undefined) and don't run event component
 
