@@ -8,6 +8,7 @@ describe('Modal', () => {
   const eventStyle = {};
   const eventTitle = 'Title';
   const content = 'Content';
+  const dialogAccessibleName = 'Modal purpose';
   const closeModalMock = jest.fn();
   const editModalMock = jest.fn();
   const deleteModalMock = jest.fn();
@@ -21,9 +22,8 @@ describe('Modal', () => {
   beforeEach(() => {
     const { rerender } = renderWithProviders(
       <Modal
-        content={<p>{content}</p>}
+        dialogAccessibleName={dialogAccessibleName}
         style={eventStyle}
-        title={<p>{eventTitle}</p>}
         closeModal={{
           closeLabel,
           handleClose: closeModalMock,
@@ -37,7 +37,12 @@ describe('Modal', () => {
           handleDelete: deleteModalMock,
         }}
         ref={useRefMock}
-      />,
+      >
+        <>
+          <p>{eventTitle}</p>
+          <p>{content}</p>
+        </>
+      </Modal>,
     );
     rerenderModal = rerender;
   });
@@ -55,9 +60,8 @@ describe('Modal', () => {
   it('should render default aria-label if no label is provided', () => {
     rerenderModal(
       <Modal
-        content={<></>}
         style={{}}
-        title={''}
+        dialogAccessibleName={dialogAccessibleName}
         closeModal={{
           handleClose: closeModalMock,
         }}
@@ -68,7 +72,9 @@ describe('Modal', () => {
           handleDelete: deleteModalMock,
         }}
         ref={useRefMock}
-      />,
+      >
+        {content}
+      </Modal>,
     );
     const closeDefaultLabel = 'Click to close modal';
     const editDefaultLabel = 'Click to edit';
@@ -106,5 +112,9 @@ describe('Modal', () => {
   it('should set modal aria modal attribute to true', () => {
     const modal = screen.getByRole('dialog');
     expect(modal).toHaveAttribute('aria-modal', 'true');
+  });
+  it('should render modal with accessible name', () => {
+    const modal = screen.getByLabelText(dialogAccessibleName);
+    expect(modal).toBeInTheDocument();
   });
 });
