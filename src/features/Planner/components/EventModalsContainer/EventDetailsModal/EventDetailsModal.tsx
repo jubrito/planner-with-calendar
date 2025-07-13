@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { memo, RefObject, useCallback } from 'react';
+import { memo, RefObject, useCallback, useRef } from 'react';
 import { getLocaleLanguage } from '../../../../../redux/slices/localeSlice/selectors';
 import { getCurrenteventOnViewMode } from '../../../../../redux/slices/eventSlice/selectors';
 import { getEventModalContent } from '../../../../../utils/events/dayView/getModalInfo';
@@ -9,13 +9,14 @@ import { clearEventOnViewMode } from '../../../../../redux/slices/eventSlice';
 
 type EventDetailsModalProps = {
   editModal: () => void;
-  viewEventModalRef: RefObject<HTMLDivElement | null>;
+  // viewEventModalRef: RefObject<HTMLDivElement | null>;
 };
 
 export const EventDetailsModal = memo(
-  ({ editModal, viewEventModalRef }: EventDetailsModalProps) => {
+  ({ editModal }: EventDetailsModalProps) => {
     const locale = useSelector(getLocaleLanguage());
     const eventOnViewMode = useSelector(getCurrenteventOnViewMode());
+    const viewEventModalRef: RefObject<HTMLDivElement | null> = useRef(null);
 
     const dispatch = useDispatch();
 

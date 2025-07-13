@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import styles from './event.module.scss';
-import { memo, useMemo, useRef } from 'react';
+import { memo, RefObject, useCallback, useMemo, useRef } from 'react';
 import { EventOnCreate, EventOnOpenDetails } from '../../../../../types/event';
 import {
   getFormattedDateString,
@@ -14,6 +14,8 @@ import {
   IntlDateTimeFormat2Digit,
 } from '../../../../../utils/constants';
 import { calculateYPosition } from '../../../utils/screenPositions';
+import { useDispatch } from 'react-redux';
+import { updateEventOnViewMode } from '../../../../../redux/slices/eventSlice';
 
 type EventProps = {
   id: EventOnCreate['id'];
@@ -22,10 +24,6 @@ type EventProps = {
   endY?: EventOnCreate['end']['fixedPositionY'];
   startDate: EventOnCreate['start']['date'];
   endDate: EventOnCreate['end']['date'];
-  viewEventDetails: (
-    event: EventOnOpenDetails,
-    eventRef: React.RefObject<HTMLDivElement | null>,
-  ) => void;
 };
 
 export const Event = memo(function ({
@@ -35,7 +33,6 @@ export const Event = memo(function ({
   endY,
   startDate,
   endDate,
-  viewEventDetails,
 }: EventProps) {
   let startYPosition = startY;
   let endYPosition = endY;
@@ -59,6 +56,9 @@ export const Event = memo(function ({
   const hasMinimumHeight = eventHeight >= sizeOfEach15MinBlock;
   const localeString = useSelector(getLocaleLanguage());
   const eventRef = useRef(null);
+  const selectedEventRef: RefObject<HTMLDivElement | null> = useRef(null);
+  const dispatch = useDispatch();
+
   const event: EventOnOpenDetails = {
     id,
     title,
@@ -102,6 +102,21 @@ export const Event = memo(function ({
       viewEventDetails(event, eventRef);
     }
   };
+
+  const viewEventDetails = useCallback(
+    (event: EventOnOpenDetails, eventRef: RefObject<HTMLDivElement | null>) => {
+      console.log('Event clicked:', event);
+      const moveEventInPixels = 20;
+      dispatch(
+        updateEventOnViewMode({
+          top: event.endY - moveEventInPixels,
+          event,
+        }),
+      );
+      selectedEventRef.current = eventRef.current;
+    },
+    [dispatch],
+  );
 
   return (
     <div

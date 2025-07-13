@@ -1,13 +1,10 @@
-import { useCallback, useRef, useEffect, RefObject, useMemo } from 'react';
+import { useCallback, useRef, useEffect } from 'react';
 import styles from './events-container.module.scss';
 import { throttle } from 'throttle-debounce';
 import { useSelector } from 'react-redux';
 import { Event } from './Event/Event';
 import { useDispatch } from 'react-redux';
-import {
-  EventModalsContainer,
-  ViewEventDetailsModalProps,
-} from '../EventModalsContainer/EventModalsContainer';
+import { EventModalsContainer } from '../EventModalsContainer/EventModalsContainer';
 import { getCurrentEventsOfSelectedDate } from '../../../../redux/slices/eventSlice/selectors';
 import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
 import {
@@ -20,9 +17,7 @@ import { useEvent } from '../../../../hooks/useDraftEvent';
 import {
   addEvent,
   clearEventOnViewMode,
-  updateEventOnViewMode,
 } from '../../../../redux/slices/eventSlice';
-import { EventOnOpenDetails } from '../../../../types/event';
 import { HourButtons } from './HourButtons/HourButtons';
 import { isValidDraftEvent, isValidEvent } from '../../utils/eventValidation';
 
@@ -37,9 +32,9 @@ export const EventContainer = () => {
   const eventsOfSelectedDate = useSelector(
     getCurrentEventsOfSelectedDate(date),
   );
-  const viewEventModalRef: RefObject<HTMLDivElement | null> = useRef(null);
+  // const viewEventModalRef: RefObject<HTMLDivElement | null> = useRef(null);
   // const createEventModalRef: RefObject<HTMLDivElement | null> = useRef(null);
-  const selectedEventRef: RefObject<HTMLDivElement | null> = useRef(null);
+  // const selectedEventRef: RefObject<HTMLDivElement | null> = useRef(null);
 
   const {
     draftEvent,
@@ -49,13 +44,13 @@ export const EventContainer = () => {
     createEvent,
   } = useEvent(year, month, day);
 
-  const viewEventModalInfo: ViewEventDetailsModalProps = useMemo(
-    () => ({
-      modalRef: viewEventModalRef,
-      selectedEventRef: selectedEventRef,
-    }),
-    [],
-  );
+  // const viewEventModalInfo: ViewEventDetailsModalProps = useMemo(
+  //   () => ({
+  //     modalRef: viewEventModalRef,
+  //     selectedEventRef: selectedEventRef,
+  //   }),
+  //   [],
+  // );
 
   // const createEventModalInfo: CreateEventModalProps = useMemo(
   //   () => ({
@@ -115,22 +110,6 @@ export const EventContainer = () => {
     clearDraftEvent();
   };
 
-  const viewEventDetails = useCallback(
-    (event: EventOnOpenDetails, eventRef: RefObject<HTMLDivElement | null>) => {
-      console.log('Event clicked:', event);
-      const moveEventInPixels = 20;
-      dispatch(
-        updateEventOnViewMode({
-          top: event.endY - moveEventInPixels,
-          event,
-        }),
-      );
-      selectedEventRef.current = eventRef.current;
-      viewEventModalRef.current?.focus();
-    },
-    [dispatch],
-  );
-
   return (
     <div
       ref={containerRef}
@@ -140,7 +119,7 @@ export const EventContainer = () => {
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseLeave}
     >
-      <EventModalsContainer viewEvent={viewEventModalInfo} />
+      <EventModalsContainer />
       {draftEvent && isValidDraftEvent(draftEvent) && (
         <Event
           key={draftEvent.id}
@@ -150,7 +129,6 @@ export const EventContainer = () => {
           endY={draftEvent.end.fixedPositionY}
           startDate={draftEvent.start.date}
           endDate={draftEvent.end.date}
-          viewEventDetails={viewEventDetails}
         />
       )}
       {eventsOfSelectedDate
@@ -162,7 +140,6 @@ export const EventContainer = () => {
             title={event.title}
             startDate={event.startDate}
             endDate={event.endDate}
-            viewEventDetails={viewEventDetails}
           />
         ))}
       <HourButtons />

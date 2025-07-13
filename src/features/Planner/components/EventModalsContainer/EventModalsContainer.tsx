@@ -10,27 +10,18 @@ export type CreateEventModalProps = {
   modalRef: RefObject<HTMLDivElement | null>;
 };
 
-type EventModalsContainerProps = {
-  viewEvent: ViewEventDetailsModalProps;
-};
+export const EventModalsContainer = memo(() => {
+  const editModal = useCallback(() => {
+    alert('edit');
+  }, []);
 
-export const EventModalsContainer = memo(
-  ({ viewEvent }: EventModalsContainerProps) => {
-    const editModal = useCallback(() => {
-      alert('edit');
-    }, []);
-
-    return (
-      <>
-        <EventDetailsModal
-          editModal={editModal}
-          viewEventModalRef={viewEvent.modalRef}
-        />
-        {/* <EventCreationModal
+  return (
+    <>
+      <EventDetailsModal editModal={editModal} />
+      {/* <EventCreationModal
           closeModal={closeModal}
           createEventModalRef={createEvent.modalRef}
         /> */}
-      </>
-    );
-  },
-);
+    </>
+  );
+});
