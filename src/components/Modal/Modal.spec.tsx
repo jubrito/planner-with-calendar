@@ -99,4 +99,8 @@ describe('Modal', () => {
     expect(editModalMock).toHaveBeenCalledTimes(1);
     expect(deleteModalMock).toHaveBeenCalledTimes(1);
   });
+  it('should focus modal when component is displayed', () => {
+    const modal = screen.getByRole('dialog');
+    expect(modal).toHaveFocus();
+  });
 });
