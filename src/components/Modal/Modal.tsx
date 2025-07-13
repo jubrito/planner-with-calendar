@@ -6,8 +6,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import { JSX, RefObject, useEffect } from 'react';
 
 type ModalProps = {
-  title: string | JSX.Element | JSX.Element[] | React.ReactNode;
-  content: string | JSX.Element | JSX.Element[] | React.ReactNode;
+  dialogAccessibleName: string;
+  children: string | JSX.Element | JSX.Element[] | React.ReactNode;
   closeModal?: {
     handleClose: () => void;
     closeLabel?: string;
@@ -24,16 +24,14 @@ type ModalProps = {
   ref: RefObject<HTMLDivElement | null>;
 };
 export const Modal = ({
-  content,
+  children,
   style,
-  title,
+  dialogAccessibleName,
   closeModal,
   editModal,
   deleteModal,
   ref,
 }: ModalProps) => {
-  const dialogAccessibleName = 'dialog-accessible-name';
-
   useEffect(() => {
     const modalRef = ref.current;
     if (modalRef !== null) modalRef.focus();
@@ -49,7 +47,7 @@ export const Modal = ({
       style={style}
       ref={ref}
       tabIndex={0}
-      aria-labelledby={dialogAccessibleName}
+      aria-label={dialogAccessibleName}
     >
       <div className={styles.actions}>
         {closeModal && (
@@ -80,10 +78,7 @@ export const Modal = ({
           </button>
         )}
       </div>
-      <div className={styles.content}>
-        <div id={dialogAccessibleName}>{title}</div>
-        {content}
-      </div>
+      <div className={styles.content}>{children}</div>
     </div>
   );
 };
