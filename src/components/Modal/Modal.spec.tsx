@@ -103,4 +103,8 @@ describe('Modal', () => {
     const modal = screen.getByRole('dialog');
     expect(modal).toHaveFocus();
   });
+  it('should set modal aria modal attribute to true', () => {
+    const modal = screen.getByRole('dialog');
+    expect(modal).toHaveAttribute('aria-modal', 'true');
+  });
 });
