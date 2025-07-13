@@ -58,12 +58,12 @@ export const EventContainer = () => {
     [],
   );
 
-  const createEventModalInfo: CreateEventModalProps = useMemo(
-    () => ({
-      modalRef: createEventModalRef,
-    }),
-    [],
-  );
+  // const createEventModalInfo: CreateEventModalProps = useMemo(
+  //   () => ({
+  //     modalRef: createEventModalRef,
+  //   }),
+  //   [],
+  // );
 
   const handleMouseDown = useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
@@ -141,10 +141,7 @@ export const EventContainer = () => {
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseLeave}
     >
-      <EventModalsContainer
-        viewEvent={viewEventModalInfo}
-        createEvent={createEventModalInfo}
-      />
+      <EventModalsContainer viewEvent={viewEventModalInfo} />
       {draftEvent && isValidDraftEvent(draftEvent) && (
         <Event
           key={draftEvent.id}

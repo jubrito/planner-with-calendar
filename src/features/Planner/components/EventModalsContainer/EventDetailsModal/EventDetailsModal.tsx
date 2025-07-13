@@ -1,21 +1,30 @@
-import { useSelector } from 'react-redux';
-import { memo, RefObject } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { memo, RefObject, useCallback } from 'react';
 import { getLocaleLanguage } from '../../../../../redux/slices/localeSlice/selectors';
 import { getCurrenteventOnViewMode } from '../../../../../redux/slices/eventSlice/selectors';
 import { getEventModalContent } from '../../../../../utils/events/dayView/getModalInfo';
 import { Modal } from '../../../../../components/Modal/Modal';
 import { dashSeparator } from '../../../../../utils/constants';
+import { clearEventOnViewMode } from '../../../../../redux/slices/eventSlice';
 
 type EventDetailsModalProps = {
-  closeModal: () => void;
   editModal: () => void;
   viewEventModalRef: RefObject<HTMLDivElement | null>;
 };
 
 export const EventDetailsModal = memo(
-  ({ closeModal, editModal, viewEventModalRef }: EventDetailsModalProps) => {
+  ({ editModal, viewEventModalRef }: EventDetailsModalProps) => {
     const locale = useSelector(getLocaleLanguage());
     const eventOnViewMode = useSelector(getCurrenteventOnViewMode());
+
+    const dispatch = useDispatch();
+
+    const closeModal = useCallback(() => {
+      // TODO modal should receive ref to focus after close through redux
+      // const eventRef = viewEvent.selectedEventRef.current;
+      // if (eventRef != null) eventRef.focus();
+      dispatch(clearEventOnViewMode());
+    }, [dispatch]);
 
     if (!eventOnViewMode || !eventOnViewMode.event) return <></>;
 
