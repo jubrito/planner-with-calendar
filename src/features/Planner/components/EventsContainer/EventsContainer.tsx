@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 import { Event } from './Event/Event';
 import { useDispatch } from 'react-redux';
 import {
-  CreateEventModalProps,
   EventModalsContainer,
   ViewEventDetailsModalProps,
 } from '../EventModalsContainer/EventModalsContainer';
@@ -39,7 +38,7 @@ export const EventContainer = () => {
     getCurrentEventsOfSelectedDate(date),
   );
   const viewEventModalRef: RefObject<HTMLDivElement | null> = useRef(null);
-  const createEventModalRef: RefObject<HTMLDivElement | null> = useRef(null);
+  // const createEventModalRef: RefObject<HTMLDivElement | null> = useRef(null);
   const selectedEventRef: RefObject<HTMLDivElement | null> = useRef(null);
 
   const {
