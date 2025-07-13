@@ -32,6 +32,8 @@ export const Modal = ({
   deleteModal,
   ref,
 }: ModalProps) => {
+  const dialogAccessibleName = 'dialog-accessible-name';
+
   useEffect(() => {
     const modalRef = ref.current;
     if (modalRef !== null) modalRef.focus();
@@ -47,6 +49,7 @@ export const Modal = ({
       style={style}
       ref={ref}
       tabIndex={0}
+      aria-labelledby={dialogAccessibleName}
     >
       <div className={styles.actions}>
         {closeModal && (
@@ -78,7 +81,7 @@ export const Modal = ({
         )}
       </div>
       <div className={styles.content}>
-        {title}
+        <div id={dialogAccessibleName}>{title}</div>
         {content}
       </div>
     </div>
