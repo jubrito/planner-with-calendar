@@ -42,6 +42,7 @@ export const Modal = ({
       className={styles.modal}
       id="modal"
       role="dialog"
+      aria-modal={true}
       onMouseDown={(e) => e.stopPropagation()}
       style={style}
       ref={ref}
