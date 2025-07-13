@@ -3,7 +3,7 @@ import styles from './modal.module.scss';
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { JSX, RefObject } from 'react';
+import { JSX, RefObject, useEffect } from 'react';
 
 type ModalProps = {
   title: string | JSX.Element | JSX.Element[] | React.ReactNode;
@@ -32,6 +32,11 @@ export const Modal = ({
   deleteModal,
   ref,
 }: ModalProps) => {
+  useEffect(() => {
+    const modalRef = ref.current;
+    if (modalRef !== null) modalRef.focus();
+  }, [ref]);
+
   return (
     <div
       className={styles.modal}
