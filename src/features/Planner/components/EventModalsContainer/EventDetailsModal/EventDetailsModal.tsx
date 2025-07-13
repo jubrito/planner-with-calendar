@@ -29,31 +29,29 @@ export const EventDetailsModal = memo(
 
     return (
       <Modal
-        title={
-          <p>
-            <strong>{title}</strong>
-          </p>
-        }
-        content={
-          <>
-            {isSameDayEvent && (
-              <div title={sameDay?.title}>
-                <p aria-hidden={true}>{sameDay?.start}</p>
-                <p aria-hidden={true}>{sameDay?.end}</p>
-              </div>
-            )}
-            {!isSameDayEvent && (
-              <p title={multiDay?.title}>
-                {multiDay?.start} {dashSeparator} {multiDay?.end}
-              </p>
-            )}
-          </>
-        }
         style={{ top }}
         closeModal={{ handleClose: closeModal }}
         editModal={{ handleEdit: editModal }}
         ref={viewEventModalRef}
-      />
+        dialogAccessibleName={title}
+      >
+        <>
+          <p>
+            <strong>{title}</strong>
+          </p>
+          {isSameDayEvent && (
+            <div title={sameDay?.title}>
+              <p aria-hidden={true}>{sameDay?.start}</p>
+              <p aria-hidden={true}>{sameDay?.end}</p>
+            </div>
+          )}
+          {!isSameDayEvent && (
+            <p title={multiDay?.title}>
+              {multiDay?.start} {dashSeparator} {multiDay?.end}
+            </p>
+          )}
+        </>
+      </Modal>
     );
   },
 );
