@@ -204,5 +204,13 @@ describe('React hooks', () => {
 
       expect(initialActiveElement).toHaveFocus();
     });
+    it('should return elementRef, setupFocusTrap, and returnFocusToInitialElement', () => {
+      const { result } = renderHook(() => useFocusManager<HTMLElement>(null));
+      const { elementRef, returnFocusToInitialElement, setupFocusTrap } =
+        result.current;
+      expect(elementRef).toBeDefined();
+      expect(returnFocusToInitialElement).toBeDefined();
+      expect(setupFocusTrap).toBeDefined();
+    });
   });
 });
