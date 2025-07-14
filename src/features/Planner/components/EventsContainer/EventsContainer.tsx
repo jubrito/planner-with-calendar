@@ -32,10 +32,6 @@ export const EventContainer = () => {
   const eventsOfSelectedDate = useSelector(
     getCurrentEventsOfSelectedDate(date),
   );
-  // const viewEventModalRef: RefObject<HTMLDivElement | null> = useRef(null);
-  // const createEventModalRef: RefObject<HTMLDivElement | null> = useRef(null);
-  // const selectedEventRef: RefObject<HTMLDivElement | null> = useRef(null);
-
   const {
     draftEvent,
     createDraftEvent,
@@ -43,21 +39,6 @@ export const EventContainer = () => {
     clearDraftEvent,
     createEvent,
   } = useEvent(year, month, day);
-
-  // const viewEventModalInfo: ViewEventDetailsModalProps = useMemo(
-  //   () => ({
-  //     modalRef: viewEventModalRef,
-  //     selectedEventRef: selectedEventRef,
-  //   }),
-  //   [],
-  // );
-
-  // const createEventModalInfo: CreateEventModalProps = useMemo(
-  //   () => ({
-  //     modalRef: createEventModalRef,
-  //   }),
-  //   [],
-  // );
 
   const handleMouseDown = useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
@@ -146,17 +127,3 @@ export const EventContainer = () => {
     </div>
   );
 };
-
-// const isValidDraftEvent = (event: EventOnCreate) =>
-//   event.id != null &&
-//   event.title != null &&
-//   event.start != null &&
-//   event.start.fixedPositionY != null &&
-//   event.end != null &&
-//   event.end.fixedPositionY;
-
-// const isValidEvent = (event: EventStored) =>
-//   event.id != null &&
-//   event.title != null &&
-//   event.startDate != null &&
-//   event.endDate != null;
