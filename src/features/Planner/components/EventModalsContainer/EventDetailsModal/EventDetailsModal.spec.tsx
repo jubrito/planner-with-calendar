@@ -366,6 +366,10 @@ describe('EventDetailsModal', () => {
   });
 
   describe('Actions', () => {
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
     it('should clear event on view mode when closing modal', async () => {
       const { store } = renderEventDetailsModal({
         event: initialSelectedEvent.event,
@@ -386,7 +390,22 @@ describe('EventDetailsModal', () => {
       expect(updatedEventOnViewMode).toBeUndefined();
     });
 
-    it.todo('should alert as placeholder when editing modal');
+    it('should alert as placeholder when editing modal', async () => {
+      renderEventDetailsModal({
+        event: initialSelectedEvent.event,
+      });
+
+      const editButton = screen.getByLabelText('Click to edit');
+
+      const alertMock = jest
+        .spyOn(window, 'alert')
+        .mockImplementation(() => {});
+
+      await userEvent.click(editButton);
+
+      expect(alertMock).toHaveBeenCalled();
+    });
+
     it.todo(
       'should not render modal if event on view mode variable is not defined',
     );
