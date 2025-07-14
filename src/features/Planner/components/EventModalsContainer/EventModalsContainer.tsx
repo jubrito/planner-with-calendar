@@ -1,4 +1,4 @@
-import { memo, RefObject, useCallback } from 'react';
+import { memo, RefObject } from 'react';
 import { EventDetailsModal } from './EventDetailsModal/EventDetailsModal';
 
 export type ViewEventDetailsModalProps = {
@@ -11,13 +11,9 @@ export type CreateEventModalProps = {
 };
 
 export const EventModalsContainer = memo(() => {
-  const editModal = useCallback(() => {
-    alert('edit');
-  }, []);
-
   return (
     <>
-      <EventDetailsModal editModal={editModal} />
+      <EventDetailsModal />
       {/* <EventCreationModal
           closeModal={closeModal}
           createEventModalRef={createEvent.modalRef}
