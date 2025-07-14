@@ -13,6 +13,13 @@ import {
   get2DigitsValue,
   getDateISOString,
 } from '../../../../../utils/calendar/utils';
+import userEvent from '@testing-library/user-event';
+
+type RenderEventDetailsModalProps = {
+  renderWith24hTimeSystem?: boolean;
+  event?: EventStored;
+  top?: number;
+};
 
 describe('EventDetailsModal', () => {
   const eventTitle = 'title';
@@ -40,10 +47,15 @@ describe('EventDetailsModal', () => {
   );
   const startPeriod = 'AM';
   const endPeriod = 'PM';
-  type RenderEventDetailsModalProps = {
-    renderWith24hTimeSystem?: boolean;
-    event?: EventStored;
-    top?: number;
+
+  const initialSelectedEvent: SelectedEventOnDayView = {
+    event: {
+      endDate,
+      startDate,
+      id: 'id',
+      title: eventTitle,
+    },
+    top: 0,
   };
 
   const renderEventDetailsModal = ({
@@ -77,21 +89,6 @@ describe('EventDetailsModal', () => {
     });
   };
 
-  const initialSelectedEvent: SelectedEventOnDayView = {
-    event: {
-      endDate,
-      startDate,
-      id: 'id',
-      title: eventTitle,
-    },
-    top: 0,
-  };
-
-  it('should render event details modal title', () => {
-    renderEventDetailsModal({});
-    expect(screen.getByText(eventTitle)).toBeInTheDocument();
-  });
-
   const getTime = ({
     start,
     end,
@@ -115,6 +112,11 @@ describe('EventDetailsModal', () => {
     const endTime = `${get2DigitsValue(endBlock.hourDate.getHours())}:${get2DigitsValue(endBlock.minutesDate.getMinutes())}`;
     return { startTime, endTime };
   };
+
+  it('should render event details modal title', () => {
+    renderEventDetailsModal({});
+    expect(screen.getByText(eventTitle)).toBeInTheDocument();
+  });
 
   describe('When is 12-hour time system', () => {
     describe('When is same day event', () => {
@@ -361,5 +363,32 @@ describe('EventDetailsModal', () => {
         expect(timeElement).toHaveProperty('title', title);
       });
     });
+  });
+
+  describe('Actions', () => {
+    it('should clear event on view mode when closing modal', async () => {
+      const { store } = renderEventDetailsModal({
+        event: initialSelectedEvent.event,
+        top: initialSelectedEvent.top,
+      });
+      const initialEventOnViewMode =
+        store.getState().eventSlice.currentState.eventOnViewMode;
+
+      expect(initialEventOnViewMode).toStrictEqual({ ...initialSelectedEvent });
+
+      const closeButton = screen.getByLabelText('Click to close modal');
+
+      await userEvent.click(closeButton);
+
+      const updatedEventOnViewMode =
+        store.getState().eventSlice.currentState.eventOnViewMode;
+
+      expect(updatedEventOnViewMode).toBeUndefined();
+    });
+
+    it.todo('should alert as placeholder when editing modal');
+    it.todo(
+      'should not render modal if event on view mode variable is not defined',
+    );
   });
 });
