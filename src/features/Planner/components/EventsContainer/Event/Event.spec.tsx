@@ -16,7 +16,6 @@ const renderDefaultEvent = (event: EventOnCreate) =>
       endY={event.end.fixedPositionY}
       startDate={event.start.date}
       endDate={event.end.date}
-      viewEventDetails={jest.fn()}
     />,
   );
 describe('Event', () => {
@@ -120,7 +119,6 @@ describe('Event', () => {
           endY={event.end.fixedPositionY}
           startDate={event.start.date}
           endDate={event.end.date}
-          viewEventDetails={jest.fn()}
         />,
         {
           preloadedState: {
@@ -181,7 +179,6 @@ describe('Event', () => {
           endY={event.end.fixedPositionY}
           startDate={event.start.date}
           endDate={event.end.date}
-          viewEventDetails={jest.fn()}
         />,
         {
           preloadedState: {
@@ -202,6 +199,61 @@ describe('Event', () => {
       );
       expect(eventTimeRange).toBeInTheDocument();
       expect(eventTimeRange).toHaveTextContent('11:00 – 12:15');
+    });
+    it('should focus event when component is displayed', () => {
+      const event: EventOnCreate = {
+        id: 'id',
+        title: 'title',
+        start: {
+          fixedPositionY: 0,
+          date: getDateISOString(
+            new Date(year, month, day, startHour, startMinutes),
+          ),
+          block: {
+            fifteenMinBlock: 0,
+            hour: startHour,
+            minutes: startMinutes,
+          },
+        },
+        end: {
+          fixedPositionY: 50,
+          date: getDateISOString(
+            new Date(year, month, day, endHour, endMinutes),
+          ),
+          block: {
+            fifteenMinBlock: 4,
+            hour: endHour,
+            minutes: endMinutes,
+          },
+        },
+      };
+      renderWithProviders(
+        <Event
+          id={event.id}
+          title={event.title}
+          startY={event.start.fixedPositionY}
+          endY={event.end.fixedPositionY}
+          startDate={event.start.date}
+          endDate={event.end.date}
+        />,
+        {
+          preloadedState: {
+            localeSlice: {
+              ...initialValue,
+              currentState: {
+                ...initialValue.currentState,
+                locale: {
+                  lang: ptBrLang,
+                },
+              },
+            },
+          },
+        },
+      );
+      const eventCreated = screen.getByTitle(
+        'Click on the event to view details and actions',
+      );
+      expect(eventCreated).toHaveFocus();
     });
   });
 });
