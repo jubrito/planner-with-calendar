@@ -102,6 +102,7 @@ export const Event = memo(function ({
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === enterKey) {
+      e.preventDefault();
       viewEventDetails(event);
     }
   };
