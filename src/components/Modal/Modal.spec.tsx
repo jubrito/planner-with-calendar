@@ -34,7 +34,7 @@ describe('Modal', () => {
           deleteLabel,
           handleDelete: deleteModalMock,
         }}
-        isOpen
+        isOpen={true}
       >
         <>
           <p>{eventTitle}</p>
@@ -69,7 +69,7 @@ describe('Modal', () => {
         deleteModal={{
           handleDelete: deleteModalMock,
         }}
-        isOpen
+        isOpen={true}
       >
         {content}
       </Modal>,
@@ -95,9 +95,11 @@ describe('Modal', () => {
     const editButton = screen.getByLabelText(editLabel);
     const deleteButton = screen.getByLabelText(deleteLabel);
 
-    await userEvent.click(closeButton);
+    screen.debug();
+
     await userEvent.click(editButton);
     await userEvent.click(deleteButton);
+    await userEvent.click(closeButton);
 
     expect(closeModalMock).toHaveBeenCalledTimes(1);
     expect(editModalMock).toHaveBeenCalledTimes(1);
@@ -118,4 +120,5 @@ describe('Modal', () => {
     const modal = screen.getByLabelText(dialogAccessibleName);
     expect(modal).toBeInTheDocument();
   });
+  it.todo('should return focus to initial element on closing modal');
 });
