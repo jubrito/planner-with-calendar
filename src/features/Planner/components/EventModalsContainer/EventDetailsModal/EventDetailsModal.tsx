@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { memo, RefObject, useCallback, useRef } from 'react';
+import { memo, useCallback } from 'react';
 import { getLocaleLanguage } from '../../../../../redux/slices/localeSlice/selectors';
 import { getCurrenteventOnViewMode } from '../../../../../redux/slices/eventSlice/selectors';
 import { getEventModalContent } from '../../../../../utils/events/dayView/getModalInfo';
@@ -9,25 +9,20 @@ import { clearEventOnViewMode } from '../../../../../redux/slices/eventSlice';
 
 type EventDetailsModalProps = {
   editModal: () => void;
-  // viewEventModalRef: RefObject<HTMLDivElement | null>;
 };
 
 export const EventDetailsModal = memo(
   ({ editModal }: EventDetailsModalProps) => {
     const locale = useSelector(getLocaleLanguage());
     const eventOnViewMode = useSelector(getCurrenteventOnViewMode());
-    const viewEventModalRef: RefObject<HTMLDivElement | null> = useRef(null);
-
+    const isOpen = (eventOnViewMode && eventOnViewMode.event) != null;
     const dispatch = useDispatch();
 
     const closeModal = useCallback(() => {
-      // TODO modal should receive ref to focus after close through redux
-      // const eventRef = viewEvent.selectedEventRef.current;
-      // if (eventRef != null) eventRef.focus();
       dispatch(clearEventOnViewMode());
     }, [dispatch]);
 
-    if (!eventOnViewMode || !eventOnViewMode.event) return <></>;
+    if (!eventOnViewMode || !eventOnViewMode.event) return null;
 
     const { event: selectedEvent, top } = eventOnViewMode;
     const { title } = selectedEvent;
@@ -42,8 +37,8 @@ export const EventDetailsModal = memo(
         style={{ top }}
         closeModal={{ handleClose: closeModal }}
         editModal={{ handleEdit: editModal }}
-        ref={viewEventModalRef}
         dialogAccessibleName={title}
+        isOpen={isOpen}
       >
         <>
           <p>
