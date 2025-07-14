@@ -1,5 +1,5 @@
 import { Modal } from './Modal';
-import { act, render, screen } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import * as useFocusManagerModule from '../../hooks/useFocusManager';
@@ -184,7 +184,7 @@ describe('Modal', () => {
       expect(deleteModalMock).toHaveBeenCalledTimes(1);
     });
 
-    it('should call function to return focus to initial element on closing modal', async () => {
+    it('should call function to return focus to initial element on closing modal and hide', async () => {
       const closeButton = screen.getByLabelText(closeLabel);
 
       await act(async () => {
@@ -192,6 +192,16 @@ describe('Modal', () => {
       });
 
       expect(returnFocusMock).toHaveBeenCalledTimes(1);
+    });
+    it('should close the modal when clicking on close button', async () => {
+      const closeButton = screen.getByLabelText(closeLabel);
+
+      await userEvent.click(closeButton);
+
+      const modalContent = screen.queryByText(content);
+      await waitFor(() => {
+        expect(modalContent).not.toBeInTheDocument();
+      });
     });
   });
 });
