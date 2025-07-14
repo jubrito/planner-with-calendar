@@ -16,9 +16,7 @@ describe('Modal', () => {
   const editLabel = 'Edit';
   const deleteLabel = 'Delete';
   let rerenderModal: (ui: React.ReactNode) => void;
-  const useRefMock = {
-    current: null,
-  };
+
   beforeEach(() => {
     const { rerender } = renderWithProviders(
       <Modal
@@ -36,7 +34,7 @@ describe('Modal', () => {
           deleteLabel,
           handleDelete: deleteModalMock,
         }}
-        ref={useRefMock}
+        isOpen
       >
         <>
           <p>{eventTitle}</p>
@@ -71,7 +69,7 @@ describe('Modal', () => {
         deleteModal={{
           handleDelete: deleteModalMock,
         }}
-        ref={useRefMock}
+        isOpen
       >
         {content}
       </Modal>,
@@ -105,9 +103,12 @@ describe('Modal', () => {
     expect(editModalMock).toHaveBeenCalledTimes(1);
     expect(deleteModalMock).toHaveBeenCalledTimes(1);
   });
-  it('should focus modal when component is displayed', () => {
-    const modal = screen.getByRole('dialog');
-    expect(modal).toHaveFocus();
+  it('should focus modal first focusable element when component is displayed', () => {
+    const focusableElements = document.querySelectorAll(
+      'button, [href], input, select, textarea',
+    );
+    const [firstFocusableElement] = focusableElements;
+    expect(firstFocusableElement).toHaveFocus();
   });
   it('should set modal aria modal attribute to true', () => {
     const modal = screen.getByRole('dialog');
