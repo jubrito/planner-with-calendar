@@ -1,12 +1,17 @@
-import { act, renderHook } from '@testing-library/react';
+import { act, render, renderHook } from '@testing-library/react';
 import { Months } from '../types/calendar/enums';
 
 import { useEvent } from './useDraftEvent';
 import { EventStored } from '../types/event';
 import { defaultEventTitle } from '../utils/events/dayView/constants';
+import { useFocusManager } from './useFocusManager';
+import { screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import userEvent from '@testing-library/user-event';
+import { useEffect, useRef } from 'react';
 
 describe('React hooks', () => {
-  describe('useDate()', () => {
+  describe('useDraftEvent()', () => {
     const year = 2025;
     const month = Months.DECEMBER;
     const day = 1;
@@ -131,6 +136,50 @@ describe('React hooks', () => {
         expect(newEvent.startDate).not.toStrictEqual(initialEvent.startDate);
         expect(newEvent.endDate).not.toStrictEqual(initialEvent.endDate);
       });
+    });
+  });
+  describe('useFocusManager', () => {
+    const ComponentWithFocusManager = () => {
+      const initialActiveElementRef = useRef<HTMLButtonElement>(null);
+      const { elementRef, returnFocusToInitialElement, setupFocusTrap } =
+        useFocusManager<HTMLDivElement>(initialActiveElementRef.current);
+
+      useEffect(() => {
+        initialActiveElementRef?.current?.focus();
+      }, []);
+
+      return (
+        <>
+          <button ref={initialActiveElementRef}>Initial active element</button>
+          <div ref={elementRef} role="dialog">
+            <button onClick={() => setupFocusTrap()}>Set-up focus trap</button>
+            <button onClick={() => returnFocusToInitialElement()}>
+              Return focus to initial element
+            </button>
+            <p>Content</p>
+          </div>
+        </>
+      );
+    };
+
+    beforeEach(() => {
+      render(<ComponentWithFocusManager />);
+    });
+
+    it("should focus component's first element when setting up focus trapping", () => {
+      const initialActiveElement = screen.getByText('Initial active element');
+      const setUpFocusTrapButton = screen.getByRole('button', {
+        name: 'Set-up focus trap',
+      });
+      const focusableElements = document.querySelectorAll(
+        'button, [href], input, select, textarea',
+      );
+      expect(initialActiveElement).toHaveFocus();
+
+      userEvent.click(setUpFocusTrapButton);
+
+      const [firstFocusableElement] = focusableElements;
+      expect(firstFocusableElement).toHaveFocus();
     });
   });
 });
