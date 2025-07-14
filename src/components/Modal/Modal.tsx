@@ -3,7 +3,8 @@ import styles from './modal.module.scss';
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { JSX, RefObject, useEffect } from 'react';
+import { JSX, useEffect } from 'react';
+import { useFocusManager } from '../../hooks/useFocusManager';
 
 type ModalProps = {
   dialogAccessibleName: string;
@@ -21,7 +22,7 @@ type ModalProps = {
     editLabel?: string;
   };
   style: ObjectType;
-  ref: RefObject<HTMLDivElement | null>;
+  isOpen?: boolean;
 };
 export const Modal = ({
   children,
@@ -30,55 +31,65 @@ export const Modal = ({
   closeModal,
   editModal,
   deleteModal,
-  ref,
+  isOpen,
 }: ModalProps) => {
+  const activeElement = document.activeElement;
+  const { elementRef, returnFocusToInitialElement, setupFocusTrap } =
+    useFocusManager<HTMLDivElement>(activeElement);
+
   useEffect(() => {
-    const modalRef = ref.current;
-    if (modalRef !== null) modalRef.focus();
-  }, [ref]);
+    if (!isOpen) return;
+    setupFocusTrap();
+  }, [setupFocusTrap, isOpen]);
+
+  if (!isOpen) return null;
 
   return (
-    <div
-      className={styles.modal}
-      id="modal"
-      role="dialog"
-      aria-modal={true}
-      onMouseDown={(e) => e.stopPropagation()}
-      style={style}
-      ref={ref}
-      tabIndex={0}
-      aria-label={dialogAccessibleName}
-    >
-      <div className={styles.actions}>
-        {closeModal && (
-          <button
-            onClick={closeModal.handleClose}
-            aria-label={closeModal.closeLabel || 'Click to close modal'}
-            tabIndex={0}
-          >
-            <CloseIcon />
-          </button>
-        )}
-        {deleteModal && (
-          <button
-            onClick={deleteModal.handleDelete}
-            aria-label={deleteModal.deleteLabel || 'Click to delete'}
-            tabIndex={0}
-          >
-            <DeleteIcon />
-          </button>
-        )}
-        {editModal && (
-          <button
-            onClick={editModal.handleEdit}
-            aria-label={editModal.editLabel || 'Click to edit'}
-            tabIndex={0}
-          >
-            <EditIcon />
-          </button>
-        )}
-      </div>
-      <div className={styles.content}>{children}</div>
-    </div>
+    <>
+      {isOpen && (
+        <div
+          className={styles.modal}
+          id="modal"
+          role="dialog"
+          aria-modal={true}
+          onMouseDown={(e) => e.stopPropagation()}
+          style={style}
+          ref={elementRef}
+          tabIndex={0}
+          aria-label={dialogAccessibleName}
+        >
+          <div className={styles.actions}>
+            {closeModal && (
+              <button
+                onClick={() => {
+                  returnFocusToInitialElement();
+                  closeModal.handleClose();
+                }}
+                aria-label={closeModal.closeLabel || 'Click to close modal'}
+              >
+                <CloseIcon />
+              </button>
+            )}
+            {deleteModal && (
+              <button
+                onClick={deleteModal.handleDelete}
+                aria-label={deleteModal.deleteLabel || 'Click to delete'}
+              >
+                <DeleteIcon />
+              </button>
+            )}
+            {editModal && (
+              <button
+                onClick={editModal.handleEdit}
+                aria-label={editModal.editLabel || 'Click to edit'}
+              >
+                <EditIcon />
+              </button>
+            )}
+          </div>
+          <div className={styles.content}>{children}</div>
+        </div>
+      )}
+    </>
   );
 };

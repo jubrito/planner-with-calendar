@@ -7,14 +7,12 @@ export function useFocusManager<T extends HTMLElement>(
   const elementRef = useRef<T>(null);
 
   const focusFirstElement = useCallback(() => {
-    console.log('elementRef.current', elementRef.current);
     if (elementRef.current == null) return;
 
     const focusableElements = elementRef.current.querySelectorAll(
       'button, [href], input, select, textarea',
     );
 
-    console.log('focusableElements', focusableElements);
     if (focusableElements.length > 0) {
       const [firstElement] = focusableElements;
       if (firstElement instanceof HTMLElement) {
