@@ -181,5 +181,28 @@ describe('React hooks', () => {
       const [firstFocusableElement] = focusableElements;
       expect(firstFocusableElement).toHaveFocus();
     });
+
+    it('should return focus to initial element', () => {
+      const initialActiveElement = screen.getByText('Initial active element');
+      const setUpFocusTrapButton = screen.getByRole('button', {
+        name: 'Set-up focus trap',
+      });
+      const focusableElements = document.querySelectorAll(
+        'button, [href], input, select, textarea',
+      );
+      expect(initialActiveElement).toHaveFocus();
+
+      userEvent.click(setUpFocusTrapButton);
+
+      const [firstFocusableElement] = focusableElements;
+      expect(firstFocusableElement).toHaveFocus();
+
+      const returnFocusToInitialElementButton = screen.getByRole('button', {
+        name: 'Set-up focus trap',
+      });
+      userEvent.click(returnFocusToInitialElementButton);
+
+      expect(initialActiveElement).toHaveFocus();
+    });
   });
 });
