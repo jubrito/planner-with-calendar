@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import styles from './event.module.scss';
-import { memo, RefObject, useCallback, useMemo, useRef } from 'react';
+import { memo, useCallback, useEffect, useMemo, useRef } from 'react';
 import { EventOnCreate, EventOnOpenDetails } from '../../../../../types/event';
 import {
   getFormattedDateString,
@@ -55,9 +55,12 @@ export const Event = memo(function ({
   const isAtLeast60MinEvent = eventHeight >= sizeOfEach15MinBlock * 4;
   const hasMinimumHeight = eventHeight >= sizeOfEach15MinBlock;
   const localeString = useSelector(getLocaleLanguage());
-  const eventRef = useRef(null);
-  const selectedEventRef: RefObject<HTMLDivElement | null> = useRef(null);
+  const eventRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    eventRef?.current?.focus();
+  }, []);
 
   const event: EventOnOpenDetails = {
     id,
@@ -99,12 +102,12 @@ export const Event = memo(function ({
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === enterKey) {
-      viewEventDetails(event, eventRef);
+      viewEventDetails(event);
     }
   };
 
   const viewEventDetails = useCallback(
-    (event: EventOnOpenDetails, eventRef: RefObject<HTMLDivElement | null>) => {
+    (event: EventOnOpenDetails) => {
       console.log('Event clicked:', event);
       const moveEventInPixels = 20;
       dispatch(
@@ -113,7 +116,6 @@ export const Event = memo(function ({
           event,
         }),
       );
-      selectedEventRef.current = eventRef.current;
     },
     [dispatch],
   );
@@ -123,7 +125,7 @@ export const Event = memo(function ({
       id={id}
       className={styles.plannerEvent}
       style={getEventStyle(eventStart, eventHeight)}
-      onClick={() => viewEventDetails(event, eventRef)}
+      onClick={() => viewEventDetails(event)}
       onKeyDown={handleKeyDown}
       onMouseDown={(e) => e.stopPropagation()}
       title="Click on the event to view details and actions"
