@@ -3,7 +3,7 @@ import styles from './modal.module.scss';
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { JSX, useEffect } from 'react';
+import { JSX, useEffect, useState } from 'react';
 import { useFocusManager } from '../../hooks/useFocusManager';
 
 type ModalProps = {
@@ -36,17 +36,18 @@ export const Modal = ({
   const activeElement = document.activeElement;
   const { elementRef, returnFocusToInitialElement, setupFocusTrap } =
     useFocusManager<HTMLDivElement>(activeElement);
+  const [displayModal, setDisplayModal] = useState(isOpen);
 
   useEffect(() => {
-    if (!isOpen) return;
+    if (!displayModal) return;
     setupFocusTrap();
-  }, [setupFocusTrap, isOpen]);
+  }, [setupFocusTrap, displayModal]);
 
-  if (!isOpen) return null;
+  if (!displayModal) return null;
 
   return (
     <>
-      {isOpen && (
+      {displayModal && (
         <div
           className={styles.modal}
           id="modal"
@@ -64,6 +65,7 @@ export const Modal = ({
                 onClick={() => {
                   returnFocusToInitialElement();
                   closeModal.handleClose();
+                  setDisplayModal(false);
                 }}
                 aria-label={closeModal.closeLabel || 'Click to close modal'}
               >
