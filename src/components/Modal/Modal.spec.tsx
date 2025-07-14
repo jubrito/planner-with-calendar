@@ -1,6 +1,5 @@
-import { renderWithProviders } from '../../utils/tests/renderWithProviders';
 import { Modal } from './Modal';
-import { act, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import * as useFocusManagerModule from '../../hooks/useFocusManager';
@@ -19,9 +18,33 @@ describe('Modal', () => {
   let rerenderModal: (ui: React.ReactNode) => void;
   const returnFocusMock = jest.fn();
 
+  it('should not render modal if is open is false', () => {
+    render(
+      <Modal
+        dialogAccessibleName={dialogAccessibleName}
+        style={eventStyle}
+        closeModal={{
+          closeLabel,
+          handleClose: closeModalMock,
+        }}
+        editModal={{
+          editLabel,
+          handleEdit: editModalMock,
+        }}
+        deleteModal={{
+          deleteLabel,
+          handleDelete: deleteModalMock,
+        }}
+        isOpen={false}
+      >
+        <p>Content</p>
+      </Modal>,
+    );
+    expect(screen.queryByText('Content')).not.toBeInTheDocument();
+  });
   describe('When modal is displayed', () => {
     beforeEach(() => {
-      const { rerender } = renderWithProviders(
+      const { rerender } = render(
         <Modal
           dialogAccessibleName={dialogAccessibleName}
           style={eventStyle}
@@ -93,7 +116,7 @@ describe('Modal', () => {
       expect(editButton).toHaveRole('button');
       expect(deleteButton).toHaveRole('button');
     });
-    it('should focus modal first focusable element when component is displayed', () => {
+    it('should focus modal first focusable element when component is displayed and open', () => {
       const focusableElements = document.querySelectorAll(
         'button, [href], input, select, textarea',
       );
@@ -118,7 +141,7 @@ describe('Modal', () => {
           setupFocusTrap: jest.fn(),
           returnFocusToInitialElement: returnFocusMock,
         }));
-      renderWithProviders(
+      render(
         <Modal
           dialogAccessibleName={dialogAccessibleName}
           style={eventStyle}
