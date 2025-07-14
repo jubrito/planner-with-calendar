@@ -345,7 +345,6 @@ describe('Planner', () => {
 
       await waitFor(() => {
         // event is created
-        screen.debug();
         expect(
           screen.getByText('(No title)', { exact: false }),
         ).toBeInTheDocument();

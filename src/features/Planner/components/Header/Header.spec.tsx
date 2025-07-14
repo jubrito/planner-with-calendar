@@ -72,7 +72,6 @@ describe('Header', () => {
 
   it('should render button to create calendar', () => {
     renderHeader({});
-    screen.debug();
     expect(
       screen.getByRole('button', { name: 'Create event' }),
     ).toBeInTheDocument();
