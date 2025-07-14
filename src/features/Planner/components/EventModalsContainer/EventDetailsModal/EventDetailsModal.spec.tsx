@@ -40,9 +40,6 @@ describe('EventDetailsModal', () => {
   );
   const startPeriod = 'AM';
   const endPeriod = 'PM';
-  const closeModalMock = jest.fn();
-  const editModalMock = jest.fn();
-  const refMock = { current: null };
   type RenderEventDetailsModalProps = {
     renderWith24hTimeSystem?: boolean;
     event?: EventStored;
@@ -58,33 +55,26 @@ describe('EventDetailsModal', () => {
       event: event ?? initialSelectedEvent.event,
       top: top ?? initialSelectedEvent.top,
     };
-    return renderWithProviders(
-      <EventDetailsModal
-        closeModal={closeModalMock}
-        viewEventModalRef={refMock}
-        editModal={editModalMock}
-      />,
-      {
-        preloadedState: {
-          eventSlice: {
-            ...initialEventValue,
-            currentState: {
-              ...initialEventValue.currentState,
-              eventOnViewMode: eventOnViewMode,
-            },
+    return renderWithProviders(<EventDetailsModal />, {
+      preloadedState: {
+        eventSlice: {
+          ...initialEventValue,
+          currentState: {
+            ...initialEventValue.currentState,
+            eventOnViewMode: eventOnViewMode,
           },
-          localeSlice: {
-            ...initialLocaleValue,
-            currentState: {
-              ...initialLocaleValue.currentState,
-              locale: {
-                lang: renderWith24hTimeSystem ? 'pt-BR' : 'en-US',
-              },
+        },
+        localeSlice: {
+          ...initialLocaleValue,
+          currentState: {
+            ...initialLocaleValue.currentState,
+            locale: {
+              lang: renderWith24hTimeSystem ? 'pt-BR' : 'en-US',
             },
           },
         },
       },
-    );
+    });
   };
 
   const initialSelectedEvent: SelectedEventOnDayView = {
