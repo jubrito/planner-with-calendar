@@ -1,15 +1,14 @@
 # Next steps (v1):
 
+- Rename 'click to something' to just something
+
+- add todo from notes
+
+- order of modal actions is inverted (close should be first)
+
+  - after fix change render so edit is first
+
 - Rename selectedEventOnCreation to eventOnCreation
-
-- Modals are weird, maybe refactor the whole thing
-
-  - The responsability of closing and opening should be the modal
-  - Modal should receive only what it needs to focus and do the rest inside
-  - Trying to use a variable eventOnViewMode and selectedEventOnCreation (future eventOnCreation) to decide when to show/hide modal
-    - Where to handle this?
-
-- Fix modal tests
 
 Modal accessibility:
 
