@@ -406,8 +406,10 @@ describe('EventDetailsModal', () => {
       expect(alertMock).toHaveBeenCalled();
     });
 
-    it.todo(
-      'should not render modal if event on view mode variable is not defined',
-    );
+    it('should not render modal if event on view mode variable is not defined', () => {
+      renderWithProviders(<EventDetailsModal />);
+      const modal = screen.queryByRole('dialog');
+      expect(modal).not.toBeInTheDocument();
+    });
   });
 });
