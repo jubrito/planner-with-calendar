@@ -1,5 +1,5 @@
 import { Event } from './Event';
-import { screen } from '@testing-library/dom';
+import { fireEvent, screen } from '@testing-library/dom';
 import '@testing-library/jest-dom';
 import { EventOnCreate } from '../../../../../types/event';
 import { renderWithProviders } from '../../../../../utils/tests/renderWithProviders';
@@ -272,6 +272,7 @@ describe('Event', () => {
 
     const initialEventOnViewMode =
       store.getState().eventSlice.initialState.eventOnViewMode;
+
     expect(initialEventOnViewMode).toBeUndefined();
 
     const eventContent = screen.getByText(event.title);
@@ -293,7 +294,41 @@ describe('Event', () => {
       top: event.end.fixedPositionY - moveEventInPixels,
     });
   });
-  it.todo(
-    'should update event on view mode with event values when pressing enter key on the event for accessibility',
-  );
+  it('should update event on view mode with event values when pressing enter key on the event for accessibility', async () => {
+    const moveEventInPixels = 20;
+    const { store } = renderWithProviders(
+      <Event
+        id={event.id}
+        title={event.title}
+        startY={event.start.fixedPositionY}
+        endY={event.end.fixedPositionY}
+        startDate={event.start.date}
+        endDate={event.end.date}
+      />,
+    );
+
+    const initialEventOnViewMode =
+      store.getState().eventSlice.initialState.eventOnViewMode;
+
+    expect(initialEventOnViewMode).toBeUndefined();
+
+    const eventContent = screen.getByText(event.title);
+
+    fireEvent.keyDown(eventContent, { key: 'Enter' });
+
+    const currentEventOnViewMode =
+      store.getState().eventSlice.currentState.eventOnViewMode;
+
+    expect(currentEventOnViewMode).toStrictEqual({
+      event: {
+        id: event.id,
+        title: event.title,
+        startY: event.start.fixedPositionY,
+        endY: event.end.fixedPositionY,
+        startDate: event.start.date,
+        endDate: event.end.date,
+      },
+      top: event.end.fixedPositionY - moveEventInPixels,
+    });
+  });
 });
