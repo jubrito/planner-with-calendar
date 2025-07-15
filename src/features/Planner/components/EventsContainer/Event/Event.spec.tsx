@@ -6,6 +6,7 @@ import { renderWithProviders } from '../../../../../utils/tests/renderWithProvid
 import { Months } from '../../../../../types/calendar/enums';
 import { initialValue } from '../../../../../redux/slices/localeSlice';
 import { getDateISOString } from '../../../../../utils/calendar/utils';
+import userEvent from '@testing-library/user-event';
 
 const renderDefaultEvent = (event: EventOnCreate) =>
   renderWithProviders(
@@ -256,4 +257,43 @@ describe('Event', () => {
       expect(eventCreated).toHaveFocus();
     });
   });
+  it('should update event on view mode with event values when clicking on event', async () => {
+    const moveEventInPixels = 20;
+    const { store } = renderWithProviders(
+      <Event
+        id={event.id}
+        title={event.title}
+        startY={event.start.fixedPositionY}
+        endY={event.end.fixedPositionY}
+        startDate={event.start.date}
+        endDate={event.end.date}
+      />,
+    );
+
+    const initialEventOnViewMode =
+      store.getState().eventSlice.initialState.eventOnViewMode;
+    expect(initialEventOnViewMode).toBeUndefined();
+
+    const eventContent = screen.getByText(event.title);
+
+    await userEvent.click(eventContent);
+
+    const currentEventOnViewMode =
+      store.getState().eventSlice.currentState.eventOnViewMode;
+
+    expect(currentEventOnViewMode).toStrictEqual({
+      event: {
+        id: event.id,
+        title: event.title,
+        startY: event.start.fixedPositionY,
+        endY: event.end.fixedPositionY,
+        startDate: event.start.date,
+        endDate: event.end.date,
+      },
+      top: event.end.fixedPositionY - moveEventInPixels,
+    });
+  });
+  it.todo(
+    'should update event on view mode with event values when pressing enter key on the event for accessibility',
+  );
 });
