@@ -102,7 +102,7 @@ describe('Modal', () => {
       );
       const closeDefaultLabel = 'Close';
       const editDefaultLabel = 'Edit';
-      const deleteDefaultLabel = 'Click to delete';
+      const deleteDefaultLabel = 'Delete';
 
       expect(screen.getByLabelText(closeDefaultLabel)).toBeInTheDocument();
       expect(screen.getByLabelText(editDefaultLabel)).toBeInTheDocument();
