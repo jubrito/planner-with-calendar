@@ -77,4 +77,8 @@ describe('Header', () => {
     ).toBeInTheDocument();
     expect(screen.getByText('Create event')).toBeInTheDocument();
   });
+
+  it.todo(
+    'should open Create Event modal by clicking on the create event button',
+  );
 });
