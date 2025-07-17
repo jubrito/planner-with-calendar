@@ -10,7 +10,7 @@ import { formatDateIDFromDate } from '../../../utils/events/utils';
 type InitialEventsInfoState = {
   eventsByDates: EventsByDates;
   eventOnViewMode?: SelectedEventOnDayView;
-  selectedEventOnCreation?: SelectedEventOnDayView;
+  eventOnCreation?: SelectedEventOnDayView;
 };
 
 export type InitialState = {
@@ -26,7 +26,7 @@ type AddEvent = {
 const initialEventsInfo: InitialEventsInfoState = {
   eventsByDates: {},
   eventOnViewMode: undefined,
-  selectedEventOnCreation: undefined,
+  eventOnCreation: undefined,
 };
 
 export const initialValue: InitialState = {
@@ -59,16 +59,16 @@ export const eventSlice = createSlice({
       // closes View Event Details modal
       state.currentState.eventOnViewMode = undefined;
     },
-    updateSelectedEventOnCreation(
-      state: InitialState,
-      action: PayloadAction<SelectedEventOnDayView>,
-    ) {
-      state.currentState.selectedEventOnCreation = action.payload;
-    },
-    clearSelectedEventOnCreation(state: InitialState) {
-      // closes Create Event modal
-      state.currentState.selectedEventOnCreation = undefined;
-    },
+    // updateSelectedEventOnCreation(
+    //   state: InitialState,
+    //   action: PayloadAction<SelectedEventOnDayView>,
+    // ) {
+    //   state.currentState.eventOnCreation = action.payload;
+    // },
+    // clearSelectedEventOnCreation(state: InitialState) {
+    //   // closes Create Event modal
+    //   state.currentState.eventOnCreation = undefined;
+    // },
   },
 });
 
@@ -76,8 +76,8 @@ export const {
   addEvent,
   updateEventOnViewMode,
   clearEventOnViewMode,
-  updateSelectedEventOnCreation,
-  clearSelectedEventOnCreation,
+  // updateSelectedEventOnCreation,
+  // clearSelectedEventOnCreation,
 } = eventSlice.actions;
 
 export default eventSlice.reducer;
