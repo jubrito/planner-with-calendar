@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 
-describe('EventCreationModal', () => {
+describe('EventUpdateModal', () => {
   it.skip('should render title input', () => {
     const addTitleInput = screen.getByText('Add title');
     const newEventTitle = 'New event title';

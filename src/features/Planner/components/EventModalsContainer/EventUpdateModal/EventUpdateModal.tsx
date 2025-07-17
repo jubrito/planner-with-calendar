@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import { getCurrentEventOnUpdate } from '../../../../../redux/slices/eventSlice/selectors';
 import { getLocaleLanguage } from '../../../../../redux/slices/localeSlice/selectors';
 
-export const EventCreationModal = memo(() => {
+export const EventUpdateModal = memo(() => {
   const dispatch = useDispatch();
   const eventOnUpdate = useSelector(getCurrentEventOnUpdate());
   const locale = useSelector(getLocaleLanguage());
