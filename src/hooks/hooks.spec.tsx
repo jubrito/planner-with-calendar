@@ -221,12 +221,48 @@ describe('React hooks', () => {
       title: 'title',
       startDate: new Date(),
       endDate: new Date(),
-      location: '',
-      description: '',
+      location: 'location',
+      description: 'description',
     };
     it('should return event fields from initial event', () => {
       const { result } = renderHook(() => useManageEventUpdates(initialEvent));
       expect(result.current.eventFields).toStrictEqual(initialEvent);
     });
+
+    describe('WHEN updating fields', () => {
+      it('should return updated event fields', () => {
+        const newEvent: EventOnUpdate = {
+          id: 'new id',
+          title: 'new title',
+          startDate: new Date(2011),
+          endDate: new Date(2012),
+          location: 'new location',
+          description: 'new description',
+        };
+        const { result } = renderHook(() =>
+          useManageEventUpdates(initialEvent),
+        );
+        act(() => {
+          result.current.updateEventField('id', newEvent.id);
+          result.current.updateEventField('title', newEvent.title);
+          result.current.updateEventField('startDate', newEvent.startDate);
+          result.current.updateEventField('endDate', newEvent.endDate);
+          result.current.updateEventField('location', newEvent.location);
+          result.current.updateEventField('description', newEvent.description);
+        });
+        // rerender();
+        expect(result.current.eventFields).toStrictEqual(newEvent);
+      });
+      it.todo('should set is dirty to true');
+      it.todo('should clear the errors of the field being updated');
+    });
+
+    describe('WHEN validating fields', () => {
+      it.todo('should update errors with validation errors');
+      it.todo('should return true if errors were found');
+      it.todo('should return false if errors were not found');
+    });
+
+    it.todo('should update isDirty from false to true after updating an event');
   });
 });
