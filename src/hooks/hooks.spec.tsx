@@ -250,10 +250,18 @@ describe('React hooks', () => {
           result.current.updateEventField('location', newEvent.location);
           result.current.updateEventField('description', newEvent.description);
         });
-        // rerender();
         expect(result.current.eventFields).toStrictEqual(newEvent);
       });
-      it.todo('should set is dirty to true');
+      it('should set is dirty to true', () => {
+        const { result } = renderHook(() =>
+          useManageEventUpdates(initialEvent),
+        );
+        expect(result.current.isDirty).toStrictEqual(false);
+        act(() => {
+          result.current.updateEventField('id', 'new id');
+        });
+        expect(result.current.isDirty).toStrictEqual(true);
+      });
       it.todo('should clear the errors of the field being updated');
     });
 
