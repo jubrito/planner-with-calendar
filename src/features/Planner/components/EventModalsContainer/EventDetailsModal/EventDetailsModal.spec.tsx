@@ -2,10 +2,7 @@ import '@testing-library/jest-dom';
 import { screen } from '@testing-library/react';
 import { EventDetailsModal } from './EventDetailsModal';
 import { Months } from '../../../../../types/calendar/enums';
-import {
-  EventStored,
-  SelectedEventOnDayView,
-} from '../../../../../types/event';
+import { EventStored, EventOnDayView } from '../../../../../types/event';
 import { renderWithProviders } from '../../../../../utils/tests/renderWithProviders';
 import { initialValue as initialEventValue } from '../../../../../redux/slices/eventSlice';
 import { initialValue as initialLocaleValue } from '../../../../../redux/slices/localeSlice';
@@ -48,7 +45,7 @@ describe('EventDetailsModal', () => {
   const startPeriod = 'AM';
   const endPeriod = 'PM';
 
-  const initialSelectedEvent: SelectedEventOnDayView = {
+  const initialSelectedEvent: EventOnDayView = {
     event: {
       endDate,
       startDate,

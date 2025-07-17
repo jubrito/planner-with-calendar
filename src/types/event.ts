@@ -41,7 +41,7 @@ export type EventDetailsView = {
   weekDay: string;
 };
 
-export type SelectedEventOnDayView = {
+export type EventOnDayView = {
   top?: number;
   event?: EventStored;
 };
