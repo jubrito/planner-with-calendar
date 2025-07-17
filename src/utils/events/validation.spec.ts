@@ -3,6 +3,18 @@ import { validateEventOnUpdate } from './validation';
 
 describe('validations', () => {
   describe('validateEventOnUpdate', () => {
+    it('should return empty object if no error was found', () => {
+      const validEventOnUpdate: Partial<EventOnUpdate> = {
+        id: '',
+        title: '',
+        startDate: new Date(),
+        endDate: new Date(),
+        location: '',
+        description: '',
+      };
+      const errors = validateEventOnUpdate(validEventOnUpdate);
+      expect(errors).toStrictEqual({});
+    });
     describe('Start date errors', () => {
       it('should return startDate error message if start date is not provided', () => {
         const invalidEventOnUpdate: Partial<EventOnUpdate> = {
