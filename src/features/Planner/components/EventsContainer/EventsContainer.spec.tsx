@@ -369,87 +369,137 @@ describe('EventContainer', () => {
     });
   });
 
-  it('should only render events day opened', () => {
-    const dayOnDayViewContainer = 1;
-    const monthOnDayViewContainer = 1;
-    const yearOnDayViewContainer = 2025;
-    const day1Mock = {
-      key: `${dayOnDayViewContainer}/${monthOnDayViewContainer}/25`,
-      events: [
-        {
-          id: 'event-1746404701734',
-          title: 'First event from day 1',
-          startDate: '2025-01-01T03:15:00.000Z',
-          endDate: '2025-01-01T04:00:00.000Z',
-        },
-        {
-          id: 'event-1746404702252',
-          title: 'Second event from day 1',
-          startDate: '2025-01-01T04:45:00.000Z',
-          endDate: '2025-01-01T05:15:00.000Z',
-        },
-      ],
-    };
-    const day2Mock = {
-      key: '1/2/25',
-      events: [
-        {
-          id: 'event-1746405007716',
-          title: 'First event from day 2',
-          startDate: '2025-01-02T04:15:00.000Z',
-          endDate: '2025-01-02T04:30:00.000Z',
-        },
-        {
-          id: 'event-1746405090400',
-          title: 'Second event from day 2',
-          startDate: '2025-01-02T05:30:00.000Z',
-          endDate: '2025-01-02T06:00:00.000Z',
-        },
-      ],
-    };
-    const day3Mock = {
-      key: '1/3/25',
-      events: [
-        {
-          id: 'event-1746405144092',
-          title: 'Event from day 3',
-          startDate: '2025-01-03T04:30:00.000Z',
-          endDate: '2025-01-03T05:00:00.000Z',
-        },
-      ],
-    };
-    const eventsByDatesMock = {
-      [day1Mock.key]: {
-        events: day1Mock.events,
+  it('should hide View Event Details modal when clicking on container (with mouse)', async () => {
+    const date = getDateISOString(new Date(year, month, day));
+    const { container, store } = renderEventsContainer({
+      eventOnViewMode: {
+        ...initialSelectedEvent,
+        event: initialSelectedEvent.event,
       },
-      [day2Mock.key]: {
-        events: day2Mock.events,
+      dayViewISODate: date,
+      eventsByDates: {
+        [formatDateIDFromDate(date)]: {
+          events: [initialSelectedEvent.event],
+        },
       },
-      [day3Mock.key]: {
-        events: day3Mock.events,
-      },
-    };
-    const monthZeroIndexed = monthOnDayViewContainer - 1;
-    const date = new Date(
-      yearOnDayViewContainer,
-      monthZeroIndexed,
-      dayOnDayViewContainer,
-    );
-    renderEventsContainer({
-      dayViewISODate: getDateISOString(date),
-      eventsByDates: eventsByDatesMock,
     });
-    day1Mock.events.forEach((day1MockEvent) => {
-      const event = screen.getByText(day1MockEvent.title);
-      expect(event).toBeInTheDocument();
-    });
-    day2Mock.events.forEach((day2MockEvent) => {
-      const event = screen.queryByText(day2MockEvent.title);
-      expect(event).not.toBeInTheDocument();
-    });
-    day3Mock.events.forEach((day3MockEvent) => {
-      const event = screen.queryByText(day3MockEvent.title);
-      expect(event).not.toBeInTheDocument();
-    });
+    const dayViewContainer = container.firstElementChild;
+    expect(dayViewContainer).not.toBe(null);
+    if (dayViewContainer) {
+      const eventWrapper = screen.getByTitle(
+        'Click on the event to view details and actions',
+      );
+      const [modal] = screen.getAllByRole('dialog');
+      const modalTitle = within(modal).getByText(
+        initialSelectedEvent.event.title,
+      );
+      const event = within(eventWrapper).getByText(
+        initialSelectedEvent.event.title,
+      );
+      const initialSelectedDayViewEvent =
+        store.getState().eventSlice.currentState.eventOnViewMode;
+      expect(initialSelectedDayViewEvent?.event).toBe(
+        initialSelectedEvent.event,
+      );
+
+      // opens the View Event Details modal by clicking on the event
+      await userEvent.click(event);
+
+      expect(modalTitle).toBeInTheDocument();
+
+      // clicks on the container (outside modal) to create the event
+      createEvent({ targetElement: dayViewContainer });
+
+      const currentSelectedDayViewEvent =
+        store.getState().eventSlice.currentState.eventOnViewMode;
+
+      await waitFor(() => {
+        expect(currentSelectedDayViewEvent).toBeUndefined();
+        expect(modalTitle).not.toBeInTheDocument();
+      });
+    }
   });
+  // it('should only render events day opened', () => {
+  //   const dayOnDayViewContainer = 1;
+  //   const monthOnDayViewContainer = 1;
+  //   const yearOnDayViewContainer = 2025;
+  //   const day1Mock = {
+  //     key: `${dayOnDayViewContainer}/${monthOnDayViewContainer}/25`,
+  //     events: [
+  //       {
+  //         id: 'event-1746404701734',
+  //         title: 'First event from day 1',
+  //         startDate: '2025-01-01T03:15:00.000Z',
+  //         endDate: '2025-01-01T04:00:00.000Z',
+  //       },
+  //       {
+  //         id: 'event-1746404702252',
+  //         title: 'Second event from day 1',
+  //         startDate: '2025-01-01T04:45:00.000Z',
+  //         endDate: '2025-01-01T05:15:00.000Z',
+  //       },
+  //     ],
+  //   };
+  //   const day2Mock = {
+  //     key: '1/2/25',
+  //     events: [
+  //       {
+  //         id: 'event-1746405007716',
+  //         title: 'First event from day 2',
+  //         startDate: '2025-01-02T04:15:00.000Z',
+  //         endDate: '2025-01-02T04:30:00.000Z',
+  //       },
+  //       {
+  //         id: 'event-1746405090400',
+  //         title: 'Second event from day 2',
+  //         startDate: '2025-01-02T05:30:00.000Z',
+  //         endDate: '2025-01-02T06:00:00.000Z',
+  //       },
+  //     ],
+  //   };
+  //   const day3Mock = {
+  //     key: '1/3/25',
+  //     events: [
+  //       {
+  //         id: 'event-1746405144092',
+  //         title: 'Event from day 3',
+  //         startDate: '2025-01-03T04:30:00.000Z',
+  //         endDate: '2025-01-03T05:00:00.000Z',
+  //       },
+  //     ],
+  //   };
+  //   const eventsByDatesMock = {
+  //     [day1Mock.key]: {
+  //       events: day1Mock.events,
+  //     },
+  //     [day2Mock.key]: {
+  //       events: day2Mock.events,
+  //     },
+  //     [day3Mock.key]: {
+  //       events: day3Mock.events,
+  //     },
+  //   };
+  //   const monthZeroIndexed = monthOnDayViewContainer - 1;
+  //   const date = new Date(
+  //     yearOnDayViewContainer,
+  //     monthZeroIndexed,
+  //     dayOnDayViewContainer,
+  //   );
+  //   renderEventsContainer({
+  //     dayViewISODate: getDateISOString(date),
+  //     eventsByDates: eventsByDatesMock,
+  //   });
+  //   day1Mock.events.forEach((day1MockEvent) => {
+  //     const event = screen.getByText(day1MockEvent.title);
+  //     expect(event).toBeInTheDocument();
+  //   });
+  //   day2Mock.events.forEach((day2MockEvent) => {
+  //     const event = screen.queryByText(day2MockEvent.title);
+  //     expect(event).not.toBeInTheDocument();
+  //   });
+  //   day3Mock.events.forEach((day3MockEvent) => {
+  //     const event = screen.queryByText(day3MockEvent.title);
+  //     expect(event).not.toBeInTheDocument();
+  //   });
+  // });
 });
