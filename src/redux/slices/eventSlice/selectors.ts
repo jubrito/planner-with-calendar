@@ -10,10 +10,10 @@ export const getInitialEventsByDates = () =>
 export const getCurrentEventsByDates = () =>
   createSelector(eventSlice, (state) => state.currentState.eventsByDates);
 
-export const getInitialeventOnViewMode = () =>
+export const getInitialEventOnViewMode = () =>
   createSelector(eventSlice, (state) => state.initialState.eventOnViewMode);
 
-export const getCurrenteventOnViewMode = () =>
+export const getCurrentEventOnViewMode = () =>
   createSelector(eventSlice, (state) => state.currentState.eventOnViewMode);
 
 export const getInitialEventsOfSelectedDate = (ISODate: string) =>

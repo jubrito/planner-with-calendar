@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { memo, useCallback } from 'react';
 import { getLocaleLanguage } from '../../../../../redux/slices/localeSlice/selectors';
-import { getCurrenteventOnViewMode } from '../../../../../redux/slices/eventSlice/selectors';
+import { getCurrentEventOnViewMode } from '../../../../../redux/slices/eventSlice/selectors';
 import { getEventModalContent } from '../../../../../utils/events/dayView/getModalInfo';
 import { Modal } from '../../../../../components/Modal/Modal';
 import { dashSeparator } from '../../../../../utils/constants';
@@ -9,7 +9,7 @@ import { clearEventOnViewMode } from '../../../../../redux/slices/eventSlice';
 
 export const EventDetailsModal = memo(() => {
   const locale = useSelector(getLocaleLanguage());
-  const eventOnViewMode = useSelector(getCurrenteventOnViewMode());
+  const eventOnViewMode = useSelector(getCurrentEventOnViewMode());
   const isOpen = (eventOnViewMode && eventOnViewMode.event) != null;
   const dispatch = useDispatch();
 
