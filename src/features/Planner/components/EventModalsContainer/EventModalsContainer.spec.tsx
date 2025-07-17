@@ -1,14 +1,14 @@
 import { screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { EventDetailsModal } from './EventDetailsModal/EventDetailsModal';
 import { renderWithProviders } from '../../../../utils/tests/renderWithProviders';
 import { initialValue } from '../../../../redux/slices/eventSlice';
 import { getDateISOString } from '../../../../utils/calendar/utils';
+import { EventModalsContainer } from './EventModalsContainer';
 
 describe('EventModalsContainer', () => {
-  const eventTitle = 'eventTitle';
+  const eventTitle = 'event title';
   it('should render event details modal', () => {
-    renderWithProviders(<EventDetailsModal />, {
+    renderWithProviders(<EventModalsContainer />, {
       preloadedState: {
         eventSlice: {
           ...initialValue,
