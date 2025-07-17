@@ -58,6 +58,20 @@ describe('validations', () => {
           endDate: 'End date must be a valid date',
         });
       });
+      it('should return endDate error message if end date is before start date', () => {
+        const eventOnUpdate: Partial<EventOnUpdate> = {
+          id: '',
+          title: '',
+          startDate: new Date(),
+          endDate: new Date(0),
+          location: '',
+          description: '',
+        };
+        const errors = validateEventOnUpdate(eventOnUpdate);
+        expect(errors).toStrictEqual({
+          endDate: 'End date must be after start date',
+        });
+      });
     });
   });
 });
