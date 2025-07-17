@@ -16,6 +16,12 @@ export const getInitialEventOnViewMode = () =>
 export const getCurrentEventOnViewMode = () =>
   createSelector(eventSlice, (state) => state.currentState.eventOnViewMode);
 
+export const getInitialEventOnUpdate = () =>
+  createSelector(eventSlice, (state) => state.initialState.eventOnUpdate);
+
+export const getCurrentEventOnUpdate = () =>
+  createSelector(eventSlice, (state) => state.currentState.eventOnUpdate);
+
 export const getInitialEventsOfSelectedDate = (ISODate: string) =>
   createSelector(eventSlice, (state) => {
     const id = formatDateIDFromDate(ISODate);
