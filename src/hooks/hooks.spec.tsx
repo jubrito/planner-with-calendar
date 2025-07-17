@@ -2,13 +2,14 @@ import { act, render, renderHook } from '@testing-library/react';
 import { Months } from '../types/calendar/enums';
 
 import { useEvent } from './useDraftEvent';
-import { EventStored } from '../types/event';
+import { EventOnUpdate, EventStored } from '../types/event';
 import { defaultEventTitle } from '../utils/events/dayView/constants';
 import { useFocusManager } from './useFocusManager';
 import { screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import { useEffect, useRef } from 'react';
+import { useManageEventUpdates } from './useManageEventUpdates';
 
 describe('React hooks', () => {
   describe('useDraftEvent()', () => {
@@ -211,6 +212,21 @@ describe('React hooks', () => {
       expect(elementRef).toBeDefined();
       expect(returnFocusToInitialElement).toBeDefined();
       expect(setupFocusTrap).toBeDefined();
+    });
+  });
+
+  describe('useManageEventUpdates', () => {
+    const initialEvent: EventOnUpdate = {
+      id: 'id',
+      title: 'title',
+      startDate: new Date(),
+      endDate: new Date(),
+      location: '',
+      description: '',
+    };
+    it('should return event fields from initial event', () => {
+      const { result } = renderHook(() => useManageEventUpdates(initialEvent));
+      expect(result.current.eventFields).toStrictEqual(initialEvent);
     });
   });
 });
