@@ -59,16 +59,16 @@ export const eventSlice = createSlice({
       // closes View Event Details modal
       state.currentState.eventOnViewMode = undefined;
     },
-    // updateSelectedEventOnCreation(
-    //   state: InitialState,
-    //   action: PayloadAction<SelectedEventOnDayView>,
-    // ) {
-    //   state.currentState.eventOnCreation = action.payload;
-    // },
-    // clearSelectedEventOnCreation(state: InitialState) {
-    //   // closes Create Event modal
-    //   state.currentState.eventOnCreation = undefined;
-    // },
+    updateEventOnCreation(
+      state: InitialState,
+      action: PayloadAction<SelectedEventOnDayView>,
+    ) {
+      state.currentState.eventOnCreation = action.payload;
+    },
+    clearEventOnCreation(state: InitialState) {
+      // closes Create Event modal
+      state.currentState.eventOnCreation = undefined;
+    },
   },
 });
 
@@ -76,8 +76,8 @@ export const {
   addEvent,
   updateEventOnViewMode,
   clearEventOnViewMode,
-  // updateSelectedEventOnCreation,
-  // clearSelectedEventOnCreation,
+  updateEventOnCreation,
+  clearEventOnCreation,
 } = eventSlice.actions;
 
 export default eventSlice.reducer;
