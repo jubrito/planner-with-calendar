@@ -83,7 +83,7 @@ export const Modal = ({
             {editModal && (
               <button
                 onClick={editModal.handleEdit}
-                aria-label={editModal.editLabel || 'Click to edit'}
+                aria-label={editModal.editLabel || 'Edit'}
               >
                 <EditIcon />
               </button>

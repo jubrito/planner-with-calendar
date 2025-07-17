@@ -101,7 +101,7 @@ describe('Modal', () => {
         </Modal>,
       );
       const closeDefaultLabel = 'Close';
-      const editDefaultLabel = 'Click to edit';
+      const editDefaultLabel = 'Edit';
       const deleteDefaultLabel = 'Click to delete';
 
       expect(screen.getByLabelText(closeDefaultLabel)).toBeInTheDocument();

@@ -395,7 +395,7 @@ describe('EventDetailsModal', () => {
         event: initialSelectedEvent.event,
       });
 
-      const editButton = screen.getByLabelText('Click to edit');
+      const editButton = screen.getByLabelText('Edit');
 
       const alertMock = jest
         .spyOn(window, 'alert')
