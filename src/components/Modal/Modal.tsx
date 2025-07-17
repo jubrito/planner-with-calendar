@@ -60,16 +60,12 @@ export const Modal = ({
           aria-label={dialogAccessibleName}
         >
           <div className={styles.actions}>
-            {closeModal && (
+            {editModal && (
               <button
-                onClick={() => {
-                  returnFocusToInitialElement();
-                  closeModal.handleClose();
-                  setDisplayModal(false);
-                }}
-                aria-label={closeModal.closeLabel || 'Close'}
+                onClick={editModal.handleEdit}
+                aria-label={editModal.editLabel || 'Edit'}
               >
-                <CloseIcon />
+                <EditIcon />
               </button>
             )}
             {deleteModal && (
@@ -80,12 +76,16 @@ export const Modal = ({
                 <DeleteIcon />
               </button>
             )}
-            {editModal && (
+            {closeModal && (
               <button
-                onClick={editModal.handleEdit}
-                aria-label={editModal.editLabel || 'Edit'}
+                onClick={() => {
+                  returnFocusToInitialElement();
+                  closeModal.handleClose();
+                  setDisplayModal(false);
+                }}
+                aria-label={closeModal.closeLabel || 'Close'}
               >
-                <EditIcon />
+                <CloseIcon />
               </button>
             )}
           </div>
