@@ -32,10 +32,29 @@ export const useManageEventUpdates = (initialEvent?: EventOnUpdate) => {
     [],
   );
 
+  const validateEventFields = useCallback(() => {
+    const validationErrors = validateEventOnUpdate(eventFields);
+    setErrors(validationErrors);
+
+    return Object.keys(validationErrors).length === 0;
+  }, [eventFields]);
+
+  useEffect(() => {
+    if (!initialEvent) return;
+
+    setEventFields((prevEventFields) => ({
+      ...prevEventFields,
+      initialEvent,
+    }));
+    setErrors({});
+    setIsDirty(false);
+  }, [initialEvent]);
+
   return {
     errors,
     isDirty,
     eventFields,
     updateEventField,
+    validateEventFields,
   };
 };
