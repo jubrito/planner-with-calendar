@@ -15,8 +15,23 @@ export const useManageEventUpdates = (initialEvent?: EventOnUpdateView) => {
     ...initialEvent,
   });
 
+  const updateEventField = useCallback(
+    <K extends keyof EventOnUpdateView>(
+      field: K,
+      newValue: EventOnUpdateView[K],
+    ) => {
+      setEventFields((prevEventFields) => ({
+        ...prevEventFields,
+        [field]: newValue,
+      }));
+      setIsDirty(true);
+    },
+    [],
+  );
+
   return {
     isDirty,
     eventFields,
+    updateEventField,
   };
 };
