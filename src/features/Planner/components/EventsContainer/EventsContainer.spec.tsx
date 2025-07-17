@@ -318,6 +318,55 @@ describe('EventContainer', () => {
         expect(modal).not.toBeInTheDocument();
       }
     });
+
+    it('should hide View Event Details modal when clicking on container (on mouse down)', async () => {
+      const date = getDateISOString(new Date(year, month, day));
+      const { container, store } = renderEventsContainer({
+        eventOnViewMode: {
+          ...initialSelectedEvent,
+          event: initialSelectedEvent.event,
+        },
+        dayViewISODate: date,
+        eventsByDates: {
+          [formatDateIDFromDate(date)]: {
+            events: [initialSelectedEvent.event],
+          },
+        },
+      });
+      const dayViewContainer = container.firstElementChild;
+      expect(dayViewContainer).not.toBe(null);
+      if (dayViewContainer) {
+        const eventWrapper = screen.getByTitle(
+          'Click on the event to view details and actions',
+        );
+        const [modal] = screen.getAllByRole('dialog');
+        const modalTitle = within(modal).getByText(
+          initialSelectedEvent.event.title,
+        );
+        const event = within(eventWrapper).getByText(
+          initialSelectedEvent.event.title,
+        );
+        const initialSelectedDayViewEvent =
+          store.getState().eventSlice.currentState.eventOnViewMode;
+        expect(initialSelectedDayViewEvent?.event).toBe(
+          initialSelectedEvent.event,
+        );
+
+        await userEvent.click(event);
+
+        expect(modalTitle).toBeInTheDocument();
+
+        createEvent({ targetElement: dayViewContainer });
+
+        const currentSelectedDayViewEvent =
+          store.getState().eventSlice.currentState.eventOnViewMode;
+
+        await waitFor(() => {
+          expect(currentSelectedDayViewEvent).toBeUndefined();
+          expect(modalTitle).not.toBeInTheDocument();
+        });
+      }
+    });
   });
 
   it('should only render events day opened', () => {
