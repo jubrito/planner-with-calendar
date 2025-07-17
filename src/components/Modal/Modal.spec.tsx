@@ -100,7 +100,7 @@ describe('Modal', () => {
           {content}
         </Modal>,
       );
-      const closeDefaultLabel = 'Click to close modal';
+      const closeDefaultLabel = 'Close';
       const editDefaultLabel = 'Click to edit';
       const deleteDefaultLabel = 'Click to delete';
 

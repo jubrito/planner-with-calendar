@@ -310,7 +310,7 @@ describe('EventContainer', () => {
       await userEvent.click(event);
 
       const modal = screen.getByRole('dialog');
-      const closeButton = screen.getByLabelText('Click to close modal');
+      const closeButton = screen.getByLabelText('Close');
 
       await userEvent.click(closeButton);
 

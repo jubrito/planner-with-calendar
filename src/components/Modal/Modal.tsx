@@ -67,7 +67,7 @@ export const Modal = ({
                   closeModal.handleClose();
                   setDisplayModal(false);
                 }}
-                aria-label={closeModal.closeLabel || 'Click to close modal'}
+                aria-label={closeModal.closeLabel || 'Close'}
               >
                 <CloseIcon />
               </button>

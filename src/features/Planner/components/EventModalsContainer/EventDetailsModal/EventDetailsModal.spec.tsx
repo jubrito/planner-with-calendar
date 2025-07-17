@@ -380,7 +380,7 @@ describe('EventDetailsModal', () => {
 
       expect(initialEventOnViewMode).toStrictEqual({ ...initialSelectedEvent });
 
-      const closeButton = screen.getByLabelText('Click to close modal');
+      const closeButton = screen.getByLabelText('Close');
 
       await userEvent.click(closeButton);
 
