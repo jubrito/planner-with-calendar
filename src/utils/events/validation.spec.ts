@@ -32,6 +32,18 @@ describe('validations', () => {
       });
     });
     describe('End date errors', () => {
+      it('should return endDate error message if end date is not provided', () => {
+        const eventOnUpdate: Partial<EventOnUpdate> = {
+          id: '',
+          title: '',
+          startDate: new Date(),
+          endDate: undefined,
+          location: '',
+          description: '',
+        };
+        const errors = validateEventOnUpdate(eventOnUpdate);
+        expect(errors).toStrictEqual({ endDate: 'End date is required' });
+      });
       it('should return endDate error message if end date is invalid', () => {
         const eventOnUpdate: Partial<EventOnUpdate> = {
           id: '',
