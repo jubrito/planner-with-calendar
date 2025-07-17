@@ -10,7 +10,7 @@ import { formatDateIDFromDate } from '../../../utils/events/utils';
 type InitialEventsInfoState = {
   eventsByDates: EventsByDates;
   eventOnViewMode?: EventOnDayView;
-  eventOnCreation?: EventOnDayView;
+  eventOnUpdate?: EventOnDayView;
 };
 
 export type InitialState = {
@@ -26,7 +26,7 @@ type AddEvent = {
 const initialEventsInfo: InitialEventsInfoState = {
   eventsByDates: {},
   eventOnViewMode: undefined,
-  eventOnCreation: undefined,
+  eventOnUpdate: undefined,
 };
 
 export const initialValue: InitialState = {
@@ -59,15 +59,15 @@ export const eventSlice = createSlice({
       // closes View Event Details modal
       state.currentState.eventOnViewMode = undefined;
     },
-    updateEventOnCreation(
+    updateEventOnUpdate(
       state: InitialState,
       action: PayloadAction<EventOnDayView>,
     ) {
-      state.currentState.eventOnCreation = action.payload;
+      state.currentState.eventOnUpdate = action.payload;
     },
-    clearEventOnCreation(state: InitialState) {
-      // closes Create Event modal
-      state.currentState.eventOnCreation = undefined;
+    clearEventOnUpdate(state: InitialState) {
+      // closes Create/Update Event modal
+      state.currentState.eventOnUpdate = undefined;
     },
   },
 });
@@ -76,8 +76,8 @@ export const {
   addEvent,
   updateEventOnViewMode,
   clearEventOnViewMode,
-  updateEventOnCreation,
-  clearEventOnCreation,
+  updateEventOnUpdate,
+  clearEventOnUpdate,
 } = eventSlice.actions;
 
 export default eventSlice.reducer;
