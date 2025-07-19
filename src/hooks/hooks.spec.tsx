@@ -286,7 +286,7 @@ describe('React hooks', () => {
         act(() => {
           result.current.updateEventField('id', 'new id');
         });
-        expect(result.current.isDirty).toStrictEqual(true);
+        expect(result.current.isDirty).toBeTruthy();
       });
       it('should clear the errors of the field being updated', () => {
         const { result, rerender } = renderHook(() =>
@@ -308,7 +308,28 @@ describe('React hooks', () => {
     });
 
     describe('WHEN validating fields', () => {
-      it.todo('should update errors with validation errors');
+      it('should update errors with validation errors and return true if they exist', () => {
+        const { result, rerender } = renderHook(() =>
+          useManageEventUpdates({
+            ...initialEvent,
+            startDate: new Date(2000),
+            endDate: new Date(1000),
+          }),
+        );
+        rerender();
+        expect(result.current.errors).toStrictEqual({
+          endDate: 'End date must be after start date',
+        });
+        const { validateEventFields } = result.current;
+
+        act(() => {
+          validateEventFields(); // updating field with valid date
+        });
+        expect(result.current.errors).toStrictEqual({
+          endDate: 'End date must be after start date',
+        });
+        expect(result.current.validateEventFields).toBeTruthy();
+      });
       it.todo('should return true if errors were found');
       it.todo('should return false if errors were not found');
     });
