@@ -329,18 +329,30 @@ describe('React hooks', () => {
       });
       it('should return true if errors were found', () => {
         const { result } = renderHook(() =>
-          useManageEventUpdates({
-            ...initialEvent,
-            startDate: new Date(2000),
-            endDate: new Date(1000),
-          }),
+          useManageEventUpdates(invalidEvent),
         );
-        // function should be executed (and return true because there are errors) on custom hook setup
-        expect(result.current.findEventFieldsErrors).toBeTruthy();
-      });
-      it.todo('should return false if errors were not found');
-    });
+        let errorsWereFound;
+        const { findEventFieldsErrors } = result.current;
 
-    it.todo('should update isDirty from false to true after updating an event');
+        act(() => {
+          errorsWereFound = findEventFieldsErrors(); // updating field with valid date
+        });
+        // function should be executed (and return true because there are errors) on custom hook setup
+        expect(errorsWereFound).toBeTruthy();
+      });
+      it('should return false if errors were not found', () => {
+        const { result } = renderHook(() =>
+          useManageEventUpdates(initialEvent),
+        );
+        let errorsWereFound;
+        const { findEventFieldsErrors } = result.current;
+
+        act(() => {
+          errorsWereFound = findEventFieldsErrors(); // updating field with valid date
+        });
+        // function should be executed (and return false because there are not errors) on custom hook setup
+        expect(errorsWereFound).toBeFalsy();
+      });
+    });
   });
 });
