@@ -3,8 +3,8 @@
 @use '../../../../../styles/mixins' as mixins;
 
 .isToday {
-  background: variables.$blue-lightgray-color;
-  padding: 4px;
+  background: variables.$darkblue-color;
+  color: variables.$white-color;
 
   @include mixins.media-for-compact-calendar {
     border-radius: 100%;
@@ -29,9 +29,8 @@
     time {
       line-height: normal;
       min-width: max-content;
-      width: 40%;
-      aspect-ratio: 1/1;
-      padding: 3px variables.$small-gap 3px 3px;
+      text-align: right;
+      padding: 7px;
 
       @include mixins.media-for-compact-calendar {
         padding: variables.$small-gap;
