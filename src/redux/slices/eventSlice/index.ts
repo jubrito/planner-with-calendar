@@ -6,6 +6,7 @@ import {
   EventOnDayView,
 } from '../../../types/event';
 import { formatDateIDFromDate } from '../../../utils/events/utils';
+import { getDateISOString } from '../../../utils/calendar/utils';
 
 type InitialEventsInfoState = {
   eventsByDates: EventsByDates;
@@ -21,6 +22,13 @@ export type InitialState = {
 type AddEvent = {
   newEvent: EventStored;
   ISODate: string;
+};
+
+export const draftEventOnUpdate = {
+  id: '',
+  title: '',
+  startDate: getDateISOString(new Date()),
+  endDate: getDateISOString(new Date()),
 };
 
 const initialEventsInfo: InitialEventsInfoState = {
