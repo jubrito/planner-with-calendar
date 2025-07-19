@@ -17,7 +17,7 @@
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 2fr 4fr 4fr 2fr;
     grid-row-gap: variables.$outer-spacing;
-    grid-column-gap: 15px;
+    grid-column-gap: variables.$inner-spacing;
     grid-template-areas:
       'nav nav'
       'calendar calendar'
