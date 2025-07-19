@@ -33,9 +33,13 @@ export const useManageEventUpdates = (
     });
   };
 
-  const validateEventFields = useCallback(
-    (eventData = eventFields) => {
-      const validationErrors = validateEventOnUpdate(eventData);
+  const findEventFieldsErrors = useCallback(
+    (eventData?: Partial<EventOnUpdate>) => {
+      let fieldsToValidade = eventData;
+      if (fieldsToValidade == null) {
+        fieldsToValidade = eventFields;
+      }
+      const validationErrors = validateEventOnUpdate(fieldsToValidade);
       setErrors(validationErrors);
 
       return Object.keys(validationErrors).length === 0;
@@ -64,15 +68,15 @@ export const useManageEventUpdates = (
       }));
 
       setIsDirty(false);
-      validateEventFields(initialEvent);
+      findEventFieldsErrors(initialEvent);
     }
-  }, [initialEvent, initialEvent?.id, validateEventFields]);
+  }, [initialEvent, initialEvent?.id, findEventFieldsErrors]);
 
   return {
     errors,
     isDirty,
     eventFields,
     updateEventField,
-    validateEventFields,
+    validateEventFields: findEventFieldsErrors,
   };
 };
