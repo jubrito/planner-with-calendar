@@ -7,7 +7,9 @@ export const useManageEventUpdates = (
 ) => {
   const now = new Date();
   const [isDirty, setIsDirty] = useState(false);
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<
+    Partial<Record<keyof EventOnUpdate, string | undefined>>
+  >({});
   const initialIdRef = useRef<string>(null);
   const [eventFields, setEventFields] = useState<EventOnUpdate>({
     id: '',
@@ -40,6 +42,19 @@ export const useManageEventUpdates = (
         ...prevErrors,
         [field]: undefined,
       }));
+      // setErrors((prevErrors) => {
+      //   const currentErrors = {...prevErrors};
+      //   if (currentErrors.)
+      //   // const oi = Object.entries(prevErrors).map((key) => {
+      //   //   console.log('key', key);
+      //   // });
+      //   // console.log('prevErrors', prevErrors);
+      //   // console.log('Object.entries(prevErrors)', Object.entries(prevErrors));
+      //   // return {
+      //   //   ...prevErrors,
+      //   // };
+      //   // [field]: undefined,
+      // });
     },
     [],
   );
@@ -49,10 +64,9 @@ export const useManageEventUpdates = (
       initialIdRef.current = initialEvent.id;
       setEventFields((prevEventFields) => ({
         ...prevEventFields,
-        initialEvent,
+        ...initialEvent,
       }));
 
-      // setErrors({});
       setIsDirty(false);
       validateEventFields(initialEvent);
     }
