@@ -60,6 +60,7 @@
       border: 0;
       border-bottom: 2px solid variables.$blue-lightgray-color;
       outline: none;
+      width: 100%;
 
       &:focus {
         border-bottom: 3px solid variables.$white-color;
