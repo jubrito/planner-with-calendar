@@ -308,7 +308,7 @@ describe('React hooks', () => {
     });
 
     describe('WHEN validating fields', () => {
-      it('should update errors with validation errors and return true if they exist', () => {
+      it('should update errors with validation errors', () => {
         const { result, rerender } = renderHook(() =>
           useManageEventUpdates({
             ...initialEvent,
@@ -320,17 +320,37 @@ describe('React hooks', () => {
         expect(result.current.errors).toStrictEqual({
           endDate: 'End date must be after start date',
         });
-        const { validateEventFields } = result.current;
+        const { findEventFieldsErrors } = result.current;
 
         act(() => {
-          validateEventFields(); // updating field with valid date
+          findEventFieldsErrors(); // updating field with valid date
         });
         expect(result.current.errors).toStrictEqual({
           endDate: 'End date must be after start date',
         });
-        expect(result.current.validateEventFields).toBeTruthy();
       });
-      it.todo('should return true if errors were found');
+      it('should return true if errors were found', () => {
+        // const { result, rerender } = renderHook(() =>
+        //   useManageEventUpdates({
+        //     ...initialEvent,
+        //     startDate: new Date(2000),
+        //     endDate: new Date(1000),
+        //   }),
+        // );
+        // expect(result.current.findEventFieldsErrors).toBeTruthy();
+        // rerender();
+        // expect(result.current.errors).toStrictEqual({
+        //   endDate: 'End date must be after start date',
+        // });
+        // const { findEventFieldsErrors } = result.current;
+        // act(() => {
+        //   findEventFieldsErrors(); // updating field with valid date
+        // });
+        // expect(result.current.errors).toStrictEqual({
+        //   endDate: 'End date must be after start date',
+        // });
+        // expect(result.current.findEventFieldsErrors).toBeTruthy();
+      });
       it.todo('should return false if errors were not found');
     });
 

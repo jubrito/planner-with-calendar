@@ -77,6 +77,6 @@ export const useManageEventUpdates = (
     isDirty,
     eventFields,
     updateEventField,
-    validateEventFields: findEventFieldsErrors,
+    findEventFieldsErrors,
   };
 };
