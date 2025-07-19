@@ -7,11 +7,14 @@ import { useManageEventUpdates } from '../../../../../hooks/useManageEventUpdate
 import { useSelector } from 'react-redux';
 import { getCurrentEventOnUpdate } from '../../../../../redux/slices/eventSlice/selectors';
 import { getDateISOString } from '../../../../../utils/calendar/utils';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import styles from './EventUpdateModal.module.scss';
 
 export const EventUpdateModal = memo(() => {
   const dispatch = useDispatch();
   const eventOnUpdate = useSelector(getCurrentEventOnUpdate());
   const isOpen = (eventOnUpdate && eventOnUpdate.event) != null;
+  const titleLabel = 'Title';
 
   const initialStartDate = eventOnUpdate?.event?.startDate
     ? new Date(eventOnUpdate?.event?.startDate)
@@ -48,14 +51,17 @@ export const EventUpdateModal = memo(() => {
       isOpen={isOpen}
     >
       <>
-        <input
-          id="Title"
-          aria-label="Title"
-          placeholder="Add title"
-          value={title}
-          onChange={(event) => updateEventField('title', event.target.value)}
-          aria-errormessage={errors.title}
-        />
+        <div className={styles.field}>
+          <CalendarMonthIcon />
+          <input
+            id={titleLabel}
+            aria-label={titleLabel}
+            placeholder="Add title"
+            value={title}
+            onChange={(event) => updateEventField('title', event.target.value)}
+            aria-errormessage={errors.title}
+          />
+        </div>
         <span>{errors.title}</span>
       </>
     </Modal>
