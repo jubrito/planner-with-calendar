@@ -240,7 +240,13 @@ describe('React hooks', () => {
           endDate: 'End date must be a valid date',
         });
       });
-      it.todo('should set is dirty to false');
+      it('should set is dirty to false', () => {
+        const { result } = renderHook(() =>
+          useManageEventUpdates(invalidEvent),
+        );
+        const { isDirty } = result.current;
+        expect(isDirty).toBe(false);
+      });
       it('should return event fields from initial event', () => {
         const { result } = renderHook(() =>
           useManageEventUpdates(initialEvent),
