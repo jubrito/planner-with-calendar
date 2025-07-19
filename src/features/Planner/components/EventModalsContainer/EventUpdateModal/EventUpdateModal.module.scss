@@ -1,0 +1,10 @@
+@use '../../../../../styles/variables' as variables;
+
+.field {
+  display: flex;
+  width: 100%;
+
+  svg {
+    margin-right: variables.$inner-spacing;
+  }
+}
