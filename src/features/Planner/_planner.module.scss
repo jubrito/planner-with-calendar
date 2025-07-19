@@ -28,7 +28,7 @@
     overflow-y: auto;
     overflow-x: hidden;
     position: relative;
-    scrollbar-color: variables.$lightgray-color transparent;
+    scrollbar-color: variables.$lightdarkgray-color transparent;
     padding-right: 9px;
 
     @include mixins.media-for-compact-calendar {
