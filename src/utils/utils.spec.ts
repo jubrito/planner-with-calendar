@@ -1,4 +1,4 @@
-import { deepCopy } from './utils';
+import { deepCopy, getChunkArrayByChunkSize } from './utils';
 
 describe('utils', () => {
   describe('deepCopy', () => {
@@ -11,12 +11,14 @@ describe('utils', () => {
         date: new Date(),
         function: () => false,
       };
-      const copy = deepCopy(original);
-      expect(copy).toStrictEqual(original);
+      expect(deepCopy(original)).toStrictEqual(original);
     });
   });
   describe('getChunkArrayByChunkSize', () => {
-    it.todo('todo');
+    it('should return empty array when input awway is empty', () => {
+      const chunk = getChunkArrayByChunkSize([], 5);
+      expect(chunk).toEqual([]);
+    });
   });
   describe('makeFirstLetterUppercase', () => {
     it.todo('todo');
