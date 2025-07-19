@@ -6,13 +6,12 @@ import { useDispatch } from 'react-redux';
 import { useManageEventUpdates } from '../../../../../hooks/useManageEventUpdates';
 import { useSelector } from 'react-redux';
 import { getCurrentEventOnUpdate } from '../../../../../redux/slices/eventSlice/selectors';
-import { getLocaleLanguage } from '../../../../../redux/slices/localeSlice/selectors';
+import { getDateISOString } from '../../../../../utils/calendar/utils';
 
 export const EventUpdateModal = memo(() => {
   const dispatch = useDispatch();
   const eventOnUpdate = useSelector(getCurrentEventOnUpdate());
-  const locale = useSelector(getLocaleLanguage());
-  const isOpen = eventOnUpdate != null && eventOnUpdate.event != null;
+  const isOpen = (eventOnUpdate && eventOnUpdate.event) != null;
 
   const initialStartDate = eventOnUpdate?.event?.startDate
     ? new Date(eventOnUpdate?.event?.startDate)
@@ -26,11 +25,11 @@ export const EventUpdateModal = memo(() => {
     isDirty,
     errors,
     updateEventField,
-    validateEventFields,
+    findEventFieldsErrors,
   } = useManageEventUpdates({
     ...eventOnUpdate?.event,
-    startDate: initialStartDate,
-    endDate: initialEndDate,
+    startDate: initialStartDate && getDateISOString(initialStartDate),
+    endDate: initialEndDate && getDateISOString(initialEndDate),
   });
   const { id, title, description, location, startDate, endDate } = eventFields;
 
@@ -38,24 +37,26 @@ export const EventUpdateModal = memo(() => {
     dispatch(clearEventOnUpdate());
   }, [dispatch]);
 
-  const editModal = useCallback(() => {
-    alert('edit');
-  }, []);
+  if (!eventOnUpdate || !eventOnUpdate.event) return null;
+  const style = { top: eventOnUpdate.top, maxWidth: '100%' };
 
   return (
     <Modal
-      style={{ top: 200 }}
+      style={style}
       closeModal={{ handleClose: closeModal }}
-      editModal={{ handleEdit: editModal }}
       dialogAccessibleName={title}
       isOpen={isOpen}
     >
       <>
         <input
+          id="Title"
+          aria-label="Title"
           placeholder="Add title"
           value={title}
           onChange={(event) => updateEventField('title', event.target.value)}
+          aria-errormessage={errors.title}
         />
+        <span>{errors.title}</span>
       </>
     </Modal>
   );
