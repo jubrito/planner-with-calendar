@@ -6,6 +6,6 @@
   width: 100%;
   height: variables.$planner-hours-height;
   position: relative;
-  margin-top: 15px;
+  margin-top: variables.$inner-spacing;
   cursor: pointer;
 }
