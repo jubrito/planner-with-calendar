@@ -39,6 +39,15 @@ describe('utils', () => {
       const result = getChunkArrayByChunkSize(input, 1);
       expect(result).toEqual([['a'], ['b'], ['c']]);
     });
+    it('should handle non-integer chunk sizes by using floor', () => {
+      const input = [1, 2, 3, 4, 5, 6];
+      const result = getChunkArrayByChunkSize(input, 2.9);
+      expect(result).toEqual([
+        [1, 2],
+        [3, 4],
+        [5, 6],
+      ]);
+    });
   });
   describe('makeFirstLetterUppercase', () => {
     it.todo('todo');
