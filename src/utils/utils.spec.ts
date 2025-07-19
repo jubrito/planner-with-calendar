@@ -20,6 +20,10 @@ describe('utils', () => {
       };
       expect(deepCopy(original)).toStrictEqual(original);
     });
+    it('should clone empty element and return clone', () => {
+      const original = {};
+      expect(deepCopy(original)).toStrictEqual(original);
+    });
   });
   describe('getChunkArrayByChunkSize', () => {
     it('should return empty array when input awway is empty', () => {
