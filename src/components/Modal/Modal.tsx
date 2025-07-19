@@ -33,10 +33,11 @@ export const Modal = ({
   deleteModal,
   isOpen,
 }: ModalProps) => {
+  const [displayModal, setDisplayModal] = useState(isOpen);
   const activeElement = document.activeElement;
   const { elementRef, returnFocusToInitialElement, setupFocusTrap } =
     useFocusManager<HTMLDivElement>(activeElement);
-  const [displayModal, setDisplayModal] = useState(isOpen);
+  const whiteColor = { color: 'white' };
 
   useEffect(() => {
     if (!displayModal) return;
@@ -65,7 +66,7 @@ export const Modal = ({
                 onClick={editModal.handleEdit}
                 aria-label={editModal.editLabel || 'Edit'}
               >
-                <EditIcon />
+                <EditIcon style={whiteColor} />
               </button>
             )}
             {deleteModal && (
@@ -73,7 +74,7 @@ export const Modal = ({
                 onClick={deleteModal.handleDelete}
                 aria-label={deleteModal.deleteLabel || 'Delete'}
               >
-                <DeleteIcon />
+                <DeleteIcon style={whiteColor} />
               </button>
             )}
             {closeModal && (
@@ -85,7 +86,7 @@ export const Modal = ({
                 }}
                 aria-label={closeModal.closeLabel || 'Close'}
               >
-                <CloseIcon />
+                <CloseIcon style={whiteColor} />
               </button>
             )}
           </div>
