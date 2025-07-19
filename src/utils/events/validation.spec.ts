@@ -1,6 +1,6 @@
 import { EventStored } from '../../types/event';
 import { getDateISOString } from '../calendar/utils';
-import { getEventErrors } from './validation';
+import { getEventFieldErrors } from './validation';
 
 describe('validations', () => {
   describe('validateEventOnUpdate', () => {
@@ -13,7 +13,7 @@ describe('validations', () => {
         location: '',
         description: '',
       };
-      const errors = getEventErrors(validEventOnUpdate);
+      const errors = getEventFieldErrors(validEventOnUpdate);
       expect(errors).toStrictEqual({});
     });
     describe('Start date errors', () => {
@@ -26,7 +26,7 @@ describe('validations', () => {
           location: '',
           description: '',
         };
-        const errors = getEventErrors(invalidEventOnUpdate);
+        const errors = getEventFieldErrors(invalidEventOnUpdate);
         expect(errors).toStrictEqual({ startDate: 'Start date is required' });
       });
       it.only('should return startDate error message if start date is invalid', () => {
@@ -38,7 +38,7 @@ describe('validations', () => {
           location: '',
           description: '',
         };
-        const errors = getEventErrors(invalidEventOnUpdate);
+        const errors = getEventFieldErrors(invalidEventOnUpdate);
         expect(errors).toStrictEqual({
           startDate: 'Start date must be a valid date',
         });
@@ -54,7 +54,7 @@ describe('validations', () => {
           location: '',
           description: '',
         };
-        const errors = getEventErrors(invalidEventOnUpdate);
+        const errors = getEventFieldErrors(invalidEventOnUpdate);
         expect(errors).toStrictEqual({ endDate: 'End date is required' });
       });
       it('should return endDate error message if end date is invalid', () => {
@@ -66,7 +66,7 @@ describe('validations', () => {
           location: '',
           description: '',
         };
-        const errors = getEventErrors(invalidEventOnUpdate);
+        const errors = getEventFieldErrors(invalidEventOnUpdate);
         expect(errors).toStrictEqual({
           endDate: 'End date must be a valid date',
         });
@@ -80,7 +80,7 @@ describe('validations', () => {
           location: '',
           description: '',
         };
-        const errors = getEventErrors(invalidEventOnUpdate);
+        const errors = getEventFieldErrors(invalidEventOnUpdate);
         expect(errors).toStrictEqual({
           endDate: 'End date must be after start date',
         });
