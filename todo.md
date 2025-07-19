@@ -1,28 +1,24 @@
 # Next steps (v1):
 
-- hide create/update event modal when clicking outside by clearing redux value
+- Fix focus trapping when interacting with modal
 
-- Update top on Event Creation Modal (remove 200)
-
------ UPDATE EVENT MODAL:
+-------------------- UPDATE EVENT MODAL --------------------
 
 - Should open
 
-  - (should not open when clicking on event inside container)
   - Create event button
   - Editing event (inside event details modal)
   - Test everything
 
------ TESTS
+- Should hide:
+  - When clicking outside by clearing redux value
 
-- Header (creation of events)
-
------ ALL DAY events
+-------------------- ALL DAY events --------------------
 
 - Add all day events to planner top
 - Update Event Creation to consider all day events (& check Event View Details)
 
------ FEATURES
+-------------------- FEATURES --------------------
 
 - Delete event
 - Events side by side
