@@ -11,6 +11,9 @@ describe('utils', () => {
         property: 1,
         otherProperty: {
           anotherProperty: true,
+          array: [1, 2, 3],
+          null: null,
+          undefined: undefined,
         },
         date: new Date(),
         function: () => false,
