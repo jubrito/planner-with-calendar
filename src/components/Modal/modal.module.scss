@@ -54,5 +54,16 @@
       margin: 0;
       @include mixins.ellipsisText;
     }
+
+    input {
+      background-color: transparent;
+      border: 0;
+      border-bottom: 2px solid variables.$blue-lightgray-color;
+      outline: none;
+
+      &:focus {
+        border-bottom: 3px solid variables.$white-color;
+      }
+    }
   }
 }
