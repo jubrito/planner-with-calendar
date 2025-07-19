@@ -10,9 +10,17 @@
     border-color: transparent;
     border-width: 1px;
     outline: none;
-    background-color: variables.$white-color;
+    background-color: variables.$blue-lightgray-color;
     color: variables.$black-color;
     min-height: fit-content;
+    border-radius: 0;
+
+    &:first-of-type {
+      border-radius: variables.$inner-spacing 0px 0px variables.$inner-spacing;
+    }
+    &:last-of-type {
+      border-radius: 0px variables.$inner-spacing variables.$inner-spacing 0px;
+    }
   }
 
   @include mixins.media-for-compact-calendar {
