@@ -1,4 +1,4 @@
-import { act, render, renderHook } from '@testing-library/react';
+import { act, render, renderHook, waitFor } from '@testing-library/react';
 import { Months } from '../types/calendar/enums';
 
 import { useEvent } from './useDraftEvent';
@@ -10,6 +10,7 @@ import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import { useEffect, useRef } from 'react';
 import { useManageEventUpdates } from './useManageEventUpdates';
+import * as useManageEventUpdatesModule from './useManageEventUpdates';
 
 describe('React hooks', () => {
   describe('useDraftEvent()', () => {
@@ -224,9 +225,16 @@ describe('React hooks', () => {
       location: 'location',
       description: 'description',
     };
-    it('should return event fields from initial event', () => {
-      const { result } = renderHook(() => useManageEventUpdates(initialEvent));
-      expect(result.current.eventFields).toStrictEqual(initialEvent);
+
+    describe('Initial setup', () => {
+      it.todo('should set errors when setting fields with initial events');
+      it.todo('should set is dirty to false');
+      it('should return event fields from initial event', () => {
+        const { result } = renderHook(() =>
+          useManageEventUpdates(initialEvent),
+        );
+        expect(result.current.eventFields).toStrictEqual(initialEvent);
+      });
     });
 
     describe('WHEN updating fields', () => {
@@ -262,7 +270,23 @@ describe('React hooks', () => {
         });
         expect(result.current.isDirty).toStrictEqual(true);
       });
-      it.todo('should clear the errors of the field being updated');
+      it('should clear the errors of the field being updated', () => {
+        const { result, rerender } = renderHook(() =>
+          useManageEventUpdates({
+            ...initialEvent,
+            endDate: new Date(0 / 0), // invalid date
+          }),
+        );
+        const { updateEventField } = result.current;
+        rerender();
+        expect(result.current.errors).toStrictEqual({
+          endDate: 'End date must be a valid date',
+        });
+        act(() => {
+          updateEventField('endDate', new Date()); // updating field with valid date
+        });
+        expect(result.current.errors).toStrictEqual({});
+      });
     });
 
     describe('WHEN validating fields', () => {
