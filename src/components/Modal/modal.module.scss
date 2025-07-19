@@ -30,8 +30,13 @@
 
     button {
       background-color: transparent;
-      padding: 0;
-      padding-left: variables.$gap;
+      padding: variables.$small-gap 7px variables.$small-gap 7px;
+      &:hover,
+      &:focus {
+        background: variables.$lightdarkgray-color;
+        outline: unset;
+        border-radius: 50%;
+      }
       svg {
         font-size: 18px;
         color: variables.$black-color;
