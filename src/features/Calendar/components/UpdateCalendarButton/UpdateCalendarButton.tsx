@@ -3,13 +3,15 @@ import styles from './_update-calendar-button.module.scss';
 
 type UpdateCalendarButtonProps = {
   label: string;
-  symbol: string;
+  symbol?: string;
+  icon?: React.ReactElement;
   updateDate: () => void;
 };
 
 export const UpdateCalendarButton = ({
   label,
   symbol,
+  icon,
   updateDate,
 }: UpdateCalendarButtonProps) => {
   const className =
@@ -24,7 +26,8 @@ export const UpdateCalendarButton = ({
       className={className}
       title={label}
     >
-      <span aria-hidden="false">{symbol}</span>
+      {symbol && <span aria-hidden="true">{symbol}</span>}
+      {icon && <span aria-hidden="true">{icon}</span>}
     </button>
   );
 };
