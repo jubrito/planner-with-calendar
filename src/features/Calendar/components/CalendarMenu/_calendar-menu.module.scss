@@ -15,8 +15,8 @@
   color: variables.$white-color;
 
   button {
-    padding: 3px;
-    min-height: 20px;
+    padding: variables.$smaller-gap;
+    min-height: variables.$spacing;
     vertical-align: middle;
     font-size: variables.$h3-size;
     svg {
