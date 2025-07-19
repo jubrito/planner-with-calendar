@@ -1,7 +1,7 @@
 @use '../../styles/variables' as variables;
 
 .error {
-  color: variables.$black-color;
+  color: variables.$white-color;
   background-color: variables.$error-light-color;
   border-radius: variables.$small-gap;
   padding: variables.$small-gap;
