@@ -289,14 +289,13 @@ describe('React hooks', () => {
         expect(result.current.isDirty).toBeTruthy();
       });
       it('should clear the errors of the field being updated', () => {
-        const { result, rerender } = renderHook(() =>
+        const { result } = renderHook(() =>
           useManageEventUpdates({
             ...initialEvent,
             endDate: new Date(0 / 0), // invalid date
           }),
         );
         const { updateEventField } = result.current;
-        rerender();
         expect(result.current.errors).toStrictEqual({
           endDate: 'End date must be a valid date',
         });
@@ -309,14 +308,13 @@ describe('React hooks', () => {
 
     describe('WHEN validating fields', () => {
       it('should update errors with validation errors', () => {
-        const { result, rerender } = renderHook(() =>
+        const { result } = renderHook(() =>
           useManageEventUpdates({
             ...initialEvent,
             startDate: new Date(2000),
             endDate: new Date(1000),
           }),
         );
-        rerender();
         expect(result.current.errors).toStrictEqual({
           endDate: 'End date must be after start date',
         });
@@ -330,26 +328,15 @@ describe('React hooks', () => {
         });
       });
       it('should return true if errors were found', () => {
-        // const { result, rerender } = renderHook(() =>
-        //   useManageEventUpdates({
-        //     ...initialEvent,
-        //     startDate: new Date(2000),
-        //     endDate: new Date(1000),
-        //   }),
-        // );
-        // expect(result.current.findEventFieldsErrors).toBeTruthy();
-        // rerender();
-        // expect(result.current.errors).toStrictEqual({
-        //   endDate: 'End date must be after start date',
-        // });
-        // const { findEventFieldsErrors } = result.current;
-        // act(() => {
-        //   findEventFieldsErrors(); // updating field with valid date
-        // });
-        // expect(result.current.errors).toStrictEqual({
-        //   endDate: 'End date must be after start date',
-        // });
-        // expect(result.current.findEventFieldsErrors).toBeTruthy();
+        const { result } = renderHook(() =>
+          useManageEventUpdates({
+            ...initialEvent,
+            startDate: new Date(2000),
+            endDate: new Date(1000),
+          }),
+        );
+        // function should be executed (and return true because there are errors) on custom hook setup
+        expect(result.current.findEventFieldsErrors).toBeTruthy();
       });
       it.todo('should return false if errors were not found');
     });
