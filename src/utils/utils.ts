@@ -30,8 +30,8 @@ export const getChunkArrayByChunkSize = <T>(
      * index(0 to 4) / chunkSize(5) rounds down to 0, item should be added to first chunk since it's 0 indexed
      * index(5 to 9) / chunkSize(5) rounds down to 1, item should be added to second chunk
      */
+    if (chunkSize <= 0) return [array];
     const chunkIndex = Math.floor(index / chunkSize);
-
     if (!chunks[chunkIndex]) {
       chunks[chunkIndex] = [];
     }
