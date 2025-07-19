@@ -1,10 +1,11 @@
+import { FieldsErrors } from '../../hooks/useManageEventUpdates';
 import { EventOnUpdate } from '../../types/event';
 import { isValidDate } from '../checkers';
 
 export const validateEventOnUpdate = (
   event: Partial<EventOnUpdate>,
-): Partial<Record<keyof EventOnUpdate, string>> => {
-  const errors: Partial<Record<keyof EventOnUpdate, string>> = {};
+): FieldsErrors => {
+  const errors: FieldsErrors = {};
   const { startDate, endDate } = event;
 
   if (!startDate) {
@@ -13,6 +14,7 @@ export const validateEventOnUpdate = (
     errors.startDate = 'Start date must be a valid date';
   }
 
+  console.log('endDate', endDate);
   if (!endDate) {
     errors.endDate = 'End date is required';
   } else if (!isValidDate(endDate)) {
@@ -20,6 +22,7 @@ export const validateEventOnUpdate = (
   } else if (startDate && endDate < startDate) {
     errors.endDate = 'End date must be after start date';
   }
+  console.log('errors', errors);
 
   return errors;
 };
