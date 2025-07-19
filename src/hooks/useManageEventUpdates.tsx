@@ -1,29 +1,28 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { EventOnUpdate } from '../types/event';
+import { EventStored } from '../types/event';
 import { validateEventOnUpdate } from '../utils/events/validation';
+import { getDateISOString } from '../utils/calendar/utils';
 
 export type FieldsErrors = Partial<
-  Record<keyof EventOnUpdate, string | undefined>
+  Record<keyof EventStored, string | undefined>
 >;
 
-export const useManageEventUpdates = (
-  initialEvent?: Partial<EventOnUpdate>,
-) => {
+export const useManageEventUpdates = (initialEvent?: Partial<EventStored>) => {
   const now = new Date();
   const [isDirty, setIsDirty] = useState(false);
   const [errors, setErrors] = useState<FieldsErrors>({});
   const initialIdRef = useRef<string>(null);
-  const [eventFields, setEventFields] = useState<EventOnUpdate>({
+  const [eventFields, setEventFields] = useState<EventStored>({
     id: '',
     title: '',
-    startDate: now,
-    endDate: now,
+    startDate: getDateISOString(now),
+    endDate: getDateISOString(now),
     location: '',
     description: '',
     ...initialEvent,
   });
 
-  const clearFieldOnUpdateErrors = (field: keyof EventOnUpdate) => {
+  const clearFieldOnUpdateErrors = (field: keyof EventStored) => {
     setErrors((prevErrors: FieldsErrors) => {
       const currentErrors: FieldsErrors = { ...prevErrors };
       if (currentErrors[field] != null) {
@@ -34,7 +33,7 @@ export const useManageEventUpdates = (
   };
 
   const findEventFieldsErrors = useCallback(
-    (eventData?: Partial<EventOnUpdate>) => {
+    (eventData?: Partial<EventStored>) => {
       let fieldsToValidade = eventData;
       if (fieldsToValidade == null) {
         fieldsToValidade = eventFields;
@@ -48,7 +47,7 @@ export const useManageEventUpdates = (
   );
 
   const updateEventField = useCallback(
-    <K extends keyof EventOnUpdate>(field: K, newValue: EventOnUpdate[K]) => {
+    <K extends keyof EventStored>(field: K, newValue: EventStored[K]) => {
       setEventFields((prevEventFields) => ({
         ...prevEventFields,
         [field]: newValue,

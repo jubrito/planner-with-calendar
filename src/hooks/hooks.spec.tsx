@@ -1,7 +1,7 @@
 import { act, render, renderHook } from '@testing-library/react';
 import { Months } from '../types/calendar/enums';
 import { useEvent } from './useDraftEvent';
-import { EventOnUpdate, EventStored } from '../types/event';
+import { EventStored } from '../types/event';
 import { defaultEventTitle } from '../utils/events/dayView/constants';
 import { useFocusManager } from './useFocusManager';
 import { screen } from '@testing-library/react';
@@ -9,6 +9,7 @@ import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import { useEffect, useRef } from 'react';
 import { useManageEventUpdates } from './useManageEventUpdates';
+import { getDateISOString } from '../utils/calendar/utils';
 
 describe('React hooks', () => {
   describe('useDraftEvent()', () => {
@@ -215,18 +216,18 @@ describe('React hooks', () => {
   });
 
   describe('useManageEventUpdates', () => {
-    const initialEvent: EventOnUpdate = {
+    const initialEvent: EventStored = {
       id: 'id',
       title: 'title',
-      startDate: new Date(),
-      endDate: new Date(),
+      startDate: getDateISOString(new Date()),
+      endDate: getDateISOString(new Date()),
       location: 'location',
       description: 'description',
     };
-    const invalidEvent: EventOnUpdate = {
+    const invalidEvent: EventStored = {
       ...initialEvent,
-      startDate: new Date(0 / 0),
-      endDate: new Date(0 / 0),
+      startDate: 'invalid',
+      endDate: 'invalid',
     };
 
     describe('Initial setup', () => {
@@ -257,11 +258,11 @@ describe('React hooks', () => {
 
     describe('WHEN updating fields', () => {
       it('should return updated event fields', () => {
-        const newEvent: EventOnUpdate = {
+        const newEvent: EventStored = {
           id: 'new id',
           title: 'new title',
-          startDate: new Date(2011),
-          endDate: new Date(2012),
+          startDate: getDateISOString(new Date(2011)),
+          endDate: getDateISOString(new Date(2012)),
           location: 'new location',
           description: 'new description',
         };
@@ -292,7 +293,7 @@ describe('React hooks', () => {
         const { result } = renderHook(() =>
           useManageEventUpdates({
             ...initialEvent,
-            endDate: new Date(0 / 0), // invalid date
+            endDate: 'invalid date',
           }),
         );
         const { updateEventField } = result.current;
@@ -300,7 +301,7 @@ describe('React hooks', () => {
           endDate: 'End date must be a valid date',
         });
         act(() => {
-          updateEventField('endDate', new Date()); // updating field with valid date
+          updateEventField('endDate', getDateISOString(new Date())); // updating field with valid date
         });
         expect(result.current.errors).toStrictEqual({});
       });
@@ -311,8 +312,8 @@ describe('React hooks', () => {
         const { result } = renderHook(() =>
           useManageEventUpdates({
             ...initialEvent,
-            startDate: new Date(2000),
-            endDate: new Date(1000),
+            startDate: getDateISOString(new Date(2000)),
+            endDate: getDateISOString(new Date(1000)),
           }),
         );
         expect(result.current.errors).toStrictEqual({

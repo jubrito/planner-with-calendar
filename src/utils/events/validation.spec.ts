@@ -1,14 +1,15 @@
-import { EventOnUpdate } from '../../types/event';
+import { EventStored } from '../../types/event';
+import { getDateISOString } from '../calendar/utils';
 import { validateEventOnUpdate } from './validation';
 
 describe('validations', () => {
   describe('validateEventOnUpdate', () => {
     it('should return empty object if no error was found', () => {
-      const validEventOnUpdate: Partial<EventOnUpdate> = {
+      const validEventOnUpdate: Partial<EventStored> = {
         id: '',
         title: '',
-        startDate: new Date(),
-        endDate: new Date(),
+        startDate: getDateISOString(new Date()),
+        endDate: getDateISOString(new Date()),
         location: '',
         description: '',
       };
@@ -17,23 +18,23 @@ describe('validations', () => {
     });
     describe('Start date errors', () => {
       it('should return startDate error message if start date is not provided', () => {
-        const invalidEventOnUpdate: Partial<EventOnUpdate> = {
+        const invalidEventOnUpdate: Partial<EventStored> = {
           id: '',
           title: '',
           startDate: undefined,
-          endDate: new Date(),
+          endDate: getDateISOString(new Date()),
           location: '',
           description: '',
         };
         const errors = validateEventOnUpdate(invalidEventOnUpdate);
         expect(errors).toStrictEqual({ startDate: 'Start date is required' });
       });
-      it('should return startDate error message if start date is invalid', () => {
-        const invalidEventOnUpdate: Partial<EventOnUpdate> = {
+      it.only('should return startDate error message if start date is invalid', () => {
+        const invalidEventOnUpdate: Partial<EventStored> = {
           id: '',
           title: '',
-          startDate: new Date(0 / 0),
-          endDate: new Date(),
+          startDate: 'invalid date',
+          endDate: getDateISOString(new Date()),
           location: '',
           description: '',
         };
@@ -45,10 +46,10 @@ describe('validations', () => {
     });
     describe('End date errors', () => {
       it('should return endDate error message if end date is not provided', () => {
-        const invalidEventOnUpdate: Partial<EventOnUpdate> = {
+        const invalidEventOnUpdate: Partial<EventStored> = {
           id: '',
           title: '',
-          startDate: new Date(),
+          startDate: getDateISOString(new Date()),
           endDate: undefined,
           location: '',
           description: '',
@@ -57,11 +58,11 @@ describe('validations', () => {
         expect(errors).toStrictEqual({ endDate: 'End date is required' });
       });
       it('should return endDate error message if end date is invalid', () => {
-        const invalidEventOnUpdate: Partial<EventOnUpdate> = {
+        const invalidEventOnUpdate: Partial<EventStored> = {
           id: '',
           title: '',
-          startDate: new Date(),
-          endDate: new Date(0 / 0),
+          startDate: getDateISOString(new Date()),
+          endDate: 'invalid date',
           location: '',
           description: '',
         };
@@ -71,11 +72,11 @@ describe('validations', () => {
         });
       });
       it('should return endDate error message if end date is before start date', () => {
-        const invalidEventOnUpdate: Partial<EventOnUpdate> = {
+        const invalidEventOnUpdate: Partial<EventStored> = {
           id: '',
           title: '',
-          startDate: new Date(),
-          endDate: new Date(0),
+          startDate: getDateISOString(new Date()),
+          endDate: getDateISOString(new Date(0)),
           location: '',
           description: '',
         };

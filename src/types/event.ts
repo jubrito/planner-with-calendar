@@ -5,6 +5,8 @@ export type EventStored = {
   title: string;
   startDate: string;
   endDate: string;
+  location?: string;
+  description?: string;
 };
 
 export type EventBlock = {
