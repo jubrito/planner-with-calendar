@@ -19,6 +19,11 @@ describe('utils', () => {
       const chunk = getChunkArrayByChunkSize([], 5);
       expect(chunk).toEqual([]);
     });
+    it('should handle chunk size equal to array length', () => {
+      const input = [1, 2, 3, 4, 5];
+      const result = getChunkArrayByChunkSize(input, 5);
+      expect(result).toEqual([input]);
+    });
   });
   describe('makeFirstLetterUppercase', () => {
     it.todo('todo');
