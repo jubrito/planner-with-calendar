@@ -8,6 +8,11 @@ import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selector
 import { IntlDateTimeFormatShort } from '../../../../utils/constants';
 import styles from './_header.module.scss';
 import { memo } from 'react';
+import { useDispatch } from 'react-redux';
+import {
+  draftEventOnUpdate,
+  updateEventOnUpdate,
+} from '../../../../redux/slices/eventSlice';
 
 export const Header = memo(() => {
   const locale = useSelector(getLocaleLanguage());
@@ -17,9 +22,15 @@ export const Header = memo(() => {
   const day = useSelector(getSelectedDayViewDay());
   const dayOfWeek = useSelector(getSelectedDayViewDayOfWeek(locale));
   const plannerDateLabel = `${monthName} ${day}, ${dayOfWeek}`;
+  const dispatch = useDispatch();
 
   function handleCreateEvent() {
-    alert('yes');
+    dispatch(
+      updateEventOnUpdate({
+        event: draftEventOnUpdate,
+        top: 15,
+      }),
+    );
   }
 
   return (
