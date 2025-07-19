@@ -14,7 +14,6 @@ export const validateEventOnUpdate = (
     errors.startDate = 'Start date must be a valid date';
   }
 
-  console.log('endDate', endDate);
   if (!endDate) {
     errors.endDate = 'End date is required';
   } else if (!isValidDate(endDate)) {
@@ -22,7 +21,6 @@ export const validateEventOnUpdate = (
   } else if (startDate && endDate < startDate) {
     errors.endDate = 'End date must be after start date';
   }
-  console.log('errors', errors);
 
   return errors;
 };
