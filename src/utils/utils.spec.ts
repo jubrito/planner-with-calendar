@@ -1,4 +1,8 @@
-import { deepCopy, getChunkArrayByChunkSize } from './utils';
+import {
+  deepCopy,
+  getChunkArrayByChunkSize,
+  makeFirstLetterUppercase,
+} from './utils';
 
 describe('utils', () => {
   describe('deepCopy', () => {
@@ -50,6 +54,13 @@ describe('utils', () => {
     });
   });
   describe('makeFirstLetterUppercase', () => {
-    it.todo('todo');
+    it('should make first letter uppercase', () => {
+      const first = 'first';
+      const second = 'sECOND';
+      const third = 'THIRD';
+      expect(makeFirstLetterUppercase(first)).toBe('First');
+      expect(makeFirstLetterUppercase(second)).toBe('SECOND');
+      expect(makeFirstLetterUppercase(third)).toBe('THIRD');
+    });
   });
 });
