@@ -41,8 +41,8 @@ export const useManageEventUpdates = (
       }
       const validationErrors = validateEventOnUpdate(fieldsToValidade);
       setErrors(validationErrors);
-
-      return Object.keys(validationErrors).length === 0;
+      const foundErrors = Object.keys(validationErrors).length != 0;
+      return foundErrors;
     },
     [eventFields],
   );
