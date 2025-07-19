@@ -453,4 +453,98 @@ describe('EventContainer', () => {
       expect(event).not.toBeInTheDocument();
     });
   });
+  it('should sort events being rendered by start date to display events in cronological order allow using tab key to navigate', () => {
+    const dayOnDayViewContainer = 1;
+    const monthOnDayViewContainer = 1;
+    const yearOnDayViewContainer = 2025;
+    const dayViewMock = {
+      key: `${dayOnDayViewContainer}/${monthOnDayViewContainer}/25`,
+      events: [
+        {
+          id: 'event-1746404701734',
+          title: 'Early event',
+          startDate: getDateISOString(
+            new Date(
+              yearOnDayViewContainer,
+              monthOnDayViewContainer,
+              dayOnDayViewContainer,
+              1, // startHour
+            ),
+          ),
+          endDate: getDateISOString(
+            new Date(
+              yearOnDayViewContainer,
+              monthOnDayViewContainer,
+              dayOnDayViewContainer,
+              2, // endHour
+            ),
+          ),
+        },
+        {
+          id: 'event-1746404702252',
+          title: 'Middle event',
+          startDate: getDateISOString(
+            new Date(
+              yearOnDayViewContainer,
+              monthOnDayViewContainer,
+              dayOnDayViewContainer,
+              2, // startHour
+            ),
+          ),
+          endDate: getDateISOString(
+            new Date(
+              yearOnDayViewContainer,
+              monthOnDayViewContainer,
+              dayOnDayViewContainer,
+              3, // endHour
+            ),
+          ),
+        },
+        {
+          id: 'event-1746404702252',
+          title: 'Late event',
+          startDate: getDateISOString(
+            new Date(
+              yearOnDayViewContainer,
+              monthOnDayViewContainer,
+              dayOnDayViewContainer,
+              3, // startHour
+            ),
+          ),
+          endDate: getDateISOString(
+            new Date(
+              yearOnDayViewContainer,
+              monthOnDayViewContainer,
+              dayOnDayViewContainer,
+              4, // endHour
+            ),
+          ),
+        },
+      ],
+    };
+    const eventsByDatesMock = {
+      [dayViewMock.key]: {
+        events: dayViewMock.events,
+      },
+    };
+    const monthZeroIndexed = monthOnDayViewContainer - 1;
+    const date = new Date(
+      yearOnDayViewContainer,
+      monthZeroIndexed,
+      dayOnDayViewContainer,
+    );
+    renderEventsContainer({
+      dayViewISODate: getDateISOString(date),
+      eventsByDates: eventsByDatesMock,
+    });
+    const eventsRendered = screen.getAllByTitle(
+      'Click on the event to view details and actions',
+    );
+    expect(eventsRendered.length).toBe(dayViewMock.events.length);
+    const [event1, event2, event3] = eventsRendered;
+    const [event1Mock, event2Mock, event3Mock] = dayViewMock.events;
+    expect(within(event1).getByText(event1Mock.title)).toBeInTheDocument();
+    expect(within(event2).getByText(event2Mock.title)).toBeInTheDocument();
+    expect(within(event3).getByText(event3Mock.title)).toBeInTheDocument();
+  });
 });
