@@ -7,7 +7,7 @@
   margin-right: variables.$outer-spacing;
   padding: variables.$inner-spacing;
   color: variables.$white-color;
-  border-radius: 10px;
+  border-radius: variables.$gap;
   overflow: hidden;
   display: flex;
   flex-direction: column;

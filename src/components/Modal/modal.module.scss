@@ -30,7 +30,7 @@
     button {
       background-color: transparent;
       padding: 0;
-      padding-left: 10px;
+      padding-left: variables.$gap;
       svg {
         font-size: 18px;
         color: variables.$black-color;
