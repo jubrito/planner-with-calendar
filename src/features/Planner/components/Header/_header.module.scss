@@ -13,4 +13,8 @@
     text-align: center;
     margin-bottom: variables.$inner-spacing;
   }
+
+  button {
+    background-color: variables.$bluegray-color;
+  }
 }
