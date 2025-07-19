@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { EventStored } from '../types/event';
-import { validateEventOnUpdate } from '../utils/events/validation';
+import { validateEvent } from '../utils/events/validation';
 import { getDateISOString } from '../utils/calendar/utils';
 
 export type FieldsErrors = Partial<
@@ -38,7 +38,7 @@ export const useManageEventUpdates = (initialEvent?: Partial<EventStored>) => {
       if (fieldsToValidade == null) {
         fieldsToValidade = eventFields;
       }
-      const validationErrors = validateEventOnUpdate(fieldsToValidade);
+      const validationErrors = validateEvent(fieldsToValidade);
       setErrors(validationErrors);
       const foundErrors = Object.keys(validationErrors).length != 0;
       return foundErrors;
