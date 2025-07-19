@@ -1,50 +1,31 @@
 # Next steps (v1):
 
-- Rename 'click to something' to just something
-
-- add todo from notes
-
-- order of modal actions is inverted (close should be first)
-
-  - after fix change render so edit is first
-
-- Rename selectedEventOnCreation to eventOnCreation
-
-Modal accessibility:
-
-- role="dialog"
-- aria-modal="true"
-- aria busy open etc
-- Tabbing the icons shouldn't start with close, should go to left to right
+- hide create/update event modal when clicking outside by clearing redux value
 
 - Update top on Event Creation Modal (remove 200)
 
-- Move focus handling to modal?
+----- UPDATE EVENT MODAL:
 
-- Replicate the behavior that exists on View Event Details modal on Create Event modal (e.g. changing focus) and test
+- Should open
 
-Features
-
-- Update where modal is created
-
-- Should open create event modal
-
-  - (should not open when clicking on event inside contianer)
+  - (should not open when clicking on event inside container)
   - Create event button
-  - Creating events on calendar
   - Editing event (inside event details modal)
   - Test everything
 
-- Tests
+----- TESTS
 
-  - Events Container dont control modal things
-  - EventCreationModal
-  - EventModalsContainer to check if new creation modal is working (like the details one)
-  - Header (creation of events)
+- Header (creation of events)
+
+----- ALL DAY events
 
 - Add all day events to planner top
+- Update Event Creation to consider all day events (& check Event View Details)
+
+----- FEATURES
+
 - Delete event
-- Create event from end to finish?
+- Events side by side
 - Move events through drag/drop
 
 // https://www.npmjs.com/package/@fullcalendar/react
@@ -65,6 +46,7 @@ Features
   > Lighthouse report
   > Modal focus trapping https://medium.com/cstech/achieving-focus-trapping-in-a-react-modal-component-3f28f596f35b
   > SEO
+  > allow navigating
 
 - Performance
 
@@ -76,7 +58,7 @@ Features
 - Improvements
 
   > create selectors for initial or current based on received props key
-  > event validation (isValidEvent) + test (remove comments from eventscontainer component)
+  > event validation (isValidEvent) + test (remove comments from eventscontainer component) -> how to conciliate with validateEventFields?
   > improve error handling
   > create banner that disappears if fails to create event (e.g., event.start is undefined) and don't run event component
 
