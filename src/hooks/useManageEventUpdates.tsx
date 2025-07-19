@@ -2,14 +2,16 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { EventOnUpdate } from '../types/event';
 import { validateEventOnUpdate } from '../utils/events/validation';
 
+export type FieldsErrors = Partial<
+  Record<keyof EventOnUpdate, string | undefined>
+>;
+
 export const useManageEventUpdates = (
   initialEvent?: Partial<EventOnUpdate>,
 ) => {
   const now = new Date();
   const [isDirty, setIsDirty] = useState(false);
-  const [errors, setErrors] = useState<
-    Partial<Record<keyof EventOnUpdate, string | undefined>>
-  >({});
+  const [errors, setErrors] = useState<FieldsErrors>({});
   const initialIdRef = useRef<string>(null);
   const [eventFields, setEventFields] = useState<EventOnUpdate>({
     id: '',
@@ -44,7 +46,7 @@ export const useManageEventUpdates = (
       }));
       // setErrors((prevErrors) => {
       //   const currentErrors = {...prevErrors};
-      //   if (currentErrors.)
+      //   if (currentErrors)
       //   // const oi = Object.entries(prevErrors).map((key) => {
       //   //   console.log('key', key);
       //   // });
