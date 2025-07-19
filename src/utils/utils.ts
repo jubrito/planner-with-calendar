@@ -31,7 +31,7 @@ export const getChunkArrayByChunkSize = <T>(
      * index(5 to 9) / chunkSize(5) rounds down to 1, item should be added to second chunk
      */
     if (chunkSize <= 0) return [array];
-    const chunkIndex = Math.floor(index / chunkSize);
+    const chunkIndex = Math.floor(index / Math.floor(chunkSize));
     if (!chunks[chunkIndex]) {
       chunks[chunkIndex] = [];
     }
