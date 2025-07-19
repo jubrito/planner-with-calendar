@@ -2,6 +2,7 @@
 @use '../../../../styles/mixins' as mixins;
 
 .updateCalendarContainer {
+  background-color: variables.$black-color;
   border-radius: 10px;
   padding: 0;
 }
@@ -15,6 +16,13 @@
 
   button {
     padding: 3px;
+    min-height: 20px;
+    vertical-align: middle;
+    font-size: variables.$h3-size;
+    svg {
+      vertical-align: middle;
+      font-size: variables.$h2-size;
+    }
   }
 
   @include mixins.media-for-compact-calendar {

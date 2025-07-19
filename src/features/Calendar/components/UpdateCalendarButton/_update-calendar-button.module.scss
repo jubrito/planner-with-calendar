@@ -3,7 +3,6 @@
 
 .updateCalendar {
   background-color: transparent;
-  font-size: variables.$h3-size;
   margin: variables.$smaller-gap;
   padding: 3px;
 
@@ -11,8 +10,9 @@
     border-color: transparent;
     border-width: 1px;
     outline: none;
-    background-color: variables.$black-color;
-    color: variables.$white-color;
+    background-color: variables.$white-color;
+    color: variables.$black-color;
+    min-height: fit-content;
   }
 
   @include mixins.media-for-compact-calendar {
