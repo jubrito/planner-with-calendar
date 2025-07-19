@@ -1,6 +1,5 @@
-import { act, render, renderHook, waitFor } from '@testing-library/react';
+import { act, render, renderHook } from '@testing-library/react';
 import { Months } from '../types/calendar/enums';
-
 import { useEvent } from './useDraftEvent';
 import { EventOnUpdate, EventStored } from '../types/event';
 import { defaultEventTitle } from '../utils/events/dayView/constants';
@@ -10,7 +9,6 @@ import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import { useEffect, useRef } from 'react';
 import { useManageEventUpdates } from './useManageEventUpdates';
-import * as useManageEventUpdatesModule from './useManageEventUpdates';
 
 describe('React hooks', () => {
   describe('useDraftEvent()', () => {
@@ -225,9 +223,23 @@ describe('React hooks', () => {
       location: 'location',
       description: 'description',
     };
+    const invalidEvent: EventOnUpdate = {
+      ...initialEvent,
+      startDate: new Date(0 / 0),
+      endDate: new Date(0 / 0),
+    };
 
     describe('Initial setup', () => {
-      it.todo('should set errors when setting fields with initial events');
+      it('should set errors when setting fields with initial events', () => {
+        const { result } = renderHook(() =>
+          useManageEventUpdates(invalidEvent),
+        );
+        const { errors } = result.current;
+        expect(errors).toStrictEqual({
+          startDate: 'Start date must be a valid date',
+          endDate: 'End date must be a valid date',
+        });
+      });
       it.todo('should set is dirty to false');
       it('should return event fields from initial event', () => {
         const { result } = renderHook(() =>
