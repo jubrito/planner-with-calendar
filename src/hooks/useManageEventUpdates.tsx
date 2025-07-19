@@ -34,13 +34,13 @@ export const useManageEventUpdates = (
   };
 
   const validateEventFields = useCallback(
-    (eventData = initialEvent) => {
-      const validationErrors = validateEventOnUpdate(eventData || eventFields);
+    (eventData = eventFields) => {
+      const validationErrors = validateEventOnUpdate(eventData);
       setErrors(validationErrors);
 
       return Object.keys(validationErrors).length === 0;
     },
-    [eventFields, initialEvent],
+    [eventFields],
   );
 
   const updateEventField = useCallback(
