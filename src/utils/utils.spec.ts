@@ -24,6 +24,11 @@ describe('utils', () => {
       const result = getChunkArrayByChunkSize(input, 5);
       expect(result).toEqual([input]);
     });
+    it('should return chunk with original array when chunk size is 0', () => {
+      const input = [1, 2, 3, 4, 5];
+      const result = getChunkArrayByChunkSize(input, 0);
+      expect(result).toEqual([input]);
+    });
     it('should split array into multiple chunks when needed', () => {
       const input = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
       const result = getChunkArrayByChunkSize(input, 3);
