@@ -8,7 +8,7 @@
   background: variables.$darkblue-color;
   font-size: 2vw;
   border: 1px solid variables.$darkblue-color;
-  border-radius: 6px;
+  border-radius: variables.$small-gap;
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
   -khtml-user-select: none; /* Konqueror HTML */
@@ -19,7 +19,7 @@
 
   .plannerEventDetails {
     display: flex;
-    margin-left: 5px;
+    margin-left: variables.$small-gap;
 
     span {
       line-height: 1;
