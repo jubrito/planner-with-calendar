@@ -15,6 +15,10 @@ import {
   getMonthIndex,
   getYear,
 } from '../../../../utils/calendar/utils';
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
+import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 
 export const CalendarMenu = () => {
   const dispatch = useDispatch();
@@ -34,14 +38,14 @@ export const CalendarMenu = () => {
       <div className={styles.updateCalendarContainer}>
         <UpdateCalendarButton
           label={'Go to previous year'}
-          symbol={'<<'}
+          icon={<KeyboardDoubleArrowLeftIcon />}
           updateDate={() =>
             dispatch(updateGlobalISODate({ year: year - 1, month, day }))
           }
         />
         <UpdateCalendarButton
           label={'Go to previous month'}
-          symbol={'<'}
+          icon={<KeyboardArrowLeftIcon />}
           updateDate={() =>
             dispatch(
               updateGlobalISODate({
@@ -67,7 +71,7 @@ export const CalendarMenu = () => {
         />
         <UpdateCalendarButton
           label={'Go to next month'}
-          symbol={'>'}
+          icon={<KeyboardArrowRightIcon />}
           updateDate={() =>
             dispatch(
               updateGlobalISODate({
@@ -80,7 +84,7 @@ export const CalendarMenu = () => {
         />
         <UpdateCalendarButton
           label={'Go to next year'}
-          symbol={'>>'}
+          icon={<KeyboardDoubleArrowRightIcon />}
           updateDate={() =>
             dispatch(updateGlobalISODate({ year: year + 1, month, day }))
           }
