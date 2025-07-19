@@ -20,6 +20,7 @@ import {
 } from '../../../../redux/slices/eventSlice';
 import { HourButtons } from './HourButtons/HourButtons';
 import { isValidDraftEvent, isValidEvent } from '../../utils/eventValidation';
+import { EventStored } from '../../../../types/event';
 
 export const EventContainer = () => {
   const dispatch = useDispatch();
@@ -114,6 +115,7 @@ export const EventContainer = () => {
       )}
       {eventsOfSelectedDate
         .filter((event) => isValidEvent(event))
+        .sort((a, b) => sortEventsByStartDate(a, b))
         .map((event) => (
           <Event
             id={event.id}
@@ -126,4 +128,13 @@ export const EventContainer = () => {
       <HourButtons />
     </div>
   );
+};
+
+const sortEventsByStartDate = (a: EventStored, b: EventStored) => {
+  const startDateA = new Date(a.startDate);
+  const startDateB = new Date(b.startDate);
+  if (startDateA > startDateB) {
+    return 1;
+  }
+  return -1;
 };
