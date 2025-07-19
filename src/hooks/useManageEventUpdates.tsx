@@ -23,6 +23,16 @@ export const useManageEventUpdates = (
     ...initialEvent,
   });
 
+  const clearFieldOnUpdateErrors = (field: keyof EventOnUpdate) => {
+    setErrors((prevErrors: FieldsErrors) => {
+      const currentErrors: FieldsErrors = { ...prevErrors };
+      if (currentErrors[field] != null) {
+        delete currentErrors[field];
+      }
+      return currentErrors;
+    });
+  };
+
   const validateEventFields = useCallback(
     (eventData = initialEvent) => {
       const validationErrors = validateEventOnUpdate(eventData || eventFields);
@@ -40,23 +50,7 @@ export const useManageEventUpdates = (
         [field]: newValue,
       }));
       setIsDirty(true);
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        [field]: undefined,
-      }));
-      // setErrors((prevErrors) => {
-      //   const currentErrors = {...prevErrors};
-      //   if (currentErrors)
-      //   // const oi = Object.entries(prevErrors).map((key) => {
-      //   //   console.log('key', key);
-      //   // });
-      //   // console.log('prevErrors', prevErrors);
-      //   // console.log('Object.entries(prevErrors)', Object.entries(prevErrors));
-      //   // return {
-      //   //   ...prevErrors,
-      //   // };
-      //   // [field]: undefined,
-      // });
+      clearFieldOnUpdateErrors(field);
     },
     [],
   );
