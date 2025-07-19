@@ -3,10 +3,10 @@
 
 .planner {
   grid-area: planner;
-  background-color: variables.$white-color;
+  background-color: variables.$black-color;
   margin-right: variables.$outer-spacing;
   padding: variables.$inner-spacing;
-  color: variables.$black-color;
+  color: variables.$white-color;
   border-radius: 10px;
   overflow: hidden;
   display: flex;
@@ -28,8 +28,8 @@
     overflow-y: auto;
     overflow-x: hidden;
     position: relative;
-    scrollbar-color: black transparent;
-    padding-right: 7px;
+    scrollbar-color: variables.$lightgray-color transparent;
+    padding-right: 9px;
 
     @include mixins.media-for-compact-calendar {
       margin-bottom: variables.$inner-spacing;
