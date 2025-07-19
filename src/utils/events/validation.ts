@@ -2,7 +2,7 @@ import { FieldsErrors } from '../../hooks/useManageEventUpdates';
 import { EventStored } from '../../types/event';
 import { isValidDate } from '../checkers';
 
-export const validateEvent = (event: Partial<EventStored>): FieldsErrors => {
+export const getEventErrors = (event: Partial<EventStored>): FieldsErrors => {
   const errors: FieldsErrors = {};
   const { startDate, endDate } = event;
 
