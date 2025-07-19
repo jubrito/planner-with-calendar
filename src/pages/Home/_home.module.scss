@@ -2,7 +2,6 @@
 @use '../../styles/_mixins.scss' as mixins;
 
 .home {
-  background-color: variables.$darkbluegray-color;
   display: grid;
   grid-template-columns: minmax(320px, 45%) 1fr;
   grid-template-rows: 50px 1fr 20px;
