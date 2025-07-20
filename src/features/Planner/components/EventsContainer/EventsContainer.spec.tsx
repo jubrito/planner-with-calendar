@@ -253,6 +253,18 @@ describe('EventContainer', () => {
       const event = screen.queryByText(title);
       expect(event).not.toBeInTheDocument();
     });
+    it('should not display modal if event on update selected event is not defined', () => {
+      renderEventsContainer({
+        eventModes: {
+          eventOnUpdate: {
+            ...initialSelectedEvent,
+            event: undefined,
+          },
+        },
+      });
+      const modalTitleInput = screen.queryByPlaceholderText('Add title');
+      expect(modalTitleInput).not.toBeInTheDocument();
+    });
   });
   describe('WHEN hiding modals', () => {
     it('should hide View Event Details modal when clicking on container (on mouse down)', async () => {
