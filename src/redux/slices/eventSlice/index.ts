@@ -3,15 +3,15 @@ import { deepCopy } from '../../../utils/utils';
 import {
   EventsByDates,
   EventStored,
-  EventOnDayView,
+  EventTargeted,
 } from '../../../types/event';
 import { formatDateIDFromDate } from '../../../utils/events/utils';
 import { getDateISOString } from '../../../utils/calendar/utils';
 
 type InitialEventsInfoState = {
   eventsByDates: EventsByDates;
-  eventOnViewMode?: EventOnDayView;
-  eventOnUpdateMode?: EventOnDayView;
+  eventOnViewMode?: EventTargeted;
+  eventOnUpdateMode?: EventTargeted;
 };
 
 export type InitialState = {
@@ -59,7 +59,7 @@ export const eventSlice = createSlice({
     },
     updateEventOnViewMode(
       state: InitialState,
-      action: PayloadAction<EventOnDayView>,
+      action: PayloadAction<EventTargeted>,
     ) {
       state.currentState.eventOnViewMode = action.payload;
     },
@@ -69,7 +69,7 @@ export const eventSlice = createSlice({
     },
     updateeventOnUpdateMode(
       state: InitialState,
-      action: PayloadAction<EventOnDayView>,
+      action: PayloadAction<EventTargeted>,
     ) {
       state.currentState.eventOnUpdateMode = action.payload;
     },

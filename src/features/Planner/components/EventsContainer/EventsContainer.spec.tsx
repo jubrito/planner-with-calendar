@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { act, waitFor, screen, within } from '@testing-library/react';
 import { EventContainer } from './EventsContainer';
-import { EventsByDates, EventOnDayView } from '../../../../types/event';
+import { EventsByDates, EventTargeted } from '../../../../types/event';
 import { Months } from '../../../../types/calendar/enums';
 import { renderWithProviders } from '../../../../utils/tests/renderWithProviders';
 import { initialValue } from '../../../../redux/slices/eventSlice';
@@ -37,8 +37,8 @@ const initialSelectedEvent = {
 
 type renderEventsContainerProps = {
   eventModes?: {
-    eventOnViewMode?: EventOnDayView;
-    eventOnUpdateMode?: EventOnDayView;
+    eventOnViewMode?: EventTargeted;
+    eventOnUpdateMode?: EventTargeted;
   };
   dayViewISODate?: string;
   eventsByDates?: EventsByDates;

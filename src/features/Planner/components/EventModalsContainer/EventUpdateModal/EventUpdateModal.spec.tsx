@@ -3,7 +3,7 @@ import { screen } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 import { EventUpdateModal } from './EventUpdateModal';
 import { renderWithProviders } from '../../../../../utils/tests/renderWithProviders';
-import { EventOnDayView } from '../../../../../types/event';
+import { EventTargeted } from '../../../../../types/event';
 import { getDateISOString } from '../../../../../utils/calendar/utils';
 import { Months } from '../../../../../types/calendar/enums';
 import { initialValue } from '../../../../../redux/slices/eventSlice';
@@ -23,7 +23,7 @@ describe('EventUpdateModal', () => {
   const endDate = getDateISOString(
     new Date(year, month, day, endHour, endMinutes),
   );
-  const initialSelectedEvent: EventOnDayView = {
+  const initialSelectedEvent: EventTargeted = {
     event: {
       endDate,
       startDate,

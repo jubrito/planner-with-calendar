@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import { screen } from '@testing-library/react';
 import { EventDetailsModal } from './EventDetailsModal';
 import { Months } from '../../../../../types/calendar/enums';
-import { EventStored, EventOnDayView } from '../../../../../types/event';
+import { EventStored, EventTargeted } from '../../../../../types/event';
 import { renderWithProviders } from '../../../../../utils/tests/renderWithProviders';
 import {
   initialValue as initialEventValue,
@@ -48,7 +48,7 @@ describe('EventDetailsModal', () => {
   const startPeriod = 'AM';
   const endPeriod = 'PM';
 
-  const initialSelectedEvent: EventOnDayView = {
+  const initialSelectedEvent: EventTargeted = {
     event: {
       endDate,
       startDate,
