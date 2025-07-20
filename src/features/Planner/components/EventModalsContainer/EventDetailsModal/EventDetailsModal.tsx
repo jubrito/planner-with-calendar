@@ -36,10 +36,10 @@ export const EventDetailsModal = memo(() => {
     dispatch(
       updateEventOnUpdateMode({
         event: draftEventOnUpdateMode,
-        top: 15,
+        top: eventOnViewMode?.top || 0,
       }),
     );
-  }, [dispatch]);
+  }, [dispatch, eventOnViewMode?.top]);
 
   if (!eventOnViewMode || !eventOnViewMode.event) return null;
 
