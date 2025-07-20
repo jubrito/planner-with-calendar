@@ -231,17 +231,17 @@ describe('EventContainer', () => {
     });
   });
   describe('WHEN opening modals', () => {
-    it('should not display View Event Details modal if selected day view event is not defined', () => {
+    it('should not display View Event Details modal if event on view mode is not defined', () => {
       renderEventsContainer({});
       const event = screen.queryByText(title);
       expect(event).not.toBeInTheDocument();
     });
-    it('should not display Update Event modal if selected day view event is not defined', () => {
+    it('should not display Update Event modal if event on update is not defined', () => {
       renderEventsContainer({});
-      const event = screen.queryByPlaceholderText('Add title');
-      expect(event).not.toBeInTheDocument();
+      const modalTitleInput = screen.queryByPlaceholderText('Add title');
+      expect(modalTitleInput).not.toBeInTheDocument();
     });
-    it('should not display modal if selected event is not defined', () => {
+    it('should not display modal if event on view mode selected event is not defined', () => {
       renderEventsContainer({
         eventModes: {
           eventOnViewMode: {
