@@ -119,12 +119,20 @@ describe('EventDetailsModal', () => {
     return { startTime, endTime };
   };
 
+  it('should render modal if eventOnViewMode properties is defined', () => {
+    renderEventDetailsModal({
+      event: initialSelectedEvent.event,
+      top: initialSelectedEvent.top,
+    });
+    const modal = screen.getByRole('dialog');
+    expect(modal).toBeInTheDocument();
+  });
+
   it('should render event details modal title', () => {
     renderEventDetailsModal({
       event: initialSelectedEvent.event,
       top: initialSelectedEvent.top,
     });
-    screen.debug();
     expect(screen.getByText(eventTitle)).toBeInTheDocument();
   });
 
