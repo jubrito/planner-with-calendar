@@ -230,10 +230,15 @@ describe('EventContainer', () => {
       }
     });
   });
-  describe('WHEN opening modal', () => {
-    it('should not display modal if selected day view event is not defined', () => {
+  describe('WHEN opening modals', () => {
+    it('should not display View Event Details modal if selected day view event is not defined', () => {
       renderEventsContainer({});
       const event = screen.queryByText(title);
+      expect(event).not.toBeInTheDocument();
+    });
+    it('should not display Update Event modal if selected day view event is not defined', () => {
+      renderEventsContainer({});
+      const event = screen.queryByPlaceholderText('Add title');
       expect(event).not.toBeInTheDocument();
     });
     it('should not display modal if selected event is not defined', () => {
@@ -327,6 +332,41 @@ describe('EventContainer', () => {
           expect(currenteventOnViewMode).toBeUndefined();
           expect(modalTitle).not.toBeInTheDocument();
         });
+      }
+    });
+
+    it.skip('should close Update Event the modal when clicking on close button', async () => {
+      const { container } = renderEventsContainer({
+        eventModes: {
+          eventOnViewMode: {
+            ...initialSelectedEvent,
+            event: initialSelectedEvent.event, // now Event Details modal is open
+          },
+        },
+      });
+      const targetElement = container.firstElementChild;
+      expect(targetElement).not.toBe(null);
+      if (targetElement) {
+        const rect = targetElement.getBoundingClientRect();
+        const positionY = rect.top;
+        createEvent({
+          targetElement,
+          mouseDownY: positionY + 525,
+          mouseMoveY: positionY + 625,
+          mouseUpY: positionY + 625,
+        });
+        const event = screen.getByTitle(
+          'Click on the event to view details and actions',
+        );
+
+        await userEvent.click(event);
+
+        const modal = screen.getByRole('dialog');
+        const closeButton = screen.getByLabelText('Close');
+
+        await userEvent.click(closeButton);
+
+        expect(modal).not.toBeInTheDocument();
       }
     });
   });
