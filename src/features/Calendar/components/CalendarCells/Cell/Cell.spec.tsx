@@ -119,7 +119,7 @@ describe('Cell', () => {
       endDate: '',
       startDate: '',
     };
-    const initialeventOnViewMode = {
+    const initialEventOnViewMode = {
       event: initialEvent,
       top: 101,
     };
@@ -138,7 +138,7 @@ describe('Cell', () => {
           ...initialEventValue,
           currentState: {
             ...initialEventValue.currentState,
-            eventOnViewMode: initialeventOnViewMode,
+            eventOnViewMode: initialEventOnViewMode,
           },
         },
       },
@@ -148,8 +148,8 @@ describe('Cell', () => {
     let eventOnViewMode =
       store.getState().eventSlice.currentState.eventOnViewMode;
 
-    expect(eventOnViewMode?.top).toBe(initialeventOnViewMode.top);
-    expect(eventOnViewMode?.event).toBe(initialeventOnViewMode.event);
+    expect(eventOnViewMode?.top).toBe(initialEventOnViewMode.top);
+    expect(eventOnViewMode?.event).toBe(initialEventOnViewMode.event);
 
     await userEvent.click(buttonElement);
 

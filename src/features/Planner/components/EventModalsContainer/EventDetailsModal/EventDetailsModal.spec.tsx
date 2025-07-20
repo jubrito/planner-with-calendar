@@ -431,6 +431,26 @@ describe('EventDetailsModal', () => {
       expect(updatedEventOnViewMode).toBeUndefined();
     });
 
+    it('should set draft event as event on update to open Update Event modal when clicking on the create event button', async () => {
+      const { store } = renderEventDetailsModal({
+        event: initialSelectedEvent.event,
+      });
+
+      const initialEventOnUpdateMode =
+        store.getState().eventSlice.initialState.eventOnUpdateMode;
+      expect(initialEventOnUpdateMode).toBeUndefined();
+      const createEventButton = screen.getByRole('button', {
+        name: 'Create event',
+      });
+      await userEvent.click(createEventButton);
+      const eventOnUpdateMode =
+        store.getState().eventSlice.currentState.eventOnUpdateMode;
+      expect(eventOnUpdateMode).toStrictEqual({
+        event: draftEventOnUpdateMode,
+        top: 15,
+      });
+    });
+
     it('should alert as placeholder when editing modal', async () => {
       renderEventDetailsModal({
         event: initialSelectedEvent.event,
