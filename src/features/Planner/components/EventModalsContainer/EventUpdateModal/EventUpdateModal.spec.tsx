@@ -52,25 +52,27 @@ describe('EventUpdateModal', () => {
     expect(modal).toBeInTheDocument();
   });
 
-  // it('should render title input', () => {
-  //   renderWithProviders(<EventUpdateModal />, {
-  //     preloadedState: {
-  //       eventSlice: {
-  //         ...initialValue,
-  //         currentState: {
-  //           ...initialValue.currentState,
-  //           eventOnUpdate: initialSelectedEvent,
-  //         },
-  //       },
-  //     },
-  //   });
-  //   const addTitleInput = screen.getByPlaceholderText('Add title');
-  //   expect(addTitleInput).toBeInTheDocument();
-  //   const newEventTitle = 'New event title';
-  //   userEvent.click(addTitleInput);
-  //   userEvent.type(addTitleInput, newEventTitle);
-  //   expect(screen.getByAltText(newEventTitle)).toBeInTheDocument();
-  // });
+  it('should render title input and allow updates', async () => {
+    renderWithProviders(<EventUpdateModal />, {
+      preloadedState: {
+        eventSlice: {
+          ...initialValue,
+          currentState: {
+            ...initialValue.currentState,
+            eventOnUpdate: initialSelectedEvent,
+          },
+        },
+      },
+    });
+    const addTitleInput = screen.getByPlaceholderText('Add title');
+    expect(addTitleInput).toBeInTheDocument();
+    const newEventTitle = 'updated';
+    await userEvent.click(addTitleInput);
+    await userEvent.type(addTitleInput, newEventTitle);
+    expect(
+      screen.getByDisplayValue(eventTitle + newEventTitle),
+    ).toBeInTheDocument();
+  });
   // it('should render title input', () => {
   //   renderWithProviders(<EventUpdateModal />, {
   //     preloadedState: {
