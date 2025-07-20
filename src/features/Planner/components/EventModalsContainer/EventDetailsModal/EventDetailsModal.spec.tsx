@@ -424,5 +424,13 @@ describe('EventDetailsModal', () => {
       const modal = screen.queryByRole('dialog');
       expect(modal).not.toBeInTheDocument();
     });
+
+    it('should not display modal if event on view mode selected event is not defined', () => {
+      renderEventDetailsModal({
+        event: undefined,
+      });
+      const modal = screen.queryByRole('dialog');
+      expect(modal).not.toBeInTheDocument();
+    });
   });
 });
