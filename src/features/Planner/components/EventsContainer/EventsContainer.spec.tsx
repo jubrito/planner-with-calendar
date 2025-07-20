@@ -301,11 +301,11 @@ describe('EventContainer', () => {
 
         createEvent({ targetElement: dayViewContainer });
 
-        const currenteventOnViewMode =
-          store.getState().eventSlice.currentState.eventOnViewMode;
+        const currentEventOnUpdate =
+          store.getState().eventSlice.currentState.eventOnUpdate;
 
         await waitFor(() => {
-          expect(currenteventOnViewMode).toBeUndefined();
+          expect(currentEventOnUpdate).toBeUndefined();
           expect(modalTitle).not.toBeInTheDocument();
         });
       }
