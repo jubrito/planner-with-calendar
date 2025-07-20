@@ -5,7 +5,7 @@ import { getEventFieldErrors } from './validation';
 describe('validations', () => {
   describe('validateeventOnUpdateMode', () => {
     it('should return empty object if no error was found', () => {
-      const valideventOnUpdateMode: Partial<EventStored> = {
+      const validEventOnUpdateMode: Partial<EventStored> = {
         id: '',
         title: '',
         startDate: getDateISOString(new Date()),
@@ -13,12 +13,12 @@ describe('validations', () => {
         location: '',
         description: '',
       };
-      const errors = getEventFieldErrors(valideventOnUpdateMode);
+      const errors = getEventFieldErrors(validEventOnUpdateMode);
       expect(errors).toStrictEqual({});
     });
     describe('Start date errors', () => {
       it('should return startDate error message if start date is not provided', () => {
-        const invalideventOnUpdateMode: Partial<EventStored> = {
+        const invalidEventOnUpdateMode: Partial<EventStored> = {
           id: '',
           title: '',
           startDate: undefined,
@@ -26,11 +26,11 @@ describe('validations', () => {
           location: '',
           description: '',
         };
-        const errors = getEventFieldErrors(invalideventOnUpdateMode);
+        const errors = getEventFieldErrors(invalidEventOnUpdateMode);
         expect(errors).toStrictEqual({ startDate: 'Start date is required' });
       });
       it.only('should return startDate error message if start date is invalid', () => {
-        const invalideventOnUpdateMode: Partial<EventStored> = {
+        const invalidEventOnUpdateMode: Partial<EventStored> = {
           id: '',
           title: '',
           startDate: 'invalid date',
@@ -38,7 +38,7 @@ describe('validations', () => {
           location: '',
           description: '',
         };
-        const errors = getEventFieldErrors(invalideventOnUpdateMode);
+        const errors = getEventFieldErrors(invalidEventOnUpdateMode);
         expect(errors).toStrictEqual({
           startDate: 'Start date must be a valid date',
         });
@@ -46,7 +46,7 @@ describe('validations', () => {
     });
     describe('End date errors', () => {
       it('should return endDate error message if end date is not provided', () => {
-        const invalideventOnUpdateMode: Partial<EventStored> = {
+        const invalidEventOnUpdateMode: Partial<EventStored> = {
           id: '',
           title: '',
           startDate: getDateISOString(new Date()),
@@ -54,11 +54,11 @@ describe('validations', () => {
           location: '',
           description: '',
         };
-        const errors = getEventFieldErrors(invalideventOnUpdateMode);
+        const errors = getEventFieldErrors(invalidEventOnUpdateMode);
         expect(errors).toStrictEqual({ endDate: 'End date is required' });
       });
       it('should return endDate error message if end date is invalid', () => {
-        const invalideventOnUpdateMode: Partial<EventStored> = {
+        const invalidEventOnUpdateMode: Partial<EventStored> = {
           id: '',
           title: '',
           startDate: getDateISOString(new Date()),
@@ -66,13 +66,13 @@ describe('validations', () => {
           location: '',
           description: '',
         };
-        const errors = getEventFieldErrors(invalideventOnUpdateMode);
+        const errors = getEventFieldErrors(invalidEventOnUpdateMode);
         expect(errors).toStrictEqual({
           endDate: 'End date must be a valid date',
         });
       });
       it('should return endDate error message if end date is before start date', () => {
-        const invalideventOnUpdateMode: Partial<EventStored> = {
+        const invalidEventOnUpdateMode: Partial<EventStored> = {
           id: '',
           title: '',
           startDate: getDateISOString(new Date()),
@@ -80,7 +80,7 @@ describe('validations', () => {
           location: '',
           description: '',
         };
-        const errors = getEventFieldErrors(invalideventOnUpdateMode);
+        const errors = getEventFieldErrors(invalidEventOnUpdateMode);
         expect(errors).toStrictEqual({
           endDate: 'End date must be after start date',
         });
