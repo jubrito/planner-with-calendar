@@ -146,6 +146,16 @@ describe('EventDetailsModal', () => {
     expect(screen.getByText(eventTitle)).toBeInTheDocument();
   });
 
+  it('should close other modals when opens by setting event modes to undefined', () => {
+    const { store } = renderEventDetailsModal({
+      event: initialSelectedEvent.event, // opens modal
+      top: initialSelectedEvent.top,
+    });
+    const updateEventModalIsClosed =
+      store.getState().eventSlice.currentState.eventOnUpdateMode;
+    expect(updateEventModalIsClosed).toBeUndefined();
+  });
+
   describe('When is 12-hour time system', () => {
     describe('When is same day event', () => {
       it('should render modal with same day event within same period', () => {
