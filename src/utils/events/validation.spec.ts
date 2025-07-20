@@ -3,7 +3,7 @@ import { getDateISOString } from '../calendar/utils';
 import { getEventFieldErrors } from './validation';
 
 describe('validations', () => {
-  describe('validateeventOnUpdateMode', () => {
+  describe('validateEventOnUpdateMode', () => {
     it('should return empty object if no error was found', () => {
       const validEventOnUpdateMode: Partial<EventStored> = {
         id: '',
