@@ -90,6 +90,12 @@ describe('EventUpdateModal', () => {
     expect(closeButton).toBeInTheDocument();
   });
 
+  it('should not display Update Event modal if event on update is not defined', () => {
+    renderWithProviders(<EventUpdateModal />);
+    const modal = screen.queryByRole('dialog');
+    expect(modal).not.toBeInTheDocument();
+  });
+
   it.todo('should render date input');
   it.todo('should render hour range inputs');
   it.todo('should render date checkbox');
