@@ -23,15 +23,31 @@ import {
   getWeekDaysNames,
 } from '../../../../utils/calendar/weeks';
 
-const CalendarCells = () => {
+type CalendarCellsProps = {
+  timeInMs?: number;
+  year?: number;
+  month?: number;
+  monthNumberOfDays?: number;
+};
+
+const CalendarCells = ({
+  timeInMs,
+  year,
+  month,
+  monthNumberOfDays,
+}: CalendarCellsProps) => {
   const locale = useSelector(getLocaleLanguage());
-  const time = useSelector(getSelectedGlobalTimeInMilliseconds());
-  const year = useSelector(getSelectedGlobalYear());
-  const month = useSelector(getSelectedGlobalMonth(locale));
-  const monthNumberOfDays = useSelector(
+  const globalTimeInMs = useSelector(getSelectedGlobalTimeInMilliseconds());
+  const globalYear = useSelector(getSelectedGlobalYear());
+  const globalMonth = useSelector(getSelectedGlobalMonth(locale));
+  const globalMonthNumberOfDays = useSelector(
     getSelectedGlobalMonthNumberOfDays(locale),
   );
 
+  const updatedTimeInMilliseconds = timeInMs ?? globalTimeInMs;
+  const updatedYear = year ?? globalYear;
+  const updatedMonth = month ?? globalMonth;
+  const updatedMonthNumberOfDays = monthNumberOfDays || globalMonthNumberOfDays;
   /**
    * Function to add the days from the current month and fill the
    * calendar with the days from the previous and next month
@@ -40,20 +56,20 @@ const CalendarCells = () => {
    */
   const getAllCalendarCells = useMemo(() => {
     const currentMonthDays: CalendarCellInfo[] = getCurrentMonthDays(
-      year,
-      month,
-      monthNumberOfDays,
+      updatedYear,
+      updatedMonth,
+      updatedMonthNumberOfDays,
     );
     const previousMonthDaysOnCurrentMonth = getPreviousMonthDaysOnCurrentMonth(
-      month,
-      year,
-      time,
+      updatedMonth,
+      updatedYear,
+      updatedTimeInMilliseconds,
       locale,
     );
     const nextMonthDaysOnCurrentMonth = getNextMonthDaysOnCurrentMonth(
-      month,
-      year,
-      monthNumberOfDays,
+      updatedMonth,
+      updatedYear,
+      updatedMonthNumberOfDays,
       locale,
     );
 
@@ -62,7 +78,13 @@ const CalendarCells = () => {
       ...currentMonthDays,
       ...nextMonthDaysOnCurrentMonth,
     ];
-  }, [locale, year, month, time, monthNumberOfDays]);
+  }, [
+    locale,
+    updatedYear,
+    updatedMonth,
+    updatedTimeInMilliseconds,
+    updatedMonthNumberOfDays,
+  ]);
 
   /**
    * To prevent the calendar from changing height when
@@ -77,11 +99,11 @@ const CalendarCells = () => {
     () => (chunks: CalendarCellInfo[][]) => {
       const lastRow = chunks[chunks.length - 1];
       const lastCellInfo = lastRow[lastRow.length - 1];
-      const cellIsAlreadyNextMonth = lastCellInfo.month !== month + 1; // 0 indexed
+      const cellIsAlreadyNextMonth = lastCellInfo.month !== updatedMonth + 1; // 0 indexed
       const firstDayOfTheMonthZeroIndexed = firstDayOfTheMonth - 1;
       const nextMonth = lastCellInfo.month + 1;
       const firstDayOfNextMonthCellInfo = {
-        year,
+        year: updatedYear,
         month: nextMonth,
         day: firstDayOfTheMonthZeroIndexed,
       };
@@ -90,7 +112,7 @@ const CalendarCells = () => {
         : firstDayOfNextMonthCellInfo; // first cell of extra last row to fill calendar will always be from next month
       return fillLastRowWithNextMonthCells(cellFromNextMonthInfo);
     },
-    [year, month],
+    [updatedYear, updatedMonth],
   );
 
   const getCalendarWithSixRows = useMemo(
@@ -121,7 +143,7 @@ const CalendarCells = () => {
                 cellDay={calendarCell.day}
                 cellMonth={calendarCell.month}
                 cellYear={calendarCell.year}
-                currentMonth={month}
+                currentMonth={updatedMonth}
                 key={`${calendarCell.year}-${calendarCell.month}-${calendarCell.day}`}
               />
             ))}
