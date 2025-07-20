@@ -8,14 +8,14 @@ import {
 import { useDispatch } from 'react-redux';
 import { useManageEventUpdates } from '../../../../../hooks/useManageEventUpdates';
 import { useSelector } from 'react-redux';
-import { getCurrenteventOnUpdateMode } from '../../../../../redux/slices/eventSlice/selectors';
+import { getCurrentEventOnUpdateMode } from '../../../../../redux/slices/eventSlice/selectors';
 import { getDateISOString } from '../../../../../utils/calendar/utils';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import styles from './EventUpdateModal.module.scss';
 
 export const EventUpdateModal = memo(() => {
   const dispatch = useDispatch();
-  const eventOnUpdateMode = useSelector(getCurrenteventOnUpdateMode());
+  const eventOnUpdateMode = useSelector(getCurrentEventOnUpdateMode());
   const isOpen = (eventOnUpdateMode && eventOnUpdateMode.event) != null;
   const titleLabel = 'Title';
   const initialStartDate = eventOnUpdateMode?.event?.startDate

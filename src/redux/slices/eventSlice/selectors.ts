@@ -19,7 +19,7 @@ export const getCurrentEventOnViewMode = () =>
 export const getInitialEventOnUpdateMode = () =>
   createSelector(eventSlice, (state) => state.initialState.eventOnUpdateMode);
 
-export const getCurrenteventOnUpdateMode = () =>
+export const getCurrentEventOnUpdateMode = () =>
   createSelector(eventSlice, (state) => state.currentState.eventOnUpdateMode);
 
 export const getInitialEventsOfSelectedDate = (ISODate: string) =>
