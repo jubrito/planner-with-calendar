@@ -59,7 +59,7 @@ describe('EventUpdateModal', () => {
           ...initialValue,
           currentState: {
             ...initialValue.currentState,
-            eventOnUpdate: initialSelectedEvent,
+            eventOnUpdate: initialSelectedEvent, // opens modal
           },
         },
       },
@@ -73,29 +73,23 @@ describe('EventUpdateModal', () => {
       screen.getByDisplayValue(eventTitle + newEventTitle),
     ).toBeInTheDocument();
   });
-  // it('should render title input', () => {
-  //   renderWithProviders(<EventUpdateModal />, {
-  //     preloadedState: {
-  //       eventSlice: {
-  //         ...initialValue,
-  //         currentState: {
-  //           ...initialValue.currentState,
-  //           eventOnUpdate: initialSelectedEvent,
-  //         },
-  //       },
-  //     },
-  //   });
-  //   const addTitleInput = screen.getByPlaceholderText('Add title');
-  //   expect(addTitleInput).toBeInTheDocument();
-  //   const newEventTitle = 'New event title';
-  //   userEvent.click(addTitleInput);
-  //   userEvent.type(addTitleInput, newEventTitle);
-  //   expect(screen.getByAltText(newEventTitle)).toBeInTheDocument();
-  // });
-  // it('should only render close button', () => {
-  //   renderWithProviders(<EventUpdateModal/>);
 
-  // })
+  it('should render close button', async () => {
+    renderWithProviders(<EventUpdateModal />, {
+      preloadedState: {
+        eventSlice: {
+          ...initialValue,
+          currentState: {
+            ...initialValue.currentState,
+            eventOnUpdate: initialSelectedEvent, // opens modal
+          },
+        },
+      },
+    });
+    const closeButton = screen.getByLabelText('Close');
+    expect(closeButton).toBeInTheDocument();
+  });
+
   it.todo('should render date input');
   it.todo('should render hour range inputs');
   it.todo('should render date checkbox');
