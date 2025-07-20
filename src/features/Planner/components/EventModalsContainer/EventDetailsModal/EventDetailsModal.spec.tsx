@@ -70,6 +70,7 @@ describe('EventDetailsModal', () => {
       },
     };
     if (event) {
+      // opens modal
       eventSliceUpdated = {
         ...initialEventValue,
         currentState: {
@@ -121,16 +122,25 @@ describe('EventDetailsModal', () => {
 
   it('should render modal if eventOnViewMode properties is defined', () => {
     renderEventDetailsModal({
-      event: initialSelectedEvent.event,
+      event: initialSelectedEvent.event, // opens modal
       top: initialSelectedEvent.top,
     });
     const modal = screen.getByRole('dialog');
     expect(modal).toBeInTheDocument();
   });
 
+  it('should render close button', async () => {
+    renderEventDetailsModal({
+      event: initialSelectedEvent.event, // opens modal
+      top: initialSelectedEvent.top,
+    });
+    const closeButton = screen.getByLabelText('Close');
+    expect(closeButton).toBeInTheDocument();
+  });
+
   it('should render event details modal title', () => {
     renderEventDetailsModal({
-      event: initialSelectedEvent.event,
+      event: initialSelectedEvent.event, // opens modal
       top: initialSelectedEvent.top,
     });
     expect(screen.getByText(eventTitle)).toBeInTheDocument();
@@ -393,7 +403,7 @@ describe('EventDetailsModal', () => {
 
     it('should clear event on view mode when closing modal', async () => {
       const { store } = renderEventDetailsModal({
-        event: initialSelectedEvent.event,
+        event: initialSelectedEvent.event, // opens modal
         top: initialSelectedEvent.top,
       });
       const initialEventOnViewMode =
