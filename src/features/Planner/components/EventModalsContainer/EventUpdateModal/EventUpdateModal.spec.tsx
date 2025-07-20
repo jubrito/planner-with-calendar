@@ -114,6 +114,25 @@ describe('EventUpdateModal', () => {
     expect(modal).not.toBeInTheDocument();
   });
 
+  it('should close other modals when opens by setting event modes to undefined', () => {
+    const { store } = renderWithProviders(<EventUpdateModal />, {
+      preloadedState: {
+        eventSlice: {
+          ...initialValue,
+          currentState: {
+            ...initialValue.currentState,
+            eventOnUpdateMode: {
+              event: undefined,
+            }, // opens modal
+          },
+        },
+      },
+    });
+    const updateViewEventDetailsModalIsClosed =
+      store.getState().eventSlice.currentState.eventOnViewMode;
+    expect(updateViewEventDetailsModalIsClosed).toBeUndefined();
+  });
+
   it.todo('should render date input');
   it.todo('should render hour range inputs');
   it.todo('should render date checkbox');
