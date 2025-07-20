@@ -16,7 +16,7 @@ export const getInitialEventOnViewMode = () =>
 export const getCurrentEventOnViewMode = () =>
   createSelector(eventSlice, (state) => state.currentState.eventOnViewMode);
 
-export const getInitialeventOnUpdateMode = () =>
+export const getInitialEventOnUpdateMode = () =>
   createSelector(eventSlice, (state) => state.initialState.eventOnUpdateMode);
 
 export const getCurrenteventOnUpdateMode = () =>
