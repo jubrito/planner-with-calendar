@@ -22,6 +22,9 @@ export function useFocusManager<T extends HTMLElement>(
   }, []);
 
   const setupFocusTrap = useCallback(() => {
+    const firstTimeRunning = lastActiveElement.current == null;
+    if (!firstTimeRunning) return;
+
     // Store the element that had focus before element opened to focus it back when it closes
     lastActiveElement.current = activeElement as HTMLElement;
     focusFirstElement();
