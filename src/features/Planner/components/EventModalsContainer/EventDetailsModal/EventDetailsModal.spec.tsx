@@ -5,6 +5,7 @@ import { Months } from '../../../../../types/calendar/enums';
 import { EventStored, EventTargeted } from '../../../../../types/event';
 import { renderWithProviders } from '../../../../../utils/tests/renderWithProviders';
 import {
+  draftEventOnUpdateMode,
   initialValue as initialEventValue,
   InitialState,
 } from '../../../../../redux/slices/eventSlice';
@@ -439,32 +440,14 @@ describe('EventDetailsModal', () => {
       const initialEventOnUpdateMode =
         store.getState().eventSlice.initialState.eventOnUpdateMode;
       expect(initialEventOnUpdateMode).toBeUndefined();
-      const createEventButton = screen.getByRole('button', {
-        name: 'Create event',
-      });
-      await userEvent.click(createEventButton);
+      const editButton = screen.getByLabelText('Edit');
+      await userEvent.click(editButton);
       const eventOnUpdateMode =
         store.getState().eventSlice.currentState.eventOnUpdateMode;
       expect(eventOnUpdateMode).toStrictEqual({
         event: draftEventOnUpdateMode,
-        top: 15,
+        top: 0,
       });
-    });
-
-    it('should alert as placeholder when editing modal', async () => {
-      renderEventDetailsModal({
-        event: initialSelectedEvent.event,
-      });
-
-      const editButton = screen.getByLabelText('Edit');
-
-      const alertMock = jest
-        .spyOn(window, 'alert')
-        .mockImplementation(() => {});
-
-      await userEvent.click(editButton);
-
-      expect(alertMock).toHaveBeenCalled();
     });
 
     it('should not render modal if event on view mode variable is not defined', () => {
