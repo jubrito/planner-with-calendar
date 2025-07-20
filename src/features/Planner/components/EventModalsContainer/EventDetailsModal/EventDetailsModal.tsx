@@ -8,6 +8,8 @@ import { dashSeparator } from '../../../../../utils/constants';
 import {
   clearEventOnUpdateMode,
   clearEventOnViewMode,
+  draftEventOnUpdateMode,
+  updateEventOnUpdateMode,
 } from '../../../../../redux/slices/eventSlice';
 
 export const EventDetailsModal = memo(() => {
@@ -30,9 +32,14 @@ export const EventDetailsModal = memo(() => {
     dispatch(clearEventOnViewMode());
   }, [dispatch]);
 
-  const editModal = useCallback(() => {
-    alert('edit');
-  }, []);
+  const openUpdateEventModal = useCallback(() => {
+    dispatch(
+      updateEventOnUpdateMode({
+        event: draftEventOnUpdateMode,
+        top: 15,
+      }),
+    );
+  }, [dispatch]);
 
   if (!eventOnViewMode || !eventOnViewMode.event) return null;
 
@@ -48,7 +55,7 @@ export const EventDetailsModal = memo(() => {
     <Modal
       style={{ top }}
       closeModal={{ handleClose: closeModal }}
-      editModal={{ handleEdit: editModal }}
+      editModal={{ handleEdit: openUpdateEventModal }}
       dialogAccessibleName={title}
       isOpen={isOpen}
     >

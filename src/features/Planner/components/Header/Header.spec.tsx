@@ -80,7 +80,7 @@ describe('Header', () => {
     expect(screen.getByText('Create event')).toBeInTheDocument();
   });
 
-  it('should set draft event as event on update to open Create Event modal when clicking on the create event button', async () => {
+  it('should set draft event as event on update to open Update Event modal when clicking on the create event button', async () => {
     const { store } = renderHeader({});
     const initialeventOnUpdateMode =
       store.getState().eventSlice.initialState.eventOnUpdateMode;
