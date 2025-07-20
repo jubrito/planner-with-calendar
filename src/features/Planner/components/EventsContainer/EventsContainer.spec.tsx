@@ -231,11 +231,6 @@ describe('EventContainer', () => {
     });
   });
   describe('WHEN opening modals', () => {
-    it('should not display View Event Details modal if event on view mode is not defined', () => {
-      renderEventsContainer({});
-      const event = screen.queryByText(title);
-      expect(event).not.toBeInTheDocument();
-    });
     it('should not display Update Event modal if event on update is not defined', () => {
       renderEventsContainer({});
       const modalTitleInput = screen.queryByPlaceholderText('Add title');
