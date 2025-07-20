@@ -1,15 +1,99 @@
+import '@testing-library/jest-dom';
 import { screen } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
+import { EventUpdateModal } from './EventUpdateModal';
+import { renderWithProviders } from '../../../../../utils/tests/renderWithProviders';
+import { EventOnDayView } from '../../../../../types/event';
+import { getDateISOString } from '../../../../../utils/calendar/utils';
+import { Months } from '../../../../../types/calendar/enums';
+import { initialValue } from '../../../../../redux/slices/eventSlice';
 
 describe('EventUpdateModal', () => {
-  it.skip('should render title input', () => {
-    const addTitleInput = screen.getByText('Add title');
-    const newEventTitle = 'New event title';
-    expect(addTitleInput).toBeInTheDocument();
-    userEvent.click(addTitleInput);
-    userEvent.type(addTitleInput, newEventTitle);
-    expect(screen.getByAltText(newEventTitle)).toBeInTheDocument();
+  const eventTitle = 'title';
+  const year = 2025;
+  const month = Months.FEBRUARY;
+  const day = 11;
+  const startHour = 1;
+  const startMinutes = 59;
+  const endHour = 11;
+  const endMinutes = 59;
+  const startDate = getDateISOString(
+    new Date(year, month, day, startHour, startMinutes),
+  );
+  const endDate = getDateISOString(
+    new Date(year, month, day, endHour, endMinutes),
+  );
+  const initialSelectedEvent: EventOnDayView = {
+    event: {
+      endDate,
+      startDate,
+      id: 'id',
+      title: eventTitle,
+    },
+    top: 0,
+  };
+
+  it('should render modal if eventOnViewMode properties is defined', () => {
+    renderWithProviders(<EventUpdateModal />, {
+      preloadedState: {
+        eventSlice: {
+          ...initialValue,
+          currentState: {
+            ...initialValue.currentState,
+            eventOnUpdate: {
+              event: initialSelectedEvent.event,
+              top: initialSelectedEvent.top,
+            },
+          },
+        },
+      },
+    });
+    const modal = screen.getByRole('dialog');
+    expect(modal).toBeInTheDocument();
   });
+
+  // it('should render title input', () => {
+  //   renderWithProviders(<EventUpdateModal />, {
+  //     preloadedState: {
+  //       eventSlice: {
+  //         ...initialValue,
+  //         currentState: {
+  //           ...initialValue.currentState,
+  //           eventOnUpdate: initialSelectedEvent,
+  //         },
+  //       },
+  //     },
+  //   });
+  //   const addTitleInput = screen.getByPlaceholderText('Add title');
+  //   expect(addTitleInput).toBeInTheDocument();
+  //   const newEventTitle = 'New event title';
+  //   userEvent.click(addTitleInput);
+  //   userEvent.type(addTitleInput, newEventTitle);
+  //   expect(screen.getByAltText(newEventTitle)).toBeInTheDocument();
+  // });
+  // it('should render title input', () => {
+  //   renderWithProviders(<EventUpdateModal />, {
+  //     preloadedState: {
+  //       eventSlice: {
+  //         ...initialValue,
+  //         currentState: {
+  //           ...initialValue.currentState,
+  //           eventOnUpdate: initialSelectedEvent,
+  //         },
+  //       },
+  //     },
+  //   });
+  //   const addTitleInput = screen.getByPlaceholderText('Add title');
+  //   expect(addTitleInput).toBeInTheDocument();
+  //   const newEventTitle = 'New event title';
+  //   userEvent.click(addTitleInput);
+  //   userEvent.type(addTitleInput, newEventTitle);
+  //   expect(screen.getByAltText(newEventTitle)).toBeInTheDocument();
+  // });
+  // it('should only render close button', () => {
+  //   renderWithProviders(<EventUpdateModal/>);
+
+  // })
   it.todo('should render date input');
   it.todo('should render hour range inputs');
   it.todo('should render date checkbox');
