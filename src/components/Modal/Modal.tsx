@@ -24,6 +24,9 @@ type ModalProps = {
   style: ObjectType;
   isOpen?: boolean;
 };
+
+const whiteColor = { color: 'white' };
+
 export const Modal = ({
   children,
   style,
@@ -37,7 +40,6 @@ export const Modal = ({
   const activeElement = document.activeElement;
   const { elementRef, returnFocusToInitialElement, setupFocusTrap } =
     useFocusManager<HTMLDivElement>(activeElement);
-  const whiteColor = { color: 'white' };
 
   useEffect(() => {
     if (!displayModal) return;
