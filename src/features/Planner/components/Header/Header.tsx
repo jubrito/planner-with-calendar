@@ -10,8 +10,8 @@ import styles from './_header.module.scss';
 import { memo } from 'react';
 import { useDispatch } from 'react-redux';
 import {
-  draftEventOnUpdate,
-  updateEventOnUpdate,
+  drafteventOnUpdateMode,
+  updateeventOnUpdateMode,
 } from '../../../../redux/slices/eventSlice';
 
 export const Header = memo(() => {
@@ -26,8 +26,8 @@ export const Header = memo(() => {
 
   function handleCreateEvent() {
     dispatch(
-      updateEventOnUpdate({
-        event: draftEventOnUpdate,
+      updateeventOnUpdateMode({
+        event: drafteventOnUpdateMode,
         top: 15,
       }),
     );

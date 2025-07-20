@@ -13,7 +13,7 @@ import '@testing-library/jest-dom';
 import { screen } from '@testing-library/dom';
 import { Header } from './Header';
 import userEvent from '@testing-library/user-event';
-import { draftEventOnUpdate } from '../../../../redux/slices/eventSlice';
+import { drafteventOnUpdateMode } from '../../../../redux/slices/eventSlice';
 
 describe('Header', () => {
   const currentYear = 2025;
@@ -82,15 +82,18 @@ describe('Header', () => {
 
   it('should set draft event as event on update to open Create Event modal when clicking on the create event button', async () => {
     const { store } = renderHeader({});
-    const initialEventOnUpdate =
-      store.getState().eventSlice.initialState.eventOnUpdate;
-    expect(initialEventOnUpdate).toBeUndefined();
+    const initialeventOnUpdateMode =
+      store.getState().eventSlice.initialState.eventOnUpdateMode;
+    expect(initialeventOnUpdateMode).toBeUndefined();
     const createEventButton = screen.getByRole('button', {
       name: 'Create event',
     });
     await userEvent.click(createEventButton);
-    const eventOnUpdate =
-      store.getState().eventSlice.currentState.eventOnUpdate;
-    expect(eventOnUpdate).toStrictEqual({ event: draftEventOnUpdate, top: 15 });
+    const eventOnUpdateMode =
+      store.getState().eventSlice.currentState.eventOnUpdateMode;
+    expect(eventOnUpdateMode).toStrictEqual({
+      event: drafteventOnUpdateMode,
+      top: 15,
+    });
   });
 });

@@ -39,7 +39,7 @@ describe('EventModalsContainer', () => {
           ...initialValue,
           currentState: {
             ...initialValue.currentState,
-            eventOnUpdate: {
+            eventOnUpdateMode: {
               event: {
                 endDate: getDateISOString(new Date()),
                 startDate: getDateISOString(new Date()),

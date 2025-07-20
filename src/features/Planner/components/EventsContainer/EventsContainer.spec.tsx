@@ -38,7 +38,7 @@ const initialSelectedEvent = {
 type renderEventsContainerProps = {
   eventModes?: {
     eventOnViewMode?: EventOnDayView;
-    eventOnUpdate?: EventOnDayView;
+    eventOnUpdateMode?: EventOnDayView;
   };
   dayViewISODate?: string;
   eventsByDates?: EventsByDates;
@@ -66,8 +66,8 @@ const renderEventsContainer = ({
   if (eventModes?.eventOnViewMode) {
     eventSlice.currentState.eventOnViewMode = eventModes?.eventOnViewMode;
   }
-  if (eventModes?.eventOnUpdate) {
-    eventSlice.currentState.eventOnUpdate = eventModes?.eventOnUpdate;
+  if (eventModes?.eventOnUpdateMode) {
+    eventSlice.currentState.eventOnUpdateMode = eventModes?.eventOnUpdateMode;
   }
   const preloadedState: PreloadedState = {
     eventSlice,
@@ -275,7 +275,7 @@ describe('EventContainer', () => {
       const date = getDateISOString(new Date(year, month, day));
       const { container, store } = renderEventsContainer({
         eventModes: {
-          eventOnUpdate: {
+          eventOnUpdateMode: {
             ...initialSelectedEvent,
             event: initialSelectedEvent.event, // now Event Details modal is open
           },
@@ -292,19 +292,21 @@ describe('EventContainer', () => {
       if (dayViewContainer) {
         const modal = screen.getByRole('dialog');
         const modalTitle = within(modal).getByPlaceholderText('Add title');
-        const initialEventOnUpdate =
-          store.getState().eventSlice.currentState.eventOnUpdate;
-        expect(initialEventOnUpdate?.event).toBe(initialSelectedEvent.event);
+        const initialeventOnUpdateMode =
+          store.getState().eventSlice.currentState.eventOnUpdateMode;
+        expect(initialeventOnUpdateMode?.event).toBe(
+          initialSelectedEvent.event,
+        );
 
         expect(modalTitle).toBeInTheDocument();
 
         createEvent({ targetElement: dayViewContainer });
 
-        const currentEventOnUpdate =
-          store.getState().eventSlice.currentState.eventOnUpdate;
+        const currenteventOnUpdateMode =
+          store.getState().eventSlice.currentState.eventOnUpdateMode;
 
         await waitFor(() => {
-          expect(currentEventOnUpdate).toBeUndefined();
+          expect(currenteventOnUpdateMode).toBeUndefined();
           expect(modalTitle).not.toBeInTheDocument();
         });
       }

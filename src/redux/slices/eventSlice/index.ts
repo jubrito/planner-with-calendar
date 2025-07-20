@@ -11,7 +11,7 @@ import { getDateISOString } from '../../../utils/calendar/utils';
 type InitialEventsInfoState = {
   eventsByDates: EventsByDates;
   eventOnViewMode?: EventOnDayView;
-  eventOnUpdate?: EventOnDayView;
+  eventOnUpdateMode?: EventOnDayView;
 };
 
 export type InitialState = {
@@ -24,7 +24,7 @@ type AddEvent = {
   ISODate: string;
 };
 
-export const draftEventOnUpdate = {
+export const drafteventOnUpdateMode = {
   id: '',
   title: '',
   startDate: getDateISOString(new Date()),
@@ -34,7 +34,7 @@ export const draftEventOnUpdate = {
 const initialEventsInfo: InitialEventsInfoState = {
   eventsByDates: {},
   eventOnViewMode: undefined,
-  eventOnUpdate: undefined,
+  eventOnUpdateMode: undefined,
 };
 
 export const initialValue: InitialState = {
@@ -67,15 +67,15 @@ export const eventSlice = createSlice({
       // closes View Event Details modal
       state.currentState.eventOnViewMode = undefined;
     },
-    updateEventOnUpdate(
+    updateeventOnUpdateMode(
       state: InitialState,
       action: PayloadAction<EventOnDayView>,
     ) {
-      state.currentState.eventOnUpdate = action.payload;
+      state.currentState.eventOnUpdateMode = action.payload;
     },
-    clearEventOnUpdate(state: InitialState) {
+    cleareventOnUpdateMode(state: InitialState) {
       // closes Create/Update Event modal
-      state.currentState.eventOnUpdate = undefined;
+      state.currentState.eventOnUpdateMode = undefined;
     },
   },
 });
@@ -84,8 +84,8 @@ export const {
   addEvent,
   updateEventOnViewMode,
   clearEventOnViewMode,
-  updateEventOnUpdate,
-  clearEventOnUpdate,
+  updateeventOnUpdateMode,
+  cleareventOnUpdateMode,
 } = eventSlice.actions;
 
 export default eventSlice.reducer;

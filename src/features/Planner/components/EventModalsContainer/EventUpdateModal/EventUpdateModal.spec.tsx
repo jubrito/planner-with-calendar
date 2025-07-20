@@ -40,7 +40,7 @@ describe('EventUpdateModal', () => {
           ...initialValue,
           currentState: {
             ...initialValue.currentState,
-            eventOnUpdate: {
+            eventOnUpdateMode: {
               event: initialSelectedEvent.event,
               top: initialSelectedEvent.top,
             },
@@ -59,7 +59,7 @@ describe('EventUpdateModal', () => {
           ...initialValue,
           currentState: {
             ...initialValue.currentState,
-            eventOnUpdate: initialSelectedEvent, // opens modal
+            eventOnUpdateMode: initialSelectedEvent, // opens modal
           },
         },
       },
@@ -81,7 +81,7 @@ describe('EventUpdateModal', () => {
           ...initialValue,
           currentState: {
             ...initialValue.currentState,
-            eventOnUpdate: initialSelectedEvent, // opens modal
+            eventOnUpdateMode: initialSelectedEvent, // opens modal
           },
         },
       },
@@ -103,7 +103,7 @@ describe('EventUpdateModal', () => {
           ...initialValue,
           currentState: {
             ...initialValue.currentState,
-            eventOnUpdate: {
+            eventOnUpdateMode: {
               event: undefined,
             }, // opens modal
           },
