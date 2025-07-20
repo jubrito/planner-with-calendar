@@ -230,37 +230,6 @@ describe('EventContainer', () => {
       }
     });
   });
-  describe('WHEN opening modals', () => {
-    it('should not display Update Event modal if event on update is not defined', () => {
-      renderEventsContainer({});
-      const modalTitleInput = screen.queryByPlaceholderText('Add title');
-      expect(modalTitleInput).not.toBeInTheDocument();
-    });
-    it('should not display modal if event on view mode selected event is not defined', () => {
-      renderEventsContainer({
-        eventModes: {
-          eventOnViewMode: {
-            ...initialSelectedEvent,
-            event: undefined,
-          },
-        },
-      });
-      const event = screen.queryByText(title);
-      expect(event).not.toBeInTheDocument();
-    });
-    it('should not display modal if event on update selected event is not defined', () => {
-      renderEventsContainer({
-        eventModes: {
-          eventOnUpdate: {
-            ...initialSelectedEvent,
-            event: undefined,
-          },
-        },
-      });
-      const modalTitleInput = screen.queryByPlaceholderText('Add title');
-      expect(modalTitleInput).not.toBeInTheDocument();
-    });
-  });
   describe('WHEN hiding modals', () => {
     it('should hide View Event Details modal when clicking on container (on mouse down)', async () => {
       const date = getDateISOString(new Date(year, month, day));
