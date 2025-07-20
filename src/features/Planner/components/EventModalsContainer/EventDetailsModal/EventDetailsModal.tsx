@@ -1,17 +1,30 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import { getLocaleLanguage } from '../../../../../redux/slices/localeSlice/selectors';
 import { getCurrentEventOnViewMode } from '../../../../../redux/slices/eventSlice/selectors';
 import { getEventModalContent } from '../../../../../utils/events/dayView/getModalInfo';
 import { Modal } from '../../../../../components/Modal/Modal';
 import { dashSeparator } from '../../../../../utils/constants';
-import { clearEventOnViewMode } from '../../../../../redux/slices/eventSlice';
+import {
+  clearEventOnUpdateMode,
+  clearEventOnViewMode,
+} from '../../../../../redux/slices/eventSlice';
 
 export const EventDetailsModal = memo(() => {
   const locale = useSelector(getLocaleLanguage());
   const eventOnViewMode = useSelector(getCurrentEventOnViewMode());
   const isOpen = (eventOnViewMode && eventOnViewMode.event) != null;
   const dispatch = useDispatch();
+
+  const closeOtherModals = useCallback(() => {
+    dispatch(clearEventOnUpdateMode()); // closes Event Update modal
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (isOpen) {
+      closeOtherModals();
+    }
+  }, [isOpen, closeOtherModals]);
 
   const closeModal = useCallback(() => {
     dispatch(clearEventOnViewMode());
