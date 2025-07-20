@@ -16,6 +16,7 @@ import {
 import { useEvent } from '../../../../hooks/useDraftEvent';
 import {
   addEvent,
+  clearEventOnUpdate,
   clearEventOnViewMode,
 } from '../../../../redux/slices/eventSlice';
 import { HourButtons } from './HourButtons/HourButtons';
@@ -41,16 +42,21 @@ export const EventContainer = () => {
     createEvent,
   } = useEvent(year, month, day);
 
+  const closeModals = useCallback(() => {
+    dispatch(clearEventOnViewMode()); // view event details modal
+    dispatch(clearEventOnUpdate()); // update event modal
+  }, [dispatch]);
+
   const handleMouseDown = useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
-      dispatch(clearEventOnViewMode()); // close view event details modal
       if (!containerRef.current) return;
+      closeModals();
 
       const rect = containerRef.current.getBoundingClientRect();
       const relativeY = event.clientY - rect.top;
       createDraftEvent(relativeY);
     },
-    [createDraftEvent, dispatch],
+    [createDraftEvent, closeModals],
   );
 
   const handleMouseMove = useCallback(
