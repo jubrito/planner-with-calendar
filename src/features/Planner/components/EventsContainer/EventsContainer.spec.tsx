@@ -254,30 +254,32 @@ describe('EventContainer', () => {
         const modalTitle = within(modal).getByText(
           initialSelectedEvent.event.title,
         );
-        const initialeventOnViewMode =
+        const initialEventOnViewMode =
           store.getState().eventSlice.currentState.eventOnViewMode;
-        expect(initialeventOnViewMode?.event).toBe(initialSelectedEvent.event);
+        expect(initialEventOnViewMode?.event).toBe(initialSelectedEvent.event);
 
         expect(modalTitle).toBeInTheDocument();
 
         createEvent({ targetElement: dayViewContainer });
 
-        const currenteventOnViewMode =
+        const currentEventOnViewMode =
           store.getState().eventSlice.currentState.eventOnViewMode;
 
         await waitFor(() => {
-          expect(currenteventOnViewMode).toBeUndefined();
+          expect(currentEventOnViewMode).toBeUndefined();
           expect(modalTitle).not.toBeInTheDocument();
         });
       }
     });
-    it('should hide Update Event Details modal when clicking on container (on mouse down)', async () => {
+    it('should hide Update Event modal when clicking on container (on mouse down)', async () => {
       const date = getDateISOString(new Date(year, month, day));
       const { container, store } = renderEventsContainer({
         eventModes: {
           eventOnUpdateMode: {
+            // now Event Details modal is open
             ...initialSelectedEvent,
-            event: initialSelectedEvent.event, // now Event Details modal is open
+            event: initialSelectedEvent.event,
+            top: initialSelectedEvent.top,
           },
         },
         dayViewISODate: date,
@@ -290,24 +292,28 @@ describe('EventContainer', () => {
       const dayViewContainer = container.firstElementChild;
       expect(dayViewContainer).not.toBe(null);
       if (dayViewContainer) {
+        console.log(
+          'store.getState().eventSlice.currentState.eventOnUpdateMode',
+          store.getState().eventSlice.currentState.eventOnUpdateMode,
+        );
         const modal = screen.getByRole('dialog');
-        const modalTitle = within(modal).getByPlaceholderText('Add title');
-        const initialeventOnUpdateMode =
+        const modalTitleInput = within(modal).getByPlaceholderText('Add title');
+        const initialEventOnUpdateMode =
           store.getState().eventSlice.currentState.eventOnUpdateMode;
-        expect(initialeventOnUpdateMode?.event).toBe(
+        expect(initialEventOnUpdateMode?.event).toBe(
           initialSelectedEvent.event,
         );
 
-        expect(modalTitle).toBeInTheDocument();
+        expect(modalTitleInput).toBeInTheDocument();
 
         createEvent({ targetElement: dayViewContainer });
 
-        const currenteventOnUpdateMode =
+        const currentEventOnUpdateMode =
           store.getState().eventSlice.currentState.eventOnUpdateMode;
 
         await waitFor(() => {
-          expect(currenteventOnUpdateMode).toBeUndefined();
-          expect(modalTitle).not.toBeInTheDocument();
+          expect(currentEventOnUpdateMode).toBeUndefined();
+          expect(modalTitleInput).not.toBeInTheDocument();
         });
       }
     });
