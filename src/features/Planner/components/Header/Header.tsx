@@ -24,7 +24,7 @@ export const Header = memo(() => {
   const plannerDateLabel = `${monthName} ${day}, ${dayOfWeek}`;
   const dispatch = useDispatch();
 
-  function handleCreateEvent() {
+  function openUpdateEventModal() {
     dispatch(
       updateEventOnUpdateMode({
         event: drafteventOnUpdateMode,
@@ -38,7 +38,7 @@ export const Header = memo(() => {
       <h2 className={styles.plannerHeaderLabel} id="calendar-month-name">
         {plannerDateLabel}
       </h2>
-      <button onClick={handleCreateEvent}>Create event</button>
+      <button onClick={openUpdateEventModal}>Create event</button>
     </div>
   );
 });
