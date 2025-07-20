@@ -73,7 +73,7 @@ export const eventSlice = createSlice({
     ) {
       state.currentState.eventOnUpdateMode = action.payload;
     },
-    cleareventOnUpdateMode(state: InitialState) {
+    clearEventOnUpdateMode(state: InitialState) {
       // closes Create/Update Event modal
       state.currentState.eventOnUpdateMode = undefined;
     },
@@ -85,7 +85,7 @@ export const {
   updateEventOnViewMode,
   clearEventOnViewMode,
   updateeventOnUpdateMode,
-  cleareventOnUpdateMode,
+  clearEventOnUpdateMode,
 } = eventSlice.actions;
 
 export default eventSlice.reducer;

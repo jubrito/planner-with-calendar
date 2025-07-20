@@ -16,7 +16,7 @@ import {
 import { useEvent } from '../../../../hooks/useDraftEvent';
 import {
   addEvent,
-  cleareventOnUpdateMode,
+  clearEventOnUpdateMode,
   clearEventOnViewMode,
 } from '../../../../redux/slices/eventSlice';
 import { HourButtons } from './HourButtons/HourButtons';
@@ -44,7 +44,7 @@ export const EventContainer = () => {
 
   const closeModals = useCallback(() => {
     dispatch(clearEventOnViewMode()); // view event details modal
-    dispatch(cleareventOnUpdateMode()); // update event modal
+    dispatch(clearEventOnUpdateMode()); // update event modal
   }, [dispatch]);
 
   const handleMouseDown = useCallback(

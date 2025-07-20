@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { memo, useCallback } from 'react';
 import { Modal } from '../../../../../components/Modal/Modal';
-import { cleareventOnUpdateMode } from '../../../../../redux/slices/eventSlice';
+import { clearEventOnUpdateMode } from '../../../../../redux/slices/eventSlice';
 import { useDispatch } from 'react-redux';
 import { useManageEventUpdates } from '../../../../../hooks/useManageEventUpdates';
 import { useSelector } from 'react-redux';
@@ -37,7 +37,7 @@ export const EventUpdateModal = memo(() => {
   const { id, title, description, location, startDate, endDate } = eventFields;
 
   const closeModal = useCallback(() => {
-    dispatch(cleareventOnUpdateMode());
+    dispatch(clearEventOnUpdateMode());
   }, [dispatch]);
 
   if (!eventOnUpdateMode || !eventOnUpdateMode.event) return null;
