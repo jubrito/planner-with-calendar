@@ -67,7 +67,7 @@ export const eventSlice = createSlice({
       // closes View Event Details modal
       state.currentState.eventOnViewMode = undefined;
     },
-    updateeventOnUpdateMode(
+    updateEventOnUpdateMode(
       state: InitialState,
       action: PayloadAction<EventTargeted>,
     ) {
@@ -84,7 +84,7 @@ export const {
   addEvent,
   updateEventOnViewMode,
   clearEventOnViewMode,
-  updateeventOnUpdateMode,
+  updateEventOnUpdateMode,
   clearEventOnUpdateMode,
 } = eventSlice.actions;
 

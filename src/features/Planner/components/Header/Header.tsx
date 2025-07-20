@@ -11,7 +11,7 @@ import { memo } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   drafteventOnUpdateMode,
-  updateeventOnUpdateMode,
+  updateEventOnUpdateMode,
 } from '../../../../redux/slices/eventSlice';
 
 export const Header = memo(() => {
@@ -26,7 +26,7 @@ export const Header = memo(() => {
 
   function handleCreateEvent() {
     dispatch(
-      updateeventOnUpdateMode({
+      updateEventOnUpdateMode({
         event: drafteventOnUpdateMode,
         top: 15,
       }),
