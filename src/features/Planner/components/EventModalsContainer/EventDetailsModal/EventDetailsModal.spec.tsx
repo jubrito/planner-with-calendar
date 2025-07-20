@@ -4,7 +4,10 @@ import { EventDetailsModal } from './EventDetailsModal';
 import { Months } from '../../../../../types/calendar/enums';
 import { EventStored, EventOnDayView } from '../../../../../types/event';
 import { renderWithProviders } from '../../../../../utils/tests/renderWithProviders';
-import { initialValue as initialEventValue } from '../../../../../redux/slices/eventSlice';
+import {
+  initialValue as initialEventValue,
+  InitialState,
+} from '../../../../../redux/slices/eventSlice';
 import { initialValue as initialLocaleValue } from '../../../../../redux/slices/localeSlice';
 import {
   get2DigitsValue,
@@ -60,19 +63,25 @@ describe('EventDetailsModal', () => {
     top,
     renderWith24hTimeSystem = false,
   }: RenderEventDetailsModalProps) => {
-    const eventOnViewMode = {
-      event: event ?? initialSelectedEvent.event,
-      top: top ?? initialSelectedEvent.top,
+    let eventSliceUpdated: InitialState = {
+      ...initialEventValue,
+      currentState: {
+        ...initialEventValue.currentState,
+      },
     };
+    if (event) {
+      eventSliceUpdated = {
+        ...initialEventValue,
+        currentState: {
+          ...initialEventValue.currentState,
+          eventOnViewMode: { event, top },
+        },
+      };
+    }
+
     return renderWithProviders(<EventDetailsModal />, {
       preloadedState: {
-        eventSlice: {
-          ...initialEventValue,
-          currentState: {
-            ...initialEventValue.currentState,
-            eventOnViewMode: eventOnViewMode,
-          },
-        },
+        eventSlice: { ...eventSliceUpdated },
         localeSlice: {
           ...initialLocaleValue,
           currentState: {
@@ -111,14 +120,18 @@ describe('EventDetailsModal', () => {
   };
 
   it('should render event details modal title', () => {
-    renderEventDetailsModal({});
+    renderEventDetailsModal({
+      event: initialSelectedEvent.event,
+      top: initialSelectedEvent.top,
+    });
+    screen.debug();
     expect(screen.getByText(eventTitle)).toBeInTheDocument();
   });
 
   describe('When is 12-hour time system', () => {
     describe('When is same day event', () => {
       it('should render modal with same day event within same period', () => {
-        renderEventDetailsModal({});
+        renderEventDetailsModal({ ...initialSelectedEvent });
         const date = `${weekDay}, ${startMonthName} ${day}`;
         const { startTime, endTime } = getTime({});
         const time = `${startTime} – ${endTime} ${startPeriod}`;
@@ -237,7 +250,10 @@ describe('EventDetailsModal', () => {
   describe('When is 24-hour time system', () => {
     describe('When is same day event', () => {
       it('should render modal with same day event within same period', () => {
-        renderEventDetailsModal({ renderWith24hTimeSystem: true });
+        renderEventDetailsModal({
+          renderWith24hTimeSystem: true,
+          ...initialSelectedEvent,
+        });
         const date = `${weekDayPtBr}, ${startMonthNamePtBr} ${day}`;
         const { startTime, endTime } = getTime({});
         const time = `${startTime} – ${endTime}`;
