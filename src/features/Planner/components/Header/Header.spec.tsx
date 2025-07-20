@@ -13,7 +13,7 @@ import '@testing-library/jest-dom';
 import { screen } from '@testing-library/dom';
 import { Header } from './Header';
 import userEvent from '@testing-library/user-event';
-import { drafteventOnUpdateMode } from '../../../../redux/slices/eventSlice';
+import { draftEventOnUpdateMode } from '../../../../redux/slices/eventSlice';
 
 describe('Header', () => {
   const currentYear = 2025;
@@ -92,7 +92,7 @@ describe('Header', () => {
     const eventOnUpdateMode =
       store.getState().eventSlice.currentState.eventOnUpdateMode;
     expect(eventOnUpdateMode).toStrictEqual({
-      event: drafteventOnUpdateMode,
+      event: draftEventOnUpdateMode,
       top: 15,
     });
   });

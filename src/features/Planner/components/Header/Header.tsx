@@ -10,7 +10,7 @@ import styles from './_header.module.scss';
 import { memo } from 'react';
 import { useDispatch } from 'react-redux';
 import {
-  drafteventOnUpdateMode,
+  draftEventOnUpdateMode,
   updateEventOnUpdateMode,
 } from '../../../../redux/slices/eventSlice';
 
@@ -27,7 +27,7 @@ export const Header = memo(() => {
   function openUpdateEventModal() {
     dispatch(
       updateEventOnUpdateMode({
-        event: drafteventOnUpdateMode,
+        event: draftEventOnUpdateMode,
         top: 15,
       }),
     );

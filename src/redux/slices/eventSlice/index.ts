@@ -24,7 +24,7 @@ type AddEvent = {
   ISODate: string;
 };
 
-export const drafteventOnUpdateMode = {
+export const draftEventOnUpdateMode = {
   id: '',
   title: '',
   startDate: getDateISOString(new Date()),
