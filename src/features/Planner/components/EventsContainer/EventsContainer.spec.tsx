@@ -37,7 +37,10 @@ const initialSelectedEvent = {
 };
 
 type renderEventsContainerProps = {
-  eventOnViewMode?: EventOnDayView;
+  eventModes?: {
+    eventOnViewMode?: EventOnDayView;
+    eventOnUpdate?: EventOnDayView;
+  };
   dayViewISODate?: string;
   eventsByDates?: EventsByDates;
 };
@@ -50,19 +53,25 @@ type PreloadedState =
   | undefined;
 
 const renderEventsContainer = ({
-  eventOnViewMode,
+  eventModes,
   eventsByDates,
   dayViewISODate,
 }: renderEventsContainerProps) => {
-  const preloadedState: PreloadedState = {
-    eventSlice: {
-      ...initialValue,
-      currentState: {
-        ...initialValue.currentState,
-        eventOnViewMode: eventOnViewMode,
-        eventsByDates: eventsByDates || {},
-      },
+  const eventSlice = {
+    ...initialValue,
+    currentState: {
+      ...initialValue.currentState,
+      eventsByDates: eventsByDates || {},
     },
+  };
+  if (eventModes?.eventOnViewMode) {
+    eventSlice.currentState.eventOnViewMode = eventModes?.eventOnViewMode;
+  }
+  if (eventModes?.eventOnUpdate) {
+    eventSlice.currentState.eventOnUpdate = eventModes?.eventOnUpdate;
+  }
+  const preloadedState: PreloadedState = {
+    eventSlice,
   };
   if (dayViewISODate) {
     preloadedState.dateSlice = {
@@ -229,22 +238,27 @@ describe('EventContainer', () => {
     });
     it('should not display modal if selected event is not defined', () => {
       renderEventsContainer({
-        eventOnViewMode: {
-          ...initialSelectedEvent,
-          event: undefined,
+        eventModes: {
+          eventOnViewMode: {
+            ...initialSelectedEvent,
+            event: undefined,
+          },
         },
       });
       const event = screen.queryByText(title);
       expect(event).not.toBeInTheDocument();
     });
   });
-  describe('WHEN hiding modal', () => {
-    it('should hide modal when clicking on container (on mouse down)', async () => {
+  describe('WHEN hiding modals', () => {
+    it('should hide View Event Details modal when clicking on container (on mouse down)', async () => {
       const date = getDateISOString(new Date(year, month, day));
       const { container, store } = renderEventsContainer({
-        eventOnViewMode: {
-          ...initialSelectedEvent,
-          event: initialSelectedEvent.event,
+        eventModes: {
+          eventOnViewMode: {
+            // now Event Details modal is open
+            ...initialSelectedEvent,
+            event: initialSelectedEvent.event,
+          },
         },
         dayViewISODate: date,
         eventsByDates: {
@@ -256,21 +270,13 @@ describe('EventContainer', () => {
       const dayViewContainer = container.firstElementChild;
       expect(dayViewContainer).not.toBe(null);
       if (dayViewContainer) {
-        const eventWrapper = screen.getByTitle(
-          'Click on the event to view details and actions',
-        );
         const modal = screen.getByRole('dialog');
         const modalTitle = within(modal).getByText(
-          initialSelectedEvent.event.title,
-        );
-        const event = within(eventWrapper).getByText(
           initialSelectedEvent.event.title,
         );
         const initialeventOnViewMode =
           store.getState().eventSlice.currentState.eventOnViewMode;
         expect(initialeventOnViewMode?.event).toBe(initialSelectedEvent.event);
-
-        await userEvent.click(event);
 
         expect(modalTitle).toBeInTheDocument();
 
@@ -285,37 +291,42 @@ describe('EventContainer', () => {
         });
       }
     });
-
-    it('should close the modal when clicking on close button', async () => {
-      const { container } = renderEventsContainer({
-        eventOnViewMode: {
-          ...initialSelectedEvent,
-          event: initialSelectedEvent.event,
+    it('should hide Update Event Details modal when clicking on container (on mouse down)', async () => {
+      const date = getDateISOString(new Date(year, month, day));
+      const { container, store } = renderEventsContainer({
+        eventModes: {
+          eventOnUpdate: {
+            ...initialSelectedEvent,
+            event: initialSelectedEvent.event, // now Event Details modal is open
+          },
+        },
+        dayViewISODate: date,
+        eventsByDates: {
+          [formatDateIDFromDate(date)]: {
+            events: [initialSelectedEvent.event],
+          },
         },
       });
-      const targetElement = container.firstElementChild;
-      expect(targetElement).not.toBe(null);
-      if (targetElement) {
-        const rect = targetElement.getBoundingClientRect();
-        const positionY = rect.top;
-        createEvent({
-          targetElement,
-          mouseDownY: positionY + 525,
-          mouseMoveY: positionY + 625,
-          mouseUpY: positionY + 625,
-        });
-        const event = screen.getByTitle(
-          'Click on the event to view details and actions',
-        );
-
-        await userEvent.click(event);
-
+      const dayViewContainer = container.firstElementChild;
+      expect(dayViewContainer).not.toBe(null);
+      if (dayViewContainer) {
         const modal = screen.getByRole('dialog');
-        const closeButton = screen.getByLabelText('Close');
+        const modalTitle = within(modal).getByPlaceholderText('Add title');
+        const initialEventOnUpdate =
+          store.getState().eventSlice.currentState.eventOnUpdate;
+        expect(initialEventOnUpdate?.event).toBe(initialSelectedEvent.event);
 
-        await userEvent.click(closeButton);
+        expect(modalTitle).toBeInTheDocument();
 
-        expect(modal).not.toBeInTheDocument();
+        createEvent({ targetElement: dayViewContainer });
+
+        const currenteventOnViewMode =
+          store.getState().eventSlice.currentState.eventOnViewMode;
+
+        await waitFor(() => {
+          expect(currenteventOnViewMode).toBeUndefined();
+          expect(modalTitle).not.toBeInTheDocument();
+        });
       }
     });
   });
@@ -323,9 +334,11 @@ describe('EventContainer', () => {
   it('should hide View Event Details modal when clicking on container (on mouse down)', async () => {
     const date = getDateISOString(new Date(year, month, day));
     const { container, store } = renderEventsContainer({
-      eventOnViewMode: {
-        ...initialSelectedEvent,
-        event: initialSelectedEvent.event,
+      eventModes: {
+        eventOnViewMode: {
+          ...initialSelectedEvent,
+          event: initialSelectedEvent.event, // now Event Details modal is open
+        },
       },
       dayViewISODate: date,
       eventsByDates: {
