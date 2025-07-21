@@ -11,13 +11,16 @@ import { useSelector } from 'react-redux';
 import { getCurrentEventOnUpdateMode } from '../../../../../redux/slices/eventSlice/selectors';
 import { getDateISOString } from '../../../../../utils/calendar/utils';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import styles from './EventUpdateModal.module.scss';
+import modalStyles from './../../../../../components/Modal/modal.module.scss';
 
 export const EventUpdateModal = memo(() => {
   const dispatch = useDispatch();
   const eventOnUpdateMode = useSelector(getCurrentEventOnUpdateMode());
   const isOpen = (eventOnUpdateMode && eventOnUpdateMode.event) != null;
   const titleLabel = 'Title';
+  const startDateLabel = 'Start Date';
   const initialStartDate = eventOnUpdateMode?.event?.startDate
     ? new Date(eventOnUpdateMode?.event?.startDate)
     : undefined;
@@ -63,9 +66,11 @@ export const EventUpdateModal = memo(() => {
       isOpen={isOpen}
     >
       <>
+        {/* Title */}
         <div className={styles.field}>
           <CalendarMonthIcon />
           <input
+            className={modalStyles.line}
             id={titleLabel}
             aria-label={titleLabel}
             placeholder="Add title"
