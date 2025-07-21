@@ -50,6 +50,7 @@
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
+    gap: variables.$small-gap;
 
     p {
       margin: 0;
@@ -72,8 +73,9 @@
       &.box {
         border: 0;
         background-color: variables.$darkbluegray-color;
+        color: variables.$blue-lightgray-color;
         &:focus {
-          border-bottom: 3px solid variables.$white-color;
+          color: variables.$white-color;
         }
       }
 
