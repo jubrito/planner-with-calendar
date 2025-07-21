@@ -65,25 +65,22 @@
       &.line {
         border: 0;
         border-bottom: 2px solid variables.$blue-lightgray-color;
-        &:focus {
-          border-bottom: 3px solid variables.$white-color;
-        }
       }
 
       &.box {
         border: 0;
         background-color: variables.$darkbluegray-color;
         color: variables.$blue-lightgray-color;
-        &:focus {
-          color: variables.$white-color;
-        }
       }
 
       &:focus {
+        border-bottom: 3px solid variables.$white-color;
+
         &::placeholder {
           color: variables.$white-color;
         }
       }
+
       &::placeholder {
         color: variables.$blue-lightgray-color;
         font-size: variables.$default-font-size;
