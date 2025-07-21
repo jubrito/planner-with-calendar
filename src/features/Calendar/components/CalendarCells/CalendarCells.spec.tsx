@@ -7,6 +7,7 @@ import {
   getDateISOString,
   getFullDateTitle,
   getMonthName,
+  getTimeInMilliseconds,
 } from '../../../../utils/calendar/utils';
 import { initialValue } from '../../../../redux/slices/dateSlice';
 import { renderWithProviders } from '../../../../utils/tests/renderWithProviders';
@@ -18,6 +19,78 @@ describe('CalendarCells', () => {
     return <table>{children}</table>;
   };
   const localeMock = 'en-US';
+
+  describe('When defining calendar date through props', () => {
+    const currentYear = 2025;
+    const currentMonthNumberOfDays = 31;
+    const currentMonth = Months.JANUARY;
+    const currentDay = 1;
+    let rerenderCalendarCells: (ui: React.ReactNode) => void;
+    beforeEach(() => {
+      const { rerender } = renderWithProviders(
+        withTableWrapper(<CalendarCells />),
+        {
+          preloadedState: {
+            dateSlice: {
+              currentState: {
+                ...initialValue.currentState,
+                globalISODate: getDateISOString(
+                  new Date(currentYear, currentMonth, currentDay),
+                ),
+              },
+              initialState: {
+                ...initialValue.initialState,
+              },
+            },
+          },
+        },
+      );
+      rerenderCalendarCells = rerender;
+    });
+
+    it('should render date from props instead of default global date', async () => {
+      const januaryDays = Array.from(
+        Array(currentMonthNumberOfDays).keys(),
+        (day) => day + 1,
+      );
+      const februaryNumberOfDays = 28;
+      const februaryDays = Array.from(
+        Array(februaryNumberOfDays).keys(),
+        (day) => day + 1,
+      );
+      const newYear = currentYear + 1;
+      const newMonth = Months.FEBRUARY;
+      const newDay = currentDay + 1;
+      const newFebruaryDate = new Date(newYear, newMonth, newDay);
+      const newTimeInMs = getTimeInMilliseconds(newFebruaryDate);
+      januaryDays.forEach((januaryDay) => {
+        const dayCell = screen.getByTitle(
+          getFullDateTitle(currentYear, Months.JANUARY, januaryDay, localeMock),
+        );
+        expect(dayCell).toBeInTheDocument();
+        expect(dayCell.textContent).toBe(januaryDay.toString());
+      });
+      rerenderCalendarCells(
+        withTableWrapper(
+          <CalendarCells
+            year={newYear}
+            month={newMonth}
+            monthNumberOfDays={februaryNumberOfDays}
+            timeInMs={newTimeInMs}
+          />,
+        ),
+      );
+      await waitFor(() => {
+        februaryDays.forEach((februaryDay) => {
+          const dayCell = screen.getByTitle(
+            getFullDateTitle(newYear, newMonth, februaryDay, localeMock),
+          );
+          expect(dayCell).toBeInTheDocument();
+          expect(dayCell.textContent).toBe(februaryDay.toString());
+        });
+      });
+    });
+  });
 
   describe('Non-leap year', () => {
     const currentYear = 2025;
