@@ -44,6 +44,7 @@
       }
     }
   }
+
   .content {
     width: 100%;
     display: flex;
@@ -57,13 +58,26 @@
 
     input {
       background-color: transparent;
-      border: 0;
-      border-bottom: 2px solid variables.$blue-lightgray-color;
       outline: none;
       width: 100%;
 
+      &.line {
+        border: 0;
+        border-bottom: 2px solid variables.$blue-lightgray-color;
+        &:focus {
+          border-bottom: 3px solid variables.$white-color;
+        }
+      }
+
+      &.box {
+        border: 0;
+        background-color: variables.$darkbluegray-color;
+        &:focus {
+          border-bottom: 3px solid variables.$white-color;
+        }
+      }
+
       &:focus {
-        border-bottom: 3px solid variables.$white-color;
         &::placeholder {
           color: variables.$white-color;
         }
