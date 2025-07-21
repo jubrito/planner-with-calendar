@@ -14,6 +14,17 @@ tbody {
     border: 1px solid variables.$black-color;
   }
 
+  .compactMonthDay {
+    background: variables.$darkbluegray-color;
+    justify-content: center;
+    align-items: center;
+    border: 0;
+    font-size: 13px;
+    padding: variables.$smaller-gap;
+    time {
+      color: variables.$white-color;
+    }
+  }
   .currentMonthDay {
     background: variables.$white-color;
   }
