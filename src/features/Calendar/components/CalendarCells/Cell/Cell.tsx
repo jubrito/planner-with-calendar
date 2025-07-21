@@ -18,6 +18,7 @@ type CellProps = {
   cellMonth: DateConfig['month'];
   cellDay: DateConfig['day'];
   currentMonth: DateConfig['month'];
+  compactMode?: boolean;
 };
 
 export const Cell = ({
@@ -25,6 +26,7 @@ export const Cell = ({
   cellMonth,
   cellDay,
   currentMonth,
+  compactMode = false,
 }: CellProps) => {
   const fullDate = `${cellYear}-${cellMonth}-${cellDay}`;
   const localeString = useSelector(getLocaleLanguage());
@@ -54,9 +56,11 @@ export const Cell = ({
       ${cellMonth} +
       ${cellDay}`}
       className={
-        month === currentMonth
-          ? calendarCellsStyles.currentMonthDay
-          : calendarCellsStyles.otherMonthDay
+        compactMode
+          ? calendarCellsStyles.compactMonthDay
+          : month === currentMonth
+            ? calendarCellsStyles.currentMonthDay
+            : calendarCellsStyles.otherMonthDay
       }
     >
       <div className={cellsStyles.buttonOpenPlanner}>

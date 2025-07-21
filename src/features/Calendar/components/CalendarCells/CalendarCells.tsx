@@ -28,6 +28,7 @@ type CalendarCellsProps = {
   year?: number;
   month?: number;
   monthNumberOfDays?: number;
+  compactMode?: boolean;
 };
 
 const CalendarCells = ({
@@ -35,6 +36,7 @@ const CalendarCells = ({
   year,
   month,
   monthNumberOfDays,
+  compactMode = false,
 }: CalendarCellsProps) => {
   const locale = useSelector(getLocaleLanguage());
   const globalTimeInMs = useSelector(getSelectedGlobalTimeInMilliseconds());
@@ -140,6 +142,7 @@ const CalendarCells = ({
           <tr key={weekIndex}>
             {week.map((calendarCell) => (
               <Cell
+                compactMode={compactMode}
                 cellDay={calendarCell.day}
                 cellMonth={calendarCell.month}
                 cellYear={calendarCell.year}
