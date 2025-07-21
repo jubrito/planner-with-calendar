@@ -133,9 +133,16 @@ describe('EventUpdateModal', () => {
     expect(updateViewEventDetailsModalIsClosed).toBeUndefined();
   });
 
-  it.todo('should render date input');
-  it.todo('should render hour range inputs');
-  it.todo('should render date checkbox');
+  it.todo('should render start date input');
+  it.todo('should render start initial hour input');
+  it.todo('should render start end hour input');
+  it.todo('should render end date input');
+  it.todo('should render end initial hour input');
+  it.todo('should render end end hour input');
+  it.todo('should open calendar when clicking on start hour');
+  it.todo('should set start hour when selecting calendar day');
+  it.todo('should open calendar when clicking on end hour');
+  it.todo('should set end hour when selecting calendar day');
   it.todo('should render recurrence dropdown');
   it.todo('should render description input');
   it.todo('should render alerts');
