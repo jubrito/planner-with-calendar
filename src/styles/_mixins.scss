@@ -60,6 +60,11 @@
   text-overflow: ellipsis;
 }
 
+@mixin compactTable {
+  border-spacing: 0;
+  width: max-content;
+}
+
 // @mixin media-min-mobile {
 //   @media only screen and (min-width: 620px) {
 //     @content;

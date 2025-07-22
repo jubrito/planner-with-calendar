@@ -1,5 +1,5 @@
 @use '../../../../../styles/variables' as variables;
-@use '../../../../../styles/main';
+@use '../../../../../styles/mixins' as mixins;
 
 .field {
   display: flex;
@@ -8,8 +8,8 @@
   svg {
     margin-right: variables.$inner-spacing;
   }
+}
 
-  table {
-    @extend .compactTable;
-  }
+table {
+  @include mixins.compactTable;
 }
