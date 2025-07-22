@@ -134,6 +134,8 @@ describe('EventUpdateModal', () => {
   });
   it.todo('should update start date calendar when clicking on calendar cells');
   it.todo('should update end date calendar when clicking on calendar cells');
+  it.todo('should close end date calendar when opening start date calendar');
+  it.todo('should close start date calendar when opening end date calendar');
   it.todo('should display fields errors');
   it.todo('should render start date input');
   it.todo('should render start initial hour input');
