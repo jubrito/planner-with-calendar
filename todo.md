@@ -1,6 +1,7 @@
 # Next steps (v1):
 
-- todo tests
+- implement todo tests
+- add actions to update calendar inside update events modal
 - extract components to display inside update events modal
 - display calendar as absolute
 
