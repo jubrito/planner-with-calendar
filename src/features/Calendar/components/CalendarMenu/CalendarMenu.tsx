@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { updateGlobalISODate } from '../../../../redux/slices/dateSlice';
-import { UpdateCalendarButton } from '../UpdateCalendarButton/UpdateCalendarButton';
 import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
 import {
   getSelectedGlobalDay,
@@ -19,6 +18,7 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import { UpdateCalendarButton } from '../../../../components/Calendar/UpdateCalendarButton/UpdateCalendarButton';
 
 export const CalendarMenu = () => {
   const dispatch = useDispatch();

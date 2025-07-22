@@ -1,4 +1,4 @@
-import { todayLabel } from '../../../../utils/calendar/constants';
+import { todayLabel } from '../../../utils/calendar/constants';
 import styles from './_update-calendar-button.module.scss';
 
 type UpdateCalendarButtonProps = {
