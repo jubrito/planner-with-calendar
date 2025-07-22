@@ -14,11 +14,6 @@ import {
   getMonthIndex,
   getYear,
 } from '../../../../utils/calendar/utils';
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
-import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
-import { UpdateCalendarButton } from '../../../../components/Calendar/UpdateCalendarButton/UpdateCalendarButton';
 import { CalendarActions } from '../../../../components/Calendar/CalendarActions/CalendarActions';
 
 export const CalendarMenu = () => {
