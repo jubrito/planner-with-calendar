@@ -17,4 +17,6 @@ describe('CalendarWeeks', () => {
       ).toBeInTheDocument();
     });
   });
+  it.todo('should display short week name if compact mode is false');
+  it.todo('should display initial week name if compact mode is true');
 });
