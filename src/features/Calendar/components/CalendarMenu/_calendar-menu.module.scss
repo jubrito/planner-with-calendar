@@ -1,12 +1,6 @@
 @use '../../../../styles/variables' as variables;
 @use '../../../../styles/mixins' as mixins;
 
-.updateCalendarContainer {
-  background-color: variables.$black-color;
-  border-radius: variables.$inner-spacing;
-  padding: 0;
-}
-
 .calendarHeader {
   display: flex;
   align-items: center;

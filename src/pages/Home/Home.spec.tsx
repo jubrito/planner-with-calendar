@@ -55,7 +55,7 @@ describe('Home', () => {
     weekDays.forEach((weekDay) => {
       expect(screen.getByText(weekDay.short)).toBeInTheDocument();
     });
-    expect(screen.getByText('Today'));
+    expect(screen.getByLabelText('Go to today')).toBeInTheDocument();
   });
 
   it('should render planner', () => {

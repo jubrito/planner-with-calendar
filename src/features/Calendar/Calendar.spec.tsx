@@ -56,11 +56,11 @@ describe('Calendar', () => {
     });
 
     it('should render calendar actions', () => {
-      expect(screen.getByLabelText('Go to previous year')).toBeInTheDocument();
-      expect(screen.getByLabelText('Go to previous month')).toBeInTheDocument();
-      expect(screen.getByText('Today'));
-      expect(screen.getByLabelText('Go to next month')).toBeInTheDocument();
-      expect(screen.getByLabelText('Go to next year')).toBeInTheDocument();
+      expect(screen.getByLabelText('Previous year')).toBeInTheDocument();
+      expect(screen.getByLabelText('Previous month')).toBeInTheDocument();
+      expect(screen.getByLabelText('Go to today'));
+      expect(screen.getByLabelText('Next month')).toBeInTheDocument();
+      expect(screen.getByLabelText('Next year')).toBeInTheDocument();
     });
   });
 

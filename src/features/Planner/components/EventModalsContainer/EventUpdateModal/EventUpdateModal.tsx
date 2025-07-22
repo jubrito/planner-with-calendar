@@ -161,15 +161,17 @@ export const EventUpdateModal = memo(() => {
             {errors.endDate && <FieldError errorMessage={errors.endDate} />}
           </div>
           {datePickerIsOpen && (
-            <table className={styles.compactTable}>
-              <CalendarWeeks compactMode />
-              <CalendarCells
-                compactMode
-                onCellClick={() => {
-                  console.log('hi');
-                }}
-              />
-            </table>
+            <>
+              <table className={styles.compactTable}>
+                <CalendarWeeks compactMode />
+                <CalendarCells
+                  compactMode
+                  onCellClick={() => {
+                    console.log('hi');
+                  }}
+                />
+              </table>
+            </>
           )}
         </>
       </>

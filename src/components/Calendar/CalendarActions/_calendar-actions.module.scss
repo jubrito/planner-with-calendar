@@ -1,0 +1,7 @@
+@use '../../../styles/variables' as variables;
+
+.updateCalendarContainer {
+  background-color: variables.$black-color;
+  border-radius: variables.$inner-spacing;
+  padding: 0;
+}

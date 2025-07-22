@@ -12,10 +12,10 @@ describe('CalendarMenu', () => {
   describe('Changing calendar dates', () => {
     let reduxStore: AppStore;
     const year = 2025;
-    const goToPreviousYearLabel = 'Go to previous year';
-    const goToPreviousMonthLabel = 'Go to previous month';
-    const goToNextMonthLabel = 'Go to next month';
-    const goToNextYearLabel = 'Go to next year';
+    const goToPreviousYearLabel = 'Previous year';
+    const goToPreviousMonthLabel = 'Previous month';
+    const goToNextMonthLabel = 'Next month';
+    const goToNextYearLabel = 'Next year';
     const goToTodayLabel = 'Go to today';
 
     describe('January', () => {

@@ -19,6 +19,7 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import { UpdateCalendarButton } from '../../../../components/Calendar/UpdateCalendarButton/UpdateCalendarButton';
+import { CalendarActions } from '../../../../components/Calendar/CalendarActions/CalendarActions';
 
 export const CalendarMenu = () => {
   const dispatch = useDispatch();
@@ -30,66 +31,48 @@ export const CalendarMenu = () => {
     getSelectedGlobalMonthName(locale, IntlDateTimeFormatLong),
   );
 
+  const updateYear = {
+    previous: () =>
+      dispatch(updateGlobalISODate({ year: year - 1, month, day })),
+    next: () => dispatch(updateGlobalISODate({ year: year + 1, month, day })),
+  };
+  const updateMonth = {
+    previous: () =>
+      dispatch(
+        updateGlobalISODate({
+          year: getYear(new Date(year, month - 1)),
+          month: getMonthIndex(locale, new Date(year, month - 1, day)),
+          day,
+        }),
+      ),
+    next: () =>
+      dispatch(
+        updateGlobalISODate({
+          year: getYear(new Date(year, month + 1)),
+          month: getMonthIndex(locale, new Date(year, month + 1, day)),
+          day,
+        }),
+      ),
+  };
+
   return (
     <div className={styles.calendarHeader}>
       <h2 className={styles.monthLabel} id="calendar-month-name">
         {`${currentMonthName}, ${year}`}
       </h2>
-      <div className={styles.updateCalendarContainer}>
-        <UpdateCalendarButton
-          label={'Go to previous year'}
-          icon={<KeyboardDoubleArrowLeftIcon />}
-          updateDate={() =>
-            dispatch(updateGlobalISODate({ year: year - 1, month, day }))
-          }
-        />
-        <UpdateCalendarButton
-          label={'Go to previous month'}
-          icon={<KeyboardArrowLeftIcon />}
-          updateDate={() =>
-            dispatch(
-              updateGlobalISODate({
-                year: getYear(new Date(year, month - 1)),
-                month: getMonthIndex(locale, new Date(year, month - 1, day)),
-                day,
-              }),
-            )
-          }
-        />
-        <UpdateCalendarButton
-          label={'Go to today'}
-          symbol={'Today'}
-          updateDate={() => {
-            return dispatch(
-              updateGlobalISODate({
-                year: getYear(new Date()),
-                month: getMonthIndex(locale, new Date()),
-                day: getDay(new Date()),
-              }),
-            );
-          }}
-        />
-        <UpdateCalendarButton
-          label={'Go to next month'}
-          icon={<KeyboardArrowRightIcon />}
-          updateDate={() =>
-            dispatch(
-              updateGlobalISODate({
-                year: getYear(new Date(year, month + 1)),
-                month: getMonthIndex(locale, new Date(year, month + 1, day)),
-                day,
-              }),
-            )
-          }
-        />
-        <UpdateCalendarButton
-          label={'Go to next year'}
-          icon={<KeyboardDoubleArrowRightIcon />}
-          updateDate={() =>
-            dispatch(updateGlobalISODate({ year: year + 1, month, day }))
-          }
-        />
-      </div>
+      <CalendarActions
+        updateYear={updateYear}
+        updateMonth={updateMonth}
+        updateToday={() =>
+          dispatch(
+            updateGlobalISODate({
+              year: getYear(new Date()),
+              month: getMonthIndex(locale, new Date()),
+              day: getDay(new Date()),
+            }),
+          )
+        }
+      />
     </div>
   );
 };
