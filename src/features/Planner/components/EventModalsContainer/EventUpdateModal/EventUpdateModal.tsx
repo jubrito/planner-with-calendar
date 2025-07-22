@@ -53,6 +53,7 @@ export const EventUpdateModal = memo(() => {
   const isOpen = (eventOnUpdateMode && eventOnUpdateMode.event) != null;
   const titleLabel = 'Title';
   const startDateLabel = 'Start Date';
+  const endDateLabel = 'End Date';
   const initialStartDate = eventOnUpdateMode?.event?.startDate
     ? new Date(eventOnUpdateMode?.event?.startDate)
     : undefined;
@@ -80,20 +81,26 @@ export const EventUpdateModal = memo(() => {
     startDate: startISODate,
     endDate: endISODate,
   } = eventFields;
-
+  const style = { top: eventOnUpdateMode?.top, maxWidth: '100%' };
   const validStartDate = isValidDate(new Date(startISODate))
     ? new Date(startISODate)
     : new Date();
-  // const validEndDate = isValidDate(new Date(endISODate))
-  //   ? new Date(endISODate)
-  //   : new Date();
-
-  console.log('startDate', validStartDate);
+  const validEndDate = isValidDate(new Date(endISODate))
+    ? new Date(endISODate)
+    : new Date();
   const startDateInfo = getDateInfo(validStartDate, locale);
-  // const endDateInfo = getDateInfo(validEndDate, locale)
+  const endDateInfo = getDateInfo(validEndDate, locale);
+  const openStartDatePicker =
+    datePicker.startDate && isValidDate(new Date(datePicker.startDate));
+  const openEndDatePicker =
+    datePicker.endDate && isValidDate(new Date(datePicker.endDate));
 
   const closeOtherModals = useCallback(() => {
     dispatch(clearEventOnViewMode()); // closes View Event Details modal
+  }, [dispatch]);
+
+  const closeModal = useCallback(() => {
+    dispatch(clearEventOnUpdateMode());
   }, [dispatch]);
 
   useEffect(() => {
@@ -102,12 +109,7 @@ export const EventUpdateModal = memo(() => {
     }
   }, [isOpen, closeOtherModals]);
 
-  const closeModal = useCallback(() => {
-    dispatch(clearEventOnUpdateMode());
-  }, [dispatch]);
-
   if (!eventOnUpdateMode || !eventOnUpdateMode.event) return null;
-  const style = { top: eventOnUpdateMode.top, maxWidth: '100%' };
 
   return (
     <Modal
@@ -146,10 +148,9 @@ export const EventUpdateModal = memo(() => {
               className={modalStyles.box}
               value={startDateInfo.label}
               onClick={() =>
-                setDatePicker((prevValue) => ({
-                  ...prevValue,
+                setDatePicker({
                   startDate: startISODate,
-                }))
+                })
               }
               aria-readonly="true"
               readOnly
@@ -165,25 +166,9 @@ export const EventUpdateModal = memo(() => {
               aria-readonly="true"
               readOnly
             />
-            {errors.endDate && <FieldError errorMessage={errors.endDate} />}
           </div>
-          {datePicker.endDate && (
-            <>
-              <table className={styles.compactTable}>
-                <CalendarWeeks compactMode />
-                <CalendarCells
-                  compactMode
-                  onCellClick={(cellYear, cellMonth, cellDay) => {
-                    updateEventField(
-                      'endDate',
-                      getDateISOString(new Date(cellYear, cellMonth, cellDay)),
-                    );
-                  }}
-                />
-              </table>
-            </>
-          )}
-          {datePicker.startDate && (
+          {errors.startDate && <FieldError errorMessage={errors.startDate} />}
+          {openStartDatePicker && (
             <>
               <table className={styles.compactTable}>
                 <CalendarWeeks compactMode />
@@ -192,6 +177,54 @@ export const EventUpdateModal = memo(() => {
                   onCellClick={(cellYear, cellMonth, cellDay) => {
                     updateEventField(
                       'startDate',
+                      getDateISOString(new Date(cellYear, cellMonth, cellDay)),
+                    );
+                  }}
+                />
+              </table>
+            </>
+          )}
+        </>
+
+        {/* End Date */}
+        <>
+          <div className={styles.field}>
+            <AccessTimeIcon />
+            <input
+              id={endDateLabel}
+              aria-label={endDateLabel}
+              className={modalStyles.box}
+              value={endDateInfo.label}
+              onClick={() =>
+                setDatePicker({
+                  startDate: undefined,
+                  endDate: endISODate,
+                })
+              }
+              aria-readonly="true"
+              readOnly
+              aria-errormessage={errors.endDate}
+            />
+            <input
+              id={endDateLabel}
+              aria-label={endDateLabel}
+              className={modalStyles.box}
+              value={'10:00am'}
+              aria-errormessage={errors.endDate}
+              aria-readonly="true"
+              readOnly
+            />
+          </div>
+          {errors.endDate && <FieldError errorMessage={errors.endDate} />}
+          {openEndDatePicker && (
+            <>
+              <table className={styles.compactTable}>
+                <CalendarWeeks compactMode />
+                <CalendarCells
+                  compactMode
+                  onCellClick={(cellYear, cellMonth, cellDay) => {
+                    updateEventField(
+                      'endDate',
                       getDateISOString(new Date(cellYear, cellMonth, cellDay)),
                     );
                   }}
