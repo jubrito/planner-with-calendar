@@ -29,9 +29,9 @@ import {
 } from '../../../../../utils/constants';
 import { LocaleLanguage } from '../../../../../types/locale/types';
 import { isValidDate } from '../../../../../utils/checkers';
-import CalendarWeeks from '../../../../Calendar/components/CalendarWeeks/CalendarWeeks';
 import { FieldError } from '../../../../../components/FieldError/FieldError';
 import CalendarCells from '../../../../../components/Calendar/CalendarCells/CalendarCells';
+import CalendarWeeks from '../../../../../components/Calendar/CalendarWeeks/CalendarWeeks';
 
 type DateInfo = {
   dayOfTheWeek: string;

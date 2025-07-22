@@ -1,16 +1,16 @@
 import '@testing-library/jest-dom';
 import { screen, within } from '@testing-library/dom';
 import { Cell } from './Cell';
-import { Months } from '../../../../../types/calendar/enums';
+import { Months } from '../../../../types/calendar/enums';
 import {
   getDateISOString,
   getFullDateTitle,
   getMonthName,
-} from '../../../../../utils/calendar/utils';
-import { firstDayOfTheMonth } from '../../../../../utils/calendar/constants';
-import { renderWithProviders } from '../../../../../utils/tests/renderWithProviders';
-import { initialValue } from '../../../../../redux/slices/dateSlice';
-import { IntlDateTimeFormatShort } from '../../../../../utils/constants';
+} from '../../../../utils/calendar/utils';
+import { firstDayOfTheMonth } from '../../../../utils/calendar/constants';
+import { renderWithProviders } from '../../../../utils/tests/renderWithProviders';
+import { initialValue } from '../../../../redux/slices/dateSlice';
+import { IntlDateTimeFormatShort } from '../../../../utils/constants';
 
 const cellYear = 2025;
 const cellDay = firstDayOfTheMonth;

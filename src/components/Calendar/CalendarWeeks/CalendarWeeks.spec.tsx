@@ -1,8 +1,8 @@
 import '@testing-library/jest-dom';
 import { screen } from '@testing-library/react';
 import CalendarWeeks from './CalendarWeeks';
-import { getWeekDaysNames } from '../../../../utils/calendar/weeks';
-import { renderWithProviders } from '../../../../utils/tests/renderWithProviders';
+import { getWeekDaysNames } from '../../../utils/calendar/weeks';
+import { renderWithProviders } from '../../../utils/tests/renderWithProviders';
 
 describe('CalendarWeeks', () => {
   it('should render calendar week labels abbreviated', () => {

@@ -1,15 +1,15 @@
 import { screen, waitFor } from '@testing-library/dom';
 import CalendarCells from './CalendarCells';
 import '@testing-library/jest-dom';
-import { Months } from '../../../../types/calendar/enums';
+import { Months } from '../../../types/calendar/enums';
 import { ReactElement } from 'react';
 import {
   getDateISOString,
   getFullDateTitle,
   getTimeInMilliseconds,
-} from '../../../../utils/calendar/utils';
-import { initialValue } from '../../../../redux/slices/dateSlice';
-import { renderWithProviders } from '../../../../utils/tests/renderWithProviders';
+} from '../../../utils/calendar/utils';
+import { initialValue } from '../../../redux/slices/dateSlice';
+import { renderWithProviders } from '../../../utils/tests/renderWithProviders';
 
 describe('CalendarCells', () => {
   const withTableWrapper = (children: ReactElement) => {
