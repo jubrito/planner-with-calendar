@@ -1,5 +1,4 @@
 import { ErrorBoundary } from 'react-error-boundary';
-import CalendarCells from './components/CalendarCells/CalendarCells';
 import { CalendarMenu } from './components/CalendarMenu/CalendarMenu';
 import CalendarWeeks from './components/CalendarWeeks/CalendarWeeks';
 import styles from './_calendar.module.scss';
@@ -8,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { updateDayViewISODate } from '../../redux/slices/dateSlice';
 import { clearEventOnViewMode } from '../../redux/slices/eventSlice';
 import { Months } from '../../types/calendar/enums';
+import CalendarCells from '../../components/Calendar/CalendarCells/CalendarCells';
 
 const Calendar = () => {
   const dispatch = useDispatch();

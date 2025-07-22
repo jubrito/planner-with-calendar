@@ -1,15 +1,15 @@
 import { useSelector } from 'react-redux';
-import { DateConfig } from '../../../../../types/calendar/types';
+import { DateConfig } from '../../../../types/calendar/types';
 import {
   getFullDateTitle,
   getMonthName,
-} from '../../../../../utils/calendar/utils';
+} from '../../../../utils/calendar/utils';
 import calendarCellsStyles from '../_calendar-cells.module.scss';
 import cellsStyles from './_cell.module.scss';
-import { getLocaleLanguage } from '../../../../../redux/slices/localeSlice/selectors';
-import { isToday } from '../../../../../utils/checkers';
-import { IntlDateTimeFormatShort } from '../../../../../utils/constants';
-import { Months } from '../../../../../types/calendar/enums';
+import { getLocaleLanguage } from '../../../../redux/slices/localeSlice/selectors';
+import { isToday } from '../../../../utils/checkers';
+import { IntlDateTimeFormatShort } from '../../../../utils/constants';
+import { Months } from '../../../../types/calendar/enums';
 
 type CellProps = {
   cellYear: DateConfig['year'];

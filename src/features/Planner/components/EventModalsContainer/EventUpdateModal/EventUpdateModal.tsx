@@ -28,10 +28,10 @@ import {
   IntlDateTimeFormatNumeric,
 } from '../../../../../utils/constants';
 import { LocaleLanguage } from '../../../../../types/locale/types';
-import CalendarCells from '../../../../Calendar/components/CalendarCells/CalendarCells';
 import { isValidDate } from '../../../../../utils/checkers';
 import CalendarWeeks from '../../../../Calendar/components/CalendarWeeks/CalendarWeeks';
 import { FieldError } from '../../../../../components/FieldError/FieldError';
+import CalendarCells from '../../../../../components/Calendar/CalendarCells/CalendarCells';
 
 type DateInfo = {
   dayOfTheWeek: string;
