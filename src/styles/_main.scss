@@ -65,3 +65,8 @@ button {
     outline: 4px auto -webkit-focus-ring-color;
   }
 }
+
+.compactTable {
+  border-spacing: 0;
+  width: max-content;
+}
