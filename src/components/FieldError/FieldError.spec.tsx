@@ -8,4 +8,11 @@ describe('FieldError', () => {
     const errorField = screen.getByText('Error message');
     expect(errorField).toBeInTheDocument();
   });
+  it('should render field with accessibility attributes', () => {
+    render(<FieldError errorMessage="Error message" />);
+    const errorField = screen.getByText('Error message');
+    expect(errorField).toHaveRole('alert');
+    expect(errorField).toHaveAttribute('aria-atomic', 'true');
+    expect(errorField).toHaveAttribute('aria-live', 'assertive');
+  });
 });
