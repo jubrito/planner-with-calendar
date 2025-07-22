@@ -57,7 +57,7 @@ describe('Cell', () => {
     const timeElement = within(tdElement).getByRole('time');
     const cellMonthZeroIndexed = -1;
     const date = new Date(cellYear, cellMonthZeroIndexed, cellDay);
-    const openDayViewLabel = `Open ${getMonthName(localeMock, date, IntlDateTimeFormatShort)} ${cellDay} of ${cellYear} day view`;
+    const openDayViewLabel = `${getMonthName(localeMock, date, IntlDateTimeFormatShort)} ${cellDay} of ${cellYear}`;
     const openDayViewButton = within(tdElement).getByRole('button', {
       name: openDayViewLabel,
     });

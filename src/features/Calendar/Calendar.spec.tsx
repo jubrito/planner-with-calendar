@@ -101,7 +101,7 @@ describe('Calendar', () => {
         },
       });
       const buttonElement = screen.getByLabelText(
-        `Open Feb ${cellDay} of ${cellYear} day view`,
+        `Feb ${cellDay} of ${cellYear}`,
       );
       let eventOnViewMode =
         store.getState().eventSlice.currentState.eventOnViewMode;
@@ -137,7 +137,7 @@ describe('Calendar', () => {
         },
       });
       const buttonElement = screen.getByLabelText(
-        `Open Jan ${cellDay} of ${cellYear} day view`,
+        `Jan ${cellDay} of ${cellYear}`,
       );
       const cellDateStored =
         store.getState().dateSlice.currentState.globalISODate;

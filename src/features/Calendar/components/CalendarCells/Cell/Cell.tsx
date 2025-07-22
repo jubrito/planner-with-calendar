@@ -50,8 +50,8 @@ export const Cell = ({
     >
       <div className={cellsStyles.buttonOpenPlanner}>
         <button
-          aria-label={`Open ${getMonthName(localeString, date, IntlDateTimeFormatShort)} ${cellDay} of ${cellYear} day view`}
-          title={`Open ${getMonthName(localeString, date, IntlDateTimeFormatShort)} ${cellDay} of ${cellYear} day view`}
+          aria-label={`${getMonthName(localeString, date, IntlDateTimeFormatShort)} ${cellDay} of ${cellYear}`}
+          title={`${getMonthName(localeString, date, IntlDateTimeFormatShort)} ${cellDay} of ${cellYear}`}
           onClick={() => onClick(cellYear, cellMonth, cellDay)}
         >
           <time
