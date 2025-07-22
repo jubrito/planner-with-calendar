@@ -169,6 +169,22 @@ export const EventUpdateModal = memo(() => {
             />
             {errors.endDate && <FieldError errorMessage={errors.endDate} />}
           </div>
+          {datePicker.endDate && (
+            <>
+              <table className={styles.compactTable}>
+                <CalendarWeeks compactMode />
+                <CalendarCells
+                  compactMode
+                  onCellClick={(cellYear, cellMonth, cellDay) => {
+                    updateEventField(
+                      'endDate',
+                      getDateISOString(new Date(cellYear, cellMonth, cellDay)),
+                    );
+                  }}
+                />
+              </table>
+            </>
+          )}
           {datePicker.startDate && (
             <>
               <table className={styles.compactTable}>
