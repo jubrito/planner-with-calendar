@@ -12,7 +12,6 @@ import { getCurrentEventOnUpdateMode } from '../../../../../redux/slices/eventSl
 import {
   getDateISOString,
   getDay,
-  getDayOfWeek,
   getFormattedDateString,
   getMonthIndex,
   getMonthName,
@@ -32,6 +31,7 @@ import { LocaleLanguage } from '../../../../../types/locale/types';
 import CalendarCells from '../../../../Calendar/components/CalendarCells/CalendarCells';
 import { isValidDate } from '../../../../../utils/checkers';
 import CalendarWeeks from '../../../../Calendar/components/CalendarWeeks/CalendarWeeks';
+import { FieldError } from '../../../../../components/FieldError/FieldError';
 
 type DateInfo = {
   dayOfTheWeek: string;
@@ -128,7 +128,7 @@ export const EventUpdateModal = memo(() => {
               aria-errormessage={errors.title}
             />
           </div>
-          <span>{errors.title}</span>
+          {errors.title && <FieldError errorMessage={errors.title} />}
         </>
 
         {/* Start Date */}
@@ -147,6 +147,7 @@ export const EventUpdateModal = memo(() => {
               }}
               aria-errormessage={errors.startDate}
             />
+            {errors.startDate && <FieldError errorMessage={errors.startDate} />}
             <input
               id={startDateLabel}
               aria-label={startDateLabel}
@@ -157,6 +158,7 @@ export const EventUpdateModal = memo(() => {
               }
               aria-errormessage={errors.startDate}
             />
+            {errors.endDate && <FieldError errorMessage={errors.endDate} />}
           </div>
           {datePickerIsOpen && (
             <table className={styles.compactTable}>
@@ -169,8 +171,6 @@ export const EventUpdateModal = memo(() => {
               />
             </table>
           )}
-          <span>{errors.startDate}</span>
-          <span>{errors.endDate}</span>
         </>
       </>
     </Modal>
