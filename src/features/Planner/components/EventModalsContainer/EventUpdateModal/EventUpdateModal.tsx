@@ -40,8 +40,13 @@ type DateInfo = {
   label: string;
 };
 
+type DatePicker = {
+  startDate?: string;
+  endDate?: string;
+};
+
 export const EventUpdateModal = memo(() => {
-  const [datePickerIsOpen, setDatePickerIsOpen] = useState(false);
+  const [datePicker, setDatePicker] = useState<DatePicker>({});
   const dispatch = useDispatch();
   const locale = useSelector(getLocaleLanguage());
   const eventOnUpdateMode = useSelector(getCurrentEventOnUpdateMode());
@@ -140,7 +145,12 @@ export const EventUpdateModal = memo(() => {
               aria-label={startDateLabel}
               className={modalStyles.box}
               value={startDateInfo.label}
-              onClick={() => setDatePickerIsOpen(true)}
+              onClick={() =>
+                setDatePicker((prevValue) => ({
+                  ...prevValue,
+                  startDate: startISODate,
+                }))
+              }
               onChange={(event) => {
                 console.log('event.target.value', event.target.value);
                 // updateEventField('startDate', event.target.value)
@@ -153,21 +163,23 @@ export const EventUpdateModal = memo(() => {
               aria-label={startDateLabel}
               className={modalStyles.box}
               value={'10:00am'}
-              onChange={(event) =>
-                console.log('start date', event.target.value)
-              }
               aria-errormessage={errors.startDate}
+              aria-disabled="true"
+              readOnly
             />
             {errors.endDate && <FieldError errorMessage={errors.endDate} />}
           </div>
-          {datePickerIsOpen && (
+          {datePicker.startDate && (
             <>
               <table className={styles.compactTable}>
                 <CalendarWeeks compactMode />
                 <CalendarCells
                   compactMode
-                  onCellClick={() => {
-                    console.log('cell clicked');
+                  onCellClick={(cellYear, cellMonth, cellDay) => {
+                    updateEventField(
+                      'startDate',
+                      getDateISOString(new Date(cellYear, cellMonth, cellDay)),
+                    );
                   }}
                 />
               </table>
