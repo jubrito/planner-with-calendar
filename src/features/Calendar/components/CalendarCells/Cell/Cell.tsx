@@ -9,15 +9,14 @@ import cellsStyles from './_cell.module.scss';
 import { getLocaleLanguage } from '../../../../../redux/slices/localeSlice/selectors';
 import { isToday } from '../../../../../utils/checkers';
 import { IntlDateTimeFormatShort } from '../../../../../utils/constants';
-import { useDispatch } from 'react-redux';
-import { updateDayViewISODate } from '../../../../../redux/slices/dateSlice';
-import { clearEventOnViewMode } from '../../../../../redux/slices/eventSlice';
+import { Months } from '../../../../../types/calendar/enums';
 
 type CellProps = {
   cellYear: DateConfig['year'];
   cellMonth: DateConfig['month'];
   cellDay: DateConfig['day'];
   currentMonth: DateConfig['month'];
+  onClick: (cellYear: number, cellMonth: Months, cellDay: number) => void;
   compactMode?: boolean;
 };
 
@@ -26,27 +25,13 @@ export const Cell = ({
   cellMonth,
   cellDay,
   currentMonth,
+  onClick,
   compactMode = false,
 }: CellProps) => {
   const fullDate = `${cellYear}-${cellMonth}-${cellDay}`;
   const localeString = useSelector(getLocaleLanguage());
   const month = cellMonth - 1;
   const date = new Date(cellYear, month, cellDay);
-  const dispatch = useDispatch();
-
-  const handleUpdateDayViewDate = () => {
-    dispatch(
-      updateDayViewISODate({
-        year: cellYear,
-        month: cellMonth - 1,
-        day: cellDay,
-      }),
-    );
-    dispatch(
-      // hide view events modal
-      clearEventOnViewMode(),
-    );
-  };
 
   return (
     <td
@@ -67,7 +52,7 @@ export const Cell = ({
         <button
           aria-label={`Open ${getMonthName(localeString, date, IntlDateTimeFormatShort)} ${cellDay} of ${cellYear} day view`}
           title={`Open ${getMonthName(localeString, date, IntlDateTimeFormatShort)} ${cellDay} of ${cellYear} day view`}
-          onClick={() => handleUpdateDayViewDate()}
+          onClick={() => onClick(cellYear, cellMonth, cellDay)}
         >
           <time
             dateTime={fullDate}

@@ -10,10 +10,7 @@ import {
 import { firstDayOfTheMonth } from '../../../../../utils/calendar/constants';
 import { renderWithProviders } from '../../../../../utils/tests/renderWithProviders';
 import { initialValue } from '../../../../../redux/slices/dateSlice';
-import { initialValue as initialEventValue } from '../../../../../redux/slices/eventSlice';
 import { IntlDateTimeFormatShort } from '../../../../../utils/constants';
-import { EventStored } from '../../../../../types/event';
-import userEvent from '@testing-library/user-event';
 
 const cellYear = 2025;
 const cellDay = firstDayOfTheMonth;
@@ -33,6 +30,7 @@ describe('Cell', () => {
             cellMonth={cellMonth}
             cellDay={cellDay}
             currentMonth={currentMonth}
+            onClick={jest.fn()}
           />
         </tr>
       </tbody>
@@ -111,85 +109,7 @@ describe('Cell', () => {
     expect(timeElement).toHaveTextContent(cellDay.toString());
   });
 
-  it('should hide modal with event details when selecting a different date by clicking on a cell', async () => {
-    const nextMonth = Months.FEBRUARY;
-    const initialEvent: EventStored = {
-      id: '',
-      title: '',
-      endDate: '',
-      startDate: '',
-    };
-    const initialEventOnViewMode = {
-      event: initialEvent,
-      top: 101,
-    };
-    const { store } = renderWithProviders(<TestTable cellMonth={nextMonth} />, {
-      preloadedState: {
-        dateSlice: {
-          ...initialValue,
-          currentState: {
-            ...initialValue.currentState,
-            globalISODate: getDateISOString(
-              new Date(cellYear, currentMonth, cellDay),
-            ),
-          },
-        },
-        eventSlice: {
-          ...initialEventValue,
-          currentState: {
-            ...initialEventValue.currentState,
-            eventOnViewMode: initialEventOnViewMode,
-          },
-        },
-      },
-    });
-    const tdElement = screen.getByRole('cell');
-    const buttonElement = within(tdElement).getByRole('button');
-    let eventOnViewMode =
-      store.getState().eventSlice.currentState.eventOnViewMode;
-
-    expect(eventOnViewMode?.top).toBe(initialEventOnViewMode.top);
-    expect(eventOnViewMode?.event).toBe(initialEventOnViewMode.event);
-
-    await userEvent.click(buttonElement);
-
-    eventOnViewMode = store.getState().eventSlice.currentState.eventOnViewMode;
-
-    expect(eventOnViewMode).toBeUndefined();
-  });
-
-  it('should change day view date when to update planner by clicking on cell', async () => {
-    const cellMonth = Months.FEBRUARY;
-    const initialDayViewISODate = getDateISOString(
-      new Date(2025, Months.DECEMBER, 17),
-    );
-    const cellDate = getDateISOString(
-      new Date(cellYear, currentMonth, cellDay),
-    );
-    const { store } = renderWithProviders(<TestTable cellMonth={cellMonth} />, {
-      preloadedState: {
-        dateSlice: {
-          ...initialValue,
-          currentState: {
-            ...initialValue.currentState,
-            globalISODate: cellDate,
-            dayViewISODate: initialDayViewISODate,
-          },
-        },
-      },
-    });
-    const tdElement = screen.getByRole('cell');
-    const buttonElement = within(tdElement).getByRole('button');
-    const cellDateStored =
-      store.getState().dateSlice.currentState.globalISODate;
-
-    let dayViewISODate = store.getState().dateSlice.currentState.dayViewISODate;
-    expect(dayViewISODate).toBe(initialDayViewISODate);
-
-    await userEvent.click(buttonElement);
-
-    dayViewISODate = store.getState().dateSlice.currentState.dayViewISODate;
-
-    expect(dayViewISODate).toBe(cellDateStored);
-  });
+  it.todo(
+    'should call onClick function (onCellClick) when clicking on the cell',
+  );
 });

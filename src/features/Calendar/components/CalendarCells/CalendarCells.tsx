@@ -22,12 +22,14 @@ import {
   getWeekDayName,
   getWeekDaysNames,
 } from '../../../../utils/calendar/weeks';
+import { Months } from '../../../../types/calendar/enums';
 
 type CalendarCellsProps = {
   timeInMs?: number;
   year?: number;
   month?: number;
   monthNumberOfDays?: number;
+  onCellClick: (cellYear: number, cellMonth: Months, cellDay: number) => void;
   compactMode?: boolean;
 };
 
@@ -36,6 +38,7 @@ const CalendarCells = ({
   year,
   month,
   monthNumberOfDays,
+  onCellClick,
   compactMode = false,
 }: CalendarCellsProps) => {
   const locale = useSelector(getLocaleLanguage());
@@ -147,6 +150,7 @@ const CalendarCells = ({
                 cellMonth={calendarCell.month}
                 cellYear={calendarCell.year}
                 currentMonth={updatedMonth}
+                onClick={onCellClick}
                 key={`${calendarCell.year}-${calendarCell.month}-${calendarCell.day}`}
               />
             ))}

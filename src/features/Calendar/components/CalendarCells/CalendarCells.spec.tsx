@@ -6,13 +6,10 @@ import { ReactElement } from 'react';
 import {
   getDateISOString,
   getFullDateTitle,
-  getMonthName,
   getTimeInMilliseconds,
 } from '../../../../utils/calendar/utils';
 import { initialValue } from '../../../../redux/slices/dateSlice';
 import { renderWithProviders } from '../../../../utils/tests/renderWithProviders';
-import { IntlDateTimeFormatShort } from '../../../../utils/constants';
-import userEvent from '@testing-library/user-event';
 
 describe('CalendarCells', () => {
   const withTableWrapper = (children: ReactElement) => {
@@ -25,10 +22,11 @@ describe('CalendarCells', () => {
     const currentMonthNumberOfDays = 31;
     const currentMonth = Months.JANUARY;
     const currentDay = 1;
+    const onCellClick = jest.fn();
     let rerenderCalendarCells: (ui: React.ReactNode) => void;
     beforeEach(() => {
       const { rerender } = renderWithProviders(
-        withTableWrapper(<CalendarCells />),
+        withTableWrapper(<CalendarCells onCellClick={onCellClick} />),
         {
           preloadedState: {
             dateSlice: {
@@ -48,6 +46,9 @@ describe('CalendarCells', () => {
       rerenderCalendarCells = rerender;
     });
 
+    it.todo(
+      'should call onClick function (onCellClick) when clicking on the cell',
+    );
     it('should render date from props instead of default global date', async () => {
       const januaryDays = Array.from(
         Array(currentMonthNumberOfDays).keys(),
@@ -77,6 +78,7 @@ describe('CalendarCells', () => {
             month={newMonth}
             monthNumberOfDays={februaryNumberOfDays}
             timeInMs={newTimeInMs}
+            onCellClick={jest.fn()}
           />,
         ),
       );
@@ -107,21 +109,24 @@ describe('CalendarCells', () => {
     describe('January', () => {
       const currentMonthNumberOfDays = 31;
       beforeEach(() => {
-        renderWithProviders(withTableWrapper(<CalendarCells />), {
-          preloadedState: {
-            dateSlice: {
-              currentState: {
-                ...initialValue.currentState,
-                globalISODate: getDateISOString(
-                  new Date(currentYear, Months.JANUARY, 1),
-                ),
-              },
-              initialState: {
-                ...initialValue.initialState,
+        renderWithProviders(
+          withTableWrapper(<CalendarCells onCellClick={jest.fn()} />),
+          {
+            preloadedState: {
+              dateSlice: {
+                currentState: {
+                  ...initialValue.currentState,
+                  globalISODate: getDateISOString(
+                    new Date(currentYear, Months.JANUARY, 1),
+                  ),
+                },
+                initialState: {
+                  ...initialValue.initialState,
+                },
               },
             },
           },
-        });
+        );
       });
 
       it('should render days from December (previous month) to fill calendar', () => {
@@ -183,21 +188,24 @@ describe('CalendarCells', () => {
     describe('February', () => {
       const currentMonthNumberOfDays = 28;
       beforeEach(() => {
-        renderWithProviders(withTableWrapper(<CalendarCells />), {
-          preloadedState: {
-            dateSlice: {
-              currentState: {
-                ...initialValue.currentState,
-                globalISODate: getDateISOString(
-                  new Date(currentYear, Months.FEBRUARY, 1),
-                ),
-              },
-              initialState: {
-                ...initialValue.initialState,
+        renderWithProviders(
+          withTableWrapper(<CalendarCells onCellClick={jest.fn()} />),
+          {
+            preloadedState: {
+              dateSlice: {
+                currentState: {
+                  ...initialValue.currentState,
+                  globalISODate: getDateISOString(
+                    new Date(currentYear, Months.FEBRUARY, 1),
+                  ),
+                },
+                initialState: {
+                  ...initialValue.initialState,
+                },
               },
             },
           },
-        });
+        );
       });
 
       it('should render days from January (previous month) to fill calendar', () => {
@@ -254,21 +262,24 @@ describe('CalendarCells', () => {
     describe('March', () => {
       const currentMonthNumberOfDays = 31;
       beforeEach(() => {
-        renderWithProviders(withTableWrapper(<CalendarCells />), {
-          preloadedState: {
-            dateSlice: {
-              currentState: {
-                ...initialValue.currentState,
-                globalISODate: getDateISOString(
-                  new Date(currentYear, Months.MARCH, 1),
-                ),
-              },
-              initialState: {
-                ...initialValue.initialState,
+        renderWithProviders(
+          withTableWrapper(<CalendarCells onCellClick={jest.fn()} />),
+          {
+            preloadedState: {
+              dateSlice: {
+                currentState: {
+                  ...initialValue.currentState,
+                  globalISODate: getDateISOString(
+                    new Date(currentYear, Months.MARCH, 1),
+                  ),
+                },
+                initialState: {
+                  ...initialValue.initialState,
+                },
               },
             },
           },
-        });
+        );
       });
 
       it('should render days from February (previous month) to fill calendar', () => {
@@ -318,21 +329,24 @@ describe('CalendarCells', () => {
     describe('April', () => {
       const currentMonthNumberOfDays = 30;
       beforeEach(() => {
-        renderWithProviders(withTableWrapper(<CalendarCells />), {
-          preloadedState: {
-            dateSlice: {
-              currentState: {
-                ...initialValue.currentState,
-                globalISODate: getDateISOString(
-                  new Date(currentYear, Months.APRIL, 1),
-                ),
-              },
-              initialState: {
-                ...initialValue.initialState,
+        renderWithProviders(
+          withTableWrapper(<CalendarCells onCellClick={jest.fn()} />),
+          {
+            preloadedState: {
+              dateSlice: {
+                currentState: {
+                  ...initialValue.currentState,
+                  globalISODate: getDateISOString(
+                    new Date(currentYear, Months.APRIL, 1),
+                  ),
+                },
+                initialState: {
+                  ...initialValue.initialState,
+                },
               },
             },
           },
-        });
+        );
       });
 
       it('should render days from March (previous month) to fill calendar', () => {
@@ -379,21 +393,24 @@ describe('CalendarCells', () => {
     describe('May', () => {
       const currentMonthNumberOfDays = 31;
       beforeEach(() => {
-        renderWithProviders(withTableWrapper(<CalendarCells />), {
-          preloadedState: {
-            dateSlice: {
-              currentState: {
-                ...initialValue.currentState,
-                globalISODate: getDateISOString(
-                  new Date(currentYear, Months.MAY, 1),
-                ),
-              },
-              initialState: {
-                ...initialValue.initialState,
+        renderWithProviders(
+          withTableWrapper(<CalendarCells onCellClick={jest.fn()} />),
+          {
+            preloadedState: {
+              dateSlice: {
+                currentState: {
+                  ...initialValue.currentState,
+                  globalISODate: getDateISOString(
+                    new Date(currentYear, Months.MAY, 1),
+                  ),
+                },
+                initialState: {
+                  ...initialValue.initialState,
+                },
               },
             },
           },
-        });
+        );
       });
 
       it('should render days from April (previous month) to fill calendar', () => {
@@ -439,21 +456,24 @@ describe('CalendarCells', () => {
     describe('June', () => {
       const currentMonthNumberOfDays = 30;
       beforeEach(() => {
-        renderWithProviders(withTableWrapper(<CalendarCells />), {
-          preloadedState: {
-            dateSlice: {
-              currentState: {
-                ...initialValue.currentState,
-                globalISODate: getDateISOString(
-                  new Date(currentYear, Months.JUNE, 1),
-                ),
-              },
-              initialState: {
-                ...initialValue.initialState,
+        renderWithProviders(
+          withTableWrapper(<CalendarCells onCellClick={jest.fn()} />),
+          {
+            preloadedState: {
+              dateSlice: {
+                currentState: {
+                  ...initialValue.currentState,
+                  globalISODate: getDateISOString(
+                    new Date(currentYear, Months.JUNE, 1),
+                  ),
+                },
+                initialState: {
+                  ...initialValue.initialState,
+                },
               },
             },
           },
-        });
+        );
       });
 
       it('should render days from May (previous month) to fill calendar', () => {
@@ -497,21 +517,24 @@ describe('CalendarCells', () => {
     describe('July', () => {
       const currentMonthNumberOfDays = 31;
       beforeEach(() => {
-        renderWithProviders(withTableWrapper(<CalendarCells />), {
-          preloadedState: {
-            dateSlice: {
-              currentState: {
-                ...initialValue.currentState,
-                globalISODate: getDateISOString(
-                  new Date(currentYear, Months.JULY, 1),
-                ),
-              },
-              initialState: {
-                ...initialValue.initialState,
+        renderWithProviders(
+          withTableWrapper(<CalendarCells onCellClick={jest.fn()} />),
+          {
+            preloadedState: {
+              dateSlice: {
+                currentState: {
+                  ...initialValue.currentState,
+                  globalISODate: getDateISOString(
+                    new Date(currentYear, Months.JULY, 1),
+                  ),
+                },
+                initialState: {
+                  ...initialValue.initialState,
+                },
               },
             },
           },
-        });
+        );
       });
 
       it('should render days from June (previous month) to fill calendar', () => {
@@ -557,21 +580,24 @@ describe('CalendarCells', () => {
     describe('August', () => {
       const currentMonthNumberOfDays = 31;
       beforeEach(() => {
-        renderWithProviders(withTableWrapper(<CalendarCells />), {
-          preloadedState: {
-            dateSlice: {
-              currentState: {
-                ...initialValue.currentState,
-                globalISODate: getDateISOString(
-                  new Date(currentYear, Months.AUGUST, 1),
-                ),
-              },
-              initialState: {
-                ...initialValue.initialState,
+        renderWithProviders(
+          withTableWrapper(<CalendarCells onCellClick={jest.fn()} />),
+          {
+            preloadedState: {
+              dateSlice: {
+                currentState: {
+                  ...initialValue.currentState,
+                  globalISODate: getDateISOString(
+                    new Date(currentYear, Months.AUGUST, 1),
+                  ),
+                },
+                initialState: {
+                  ...initialValue.initialState,
+                },
               },
             },
           },
-        });
+        );
       });
 
       it('should render days from July (previous month) to fill calendar', () => {
@@ -622,21 +648,24 @@ describe('CalendarCells', () => {
     describe('September', () => {
       const currentMonthNumberOfDays = 30;
       beforeEach(() => {
-        renderWithProviders(withTableWrapper(<CalendarCells />), {
-          preloadedState: {
-            dateSlice: {
-              currentState: {
-                ...initialValue.currentState,
-                globalISODate: getDateISOString(
-                  new Date(currentYear, Months.SEPTEMBER, 1),
-                ),
-              },
-              initialState: {
-                ...initialValue.initialState,
+        renderWithProviders(
+          withTableWrapper(<CalendarCells onCellClick={jest.fn()} />),
+          {
+            preloadedState: {
+              dateSlice: {
+                currentState: {
+                  ...initialValue.currentState,
+                  globalISODate: getDateISOString(
+                    new Date(currentYear, Months.SEPTEMBER, 1),
+                  ),
+                },
+                initialState: {
+                  ...initialValue.initialState,
+                },
               },
             },
           },
-        });
+        );
       });
 
       it('should not render days from August (previous month) to fill calendar', () => {
@@ -687,21 +716,24 @@ describe('CalendarCells', () => {
     describe('October', () => {
       const currentMonthNumberOfDays = 31;
       beforeEach(() => {
-        renderWithProviders(withTableWrapper(<CalendarCells />), {
-          preloadedState: {
-            dateSlice: {
-              currentState: {
-                ...initialValue.currentState,
-                globalISODate: getDateISOString(
-                  new Date(currentYear, Months.OCTOBER, 1),
-                ),
-              },
-              initialState: {
-                ...initialValue.initialState,
+        renderWithProviders(
+          withTableWrapper(<CalendarCells onCellClick={jest.fn()} />),
+          {
+            preloadedState: {
+              dateSlice: {
+                currentState: {
+                  ...initialValue.currentState,
+                  globalISODate: getDateISOString(
+                    new Date(currentYear, Months.OCTOBER, 1),
+                  ),
+                },
+                initialState: {
+                  ...initialValue.initialState,
+                },
               },
             },
           },
-        });
+        );
       });
       it('should render days from September (previous month) to fill calendar', () => {
         const septemberDays = [29, 30];
@@ -761,21 +793,24 @@ describe('CalendarCells', () => {
     describe('November', () => {
       const currentMonthNumberOfDays = 30;
       beforeEach(() => {
-        renderWithProviders(withTableWrapper(<CalendarCells />), {
-          preloadedState: {
-            dateSlice: {
-              currentState: {
-                ...initialValue.currentState,
-                globalISODate: getDateISOString(
-                  new Date(currentYear, Months.NOVEMBER, 1),
-                ),
-              },
-              initialState: {
-                ...initialValue.initialState,
+        renderWithProviders(
+          withTableWrapper(<CalendarCells onCellClick={jest.fn()} />),
+          {
+            preloadedState: {
+              dateSlice: {
+                currentState: {
+                  ...initialValue.currentState,
+                  globalISODate: getDateISOString(
+                    new Date(currentYear, Months.NOVEMBER, 1),
+                  ),
+                },
+                initialState: {
+                  ...initialValue.initialState,
+                },
               },
             },
           },
-        });
+        );
       });
 
       it('should render days from October (previous month) to fill calendar', () => {
@@ -833,21 +868,24 @@ describe('CalendarCells', () => {
     describe('December', () => {
       const currentMonthNumberOfDays = 31;
       beforeEach(() => {
-        renderWithProviders(withTableWrapper(<CalendarCells />), {
-          preloadedState: {
-            dateSlice: {
-              currentState: {
-                ...initialValue.currentState,
-                globalISODate: getDateISOString(
-                  new Date(currentYear, Months.DECEMBER, 1),
-                ),
-              },
-              initialState: {
-                ...initialValue.initialState,
+        renderWithProviders(
+          withTableWrapper(<CalendarCells onCellClick={jest.fn()} />),
+          {
+            preloadedState: {
+              dateSlice: {
+                currentState: {
+                  ...initialValue.currentState,
+                  globalISODate: getDateISOString(
+                    new Date(currentYear, Months.DECEMBER, 1),
+                  ),
+                },
+                initialState: {
+                  ...initialValue.initialState,
+                },
               },
             },
           },
-        });
+        );
       });
 
       it('should not render days from November (previous month) since December starts on a Monday (first column)', () => {
@@ -902,21 +940,24 @@ describe('CalendarCells', () => {
     describe('January', () => {
       const currentMonthNumberOfDays = 31;
       beforeEach(() => {
-        renderWithProviders(withTableWrapper(<CalendarCells />), {
-          preloadedState: {
-            dateSlice: {
-              currentState: {
-                ...initialValue.currentState,
-                globalISODate: getDateISOString(
-                  new Date(leapYear, Months.JANUARY, 1),
-                ),
-              },
-              initialState: {
-                ...initialValue.initialState,
+        renderWithProviders(
+          withTableWrapper(<CalendarCells onCellClick={jest.fn()} />),
+          {
+            preloadedState: {
+              dateSlice: {
+                currentState: {
+                  ...initialValue.currentState,
+                  globalISODate: getDateISOString(
+                    new Date(leapYear, Months.JANUARY, 1),
+                  ),
+                },
+                initialState: {
+                  ...initialValue.initialState,
+                },
               },
             },
           },
-        });
+        );
       });
 
       it('should render days from December (previous month) to fill calendar', () => {
@@ -971,21 +1012,24 @@ describe('CalendarCells', () => {
     describe('February', () => {
       const currentMonthNumberOfDays = 28;
       beforeEach(() => {
-        renderWithProviders(withTableWrapper(<CalendarCells />), {
-          preloadedState: {
-            dateSlice: {
-              currentState: {
-                ...initialValue.currentState,
-                globalISODate: getDateISOString(
-                  new Date(leapYear, Months.FEBRUARY, 1),
-                ),
-              },
-              initialState: {
-                ...initialValue.initialState,
+        renderWithProviders(
+          withTableWrapper(<CalendarCells onCellClick={jest.fn()} />),
+          {
+            preloadedState: {
+              dateSlice: {
+                currentState: {
+                  ...initialValue.currentState,
+                  globalISODate: getDateISOString(
+                    new Date(leapYear, Months.FEBRUARY, 1),
+                  ),
+                },
+                initialState: {
+                  ...initialValue.initialState,
+                },
               },
             },
           },
-        });
+        );
       });
 
       it('should render days from January (previous month) to fill calendar', () => {
@@ -1037,21 +1081,24 @@ describe('CalendarCells', () => {
     describe('March', () => {
       const currentMonthNumberOfDays = 31;
       beforeEach(() => {
-        renderWithProviders(withTableWrapper(<CalendarCells />), {
-          preloadedState: {
-            dateSlice: {
-              currentState: {
-                ...initialValue.currentState,
-                globalISODate: getDateISOString(
-                  new Date(leapYear, Months.MARCH, 1),
-                ),
-              },
-              initialState: {
-                ...initialValue.initialState,
+        renderWithProviders(
+          withTableWrapper(<CalendarCells onCellClick={jest.fn()} />),
+          {
+            preloadedState: {
+              dateSlice: {
+                currentState: {
+                  ...initialValue.currentState,
+                  globalISODate: getDateISOString(
+                    new Date(leapYear, Months.MARCH, 1),
+                  ),
+                },
+                initialState: {
+                  ...initialValue.initialState,
+                },
               },
             },
           },
-        });
+        );
       });
 
       it('should render days from February (previous month) to fill calendar', () => {
@@ -1103,21 +1150,24 @@ describe('CalendarCells', () => {
     describe('April', () => {
       const currentMonthNumberOfDays = 30;
       beforeEach(() => {
-        renderWithProviders(withTableWrapper(<CalendarCells />), {
-          preloadedState: {
-            dateSlice: {
-              currentState: {
-                ...initialValue.currentState,
-                globalISODate: getDateISOString(
-                  new Date(leapYear, Months.APRIL, 1),
-                ),
-              },
-              initialState: {
-                ...initialValue.initialState,
+        renderWithProviders(
+          withTableWrapper(<CalendarCells onCellClick={jest.fn()} />),
+          {
+            preloadedState: {
+              dateSlice: {
+                currentState: {
+                  ...initialValue.currentState,
+                  globalISODate: getDateISOString(
+                    new Date(leapYear, Months.APRIL, 1),
+                  ),
+                },
+                initialState: {
+                  ...initialValue.initialState,
+                },
               },
             },
           },
-        });
+        );
       });
 
       it('should render days from March (previous month) to fill calendar', () => {
@@ -1161,21 +1211,24 @@ describe('CalendarCells', () => {
     describe('May', () => {
       const currentMonthNumberOfDays = 31;
       beforeEach(() => {
-        renderWithProviders(withTableWrapper(<CalendarCells />), {
-          preloadedState: {
-            dateSlice: {
-              currentState: {
-                ...initialValue.currentState,
-                globalISODate: getDateISOString(
-                  new Date(leapYear, Months.MAY, 1),
-                ),
-              },
-              initialState: {
-                ...initialValue.initialState,
+        renderWithProviders(
+          withTableWrapper(<CalendarCells onCellClick={jest.fn()} />),
+          {
+            preloadedState: {
+              dateSlice: {
+                currentState: {
+                  ...initialValue.currentState,
+                  globalISODate: getDateISOString(
+                    new Date(leapYear, Months.MAY, 1),
+                  ),
+                },
+                initialState: {
+                  ...initialValue.initialState,
+                },
               },
             },
           },
-        });
+        );
       });
 
       it('should not render days from April (previous month) to fill calendar', () => {
@@ -1216,21 +1269,24 @@ describe('CalendarCells', () => {
     describe('June', () => {
       const currentMonthNumberOfDays = 30;
       beforeEach(() => {
-        renderWithProviders(withTableWrapper(<CalendarCells />), {
-          preloadedState: {
-            dateSlice: {
-              currentState: {
-                ...initialValue.currentState,
-                globalISODate: getDateISOString(
-                  new Date(leapYear, Months.JUNE, 1),
-                ),
-              },
-              initialState: {
-                ...initialValue.initialState,
+        renderWithProviders(
+          withTableWrapper(<CalendarCells onCellClick={jest.fn()} />),
+          {
+            preloadedState: {
+              dateSlice: {
+                currentState: {
+                  ...initialValue.currentState,
+                  globalISODate: getDateISOString(
+                    new Date(leapYear, Months.JUNE, 1),
+                  ),
+                },
+                initialState: {
+                  ...initialValue.initialState,
+                },
               },
             },
           },
-        });
+        );
       });
 
       it('should render days from May (previous month) to fill calendar', () => {
@@ -1276,21 +1332,24 @@ describe('CalendarCells', () => {
     describe('July', () => {
       const currentMonthNumberOfDays = 31;
       beforeEach(() => {
-        renderWithProviders(withTableWrapper(<CalendarCells />), {
-          preloadedState: {
-            dateSlice: {
-              currentState: {
-                ...initialValue.currentState,
-                globalISODate: getDateISOString(
-                  new Date(leapYear, Months.JULY, 1),
-                ),
-              },
-              initialState: {
-                ...initialValue.initialState,
+        renderWithProviders(
+          withTableWrapper(<CalendarCells onCellClick={jest.fn()} />),
+          {
+            preloadedState: {
+              dateSlice: {
+                currentState: {
+                  ...initialValue.currentState,
+                  globalISODate: getDateISOString(
+                    new Date(leapYear, Months.JULY, 1),
+                  ),
+                },
+                initialState: {
+                  ...initialValue.initialState,
+                },
               },
             },
           },
-        });
+        );
       });
 
       it('should render days from June (previous month) to fill calendar', () => {
@@ -1335,21 +1394,24 @@ describe('CalendarCells', () => {
     describe('August', () => {
       const currentMonthNumberOfDays = 31;
       beforeEach(() => {
-        renderWithProviders(withTableWrapper(<CalendarCells />), {
-          preloadedState: {
-            dateSlice: {
-              currentState: {
-                ...initialValue.currentState,
-                globalISODate: getDateISOString(
-                  new Date(leapYear, Months.AUGUST, 1),
-                ),
-              },
-              initialState: {
-                ...initialValue.initialState,
+        renderWithProviders(
+          withTableWrapper(<CalendarCells onCellClick={jest.fn()} />),
+          {
+            preloadedState: {
+              dateSlice: {
+                currentState: {
+                  ...initialValue.currentState,
+                  globalISODate: getDateISOString(
+                    new Date(leapYear, Months.AUGUST, 1),
+                  ),
+                },
+                initialState: {
+                  ...initialValue.initialState,
+                },
               },
             },
           },
-        });
+        );
       });
 
       it('should render days from July (previous month) to fill calendar', () => {
@@ -1400,21 +1462,24 @@ describe('CalendarCells', () => {
     describe('September', () => {
       const currentMonthNumberOfDays = 30;
       beforeEach(() => {
-        renderWithProviders(withTableWrapper(<CalendarCells />), {
-          preloadedState: {
-            dateSlice: {
-              currentState: {
-                ...initialValue.currentState,
-                globalISODate: getDateISOString(
-                  new Date(leapYear, Months.SEPTEMBER, 1),
-                ),
-              },
-              initialState: {
-                ...initialValue.initialState,
+        renderWithProviders(
+          withTableWrapper(<CalendarCells onCellClick={jest.fn()} />),
+          {
+            preloadedState: {
+              dateSlice: {
+                currentState: {
+                  ...initialValue.currentState,
+                  globalISODate: getDateISOString(
+                    new Date(leapYear, Months.SEPTEMBER, 1),
+                  ),
+                },
+                initialState: {
+                  ...initialValue.initialState,
+                },
               },
             },
           },
-        });
+        );
       });
 
       it('should render days from August (previous month) to fill calendar', () => {
@@ -1465,21 +1530,24 @@ describe('CalendarCells', () => {
     describe('October', () => {
       const currentMonthNumberOfDays = 31;
       beforeEach(() => {
-        renderWithProviders(withTableWrapper(<CalendarCells />), {
-          preloadedState: {
-            dateSlice: {
-              currentState: {
-                ...initialValue.currentState,
-                globalISODate: getDateISOString(
-                  new Date(leapYear, Months.OCTOBER, 1),
-                ),
-              },
-              initialState: {
-                ...initialValue.initialState,
+        renderWithProviders(
+          withTableWrapper(<CalendarCells onCellClick={jest.fn()} />),
+          {
+            preloadedState: {
+              dateSlice: {
+                currentState: {
+                  ...initialValue.currentState,
+                  globalISODate: getDateISOString(
+                    new Date(leapYear, Months.OCTOBER, 1),
+                  ),
+                },
+                initialState: {
+                  ...initialValue.initialState,
+                },
               },
             },
           },
-        });
+        );
       });
 
       it('should render days from September (previous month) to fill calendar', () => {
@@ -1533,21 +1601,24 @@ describe('CalendarCells', () => {
     describe('November', () => {
       const currentMonthNumberOfDays = 30;
       beforeEach(() => {
-        renderWithProviders(withTableWrapper(<CalendarCells />), {
-          preloadedState: {
-            dateSlice: {
-              currentState: {
-                ...initialValue.currentState,
-                globalISODate: getDateISOString(
-                  new Date(leapYear, Months.NOVEMBER, 1),
-                ),
-              },
-              initialState: {
-                ...initialValue.initialState,
+        renderWithProviders(
+          withTableWrapper(<CalendarCells onCellClick={jest.fn()} />),
+          {
+            preloadedState: {
+              dateSlice: {
+                currentState: {
+                  ...initialValue.currentState,
+                  globalISODate: getDateISOString(
+                    new Date(leapYear, Months.NOVEMBER, 1),
+                  ),
+                },
+                initialState: {
+                  ...initialValue.initialState,
+                },
               },
             },
           },
-        });
+        );
       });
 
       it('should render days from October (previous month) to fill calendar', () => {
@@ -1601,21 +1672,24 @@ describe('CalendarCells', () => {
     describe('December', () => {
       const currentMonthNumberOfDays = 31;
       beforeEach(() => {
-        renderWithProviders(withTableWrapper(<CalendarCells />), {
-          preloadedState: {
-            dateSlice: {
-              currentState: {
-                ...initialValue.currentState,
-                globalISODate: getDateISOString(
-                  new Date(leapYear, Months.DECEMBER, 1),
-                ),
-              },
-              initialState: {
-                ...initialValue.initialState,
+        renderWithProviders(
+          withTableWrapper(<CalendarCells onCellClick={jest.fn()} />),
+          {
+            preloadedState: {
+              dateSlice: {
+                currentState: {
+                  ...initialValue.currentState,
+                  globalISODate: getDateISOString(
+                    new Date(leapYear, Months.DECEMBER, 1),
+                  ),
+                },
+                initialState: {
+                  ...initialValue.initialState,
+                },
               },
             },
           },
-        });
+        );
       });
 
       it('should render days from November (previous month) since December starts on a Monday (first column)', () => {
@@ -1659,72 +1733,6 @@ describe('CalendarCells', () => {
           getFullDateTitle(leapYear, Months.JANUARY, 1, localeMock),
         );
         expect(dayCell).not.toBeInTheDocument();
-      });
-    });
-  });
-  describe('Actions', () => {
-    it('should update dayView date when clicking on a specific calendar cell', async () => {
-      const initialYear = 1998;
-      const initialMonth = Months.FEBRUARY;
-      const initialDay = 27;
-      const newDay = 17;
-      const { store } = renderWithProviders(
-        <table>
-          <CalendarCells />
-        </table>,
-        {
-          preloadedState: {
-            dateSlice: {
-              initialState: {
-                ...initialValue.initialState,
-              },
-              currentState: {
-                ...initialValue.currentState,
-                dayViewISODate: getDateISOString(
-                  new Date(initialYear, initialMonth, initialDay),
-                ),
-                globalISODate: getDateISOString(
-                  new Date(initialYear, initialMonth, initialDay),
-                ),
-              },
-            },
-          },
-        },
-      );
-      const newDate = new Date(initialYear, initialMonth, newDay);
-      const openDayViewLabel = `Open ${getMonthName(localeMock, newDate, IntlDateTimeFormatShort)} ${newDay} of ${initialYear} day view`;
-      const openDayViewButton = screen.getByRole('button', {
-        name: openDayViewLabel,
-      });
-
-      const currentDayViewISODate =
-        store.getState().dateSlice.currentState.dayViewISODate;
-
-      await waitFor(() => {
-        expect(new Date(currentDayViewISODate).getDate()).toStrictEqual(
-          initialDay,
-        );
-        expect(new Date(currentDayViewISODate).getMonth()).toStrictEqual(
-          initialMonth,
-        );
-        expect(new Date(currentDayViewISODate).getFullYear()).toStrictEqual(
-          initialYear,
-        );
-      });
-
-      await userEvent.click(openDayViewButton);
-
-      const updatedDayViewISODate =
-        store.getState().dateSlice.currentState.dayViewISODate;
-
-      await waitFor(() => {
-        expect(new Date(updatedDayViewISODate).getDate()).toStrictEqual(newDay);
-        expect(new Date(updatedDayViewISODate).getMonth()).toStrictEqual(
-          initialMonth,
-        );
-        expect(new Date(updatedDayViewISODate).getFullYear()).toStrictEqual(
-          initialYear,
-        );
       });
     });
   });
