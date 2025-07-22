@@ -62,10 +62,6 @@ export const CurrentTime = () => {
     return () => clearInterval(currentTimeUpdate);
   }, [isCurrentHourVisible, locale]);
 
-  useEffect(() => {
-    console.log('time', time);
-  }, [time]);
-
   return (
     <div className={styles.currentTime} style={{ top: getTop(date) }}>
       <time

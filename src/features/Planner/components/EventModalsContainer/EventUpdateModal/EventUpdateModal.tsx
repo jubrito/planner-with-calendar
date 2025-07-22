@@ -167,7 +167,7 @@ export const EventUpdateModal = memo(() => {
                 <CalendarCells
                   compactMode
                   onCellClick={() => {
-                    console.log('hi');
+                    console.log('cell clicked');
                   }}
                 />
               </table>

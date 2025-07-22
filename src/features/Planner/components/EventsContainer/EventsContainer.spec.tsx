@@ -292,10 +292,6 @@ describe('EventContainer', () => {
       const dayViewContainer = container.firstElementChild;
       expect(dayViewContainer).not.toBe(null);
       if (dayViewContainer) {
-        console.log(
-          'store.getState().eventSlice.currentState.eventOnUpdateMode',
-          store.getState().eventSlice.currentState.eventOnUpdateMode,
-        );
         const modal = screen.getByRole('dialog');
         const modalTitleInput = within(modal).getByPlaceholderText('Add title');
         const initialEventOnUpdateMode =
