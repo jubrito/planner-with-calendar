@@ -1,6 +1,7 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { CalendarActions } from './CalendarActions';
+import userEvent from '@testing-library/user-event';
 
 describe('CalendarActions', () => {
   describe('Changing calendar dates', () => {
@@ -48,6 +49,18 @@ describe('CalendarActions', () => {
       expect(goToPreviousMonthButton).toBeInTheDocument();
       expect(goToNextMonthButton).toBeInTheDocument();
       expect(goToNextYearButton).toBeInTheDocument();
+    });
+
+    it('should call previous year function when clicking on previous year button', async () => {
+      const goToPreviousMonthButton = screen.getByRole('button', {
+        name: goToPreviousYearLabel,
+      });
+
+      await userEvent.click(goToPreviousMonthButton);
+
+      await waitFor(() => {
+        expect(updateYear.previous).toHaveBeenCalledTimes(1);
+      });
     });
   });
 });
