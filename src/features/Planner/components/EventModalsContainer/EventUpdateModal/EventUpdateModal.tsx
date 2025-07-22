@@ -151,10 +151,8 @@ export const EventUpdateModal = memo(() => {
                   startDate: startISODate,
                 }))
               }
-              onChange={(event) => {
-                console.log('event.target.value', event.target.value);
-                // updateEventField('startDate', event.target.value)
-              }}
+              aria-readonly="true"
+              readOnly
               aria-errormessage={errors.startDate}
             />
             {errors.startDate && <FieldError errorMessage={errors.startDate} />}
@@ -164,7 +162,7 @@ export const EventUpdateModal = memo(() => {
               className={modalStyles.box}
               value={'10:00am'}
               aria-errormessage={errors.startDate}
-              aria-disabled="true"
+              aria-readonly="true"
               readOnly
             />
             {errors.endDate && <FieldError errorMessage={errors.endDate} />}
