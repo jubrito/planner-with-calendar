@@ -4,8 +4,32 @@ import { CalendarMenu } from './components/CalendarMenu/CalendarMenu';
 import CalendarWeeks from './components/CalendarWeeks/CalendarWeeks';
 import styles from './_calendar.module.scss';
 import { ErrorFallback } from '../../components/ErrorFallback/ErrorFallback';
+import { useDispatch } from 'react-redux';
+import { updateDayViewISODate } from '../../redux/slices/dateSlice';
+import { clearEventOnViewMode } from '../../redux/slices/eventSlice';
+import { Months } from '../../types/calendar/enums';
 
 const Calendar = () => {
+  const dispatch = useDispatch();
+
+  const handleUpdateDayViewDate = (
+    cellYear: number,
+    cellMonth: Months,
+    cellDay: number,
+  ) => {
+    dispatch(
+      updateDayViewISODate({
+        year: cellYear,
+        month: cellMonth - 1,
+        day: cellDay,
+      }),
+    );
+    dispatch(
+      // hide view events modal
+      clearEventOnViewMode(),
+    );
+  };
+
   return (
     <section className={styles.calendar}>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
@@ -14,7 +38,7 @@ const Calendar = () => {
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <table aria-labelledby="calendar-month-name">
           <CalendarWeeks />
-          <CalendarCells />
+          <CalendarCells onCellClick={handleUpdateDayViewDate} />
         </table>
       </ErrorBoundary>
     </section>
