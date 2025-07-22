@@ -45,7 +45,7 @@ export const CurrentTime = () => {
   if (currentTimeElement) observer.observe(currentTimeElement);
 
   useEffect(() => {
-    const fourtySeconds = 10000 * 40;
+    const sixtySeconds = 10000 * 60;
     const fullFormattedCurrentTime = getFormattedDateString(
       locale,
       new Date(),
@@ -54,11 +54,17 @@ export const CurrentTime = () => {
         minute: IntlDateTimeFormat2Digit,
       },
     );
+    setTime(getCurrentTime(fullFormattedCurrentTime));
     const currentTimeUpdate = setInterval(() => {
       setTime(getCurrentTime(fullFormattedCurrentTime));
-    }, fourtySeconds);
+    }, sixtySeconds);
+
     return () => clearInterval(currentTimeUpdate);
   }, [isCurrentHourVisible, locale]);
+
+  useEffect(() => {
+    console.log('time', time);
+  }, [time]);
 
   return (
     <div className={styles.currentTime} style={{ top: getTop(date) }}>
