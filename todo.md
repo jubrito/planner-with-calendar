@@ -1,17 +1,7 @@
 # Next steps (v1):
 
-- Fix focus trapping when interacting with modal
-
--------------------- UPDATE EVENT MODAL --------------------
-
-- Should open
-
-  - Create event button
-  - Editing event (inside event details modal)
-  - Test everything
-
-- Should hide:
-  - When clicking outside by clearing redux value
+- extract components to display inside update events modal
+- display calendar as absolute
 
 -------------------- ALL DAY events --------------------
 
