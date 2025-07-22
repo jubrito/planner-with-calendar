@@ -86,5 +86,17 @@ describe('CalendarActions', () => {
         expect(updateToday).toHaveBeenCalledTimes(1);
       });
     });
+
+    it('should call next month function when clicking on next month button', async () => {
+      const goToNextMonthButton = screen.getByRole('button', {
+        name: goToNextMonthLabel,
+      });
+
+      await userEvent.click(goToNextMonthButton);
+
+      await waitFor(() => {
+        expect(updateMonth.next).toHaveBeenCalledTimes(1);
+      });
+    });
   });
 });
