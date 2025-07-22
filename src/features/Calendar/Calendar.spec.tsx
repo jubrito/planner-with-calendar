@@ -116,5 +116,41 @@ describe('Calendar', () => {
 
       expect(eventOnViewMode).toBeUndefined();
     });
+
+    it('should change day view date when to update planner by clicking on cell', async () => {
+      const initialDayViewISODate = getDateISOString(
+        new Date(2025, Months.DECEMBER, 17),
+      );
+      const cellDate = getDateISOString(
+        new Date(cellYear, currentMonth, cellDay),
+      );
+      const { store } = renderWithProviders(<Calendar />, {
+        preloadedState: {
+          dateSlice: {
+            ...initialValue,
+            currentState: {
+              ...initialValue.currentState,
+              globalISODate: cellDate,
+              dayViewISODate: initialDayViewISODate,
+            },
+          },
+        },
+      });
+      const buttonElement = screen.getByLabelText(
+        `Open Jan ${cellDay} of ${cellYear} day view`,
+      );
+      const cellDateStored =
+        store.getState().dateSlice.currentState.globalISODate;
+
+      let dayViewISODate =
+        store.getState().dateSlice.currentState.dayViewISODate;
+      expect(dayViewISODate).toBe(initialDayViewISODate);
+
+      await userEvent.click(buttonElement);
+
+      dayViewISODate = store.getState().dateSlice.currentState.dayViewISODate;
+
+      expect(dayViewISODate).toBe(cellDateStored);
+    });
   });
 });
