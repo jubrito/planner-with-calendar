@@ -62,5 +62,17 @@ describe('CalendarActions', () => {
         expect(updateYear.previous).toHaveBeenCalledTimes(1);
       });
     });
+
+    it('should call previous month function when clicking on previous month button', async () => {
+      const goToPreviousMonthButton = screen.getByRole('button', {
+        name: goToPreviousMonthLabel,
+      });
+
+      await userEvent.click(goToPreviousMonthButton);
+
+      await waitFor(() => {
+        expect(updateMonth.previous).toHaveBeenCalledTimes(1);
+      });
+    });
   });
 });
