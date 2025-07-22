@@ -52,11 +52,11 @@ describe('CalendarActions', () => {
     });
 
     it('should call previous year function when clicking on previous year button', async () => {
-      const goToPreviousMonthButton = screen.getByRole('button', {
+      const goToPreviousYearButton = screen.getByRole('button', {
         name: goToPreviousYearLabel,
       });
 
-      await userEvent.click(goToPreviousMonthButton);
+      await userEvent.click(goToPreviousYearButton);
 
       await waitFor(() => {
         expect(updateYear.previous).toHaveBeenCalledTimes(1);
@@ -72,6 +72,18 @@ describe('CalendarActions', () => {
 
       await waitFor(() => {
         expect(updateMonth.previous).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    it('should call today function when clicking on today button', async () => {
+      const goToTodayButton = screen.getByRole('button', {
+        name: goToTodayLabel,
+      });
+
+      await userEvent.click(goToTodayButton);
+
+      await waitFor(() => {
+        expect(updateToday).toHaveBeenCalledTimes(1);
       });
     });
   });
