@@ -5,7 +5,6 @@ import userEvent from '@testing-library/user-event';
 
 describe('CalendarActions', () => {
   describe('Changing calendar dates', () => {
-    const year = 2025;
     const goToPreviousYearLabel = 'Previous year';
     const goToPreviousMonthLabel = 'Previous month';
     const goToNextMonthLabel = 'Next month';
@@ -96,6 +95,18 @@ describe('CalendarActions', () => {
 
       await waitFor(() => {
         expect(updateMonth.next).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    it('should call next year function when clicking on next year button', async () => {
+      const goToNextYearButton = screen.getByRole('button', {
+        name: goToNextYearLabel,
+      });
+
+      await userEvent.click(goToNextYearButton);
+
+      await waitFor(() => {
+        expect(updateYear.next).toHaveBeenCalledTimes(1);
       });
     });
   });
