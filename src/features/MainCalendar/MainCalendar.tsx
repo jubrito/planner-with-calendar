@@ -6,8 +6,7 @@ import { useDispatch } from 'react-redux';
 import { updateDayViewISODate } from '../../redux/slices/dateSlice';
 import { clearEventOnViewMode } from '../../redux/slices/eventSlice';
 import { Months } from '../../types/calendar/enums';
-import CalendarCells from '../../components/Calendar/CalendarCells/CalendarCells';
-import CalendarWeeks from '../../components/Calendar/CalendarWeeks/CalendarWeeks';
+import { Calendar } from '../../components/Calendar/Calendar/Calendar';
 
 const MainCalendar = () => {
   const dispatch = useDispatch();
@@ -36,10 +35,9 @@ const MainCalendar = () => {
         <CalendarMenu />
       </ErrorBoundary>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <table aria-labelledby="calendar-month-name">
-          <CalendarWeeks />
-          <CalendarCells onCellClick={handleUpdateDayViewDate} />
-        </table>
+        <div aria-labelledby="calendar-month-name">
+          <Calendar onCellClick={handleUpdateDayViewDate} />
+        </div>
       </ErrorBoundary>
     </section>
   );
