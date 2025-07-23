@@ -56,7 +56,10 @@ describe('DateField', () => {
       expect(dateField).toBeInTheDocument();
       expect(dateField.id).toBe('Start date');
     });
-
+    it('should not render end date field if it is single day event', () => {
+      const dateField = screen.queryByLabelText('End date');
+      expect(dateField).not.toBeInTheDocument();
+    });
     // it('should render date field as input', () => {
     //   const dateField = screen.getByRole('textbox', { name: label.dateField });
     //   expect(dateField).toBeInTheDocument();
