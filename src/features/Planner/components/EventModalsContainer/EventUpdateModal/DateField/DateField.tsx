@@ -15,7 +15,7 @@ import {
 } from '../../../../../../utils/constants';
 import { getLocaleLanguage } from '../../../../../../redux/slices/localeSlice/selectors';
 import { isValidDate } from '../../../../../../utils/checkers';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Calendar } from '../../../../../../components/Calendar/Calendar/Calendar';
 import { Months } from '../../../../../../types/calendar/enums';
 import { isSameDayEvent } from '../../../../../../utils/utils';
@@ -77,21 +77,6 @@ export const DateField = ({
   const endDateLabel = 'End date';
   const startHourLabel = 'Start hour';
   const endHourLabel = 'End hour';
-
-  useEffect(() => {
-    console.log('datePicker', datePicker);
-    if (!datePicker.startDate) return;
-    console.log(
-      'new Date(datePicker.startDate)',
-      new Date(datePicker.startDate),
-    );
-  }, [datePicker]);
-
-  useEffect(() => {
-    console.log('startISODate', startISODate);
-    if (!startISODate) return;
-    console.log('new Date(startISODate)', new Date(startISODate));
-  }, [startISODate]);
 
   const {
     label: startLabel,
