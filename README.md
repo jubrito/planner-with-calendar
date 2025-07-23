@@ -10,6 +10,8 @@
 
 A customizable and accessible calendar application that allows anyone to create and manage, and track events.
 
+<img width="1214" height="728" alt="image" src="https://github.com/user-attachments/assets/05199817-028e-4b5c-8bac-133338a9a15c" />
+
 ## **Progress**
 
  ![](https://us-central1-progress-markdown.cloudfunctions.net/progress/30)
