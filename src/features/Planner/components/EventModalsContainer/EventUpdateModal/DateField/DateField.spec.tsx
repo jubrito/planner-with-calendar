@@ -17,7 +17,7 @@ describe('DateField', () => {
   };
   const year = 2025;
   const month = Months.FEBRUARY;
-  const day = 28;
+  const day = 25;
   const startISODate = getDateISOString(new Date(year, month, day));
   const endISODateMultiDay = getDateISOString(new Date(year, month, day + 1));
   const errorMessage = 'Error message';
@@ -61,36 +61,47 @@ describe('DateField', () => {
         readonly={true}
       />,
     );
+    const dateField = screen.getByLabelText('End date');
+    expect(dateField).toBeInTheDocument();
+    expect(dateField.id).toBe('End date');
+    expect(dateField).toHaveRole('textbox');
   });
 
   describe('Date field', () => {
     it('should render start date field with label', () => {
-      const dateField = screen.getByLabelText('Start date');
-      expect(dateField).toBeInTheDocument();
-      expect(dateField.id).toBe('Start date');
+      const startDateField = screen.getByLabelText('Start date');
+      expect(startDateField).toBeInTheDocument();
+      expect(startDateField.id).toBe('Start date');
     });
     it('should not render end date field if it is single day event', () => {
-      const dateField = screen.queryByLabelText('End date');
-      expect(dateField).not.toBeInTheDocument();
+      const endDateField = screen.queryByLabelText('End date');
+      expect(endDateField).not.toBeInTheDocument();
     });
-    // it('should render date field as input', () => {
-    //   const dateField = screen.getByRole('textbox', { name: label.dateField });
-    //   expect(dateField).toBeInTheDocument();
+    it('should render start date field as input', () => {
+      const startDateField = screen.getByRole('textbox', {
+        name: 'Start date',
+      });
+      expect(startDateField).toBeInTheDocument();
+    });
+    it('should render start date field with read only properties as true', () => {
+      const startDateField = screen.getByLabelText('Start date');
+      expect(startDateField).toHaveAttribute('readonly');
+      expect(startDateField).toHaveAttribute('aria-readonly', 'true');
+    });
+    // it('should render end date field with read only properties as true', () => {
+    //   const endDateField = screen.getByLabelText('End date');
+    //   expect(endDateField).toHaveAttribute('readonly');
+    //   expect(endDateField).toHaveAttribute('aria-readonly', 'true');
     // });
-    // it('should render date field with read only properties as true', () => {
-    //   const dateField = screen.getByLabelText(label.dateField);
-    //   expect(dateField).toHaveAttribute('readonly');
-    //   expect(dateField).toHaveAttribute('aria-readonly', 'true');
-    // });
-    // it('should render date field with aria error message', () => {
-    //   const dateField = screen.getByLabelText(label.dateField);
-    //   expect(dateField).toHaveAttribute('aria-errormessage', errorMessage);
-    // });
-    // it('should call date field on click function', async () => {
-    //   const dateField = screen.getByLabelText(label.dateField);
-    //   await userEvent.click(dateField);
-    //   expect(onCellClick.dateField).toHaveBeenCalled();
-    // });
+    // // it('should render date field with aria error message', () => {
+    // //   const dateField = screen.getByLabelText('Start date');
+    // //   expect(dateField).toHaveAttribute('aria-errormessage', errorMessage);
+    // // });
+    // // it('should call date field on click function', async () => {
+    // //   const dateField = screen.getByLabelText('Start date');
+    // //   await userEvent.click(dateField);
+    // //   expect(onCellClick.startDate).toHaveBeenCalled();
+    // // });
   });
 
   // describe('Hour field', () => {
