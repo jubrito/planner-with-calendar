@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { DateField } from './DateField';
 import userEvent from '@testing-library/user-event';
@@ -72,6 +72,10 @@ describe('DateField', () => {
       );
     });
 
+    afterAll(() => {
+      jest.clearAllMocks();
+    });
+
     it('should render end date field if it is multi day event', () => {
       const dateField = screen.getByLabelText('End date');
       expect(dateField).toBeInTheDocument();
@@ -103,6 +107,10 @@ describe('DateField', () => {
       );
     });
 
+    afterAll(() => {
+      jest.clearAllMocks();
+    });
+
     describe('Date field', () => {
       it('should render start date field with label', () => {
         const startDateField = screen.getByLabelText('Start date');
@@ -132,36 +140,46 @@ describe('DateField', () => {
         );
       });
       // it('should call date field on click function', async () => {
-      //   const dateField = screen.getByLabelText('Start date');
-      //   await userEvent.click(dateField);
-      //   expect(onCellClick.startDate).toHaveBeenCalled();
+      //   const startDateField = screen.getByLabelText('Start date');
+      //   await userEvent.click(startDateField);
+      //   await waitFor(() => {
+      //     expect(onCellClick.startDate).toHaveBeenCalled();
+      //   });
+      //   screen.debug();
       // });
     });
 
-    // describe('Hour field', () => {
-    //   it('should render hour field with label', () => {
-    //     const hourField = screen.getByLabelText(label.hourField);
-    //     expect(hourField).toBeInTheDocument();
-    //     expect(hourField.id).toBe(label.hourField);
-    //   });
-    //   it('should render hour field as input', () => {
-    //     const hourField = screen.getByRole('textbox', { name: label.hourField });
-    //     expect(hourField).toBeInTheDocument();
-    //   });
-    //   it('should render hour field with read only properties as true', () => {
-    //     const hourField = screen.getByLabelText(label.hourField);
-    //     expect(hourField).toHaveAttribute('readonly');
-    //     expect(hourField).toHaveAttribute('aria-readonly', 'true');
-    //   });
-    //   it('should render hour field with aria error message', () => {
-    //     const hourField = screen.getByLabelText(label.hourField);
-    //     expect(hourField).toHaveAttribute('aria-errormessage', errorMessage);
-    //   });
-    //   it('should call hour field on click function', async () => {
-    //     const hourField = screen.getByLabelText(label.hourField);
-    //     await userEvent.click(hourField);
-    //     expect(onClick.hourField).toHaveBeenCalled();
-    //   });
-    // });
+    describe('Hour field', () => {
+      it('should render start hour field with label', () => {
+        const startHourField = screen.getByLabelText('Start hour');
+        expect(startHourField).toBeInTheDocument();
+        expect(startHourField.id).toBe('Start hour');
+      });
+      it('should render end hour field with label', () => {
+        const endHourField = screen.getByLabelText('End hour');
+        expect(endHourField).toBeInTheDocument();
+        expect(endHourField.id).toBe('End hour');
+      });
+      // it('should render hour field as input', () => {
+      //   const hourField = screen.getByRole('textbox', {
+      //     name: 'Start hour',
+      //   });
+      //   expect(hourField).toBeInTheDocument();
+      // });
+      // it('should render hour field with read only properties as true', () => {
+      //   const hourField = screen.getByLabelText('Start hour');
+      //   expect(hourField).toHaveAttribute('readonly');
+      //   expect(hourField).toHaveAttribute('aria-readonly', 'true');
+      // });
+      // it('should render hour field with aria error message', () => {
+      //   const hourField = screen.getByLabelText('Start hour');
+      //   expect(hourField).toHaveAttribute('aria-errormessage', errorMessage);
+      // });
+      // it('should call hour field on click function', async () => {
+      //   const hourField = screen.getByLabelText('Start hour');
+      //   await userEvent.click(hourField);
+      //   expect(onClick.hourField).toHaveBeenCalled();
+      // });
+    });
   });
 });
