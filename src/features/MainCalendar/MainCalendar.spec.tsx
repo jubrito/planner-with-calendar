@@ -8,7 +8,7 @@ import { getWeekDaysNames } from '../../utils/calendar/weeks';
 import '@testing-library/jest-dom';
 import { screen } from '@testing-library/dom';
 import { renderWithProviders } from '../../utils/tests/renderWithProviders';
-import Calendar from './Calendar';
+import Calendar from './MainCalendar';
 import { initialValue } from '../../redux/slices/dateSlice';
 import { Months } from '../../types/calendar/enums';
 import { EventStored } from '../../types/event';

@@ -1,4 +1,4 @@
-import Calendar from '../../features/Calendar/Calendar';
+import Calendar from '../../features/MainCalendar/MainCalendar';
 import Footer from '../../features/Footer/Footer';
 import Nav from '../../features/Nav/Nav';
 import Planner from '../../features/Planner/Planner';

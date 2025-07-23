@@ -1,6 +1,6 @@
 import { ErrorBoundary } from 'react-error-boundary';
 import { CalendarMenu } from './components/CalendarMenu/CalendarMenu';
-import styles from './_calendar.module.scss';
+import styles from './_main-calendar.module.scss';
 import { ErrorFallback } from '../../components/ErrorFallback/ErrorFallback';
 import { useDispatch } from 'react-redux';
 import { updateDayViewISODate } from '../../redux/slices/dateSlice';
