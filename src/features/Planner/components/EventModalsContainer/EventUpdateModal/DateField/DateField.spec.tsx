@@ -36,6 +36,9 @@ describe('DateField', () => {
   it('should render icon', () => {
     expect(screen.getByText(icon)).toBeInTheDocument();
   });
+  it('should render error message', () => {
+    expect(screen.getByText(errorMessage)).toBeInTheDocument();
+  });
 
   describe('Date field', () => {
     it('should render date field with label', () => {
