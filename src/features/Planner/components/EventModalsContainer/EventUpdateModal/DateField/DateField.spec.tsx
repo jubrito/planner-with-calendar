@@ -43,4 +43,9 @@ describe('DateField', () => {
     const dateField = screen.getByRole('textbox', { name: label.dateField });
     expect(dateField).toBeInTheDocument();
   });
+  it('should render date field with read only properties as true', () => {
+    const dateField = screen.getByLabelText(label.dateField);
+    expect(dateField).toHaveAttribute('readonly');
+    expect(dateField).toHaveAttribute('aria-readonly', 'true');
+  });
 });
