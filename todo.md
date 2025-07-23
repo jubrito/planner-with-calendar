@@ -1,6 +1,10 @@
 # Next steps (v1):
 
-- implement todo tests
+- review date field and event updates modal to add tests
+
+- create selector dropdown for start/end hours
+  - end selector must start after selected start hour to prevent events with a end time greater than start time
+- errors for start/end date should be separated between date and hour
 - add actions to update calendar inside update events modal
 - extract components to display inside update events modal
 - display calendar as absolute
