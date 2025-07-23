@@ -73,5 +73,10 @@ describe('DateField', () => {
       const hourField = screen.getByRole('textbox', { name: label.hourField });
       expect(hourField).toBeInTheDocument();
     });
+    it('should render hour field with read only properties as true', () => {
+      const hourField = screen.getByLabelText(label.hourField);
+      expect(hourField).toHaveAttribute('readonly');
+      expect(hourField).toHaveAttribute('aria-readonly', 'true');
+    });
   });
 });
