@@ -160,12 +160,18 @@ describe('DateField', () => {
         expect(endHourField).toBeInTheDocument();
         expect(endHourField.id).toBe('End hour');
       });
-      // it('should render hour field as input', () => {
-      //   const hourField = screen.getByRole('textbox', {
-      //     name: 'Start hour',
-      //   });
-      //   expect(hourField).toBeInTheDocument();
-      // });
+      it('should render start hour field as input', () => {
+        const startHourField = screen.getByRole('textbox', {
+          name: 'Start hour',
+        });
+        expect(startHourField).toBeInTheDocument();
+      });
+      it('should render hour field as input', () => {
+        const endHourField = screen.getByRole('textbox', {
+          name: 'End hour',
+        });
+        expect(endHourField).toBeInTheDocument();
+      });
       // it('should render hour field with read only properties as true', () => {
       //   const hourField = screen.getByLabelText('Start hour');
       //   expect(hourField).toHaveAttribute('readonly');
