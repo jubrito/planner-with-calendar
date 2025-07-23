@@ -8,7 +8,7 @@ import { getWeekDaysNames } from '../../utils/calendar/weeks';
 import '@testing-library/jest-dom';
 import { screen } from '@testing-library/dom';
 import { renderWithProviders } from '../../utils/tests/renderWithProviders';
-import Calendar from './MainCalendar';
+import MainCalendar from './MainCalendar';
 import { initialValue } from '../../redux/slices/dateSlice';
 import { Months } from '../../types/calendar/enums';
 import { EventStored } from '../../types/event';
@@ -22,7 +22,7 @@ describe('Calendar', () => {
 
   describe('Rendering', () => {
     beforeEach(() => {
-      renderWithProviders(<Calendar />, {
+      renderWithProviders(<MainCalendar />, {
         preloadedState: {
           dateSlice: {
             ...initialValue,
@@ -80,7 +80,7 @@ describe('Calendar', () => {
         event: initialEvent,
         top: 101,
       };
-      const { store } = renderWithProviders(<Calendar />, {
+      const { store } = renderWithProviders(<MainCalendar />, {
         preloadedState: {
           dateSlice: {
             ...initialValue,
@@ -124,7 +124,7 @@ describe('Calendar', () => {
       const cellDate = getDateISOString(
         new Date(cellYear, currentMonth, cellDay),
       );
-      const { store } = renderWithProviders(<Calendar />, {
+      const { store } = renderWithProviders(<MainCalendar />, {
         preloadedState: {
           dateSlice: {
             ...initialValue,

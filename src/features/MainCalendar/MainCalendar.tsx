@@ -9,7 +9,7 @@ import { Months } from '../../types/calendar/enums';
 import CalendarCells from '../../components/Calendar/CalendarCells/CalendarCells';
 import CalendarWeeks from '../../components/Calendar/CalendarWeeks/CalendarWeeks';
 
-const Calendar = () => {
+const MainCalendar = () => {
   const dispatch = useDispatch();
 
   const handleUpdateDayViewDate = (
@@ -45,4 +45,4 @@ const Calendar = () => {
   );
 };
 
-export default Calendar;
+export default MainCalendar;

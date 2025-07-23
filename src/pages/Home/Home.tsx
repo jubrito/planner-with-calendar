@@ -1,4 +1,4 @@
-import Calendar from '../../features/MainCalendar/MainCalendar';
+import MainCalendar from '../../features/MainCalendar/MainCalendar';
 import Footer from '../../features/Footer/Footer';
 import Nav from '../../features/Nav/Nav';
 import Planner from '../../features/Planner/Planner';
@@ -11,7 +11,7 @@ const Home = () => {
     <main className={styles.home}>
       <Nav />
       <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <Calendar />
+        <MainCalendar />
       </ErrorBoundary>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Planner />
