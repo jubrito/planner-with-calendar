@@ -1,6 +1,9 @@
+import { Months } from '../types/calendar/enums';
+import { EventDetailsView } from '../types/event';
 import {
   deepCopy,
   getChunkArrayByChunkSize,
+  isSameDayEvent,
   makeFirstLetterUppercase,
 } from './utils';
 
@@ -68,6 +71,120 @@ describe('utils', () => {
       expect(makeFirstLetterUppercase(first)).toBe('First');
       expect(makeFirstLetterUppercase(second)).toBe('SECOND');
       expect(makeFirstLetterUppercase(third)).toBe('THIRD');
+    });
+  });
+
+  describe('isSameDayEvent()', () => {
+    const year = 2025;
+    const day = 29;
+    const monthName = 'Jun';
+    it('should return true if events have same day, month and year', () => {
+      const eventA: EventDetailsView = {
+        day,
+        monthName,
+        year,
+        month: Months.JANUARY,
+        hour: 0,
+        minutes: 1,
+        formattedFullTime: 'a',
+        time: 'a',
+        period: 'a',
+        weekDay: 'a',
+      };
+      const eventB: EventDetailsView = {
+        day,
+        monthName,
+        year,
+        month: Months.JANUARY,
+        hour: 2,
+        minutes: 3,
+        formattedFullTime: 'b',
+        time: 'b',
+        period: 'b',
+        weekDay: 'b',
+      };
+      expect(isSameDayEvent(eventA, eventB)).toBe(true);
+    });
+    it('should return false if events have same day and month but not year', () => {
+      const eventA: EventDetailsView = {
+        day,
+        monthName,
+        year: year + 1,
+        month: Months.JANUARY,
+        hour: 0,
+        minutes: 1,
+        formattedFullTime: 'a',
+        time: 'a',
+        period: 'a',
+        weekDay: 'a',
+      };
+      const eventB: EventDetailsView = {
+        day,
+        monthName,
+        year,
+        month: Months.JANUARY,
+        hour: 2,
+        minutes: 3,
+        formattedFullTime: 'b',
+        time: 'b',
+        period: 'b',
+        weekDay: 'b',
+      };
+      expect(isSameDayEvent(eventA, eventB)).toBe(false);
+    });
+    it('should return true if events have same day and year but not month', () => {
+      const eventA: EventDetailsView = {
+        day,
+        monthName,
+        year,
+        month: Months.JANUARY,
+        hour: 0,
+        minutes: 1,
+        formattedFullTime: 'a',
+        time: 'a',
+        period: 'a',
+        weekDay: 'a',
+      };
+      const eventB: EventDetailsView = {
+        day,
+        monthName,
+        year,
+        month: Months.FEBRUARY,
+        hour: 2,
+        minutes: 3,
+        formattedFullTime: 'b',
+        time: 'b',
+        period: 'b',
+        weekDay: 'b',
+      };
+      expect(isSameDayEvent(eventA, eventB)).toBe(false);
+    });
+    it('should return true if events have same month and year but not day', () => {
+      const eventA: EventDetailsView = {
+        day: day + 1,
+        monthName,
+        year,
+        month: Months.JANUARY,
+        hour: 0,
+        minutes: 1,
+        formattedFullTime: 'a',
+        time: 'a',
+        period: 'a',
+        weekDay: 'a',
+      };
+      const eventB: EventDetailsView = {
+        day,
+        monthName,
+        year,
+        month: Months.JANUARY,
+        hour: 2,
+        minutes: 3,
+        formattedFullTime: 'b',
+        time: 'b',
+        period: 'b',
+        weekDay: 'b',
+      };
+      expect(isSameDayEvent(eventA, eventB)).toBe(false);
     });
   });
 });

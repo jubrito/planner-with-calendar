@@ -9,7 +9,6 @@ import {
   getEventModalContent,
   getMultiDayEventText,
   getSameDayEventText,
-  isSameDayEvent,
 } from './getModalInfo';
 
 describe('getModalInfo', () => {
@@ -257,117 +256,6 @@ describe('getModalInfo', () => {
         initialDateText: `${startMonthName} ${day}, ${startYear}, ${startTime}${startPeriod}`,
         endDateText: `${endMonthName} ${day}, ${endYear}, ${endTime}${endPeriod}`,
       });
-    });
-  });
-
-  describe('isSameDayEvent()', () => {
-    it('should return true if events have same day, month and year', () => {
-      const eventA: EventDetailsView = {
-        day,
-        monthName,
-        year,
-        month: Months.JANUARY,
-        hour: 0,
-        minutes: 1,
-        formattedFullTime: 'a',
-        time: 'a',
-        period: 'a',
-        weekDay: 'a',
-      };
-      const eventB: EventDetailsView = {
-        day,
-        monthName,
-        year,
-        month: Months.JANUARY,
-        hour: 2,
-        minutes: 3,
-        formattedFullTime: 'b',
-        time: 'b',
-        period: 'b',
-        weekDay: 'b',
-      };
-      expect(isSameDayEvent(eventA, eventB)).toBe(true);
-    });
-    it('should return false if events have same day and month but not year', () => {
-      const eventA: EventDetailsView = {
-        day,
-        monthName,
-        year: year + 1,
-        month: Months.JANUARY,
-        hour: 0,
-        minutes: 1,
-        formattedFullTime: 'a',
-        time: 'a',
-        period: 'a',
-        weekDay: 'a',
-      };
-      const eventB: EventDetailsView = {
-        day,
-        monthName,
-        year,
-        month: Months.JANUARY,
-        hour: 2,
-        minutes: 3,
-        formattedFullTime: 'b',
-        time: 'b',
-        period: 'b',
-        weekDay: 'b',
-      };
-      expect(isSameDayEvent(eventA, eventB)).toBe(false);
-    });
-    it('should return true if events have same day and year but not month', () => {
-      const eventA: EventDetailsView = {
-        day,
-        monthName,
-        year,
-        month: Months.JANUARY,
-        hour: 0,
-        minutes: 1,
-        formattedFullTime: 'a',
-        time: 'a',
-        period: 'a',
-        weekDay: 'a',
-      };
-      const eventB: EventDetailsView = {
-        day,
-        monthName,
-        year,
-        month: Months.FEBRUARY,
-        hour: 2,
-        minutes: 3,
-        formattedFullTime: 'b',
-        time: 'b',
-        period: 'b',
-        weekDay: 'b',
-      };
-      expect(isSameDayEvent(eventA, eventB)).toBe(false);
-    });
-    it('should return true if events have same month and year but not day', () => {
-      const eventA: EventDetailsView = {
-        day: day + 1,
-        monthName,
-        year,
-        month: Months.JANUARY,
-        hour: 0,
-        minutes: 1,
-        formattedFullTime: 'a',
-        time: 'a',
-        period: 'a',
-        weekDay: 'a',
-      };
-      const eventB: EventDetailsView = {
-        day,
-        monthName,
-        year,
-        month: Months.JANUARY,
-        hour: 2,
-        minutes: 3,
-        formattedFullTime: 'b',
-        time: 'b',
-        period: 'b',
-        weekDay: 'b',
-      };
-      expect(isSameDayEvent(eventA, eventB)).toBe(false);
     });
   });
 

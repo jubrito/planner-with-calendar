@@ -14,6 +14,7 @@ import {
   IntlDateTimeFormat2Digit,
   IntlDateTimeFormatShort,
 } from '../../constants';
+import { isSameDayEvent } from '../../utils';
 
 export const getEventTitle = (
   sameDayContent: { date: string; time: string },
@@ -93,14 +94,6 @@ export const getMultiDayEventText = (
   const endText = getText(endEvent, endYearUpdated);
   return { initialDateText: startText, endDateText: endText };
 };
-
-export const isSameDayEvent = (
-  startEvent: EventDetailsView,
-  endEvent: EventDetailsView,
-) =>
-  startEvent.day === endEvent.day &&
-  startEvent.month === endEvent.month &&
-  startEvent.year === endEvent.year;
 
 export const getEventModalContent = (
   startDate: EventOnCreate['start']['date'],

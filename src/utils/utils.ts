@@ -1,3 +1,4 @@
+import { DateConfig } from '../types/calendar/types';
 import { ObjectType } from '../types/types';
 import { isObject } from './checkers';
 
@@ -41,3 +42,19 @@ export const getChunkArrayByChunkSize = <T>(
 
 export const makeFirstLetterUppercase = (name: string) =>
   name.charAt(0).toUpperCase() + name.slice(1, name.length);
+
+export const isSameDayEvent = (
+  startEvent: {
+    year: DateConfig['year'];
+    month: DateConfig['month'];
+    day: DateConfig['day'];
+  },
+  endEvent: {
+    year: DateConfig['year'];
+    month: DateConfig['month'];
+    day: DateConfig['day'];
+  },
+) =>
+  startEvent.day === endEvent.day &&
+  startEvent.month === endEvent.month &&
+  startEvent.year === endEvent.year;
