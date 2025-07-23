@@ -1,4 +1,5 @@
 # Customizable Calendar
+
 [![React](https://img.shields.io/badge/React-19-mediumvioletred?logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7.2-royalblue?logo=typescript)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-6.2-darkmagenta?logo=vite)](https://vitejs.dev/)
@@ -7,14 +8,13 @@
 [![ESLint](https://img.shields.io/badge/ESLint-9.23-tomato?logo=eslint)](https://eslint.org/)
 [![Jest](https://img.shields.io/badge/Babel-7.26.9-gold?logo=babel)]([https://babeljs.io/)
 
-
 A customizable and accessible calendar application that allows anyone to create and manage, and track events.
 
-<img width="1214" height="728" alt="image" src="https://github.com/user-attachments/assets/05199817-028e-4b5c-8bac-133338a9a15c" />
+<img width="1214" height="728" alt="" src="https://github.com/user-attachments/assets/05199817-028e-4b5c-8bac-133338a9a15c" />
 
 ## **Progress**
 
- ![](https://us-central1-progress-markdown.cloudfunctions.net/progress/30)
+![](https://us-central1-progress-markdown.cloudfunctions.net/progress/30)
 
 ## Features
 
@@ -38,7 +38,6 @@ A customizable and accessible calendar application that allows anyone to create 
 
 - **Current hour** – Highlights the current hour in day-view mode.
 
-
 ### Features in progress:
 
 - **Recurring Events** – Set repeating events (daily, weekly, monthly).
@@ -59,22 +58,28 @@ A customizable and accessible calendar application that allows anyone to create 
 
 2. Navigate to the project directory:
 
- ```sh
- cd planner-with-calendar
- ```
-3. Install dependencies: 
- ```sh
+```sh
+cd planner-with-calendar
+```
+
+3. Install dependencies:
+
+```sh
 npm install
 ```
-4. Start the project:  
+
+4. Start the project:
+
 ```sh
 npm start
 ```
-5. Run tests 
- ```sh
- npm run test
- ```
+
+5. Run tests
+
+```sh
+npm run test
+```
 
 ## License
-[MIT](https://github.com/arthurfiorette/try/blob/main/LICENSE)
 
+[MIT](https://github.com/arthurfiorette/try/blob/main/LICENSE)
