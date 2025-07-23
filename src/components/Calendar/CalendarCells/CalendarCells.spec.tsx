@@ -10,6 +10,7 @@ import {
 } from '../../../utils/calendar/utils';
 import { initialValue } from '../../../redux/slices/dateSlice';
 import { renderWithProviders } from '../../../utils/tests/renderWithProviders';
+import userEvent from '@testing-library/user-event';
 
 describe('CalendarCells', () => {
   const withTableWrapper = (children: ReactElement) => {
@@ -30,14 +31,12 @@ describe('CalendarCells', () => {
         {
           preloadedState: {
             dateSlice: {
+              ...initialValue,
               currentState: {
                 ...initialValue.currentState,
                 globalISODate: getDateISOString(
                   new Date(currentYear, currentMonth, currentDay),
                 ),
-              },
-              initialState: {
-                ...initialValue.initialState,
               },
             },
           },
@@ -46,23 +45,18 @@ describe('CalendarCells', () => {
       rerenderCalendarCells = rerender;
     });
 
-    it('should call onClick function (onCellClick) when clicking on the cell', () => {
-      renderWithProviders(
-        withTableWrapper(<CalendarCells onCellClick={jest.fn()} />),
-        {
-          preloadedState: {
-            dateSlice: {
-              ...initialValue,
-              currentState: {
-                ...initialValue.currentState,
-                globalISODate: getDateISOString(
-                  new Date(currentYear, Months.JANUARY, 1),
-                ),
-              },
-            },
-          },
-        },
+    it('should call onClick function (onCellClick) when clicking on the cell', async () => {
+      const dayCell = screen.getByTitle(
+        getFullDateTitle(currentYear, currentMonth, currentDay, localeMock),
       );
+      await userEvent.click(dayCell);
+      const monthNotZeroIndexed = currentMonth + 1;
+      expect(onCellClick).toHaveBeenCalledWith(
+        currentYear,
+        monthNotZeroIndexed,
+        currentDay,
+      );
+      expect(onCellClick).toHaveBeenCalledTimes(1);
     });
     it('should render date from props instead of default global date', async () => {
       const januaryDays = Array.from(
