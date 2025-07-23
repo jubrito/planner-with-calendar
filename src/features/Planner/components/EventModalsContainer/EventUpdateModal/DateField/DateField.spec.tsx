@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { DateField } from './DateField';
+import userEvent from '@testing-library/user-event';
 
 describe('DateField', () => {
   const label = {
@@ -51,5 +52,10 @@ describe('DateField', () => {
   it('should render date field with aria error message', () => {
     const dateField = screen.getByLabelText(label.dateField);
     expect(dateField).toHaveAttribute('aria-errormessage', errorMessage);
+  });
+  it('should call date field on click function', async () => {
+    const dateField = screen.getByLabelText(label.dateField);
+    await userEvent.click(dateField);
+    expect(onClick.dateField).toHaveBeenCalled();
   });
 });
