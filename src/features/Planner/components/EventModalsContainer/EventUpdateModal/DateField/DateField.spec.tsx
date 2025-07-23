@@ -1,20 +1,11 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { DateField } from './DateField';
-import userEvent from '@testing-library/user-event';
 import { Months } from '../../../../../../types/calendar/enums';
 import { getDateISOString } from '../../../../../../utils/calendar/utils';
 import { renderWithProviders } from '../../../../../../utils/tests/renderWithProviders';
 
 describe('DateField', () => {
-  const label = {
-    dateField: 'startDateLabel',
-    hourField: 'startHourLabel',
-  };
-  const value = {
-    dateField: '0',
-    hourField: 1,
-  };
   const year = 2025;
   const month = Months.FEBRUARY;
   const day = 25;
@@ -26,7 +17,6 @@ describe('DateField', () => {
     endDate: jest.fn(),
   };
   const icon = 'icon';
-  let rerenderDateField: (ui: React.ReactNode) => void;
 
   it('should render icon', () => {
     renderWithProviders(
@@ -139,7 +129,19 @@ describe('DateField', () => {
           errorMessage,
         );
       });
-      // it('should call date field on click function', async () => {
+      it.todo(
+        'should display start date calendar when clicking on start date input',
+      );
+      it.todo(
+        'should display end date calendar when clicking on end date input',
+      );
+      it.todo(
+        'should call start date on click function when clicking on calendar',
+      );
+      it.todo(
+        'should call end date on click function when clicking on calendar',
+      );
+      // it('should call start date on click function when clicking on calendar', async () => {
       //   const startDateField = screen.getByLabelText('Start date');
       //   await userEvent.click(startDateField);
       //   await waitFor(() => {
@@ -193,11 +195,9 @@ describe('DateField', () => {
         const endHourField = screen.getByLabelText('End hour');
         expect(endHourField).toHaveAttribute('aria-errormessage', errorMessage);
       });
-      // it('should call hour field on click function', async () => {
-      //   const hourField = screen.getByLabelText('Start hour');
-      //   await userEvent.click(hourField);
-      //   expect(onClick.hourField).toHaveBeenCalled();
-      // });
+
+      it.todo('should call start hour field on click function');
+      it.todo('should call end hour field on click function');
     });
   });
 });
