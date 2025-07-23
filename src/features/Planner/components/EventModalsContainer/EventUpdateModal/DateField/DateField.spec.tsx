@@ -49,6 +49,19 @@ describe('DateField', () => {
   it('should render error message', () => {
     expect(screen.getByText(errorMessage)).toBeInTheDocument();
   });
+  it('should render end date field if it is multi day event', () => {
+    rerenderDateField(
+      <DateField
+        startISODate={startISODate}
+        endISODate={endISODateMultiDay}
+        errorMessage={errorMessage}
+        className={{ wrapper: '', field: '' }}
+        onCellClick={onCellClick}
+        icon={<>{icon}</>}
+        readonly={true}
+      />,
+    );
+  });
 
   describe('Date field', () => {
     it('should render start date field with label', () => {
