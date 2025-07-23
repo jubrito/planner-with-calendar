@@ -33,6 +33,8 @@ import { FieldError } from '../../../../../components/FieldError/FieldError';
 import CalendarCells from '../../../../../components/Calendar/CalendarCells/CalendarCells';
 import CalendarWeeks from '../../../../../components/Calendar/CalendarWeeks/CalendarWeeks';
 import { DateField } from './DateField/DateField';
+import MainCalendar from '../../../../MainCalendar/MainCalendar';
+import { Calendar } from '../../../../../components/Calendar/Calendar/Calendar';
 
 type DateInfo = {
   dayOfTheWeek: string;
@@ -169,20 +171,15 @@ export const EventUpdateModal = memo(() => {
             readonly
           />
           {openStartDatePicker && (
-            <>
-              <table className={styles.compactTable}>
-                <CalendarWeeks compactMode />
-                <CalendarCells
-                  compactMode
-                  onCellClick={(cellYear, cellMonth, cellDay) => {
-                    updateEventField(
-                      'startDate',
-                      getDateISOString(new Date(cellYear, cellMonth, cellDay)),
-                    );
-                  }}
-                />
-              </table>
-            </>
+            <Calendar
+              compactMode
+              onCellClick={(cellYear, cellMonth, cellDay) => {
+                updateEventField(
+                  'startDate',
+                  getDateISOString(new Date(cellYear, cellMonth, cellDay)),
+                );
+              }}
+            />
           )}
         </>
 
