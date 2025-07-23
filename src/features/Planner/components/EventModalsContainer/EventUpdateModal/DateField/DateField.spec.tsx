@@ -32,30 +32,33 @@ describe('DateField', () => {
       />,
     );
   });
-  it('should render icon', () => {
-    expect(screen.getByText(icon)).toBeInTheDocument();
-  });
-  it('should render date field with label', () => {
-    const dateField = screen.getByLabelText(label.dateField);
-    expect(dateField).toBeInTheDocument();
-    expect(dateField.id).toBe(label.dateField);
-  });
-  it('should render date field as input', () => {
-    const dateField = screen.getByRole('textbox', { name: label.dateField });
-    expect(dateField).toBeInTheDocument();
-  });
-  it('should render date field with read only properties as true', () => {
-    const dateField = screen.getByLabelText(label.dateField);
-    expect(dateField).toHaveAttribute('readonly');
-    expect(dateField).toHaveAttribute('aria-readonly', 'true');
-  });
-  it('should render date field with aria error message', () => {
-    const dateField = screen.getByLabelText(label.dateField);
-    expect(dateField).toHaveAttribute('aria-errormessage', errorMessage);
-  });
-  it('should call date field on click function', async () => {
-    const dateField = screen.getByLabelText(label.dateField);
-    await userEvent.click(dateField);
-    expect(onClick.dateField).toHaveBeenCalled();
+
+  describe('Date field', () => {
+    it('should render icon', () => {
+      expect(screen.getByText(icon)).toBeInTheDocument();
+    });
+    it('should render date field with label', () => {
+      const dateField = screen.getByLabelText(label.dateField);
+      expect(dateField).toBeInTheDocument();
+      expect(dateField.id).toBe(label.dateField);
+    });
+    it('should render date field as input', () => {
+      const dateField = screen.getByRole('textbox', { name: label.dateField });
+      expect(dateField).toBeInTheDocument();
+    });
+    it('should render date field with read only properties as true', () => {
+      const dateField = screen.getByLabelText(label.dateField);
+      expect(dateField).toHaveAttribute('readonly');
+      expect(dateField).toHaveAttribute('aria-readonly', 'true');
+    });
+    it('should render date field with aria error message', () => {
+      const dateField = screen.getByLabelText(label.dateField);
+      expect(dateField).toHaveAttribute('aria-errormessage', errorMessage);
+    });
+    it('should call date field on click function', async () => {
+      const dateField = screen.getByLabelText(label.dateField);
+      await userEvent.click(dateField);
+      expect(onClick.dateField).toHaveBeenCalled();
+    });
   });
 });
