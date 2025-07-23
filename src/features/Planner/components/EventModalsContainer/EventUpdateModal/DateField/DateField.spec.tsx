@@ -33,10 +33,11 @@ describe('DateField', () => {
     );
   });
 
+  it('should render icon', () => {
+    expect(screen.getByText(icon)).toBeInTheDocument();
+  });
+
   describe('Date field', () => {
-    it('should render icon', () => {
-      expect(screen.getByText(icon)).toBeInTheDocument();
-    });
     it('should render date field with label', () => {
       const dateField = screen.getByLabelText(label.dateField);
       expect(dateField).toBeInTheDocument();
@@ -59,6 +60,14 @@ describe('DateField', () => {
       const dateField = screen.getByLabelText(label.dateField);
       await userEvent.click(dateField);
       expect(onClick.dateField).toHaveBeenCalled();
+    });
+  });
+
+  describe('Hour field', () => {
+    it('should render hour field with label', () => {
+      const hourField = screen.getByLabelText(label.hourField);
+      expect(hourField).toBeInTheDocument();
+      expect(hourField.id).toBe(label.hourField);
     });
   });
 });
