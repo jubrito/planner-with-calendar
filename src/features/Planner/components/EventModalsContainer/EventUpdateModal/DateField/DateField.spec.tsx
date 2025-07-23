@@ -130,10 +130,16 @@ describe('DateField', () => {
         );
       });
       it.todo(
-        'should display start date calendar when clicking on start date input',
+        'should display start date calendar when clicking on start date input (mouse)',
       );
       it.todo(
-        'should display end date calendar when clicking on end date input',
+        'should display end date calendar when clicking on end date input (mouse)',
+      );
+      it.todo(
+        'should display start date calendar when clicking on start date input (enter key down)',
+      );
+      it.todo(
+        'should display end date calendar when clicking on end date input (enter key down)',
       );
       it.todo(
         'should call start date on click function when clicking on calendar',
