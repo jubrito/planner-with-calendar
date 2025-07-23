@@ -11,11 +11,13 @@ import { firstDayOfTheMonth } from '../../../../utils/calendar/constants';
 import { renderWithProviders } from '../../../../utils/tests/renderWithProviders';
 import { initialValue } from '../../../../redux/slices/dateSlice';
 import { IntlDateTimeFormatShort } from '../../../../utils/constants';
+import userEvent from '@testing-library/user-event';
 
 const cellYear = 2025;
 const cellDay = firstDayOfTheMonth;
 const currentMonth = Months.JANUARY;
 const localeMock = 'en-US';
+const onCellClick = jest.fn();
 
 describe('Cell', () => {
   interface TestTableProps {
@@ -30,7 +32,7 @@ describe('Cell', () => {
             cellMonth={cellMonth}
             cellDay={cellDay}
             currentMonth={currentMonth}
-            onClick={jest.fn()}
+            onClick={onCellClick}
           />
         </tr>
       </tbody>
@@ -109,7 +111,31 @@ describe('Cell', () => {
     expect(timeElement).toHaveTextContent(cellDay.toString());
   });
 
-  it.todo(
-    'should call onClick function (onCellClick) when clicking on the cell',
-  );
+  it('should call onClick function (onCellClick) when clicking on the cell', async () => {
+    const nextMonth = Months.FEBRUARY;
+    renderWithProviders(<TestTable cellMonth={nextMonth} />, {
+      preloadedState: {
+        dateSlice: {
+          ...initialValue,
+          currentState: {
+            ...initialValue.currentState,
+            globalISODate: getDateISOString(
+              new Date(cellYear, currentMonth, cellDay),
+            ),
+          },
+        },
+      },
+    });
+    const dayCell = screen.getByTitle(
+      getFullDateTitle(cellYear, currentMonth, cellDay, localeMock),
+    );
+    await userEvent.click(dayCell);
+    const monthNotZeroIndexed = currentMonth + 1;
+    expect(onCellClick).toHaveBeenCalledWith(
+      cellYear,
+      monthNotZeroIndexed,
+      cellDay,
+    );
+    expect(onCellClick).toHaveBeenCalledTimes(1);
+  });
 });
