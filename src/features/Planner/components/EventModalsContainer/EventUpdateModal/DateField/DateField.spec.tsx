@@ -83,6 +83,10 @@ describe('DateField', () => {
       expect(endDateField).toHaveAttribute('readonly');
       expect(endDateField).toHaveAttribute('aria-readonly', 'true');
     });
+    it('should render end date field with aria error message', () => {
+      const endDateField = screen.getByLabelText('Start date');
+      expect(endDateField).toHaveAttribute('aria-errormessage', errorMessage);
+    });
   });
   describe('Same day', () => {
     beforeEach(() => {
@@ -120,11 +124,13 @@ describe('DateField', () => {
         expect(startDateField).toHaveAttribute('readonly');
         expect(startDateField).toHaveAttribute('aria-readonly', 'true');
       });
-
-      // it('should render date field with aria error message', () => {
-      //   const dateField = screen.getByLabelText('Start date');
-      //   expect(dateField).toHaveAttribute('aria-errormessage', errorMessage);
-      // });
+      it('should render start date field with aria error message', () => {
+        const startDateField = screen.getByLabelText('Start date');
+        expect(startDateField).toHaveAttribute(
+          'aria-errormessage',
+          errorMessage,
+        );
+      });
       // it('should call date field on click function', async () => {
       //   const dateField = screen.getByLabelText('Start date');
       //   await userEvent.click(dateField);
