@@ -27,11 +27,20 @@ describe('DateField', () => {
         className={{ wrapper: '', field: '' }}
         onClick={onClick}
         icon={<>{icon}</>}
-        readonly
+        readonly={true}
       />,
     );
   });
   it('should render icon', () => {
     expect(screen.getByText(icon)).toBeInTheDocument();
+  });
+  it('should render date field with label', () => {
+    const dateField = screen.getByLabelText(label.dateField);
+    expect(dateField).toBeInTheDocument();
+    expect(dateField.id).toBe(label.dateField);
+  });
+  it('should render date field as input', () => {
+    const dateField = screen.getByRole('textbox', { name: label.dateField });
+    expect(dateField).toBeInTheDocument();
   });
 });
