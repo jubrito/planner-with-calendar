@@ -1,5 +1,6 @@
 # Next steps (v1):
 
+- open calendar on key press
 - review date field and event updates modal to add tests
 
 - create selector dropdown for start/end hours
