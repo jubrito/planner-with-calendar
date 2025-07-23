@@ -28,8 +28,8 @@ describe('DateField', () => {
   const icon = 'icon';
   let rerenderDateField: (ui: React.ReactNode) => void;
 
-  beforeEach(() => {
-    const { rerender } = renderWithProviders(
+  it('should render icon', () => {
+    renderWithProviders(
       <DateField
         startISODate={startISODate}
         endISODate={startISODate}
@@ -40,20 +40,13 @@ describe('DateField', () => {
         readonly={true}
       />,
     );
-    rerenderDateField = rerender;
-  });
-
-  it('should render icon', () => {
     expect(screen.getByText(icon)).toBeInTheDocument();
   });
   it('should render error message', () => {
-    expect(screen.getByText(errorMessage)).toBeInTheDocument();
-  });
-  it('should render end date field if it is multi day event', () => {
-    rerenderDateField(
+    renderWithProviders(
       <DateField
         startISODate={startISODate}
-        endISODate={endISODateMultiDay}
+        endISODate={startISODate}
         errorMessage={errorMessage}
         className={{ wrapper: '', field: '' }}
         onCellClick={onCellClick}
@@ -61,72 +54,108 @@ describe('DateField', () => {
         readonly={true}
       />,
     );
-    const dateField = screen.getByLabelText('End date');
-    expect(dateField).toBeInTheDocument();
-    expect(dateField.id).toBe('End date');
-    expect(dateField).toHaveRole('textbox');
+    expect(screen.getByText(errorMessage)).toBeInTheDocument();
   });
 
-  describe('Date field', () => {
-    it('should render start date field with label', () => {
-      const startDateField = screen.getByLabelText('Start date');
-      expect(startDateField).toBeInTheDocument();
-      expect(startDateField.id).toBe('Start date');
+  describe('Multi day', () => {
+    beforeEach(() => {
+      renderWithProviders(
+        <DateField
+          startISODate={startISODate}
+          endISODate={endISODateMultiDay}
+          errorMessage={errorMessage}
+          className={{ wrapper: '', field: '' }}
+          onCellClick={onCellClick}
+          icon={<>{icon}</>}
+          readonly={true}
+        />,
+      );
     });
-    it('should not render end date field if it is single day event', () => {
-      const endDateField = screen.queryByLabelText('End date');
-      expect(endDateField).not.toBeInTheDocument();
+
+    it('should render end date field if it is multi day event', () => {
+      const dateField = screen.getByLabelText('End date');
+      expect(dateField).toBeInTheDocument();
+      expect(dateField.id).toBe('End date');
+      expect(dateField).toHaveRole('textbox');
     });
-    it('should render start date field as input', () => {
-      const startDateField = screen.getByRole('textbox', {
-        name: 'Start date',
+    it('should render end date field with read only properties as true', () => {
+      const endDateField = screen.getByLabelText('End date');
+      expect(endDateField).toHaveAttribute('readonly');
+      expect(endDateField).toHaveAttribute('aria-readonly', 'true');
+    });
+  });
+  describe('Same day', () => {
+    beforeEach(() => {
+      renderWithProviders(
+        <DateField
+          startISODate={startISODate}
+          endISODate={startISODate}
+          errorMessage={errorMessage}
+          className={{ wrapper: '', field: '' }}
+          onCellClick={onCellClick}
+          icon={<>{icon}</>}
+          readonly={true}
+        />,
+      );
+    });
+
+    describe('Date field', () => {
+      it('should render start date field with label', () => {
+        const startDateField = screen.getByLabelText('Start date');
+        expect(startDateField).toBeInTheDocument();
+        expect(startDateField.id).toBe('Start date');
       });
-      expect(startDateField).toBeInTheDocument();
-    });
-    it('should render start date field with read only properties as true', () => {
-      const startDateField = screen.getByLabelText('Start date');
-      expect(startDateField).toHaveAttribute('readonly');
-      expect(startDateField).toHaveAttribute('aria-readonly', 'true');
-    });
-    // it('should render end date field with read only properties as true', () => {
-    //   const endDateField = screen.getByLabelText('End date');
-    //   expect(endDateField).toHaveAttribute('readonly');
-    //   expect(endDateField).toHaveAttribute('aria-readonly', 'true');
-    // });
-    // // it('should render date field with aria error message', () => {
-    // //   const dateField = screen.getByLabelText('Start date');
-    // //   expect(dateField).toHaveAttribute('aria-errormessage', errorMessage);
-    // // });
-    // // it('should call date field on click function', async () => {
-    // //   const dateField = screen.getByLabelText('Start date');
-    // //   await userEvent.click(dateField);
-    // //   expect(onCellClick.startDate).toHaveBeenCalled();
-    // // });
-  });
+      it('should not render end date field if it is single day event', () => {
+        const endDateField = screen.queryByLabelText('End date');
+        expect(endDateField).not.toBeInTheDocument();
+      });
+      it('should render start date field as input', () => {
+        const startDateField = screen.getByRole('textbox', {
+          name: 'Start date',
+        });
+        expect(startDateField).toBeInTheDocument();
+      });
+      it('should render start date field with read only properties as true', () => {
+        const startDateField = screen.getByLabelText('Start date');
+        expect(startDateField).toHaveAttribute('readonly');
+        expect(startDateField).toHaveAttribute('aria-readonly', 'true');
+      });
 
-  // describe('Hour field', () => {
-  //   it('should render hour field with label', () => {
-  //     const hourField = screen.getByLabelText(label.hourField);
-  //     expect(hourField).toBeInTheDocument();
-  //     expect(hourField.id).toBe(label.hourField);
-  //   });
-  //   it('should render hour field as input', () => {
-  //     const hourField = screen.getByRole('textbox', { name: label.hourField });
-  //     expect(hourField).toBeInTheDocument();
-  //   });
-  //   it('should render hour field with read only properties as true', () => {
-  //     const hourField = screen.getByLabelText(label.hourField);
-  //     expect(hourField).toHaveAttribute('readonly');
-  //     expect(hourField).toHaveAttribute('aria-readonly', 'true');
-  //   });
-  //   it('should render hour field with aria error message', () => {
-  //     const hourField = screen.getByLabelText(label.hourField);
-  //     expect(hourField).toHaveAttribute('aria-errormessage', errorMessage);
-  //   });
-  //   it('should call hour field on click function', async () => {
-  //     const hourField = screen.getByLabelText(label.hourField);
-  //     await userEvent.click(hourField);
-  //     expect(onClick.hourField).toHaveBeenCalled();
-  //   });
-  // });
+      // it('should render date field with aria error message', () => {
+      //   const dateField = screen.getByLabelText('Start date');
+      //   expect(dateField).toHaveAttribute('aria-errormessage', errorMessage);
+      // });
+      // it('should call date field on click function', async () => {
+      //   const dateField = screen.getByLabelText('Start date');
+      //   await userEvent.click(dateField);
+      //   expect(onCellClick.startDate).toHaveBeenCalled();
+      // });
+    });
+
+    // describe('Hour field', () => {
+    //   it('should render hour field with label', () => {
+    //     const hourField = screen.getByLabelText(label.hourField);
+    //     expect(hourField).toBeInTheDocument();
+    //     expect(hourField.id).toBe(label.hourField);
+    //   });
+    //   it('should render hour field as input', () => {
+    //     const hourField = screen.getByRole('textbox', { name: label.hourField });
+    //     expect(hourField).toBeInTheDocument();
+    //   });
+    //   it('should render hour field with read only properties as true', () => {
+    //     const hourField = screen.getByLabelText(label.hourField);
+    //     expect(hourField).toHaveAttribute('readonly');
+    //     expect(hourField).toHaveAttribute('aria-readonly', 'true');
+    //   });
+    //   it('should render hour field with aria error message', () => {
+    //     const hourField = screen.getByLabelText(label.hourField);
+    //     expect(hourField).toHaveAttribute('aria-errormessage', errorMessage);
+    //   });
+    //   it('should call hour field on click function', async () => {
+    //     const hourField = screen.getByLabelText(label.hourField);
+    //     await userEvent.click(hourField);
+    //     expect(onClick.hourField).toHaveBeenCalled();
+    //   });
+    // });
+  });
 });
