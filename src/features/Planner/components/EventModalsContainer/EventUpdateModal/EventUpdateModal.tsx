@@ -45,21 +45,18 @@ type DateInfo = {
   minutes: number;
 };
 
-type DatePicker = {
-  startDate?: string;
-  endDate?: string;
-};
+// type DatePicker = {
+//   startDate?: string;
+//   endDate?: string;
+// };
 
 export const EventUpdateModal = memo(() => {
-  const [datePicker, setDatePicker] = useState<DatePicker>({});
+  // const [datePicker, setDatePicker] = useState<DatePicker>({});
   const dispatch = useDispatch();
   const locale = useSelector(getLocaleLanguage());
   const eventOnUpdateMode = useSelector(getCurrentEventOnUpdateMode());
   const isOpen = (eventOnUpdateMode && eventOnUpdateMode.event) != null;
   const titleLabel = 'Title';
-  const startDateLabel = 'Start date';
-  const startHourLabel = 'Start hour';
-  const endDateLabel = 'End date';
   const initialStartDate = eventOnUpdateMode?.event?.startDate
     ? new Date(eventOnUpdateMode?.event?.startDate)
     : undefined;
@@ -96,10 +93,10 @@ export const EventUpdateModal = memo(() => {
     : new Date();
   const startDateInfo = getDateInfo(validStartDate, locale);
   const endDateInfo = getDateInfo(validEndDate, locale);
-  const openStartDatePicker =
-    datePicker.startDate && isValidDate(new Date(datePicker.startDate));
-  const openEndDatePicker =
-    datePicker.endDate && isValidDate(new Date(datePicker.endDate));
+  // const openStartDatePicker =
+  //   datePicker.startDate && isValidDate(new Date(datePicker.startDate));
+  // const openEndDatePicker =
+  //   datePicker.endDate && isValidDate(new Date(datePicker.endDate));
 
   const closeOtherModals = useCallback(() => {
     dispatch(clearEventOnViewMode()); // closes View Event Details modal
@@ -147,6 +144,28 @@ export const EventUpdateModal = memo(() => {
         {/* Start Date */}
         <>
           <DateField
+            errorMessage={errors.startDate}
+            className={{ wrapper: styles.field, field: modalStyles.box }}
+            startISODate={startISODate}
+            endISODate={endISODate}
+            icon={<AccessTimeIcon />}
+            readonly
+            onCellClick={{
+              startDate: (cellYear, cellMonth, cellDay) => {
+                updateEventField(
+                  'startDate',
+                  getDateISOString(new Date(cellYear, cellMonth, cellDay)),
+                );
+              },
+              endDate: (cellYear, cellMonth, cellDay) => {
+                updateEventField(
+                  'endDate',
+                  getDateISOString(new Date(cellYear, cellMonth, cellDay)),
+                );
+              },
+            }}
+          />
+          {/* <DateField
             label={{
               dateField: startDateLabel,
               hourField: startHourLabel,
@@ -169,8 +188,8 @@ export const EventUpdateModal = memo(() => {
             }}
             icon={<AccessTimeIcon />}
             readonly
-          />
-          {openStartDatePicker && (
+          /> */}
+          {/* {openStartDatePicker && (
             <Calendar
               compactMode
               onCellClick={(cellYear, cellMonth, cellDay) => {
@@ -180,12 +199,12 @@ export const EventUpdateModal = memo(() => {
                 );
               }}
             />
-          )}
+          )} */}
         </>
 
         {/* End Date */}
         <>
-          <div className={styles.field}>
+          {/* <div className={styles.field}>
             <AccessTimeIcon />
             <input
               id={endDateLabel}
@@ -211,9 +230,9 @@ export const EventUpdateModal = memo(() => {
               aria-readonly="true"
               readOnly
             />
-          </div>
-          {errors.endDate && <FieldError errorMessage={errors.endDate} />}
-          {openEndDatePicker && (
+          </div> */}
+          {/* {errors.endDate && <FieldError errorMessage={errors.endDate} />} */}
+          {/* {openEndDatePicker && (
             <>
               <table className={styles.compactTable}>
                 <CalendarWeeks compactMode />
@@ -228,7 +247,7 @@ export const EventUpdateModal = memo(() => {
                 />
               </table>
             </>
-          )}
+          )} */}
         </>
       </>
     </Modal>
