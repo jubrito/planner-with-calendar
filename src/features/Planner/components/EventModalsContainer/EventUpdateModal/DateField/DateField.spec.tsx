@@ -48,4 +48,8 @@ describe('DateField', () => {
     expect(dateField).toHaveAttribute('readonly');
     expect(dateField).toHaveAttribute('aria-readonly', 'true');
   });
+  it('should render date field with aria error message', () => {
+    const dateField = screen.getByLabelText(label.dateField);
+    expect(dateField).toHaveAttribute('aria-errormessage', errorMessage);
+  });
 });
