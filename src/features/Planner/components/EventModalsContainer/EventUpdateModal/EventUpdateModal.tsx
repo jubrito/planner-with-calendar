@@ -32,12 +32,15 @@ import { isValidDate } from '../../../../../utils/checkers';
 import { FieldError } from '../../../../../components/FieldError/FieldError';
 import CalendarCells from '../../../../../components/Calendar/CalendarCells/CalendarCells';
 import CalendarWeeks from '../../../../../components/Calendar/CalendarWeeks/CalendarWeeks';
+import { DateField } from './DateField/DateField';
 
 type DateInfo = {
   dayOfTheWeek: string;
   monthName: string;
   day: number;
   label: string;
+  hour: number;
+  minutes: number;
 };
 
 type DatePicker = {
@@ -52,8 +55,9 @@ export const EventUpdateModal = memo(() => {
   const eventOnUpdateMode = useSelector(getCurrentEventOnUpdateMode());
   const isOpen = (eventOnUpdateMode && eventOnUpdateMode.event) != null;
   const titleLabel = 'Title';
-  const startDateLabel = 'Start Date';
-  const endDateLabel = 'End Date';
+  const startDateLabel = 'Start date';
+  const startHourLabel = 'Start hour';
+  const endDateLabel = 'End date';
   const initialStartDate = eventOnUpdateMode?.event?.startDate
     ? new Date(eventOnUpdateMode?.event?.startDate)
     : undefined;
@@ -140,34 +144,30 @@ export const EventUpdateModal = memo(() => {
 
         {/* Start Date */}
         <>
-          <div className={styles.field}>
-            <AccessTimeIcon />
-            <input
-              id={startDateLabel}
-              aria-label={startDateLabel}
-              className={modalStyles.box}
-              value={startDateInfo.label}
-              onClick={() =>
+          <DateField
+            label={{
+              dateField: startDateLabel,
+              hourField: startHourLabel,
+            }}
+            value={{
+              dateField: startDateInfo.label,
+              hourField: startDateInfo.hour,
+            }}
+            errorMessage={errors.startDate}
+            className={{ wrapper: styles.field, field: modalStyles.box }}
+            onClick={{
+              dateField: () => {
                 setDatePicker({
                   startDate: startISODate,
-                })
-              }
-              aria-readonly="true"
-              readOnly
-              aria-errormessage={errors.startDate}
-            />
-            {errors.startDate && <FieldError errorMessage={errors.startDate} />}
-            <input
-              id={startDateLabel}
-              aria-label={startDateLabel}
-              className={modalStyles.box}
-              value={'10:00am'}
-              aria-errormessage={errors.startDate}
-              aria-readonly="true"
-              readOnly
-            />
-          </div>
-          {errors.startDate && <FieldError errorMessage={errors.startDate} />}
+                });
+              },
+              hourField: () => {
+                console.log('field clicked, startISODate:', startISODate);
+              },
+            }}
+            icon={<AccessTimeIcon />}
+            readonly
+          />
           {openStartDatePicker && (
             <>
               <table className={styles.compactTable}>
@@ -248,6 +248,8 @@ const getDateInfo = (validDate: Date, locale: LocaleLanguage): DateInfo => ({
   monthName: getMonthName(locale, validDate),
   day: getDay(validDate),
   label: getFullDateLabel(locale, validDate),
+  hour: validDate.getHours(),
+  minutes: validDate.getMinutes(),
 });
 
 const getFullDateLabel = (locale: LocaleLanguage, date: Date) => {
