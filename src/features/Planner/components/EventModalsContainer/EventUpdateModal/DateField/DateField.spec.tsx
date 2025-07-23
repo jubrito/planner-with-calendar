@@ -69,5 +69,9 @@ describe('DateField', () => {
       expect(hourField).toBeInTheDocument();
       expect(hourField.id).toBe(label.hourField);
     });
+    it('should render hour field as input', () => {
+      const hourField = screen.getByRole('textbox', { name: label.hourField });
+      expect(hourField).toBeInTheDocument();
+    });
   });
 });
