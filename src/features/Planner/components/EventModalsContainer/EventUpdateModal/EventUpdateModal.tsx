@@ -9,41 +9,17 @@ import { useDispatch } from 'react-redux';
 import { useManageEventUpdates } from '../../../../../hooks/useManageEventUpdates';
 import { useSelector } from 'react-redux';
 import { getCurrentEventOnUpdateMode } from '../../../../../redux/slices/eventSlice/selectors';
-import {
-  getDateISOString,
-  getDay,
-  getFormattedDateString,
-  getMonthIndex,
-  getMonthName,
-  getYear,
-} from '../../../../../utils/calendar/utils';
+import { getDateISOString } from '../../../../../utils/calendar/utils';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import styles from './EventUpdateModal.module.scss';
 import modalStyles from './../../../../../components/Modal/modal.module.scss';
-import { getWeekDayName } from '../../../../../utils/calendar/weeks';
 import { getLocaleLanguage } from '../../../../../redux/slices/localeSlice/selectors';
-import {
-  IntlDateTimeFormatLong,
-  IntlDateTimeFormatNumeric,
-} from '../../../../../utils/constants';
-import { LocaleLanguage } from '../../../../../types/locale/types';
-import { isValidDate } from '../../../../../utils/checkers';
 import { FieldError } from '../../../../../components/FieldError/FieldError';
 import { DateField } from './DateField/DateField';
 
-type DateInfo = {
-  dayOfTheWeek: string;
-  monthName: string;
-  day: number;
-  label: string;
-  hour: number;
-  minutes: number;
-};
-
 export const EventUpdateModal = memo(() => {
   const dispatch = useDispatch();
-  const locale = useSelector(getLocaleLanguage());
   const eventOnUpdateMode = useSelector(getCurrentEventOnUpdateMode());
   const isOpen = (eventOnUpdateMode && eventOnUpdateMode.event) != null;
   const titleLabel = 'Title';
@@ -56,9 +32,9 @@ export const EventUpdateModal = memo(() => {
 
   const {
     eventFields,
-    isDirty,
     errors,
     updateEventField,
+    isDirty,
     findEventFieldsErrors,
   } = useManageEventUpdates({
     ...eventOnUpdateMode?.event,
@@ -67,12 +43,12 @@ export const EventUpdateModal = memo(() => {
   });
 
   const {
-    id,
     title,
-    description,
-    location,
     startDate: startISODate,
     endDate: endISODate,
+    id,
+    description,
+    location,
   } = eventFields;
   const style = { top: eventOnUpdateMode?.top, maxWidth: '100%' };
 
@@ -140,27 +116,3 @@ export const EventUpdateModal = memo(() => {
     </Modal>
   );
 });
-
-const getDateInfo = (validDate: Date, locale: LocaleLanguage): DateInfo => ({
-  dayOfTheWeek: getWeekDayName(
-    getYear(validDate),
-    getMonthIndex(locale, validDate),
-    getDay(validDate),
-    locale,
-  ),
-  monthName: getMonthName(locale, validDate),
-  day: getDay(validDate),
-  label: getFullDateLabel(locale, validDate),
-  hour: validDate.getHours(),
-  minutes: validDate.getMinutes(),
-});
-
-const getFullDateLabel = (locale: LocaleLanguage, date: Date) => {
-  const formattedLabel = getFormattedDateString(locale, date, {
-    weekday: IntlDateTimeFormatLong,
-    month: IntlDateTimeFormatLong,
-    day: IntlDateTimeFormatNumeric,
-  });
-  const firstCharInUpperCase = formattedLabel.charAt(0).toUpperCase();
-  return firstCharInUpperCase + formattedLabel.slice(1);
-};
