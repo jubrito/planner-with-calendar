@@ -172,11 +172,16 @@ describe('DateField', () => {
         });
         expect(endHourField).toBeInTheDocument();
       });
-      // it('should render hour field with read only properties as true', () => {
-      //   const hourField = screen.getByLabelText('Start hour');
-      //   expect(hourField).toHaveAttribute('readonly');
-      //   expect(hourField).toHaveAttribute('aria-readonly', 'true');
-      // });
+      it('should render start hour field with read only properties as true', () => {
+        const startHourField = screen.getByLabelText('Start hour');
+        expect(startHourField).toHaveAttribute('readonly');
+        expect(startHourField).toHaveAttribute('aria-readonly', 'true');
+      });
+      it('should render end hour field with read only properties as true', () => {
+        const endHourField = screen.getByLabelText('End hour');
+        expect(endHourField).toHaveAttribute('readonly');
+        expect(endHourField).toHaveAttribute('aria-readonly', 'true');
+      });
       // it('should render hour field with aria error message', () => {
       //   const hourField = screen.getByLabelText('Start hour');
       //   expect(hourField).toHaveAttribute('aria-errormessage', errorMessage);
