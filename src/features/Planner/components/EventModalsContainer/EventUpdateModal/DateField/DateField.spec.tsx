@@ -78,5 +78,9 @@ describe('DateField', () => {
       expect(hourField).toHaveAttribute('readonly');
       expect(hourField).toHaveAttribute('aria-readonly', 'true');
     });
+    it('should render hour field with aria error message', () => {
+      const hourField = screen.getByLabelText(label.hourField);
+      expect(hourField).toHaveAttribute('aria-errormessage', errorMessage);
+    });
   });
 });
