@@ -182,10 +182,17 @@ describe('DateField', () => {
         expect(endHourField).toHaveAttribute('readonly');
         expect(endHourField).toHaveAttribute('aria-readonly', 'true');
       });
-      // it('should render hour field with aria error message', () => {
-      //   const hourField = screen.getByLabelText('Start hour');
-      //   expect(hourField).toHaveAttribute('aria-errormessage', errorMessage);
-      // });
+      it('should render start hour field with aria error message', () => {
+        const startHourField = screen.getByLabelText('Start hour');
+        expect(startHourField).toHaveAttribute(
+          'aria-errormessage',
+          errorMessage,
+        );
+      });
+      it('should render end hour field with aria error message', () => {
+        const endHourField = screen.getByLabelText('End hour');
+        expect(endHourField).toHaveAttribute('aria-errormessage', errorMessage);
+      });
       // it('should call hour field on click function', async () => {
       //   const hourField = screen.getByLabelText('Start hour');
       //   await userEvent.click(hourField);
