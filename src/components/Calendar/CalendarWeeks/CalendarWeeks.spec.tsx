@@ -13,9 +13,11 @@ describe('CalendarWeeks', () => {
       </table>,
     );
     getWeekDaysNames(localeLang).forEach((weekDay) => {
-      expect(
-        screen.getByRole('columnheader', { name: weekDay.long }),
-      ).toBeInTheDocument();
+      const weekNameElement = screen.getByRole('columnheader', {
+        name: weekDay.long,
+      });
+      expect(weekNameElement).toBeInTheDocument();
+      expect(weekNameElement.textContent).toContain(weekDay.short);
     });
   });
   it('should display initials instead of long week name if compact mode is true', () => {
