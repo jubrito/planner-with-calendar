@@ -82,5 +82,10 @@ describe('DateField', () => {
       const hourField = screen.getByLabelText(label.hourField);
       expect(hourField).toHaveAttribute('aria-errormessage', errorMessage);
     });
+    it('should call hour field on click function', async () => {
+      const hourField = screen.getByLabelText(label.hourField);
+      await userEvent.click(hourField);
+      expect(onClick.hourField).toHaveBeenCalled();
+    });
   });
 });
