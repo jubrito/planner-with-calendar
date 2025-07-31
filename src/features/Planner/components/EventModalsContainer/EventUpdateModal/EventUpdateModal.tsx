@@ -17,6 +17,7 @@ import modalStyles from './../../../../../components/Modal/modal.module.scss';
 import { getLocaleLanguage } from '../../../../../redux/slices/localeSlice/selectors';
 import { FieldError } from '../../../../../components/FieldError/FieldError';
 import { DateField } from './DateField/DateField';
+import { updateDayViewISODate } from '../../../../../redux/slices/dateSlice';
 
 export const EventUpdateModal = memo(() => {
   const dispatch = useDispatch();
@@ -98,13 +99,15 @@ export const EventUpdateModal = memo(() => {
           readonly
           onCellClick={{
             startDate: (cellYear, cellMonth, cellDay) => {
-              updateEventField(
-                'startDate',
-                getDateISOString(new Date(cellYear, cellMonth, cellDay)),
-              );
-              updateEventField(
-                'endDate',
-                getDateISOString(new Date(cellYear, cellMonth, cellDay)),
+              const selectedDate = new Date(cellYear, cellMonth, cellDay);
+              updateEventField('startDate', getDateISOString(selectedDate));
+              updateEventField('endDate', getDateISOString(selectedDate));
+              dispatch(
+                updateDayViewISODate({
+                  year: cellYear,
+                  month: cellMonth,
+                  day: cellDay,
+                }),
               );
             },
             endDate: (cellYear, cellMonth, cellDay) => {
