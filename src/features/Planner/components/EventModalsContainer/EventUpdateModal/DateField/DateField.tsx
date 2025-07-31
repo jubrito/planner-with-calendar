@@ -10,6 +10,7 @@ import {
 } from '../../../../../../utils/calendar/utils';
 import { getWeekDayName } from '../../../../../../utils/calendar/weeks';
 import {
+  enterKey,
   IntlDateTimeFormatLong,
   IntlDateTimeFormatNumeric,
 } from '../../../../../../utils/constants';
@@ -116,6 +117,12 @@ export const DateField = ({
             className={className.field}
             value={startLabel}
             onClick={() =>
+              setDatePicker({
+                startDate: startISODate,
+              })
+            }
+            onKeyDown={(event) =>
+              event.key === enterKey &&
               setDatePicker({
                 startDate: startISODate,
               })
