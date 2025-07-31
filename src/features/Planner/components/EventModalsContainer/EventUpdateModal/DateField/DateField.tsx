@@ -20,6 +20,7 @@ import { useState } from 'react';
 import { Calendar } from '../../../../../../components/Calendar/Calendar/Calendar';
 import { Months } from '../../../../../../types/calendar/enums';
 import { isSameDayEvent } from '../../../../../../utils/utils';
+import styles from './_date-field.module.scss';
 
 type DateInfo = {
   dayOfTheWeek: string;
@@ -111,26 +112,37 @@ export const DateField = ({
       <div className={className.wrapper}>
         {icon}
         <>
-          <input
-            id={startDateLabel}
-            aria-label={startDateLabel}
-            className={className.field}
-            value={startLabel}
-            onClick={() =>
-              setDatePicker({
-                startDate: startISODate,
-              })
-            }
-            onKeyDown={(event) =>
-              event.key === enterKey &&
-              setDatePicker({
-                startDate: startISODate,
-              })
-            }
-            aria-readonly={`${readonly}`}
-            readOnly={readonly}
-            aria-errormessage={errorMessage}
-          />
+          <div className={styles.dateBox}>
+            <input
+              id={startDateLabel}
+              aria-label={startDateLabel}
+              className={className.field}
+              value={startLabel}
+              onClick={() =>
+                setDatePicker({
+                  startDate: startISODate,
+                })
+              }
+              onKeyDown={(event) =>
+                event.key === enterKey &&
+                setDatePicker({
+                  startDate: startISODate,
+                })
+              }
+              aria-readonly={`${readonly}`}
+              readOnly={readonly}
+              aria-errormessage={errorMessage}
+            />
+            {openStartDatePicker && (
+              <Calendar
+                compactMode
+                onCellClick={(cellYear, cellMonth, cellDay) => {
+                  const monthZeroIndexed = cellMonth - 1;
+                  onCellClick.startDate(cellYear, monthZeroIndexed, cellDay);
+                }}
+              />
+            )}
+          </div>
           <input
             id={startHourLabel}
             aria-label={startHourLabel}
@@ -182,15 +194,7 @@ export const DateField = ({
           {errorMessage && <FieldError errorMessage={errorMessage} />}
         </>
       </div>
-      {openStartDatePicker && (
-        <Calendar
-          compactMode
-          onCellClick={(cellYear, cellMonth, cellDay) => {
-            const monthZeroIndexed = cellMonth - 1;
-            onCellClick.startDate(cellYear, monthZeroIndexed, cellDay);
-          }}
-        />
-      )}
+
       {openEndDatePicker && (
         <Calendar
           compactMode

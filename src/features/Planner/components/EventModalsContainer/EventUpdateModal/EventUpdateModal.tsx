@@ -51,7 +51,11 @@ export const EventUpdateModal = memo(() => {
     description,
     location,
   } = eventFields;
-  const style = { top: eventOnUpdateMode?.top, maxWidth: '100%' };
+  const style = {
+    top: eventOnUpdateMode?.top,
+    maxWidth: '100%',
+    overflow: 'visible',
+  };
 
   const closeOtherModals = useCallback(() => {
     dispatch(clearEventOnViewMode()); // closes View Event Details modal
