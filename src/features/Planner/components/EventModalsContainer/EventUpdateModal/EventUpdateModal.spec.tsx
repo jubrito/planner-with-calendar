@@ -133,8 +133,13 @@ describe('EventUpdateModal', () => {
     expect(updateViewEventDetailsModalIsClosed).toBeUndefined();
   });
   it.todo('should render start date input');
-  it.todo('should update start date calendar when clicking on calendar cells');
-  it.todo('should update end date calendar when clicking on calendar cells');
+  it.todo(
+    'should update start and end date calendar when clicking on start calendar cells',
+  );
+  it.todo('should update day view date when clicking on start calendar cells');
+  it.todo(
+    'should update end date calendar when clicking on end calendar cells',
+  );
   it.todo('should close end date calendar when opening start date calendar');
   it.todo('should close start date calendar when opening end date calendar');
   it.todo('should display fields errors');
