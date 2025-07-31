@@ -98,9 +98,12 @@ export const EventUpdateModal = memo(() => {
           readonly
           onCellClick={{
             startDate: (cellYear, cellMonth, cellDay) => {
-              console.log('juju');
               updateEventField(
                 'startDate',
+                getDateISOString(new Date(cellYear, cellMonth, cellDay)),
+              );
+              updateEventField(
+                'endDate',
                 getDateISOString(new Date(cellYear, cellMonth, cellDay)),
               );
             },
