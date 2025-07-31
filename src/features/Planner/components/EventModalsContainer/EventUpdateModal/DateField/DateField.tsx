@@ -175,6 +175,15 @@ export const DateField = ({
               readOnly={readonly}
               aria-errormessage={errorMessage}
             />
+            {openEndDatePicker && (
+              <Calendar
+                compactMode
+                onCellClick={(cellYear, cellMonth, cellDay) => {
+                  const monthZeroIndexed = cellMonth - 1;
+                  onCellClick.endDate(cellYear, monthZeroIndexed, cellDay);
+                }}
+              />
+            )}
             <input
               id={endHourLabel}
               aria-label={endHourLabel}
@@ -191,16 +200,6 @@ export const DateField = ({
           </div>
         </div>
       </div>
-
-      {openEndDatePicker && (
-        <Calendar
-          compactMode
-          onCellClick={(cellYear, cellMonth, cellDay) => {
-            const monthZeroIndexed = cellMonth - 1;
-            onCellClick.endDate(cellYear, monthZeroIndexed, cellDay);
-          }}
-        />
-      )}
     </>
   );
 };
