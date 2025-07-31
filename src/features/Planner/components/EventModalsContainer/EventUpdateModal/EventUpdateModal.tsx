@@ -53,7 +53,7 @@ export const EventUpdateModal = memo(() => {
   } = eventFields;
   const style = {
     top: eventOnUpdateMode?.top,
-    maxWidth: '100%',
+    maxWidth: 'max-content',
     overflow: 'visible',
   };
 
