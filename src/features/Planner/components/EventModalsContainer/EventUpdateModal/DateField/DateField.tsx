@@ -156,6 +156,12 @@ export const DateField = ({
                   endDate: endISODate,
                 })
               }
+              onKeyDown={(event) =>
+                event.key === enterKey &&
+                setDatePicker({
+                  startDate: startISODate,
+                })
+              }
               aria-readonly={`${readonly}`}
               readOnly={readonly}
               aria-errormessage={errorMessage}
