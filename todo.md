@@ -1,6 +1,9 @@
 # Next steps (v1):
 
-- open calendar on key press
+- close calendar
+  - when selecting date
+  - when clicking outside calendar
+- multi day checkbox shows start/end date and time on top of each other
 - review date field and event updates modal to add tests
 
 - create selector dropdown for start/end hours
