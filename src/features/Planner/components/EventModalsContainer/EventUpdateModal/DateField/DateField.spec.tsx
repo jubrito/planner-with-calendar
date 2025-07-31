@@ -202,8 +202,10 @@ describe('DateField', () => {
         expect(endHourField).toHaveAttribute('aria-errormessage', errorMessage);
       });
 
-      it.todo('should call start hour field on click function');
-      it.todo('should call end hour field on click function');
+      it.todo('should set start hour field on click function');
+      it.todo('should set end hour field on click function');
+      it.todo('should open calendar when using enter key on start date');
+      it.todo('should open calendar when using enter key on end date');
     });
   });
 });
