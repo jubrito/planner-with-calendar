@@ -7,12 +7,12 @@
 
   input {
     text-align: center;
-    &:nth-child(odd) {
+    &:nth-of-type(odd) {
       width: 100%;
       max-width: 130px;
     }
-    &:nth-child(even) {
-      max-width: 50px;
+    &:nth-of-type(even) {
+      max-width: 40px;
     }
   }
 
