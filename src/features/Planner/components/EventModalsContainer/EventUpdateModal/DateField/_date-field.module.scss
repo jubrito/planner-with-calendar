@@ -1,13 +1,30 @@
+@use '../../../../../../styles/variables' as variables;
+
 .dateBox {
-  position: relative;
+  display: flex;
+  gap: variables.$gap;
+  width: 100%;
+
+  input {
+    text-align: center;
+    &:nth-child(odd) {
+      width: 100%;
+      max-width: 130px;
+    }
+    &:nth-child(even) {
+      max-width: 50px;
+    }
+  }
 
   table {
     position: fixed;
-    // content: '';
-    // position: absolute;
-    // left: 0;
-    // bottom: 0;
-    // width: 100%;
-    // height: fit-content;
+    margin-top: 30px;
   }
+}
+
+.datesContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: variables.$gap;
 }

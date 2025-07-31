@@ -12,7 +12,7 @@ import { getCurrentEventOnUpdateMode } from '../../../../../redux/slices/eventSl
 import { getDateISOString } from '../../../../../utils/calendar/utils';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import styles from './EventUpdateModal.module.scss';
+import styles from './_event-update-modal.module.scss';
 import modalStyles from './../../../../../components/Modal/modal.module.scss';
 import { getLocaleLanguage } from '../../../../../redux/slices/localeSlice/selectors';
 import { FieldError } from '../../../../../components/FieldError/FieldError';

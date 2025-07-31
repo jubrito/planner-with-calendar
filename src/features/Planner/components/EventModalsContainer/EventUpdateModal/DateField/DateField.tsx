@@ -19,7 +19,6 @@ import { isValidDate } from '../../../../../../utils/checkers';
 import { useState } from 'react';
 import { Calendar } from '../../../../../../components/Calendar/Calendar/Calendar';
 import { Months } from '../../../../../../types/calendar/enums';
-import { isSameDayEvent } from '../../../../../../utils/utils';
 import styles from './_date-field.module.scss';
 
 type DateInfo = {
@@ -82,10 +81,10 @@ export const DateField = ({
 
   const {
     label: startLabel,
-    year: startYear,
-    day: startDay,
-    month: startMonth,
     hour: startHour,
+    // year: startYear,
+    // day: startDay,
+    // month: startMonth,
     // minutes: startMinutes,
     // monthName: startMonthName,
     // dayOfTheWeek: startDayOfTheWeek,
@@ -94,24 +93,24 @@ export const DateField = ({
   const {
     hour: endHour,
     label: endLabel,
-    year: endYear,
-    day: endDay,
-    month: endMonth,
+    // year: endYear,
+    // day: endDay,
+    // month: endMonth,
     // minutes: endMinutes,
     // monthName: endMonthName,
     // dayOfTheWeek: endDayOfTheWeek,
   } = getDateInfo(validEndDate, locale);
 
-  const eventisSameDay = isSameDayEvent(
-    { year: startYear, month: startMonth, day: startDay },
-    { year: endYear, month: endMonth, day: endDay },
-  );
+  // const eventisSameDay = isSameDayEvent(
+  //   { year: startYear, month: startMonth, day: startDay },
+  //   { year: endYear, month: endMonth, day: endDay },
+  // );
 
   return (
     <>
       <div className={className.wrapper}>
         {icon}
-        <>
+        <div className={styles.datesContainer}>
           <div className={styles.dateBox}>
             <input
               id={startDateLabel}
@@ -142,22 +141,20 @@ export const DateField = ({
                 }}
               />
             )}
+            <input
+              id={startHourLabel}
+              aria-label={startHourLabel}
+              className={className.field}
+              value={startHour}
+              onClick={() => {
+                console.log('field clicked');
+              }}
+              aria-readonly={readonly}
+              readOnly={readonly}
+              aria-errormessage={errorMessage}
+            />
           </div>
-          <input
-            id={startHourLabel}
-            aria-label={startHourLabel}
-            className={className.field}
-            value={startHour}
-            onClick={() => {
-              console.log('field clicked');
-            }}
-            aria-readonly={readonly}
-            readOnly={readonly}
-            aria-errormessage={errorMessage}
-          />
-        </>
-        <>
-          {!eventisSameDay && (
+          <div className={styles.dateBox}>
             <input
               id={endDateLabel}
               aria-label={endDateLabel}
@@ -178,21 +175,21 @@ export const DateField = ({
               readOnly={readonly}
               aria-errormessage={errorMessage}
             />
-          )}
-          <input
-            id={endHourLabel}
-            aria-label={endHourLabel}
-            className={className.field}
-            value={endHour}
-            onClick={() => {
-              console.log('field clicked');
-            }}
-            aria-readonly={readonly}
-            readOnly={readonly}
-            aria-errormessage={errorMessage}
-          />
-          {errorMessage && <FieldError errorMessage={errorMessage} />}
-        </>
+            <input
+              id={endHourLabel}
+              aria-label={endHourLabel}
+              className={className.field}
+              value={endHour}
+              onClick={() => {
+                console.log('field clicked');
+              }}
+              aria-readonly={readonly}
+              readOnly={readonly}
+              aria-errormessage={errorMessage}
+            />
+            {errorMessage && <FieldError errorMessage={errorMessage} />}
+          </div>
+        </div>
       </div>
 
       {openEndDatePicker && (
