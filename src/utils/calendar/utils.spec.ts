@@ -15,6 +15,7 @@ import {
   getDayName,
   getDayOfWeek,
   getFormattedDateString,
+  getFullDateLabel,
   getFullDateTitle,
   getLastDayOfPreviousMonth,
   getMonthIndex,
@@ -420,13 +421,17 @@ describe('utils', () => {
   describe('getFullDateLabel', () => {
     it('should throw error if date is invalid', () => {
       expect(() =>
-        getMonthIndex(localeEnglish, new Date(year, month, 0 / 0)),
-      ).toThrow('Failed to get month index, date is invalid');
+        getFullDateLabel(localeEnglish, new Date(year, month, 0 / 0)),
+      ).toThrow('Failed to get date label, date is invalid');
     });
     it('should throw error if locale is invalid', () => {
-      expect(() => getMonthIndex(`${0}`, new Date(year, month, day))).toThrow(
-        'Failed to get month index, language is invalid',
-      );
+      expect(() =>
+        getFullDateLabel(`${0}`, new Date(year, month, day)),
+      ).toThrow('Failed to get date label, language is invalid');
+    });
+    it('should return full date label', () => {
+      const label = getFullDateLabel(localeEnglish, new Date(year, month, day));
+      expect(label).toBe('Monday, December 1');
     });
   });
 });
