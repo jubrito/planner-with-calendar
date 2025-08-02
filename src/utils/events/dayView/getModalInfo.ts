@@ -8,13 +8,13 @@ import {
   getTimeInformation,
 } from '../../calendar/utils';
 import { getWeekDayName } from '../../calendar/weeks';
-import { isValidDate } from '../../checkers';
 import {
   dashSeparator,
   IntlDateTimeFormat2Digit,
   IntlDateTimeFormatShort,
 } from '../../constants';
 import { isSameDayEvent } from '../../utils';
+import { validateDate } from '../../validations';
 
 export const getEventTitle = (
   sameDayContent: { date: string; time: string },
@@ -100,9 +100,9 @@ export const getEventModalContent = (
   endDate: EventOnCreate['end']['date'],
   locale: LocaleLanguage,
 ) => {
-  if (!isValidDate(new Date(startDate)) || !isValidDate(new Date(endDate))) {
-    throw new Error('Failed to get modal content, date is invalid');
-  }
+  const errorMessage = 'get modal content';
+  validateDate(new Date(startDate), errorMessage);
+  validateDate(new Date(endDate), errorMessage);
 
   const deserializedStartDate = new Date(startDate);
   const deserializedEndDate = new Date(endDate);
