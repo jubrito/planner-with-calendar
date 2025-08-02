@@ -1,15 +1,15 @@
 import { DateConfig } from '../../types/calendar/types';
-import { isValidLocale } from '../checkers';
 import { IntlDateTimeFormatLong, IntlDateTimeFormatShort } from '../constants';
 import { makeFirstLetterUppercase } from '../utils';
-import { validateDateTimeFormatRequirements } from '../validations';
+import {
+  validateDateTimeFormatRequirements,
+  validateLocale,
+} from '../validations';
 import { numberOfDaysOfTheWeek } from './constants';
 import { getDayName, getFormattedDateString } from './utils';
 
 export const getWeekDaysNames = (locale: string) => {
-  if (!isValidLocale(locale))
-    throw new Error('Failed to get week days names, language is invalid');
-
+  validateLocale(locale, 'get week days names');
   const date = new Date(0);
 
   return [...Array(numberOfDaysOfTheWeek).keys()].map((dayOfWeek) => {
