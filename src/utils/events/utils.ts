@@ -1,5 +1,5 @@
 import { getFormattedDateString } from '../calendar/utils';
-import { isValidDate } from '../checkers';
+import { validateDate } from '../validations';
 
 /**
  * Function to get id containing the year, month and day
@@ -7,9 +7,7 @@ import { isValidDate } from '../checkers';
  * @returns id on the format m/d/yy
  */
 export const formatDateIDFromDate = (ISODate: string) => {
-  if (!isValidDate(new Date(ISODate))) {
-    throw new Error('Failed to get date, date is invalid');
-  }
+  validateDate(new Date(ISODate), 'format date');
   const date = new Date(ISODate);
   return getFormattedDateString('en-US', date, {
     dateStyle: 'short',
