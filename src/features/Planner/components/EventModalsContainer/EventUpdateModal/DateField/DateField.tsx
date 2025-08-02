@@ -2,13 +2,9 @@ import { useSelector } from 'react-redux';
 import { FieldError } from '../../../../../../components/FieldError/FieldError';
 import { LocaleLanguage } from '../../../../../../types/locale/types';
 import {
-  getDay,
+  getDateInfo,
   getFormattedDateString,
-  getMonthIndex,
-  getMonthName,
-  getYear,
 } from '../../../../../../utils/calendar/utils';
-import { getWeekDayName } from '../../../../../../utils/calendar/weeks';
 import {
   enterKey,
   IntlDateTimeFormatLong,
@@ -20,17 +16,6 @@ import { useState } from 'react';
 import { Calendar } from '../../../../../../components/Calendar/Calendar/Calendar';
 import { Months } from '../../../../../../types/calendar/enums';
 import styles from './_date-field.module.scss';
-
-type DateInfo = {
-  dayOfTheWeek: string;
-  monthName: string;
-  day: number;
-  label: string;
-  hour: number;
-  minutes: number;
-  month: number;
-  year: number;
-};
 
 type DateFieldProps = {
   icon?: React.ReactElement;
@@ -147,7 +132,7 @@ export const DateField = ({
               className={className.field}
               value={startHour}
               onClick={() => {
-                console.log('field clicked');
+                console.log('field clicked startHour', startHour);
               }}
               aria-readonly={readonly}
               readOnly={readonly}
@@ -213,19 +198,3 @@ const getFullDateLabel = (locale: LocaleLanguage, date: Date) => {
   const firstCharInUpperCase = formattedLabel.charAt(0).toUpperCase();
   return firstCharInUpperCase + formattedLabel.slice(1);
 };
-
-const getDateInfo = (validDate: Date, locale: LocaleLanguage): DateInfo => ({
-  dayOfTheWeek: getWeekDayName(
-    getYear(validDate),
-    getMonthIndex(locale, validDate),
-    getDay(validDate),
-    locale,
-  ),
-  monthName: getMonthName(locale, validDate),
-  month: getMonthIndex(locale, validDate),
-  day: getDay(validDate),
-  label: getFullDateLabel(locale, validDate),
-  hour: validDate.getHours(),
-  minutes: validDate.getMinutes(),
-  year: getYear(validDate),
-});

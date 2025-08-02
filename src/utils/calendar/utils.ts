@@ -1,6 +1,7 @@
 import { WeekDays } from '../../types/calendar/enums';
 import {
   DateConfig,
+  DateInfo,
   IntlDateTypeMonthStyle,
   IntlDateTypeWeekdayStyle,
   ZeroPosition,
@@ -15,7 +16,7 @@ import {
 } from '../constants';
 import { todayLabel } from './constants';
 import { isToday, isValidDate, isValidLocale } from '../checkers';
-import { getWeekDaysNames } from './weeks';
+import { getWeekDayName, getWeekDaysNames } from './weeks';
 import { validateDateTimeFormatRequirements } from '../validations';
 
 /**
@@ -218,3 +219,22 @@ export const getTimeInformation = (formattedFullTime: string) => {
   const noPeriod = '';
   return [formattedFullTime, noPeriod, hour, get2DigitsValue(minutes)];
 };
+
+export const getDateInfo = (
+  validDate: Date,
+  locale: LocaleLanguage,
+): DateInfo => ({
+  dayOfTheWeek: getWeekDayName(
+    getYear(validDate),
+    getMonthIndex(locale, validDate),
+    getDay(validDate),
+    locale,
+  ),
+  monthName: getMonthName(locale, validDate),
+  month: getMonthIndex(locale, validDate),
+  day: getDay(validDate),
+  label: getFullDateLabel(locale, validDate),
+  hour: validDate.getHours(),
+  minutes: validDate.getMinutes(),
+  year: getYear(validDate),
+});
