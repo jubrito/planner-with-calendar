@@ -446,5 +446,28 @@ describe('utils', () => {
         'Failed to get date information, language is invalid',
       );
     });
+    it('should return full date information', () => {
+      const {
+        day: dayResult,
+        dayOfTheWeek: dayOfTheWeekResult,
+        hour: hoursResult,
+        label: labelResult,
+        minutes: minutesResult,
+        month: monthResult,
+        monthName: monthNameResult,
+        year: yearResult,
+      } = getDateInfo(
+        new Date(year, month, day, hours, minutes),
+        localeEnglish,
+      );
+      expect(dayResult).toBe(day);
+      expect(hoursResult).toBe(hours);
+      expect(minutesResult).toBe(minutes);
+      expect(monthResult).toBe(month);
+      expect(yearResult).toBe(year);
+      expect(labelResult).toBe('Monday, December 1');
+      expect(monthNameResult).toBe('December');
+      expect(dayOfTheWeekResult).toBe('Mon');
+    });
   });
 });
