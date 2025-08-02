@@ -9,7 +9,10 @@ import { useDispatch } from 'react-redux';
 import { useManageEventUpdates } from '../../../../../hooks/useManageEventUpdates';
 import { useSelector } from 'react-redux';
 import { getCurrentEventOnUpdateMode } from '../../../../../redux/slices/eventSlice/selectors';
-import { getDateISOString } from '../../../../../utils/calendar/utils';
+import {
+  getDateInfo,
+  getDateISOString,
+} from '../../../../../utils/calendar/utils';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import styles from './_event-update-modal.module.scss';
@@ -18,9 +21,11 @@ import { getLocaleLanguage } from '../../../../../redux/slices/localeSlice/selec
 import { FieldError } from '../../../../../components/FieldError/FieldError';
 import { DateField } from './DateField/DateField';
 import { updateDayViewISODate } from '../../../../../redux/slices/dateSlice';
+import { validateDate } from '../../../../../utils/validations';
 
 export const EventUpdateModal = memo(() => {
   const dispatch = useDispatch();
+  const locale = useSelector(getLocaleLanguage());
   const eventOnUpdateMode = useSelector(getCurrentEventOnUpdateMode());
   const isOpen = (eventOnUpdateMode && eventOnUpdateMode.event) != null;
   const titleLabel = 'Title';
@@ -103,7 +108,11 @@ export const EventUpdateModal = memo(() => {
           readonly
           onCellClick={{
             startDate: (cellYear, cellMonth, cellDay) => {
+              const currentDate = new Date(endISODate);
               const selectedDate = new Date(cellYear, cellMonth, cellDay);
+              validateDate(currentDate, 'get date field');
+              validateDate(selectedDate, 'update date field');
+              const { hour: startHour } = getDateInfo(selectedDate, locale);
               updateEventField('startDate', getDateISOString(selectedDate));
               updateEventField('endDate', getDateISOString(selectedDate));
               dispatch(
