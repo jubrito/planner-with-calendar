@@ -1,4 +1,4 @@
-import { validateDate } from './validations';
+import { validateDate, validateLocale } from './validations';
 
 describe('validations', () => {
   describe('validateDate', () => {
@@ -9,6 +9,13 @@ describe('validations', () => {
     });
     it('should not throw error if date is not invalid', () => {
       expect(() => validateDate(new Date(), 'get date')).not.toThrow();
+    });
+  });
+  describe('validateLocale', () => {
+    it('should throw error if locale is invalid', () => {
+      expect(() => validateLocale(`${0}`, 'get locale')).toThrow(
+        'Failed to get locale, language is invalid',
+      );
     });
   });
 });
