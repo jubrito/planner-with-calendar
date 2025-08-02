@@ -230,7 +230,9 @@ export const getTimeInformation = (formattedFullTime: string) => {
 };
 
 export const getFullDateLabel = (locale: LocaleLanguage, date: Date) => {
-  validateDateTimeFormatRequirements(date, locale, 'get date label');
+  const errorMessage = 'get date label';
+  validateDate(date, errorMessage);
+  validateLocale(locale, errorMessage);
   const formattedLabel = getFormattedDateString(locale, date, {
     weekday: IntlDateTimeFormatLong,
     month: IntlDateTimeFormatLong,
@@ -244,6 +246,9 @@ export const getDateInfo = (
   validDate: Date,
   locale: LocaleLanguage,
 ): DateInfo => {
+  // const errorMessage = 'get date';
+  // validateDate(date, errorMessage);
+  // validateLocale(locale, errorMessage);
   validateDateTimeFormatRequirements(validDate, locale, 'get date information');
 
   return {
