@@ -121,14 +121,17 @@ export const getMonthNumberOfDays = (
   locale: LocaleLanguage,
   date: DateConfig['date'],
 ) => {
-  validateDateTimeFormatRequirements(date, locale, 'get month number of days');
+  const errorMessage = 'get month number of days';
+  validateDate(date, errorMessage);
+  validateLocale(locale, errorMessage);
+
   const year = getYear(date);
   const month = getMonthIndex(locale, date) + 1;
   const getLastDayOfMonth = 0;
+
+  validateDate(new Date(year, month, getLastDayOfMonth), errorMessage);
   const dateWithLastDayOfMonth = new Date(year, month, getLastDayOfMonth);
-  if (!isValidDate(dateWithLastDayOfMonth)) {
-    throw new Error('Failed to get month number of days, date is invalid');
-  }
+
   return dateWithLastDayOfMonth.getDate();
 };
 
