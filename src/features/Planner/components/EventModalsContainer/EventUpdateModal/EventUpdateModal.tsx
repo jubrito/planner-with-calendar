@@ -40,8 +40,8 @@ export const EventUpdateModal = memo(() => {
     eventFields,
     errors,
     updateEventField,
-    isDirty,
-    findEventFieldsErrors,
+    // isDirty,
+    // findEventFieldsErrors,
   } = useManageEventUpdates({
     ...eventOnUpdateMode?.event,
     startDate: initialStartDate && getDateISOString(initialStartDate),
@@ -108,15 +108,15 @@ export const EventUpdateModal = memo(() => {
           readonly
           onCellClick={{
             startDate: (cellYear, cellMonth, cellDay) => {
-              validateDate(new Date(endISODate), 'get start date field');
-              validateDate(
-                new Date(cellYear, cellMonth, cellDay),
-                'update start date field',
-              );
+              validateDate(new Date(startISODate), 'get start date field');
               const currentDate = new Date(startISODate);
               const { hour: startHour, minutes: startMinutes } = getDateInfo(
                 currentDate,
                 locale,
+              );
+              validateDate(
+                new Date(cellYear, cellMonth, cellDay, startHour, startMinutes),
+                'update start date field',
               );
               const selectedDate = new Date(
                 cellYear,
@@ -137,14 +137,14 @@ export const EventUpdateModal = memo(() => {
             },
             endDate: (cellYear, cellMonth, cellDay) => {
               validateDate(new Date(endISODate), 'get end date field');
-              validateDate(
-                new Date(cellYear, cellMonth, cellDay),
-                'update end date field',
-              );
               const currentDate = new Date(endISODate);
               const { hour: endHour, minutes: endMinutes } = getDateInfo(
                 currentDate,
                 locale,
+              );
+              validateDate(
+                new Date(cellYear, cellMonth, cellDay, endHour, endMinutes),
+                'update end date field',
               );
               updateEventField(
                 'endDate',
