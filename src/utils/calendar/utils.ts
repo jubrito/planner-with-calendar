@@ -140,7 +140,9 @@ export const getDayOfWeek = (
   date: DateConfig['date'],
   weekdayStyle?: IntlDateTypeWeekdayStyle,
 ) => {
-  validateDateTimeFormatRequirements(date, locale, 'get day of the week');
+  const errorMessage = 'get day of the week';
+  validateDate(date, errorMessage);
+  validateLocale(locale, errorMessage);
   const dayOfWeek = getFormattedDateString(locale, date, {
     weekday: weekdayStyle || IntlDateTimeFormatLong,
   });
