@@ -423,5 +423,10 @@ describe('utils', () => {
         getMonthIndex(localeEnglish, new Date(year, month, 0 / 0)),
       ).toThrow('Failed to get month index, date is invalid');
     });
+    it('should throw error if locale is invalid', () => {
+      expect(() => getMonthIndex(`${0}`, new Date(year, month, day))).toThrow(
+        'Failed to get month index, language is invalid',
+      );
+    });
   });
 });
