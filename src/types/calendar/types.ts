@@ -53,3 +53,14 @@ export type EventModalContent = {
   multiDay?: EventModalContentBlock;
   sameDay?: EventModalContentBlock;
 };
+
+export type DateInfo = {
+  dayOfTheWeek: string;
+  monthName: string;
+  day: number;
+  label: string;
+  hour: number;
+  minutes: number;
+  month: number;
+  year: number;
+};
