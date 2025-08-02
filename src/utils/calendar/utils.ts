@@ -15,7 +15,7 @@ import {
   startLabel,
 } from '../constants';
 import { todayLabel } from './constants';
-import { isToday, isValidDate, isValidLocale } from '../checkers';
+import { isToday, isValidDate } from '../checkers';
 import { getWeekDayName, getWeekDaysNames } from './weeks';
 import {
   validateDate,

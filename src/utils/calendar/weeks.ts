@@ -1,11 +1,7 @@
 import { DateConfig } from '../../types/calendar/types';
 import { IntlDateTimeFormatLong, IntlDateTimeFormatShort } from '../constants';
 import { makeFirstLetterUppercase } from '../utils';
-import {
-  validateDate,
-  validateDateTimeFormatRequirements,
-  validateLocale,
-} from '../validations';
+import { validateDate, validateLocale } from '../validations';
 import { numberOfDaysOfTheWeek } from './constants';
 import { getDayName, getFormattedDateString } from './utils';
 
