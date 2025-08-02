@@ -17,5 +17,8 @@ describe('validations', () => {
         'Failed to get locale, language is invalid',
       );
     });
+    it('should not throw error if locale is not invalid', () => {
+      expect(() => validateLocale('pt-NR', 'get locale')).not.toThrow();
+    });
   });
 });
