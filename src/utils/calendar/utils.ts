@@ -220,7 +220,8 @@ export const getTimeInformation = (formattedFullTime: string) => {
   return [formattedFullTime, noPeriod, hour, get2DigitsValue(minutes)];
 };
 
-const getFullDateLabel = (locale: LocaleLanguage, date: Date) => {
+export const getFullDateLabel = (locale: LocaleLanguage, date: Date) => {
+  validateDateTimeFormatRequirements(date, locale, 'get date label');
   const formattedLabel = getFormattedDateString(locale, date, {
     weekday: IntlDateTimeFormatLong,
     month: IntlDateTimeFormatLong,
