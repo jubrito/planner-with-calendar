@@ -10,6 +10,7 @@ import {
 } from '../constants';
 import {
   get2DigitsValue,
+  getDateInfo,
   getDateISOString,
   getDay,
   getDayName,
@@ -432,6 +433,13 @@ describe('utils', () => {
     it('should return full date label', () => {
       const label = getFullDateLabel(localeEnglish, new Date(year, month, day));
       expect(label).toBe('Monday, December 1');
+    });
+  });
+  describe('getDateInfo', () => {
+    it('should throw error if date is invalid', () => {
+      expect(() =>
+        getDateInfo(new Date(year, month, 0 / 0), localeEnglish),
+      ).toThrow('Failed to get date information, date is invalid');
     });
   });
 });
