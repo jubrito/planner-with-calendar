@@ -74,6 +74,7 @@ export const getMonthIndex = (
     | typeof IntlDateTimeFormat2Digit,
 ) => {
   validateDateTimeFormatRequirements(date, locale, 'get month index');
+
   const month = getFormattedDateString(locale, date, {
     month: monthStyle || IntlDateTimeFormatNumeric,
   });
@@ -96,7 +97,9 @@ export const getMonthName = (
   date: DateConfig['date'],
   monthStyle?: IntlDateTypeMonthStyle,
 ) => {
-  validateDateTimeFormatRequirements(date, locale, 'get month name');
+  const errorMessage = 'get month name';
+  validateDate(date, errorMessage);
+  validateLocale(locale, errorMessage);
   const monthName = getFormattedDateString(locale, date, {
     month: monthStyle || IntlDateTimeFormatLong,
   });
