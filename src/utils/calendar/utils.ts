@@ -246,10 +246,9 @@ export const getDateInfo = (
   validDate: Date,
   locale: LocaleLanguage,
 ): DateInfo => {
-  // const errorMessage = 'get date';
-  // validateDate(date, errorMessage);
-  // validateLocale(locale, errorMessage);
-  validateDateTimeFormatRequirements(validDate, locale, 'get date information');
+  const errorMessage = 'get date information';
+  validateDate(validDate, errorMessage);
+  validateLocale(locale, errorMessage);
 
   return {
     dayOfTheWeek: getWeekDayName(
