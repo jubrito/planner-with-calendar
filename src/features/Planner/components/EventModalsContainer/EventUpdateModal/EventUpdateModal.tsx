@@ -108,11 +108,23 @@ export const EventUpdateModal = memo(() => {
           readonly
           onCellClick={{
             startDate: (cellYear, cellMonth, cellDay) => {
+              validateDate(new Date(endISODate), 'get date field');
+              validateDate(
+                new Date(cellYear, cellMonth, cellDay),
+                'update date field',
+              );
               const currentDate = new Date(endISODate);
-              const selectedDate = new Date(cellYear, cellMonth, cellDay);
-              validateDate(currentDate, 'get date field');
-              validateDate(selectedDate, 'update date field');
-              const { hour: startHour } = getDateInfo(selectedDate, locale);
+              const { hour: startHour, minutes: startMinutes } = getDateInfo(
+                currentDate,
+                locale,
+              );
+              const selectedDate = new Date(
+                cellYear,
+                cellMonth,
+                cellDay,
+                startHour,
+                startMinutes,
+              );
               updateEventField('startDate', getDateISOString(selectedDate));
               updateEventField('endDate', getDateISOString(selectedDate));
               dispatch(
