@@ -15,13 +15,9 @@ import {
   startLabel,
 } from '../constants';
 import { todayLabel } from './constants';
-import { isToday, isValidDate } from '../checkers';
+import { isToday } from '../checkers';
 import { getWeekDayName, getWeekDaysNames } from './weeks';
-import {
-  validateDate,
-  validateDateTimeFormatRequirements,
-  validateLocale,
-} from '../validations';
+import { validateDate, validateLocale } from '../validations';
 
 /**
  * Function to generate title based on date properties
