@@ -17,7 +17,11 @@ import {
 import { todayLabel } from './constants';
 import { isToday, isValidDate, isValidLocale } from '../checkers';
 import { getWeekDayName, getWeekDaysNames } from './weeks';
-import { validateDateTimeFormatRequirements } from '../validations';
+import {
+  validateDate,
+  validateDateTimeFormatRequirements,
+  validateLocale,
+} from '../validations';
 
 /**
  * Function to generate title based on date properties
@@ -36,16 +40,17 @@ export const getFullDateTitle = (
   day: DateConfig['day'],
   locale: LocaleLanguage,
 ) => {
-  validateDateTimeFormatRequirements(
-    new Date(year, month, day),
-    locale,
-    'get date title',
-  );
+  const errorMessage = 'get date title';
+  validateDate(new Date(year, month, day), errorMessage);
+  validateLocale(locale, errorMessage);
   const date = new Date(year, month, day);
+
   if (isToday(locale, date)) return todayLabel;
+
   const result = getFormattedDateString(locale, date, {
     dateStyle: IntlDateTimeFormatFull,
   });
+
   const firstLetter = result.charAt(0).toUpperCase();
   return firstLetter + result.slice(1, result.length);
 };
