@@ -441,5 +441,10 @@ describe('utils', () => {
         getDateInfo(new Date(year, month, 0 / 0), localeEnglish),
       ).toThrow('Failed to get date information, date is invalid');
     });
+    it('should throw error if locale is invalid', () => {
+      expect(() => getDateInfo(new Date(year, month, day), `${0}`)).toThrow(
+        'Failed to get date information, language is invalid',
+      );
+    });
   });
 });
