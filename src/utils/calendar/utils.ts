@@ -220,6 +220,16 @@ export const getTimeInformation = (formattedFullTime: string) => {
   return [formattedFullTime, noPeriod, hour, get2DigitsValue(minutes)];
 };
 
+const getFullDateLabel = (locale: LocaleLanguage, date: Date) => {
+  const formattedLabel = getFormattedDateString(locale, date, {
+    weekday: IntlDateTimeFormatLong,
+    month: IntlDateTimeFormatLong,
+    day: IntlDateTimeFormatNumeric,
+  });
+  const firstCharInUpperCase = formattedLabel.charAt(0).toUpperCase();
+  return firstCharInUpperCase + formattedLabel.slice(1);
+};
+
 export const getDateInfo = (
   validDate: Date,
   locale: LocaleLanguage,

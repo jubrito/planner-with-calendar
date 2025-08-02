@@ -1,15 +1,7 @@
 import { useSelector } from 'react-redux';
 import { FieldError } from '../../../../../../components/FieldError/FieldError';
-import { LocaleLanguage } from '../../../../../../types/locale/types';
-import {
-  getDateInfo,
-  getFormattedDateString,
-} from '../../../../../../utils/calendar/utils';
-import {
-  enterKey,
-  IntlDateTimeFormatLong,
-  IntlDateTimeFormatNumeric,
-} from '../../../../../../utils/constants';
+import { getDateInfo } from '../../../../../../utils/calendar/utils';
+import { enterKey } from '../../../../../../utils/constants';
 import { getLocaleLanguage } from '../../../../../../redux/slices/localeSlice/selectors';
 import { isValidDate } from '../../../../../../utils/checkers';
 import { useState } from 'react';
@@ -187,14 +179,4 @@ export const DateField = ({
       </div>
     </>
   );
-};
-
-const getFullDateLabel = (locale: LocaleLanguage, date: Date) => {
-  const formattedLabel = getFormattedDateString(locale, date, {
-    weekday: IntlDateTimeFormatLong,
-    month: IntlDateTimeFormatLong,
-    day: IntlDateTimeFormatNumeric,
-  });
-  const firstCharInUpperCase = formattedLabel.charAt(0).toUpperCase();
-  return firstCharInUpperCase + formattedLabel.slice(1);
 };
