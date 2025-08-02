@@ -160,8 +160,7 @@ export const getDayOfWeek = (
  */
 export const getDayName = (dayOfWeek: number, locale: string) => {
   let dayName: string;
-  if (!isValidLocale(locale))
-    throw new Error('Failed to get day name, language is invalid');
+  validateLocale(locale, 'get day name');
   const weekDays = getWeekDaysNames(locale);
   if (dayOfWeek === 0) {
     dayName = weekDays[WeekDays.SUNDAY].short;
