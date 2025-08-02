@@ -108,8 +108,7 @@ export const getMonthName = (
 };
 
 export const getYear = (date: DateConfig['date']) => {
-  if (!isValidDate(date))
-    throw new Error('Failed to get year, date is invalid');
+  validateDate(date, 'get year');
   return date.getFullYear();
 };
 
