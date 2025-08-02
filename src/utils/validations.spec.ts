@@ -7,5 +7,8 @@ describe('validations', () => {
         'Failed to get date, date is invalid',
       );
     });
+    it('should not throw error if date is not invalid', () => {
+      expect(() => validateDate(new Date(), 'get date')).not.toThrow();
+    });
   });
 });
