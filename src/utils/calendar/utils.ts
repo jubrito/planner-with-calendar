@@ -234,18 +234,22 @@ export const getFullDateLabel = (locale: LocaleLanguage, date: Date) => {
 export const getDateInfo = (
   validDate: Date,
   locale: LocaleLanguage,
-): DateInfo => ({
-  dayOfTheWeek: getWeekDayName(
-    getYear(validDate),
-    getMonthIndex(locale, validDate),
-    getDay(validDate),
-    locale,
-  ),
-  monthName: getMonthName(locale, validDate),
-  month: getMonthIndex(locale, validDate),
-  day: getDay(validDate),
-  label: getFullDateLabel(locale, validDate),
-  hour: validDate.getHours(),
-  minutes: validDate.getMinutes(),
-  year: getYear(validDate),
-});
+): DateInfo => {
+  validateDateTimeFormatRequirements(validDate, locale, 'get date information');
+
+  return {
+    dayOfTheWeek: getWeekDayName(
+      getYear(validDate),
+      getMonthIndex(locale, validDate),
+      getDay(validDate),
+      locale,
+    ),
+    monthName: getMonthName(locale, validDate),
+    month: getMonthIndex(locale, validDate),
+    day: getDay(validDate),
+    label: getFullDateLabel(locale, validDate),
+    hour: validDate.getHours(),
+    minutes: validDate.getMinutes(),
+    year: getYear(validDate),
+  };
+};
