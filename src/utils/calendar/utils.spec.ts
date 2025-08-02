@@ -417,4 +417,11 @@ describe('utils', () => {
       );
     });
   });
+  describe('getFullDateLabel', () => {
+    it('should throw error if date is invalid', () => {
+      expect(() =>
+        getMonthIndex(localeEnglish, new Date(year, month, 0 / 0)),
+      ).toThrow('Failed to get month index, date is invalid');
+    });
+  });
 });
