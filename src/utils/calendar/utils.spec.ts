@@ -327,7 +327,7 @@ describe('utils', () => {
     it('should throw error if date is invalid', () => {
       expect(() =>
         getLastDayOfPreviousMonth(new Date(year, month, 0 / 0).getTime()),
-      ).toThrow('Failed to get last day of previous month, time is invalid');
+      ).toThrow('Failed to get last day of previous month, date is invalid');
     });
   });
   describe('is12HourClockSystem(time)', () => {

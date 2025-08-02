@@ -186,11 +186,8 @@ export const getFormattedDateString = (
 export const getLastDayOfPreviousMonth = (
   time: DateConfig['timeInMilliseconds'],
 ): number => {
+  validateDate(new Date(time), 'get last day of previous month');
   const tempDate = new Date(time);
-  if (!isValidDate(tempDate))
-    throw new Error(
-      'Failed to get last day of previous month, time is invalid',
-    );
   tempDate.setDate(0);
   return tempDate.getDate();
 };
