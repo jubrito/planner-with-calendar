@@ -2,6 +2,7 @@ import { DateConfig } from '../../types/calendar/types';
 import { IntlDateTimeFormatLong, IntlDateTimeFormatShort } from '../constants';
 import { makeFirstLetterUppercase } from '../utils';
 import {
+  validateDate,
   validateDateTimeFormatRequirements,
   validateLocale,
 } from '../validations';
@@ -37,8 +38,10 @@ export const getWeekDayName = (
   dayToFind: number,
   locale: string,
 ) => {
+  const errorMessage = 'get week day name';
+  validateDate(new Date(year, month, dayToFind), errorMessage);
+  validateLocale(locale, errorMessage);
   const date = new Date(year, month, dayToFind);
-  validateDateTimeFormatRequirements(date, locale, 'get week day name');
   const dayOfWeek = date.getDay();
   const dayName = getDayName(dayOfWeek, locale).replace('.', '');
   const firstLetterCapitalized = dayName.charAt(0).toUpperCase();
