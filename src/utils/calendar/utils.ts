@@ -56,8 +56,8 @@ export const getFullDateTitle = (
 };
 
 export const getDateISOString = (date: DateConfig['date']) => {
-  if (!isValidDate(date))
-    throw new Error('Failed to get date, date is invalid');
+  const errorMessage = 'get date';
+  validateDate(date, errorMessage);
   return date.toISOString();
 };
 
