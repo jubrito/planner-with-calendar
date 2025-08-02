@@ -62,7 +62,7 @@ export const getDateISOString = (date: DateConfig['date']) => {
 };
 
 export const getDay = (date: DateConfig['date']) => {
-  if (!isValidDate(date)) throw new Error('Failed to get day, date is invalid');
+  validateDate(date, 'get day');
   return date.getDate();
 };
 
@@ -73,6 +73,9 @@ export const getMonthIndex = (
     | typeof IntlDateTimeFormatNumeric
     | typeof IntlDateTimeFormat2Digit,
 ) => {
+  //   const errorMessage = 'get date';
+  // validateDate(date, errorMessage);
+  // validateLocale(locale, errorMessage);
   validateDateTimeFormatRequirements(date, locale, 'get month index');
 
   const month = getFormattedDateString(locale, date, {
