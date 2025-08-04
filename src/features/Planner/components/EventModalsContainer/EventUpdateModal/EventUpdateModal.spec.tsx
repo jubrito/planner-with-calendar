@@ -133,9 +133,12 @@ describe('EventUpdateModal', () => {
     expect(updateViewEventDetailsModalIsClosed).toBeUndefined();
   });
   it.todo('should render start date input');
+
   it.todo(
     'should update start and end date calendar when clicking on start calendar cells',
   );
+  it.todo('should use current hours and minutes when updating start date');
+  it.todo('should use current hours and minutes when updating end date');
   it.todo('should update day view date when clicking on start calendar cells');
   it.todo(
     'should update end date calendar when clicking on end calendar cells',
