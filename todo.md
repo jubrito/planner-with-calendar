@@ -1,5 +1,16 @@
 # Next steps (v1):
 
+- Rename DateField to date fields
+  - move it to shared components
+- Create new DateCalendarField shared component from modal input date field (Monday, August 4) + calendar
+- Create new TimeField shared component with modal time input (10am)
+  -? Create new TimeRangeField shared component with TimeField – TimeField (10am)
+  -? Create new DateWithTimeField shared component (Monday, August 4 - 10am) with DateCalendarField + DateTimeField
+
+- Extract date field from
+
+- Finish todo tests of update calendar
+
 - close calendar
   - when selecting date
   - when clicking outside calendar
