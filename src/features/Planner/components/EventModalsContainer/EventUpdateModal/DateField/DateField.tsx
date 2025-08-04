@@ -8,7 +8,7 @@ import { Calendar } from '../../../../../../components/Calendar/Calendar/Calenda
 import { Months } from '../../../../../../types/calendar/enums';
 import styles from './_date-field.module.scss';
 import { isSameDayEvent as isSameDay } from '../../../../../../utils/utils';
-import { ErrorField } from '../../../../../../components/Fields/FieldError/ErrorField';
+import { ErrorField } from '../../../../../../components/Fields/ErrorField/ErrorField';
 
 type DateFieldProps = {
   icon?: React.ReactElement;

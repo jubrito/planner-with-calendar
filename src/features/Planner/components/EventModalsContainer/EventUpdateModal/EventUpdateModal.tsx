@@ -18,10 +18,10 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import styles from './_event-update-modal.module.scss';
 import modalStyles from './../../../../../components/Modal/modal.module.scss';
 import { getLocaleLanguage } from '../../../../../redux/slices/localeSlice/selectors';
-import { FieldError } from '../../../../../components/Fields/FieldError/ErrorField';
 import { DateField } from './DateField/DateField';
 import { updateDayViewISODate } from '../../../../../redux/slices/dateSlice';
 import { validateDate } from '../../../../../utils/validations';
+import { ErrorField } from '../../../../../components/Fields/ErrorField/ErrorField';
 
 export const EventUpdateModal = memo(() => {
   const dispatch = useDispatch();
@@ -98,7 +98,7 @@ export const EventUpdateModal = memo(() => {
             aria-errormessage={errors.title}
           />
         </div>
-        {errors.title && <FieldError errorMessage={errors.title} />}
+        {errors.title && <ErrorField errorMessage={errors.title} />}
         <DateField
           errorMessage={errors.startDate}
           className={{ wrapper: styles.field, field: modalStyles.box }}
