@@ -1,4 +1,4 @@
-import { ObjectType } from '../../types/types';
+import { ObjectType } from '../../../types/types';
 
 type FieldErrorProps = { errorMessage: string; style?: ObjectType };
 
