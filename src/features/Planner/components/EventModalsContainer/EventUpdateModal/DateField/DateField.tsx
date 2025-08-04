@@ -1,5 +1,4 @@
 import { useSelector } from 'react-redux';
-import { FieldError } from '../../../../../../components/Fields/FieldError/FieldError';
 import { getDateInfo } from '../../../../../../utils/calendar/utils';
 import { enterKey } from '../../../../../../utils/constants';
 import { getLocaleLanguage } from '../../../../../../redux/slices/localeSlice/selectors';
@@ -9,6 +8,7 @@ import { Calendar } from '../../../../../../components/Calendar/Calendar/Calenda
 import { Months } from '../../../../../../types/calendar/enums';
 import styles from './_date-field.module.scss';
 import { isSameDayEvent as isSameDay } from '../../../../../../utils/utils';
+import { ErrorField } from '../../../../../../components/Fields/FieldError/ErrorField';
 
 type DateFieldProps = {
   icon?: React.ReactElement;
@@ -176,7 +176,7 @@ export const DateField = ({
               readOnly={readonly}
               aria-errormessage={errorMessage}
             />
-            {errorMessage && <FieldError errorMessage={errorMessage} />}
+            {errorMessage && <ErrorField errorMessage={errorMessage} />}
           </div>
         </div>
       </div>

@@ -1,8 +1,8 @@
 import { ObjectType } from '../../../types/types';
 
-type FieldErrorProps = { errorMessage: string; style?: ObjectType };
+type ErrorFieldProps = { errorMessage: string; style?: ObjectType };
 
-export const FieldError = ({ errorMessage, style }: FieldErrorProps) => {
+export const ErrorField = ({ errorMessage, style }: ErrorFieldProps) => {
   return (
     <span
       role="alert"
