@@ -1,15 +1,15 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { FieldError } from './FieldError';
+import { ErrorField } from './ErrorField';
 
-describe('FieldError', () => {
+describe('ErrorField', () => {
   it('should display error message', () => {
-    render(<FieldError errorMessage="Error message" />);
+    render(<ErrorField errorMessage="Error message" />);
     const errorField = screen.getByText('Error message');
     expect(errorField).toBeInTheDocument();
   });
   it('should render field with accessibility attributes', () => {
-    render(<FieldError errorMessage="Error message" />);
+    render(<ErrorField errorMessage="Error message" />);
     const errorField = screen.getByText('Error message');
     expect(errorField).toHaveRole('alert');
     expect(errorField).toHaveAttribute('aria-atomic', 'true');
