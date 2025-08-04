@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { FieldError } from '../../../../../../components/FieldError/FieldError';
+import { FieldError } from '../../../../../../components/Fields/FieldError/FieldError';
 import { getDateInfo } from '../../../../../../utils/calendar/utils';
 import { enterKey } from '../../../../../../utils/constants';
 import { getLocaleLanguage } from '../../../../../../redux/slices/localeSlice/selectors';
