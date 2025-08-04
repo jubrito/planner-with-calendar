@@ -1,4 +1,5 @@
 @use '../../../../../../styles/variables' as variables;
+@use '../../../../../../styles/mixins' as mixins;
 
 .dateBox {
   display: flex;
@@ -23,9 +24,25 @@
   }
 }
 
-.datesContainer {
-  display: flex;
-  flex-direction: column;
+.container {
   width: 100%;
   gap: variables.$gap;
+  @include mixins.flexColumn;
+}
+
+.multiDayEventBox {
+  @include mixins.flexRow;
+  margin-left: 48px;
+  gap: variables.$gap;
+  align-items: center;
+
+  label {
+    width: max-content;
+    min-width: fit-content;
+  }
+
+  input {
+    width: fit-content;
+    max-width: fit-content;
+  }
 }
