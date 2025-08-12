@@ -18,7 +18,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import styles from './_event-update-modal.module.scss';
 import modalStyles from './../../../../../components/Modal/modal.module.scss';
 import { getLocaleLanguage } from '../../../../../redux/slices/localeSlice/selectors';
-import { DateField } from './DateField/DateField';
+import { DateField } from './DateFields/DateField';
 import { updateDayViewISODate } from '../../../../../redux/slices/dateSlice';
 import { validateDate } from '../../../../../utils/validations';
 import { ErrorField } from '../../../../../components/Fields/ErrorField/ErrorField';
