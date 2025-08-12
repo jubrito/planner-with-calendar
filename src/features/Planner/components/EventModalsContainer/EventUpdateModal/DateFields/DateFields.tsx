@@ -6,7 +6,7 @@ import { isValidDate } from '../../../../../../utils/checkers';
 import { useState } from 'react';
 import { Calendar } from '../../../../../../components/Calendar/Calendar/Calendar';
 import { Months } from '../../../../../../types/calendar/enums';
-import styles from './_date-field.module.scss';
+import styles from './_date-fields.module.scss';
 import { isSameDayEvent as isSameDay } from '../../../../../../utils/utils';
 import { ErrorField } from '../../../../../../components/Fields/ErrorField/ErrorField';
 
