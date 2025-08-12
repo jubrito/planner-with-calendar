@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { DateField } from './DateField';
+import { DateField } from './DateFields';
 import { Months } from '../../../../../../types/calendar/enums';
 import { getDateISOString } from '../../../../../../utils/calendar/utils';
 import { renderWithProviders } from '../../../../../../utils/tests/renderWithProviders';
