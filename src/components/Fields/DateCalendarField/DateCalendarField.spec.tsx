@@ -44,6 +44,29 @@ describe('DateCalendarField', () => {
     expect(cellButton).toBeInTheDocument();
   });
 
+  it('should update date input when clicking on a cell', async () => {
+    renderWithProviders(
+      <DateCalendarField
+        dateLabel={dateLabel}
+        className={className}
+        value={value}
+        errorMessage={errorMessage}
+        isFieldReadOnly={isFieldReadOnly}
+        onCellClick={onCellClick}
+        initialISODate={initialISODate}
+      />,
+    );
+    let dateField = screen.getByLabelText(dateLabel);
+    await userEvent.click(dateField);
+    const calendar = screen.getByRole('table');
+    const cellButton = within(calendar).getByRole('button', {
+      name: someCellLabel,
+    });
+    await userEvent.click(cellButton);
+    dateField = screen.getByLabelText(dateLabel);
+    expect(dateField).toHaveValue(`Friday, December ${someDay}`);
+  });
+
   describe('Default rendering', () => {
     beforeEach(() => {
       const { container: HTMLContainer } = renderWithProviders(
