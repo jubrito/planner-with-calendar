@@ -1,5 +1,7 @@
 # Next steps (v1):
 
+-------------------- UPDATE EVENT modal --------------------
+
 - Create new TimeField shared component with modal time input (10am)
 - ? Create new DateWithTimeField shared component (Monday, August 4 - 10am) with DateCalendarField + DateTimeField
 
@@ -18,6 +20,10 @@
 - add actions to update calendar inside update events modal
 - extract components to display inside update events modal
 - display calendar as absolute
+
+-------------------- CURRENT HOUR --------------------
+
+- fix current hour appearing wrongly in the top when selecting current day by clicking on main calendar current day cell
 
 -------------------- ALL DAY events --------------------
 
