@@ -1,14 +1,15 @@
 import { useSelector } from 'react-redux';
-import { getDateInfo } from '../../../../../../utils/calendar/utils';
-import { enterKey } from '../../../../../../utils/constants';
-import { getLocaleLanguage } from '../../../../../../redux/slices/localeSlice/selectors';
-import { isValidDate } from '../../../../../../utils/checkers';
+import { getDateInfo } from '../../../utils/calendar/utils';
+import { enterKey } from '../../../utils/constants';
+import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
+import { isValidDate } from '../../../utils/checkers';
 import { useState } from 'react';
-import { Calendar } from '../../../../../../components/Calendar/Calendar/Calendar';
-import { Months } from '../../../../../../types/calendar/enums';
+import { Calendar } from '../../Calendar/Calendar/Calendar';
+import { Months } from '../../../types/calendar/enums';
 import styles from './_date-fields.module.scss';
-import { isSameDayEvent as isSameDay } from '../../../../../../utils/utils';
-import { ErrorField } from '../../../../../../components/Fields/ErrorField/ErrorField';
+import { isSameDayEvent as isSameDay } from '../../../utils/utils';
+import { ErrorField } from '../ErrorField/ErrorField';
+import { DateCalendarField } from '../DateCalendarField/DateCalendarField';
 
 type DateFieldProps = {
   icon?: React.ReactElement;
@@ -41,8 +42,6 @@ export const DateField = ({
   readonly = false,
 }: DateFieldProps) => {
   const [datePicker, setDatePicker] = useState<DatePicker>({});
-  const openStartDatePicker =
-    datePicker.startDate && isValidDate(new Date(datePicker.startDate));
   const openEndDatePicker =
     datePicker.endDate && isValidDate(new Date(datePicker.endDate));
   const locale = useSelector(getLocaleLanguage());
@@ -92,35 +91,16 @@ export const DateField = ({
         {icon}
         <div className={styles.container}>
           <div className={styles.dateBox}>
-            <input
-              id={startDateLabel}
-              aria-label={startDateLabel}
+            <DateCalendarField
+              dateLabel={startDateLabel}
               className={className.field}
               value={startLabel}
-              onClick={() =>
-                setDatePicker({
-                  startDate: startISODate,
-                })
-              }
-              onKeyDown={(event) =>
-                event.key === enterKey &&
-                setDatePicker({
-                  startDate: startISODate,
-                })
-              }
-              aria-readonly={`${readonly}`}
-              readOnly={readonly}
-              aria-errormessage={errorMessage}
+              errorMessage={errorMessage}
+              onCellClick={(cellYear, cellMonth, cellDay) => {
+                const monthZeroIndexed = cellMonth - 1;
+                onCellClick.startDate(cellYear, monthZeroIndexed, cellDay);
+              }}
             />
-            {openStartDatePicker && (
-              <Calendar
-                compactMode
-                onCellClick={(cellYear, cellMonth, cellDay) => {
-                  const monthZeroIndexed = cellMonth - 1;
-                  onCellClick.startDate(cellYear, monthZeroIndexed, cellDay);
-                }}
-              />
-            )}
             <input
               id={startHourLabel}
               aria-label={startHourLabel}

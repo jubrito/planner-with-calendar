@@ -1,9 +1,9 @@
 import { screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { DateField } from './DateFields';
-import { Months } from '../../../../../../types/calendar/enums';
-import { getDateISOString } from '../../../../../../utils/calendar/utils';
-import { renderWithProviders } from '../../../../../../utils/tests/renderWithProviders';
+import { Months } from '../../../types/calendar/enums';
+import { getDateISOString } from '../../../utils/calendar/utils';
+import { renderWithProviders } from '../../../utils/tests/renderWithProviders';
 
 describe('DateField', () => {
   const year = 2025;
