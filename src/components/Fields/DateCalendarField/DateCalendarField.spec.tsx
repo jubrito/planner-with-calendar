@@ -43,4 +43,11 @@ describe('DateCalendarField', () => {
     const dateField = screen.getByLabelText(dateLabel);
     expect(dateField).toHaveAttribute('aria-errormessage', errorMessage);
   });
+
+  it('should render date field as input', () => {
+    const dateField = screen.getByRole('textbox', {
+      name: dateLabel,
+    });
+    expect(dateField).toBeInTheDocument();
+  });
 });

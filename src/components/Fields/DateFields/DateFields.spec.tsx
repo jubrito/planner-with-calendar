@@ -71,16 +71,12 @@ describe('DateField', () => {
         expect(startDateField).toBeInTheDocument();
         expect(startDateField.id).toBe('Start date');
       });
-      it('should not render end date field if it is single day event', () => {
-        const endDateField = screen.queryByLabelText('End date');
-        expect(endDateField).not.toBeInTheDocument();
+      it('should render end date field with label', () => {
+        const endDateField = screen.getByLabelText('End date');
+        expect(endDateField).toBeInTheDocument();
+        expect(endDateField.id).toBe('End date');
       });
-      it('should render start date field as input', () => {
-        const startDateField = screen.getByRole('textbox', {
-          name: 'Start date',
-        });
-        expect(startDateField).toBeInTheDocument();
-      });
+
       it('should render start date field with read only properties as true', () => {
         const startDateField = screen.getByLabelText('Start date');
         expect(startDateField).toHaveAttribute('readonly');
