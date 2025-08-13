@@ -48,7 +48,6 @@ const CalendarCells = ({
   const globalMonthNumberOfDays = useSelector(
     getSelectedGlobalMonthNumberOfDays(locale),
   );
-
   const updatedTimeInMilliseconds = timeInMs ?? globalTimeInMs;
   const updatedYear = year ?? globalYear;
   const updatedMonth = month ?? globalMonth;
