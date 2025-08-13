@@ -32,7 +32,7 @@ type DatePicker = {
   endDate?: string;
 };
 
-export const DateField = ({
+export const DateFields = ({
   icon,
   startISODate,
   endISODate,

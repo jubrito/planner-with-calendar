@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { DateField } from './DateFields';
+import { DateFields } from './DateFields';
 import { Months } from '../../../types/calendar/enums';
 import { getDateISOString } from '../../../utils/calendar/utils';
 import { renderWithProviders } from '../../../utils/tests/renderWithProviders';
@@ -20,7 +20,7 @@ describe('DateField', () => {
 
   it('should render icon', () => {
     renderWithProviders(
-      <DateField
+      <DateFields
         startISODate={startISODate}
         endISODate={startISODate}
         errorMessage={errorMessage}
@@ -34,7 +34,7 @@ describe('DateField', () => {
   });
   it('should render error message', () => {
     renderWithProviders(
-      <DateField
+      <DateFields
         startISODate={startISODate}
         endISODate={startISODate}
         errorMessage={errorMessage}
@@ -50,7 +50,7 @@ describe('DateField', () => {
   describe('Multi day', () => {
     beforeEach(() => {
       renderWithProviders(
-        <DateField
+        <DateFields
           startISODate={startISODate}
           endISODate={endISODateMultiDay}
           errorMessage={errorMessage}
@@ -85,7 +85,7 @@ describe('DateField', () => {
   describe('Same day', () => {
     beforeEach(() => {
       renderWithProviders(
-        <DateField
+        <DateFields
           startISODate={startISODate}
           endISODate={startISODate}
           errorMessage={errorMessage}
