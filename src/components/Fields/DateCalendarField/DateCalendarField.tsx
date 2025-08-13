@@ -2,7 +2,11 @@ import { useState } from 'react';
 import { isValidDate } from '../../../utils/checkers';
 import { Calendar } from '../../Calendar/Calendar/Calendar';
 import { Months } from '../../../types/calendar/enums';
-import { getMonthIndex, getYear } from '../../../utils/calendar/utils';
+import {
+  getDateInfo,
+  getMonthIndex,
+  getYear,
+} from '../../../utils/calendar/utils';
 import { useSelector } from 'react-redux';
 import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
 
@@ -36,6 +40,7 @@ export const DateCalendarField = ({
   initialISODate,
 }: DateCalendarFieldProps) => {
   const locale = useSelector(getLocaleLanguage());
+  const [dateValue, setDateValue] = useState(value);
   const [datePicker, setDatePicker] = useState<DatePicker>({});
   const openStartDatePicker =
     datePicker.date && isValidDate(new Date(datePicker.date));
@@ -46,13 +51,26 @@ export const DateCalendarField = ({
     ? getMonthIndex(locale, new Date(initialISODate))
     : undefined;
 
+  function handleUpdateDateInput(
+    cellYear: number,
+    cellMonth: Months,
+    cellDay: number,
+  ) {
+    const monthZeroIndexed = cellMonth - 1;
+    const { label } = getDateInfo(
+      new Date(cellYear, monthZeroIndexed, cellDay),
+      locale,
+    );
+    setDateValue(label);
+  }
+
   return (
     <>
       <input
         id={dateLabel}
         aria-label={dateLabel}
         className={className}
-        value={value}
+        value={dateValue}
         onChange={onChange}
         onClick={() => {
           if (onClick) {
@@ -73,7 +91,14 @@ export const DateCalendarField = ({
       {openStartDatePicker && (
         <Calendar
           compactMode
-          onCellClick={onCellClick}
+          onCellClick={(
+            cellYear: number,
+            cellMonth: Months,
+            cellDay: number,
+          ) => {
+            onCellClick(cellYear, cellMonth, cellDay);
+            handleUpdateDateInput(cellYear, cellMonth, cellDay);
+          }}
           defaultYear={defaultYear}
           defaultMonth={defaultMonth}
         />
