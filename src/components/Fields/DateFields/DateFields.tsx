@@ -87,7 +87,7 @@ export const DateFields = ({
               value={startLabel}
               errorMessage={errorMessage}
               isFieldReadOnly={readonly}
-              onCellClick={(cellDay, cellMonth, cellYear) => {
+              onCellClick={(cellYear, cellMonth, cellDay) => {
                 const monthZeroIndexed = cellMonth - 1;
                 onCellClick.startDate(cellYear, monthZeroIndexed, cellDay);
               }}
@@ -113,7 +113,7 @@ export const DateFields = ({
               value={endLabel}
               errorMessage={errorMessage}
               isFieldReadOnly={readonly}
-              onCellClick={(cellDay, cellMonth, cellYear) => {
+              onCellClick={(cellYear, cellMonth, cellDay) => {
                 const monthZeroIndexed = cellMonth - 1;
                 onCellClick.endDate(cellYear, monthZeroIndexed, cellDay);
               }}
