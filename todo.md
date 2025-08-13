@@ -1,21 +1,16 @@
 # Next steps (v1):
 
-- Create test for each date/calendar field component
-
-- Create new DateCalendarField shared component from modal input date field (Monday, August 4) + calendar
 - Create new TimeField shared component with modal time input (10am)
-    <!-- -? Create new TimeRangeField shared component with TimeField – TimeField (10am) -->
 - ? Create new DateWithTimeField shared component (Monday, August 4 - 10am) with DateCalendarField + DateTimeField
 
-- Extract date field from
+- Finish todo tests
 
-- Finish todo tests of update calendar
+  - update calendar
 
 - close calendar
+
   - when selecting date
   - when clicking outside calendar
-- multi day checkbox shows start/end date and time on top of each other
-- review date field and event updates modal to add tests
 
 - create selector dropdown for start/end hours
   - end selector must start after selected start hour to prevent events with a end time greater than start time
