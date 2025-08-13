@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { memo, useCallback, useEffect } from 'react';
 import { Modal } from '../../../../../components/Modal/Modal';
 import {
@@ -36,26 +35,13 @@ export const EventUpdateModal = memo(() => {
     ? new Date(eventOnUpdateMode?.event?.endDate)
     : undefined;
 
-  const {
-    eventFields,
-    errors,
-    updateEventField,
-    // isDirty,
-    // findEventFieldsErrors,
-  } = useManageEventUpdates({
+  const { eventFields, errors, updateEventField } = useManageEventUpdates({
     ...eventOnUpdateMode?.event,
     startDate: initialStartDate && getDateISOString(initialStartDate),
     endDate: initialEndDate && getDateISOString(initialEndDate),
   });
 
-  const {
-    title,
-    startDate: startISODate,
-    endDate: endISODate,
-    id,
-    description,
-    location,
-  } = eventFields;
+  const { title, startDate: startISODate, endDate: endISODate } = eventFields;
   const style = {
     top: eventOnUpdateMode?.top,
     maxWidth: 'max-content',
