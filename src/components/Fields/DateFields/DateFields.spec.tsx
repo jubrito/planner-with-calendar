@@ -122,23 +122,6 @@ describe('DateField', () => {
         const endHourField = screen.getByLabelText('End hour');
         expect(endHourField).toHaveAttribute('aria-errormessage', errorMessage);
       });
-
-      it.todo('should set start hour field on click function');
-      it.todo('should set end hour field on click function');
-      it.todo('should open calendar when using enter key on start date');
-      it.todo('should open calendar when using enter key on end date');
-    });
-
-    describe('Same day event field', () => {
-      it.todo(
-        'should render same day checkbox checked if it is same-day event',
-      );
-      it.todo(
-        'should render same day checkbox unchecked if it is multi-day event',
-      );
-      it.todo(
-        'should render input and label connected with correct accessibility properties',
-      );
     });
   });
 });
