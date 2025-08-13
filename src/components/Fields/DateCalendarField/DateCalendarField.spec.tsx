@@ -1,10 +1,11 @@
-import { fireEvent, screen } from '@testing-library/react';
+import { fireEvent, screen, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { getDateISOString } from '../../../utils/calendar/utils';
 import { renderWithProviders } from '../../../utils/tests/renderWithProviders';
 import { DateCalendarField } from './DateCalendarField';
 import userEvent from '@testing-library/user-event';
 import { enterKey } from '../../../utils/constants';
+import { Months } from '../../../types/calendar/enums';
 
 describe('DateCalendarField', () => {
   const dateLabel = 'dateLabel';
@@ -13,7 +14,10 @@ describe('DateCalendarField', () => {
   const errorMessage = 'label';
   const isFieldReadOnly = true;
   const onCellClick = jest.fn();
-  const date = new Date();
+  const defaultYear = 1957;
+  const defaultMonth = Months.DECEMBER;
+  const someDay = 27;
+  const date = new Date(defaultYear, defaultMonth, someDay);
   const initialISODate = getDateISOString(date);
   let container: HTMLElement;
 
@@ -67,6 +71,24 @@ describe('DateCalendarField', () => {
     const calendar = screen.getByRole('table');
     expect(calendar).toBeInTheDocument();
   });
+
+  it('should call date on click function when clicking on calendar (mouse)', async () => {
+    const dateField = screen.getByLabelText(dateLabel);
+    await userEvent.click(dateField);
+    const calendar = screen.getByRole('table');
+    const cellButton = within(calendar).getByRole('button', {
+      name: `Dec ${someDay} of ${defaultYear}`,
+    });
+    await userEvent.click(cellButton);
+    expect(onCellClick).toHaveBeenCalled();
+  });
+
+  it.skip('should call date on click function when clicking on calendar (key down)', () => {
+    // const dateField = screen.getByLabelText(dateLabel);
+    // fireEvent.keyDown(dateField, { key: enterKey });
+    // expect(onCellClick).toHaveBeenCalled();
+  });
+
   it.skip('should hide date calendar when clicking on date input (mouse)', async () => {
     const dateField = screen.getByLabelText(dateLabel);
     await userEvent.click(dateField);
@@ -74,7 +96,4 @@ describe('DateCalendarField', () => {
     expect(calendar).toBeInTheDocument();
     // const dayViewContainer = container.firstElementChild;
   });
-
-  it.todo('should call start date on click function when clicking on calendar');
-  it.todo('should call end date on click function when clicking on calendar');
 });
