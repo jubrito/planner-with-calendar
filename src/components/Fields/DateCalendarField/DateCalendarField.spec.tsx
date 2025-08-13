@@ -20,8 +20,6 @@ describe('DateCalendarField', () => {
   const date = new Date(defaultYear, defaultMonth, someDay);
   const initialISODate = getDateISOString(date);
   const someCellLabel = `Dec ${someDay} of ${defaultYear}`;
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  let container: HTMLElement;
 
   it('should render calendar based on date field year and month', async () => {
     renderWithProviders(
@@ -69,7 +67,7 @@ describe('DateCalendarField', () => {
 
   describe('Default rendering', () => {
     beforeEach(() => {
-      const { container: HTMLContainer } = renderWithProviders(
+      renderWithProviders(
         <DateCalendarField
           dateLabel={dateLabel}
           className={className}
@@ -80,7 +78,6 @@ describe('DateCalendarField', () => {
           initialISODate={initialISODate}
         />,
       );
-      container = HTMLContainer;
     });
     it('should render start date field label with id', () => {
       const dateField = screen.getByLabelText(dateLabel);
@@ -137,10 +134,5 @@ describe('DateCalendarField', () => {
     });
 
     it.todo('should hide date calendar when clicking on date input (mouse)');
-    // const dateField = screen.getByLabelText(dateLabel);
-    // await userEvent.click(dateField);
-    // const calendar = screen.getByRole('table');
-    // expect(calendar).toBeInTheDocument();
-    // const dayViewContainer = container.firstElementChild;
   });
 });
