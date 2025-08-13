@@ -32,4 +32,9 @@ describe('DateCalendarField', () => {
     expect(endDateField).toHaveAttribute('readonly');
     expect(endDateField).toHaveAttribute('aria-readonly', 'true');
   });
+
+  it('should render end date field with aria error message', () => {
+    const endDateField = screen.getByLabelText(dateLabel);
+    expect(endDateField).toHaveAttribute('aria-errormessage', errorMessage);
+  });
 });
