@@ -19,6 +19,7 @@ describe('DateCalendarField', () => {
   const someDay = 27;
   const date = new Date(defaultYear, defaultMonth, someDay);
   const initialISODate = getDateISOString(date);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let container: HTMLElement;
 
   beforeEach(() => {
@@ -83,10 +84,10 @@ describe('DateCalendarField', () => {
     expect(onCellClick).toHaveBeenCalled();
   });
 
-  it.skip('should call date on click function when clicking on calendar (key down)', () => {
-    // const dateField = screen.getByLabelText(dateLabel);
-    // fireEvent.keyDown(dateField, { key: enterKey });
-    // expect(onCellClick).toHaveBeenCalled();
+  it('should call date on click function when clicking on calendar (key down)', () => {
+    const dateField = screen.getByLabelText(dateLabel);
+    fireEvent.keyDown(dateField, { key: enterKey });
+    expect(onCellClick).toHaveBeenCalled();
   });
 
   it.skip('should hide date calendar when clicking on date input (mouse)', async () => {
