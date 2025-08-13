@@ -75,15 +75,6 @@ export const DateFields = ({
 
   const [isSameDayEvent, setIsSameDayEvent] = useState(eventisSameDay);
 
-  function handleCellClick(
-    cellYear: number,
-    cellMonth: Months,
-    cellDay: number,
-  ) {
-    const monthZeroIndexed = cellMonth - 1;
-    onCellClick.endDate(cellYear, monthZeroIndexed, cellDay);
-  }
-
   return (
     <>
       <div className={className.wrapper}>
@@ -96,7 +87,10 @@ export const DateFields = ({
               value={startLabel}
               errorMessage={errorMessage}
               isFieldReadOnly={readonly}
-              onCellClick={handleCellClick}
+              onCellClick={(cellDay, cellMonth, cellYear) => {
+                const monthZeroIndexed = cellMonth - 1;
+                onCellClick.startDate(cellYear, monthZeroIndexed, cellDay);
+              }}
               initialISODate={startISODate}
             />
             <input
@@ -119,7 +113,10 @@ export const DateFields = ({
               value={endLabel}
               errorMessage={errorMessage}
               isFieldReadOnly={readonly}
-              onCellClick={handleCellClick}
+              onCellClick={(cellDay, cellMonth, cellYear) => {
+                const monthZeroIndexed = cellMonth - 1;
+                onCellClick.endDate(cellYear, monthZeroIndexed, cellDay);
+              }}
               initialISODate={startISODate}
             />
             <input
