@@ -1,9 +1,10 @@
-import { screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { getDateISOString } from '../../../utils/calendar/utils';
 import { renderWithProviders } from '../../../utils/tests/renderWithProviders';
 import { DateCalendarField } from './DateCalendarField';
 import userEvent from '@testing-library/user-event';
+import { enterKey } from '../../../utils/constants';
 
 describe('DateCalendarField', () => {
   const dateLabel = 'dateLabel';
@@ -14,9 +15,10 @@ describe('DateCalendarField', () => {
   const onCellClick = jest.fn();
   const date = new Date();
   const initialISODate = getDateISOString(date);
+  let container: HTMLElement;
 
   beforeEach(() => {
-    renderWithProviders(
+    const { container: HTMLContainer } = renderWithProviders(
       <DateCalendarField
         dateLabel={dateLabel}
         className={className}
@@ -27,6 +29,7 @@ describe('DateCalendarField', () => {
         initialISODate={initialISODate}
       />,
     );
+    container = HTMLContainer;
   });
   it('should render start date field label with id', () => {
     const dateField = screen.getByLabelText(dateLabel);
@@ -58,9 +61,20 @@ describe('DateCalendarField', () => {
     const calendar = screen.getByRole('table');
     expect(calendar).toBeInTheDocument();
   });
-  it.todo(
-    'should display date calendar when clicking on date input (key down)',
-  );
+  it('should display date calendar when clicking on date input (key down)', async () => {
+    const dateField = screen.getByLabelText(dateLabel);
+    fireEvent.keyDown(dateField, { key: enterKey });
+    const calendar = screen.getByRole('table');
+    expect(calendar).toBeInTheDocument();
+  });
+  it.skip('should hide date calendar when clicking on date input (mouse)', async () => {
+    const dateField = screen.getByLabelText(dateLabel);
+    await userEvent.click(dateField);
+    const calendar = screen.getByRole('table');
+    expect(calendar).toBeInTheDocument();
+    // const dayViewContainer = container.firstElementChild;
+  });
+
   it.todo('should call start date on click function when clicking on calendar');
   it.todo('should call end date on click function when clicking on calendar');
 });
