@@ -62,7 +62,7 @@ describe('Calendar', () => {
         },
       },
     );
-    expect(screen.getAllByLabelText('Feb 13 of 1999')).toBeInTheDocument();
+    expect(screen.getByLabelText('Feb 13 of 1999')).toBeInTheDocument();
   });
 
   it('should call onCell click function when clicking on a cell', async () => {
