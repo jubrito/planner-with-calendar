@@ -3,6 +3,7 @@ import '@testing-library/jest-dom';
 import { getDateISOString } from '../../../utils/calendar/utils';
 import { renderWithProviders } from '../../../utils/tests/renderWithProviders';
 import { DateCalendarField } from './DateCalendarField';
+import userEvent from '@testing-library/user-event';
 
 describe('DateCalendarField', () => {
   const dateLabel = 'dateLabel';
@@ -50,4 +51,16 @@ describe('DateCalendarField', () => {
     });
     expect(dateField).toBeInTheDocument();
   });
+
+  it('should display date calendar when clicking on date input (mouse)', async () => {
+    const dateField = screen.getByLabelText(dateLabel);
+    await userEvent.click(dateField);
+    const calendar = screen.getByRole('table');
+    expect(calendar).toBeInTheDocument();
+  });
+  it.todo(
+    'should display date calendar when clicking on date input (key down)',
+  );
+  it.todo('should call start date on click function when clicking on calendar');
+  it.todo('should call end date on click function when clicking on calendar');
 });

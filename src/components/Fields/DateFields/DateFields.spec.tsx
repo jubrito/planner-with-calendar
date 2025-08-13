@@ -76,45 +76,6 @@ describe('DateField', () => {
         expect(endDateField).toBeInTheDocument();
         expect(endDateField.id).toBe('End date');
       });
-
-      it('should render start date field with read only properties as true', () => {
-        const startDateField = screen.getByLabelText('Start date');
-        expect(startDateField).toHaveAttribute('readonly');
-        expect(startDateField).toHaveAttribute('aria-readonly', 'true');
-      });
-      it('should render start date field with aria error message', () => {
-        const startDateField = screen.getByLabelText('Start date');
-        expect(startDateField).toHaveAttribute(
-          'aria-errormessage',
-          errorMessage,
-        );
-      });
-      it.todo(
-        'should display start date calendar when clicking on start date input (mouse)',
-      );
-      it.todo(
-        'should display end date calendar when clicking on end date input (mouse)',
-      );
-      it.todo(
-        'should display start date calendar when clicking on start date input (enter key down)',
-      );
-      it.todo(
-        'should display end date calendar when clicking on end date input (enter key down)',
-      );
-      it.todo(
-        'should call start date on click function when clicking on calendar',
-      );
-      it.todo(
-        'should call end date on click function when clicking on calendar',
-      );
-      // it('should call start date on click function when clicking on calendar', async () => {
-      //   const startDateField = screen.getByLabelText('Start date');
-      //   await userEvent.click(startDateField);
-      //   await waitFor(() => {
-      //     expect(onCellClick.startDate).toHaveBeenCalled();
-      //   });
-      //   screen.debug();
-      // });
     });
 
     describe('Hour field', () => {
