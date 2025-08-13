@@ -2,10 +2,8 @@ import { useSelector } from 'react-redux';
 import { getDateInfo } from '../../../utils/calendar/utils';
 import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
 import { isValidDate } from '../../../utils/checkers';
-import { useState } from 'react';
 import { Months } from '../../../types/calendar/enums';
 import styles from './_date-fields.module.scss';
-import { isSameDayEvent as isSameDay } from '../../../utils/utils';
 import { ErrorField } from '../ErrorField/ErrorField';
 import { DateCalendarField } from '../DateCalendarField/DateCalendarField';
 
@@ -46,34 +44,12 @@ export const DateFields = ({
   const startHourLabel = 'Start hour';
   const endHourLabel = 'End hour';
 
-  const {
-    label: startLabel,
-    hour: startHour,
-    year: startYear,
-    day: startDay,
-    month: startMonth,
-    // minutes: startMinutes,
-    // monthName: startMonthName,
-    // dayOfTheWeek: startDayOfTheWeek,
-  } = getDateInfo(validStartDate, locale);
-
-  const {
-    hour: endHour,
-    label: endLabel,
-    year: endYear,
-    day: endDay,
-    month: endMonth,
-    // minutes: endMinutes,
-    // monthName: endMonthName,
-    // dayOfTheWeek: endDayOfTheWeek,
-  } = getDateInfo(validEndDate, locale);
-
-  const eventisSameDay = isSameDay(
-    { year: startYear, month: startMonth, day: startDay },
-    { year: endYear, month: endMonth, day: endDay },
+  const { label: startLabel, hour: startHour } = getDateInfo(
+    validStartDate,
+    locale,
   );
 
-  const [isSameDayEvent, setIsSameDayEvent] = useState(eventisSameDay);
+  const { hour: endHour, label: endLabel } = getDateInfo(validEndDate, locale);
 
   return (
     <>
@@ -132,21 +108,6 @@ export const DateFields = ({
               aria-errormessage={errorMessage}
             />
             {errorMessage && <ErrorField errorMessage={errorMessage} />}
-          </div>
-        </div>
-      </div>
-      <div className={className.wrapper}>
-        <div className={styles.container}>
-          <div className={styles.multiDayEventBox}>
-            <input
-              name="isMultiDayEvent"
-              id="isMultiDayEvent"
-              type="checkbox"
-              checked={!isSameDayEvent}
-              aria-checked={!isSameDayEvent}
-              onChange={() => setIsSameDayEvent((prevValue) => !prevValue)}
-            />
-            <label htmlFor="isMultiDayEvent">Multi-day event</label>
           </div>
         </div>
       </div>
