@@ -27,14 +27,20 @@ describe('DateCalendarField', () => {
       />,
     );
   });
-  it('should render end date field with read only properties as true', () => {
-    const endDateField = screen.getByLabelText(dateLabel);
-    expect(endDateField).toHaveAttribute('readonly');
-    expect(endDateField).toHaveAttribute('aria-readonly', 'true');
+  it('should render start date field label with id', () => {
+    const dateField = screen.getByLabelText(dateLabel);
+    expect(dateField).toBeInTheDocument();
+    expect(dateField.id).toBe(dateLabel);
+  });
+
+  it('should render date field with read only properties as true', () => {
+    const dateField = screen.getByLabelText(dateLabel);
+    expect(dateField).toHaveAttribute('readonly');
+    expect(dateField).toHaveAttribute('aria-readonly', 'true');
   });
 
   it('should render end date field with aria error message', () => {
-    const endDateField = screen.getByLabelText(dateLabel);
-    expect(endDateField).toHaveAttribute('aria-errormessage', errorMessage);
+    const dateField = screen.getByLabelText(dateLabel);
+    expect(dateField).toHaveAttribute('aria-errormessage', errorMessage);
   });
 });

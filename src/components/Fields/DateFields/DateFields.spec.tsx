@@ -10,7 +10,6 @@ describe('DateField', () => {
   const month = Months.FEBRUARY;
   const day = 25;
   const startISODate = getDateISOString(new Date(year, month, day));
-  const endISODateMultiDay = getDateISOString(new Date(year, month, day + 1));
   const errorMessage = 'Error message';
   const onCellClick = {
     startDate: jest.fn(),
@@ -47,41 +46,6 @@ describe('DateField', () => {
     expect(screen.getByText(errorMessage)).toBeInTheDocument();
   });
 
-  describe('Multi day', () => {
-    beforeEach(() => {
-      renderWithProviders(
-        <DateFields
-          startISODate={startISODate}
-          endISODate={endISODateMultiDay}
-          errorMessage={errorMessage}
-          className={{ wrapper: '', field: '' }}
-          onCellClick={onCellClick}
-          icon={<>{icon}</>}
-          readonly={true}
-        />,
-      );
-    });
-
-    afterAll(() => {
-      jest.clearAllMocks();
-    });
-
-    it('should render end date field if it is multi day event', () => {
-      const dateField = screen.getByLabelText('End date');
-      expect(dateField).toBeInTheDocument();
-      expect(dateField.id).toBe('End date');
-      expect(dateField).toHaveRole('textbox');
-    });
-    it('should render end date field with read only properties as true', () => {
-      const endDateField = screen.getByLabelText('End date');
-      expect(endDateField).toHaveAttribute('readonly');
-      expect(endDateField).toHaveAttribute('aria-readonly', 'true');
-    });
-    it('should render end date field with aria error message', () => {
-      const endDateField = screen.getByLabelText('Start date');
-      expect(endDateField).toHaveAttribute('aria-errormessage', errorMessage);
-    });
-  });
   describe('Same day', () => {
     beforeEach(() => {
       renderWithProviders(
