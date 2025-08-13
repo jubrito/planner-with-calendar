@@ -1,10 +1,8 @@
 import { useSelector } from 'react-redux';
 import { getDateInfo } from '../../../utils/calendar/utils';
-import { enterKey } from '../../../utils/constants';
 import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
 import { isValidDate } from '../../../utils/checkers';
 import { useState } from 'react';
-import { Calendar } from '../../Calendar/Calendar/Calendar';
 import { Months } from '../../../types/calendar/enums';
 import styles from './_date-fields.module.scss';
 import { isSameDayEvent as isSameDay } from '../../../utils/utils';
@@ -27,11 +25,6 @@ type DateFieldProps = {
   };
 };
 
-type DatePicker = {
-  startDate?: string;
-  endDate?: string;
-};
-
 export const DateFields = ({
   icon,
   startISODate,
@@ -41,9 +34,6 @@ export const DateFields = ({
   onCellClick,
   readonly = false,
 }: DateFieldProps) => {
-  const [datePicker, setDatePicker] = useState<DatePicker>({});
-  const openEndDatePicker =
-    datePicker.endDate && isValidDate(new Date(datePicker.endDate));
   const locale = useSelector(getLocaleLanguage());
   const validStartDate = isValidDate(new Date(startISODate))
     ? new Date(startISODate)
@@ -85,6 +75,15 @@ export const DateFields = ({
 
   const [isSameDayEvent, setIsSameDayEvent] = useState(eventisSameDay);
 
+  function handleCellClick(
+    cellYear: number,
+    cellMonth: Months,
+    cellDay: number,
+  ) {
+    const monthZeroIndexed = cellMonth - 1;
+    onCellClick.endDate(cellYear, monthZeroIndexed, cellDay);
+  }
+
   return (
     <>
       <div className={className.wrapper}>
@@ -96,10 +95,9 @@ export const DateFields = ({
               className={className.field}
               value={startLabel}
               errorMessage={errorMessage}
-              onCellClick={(cellYear, cellMonth, cellDay) => {
-                const monthZeroIndexed = cellMonth - 1;
-                onCellClick.startDate(cellYear, monthZeroIndexed, cellDay);
-              }}
+              isFieldReadOnly={readonly}
+              onCellClick={handleCellClick}
+              initialISODate={startISODate}
             />
             <input
               id={startHourLabel}
@@ -115,35 +113,15 @@ export const DateFields = ({
             />
           </div>
           <div className={styles.dateBox}>
-            <input
-              id={endDateLabel}
-              aria-label={endDateLabel}
+            <DateCalendarField
+              dateLabel={endDateLabel}
               className={className.field}
               value={endLabel}
-              onClick={() =>
-                setDatePicker({
-                  endDate: endISODate,
-                })
-              }
-              onKeyDown={(event) =>
-                event.key === enterKey &&
-                setDatePicker({
-                  startDate: startISODate,
-                })
-              }
-              aria-readonly={`${readonly}`}
-              readOnly={readonly}
-              aria-errormessage={errorMessage}
+              errorMessage={errorMessage}
+              isFieldReadOnly={readonly}
+              onCellClick={handleCellClick}
+              initialISODate={startISODate}
             />
-            {openEndDatePicker && (
-              <Calendar
-                compactMode
-                onCellClick={(cellYear, cellMonth, cellDay) => {
-                  const monthZeroIndexed = cellMonth - 1;
-                  onCellClick.endDate(cellYear, monthZeroIndexed, cellDay);
-                }}
-              />
-            )}
             <input
               id={endHourLabel}
               aria-label={endHourLabel}
