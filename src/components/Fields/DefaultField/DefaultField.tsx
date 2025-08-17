@@ -5,11 +5,11 @@ type DefaultField = {
   className?: string;
   id: string;
   label: {
-    text: string;
+    text: string | number;
     srOnly: boolean;
   };
   placeholder?: string;
-  value: string;
+  value: string | number;
   readOnly?: boolean;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onClick?: (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
@@ -30,7 +30,7 @@ export const DefaultField = ({
   readOnly = false,
   ...props
 }: DefaultField) => {
-  const labelId = `${id}-label`;
+  const inputId = id.replace(' ', '-');
   const [inputValue, setInputValue] = useState(value);
 
   useEffect(() => {
@@ -43,7 +43,7 @@ export const DefaultField = ({
     <>
       <label
         className={label.srOnly ? sharedStyles.srOnly : className}
-        id={labelId}
+        htmlFor={inputId}
         aria-hidden={label.srOnly}
         hidden={label.srOnly}
         role="label"
@@ -52,7 +52,7 @@ export const DefaultField = ({
       </label>
       <input
         className={className}
-        id={id}
+        id={inputId}
         placeholder={placeholder}
         value={inputValue}
         onChange={(event) => {
@@ -63,7 +63,6 @@ export const DefaultField = ({
         onClick={onClick}
         onKeyDown={onKeyDown}
         aria-errormessage={errorMessage}
-        aria-labelledby={labelId}
         aria-readonly={readOnly}
         readOnly={readOnly}
         {...props}
