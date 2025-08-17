@@ -1,10 +1,10 @@
 import sharedStyles from '../../../styles/shared.module.scss';
 
 type LabelFieldProps = {
-  label: string;
+  label: string | number;
   htmlFor: string;
   srOnly?: boolean;
-  className: string;
+  className?: string;
 };
 
 export const LabelField = ({
