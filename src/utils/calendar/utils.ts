@@ -14,7 +14,7 @@ import {
   IntlDateTimeFormatNumeric,
   startLabel,
 } from '../constants';
-import { todayLabel } from './constants';
+import { numberOfHoursInADay, todayLabel } from './constants';
 import { isToday } from '../checkers';
 import { getWeekDayName, getWeekDaysNames } from './weeks';
 import { validateDate, validateLocale } from '../validations';
@@ -263,4 +263,25 @@ export const getDateInfo = (
     minutes: validDate.getMinutes(),
     year: getYear(validDate),
   };
+};
+export const getHoursOfTheDay = (locale: LocaleLanguage) => {
+  const hoursInADay = Array.from(Array(numberOfHoursInADay + 1).keys());
+  return hoursInADay.map((hours) => {
+    const newDate = new Date();
+    const date = new Date(
+      getYear(newDate),
+      getMonthIndex(locale, newDate),
+      getDay(newDate),
+      hours,
+    );
+    const formattedHour = getFormattedDateString(locale, date, {
+      hour: IntlDateTimeFormatNumeric,
+    });
+
+    const [time, period, hour] = getTimeInformation(formattedHour);
+    if (is12HourClockSystem(formattedHour)) {
+      return time + period;
+    }
+    return hour + ':00';
+  });
 };
