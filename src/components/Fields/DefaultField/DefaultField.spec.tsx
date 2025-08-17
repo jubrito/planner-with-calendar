@@ -65,16 +65,14 @@ describe('DefaultField', () => {
       const inputField = screen.getByRole('textbox');
       expect(inputField).toBeInTheDocument();
     });
-    it.skip('should render textbox input and allow updates', async () => {
+    it('should call textbox input on change', async () => {
       const inputField = screen.getByRole('textbox');
-      expect(inputField).toBeInTheDocument();
       const newValue = 'updated';
+
       await userEvent.click(inputField);
       await userEvent.type(inputField, newValue);
-      console.log('inputField', inputField.outerHTML);
-      inputField = screen.getByRole('textbox');
-      expect(inputField).toHaveDisplayValue(value);
-      expect(screen.getByDisplayValue(value + newValue)).toBeInTheDocument();
+
+      expect(onChangeMock).toHaveBeenCalledWith(newValue);
     });
   });
 
