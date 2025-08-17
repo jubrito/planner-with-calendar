@@ -6,6 +6,7 @@ import { Months } from '../../../types/calendar/enums';
 import styles from './_date-fields.module.scss';
 import { ErrorField } from '../ErrorField/ErrorField';
 import { DateCalendarField } from '../DateCalendarField/DateCalendarField';
+import { TimeField } from '../TimeField/TimeField';
 
 type DateFieldProps = {
   icon?: React.ReactElement;
@@ -69,17 +70,19 @@ export const DateFields = ({
               }}
               initialISODate={startISODate}
             />
-            <input
+            <TimeField
               id={startHourLabel}
-              aria-label={startHourLabel}
               className={className.field}
               value={startHour}
+              label={{
+                text: startHour,
+                srOnly: true,
+              }}
               onClick={() => {
                 console.log('field clicked startHour', startHour);
               }}
-              aria-readonly={readonly}
               readOnly={readonly}
-              aria-errormessage={errorMessage}
+              errorMessage={errorMessage}
             />
           </div>
           <div className={styles.dateBox}>
@@ -95,17 +98,19 @@ export const DateFields = ({
               }}
               initialISODate={startISODate}
             />
-            <input
+            <TimeField
               id={endHourLabel}
-              aria-label={endHourLabel}
               className={className.field}
               value={endHour}
-              onClick={() => {
-                console.log('field clicked');
+              label={{
+                text: endHour,
+                srOnly: true,
               }}
-              aria-readonly={readonly}
+              onClick={() => {
+                console.log('field clicked endHour', endHour);
+              }}
               readOnly={readonly}
-              aria-errormessage={errorMessage}
+              errorMessage={errorMessage}
             />
             {errorMessage && <ErrorField errorMessage={errorMessage} />}
           </div>
