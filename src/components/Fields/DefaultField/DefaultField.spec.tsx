@@ -76,6 +76,10 @@ describe('DefaultField', () => {
       const inputField = screen.getByRole('textbox');
       expect(inputField).toHaveValue(value);
     });
+    it('should render textbox input labelled by label', () => {
+      const inputField = screen.getByRole('textbox');
+      expect(inputField).toHaveAttribute('aria-labelledby', `${id}-label`);
+    });
   });
 
   it.skip('should render textbox input and allow updates', async () => {
