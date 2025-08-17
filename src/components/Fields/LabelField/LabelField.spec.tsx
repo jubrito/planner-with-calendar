@@ -22,4 +22,18 @@ describe('LabelField', () => {
     expect(labelField).not.toBeVisible();
     expect(labelField).toHaveAttribute('aria-hidden', 'true');
   });
+  it('should display label and make it available to screen readers when srOnly (screen readers only) is false', () => {
+    render(
+      <LabelField
+        label={label}
+        htmlFor={htmlFor}
+        className={className}
+        srOnly={false}
+      />,
+    );
+    const labelField = screen.getByText(label);
+    expect(labelField).toBeInTheDocument();
+    expect(labelField).toBeVisible();
+    expect(labelField).toHaveAttribute('aria-hidden', 'false');
+  });
 });
