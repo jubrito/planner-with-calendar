@@ -71,6 +71,10 @@ describe('DefaultField', () => {
       expect(inputField).not.toHaveAttribute('readonly');
       expect(inputField).toHaveAttribute('aria-readonly', 'false');
     });
+    it('should render textbox input with aria error message', async () => {
+      const inputField = screen.getByRole('textbox');
+      expect(inputField).toHaveAttribute('aria-errormessage', errorMessage);
+    });
   });
 
   describe('Field updates', () => {
