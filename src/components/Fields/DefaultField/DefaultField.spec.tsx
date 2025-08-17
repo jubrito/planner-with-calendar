@@ -65,7 +65,7 @@ describe('DefaultField', () => {
       expect(labelField).toBeVisible();
       expect(labelField).toHaveAttribute('aria-hidden', 'false');
     });
-    it('should render textbox input with read only properties', async () => {
+    it('should not render textbox input with read only properties', async () => {
       const inputField = screen.getByRole('textbox');
       expect(inputField).not.toHaveAttribute('readonly');
       expect(inputField).toHaveAttribute('aria-readonly', 'false');
@@ -108,5 +108,26 @@ describe('DefaultField', () => {
     expect(labelField).toBeInTheDocument();
     expect(labelField).not.toBeVisible();
     expect(labelField).toHaveAttribute('aria-hidden', 'true');
+  });
+
+  it('should render textbox input with read only properties', async () => {
+    renderWithProviders(
+      <DefaultField
+        className={className}
+        label={{
+          text: label,
+          srOnly: false,
+        }}
+        id={id}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChangeMock}
+        errorMessage={errorMessage}
+        readonly
+      />,
+    );
+    const inputField = screen.getByRole('textbox');
+    expect(inputField).toHaveAttribute('readonly');
+    expect(inputField).toHaveAttribute('aria-readonly', 'true');
   });
 });
