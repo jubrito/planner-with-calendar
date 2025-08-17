@@ -72,6 +72,10 @@ describe('DefaultField', () => {
       const inputField = screen.getByRole('textbox');
       expect(inputField).toHaveValue(value);
     });
+    it('should render textbox input with value', () => {
+      const inputField = screen.getByRole('textbox');
+      expect(inputField).toHaveValue(value);
+    });
   });
 
   it.skip('should render textbox input and allow updates', async () => {
