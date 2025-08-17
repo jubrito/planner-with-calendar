@@ -34,9 +34,10 @@ export const DefaultField = ({
   const [inputValue, setInputValue] = useState(value);
 
   useEffect(() => {
-    if (value === inputValue) return;
+    const onlyUpdatesBasedOnProps = !readOnly || value === inputValue;
+    if (onlyUpdatesBasedOnProps) return;
     setInputValue(value);
-  }, [value, inputValue]);
+  }, [readOnly, value, inputValue]);
 
   return (
     <>
