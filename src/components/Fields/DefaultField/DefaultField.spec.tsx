@@ -12,6 +12,7 @@ describe('DefaultField', () => {
   const value = 'value';
   const errorMessage = 'errorMessage';
   const onChangeMock = jest.fn();
+  const onClickMock = jest.fn();
 
   describe('Rendering', () => {
     beforeEach(() => {
@@ -70,6 +71,26 @@ describe('DefaultField', () => {
       expect(inputField).not.toHaveAttribute('readonly');
       expect(inputField).toHaveAttribute('aria-readonly', 'false');
     });
+  });
+
+  describe('Field updates', () => {
+    beforeEach(() => {
+      renderWithProviders(
+        <DefaultField
+          className={className}
+          label={{
+            text: label,
+            srOnly: false,
+          }}
+          id={id}
+          placeholder={placeholder}
+          value={value}
+          onChange={onChangeMock}
+          onClick={onClickMock}
+          errorMessage={errorMessage}
+        />,
+      );
+    });
     it('should call textbox input on change', async () => {
       const inputField = screen.getByRole('textbox');
 
@@ -77,6 +98,23 @@ describe('DefaultField', () => {
       await userEvent.type(inputField, '!');
 
       expect(onChangeMock).toHaveBeenCalled();
+    });
+    it('should call textbox input on click', async () => {
+      const inputField = screen.getByRole('textbox');
+
+      await userEvent.click(inputField);
+      await userEvent.type(inputField, '!');
+
+      expect(onClickMock).toHaveBeenCalled();
+    });
+    it('should allow textbox input updates', async () => {
+      const inputField = screen.getByRole('textbox');
+      const newValue = 'updated';
+
+      await userEvent.click(inputField);
+      await userEvent.type(inputField, newValue);
+
+      expect(screen.getByDisplayValue(value + newValue)).toBeInTheDocument();
     });
     it('should allow textbox input updates', async () => {
       const inputField = screen.getByRole('textbox');
