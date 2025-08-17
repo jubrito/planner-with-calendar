@@ -280,7 +280,7 @@ export const getHoursOfTheDay = (locale: LocaleLanguage) => {
 
     const [time, period, hour] = getTimeInformation(formattedHour);
     if (is12HourClockSystem(formattedHour)) {
-      return time + period;
+      return time + period.toLowerCase();
     }
     return hour + ':00';
   });
