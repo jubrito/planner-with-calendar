@@ -5,22 +5,7 @@
   display: flex;
 
   input {
-    background-color: transparent;
-    outline: none;
-    padding: variables.$small-gap;
-    font-size: calc(variables.$default-font-size - 2px);
-    line-height: calc(variables.$default-font-size - 2px);
-
-    &.line {
-      border: 0;
-      border-bottom: 2px solid variables.$blue-lightgray-color;
-    }
-
-    &.box {
-      border: 0;
-      background-color: variables.$darkbluegray-color;
-      color: variables.$blue-lightgray-color;
-    }
+    @include mixins.defaultField;
 
     &:focus {
       border-bottom: 3px solid variables.$white-color;
@@ -28,12 +13,6 @@
       &::placeholder {
         color: variables.$white-color;
       }
-    }
-
-    &::placeholder {
-      color: variables.$blue-lightgray-color;
-      font-size: variables.$default-font-size;
-      opacity: 1; /* Firefox */
     }
   }
 }
