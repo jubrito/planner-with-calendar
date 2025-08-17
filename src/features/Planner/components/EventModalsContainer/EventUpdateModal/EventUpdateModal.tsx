@@ -21,6 +21,7 @@ import { DateFields } from '../../../../../components/Fields/DateFields/DateFiel
 import { updateDayViewISODate } from '../../../../../redux/slices/dateSlice';
 import { validateDate } from '../../../../../utils/validations';
 import { ErrorField } from '../../../../../components/Fields/ErrorField/ErrorField';
+import { DefaultField } from '../../../../../components/Fields/DefaultField/DefaultField';
 
 export const EventUpdateModal = memo(() => {
   const dispatch = useDispatch();
@@ -74,14 +75,17 @@ export const EventUpdateModal = memo(() => {
       <>
         <div className={styles.field}>
           <CalendarMonthIcon />
-          <input
+          <DefaultField
             className={modalStyles.line}
+            label={{
+              text: titleLabel,
+              srOnly: true,
+            }}
             id={titleLabel}
-            aria-label={titleLabel}
             placeholder="Add title"
             value={title}
             onChange={(event) => updateEventField('title', event.target.value)}
-            aria-errormessage={errors.title}
+            errorMessage={errors.title}
           />
         </div>
         {errors.title && <ErrorField errorMessage={errors.title} />}
