@@ -36,4 +36,16 @@ describe('LabelField', () => {
     expect(labelField).toBeVisible();
     expect(labelField).toHaveAttribute('aria-hidden', 'false');
   });
+  it('should have label role', () => {
+    render(
+      <LabelField
+        label={label}
+        htmlFor={htmlFor}
+        className={className}
+        srOnly={false}
+      />,
+    );
+    const labelField = screen.getByText(label);
+    expect(labelField).toHaveRole('label');
+  });
 });
