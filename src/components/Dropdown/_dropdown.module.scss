@@ -1,0 +1,13 @@
+input.selected {
+  position: relative;
+}
+
+ul {
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  width: max-content;
+  height: auto;
+  list-style: none;
+}
