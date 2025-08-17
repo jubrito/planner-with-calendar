@@ -162,24 +162,61 @@ describe('DefaultField', () => {
     expect(labelField).toHaveAttribute('aria-hidden', 'true');
   });
 
-  it('should render textbox input with read only properties', async () => {
-    renderWithProviders(
-      <DefaultField
-        className={className}
-        label={{
-          text: label,
-          srOnly: false,
-        }}
-        id={id}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChangeMock}
-        errorMessage={errorMessage}
-        readOnly
-      />,
-    );
-    const inputField = screen.getByRole('textbox');
-    expect(inputField).toHaveAttribute('readonly');
-    expect(inputField).toHaveAttribute('aria-readonly', 'true');
+  describe('When it is readonly', () => {
+    let rerenderDefaultField: (ui: React.ReactNode) => void;
+    beforeEach(() => {
+      const { rerender } = renderWithProviders(
+        <DefaultField
+          className={className}
+          label={{
+            text: label,
+            srOnly: false,
+          }}
+          id={id}
+          placeholder={placeholder}
+          value={value}
+          onChange={onChangeMock}
+          errorMessage={errorMessage}
+          readOnly
+        />,
+      );
+      rerenderDefaultField = rerender;
+    });
+    it('should render textbox input with read only properties', async () => {
+      const inputField = screen.getByRole('textbox');
+      expect(inputField).toHaveAttribute('readonly');
+      expect(inputField).toHaveAttribute('aria-readonly', 'true');
+    });
+    it('should set textbox input value based on props', async () => {
+      const inputField = screen.getByRole('textbox');
+      const newValue = 'updated';
+
+      await userEvent.click(inputField);
+      await userEvent.type(inputField, newValue);
+
+      expect(screen.queryByDisplayValue(value)).toBeInTheDocument();
+      expect(
+        screen.queryByDisplayValue(value + newValue),
+      ).not.toBeInTheDocument();
+
+      const newPropsValue = 'newPropsValue';
+
+      rerenderDefaultField(
+        <DefaultField
+          className={className}
+          label={{
+            text: label,
+            srOnly: false,
+          }}
+          id={id}
+          placeholder={placeholder}
+          value={newPropsValue}
+          onChange={onChangeMock}
+          errorMessage={errorMessage}
+          readOnly
+        />,
+      );
+      expect(screen.queryByDisplayValue(newPropsValue)).toBeInTheDocument();
+    });
   });
 });
