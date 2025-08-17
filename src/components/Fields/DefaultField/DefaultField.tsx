@@ -10,6 +10,7 @@ type DefaultField = {
   };
   placeholder?: string;
   value: string;
+  readonly?: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   errorMessage?: string;
 };
@@ -22,6 +23,7 @@ export const DefaultField = ({
   id,
   label,
   placeholder,
+  readonly = false,
   ...props
 }: DefaultField) => {
   const labelId = `${id}-label`;
@@ -49,6 +51,8 @@ export const DefaultField = ({
         }}
         aria-errormessage={errorMessage}
         aria-labelledby={labelId}
+        aria-readonly={readonly}
+        readOnly={readonly}
         {...props}
       />
     </>
