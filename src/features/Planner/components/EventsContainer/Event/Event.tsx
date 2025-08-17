@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import styles from './event.module.scss';
+import styles from './_event.module.scss';
 import { memo, useCallback, useEffect, useMemo, useRef } from 'react';
 import { EventOnCreate, EventOnOpenDetails } from '../../../../../types/event';
 import {
