@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { getDateInfo } from '../../../utils/calendar/utils';
+import { getDateInfo, getHoursOfTheDay } from '../../../utils/calendar/utils';
 import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
 import { isValidDate } from '../../../utils/checkers';
 import { Months } from '../../../types/calendar/enums';
@@ -12,8 +12,7 @@ type DateFieldProps = {
   icon?: React.ReactElement;
   startISODate: string;
   endISODate: string;
-  readonly?: boolean;
-  errorMessage?: string;
+  timeOptions: string[];
   onCellClick: {
     startDate: (cellYear: number, cellMonth: Months, cellDay: number) => void;
     endDate: (cellYear: number, cellMonth: Months, cellDay: number) => void;
@@ -22,6 +21,8 @@ type DateFieldProps = {
     wrapper: string;
     field: string;
   };
+  readonly?: boolean;
+  errorMessage?: string;
 };
 
 export const DateFields = ({
@@ -44,6 +45,7 @@ export const DateFields = ({
   const endDateLabel = 'End date';
   const startHourLabel = 'Start hour';
   const endHourLabel = 'End hour';
+  const hoursOfTheDay = getHoursOfTheDay(locale);
 
   const { label: startLabel, hour: startHour } = getDateInfo(
     validStartDate,
@@ -83,6 +85,7 @@ export const DateFields = ({
               }}
               readOnly={readonly}
               errorMessage={errorMessage}
+              timeOptions={hoursOfTheDay}
             />
           </div>
           <div className={styles.dateBox}>
@@ -111,6 +114,7 @@ export const DateFields = ({
               }}
               readOnly={readonly}
               errorMessage={errorMessage}
+              timeOptions={hoursOfTheDay}
             />
             {errorMessage && <ErrorField errorMessage={errorMessage} />}
           </div>
