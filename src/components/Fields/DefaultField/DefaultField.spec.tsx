@@ -65,9 +65,10 @@ describe('DefaultField', () => {
       expect(labelField).toBeVisible();
       expect(labelField).toHaveAttribute('aria-hidden', 'false');
     });
-    it('should render textbox input', async () => {
+    it('should render textbox input with read only properties', async () => {
       const inputField = screen.getByRole('textbox');
-      expect(inputField).toBeInTheDocument();
+      expect(inputField).not.toHaveAttribute('readonly');
+      expect(inputField).toHaveAttribute('aria-readonly', 'false');
     });
     it('should call textbox input on change', async () => {
       const inputField = screen.getByRole('textbox');
