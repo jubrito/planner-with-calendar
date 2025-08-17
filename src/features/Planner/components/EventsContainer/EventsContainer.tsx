@@ -1,5 +1,5 @@
 import { useCallback, useRef, useEffect } from 'react';
-import styles from './events-container.module.scss';
+import styles from './_events-container.module.scss';
 import { throttle } from 'throttle-debounce';
 import { useSelector } from 'react-redux';
 import { Event } from './Event/Event';
