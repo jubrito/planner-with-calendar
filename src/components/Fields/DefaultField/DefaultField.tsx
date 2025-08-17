@@ -12,7 +12,7 @@ type DefaultField = {
   value: string;
   readonly?: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onClick: (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
+  onClick?: (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
   errorMessage?: string;
 };
 
