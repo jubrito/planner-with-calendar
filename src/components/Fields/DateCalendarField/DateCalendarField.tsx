@@ -9,13 +9,14 @@ import {
 } from '../../../utils/calendar/utils';
 import { useSelector } from 'react-redux';
 import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
+import { DefaultField } from '../DefaultField/DefaultField';
 
 type DateCalendarFieldProps = {
   dateLabel: string;
   className?: string;
   value: string;
   onClick?: () => void;
-  onChange?: () => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onKeyDown?: () => void;
   isFieldReadOnly?: boolean;
   errorMessage?: string;
@@ -66,12 +67,16 @@ export const DateCalendarField = ({
 
   return (
     <>
-      <input
+      <DefaultField
         id={dateLabel}
         aria-label={dateLabel}
         className={className}
         value={dateValue}
         onChange={onChange}
+        label={{
+          text: 'Start date',
+          srOnly: true,
+        }}
         onClick={() => {
           if (onClick) {
             onClick();
@@ -84,9 +89,8 @@ export const DateCalendarField = ({
           }
           setDatePicker({ date: initialISODate });
         }}
-        aria-readonly={!onChange || `${isFieldReadOnly}`}
         readOnly={!onChange || isFieldReadOnly}
-        aria-errormessage={errorMessage}
+        errorMessage={errorMessage}
       />
       {openStartDatePicker && (
         <Calendar
