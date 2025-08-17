@@ -1,8 +1,9 @@
 import '@testing-library/jest-dom';
-import { screen } from '@testing-library/dom';
+import { fireEvent, screen } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 import { renderWithProviders } from '../../../utils/tests/renderWithProviders';
 import { DefaultField } from './DefaultField';
+import { enterKey } from '../../../utils/constants';
 
 describe('DefaultField', () => {
   const className = 'className';
@@ -13,6 +14,7 @@ describe('DefaultField', () => {
   const errorMessage = 'errorMessage';
   const onChangeMock = jest.fn();
   const onClickMock = jest.fn();
+  const onKeyDownMock = jest.fn();
 
   describe('Rendering', () => {
     beforeEach(() => {
@@ -91,6 +93,7 @@ describe('DefaultField', () => {
           value={value}
           onChange={onChangeMock}
           onClick={onClickMock}
+          onKeyDown={onKeyDownMock}
           errorMessage={errorMessage}
         />,
       );
@@ -110,6 +113,13 @@ describe('DefaultField', () => {
       await userEvent.type(inputField, '!');
 
       expect(onClickMock).toHaveBeenCalled();
+    });
+    it('should call textbox input on keydown', () => {
+      const inputField = screen.getByRole('textbox');
+
+      fireEvent.keyDown(inputField, { key: enterKey });
+
+      expect(onKeyDownMock).toHaveBeenCalled();
     });
     it('should allow textbox input updates', async () => {
       const inputField = screen.getByRole('textbox');
