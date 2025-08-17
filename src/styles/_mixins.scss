@@ -1,3 +1,4 @@
+@use './variables' as variables;
 // Media queries
 
 @mixin media-only-small-mobile {
@@ -52,6 +53,31 @@
   transform: translateX(-50%);
   overflow: auto;
   z-index: 2;
+}
+
+@mixin defaultField {
+  background-color: transparent;
+  outline: none;
+  padding: variables.$small-gap;
+  font-size: calc(variables.$default-font-size - 2px);
+  line-height: calc(variables.$default-font-size - 2px);
+
+  &::placeholder {
+    color: variables.$blue-lightgray-color;
+    font-size: variables.$default-font-size;
+    opacity: 1; /* Firefox */
+  }
+
+  &.line {
+    border: 0;
+    border-bottom: 2px solid variables.$blue-lightgray-color;
+  }
+
+  &.box {
+    border: 0;
+    background-color: variables.$darkbluegray-color;
+    color: variables.$blue-lightgray-color;
+  }
 }
 
 @mixin ellipsisText {
