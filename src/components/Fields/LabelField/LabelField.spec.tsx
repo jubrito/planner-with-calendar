@@ -48,4 +48,16 @@ describe('LabelField', () => {
     const labelField = screen.getByText(label);
     expect(labelField).toHaveRole('label');
   });
+  it('should have label html "for" property pointing to the element it is labeling', () => {
+    render(
+      <LabelField
+        label={label}
+        htmlFor={htmlFor}
+        className={className}
+        srOnly={false}
+      />,
+    );
+    const labelField = screen.getByText(label);
+    expect(labelField).toHaveProperty('htmlFor', htmlFor);
+  });
 });
