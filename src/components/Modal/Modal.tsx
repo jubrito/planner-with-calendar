@@ -1,5 +1,5 @@
 import { ObjectType } from '../../types/types';
-import styles from './modal.module.scss';
+import styles from './_modal.module.scss';
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
