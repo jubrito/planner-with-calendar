@@ -18,6 +18,7 @@ import {
   getFormattedDateString,
   getFullDateLabel,
   getFullDateTitle,
+  getHoursOfTheDay,
   getLastDayOfPreviousMonth,
   getMonthIndex,
   getMonthName,
@@ -468,6 +469,38 @@ describe('utils', () => {
       expect(labelResult).toBe('Monday, December 1');
       expect(monthNameResult).toBe('December');
       expect(dayOfTheWeekResult).toBe('Mon');
+    });
+  });
+  describe('getHoursOfTheDay', () => {
+    it('should return horus of the day in english', () => {
+      const hoursOfTheDay = getHoursOfTheDay(localeEnglish);
+      expect(hoursOfTheDay).toStrictEqual([
+        '12 am',
+        '01 am',
+        '02 am',
+        '03 am',
+        '04 am',
+        '05 am',
+        '06 am',
+        '07 am',
+        '08 am',
+        '09 am',
+        '10 am',
+        '11 am',
+        '12 pm',
+        '01 pm',
+        '02 pm',
+        '03 pm',
+        '04 pm',
+        '05 pm',
+        '06 pm',
+        '07 pm',
+        '08 pm',
+        '09 pm',
+        '10 pm',
+        '11 pm',
+        '12 am',
+      ]);
     });
   });
 });
