@@ -78,7 +78,9 @@ describe('DefaultField', () => {
     });
     it('should render textbox input labelled by label', () => {
       const inputField = screen.getByRole('textbox');
-      expect(inputField).toHaveAttribute('aria-labelledby', `${id}-label`);
+      const labelField = screen.getByRole('label');
+      expect(labelField.id).toBe(`${id}-label`);
+      expect(inputField).toHaveAttribute('aria-labelledby', labelField.id);
     });
     it('should display label and make it available to screen readers when srOnly (screen readers only) is false', () => {
       const labelField = screen.getByText(label);
