@@ -10,7 +10,7 @@ type DefaultField = {
   };
   placeholder?: string;
   value: string;
-  readonly?: boolean;
+  readOnly?: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onClick?: (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
@@ -27,7 +27,7 @@ export const DefaultField = ({
   id,
   label,
   placeholder,
-  readonly = false,
+  readOnly: readonly = false,
   ...props
 }: DefaultField) => {
   const labelId = `${id}-label`;
