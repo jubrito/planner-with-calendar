@@ -82,6 +82,27 @@ describe('DefaultField', () => {
     });
   });
 
+  it('should hide label visually but not from screen readers when srOnly (screen readers only) is true', () => {
+    renderWithProviders(
+      <DefaultField
+        className={className}
+        label={{
+          text: label,
+          srOnly: true,
+        }}
+        id={id}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChangeMock}
+        errorMessage={errorMessage}
+      />,
+    );
+    const labelField = screen.getByText(label);
+    expect(labelField).toBeInTheDocument();
+    expect(labelField).not.toBeVisible();
+    expect(labelField).toHaveAttribute('aria-hidden', 'true');
+  });
+
   it.skip('should render textbox input and allow updates', async () => {
     renderWithProviders(
       <DefaultField
