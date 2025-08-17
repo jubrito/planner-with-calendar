@@ -80,6 +80,12 @@ describe('DefaultField', () => {
       const inputField = screen.getByRole('textbox');
       expect(inputField).toHaveAttribute('aria-labelledby', `${id}-label`);
     });
+    it('should display label and make it available to screen readers when srOnly (screen readers only) is false', () => {
+      const labelField = screen.getByText(label);
+      expect(labelField).toBeInTheDocument();
+      expect(labelField).toBeVisible();
+      expect(labelField).toHaveAttribute('aria-hidden', 'false');
+    });
   });
 
   it('should hide label visually but not from screen readers when srOnly (screen readers only) is true', () => {
