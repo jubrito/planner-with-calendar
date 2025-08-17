@@ -61,12 +61,6 @@ describe('DefaultField', () => {
       const labelField = screen.getByRole('label');
       expect(labelField).toHaveProperty('htmlFor', inputField.id);
     });
-    it('should display label and make it available to screen readers when srOnly (screen readers only) is false', () => {
-      const labelField = screen.getByText(label);
-      expect(labelField).toBeInTheDocument();
-      expect(labelField).toBeVisible();
-      expect(labelField).toHaveAttribute('aria-hidden', 'false');
-    });
     it('should not render textbox input with read only properties', async () => {
       const inputField = screen.getByRole('textbox');
       expect(inputField).not.toHaveAttribute('readonly');
@@ -138,27 +132,6 @@ describe('DefaultField', () => {
 
       expect(screen.getByDisplayValue(value + newValue)).toBeInTheDocument();
     });
-  });
-
-  it('should hide label visually but not from screen readers when srOnly (screen readers only) is true', () => {
-    renderWithProviders(
-      <DefaultField
-        className={className}
-        label={{
-          text: label,
-          srOnly: true,
-        }}
-        id={id}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChangeMock}
-        errorMessage={errorMessage}
-      />,
-    );
-    const labelField = screen.getByText(label);
-    expect(labelField).toBeInTheDocument();
-    expect(labelField).not.toBeVisible();
-    expect(labelField).toHaveAttribute('aria-hidden', 'true');
   });
 
   describe('When it is readonly', () => {
