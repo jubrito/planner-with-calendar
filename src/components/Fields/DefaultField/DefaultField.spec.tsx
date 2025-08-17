@@ -175,7 +175,7 @@ describe('DefaultField', () => {
         value={value}
         onChange={onChangeMock}
         errorMessage={errorMessage}
-        readonly
+        readOnly
       />,
     );
     const inputField = screen.getByRole('textbox');
