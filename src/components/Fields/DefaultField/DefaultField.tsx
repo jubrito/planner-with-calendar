@@ -27,7 +27,7 @@ export const DefaultField = ({
   id,
   label,
   placeholder,
-  readOnly: readonly = false,
+  readOnly = false,
   ...props
 }: DefaultField) => {
   const labelId = `${id}-label`;
@@ -57,8 +57,8 @@ export const DefaultField = ({
         onKeyDown={onKeyDown}
         aria-errormessage={errorMessage}
         aria-labelledby={labelId}
-        aria-readonly={readonly}
-        readOnly={readonly}
+        aria-readonly={readOnly}
+        readOnly={readOnly}
         {...props}
       />
     </>
