@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import sharedStyles from '../../../styles/shared.module.scss';
+import { LabelField } from '../LabelField/LabelField';
 
 type DefaultField = {
   className?: string;
@@ -41,15 +42,13 @@ export const DefaultField = ({
 
   return (
     <>
-      <label
-        className={label.srOnly ? sharedStyles.srOnly : className}
+      <LabelField
         htmlFor={inputId}
         aria-hidden={label.srOnly}
-        hidden={label.srOnly}
-        role="label"
-      >
-        {label?.text}
-      </label>
+        srOnly={label.srOnly}
+        className={label.srOnly ? sharedStyles.srOnly : className}
+        label={label.text}
+      />
       <input
         className={className}
         id={inputId}
