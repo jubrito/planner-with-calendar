@@ -64,6 +64,10 @@ describe('DefaultField', () => {
       expect(inputField.id).toBe(id);
       expect(inputField.className).toBe(className);
     });
+    it.skip('should render textbox input with placeholder', () => {
+      const inputField = screen.getByRole('textbox');
+      expect(inputField).toHaveProperty('placeholder', placeholder);
+    });
   });
 
   it.skip('should render textbox input and allow updates', async () => {
