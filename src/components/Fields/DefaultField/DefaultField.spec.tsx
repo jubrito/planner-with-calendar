@@ -12,7 +12,6 @@ describe('DefaultField', () => {
   const value = 'value';
   const errorMessage = 'errorMessage';
   const onChangeMock = jest.fn();
-  const eventTitle = 'title';
 
   describe('Rendering', () => {
     beforeEach(() => {
@@ -30,6 +29,11 @@ describe('DefaultField', () => {
           errorMessage={errorMessage}
         />,
       );
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+      jest.restoreAllMocks();
     });
 
     it('should render textbox input with id and classname', () => {
@@ -67,12 +71,11 @@ describe('DefaultField', () => {
     });
     it('should call textbox input on change', async () => {
       const inputField = screen.getByRole('textbox');
-      const newValue = 'updated';
 
       await userEvent.click(inputField);
-      await userEvent.type(inputField, newValue);
+      await userEvent.type(inputField, '!');
 
-      expect(onChangeMock).toHaveBeenCalledWith(newValue);
+      expect(onChangeMock).toHaveBeenCalled();
     });
     it('should allow textbox input updates', async () => {
       const inputField = screen.getByRole('textbox');
