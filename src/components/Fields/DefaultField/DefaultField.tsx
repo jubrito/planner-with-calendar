@@ -12,6 +12,7 @@ type DefaultField = {
   value: string;
   readonly?: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onClick: (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
   errorMessage?: string;
 };
 
@@ -24,6 +25,7 @@ export const DefaultField = ({
   label,
   placeholder,
   readonly = false,
+  onClick,
   ...props
 }: DefaultField) => {
   const labelId = `${id}-label`;
@@ -49,6 +51,7 @@ export const DefaultField = ({
           onChange(event);
           setInputValue(event.target.value);
         }}
+        onClick={onClick}
         aria-errormessage={errorMessage}
         aria-labelledby={labelId}
         aria-readonly={readonly}
