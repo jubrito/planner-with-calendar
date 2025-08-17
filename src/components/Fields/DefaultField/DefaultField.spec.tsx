@@ -74,6 +74,15 @@ describe('DefaultField', () => {
 
       expect(onChangeMock).toHaveBeenCalledWith(newValue);
     });
+    it('should allow textbox input updates', async () => {
+      const inputField = screen.getByRole('textbox');
+      const newValue = 'updated';
+
+      await userEvent.click(inputField);
+      await userEvent.type(inputField, newValue);
+
+      expect(screen.getByDisplayValue(value + newValue)).toBeInTheDocument();
+    });
   });
 
   it('should hide label visually but not from screen readers when srOnly (screen readers only) is true', () => {
