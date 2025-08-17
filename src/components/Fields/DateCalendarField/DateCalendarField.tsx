@@ -74,7 +74,7 @@ export const DateCalendarField = ({
         value={dateValue}
         onChange={onChange}
         label={{
-          text: 'Start date',
+          text: dateLabel,
           srOnly: true,
         }}
         onClick={() => {
