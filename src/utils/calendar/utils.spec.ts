@@ -76,31 +76,31 @@ describe('utils', () => {
     '12 am',
   ];
   const portugueseHours = [
-    '12 am',
-    '01 am',
-    '02 am',
-    '03 am',
-    '04 am',
-    '05 am',
-    '06 am',
-    '07 am',
-    '08 am',
-    '09 am',
-    '10 am',
-    '11 am',
-    '12 pm',
-    '01 pm',
-    '02 pm',
-    '03 pm',
-    '04 pm',
-    '05 pm',
-    '06 pm',
-    '07 pm',
-    '08 pm',
-    '09 pm',
-    '10 pm',
-    '11 pm',
-    '12 am',
+    '00:00',
+    '01:00',
+    '02:00',
+    '03:00',
+    '04:00',
+    '05:00',
+    '06:00',
+    '07:00',
+    '08:00',
+    '09:00',
+    '10:00',
+    '11:00',
+    '12:00',
+    '13:00',
+    '14:00',
+    '15:00',
+    '16:00',
+    '17:00',
+    '18:00',
+    '19:00',
+    '20:00',
+    '21:00',
+    '22:00',
+    '23:00',
+    '00:00',
   ];
 
   describe('getFullDateTitle(...)', () => {
@@ -528,9 +528,8 @@ describe('utils', () => {
     });
   });
 
-  describe.only('getHourPeriod', () => {
+  describe('getHourPeriod', () => {
     const allDayHours = [...Array.from(new Array(25).keys())];
-    console.log('allDayHours', allDayHours);
     const getDate = (hour: number) => {
       const now = new Date();
       return new Date(
@@ -548,42 +547,24 @@ describe('utils', () => {
         expect(hourPeriod).toBe(englishHours[hour]);
       },
     );
+
+    it.each(allDayHours)(
+      'should return the hour period for each hour in portuguese',
+      (hour) => {
+        const hourPeriod = getHourPeriod(localePortuguese, getDate(hour));
+        expect(hourPeriod).toBe(portugueseHours[hour]);
+      },
+    );
   });
 
   describe('getHoursOfTheDay', () => {
     it('should return horus of the day in english', () => {
       const hoursOfTheDay = getHoursOfTheDay(localeEnglish);
-      expect(hoursOfTheDay).toStrictEqual(portugueseHours);
+      expect(hoursOfTheDay).toStrictEqual(englishHours);
     });
     it('should return horus of the day in portuguese', () => {
       const hoursOfTheDay = getHoursOfTheDay(localePortuguese);
-      expect(hoursOfTheDay).toStrictEqual([
-        '00:00',
-        '01:00',
-        '02:00',
-        '03:00',
-        '04:00',
-        '05:00',
-        '06:00',
-        '07:00',
-        '08:00',
-        '09:00',
-        '10:00',
-        '11:00',
-        '12:00',
-        '13:00',
-        '14:00',
-        '15:00',
-        '16:00',
-        '17:00',
-        '18:00',
-        '19:00',
-        '20:00',
-        '21:00',
-        '22:00',
-        '23:00',
-        '00:00',
-      ]);
+      expect(hoursOfTheDay).toStrictEqual(portugueseHours);
     });
   });
 });
