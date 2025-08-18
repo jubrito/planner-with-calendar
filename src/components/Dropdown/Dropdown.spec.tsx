@@ -1,8 +1,9 @@
 import '@testing-library/jest-dom';
-import { screen } from '@testing-library/dom';
+import { fireEvent, screen } from '@testing-library/dom';
 import { Dropdown } from './Dropdown';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { enterKey } from '../../utils/constants';
 /**
  * Expected behaviour
 The expected behaviour of the dropdown is as follows for mouse users:
@@ -88,6 +89,15 @@ describe('Dropdown', () => {
     async (option) => {
       const inputField = screen.getByRole('textbox', { name: id });
       await userEvent.click(inputField);
+
+      expect(screen.getByText(option.content)).toBeInTheDocument();
+    },
+  );
+  it.each(options)(
+    'should open dropdown and display options when clicking on input (enter key)',
+    async (option) => {
+      const inputField = screen.getByRole('textbox', { name: id });
+      fireEvent.keyDown(inputField, { key: enterKey });
 
       expect(screen.getByText(option.content)).toBeInTheDocument();
     },
