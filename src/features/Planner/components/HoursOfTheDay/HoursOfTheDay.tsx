@@ -20,7 +20,7 @@ export const HoursOfTheDay = () => {
   const monthIndex = useSelector(
     getSelectedDayViewMonth(locale, IntlDateTimeFormat2Digit),
   );
-  const hoursOfTheDay = getHoursOfTheDay(locale);
+  const hoursOfTheDay = getHoursOfTheDay(locale, false);
   const hourOfTheDaySpanRef = useRef<HTMLDivElement>(null);
 
   return (
