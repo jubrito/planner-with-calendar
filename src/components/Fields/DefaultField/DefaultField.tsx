@@ -57,6 +57,7 @@ export const DefaultField = ({
       <input
         className={classNames}
         id={inputId}
+        name={inputId}
         placeholder={placeholder}
         value={inputValue}
         onChange={(event) => {
