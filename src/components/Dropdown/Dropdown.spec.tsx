@@ -78,4 +78,8 @@ describe('Dropdown', () => {
     const labelField = screen.getByRole('label', { name: label });
     expect(labelField).toBeInTheDocument();
   });
+  it('should render input with initial value', () => {
+    const inputField = screen.getByRole('textbox', { name: id });
+    expect(inputField).toHaveDisplayValue(initialValue);
+  });
 });
