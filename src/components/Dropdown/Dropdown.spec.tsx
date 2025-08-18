@@ -65,4 +65,9 @@ describe('Dropdown', () => {
     const inputField = screen.getByRole('textbox', { name: id });
     expect(inputField).toBeInTheDocument();
   });
+  it('should render input with class and id', () => {
+    const inputField = screen.getByRole('textbox', { name: id });
+    expect(inputField.id).toBe(id);
+    expect(inputField.className).toContain(className);
+  });
 });
