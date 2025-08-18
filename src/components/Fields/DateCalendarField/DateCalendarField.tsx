@@ -10,6 +10,7 @@ import {
 import { useSelector } from 'react-redux';
 import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
 import { DefaultField } from '../DefaultField/DefaultField';
+import { enterKey, spaceKey } from '../../../utils/constants';
 
 type DateCalendarFieldProps = {
   dateLabel: string;
@@ -83,11 +84,14 @@ export const DateCalendarField = ({
           }
           setDatePicker({ date: initialISODate });
         }}
-        onKeyDown={() => {
+        onKeyDown={(event) => {
+          const shouldOpen = event.key === enterKey || event.code == spaceKey;
           if (onKeyDown) {
             onKeyDown();
           }
-          setDatePicker({ date: initialISODate });
+          if (shouldOpen) {
+            setDatePicker({ date: initialISODate });
+          }
         }}
         readOnly={!onChange || isFieldReadOnly}
         errorMessage={errorMessage}
