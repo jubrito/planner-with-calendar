@@ -12,7 +12,6 @@ type DateFieldProps = {
   icon?: React.ReactElement;
   startISODate: string;
   endISODate: string;
-  timeOptions: string[];
   onCellClick: {
     startDate: (cellYear: number, cellMonth: Months, cellDay: number) => void;
     endDate: (cellYear: number, cellMonth: Months, cellDay: number) => void;

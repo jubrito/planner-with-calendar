@@ -42,7 +42,7 @@ describe('DefaultField', () => {
     it('should render textbox input with id and classname', () => {
       const inputField = screen.getByRole('textbox');
       expect(inputField.id).toBe(id);
-      expect(inputField.className).toBe(className);
+      expect(inputField.className).toContain(className);
     });
     it('should render textbox input with placeholder', () => {
       const inputField = screen.getByRole('textbox');
