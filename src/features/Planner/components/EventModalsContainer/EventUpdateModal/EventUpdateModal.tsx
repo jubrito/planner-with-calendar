@@ -15,7 +15,7 @@ import {
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import styles from './_event-update-modal.module.scss';
-import modalStyles from './../../../../../components/Modal/modal.module.scss';
+import modalStyles from './../../../../../components/Modal/_modal.module.scss';
 import { getLocaleLanguage } from '../../../../../redux/slices/localeSlice/selectors';
 import { DateFields } from '../../../../../components/Fields/DateFields/DateFields';
 import { updateDayViewISODate } from '../../../../../redux/slices/dateSlice';
