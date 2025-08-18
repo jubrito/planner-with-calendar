@@ -69,12 +69,12 @@ describe('DateField', () => {
       it('should render start date field with label', () => {
         const startDateField = screen.getByLabelText('Start date');
         expect(startDateField).toBeInTheDocument();
-        expect(startDateField.id).toBe('Start date');
+        expect(startDateField.id).toBe('Start-date');
       });
       it('should render end date field with label', () => {
         const endDateField = screen.getByLabelText('End date');
         expect(endDateField).toBeInTheDocument();
-        expect(endDateField.id).toBe('End date');
+        expect(endDateField.id).toBe('End-date');
       });
     });
 
@@ -82,12 +82,12 @@ describe('DateField', () => {
       it('should render start hour field with label', () => {
         const startHourField = screen.getByLabelText('Start hour');
         expect(startHourField).toBeInTheDocument();
-        expect(startHourField.id).toBe('Start hour');
+        expect(startHourField.id).toBe('Start-hour');
       });
       it('should render end hour field with label', () => {
         const endHourField = screen.getByLabelText('End hour');
         expect(endHourField).toBeInTheDocument();
-        expect(endHourField.id).toBe('End hour');
+        expect(endHourField.id).toBe('End-hour');
       });
       it('should render start hour field as input', () => {
         const startHourField = screen.getByRole('textbox', {
