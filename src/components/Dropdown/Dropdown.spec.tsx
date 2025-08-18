@@ -74,4 +74,8 @@ describe('Dropdown', () => {
     const inputField = screen.getByRole('textbox', { name: id });
     expect(inputField).toHaveAttribute('aria-errormessage', errorMessage);
   });
+  it('should render input label', () => {
+    const labelField = screen.getByRole('label', { name: label });
+    expect(labelField).toBeInTheDocument();
+  });
 });
