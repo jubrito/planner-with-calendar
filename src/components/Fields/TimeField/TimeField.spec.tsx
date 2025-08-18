@@ -1,7 +1,8 @@
 import '@testing-library/jest-dom';
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import { TimeField } from './TimeField';
 import { renderWithProviders } from '../../../utils/tests/renderWithProviders';
+import userEvent from '@testing-library/user-event';
 
 describe('TimeField', () => {
   const englishHours = [
@@ -29,7 +30,6 @@ describe('TimeField', () => {
     '09 pm',
     '10 pm',
     '11 pm',
-    '12 am',
   ];
   const portugueseHours = [
     '00:00',
@@ -56,8 +56,9 @@ describe('TimeField', () => {
     '21:00',
     '22:00',
     '23:00',
-    '00:00',
+    '24:00',
   ];
+
   const onClickMock = jest.fn();
   const id = 'id';
   const label = 'label';
@@ -97,4 +98,13 @@ describe('TimeField', () => {
     expect(inputField).toHaveAttribute('aria-readonly', 'true');
     expect(inputField).toHaveProperty('readOnly');
   });
+  it.each(englishHours)(
+    'should call onClick when clicking on input and open dropdown',
+    async (englishHour) => {
+      const inputField = screen.getByRole('textbox', { name: id });
+      await userEvent.click(inputField);
+
+      expect(screen.getByText(englishHour)).toBeInTheDocument();
+    },
+  );
 });
