@@ -264,6 +264,19 @@ export const getDateInfo = (
     year: getYear(validDate),
   };
 };
+
+export const getHourPeriod = (locale: LocaleLanguage, date: Date) => {
+  const formattedHour = getFormattedDateString(locale, date, {
+    hour: IntlDateTimeFormatNumeric,
+  });
+
+  const [time, period, hour] = getTimeInformation(formattedHour);
+  if (is12HourClockSystem(formattedHour)) {
+    return time + period.toLowerCase();
+  }
+  return hour + ':00';
+};
+
 export const getHoursOfTheDay = (locale: LocaleLanguage) => {
   const hoursInADay = Array.from(Array(numberOfHoursInADay + 1).keys());
   return hoursInADay.map((hours) => {
@@ -274,14 +287,6 @@ export const getHoursOfTheDay = (locale: LocaleLanguage) => {
       getDay(newDate),
       hours,
     );
-    const formattedHour = getFormattedDateString(locale, date, {
-      hour: IntlDateTimeFormatNumeric,
-    });
-
-    const [time, period, hour] = getTimeInformation(formattedHour);
-    if (is12HourClockSystem(formattedHour)) {
-      return time + period.toLowerCase();
-    }
-    return hour + ':00';
+    return getHourPeriod(locale, date);
   });
 };
