@@ -278,7 +278,7 @@ export const getHourPeriod = (locale: LocaleLanguage, date: Date) => {
 };
 
 export const getHoursOfTheDay = (locale: LocaleLanguage) => {
-  const hoursInADay = Array.from(Array(numberOfHoursInADay + 1).keys());
+  const hoursInADay = Array.from(Array(numberOfHoursInADay).keys());
   return hoursInADay.map((hours) => {
     const newDate = new Date();
     const date = new Date(
