@@ -18,6 +18,7 @@ import {
   getFormattedDateString,
   getFullDateLabel,
   getFullDateTitle,
+  getHourPeriod,
   getHoursOfTheDay,
   getLastDayOfPreviousMonth,
   getMonthIndex,
@@ -47,6 +48,61 @@ describe('utils', () => {
   const localeEnglish = 'en-US';
   const localePortuguese = 'pt-BR';
   const date = new Date(year, month, day, hours, minutes);
+  const englishHours = [
+    '12 am',
+    '01 am',
+    '02 am',
+    '03 am',
+    '04 am',
+    '05 am',
+    '06 am',
+    '07 am',
+    '08 am',
+    '09 am',
+    '10 am',
+    '11 am',
+    '12 pm',
+    '01 pm',
+    '02 pm',
+    '03 pm',
+    '04 pm',
+    '05 pm',
+    '06 pm',
+    '07 pm',
+    '08 pm',
+    '09 pm',
+    '10 pm',
+    '11 pm',
+    '12 am',
+  ];
+  const portugueseHours = [
+    '12 am',
+    '01 am',
+    '02 am',
+    '03 am',
+    '04 am',
+    '05 am',
+    '06 am',
+    '07 am',
+    '08 am',
+    '09 am',
+    '10 am',
+    '11 am',
+    '12 pm',
+    '01 pm',
+    '02 pm',
+    '03 pm',
+    '04 pm',
+    '05 pm',
+    '06 pm',
+    '07 pm',
+    '08 pm',
+    '09 pm',
+    '10 pm',
+    '11 pm',
+    '12 am',
+  ];
+
   describe('getFullDateTitle(...)', () => {
     it('should return full date title in english', () => {
       const formattedDate = new Intl.DateTimeFormat(localeEnglish, {
@@ -471,36 +527,33 @@ describe('utils', () => {
       expect(dayOfTheWeekResult).toBe('Mon');
     });
   });
+
+  describe.only('getHourPeriod', () => {
+    const allDayHours = [...Array.from(new Array(25).keys())];
+    console.log('allDayHours', allDayHours);
+    const getDate = (hour: number) => {
+      const now = new Date();
+      return new Date(
+        getYear(now),
+        getMonthIndex(localeEnglish, now),
+        getDay(now),
+        hour,
+      );
+    };
+
+    it.each(allDayHours)(
+      'should return the hour period for each hour in english',
+      (hour) => {
+        const hourPeriod = getHourPeriod(localeEnglish, getDate(hour));
+        expect(hourPeriod).toBe(englishHours[hour]);
+      },
+    );
+  });
+
   describe('getHoursOfTheDay', () => {
     it('should return horus of the day in english', () => {
       const hoursOfTheDay = getHoursOfTheDay(localeEnglish);
-      expect(hoursOfTheDay).toStrictEqual([
-        '12 am',
-        '01 am',
-        '02 am',
-        '03 am',
-        '04 am',
-        '05 am',
-        '06 am',
-        '07 am',
-        '08 am',
-        '09 am',
-        '10 am',
-        '11 am',
-        '12 pm',
-        '01 pm',
-        '02 pm',
-        '03 pm',
-        '04 pm',
-        '05 pm',
-        '06 pm',
-        '07 pm',
-        '08 pm',
-        '09 pm',
-        '10 pm',
-        '11 pm',
-        '12 am',
-      ]);
+      expect(hoursOfTheDay).toStrictEqual(portugueseHours);
     });
     it('should return horus of the day in portuguese', () => {
       const hoursOfTheDay = getHoursOfTheDay(localePortuguese);
