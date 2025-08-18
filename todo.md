@@ -2,8 +2,11 @@
 
 -------------------- UPDATE EVENT modal --------------------
 
-- Create new TimeField shared component with modal time input (10am)
-- ? Create new DateWithTimeField shared component (Monday, August 4 - 10am) with DateCalendarField + DateTimeField
+- TimeField tests
+- Dropdown
+
+  - accessibility (https://www.sitelint.com/blog/hiding-a-text-but-making-it-accessible-to-a-screen-reader)
+  - tests
 
 - Finish todo tests
 
