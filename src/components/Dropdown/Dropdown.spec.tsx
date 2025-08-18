@@ -70,4 +70,8 @@ describe('Dropdown', () => {
     expect(inputField.id).toBe(id);
     expect(inputField.className).toContain(className);
   });
+  it('should render input with received error message', () => {
+    const inputField = screen.getByRole('textbox', { name: id });
+    expect(inputField).toHaveAttribute('aria-errormessage', errorMessage);
+  });
 });
