@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { getDateInfo, getHoursOfTheDay } from '../../../utils/calendar/utils';
+import { getDateInfo } from '../../../utils/calendar/utils';
 import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
 import { isValidDate } from '../../../utils/checkers';
 import { Months } from '../../../types/calendar/enums';
@@ -44,7 +44,6 @@ export const DateFields = ({
   const endDateLabel = 'End date';
   const startHourLabel = 'Start hour';
   const endHourLabel = 'End hour';
-  const hoursOfTheDay = getHoursOfTheDay(locale);
 
   const { label: startLabel, hour: startHour } = getDateInfo(
     validStartDate,
@@ -84,7 +83,6 @@ export const DateFields = ({
               }}
               readOnly={readonly}
               errorMessage={errorMessage}
-              timeOptions={hoursOfTheDay}
             />
           </div>
           <div className={styles.dateBox}>
@@ -113,7 +111,6 @@ export const DateFields = ({
               }}
               readOnly={readonly}
               errorMessage={errorMessage}
-              timeOptions={hoursOfTheDay}
             />
             {errorMessage && <ErrorField errorMessage={errorMessage} />}
           </div>
