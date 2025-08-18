@@ -277,8 +277,14 @@ export const getHourPeriod = (locale: LocaleLanguage, date: Date) => {
   return hour + ':00';
 };
 
-export const getHoursOfTheDay = (locale: LocaleLanguage) => {
-  const hoursInADay = Array.from(Array(numberOfHoursInADay).keys());
+export const getHoursOfTheDay = (
+  locale: LocaleLanguage,
+  onlyOneMidnight = true,
+) => {
+  const nHoursInADay = onlyOneMidnight
+    ? numberOfHoursInADay
+    : numberOfHoursInADay + 1;
+  const hoursInADay = Array.from(Array(nHoursInADay).keys());
   return hoursInADay.map((hours) => {
     const newDate = new Date();
     const date = new Date(

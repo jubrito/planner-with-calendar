@@ -73,7 +73,6 @@ describe('utils', () => {
     '09 pm',
     '10 pm',
     '11 pm',
-    '12 am',
   ];
   const portugueseHours = [
     '00:00',
@@ -100,7 +99,6 @@ describe('utils', () => {
     '21:00',
     '22:00',
     '23:00',
-    '00:00',
   ];
 
   describe('getFullDateTitle(...)', () => {
@@ -529,32 +527,65 @@ describe('utils', () => {
   });
 
   describe('getHourPeriod', () => {
-    const allDayHours = [...Array.from(new Array(25).keys())];
-    const getDate = (hour: number) => {
-      const now = new Date();
-      return new Date(
-        getYear(now),
-        getMonthIndex(localeEnglish, now),
-        getDay(now),
-        hour,
+    describe('With only one midnight (default)', () => {
+      const allDayHours = [...Array.from(new Array(24).keys())];
+      const getDate = (hour: number) => {
+        const now = new Date();
+        return new Date(
+          getYear(now),
+          getMonthIndex(localeEnglish, now),
+          getDay(now),
+          hour,
+        );
+      };
+
+      it.each(allDayHours)(
+        'should return the hour period for each hour in english',
+        (hour) => {
+          const hourPeriod = getHourPeriod(localeEnglish, getDate(hour));
+          expect(hourPeriod).toBe(englishHours[hour]);
+        },
       );
-    };
 
-    it.each(allDayHours)(
-      'should return the hour period for each hour in english',
-      (hour) => {
-        const hourPeriod = getHourPeriod(localeEnglish, getDate(hour));
-        expect(hourPeriod).toBe(englishHours[hour]);
-      },
-    );
+      it.each(allDayHours)(
+        'should return the hour period for each hour in portuguese',
+        (hour) => {
+          const hourPeriod = getHourPeriod(localePortuguese, getDate(hour));
+          expect(hourPeriod).toBe(portugueseHours[hour]);
+        },
+      );
+    });
+    describe('With two midnights (before and after)', () => {
+      const allDayHours = [...Array.from(new Array(25).keys())];
+      const getDate = (hour: number) => {
+        const now = new Date();
+        return new Date(
+          getYear(now),
+          getMonthIndex(localeEnglish, now),
+          getDay(now),
+          hour,
+        );
+      };
 
-    it.each(allDayHours)(
-      'should return the hour period for each hour in portuguese',
-      (hour) => {
-        const hourPeriod = getHourPeriod(localePortuguese, getDate(hour));
-        expect(hourPeriod).toBe(portugueseHours[hour]);
-      },
-    );
+      const hoursWithExtraMidnightEn = [...englishHours, '12 am'];
+      const hoursWithExtraMidnightPtBr = [...portugueseHours, '00:00'];
+
+      it.each(allDayHours)(
+        'should return the hour period for each hour in english',
+        (hour) => {
+          const hourPeriod = getHourPeriod(localeEnglish, getDate(hour));
+          expect(hourPeriod).toBe(hoursWithExtraMidnightEn[hour]);
+        },
+      );
+
+      it.each(allDayHours)(
+        'should return the hour period for each hour in portuguese',
+        (hour) => {
+          const hourPeriod = getHourPeriod(localePortuguese, getDate(hour));
+          expect(hourPeriod).toBe(hoursWithExtraMidnightPtBr[hour]);
+        },
+      );
+    });
   });
 
   describe('getHoursOfTheDay', () => {
