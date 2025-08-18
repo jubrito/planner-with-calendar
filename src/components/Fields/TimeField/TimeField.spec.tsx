@@ -92,4 +92,9 @@ describe('TimeField', () => {
     expect(inputField).toHaveAttribute('aria-errormessage', errorMessage);
     expect(inputField).toHaveProperty('placeholder', placeholder);
   });
+  it('should render readonly input', () => {
+    const inputField = screen.getByRole('textbox', { name: id });
+    expect(inputField).toHaveAttribute('aria-readonly', 'true');
+    expect(inputField).toHaveProperty('readOnly');
+  });
 });
