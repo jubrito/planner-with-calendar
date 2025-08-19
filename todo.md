@@ -10,8 +10,6 @@
 
 - Finish todo tests
 
-  - update calendar
-
 - close calendar
 
   - when selecting date
