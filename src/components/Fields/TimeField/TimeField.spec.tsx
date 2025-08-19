@@ -108,4 +108,43 @@ describe('TimeField', () => {
       },
     );
   });
+
+  describe('WHEN locale is portuguese', () => {
+    it.each(portugueseHours)(
+      'should display all 24 dropdown hours when clicking on input',
+      async (portugueseHour) => {
+        renderWithProviders(
+          <TimeField
+            className={className}
+            id={id}
+            label={{
+              text: label,
+              srOnly: false,
+            }}
+            value={value}
+            onClick={onClickMock}
+            errorMessage={errorMessage}
+            readOnly
+            placeholder={placeholder}
+          />,
+          {
+            preloadedState: {
+              localeSlice: {
+                ...initialValue,
+                currentState: {
+                  locale: {
+                    lang: 'pt-BR',
+                  },
+                },
+              },
+            },
+          },
+        );
+        const inputField = screen.getByRole('textbox', { name: id });
+        await userEvent.click(inputField);
+
+        expect(screen.getByText(portugueseHour)).toBeInTheDocument();
+      },
+    );
+  });
 });
