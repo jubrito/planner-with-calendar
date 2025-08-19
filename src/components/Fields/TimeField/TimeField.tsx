@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
 import { getHoursOfTheDay } from '../../../utils/calendar/utils';
 import { Dropdown } from '../../Dropdown/Dropdown';
+import { OptionType } from '../../../types/types';
 
 type TimeField = {
   id: string;
@@ -12,7 +13,7 @@ type TimeField = {
   };
   placeholder?: string;
   value: string | number;
-  onClick: (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
+  onClick?: (event: OptionType) => void;
   errorMessage?: string;
   readOnly?: boolean;
 };
@@ -24,6 +25,7 @@ export const TimeField = ({
   label,
   id,
   placeholder,
+  onClick,
   readOnly = false,
 }: TimeField) => {
   const locale = useSelector(getLocaleLanguage());
@@ -35,7 +37,11 @@ export const TimeField = ({
       className={className}
       initialValue={value}
       label={label}
-      onValueUpdate={() => {
+      onValueUpdate={(event) => {
+        if (onClick) {
+          console.log('onClick juju');
+          onClick(event);
+        }
         console.log('field clicked', value);
       }}
       placeholder={placeholder}

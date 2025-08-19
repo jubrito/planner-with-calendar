@@ -1,13 +1,8 @@
 import { useState } from 'react';
 import { DefaultField } from '../Fields/DefaultField/DefaultField';
 import styles from './_dropdown.module.scss';
-import { ObjectType } from '../../types/types';
+import { ObjectType, OptionType } from '../../types/types';
 import { enterKey } from '../../utils/constants';
-
-type OptionType = {
-  content: string | number;
-  key: string | number;
-};
 
 type DropdownProps = {
   label: {
