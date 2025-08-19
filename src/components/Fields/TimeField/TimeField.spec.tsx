@@ -1,8 +1,9 @@
 import '@testing-library/jest-dom';
-import { screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { TimeField } from './TimeField';
 import { renderWithProviders } from '../../../utils/tests/renderWithProviders';
 import userEvent from '@testing-library/user-event';
+import { initialValue } from '../../../redux/slices/localeSlice';
 
 describe('TimeField', () => {
   const englishHours = [
@@ -56,55 +57,55 @@ describe('TimeField', () => {
     '21:00',
     '22:00',
     '23:00',
-    '24:00',
   ];
-
-  const onClickMock = jest.fn();
   const id = 'id';
   const label = 'label';
   const value = 'value';
   const placeholder = 'placeholder';
   const className = 'className';
   const errorMessage = 'errorMessage';
+  const onClickMock = jest.fn();
 
-  beforeEach(() => {
-    renderWithProviders(
-      <TimeField
-        className={className}
-        id={id}
-        label={{
-          text: label,
-          srOnly: false,
-        }}
-        value={value}
-        onClick={onClickMock}
-        errorMessage={errorMessage}
-        readOnly
-        placeholder={placeholder}
-      />,
+  describe('WHEN locale is english', () => {
+    beforeEach(() => {
+      renderWithProviders(
+        <TimeField
+          className={className}
+          id={id}
+          label={{
+            text: label,
+            srOnly: false,
+          }}
+          value={value}
+          onClick={onClickMock}
+          errorMessage={errorMessage}
+          readOnly
+          placeholder={placeholder}
+        />,
+      );
+    });
+
+    it('should render input with properties', () => {
+      const inputField = screen.getByRole('textbox', { name: id });
+      expect(inputField).toBeInTheDocument();
+      expect(inputField.id).toBe(id);
+      expect(inputField.className).toContain(className);
+      expect(inputField).toHaveAttribute('aria-errormessage', errorMessage);
+      expect(inputField).toHaveProperty('placeholder', placeholder);
+    });
+    it('should render readonly input', () => {
+      const inputField = screen.getByRole('textbox', { name: id });
+      expect(inputField).toHaveAttribute('aria-readonly', 'true');
+      expect(inputField).toHaveProperty('readOnly');
+    });
+    it.each(englishHours)(
+      'should display all 24 dropdown hours when clicking on input',
+      async (englishHour) => {
+        const inputField = screen.getByRole('textbox', { name: id });
+        await userEvent.click(inputField);
+
+        expect(screen.getByText(englishHour)).toBeInTheDocument();
+      },
     );
   });
-
-  it('should render input with properties', () => {
-    const inputField = screen.getByRole('textbox', { name: id });
-    expect(inputField).toBeInTheDocument();
-    expect(inputField.id).toBe(id);
-    expect(inputField.className).toContain(className);
-    expect(inputField).toHaveAttribute('aria-errormessage', errorMessage);
-    expect(inputField).toHaveProperty('placeholder', placeholder);
-  });
-  it('should render readonly input', () => {
-    const inputField = screen.getByRole('textbox', { name: id });
-    expect(inputField).toHaveAttribute('aria-readonly', 'true');
-    expect(inputField).toHaveProperty('readOnly');
-  });
-  it.each(englishHours)(
-    'should call onClick when clicking on input and open dropdown',
-    async (englishHour) => {
-      const inputField = screen.getByRole('textbox', { name: id });
-      await userEvent.click(inputField);
-
-      expect(screen.getByText(englishHour)).toBeInTheDocument();
-    },
-  );
 });
