@@ -6,7 +6,7 @@ import userEvent from '@testing-library/user-event';
 import { initialValue } from '../../../redux/slices/localeSlice';
 
 describe('TimeField', () => {
-  const englishHours = [
+  const hoursIn12HoursFormat = [
     '12 am',
     '01 am',
     '02 am',
@@ -32,7 +32,7 @@ describe('TimeField', () => {
     '10 pm',
     '11 pm',
   ];
-  const portugueseHours = [
+  const hoursIn24HoursFormat = [
     '00:00',
     '01:00',
     '02:00',
@@ -98,7 +98,7 @@ describe('TimeField', () => {
       expect(inputField).toHaveAttribute('aria-readonly', 'true');
       expect(inputField).toHaveProperty('readOnly');
     });
-    it.each(englishHours)(
+    it.each(hoursIn12HoursFormat)(
       'should display all 24 dropdown hours when clicking on input',
       async (englishHour) => {
         const inputField = screen.getByRole('textbox', { name: id });
@@ -110,7 +110,7 @@ describe('TimeField', () => {
   });
 
   describe('WHEN locale is portuguese', () => {
-    it.each(portugueseHours)(
+    it.each(hoursIn24HoursFormat)(
       'should display all 24 dropdown hours when clicking on input',
       async (portugueseHour) => {
         renderWithProviders(
