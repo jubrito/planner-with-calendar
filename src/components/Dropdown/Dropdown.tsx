@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { DefaultField } from '../Fields/DefaultField/DefaultField';
 import styles from './_dropdown.module.scss';
 import { ObjectType, OptionType } from '../../types/types';
@@ -37,15 +37,12 @@ export const Dropdown = ({
   const [selected, setSelected] = useState<OptionType['content']>(initialValue);
   const [showDropdown, setShowDropdown] = useState<boolean>();
   const dropdownRef = useRef<HTMLUListElement>(null);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const memoizedOptions = useMemo(() => options, []);
+  const selectedValue = options.find(
+    (option) => option.content.toString() === selected.toString(),
+  );
 
   const findElementToFocus = useCallback(() => {
     if (!dropdownRef.current) return;
-    const selectedValue = memoizedOptions.find(
-      (option) => option.content.toString() === selected.toString(),
-    );
     const dropdownOptions = Array.from(
       dropdownRef.current?.querySelectorAll('li'),
     );
@@ -56,6 +53,7 @@ export const Dropdown = ({
       firstListItemElement.focus();
       return;
     }
+
     const selectedOption = dropdownOptions.find(
       (listItemElement) =>
         listItemElement.textContent === selectedValue.content,
@@ -64,7 +62,7 @@ export const Dropdown = ({
     if (!selectedOption) return;
 
     selectedOption?.focus();
-  }, [memoizedOptions, selected]);
+  }, [selectedValue]);
 
   const maintainFocusOnSelectedItem = (e: React.MouseEvent) => {
     const isClickingOnDropdown = e.target === dropdownRef.current;
@@ -100,14 +98,14 @@ export const Dropdown = ({
         inputStyle={inputStyle}
       />
 
-      {showDropdown && memoizedOptions.length > 0 && (
+      {showDropdown && options.length > 0 && (
         <ul
           role="listbox"
           ref={dropdownRef}
           style={{ maxHeight }}
           onMouseDown={maintainFocusOnSelectedItem}
         >
-          {memoizedOptions.map((option: OptionType) => {
+          {options.map((option: OptionType) => {
             return (
               <li
                 key={getIdentifier(option)}
