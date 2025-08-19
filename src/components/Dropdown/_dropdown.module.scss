@@ -6,22 +6,21 @@
 }
 
 ul {
-  $scollSize: 10px;
   position: absolute;
   content: '';
-  top: 10px;
+  top: variables.$spacing;
   right: 0;
   width: 100%;
   scrollbar-color: variables.$lightdarkgray-color variables.$darkbluegray-color;
   height: auto;
   list-style: none;
   z-index: 100;
-  max-height: 200px;
+  max-height: 140px;
   overflow: auto;
 
   li {
     @include mixins.defaultField;
-    padding: calc(variables.$inner-spacing * 2) variables.$inner-spacing 0
+    padding: variables.$gap variables.$gap variables.$gap
       variables.$inner-spacing;
 
     background: variables.$darkbluegray-color;
