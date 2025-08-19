@@ -134,5 +134,10 @@ describe('DateCalendarField', () => {
     });
 
     it.todo('should hide date calendar when clicking on date input (mouse)');
+    it.todo(
+      'should hide date calendar when clicking on date input (enter or space keys)',
+    );
+    it.todo('should hide date calendar when clicking outside the calendar');
+    it.todo('should hide date calendar when pressing esc');
   });
 });
