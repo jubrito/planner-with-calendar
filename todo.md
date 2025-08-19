@@ -5,7 +5,8 @@
 - TimeField tests
 - Dropdown
 
-  - accessibility (https://www.sitelint.com/blog/hiding-a-text-but-making-it-accessible-to-a-screen-reader)
+  - accessibility (https://dev.to/ibrahimaq/how-to-create-a-custom-accessible-dropdown-with-react-and-typescript-2p3k)
+  - close dropdown when clicking outside of it
   - tests
 
 - Finish todo tests
