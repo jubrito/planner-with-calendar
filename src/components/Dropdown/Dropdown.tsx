@@ -66,6 +66,13 @@ export const Dropdown = ({
     selectedOption?.focus();
   }, [memoizedOptions, selected]);
 
+  const maintainFocusOnSelectedItem = (e: React.MouseEvent) => {
+    const isClickingOnDropdown = e.target === dropdownRef.current;
+    if (isClickingOnDropdown) {
+      e.preventDefault();
+    }
+  };
+
   useEffect(() => {
     findElementToFocus();
   }, [selected, findElementToFocus, showDropdown]);
@@ -94,7 +101,12 @@ export const Dropdown = ({
       />
 
       {showDropdown && memoizedOptions.length > 0 && (
-        <ul role="listbox" ref={dropdownRef} style={{ maxHeight }}>
+        <ul
+          role="listbox"
+          ref={dropdownRef}
+          style={{ maxHeight }}
+          onMouseDown={maintainFocusOnSelectedItem}
+        >
           {memoizedOptions.map((option: OptionType) => {
             return (
               <li
