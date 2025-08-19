@@ -48,10 +48,8 @@ export const TimeField = ({
       label={label}
       onValueUpdate={(event) => {
         if (onClick) {
-          console.log('onClick juju');
           onClick(event);
         }
-        console.log('field clicked', hour);
       }}
       placeholder={placeholder}
       readOnly={readOnly}
