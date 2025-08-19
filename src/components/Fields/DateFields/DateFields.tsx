@@ -103,9 +103,6 @@ export const DateFields = ({
                 text: endHour,
                 srOnly: true,
               }}
-              onClick={() => {
-                console.log('field clicked endHour', endHour);
-              }}
               readOnly={readonly}
               errorMessage={errorMessage}
             />
