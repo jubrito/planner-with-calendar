@@ -58,13 +58,15 @@
 @mixin defaultField {
   background-color: transparent;
   outline: none;
-  padding: variables.$small-gap;
+  padding: variables.$gap variables.$gap variables.$gap variables.$inner-spacing;
   font-size: calc(variables.$default-font-size - 2px);
   line-height: calc(variables.$default-font-size - 2px);
+  text-align: left;
 
   &::placeholder {
     color: variables.$blue-lightgray-color;
-    font-size: variables.$default-font-size;
+    font-size: calc(variables.$default-font-size - 2px);
+    text-align: left;
     opacity: 1; /* Firefox */
   }
 
