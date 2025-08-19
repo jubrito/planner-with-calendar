@@ -6,17 +6,32 @@
 }
 
 ul {
+  $scollSize: 10px;
   position: absolute;
   content: '';
   top: 10px;
   right: 0;
   width: 100%;
+  scrollbar-color: variables.$lightdarkgray-color variables.$darkbluegray-color;
   height: auto;
   list-style: none;
   z-index: 100;
+  max-height: 200px;
+  overflow: auto;
 
   li {
     @include mixins.defaultField;
-    text-align: center;
+    padding: calc(variables.$inner-spacing * 2) variables.$inner-spacing 0
+      variables.$inner-spacing;
+
+    background: variables.$darkbluegray-color;
+
+    &:active,
+    &:focus,
+    &:focus-visible {
+      background: variables.$blue-lightgray-color;
+      color: variables.$darkbluegray-color;
+      font-weight: bold;
+    }
   }
 }
