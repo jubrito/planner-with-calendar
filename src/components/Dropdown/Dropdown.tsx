@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { DefaultField } from '../Fields/DefaultField/DefaultField';
 import styles from './_dropdown.module.scss';
 import { ObjectType, OptionType } from '../../types/types';
@@ -18,6 +18,7 @@ type DropdownProps = {
   readOnly?: boolean;
   inputStyle?: ObjectType;
   placeholder?: string;
+  maxHeight?: string;
 };
 
 export const Dropdown = ({
@@ -30,16 +31,52 @@ export const Dropdown = ({
   errorMessage,
   inputStyle,
   placeholder,
+  maxHeight,
   readOnly = false,
 }: DropdownProps) => {
   const [selected, setSelected] = useState<OptionType['content']>(initialValue);
   const [showDropdown, setShowDropdown] = useState<boolean>();
+  const dropdownRef = useRef<HTMLUListElement>(null);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const memoizedOptions = useMemo(() => options, []);
+
+  const findElementToFocus = useCallback(() => {
+    if (!dropdownRef.current) return;
+    const selectedValue = memoizedOptions.find(
+      (option) => option.content.toString() === selected.toString(),
+    );
+    const dropdownOptions = Array.from(
+      dropdownRef.current?.querySelectorAll('li'),
+    );
+    if (dropdownOptions.length < 1) return;
+
+    if (!selectedValue) {
+      const [firstListItemElement] = dropdownOptions;
+      firstListItemElement.focus();
+      return;
+    }
+    const selectedOption = dropdownOptions.find(
+      (listItemElement) =>
+        listItemElement.textContent === selectedValue.content,
+    );
+
+    if (!selectedOption) return;
+
+    selectedOption?.focus();
+  }, [memoizedOptions, selected]);
+
+  useEffect(() => {
+    findElementToFocus();
+  }, [selected, findElementToFocus, showDropdown]);
 
   return (
     <div className={styles.dropdownWrapper}>
       <DefaultField
         id={id}
-        className={className}
+        className={
+          showDropdown ? `${className} ${styles.line} juju` : className
+        }
         value={selected}
         label={label}
         aria-label={id}
@@ -56,20 +93,20 @@ export const Dropdown = ({
         inputStyle={inputStyle}
       />
 
-      {showDropdown && options.length > 0 && (
-        <ul role="listbox">
-          {options.map((option: OptionType) => {
+      {showDropdown && memoizedOptions.length > 0 && (
+        <ul role="listbox" ref={dropdownRef} style={{ maxHeight }}>
+          {memoizedOptions.map((option: OptionType) => {
             return (
               <li
-                className={styles.box}
-                key={option.key}
-                id={option.key.toString()}
+                key={getIdentifier(option)}
+                id={getIdentifier(option)}
                 role="option"
                 onClick={() => {
                   setSelected(option.content);
                   setShowDropdown(false);
                   onValueUpdate(option);
                 }}
+                tabIndex={0}
               >
                 {option.content}
               </li>
@@ -80,3 +117,6 @@ export const Dropdown = ({
     </div>
   );
 };
+
+const getIdentifier = (option: OptionType) =>
+  `${option.key.toString()}-${option.content}`.replace(' ', '');
