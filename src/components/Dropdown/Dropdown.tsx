@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { DefaultField } from '../Fields/DefaultField/DefaultField';
 import styles from './_dropdown.module.scss';
 import { ObjectType, OptionType } from '../../types/types';
-import { enterKey } from '../../utils/constants';
+import { enterKey, spaceKey } from '../../utils/constants';
 
 type DropdownProps = {
   label: {
@@ -112,6 +112,13 @@ export const Dropdown = ({
                 id={getIdentifier(option)}
                 role="option"
                 onClick={() => {
+                  setSelected(option.content);
+                  setShowDropdown(false);
+                  onValueUpdate(option);
+                }}
+                onKeyDown={(event) => {
+                  if (!(event.key === enterKey) && !(event.code === spaceKey))
+                    return;
                   setSelected(option.content);
                   setShowDropdown(false);
                   onValueUpdate(option);
