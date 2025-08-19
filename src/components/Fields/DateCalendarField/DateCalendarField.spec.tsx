@@ -133,6 +133,7 @@ describe('DateCalendarField', () => {
       expect(onCellClick).toHaveBeenCalled();
     });
     it.todo('should display start date error');
+    it.todo('should display start hour error');
 
     it.todo(
       'should update end date with start date to ensure end date is greater than start date',
