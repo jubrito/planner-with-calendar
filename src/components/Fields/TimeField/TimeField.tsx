@@ -1,8 +1,13 @@
 import { useSelector } from 'react-redux';
 import { getLocaleLanguage } from '../../../redux/slices/localeSlice/selectors';
-import { getHoursOfTheDay } from '../../../utils/calendar/utils';
+import { getHourPeriod, getHoursOfTheDay } from '../../../utils/calendar/utils';
 import { Dropdown } from '../../Dropdown/Dropdown';
 import { OptionType } from '../../../types/types';
+import {
+  getSelectedDayViewDay,
+  getSelectedDayViewMonth,
+  getSelectedDayViewYear,
+} from '../../../redux/slices/dateSlice/selectors';
 
 type TimeField = {
   id: string;
@@ -12,7 +17,7 @@ type TimeField = {
     srOnly: boolean;
   };
   placeholder?: string;
-  value: string | number;
+  hour: number;
   onClick?: (event: OptionType) => void;
   errorMessage?: string;
   readOnly?: boolean;
@@ -20,7 +25,7 @@ type TimeField = {
 
 export const TimeField = ({
   errorMessage,
-  value,
+  hour,
   className,
   label,
   id,
@@ -29,20 +34,24 @@ export const TimeField = ({
   readOnly = false,
 }: TimeField) => {
   const locale = useSelector(getLocaleLanguage());
+  const year = useSelector(getSelectedDayViewYear());
+  const month = useSelector(getSelectedDayViewMonth(locale));
+  const day = useSelector(getSelectedDayViewDay());
   const hoursOfTheDay = getHoursOfTheDay(locale);
+  const formatedValue = getHourPeriod(locale, new Date(year, month, day, hour));
 
   return (
     <Dropdown
       id={id}
       className={className}
-      initialValue={value}
+      initialValue={formatedValue}
       label={label}
       onValueUpdate={(event) => {
         if (onClick) {
           console.log('onClick juju');
           onClick(event);
         }
-        console.log('field clicked', value);
+        console.log('field clicked', hour);
       }}
       placeholder={placeholder}
       readOnly={readOnly}
@@ -51,7 +60,7 @@ export const TimeField = ({
         key: index,
         content: timeOption,
       }))}
-      inputStyle={{ width: '65px' }}
+      inputStyle={{ width: '75px' }}
     />
   );
 };

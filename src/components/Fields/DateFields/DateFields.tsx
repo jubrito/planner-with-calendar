@@ -73,7 +73,7 @@ export const DateFields = ({
             <TimeField
               id={startHourLabel}
               className={className.field}
-              value={startHour}
+              hour={startHour}
               label={{
                 text: startHour,
                 srOnly: true,
@@ -101,7 +101,7 @@ export const DateFields = ({
             <TimeField
               id={endHourLabel}
               className={className.field}
-              value={endHour}
+              hour={endHour}
               label={{
                 text: endHour,
                 srOnly: true,

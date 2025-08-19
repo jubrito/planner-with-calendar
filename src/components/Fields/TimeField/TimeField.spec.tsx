@@ -60,7 +60,7 @@ describe('TimeField', () => {
   ];
   const id = 'id';
   const label = 'label';
-  const value = 'value';
+  const hour = 3;
   const placeholder = 'placeholder';
   const className = 'className';
   const errorMessage = 'errorMessage';
@@ -76,7 +76,7 @@ describe('TimeField', () => {
             text: label,
             srOnly: false,
           }}
-          value={value}
+          hour={hour}
           onClick={onClickMock}
           errorMessage={errorMessage}
           readOnly
@@ -121,7 +121,7 @@ describe('TimeField', () => {
               text: label,
               srOnly: false,
             }}
-            value={value}
+            hour={hour}
             onClick={onClickMock}
             errorMessage={errorMessage}
             readOnly
