@@ -2,7 +2,6 @@
 
 -------------------- UPDATE EVENT modal --------------------
 
-- TimeField tests
 - Dropdown
 
   - accessibility (https://dev.to/ibrahimaq/how-to-create-a-custom-accessible-dropdown-with-react-and-typescript-2p3k)
