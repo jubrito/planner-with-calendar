@@ -48,6 +48,14 @@ describe('DefaultField', () => {
       const inputField = screen.getByRole('textbox');
       expect(inputField).toHaveProperty('placeholder', placeholder);
     });
+    it('should render textbox input with value', () => {
+      const inputField = screen.getByRole('textbox');
+      expect(inputField).toHaveValue(value);
+    });
+    it('should render textbox input with value', () => {
+      const inputField = screen.getByRole('textbox');
+      expect(inputField).toHaveValue(value);
+    });
     it('should render label for textbox input', () => {
       const inputField = screen.getByRole('textbox');
       const labelField = screen.getByRole('label');
@@ -62,29 +70,6 @@ describe('DefaultField', () => {
       const inputField = screen.getByRole('textbox');
       expect(inputField).toHaveAttribute('aria-errormessage', errorMessage);
     });
-    it('should render textbox input with value provided', () => {
-      const inputField = screen.getByRole('textbox');
-      expect(inputField).toHaveValue(value);
-    });
-  });
-
-  it('should render with display empty string if value is not provided', () => {
-    renderWithProviders(
-      <DefaultField
-        className={className}
-        label={{
-          text: label,
-          srOnly: false,
-        }}
-        id={id}
-        placeholder={placeholder}
-        value={undefined}
-        onChange={onChangeMock}
-        errorMessage={errorMessage}
-      />,
-    );
-    const inputField = screen.getByRole('textbox');
-    expect(inputField).toHaveValue('');
   });
 
   describe('Field updates', () => {

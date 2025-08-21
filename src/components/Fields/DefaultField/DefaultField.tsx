@@ -12,7 +12,7 @@ type DefaultField = {
     srOnly: boolean;
   };
   placeholder?: string;
-  value?: string | number;
+  value: string | number;
   readOnly?: boolean;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onClick?: (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
@@ -59,7 +59,7 @@ export const DefaultField = ({
         id={inputId}
         name={inputId}
         placeholder={placeholder}
-        value={inputValue || ''}
+        value={inputValue}
         onChange={(event) => {
           if (!onChange || readOnly) return;
           onChange(event);
