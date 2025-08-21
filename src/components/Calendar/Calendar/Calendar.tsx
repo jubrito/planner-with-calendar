@@ -3,7 +3,7 @@ import { ObjectType } from '../../../types/types';
 import CalendarCells from '../CalendarCells/CalendarCells';
 import CalendarWeeks from '../CalendarWeeks/CalendarWeeks';
 
-type CompactCalendarProps = {
+type CalendarProps = {
   className?: string;
   compactMode?: boolean;
   onCellClick: (cellYear: number, cellMonth: Months, cellDay: number) => void;
@@ -19,7 +19,7 @@ export const Calendar = ({
   defaultYear,
   defaultMonth,
   props,
-}: CompactCalendarProps) => {
+}: CalendarProps) => {
   return (
     <table className={className} {...props}>
       <CalendarWeeks compactMode={compactMode} />
