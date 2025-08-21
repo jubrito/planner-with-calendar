@@ -109,6 +109,7 @@ export const DateCalendarField = ({
           }}
           defaultYear={defaultYear}
           defaultMonth={defaultMonth}
+          style={{ zIndex: 1000 }}
         />
       )}
     </>

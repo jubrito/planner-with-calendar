@@ -1,5 +1,4 @@
 import { Months } from '../../../types/calendar/enums';
-import { ObjectType } from '../../../types/types';
 import CalendarCells from '../CalendarCells/CalendarCells';
 import CalendarWeeks from '../CalendarWeeks/CalendarWeeks';
 
@@ -9,8 +8,10 @@ type CalendarProps = {
   onCellClick: (cellYear: number, cellMonth: Months, cellDay: number) => void;
   defaultYear?: number;
   defaultMonth?: Months;
-  props?: ObjectType;
 };
+
+type ExtendedCalendarProps = CalendarProps &
+  React.HTMLAttributes<HTMLDivElement>;
 
 export const Calendar = ({
   className,
@@ -18,8 +19,8 @@ export const Calendar = ({
   onCellClick,
   defaultYear,
   defaultMonth,
-  props,
-}: CalendarProps) => {
+  ...props
+}: ExtendedCalendarProps) => {
   return (
     <table className={className} {...props}>
       <CalendarWeeks compactMode={compactMode} />
