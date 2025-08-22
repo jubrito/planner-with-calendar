@@ -132,8 +132,10 @@ describe('EventUpdateModal', () => {
       store.getState().eventSlice.currentState.eventOnViewMode;
     expect(updateViewEventDetailsModalIsClosed).toBeUndefined();
   });
-  it.todo('should render start date input');
 
+  describe('Creating an event', () => {
+    it('should render start date input with current day view date if no hour was provided', () => {});
+  });
   it.todo(
     'should update start and end date calendar when clicking on start calendar cells',
   );
@@ -146,9 +148,14 @@ describe('EventUpdateModal', () => {
   it.todo('should close end date calendar when opening start date calendar');
   it.todo('should close start date calendar when opening end date calendar');
   it.todo('should display fields errors');
-
   it.todo('should render start initial hour input');
   it.todo('should render start end hour input');
+
+  describe('Editing an event', () => {
+    it.todo(
+      'should render end date input with current day view date (with 1+ hour) if no hour was provided',
+    );
+  });
   it.todo('should render end date input');
   it.todo('should render end initial hour input');
   it.todo('should render end end hour input');
