@@ -81,5 +81,4 @@ npm run test
 ```
 
 ## License
-
-[MIT](https://github.com/arthurfiorette/try/blob/main/LICENSE)
+MIT
